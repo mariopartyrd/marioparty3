@@ -1,6 +1,6 @@
 ninja_syntax
 splat64[mips]==0.32.2
-git+https://github.com/Decompollaborate/spimdisasm.git@develop
+spimdisasm==1.32.1
 GitPython
 colour
 colorama

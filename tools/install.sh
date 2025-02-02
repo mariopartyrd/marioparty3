@@ -6,7 +6,7 @@ if cat /etc/os-release | grep -E 'ID=debian|ID_LIKE=(.*)debian' &> /dev/null; th
 
     echo "Installing packages for Debian or derivative (apt)"
 
-    sudo apt install python3.10-venv
+    sudo apt install python3-venv
     # Add i386 arch for wine32
     sudo apt -y install python3-pip
     sudo apt-get install -y gcc-mips-linux-gnu

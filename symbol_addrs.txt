@@ -765,6 +765,7 @@ n_aspMain_data = 0x800A6050; //rom:0xA6C50 size:0x2B0
 
 //ovl_80
 D_801057E0_119400_shared_board = 0x801057E0; //size:0x1B0 segment:shared_board
+
 //weird bug going on with these 2 symbols
 //they must be declared in this order, or D_80105718_119338_shared_board will be used for both symbols
 D_80105718_ED4E8_name_81 = 0x80105718; //size:0x04 segment:name_81
