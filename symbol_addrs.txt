@@ -523,8 +523,8 @@ guLookAtF = 0x80088210;
 guLookAt = 0x80079800;
 HuSqrtf = 0x800880E0;
 
-multVecGetLengthSqr = 0x800880F0; //rom:0x88CF0
-HuVecGetLength = 0x80088120;
+HuVecGetLengthSqr = 0x800880F0; //rom:0x88CF0
+mulHuVecGetLength = 0x80088120;
 HuVecNormalize = 0x80088150;
 HuVecDotProduct = 0x800881E0;
 HuVecCopyXYZ = 0x80089A10;
@@ -764,8 +764,12 @@ n_aspMain_code = 0x800954C0; //rom:0x960C0 size:0xC60
 n_aspMain_data = 0x800A6050; //rom:0xA6C50 size:0x2B0
 
 //ovl_80
-D_801057E0_119400_shared_board = 0x801057E0; //rom:0x119400 size:0x1B0 segment:shared_board
-D_80105718_119338_shared_board = 0x80105718; //rom:0x119338 size:0xC0 segment:shared_board
+D_801057E0_119400_shared_board = 0x801057E0; //size:0x1B0 segment:shared_board
+//weird bug going on with these 2 symbols
+//they must be declared in this order, or D_80105718_119338_shared_board will be used for both symbols
+D_80105718_ED4E8_name_81 = 0x80105718; //size:0x04 segment:name_81
+D_80105718_119338_shared_board = 0x80105718; //size:0xC0 segment:shared_board
+
 D_801018E4_115504_shared_board = 0x801018E4; //rom:0x115504 size:0x44 segment:shared_board
 PlayerBoardStatusRootPosition = 0x80101794; //rom:0x1153B4 size:0x20 segment:shared_board
 UpdatePlayerBoardStatus = 0x800F2E30; //rom:0x106A50 segment:shared_board

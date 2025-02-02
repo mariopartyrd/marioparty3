@@ -271,7 +271,6 @@ segments:
       - [0x88CD0, hasm, sqrt]
       - [0x88CE0, asm]
       - [0x88CF0, c]
-      - [0x88D20, c]
       - [0x88D50, asm]
       - [0x890B0, asm]
       - [0x89120, asm]
@@ -406,7 +405,7 @@ segments:
     vram: 0x800D6B70
     dir: overlays/ovl_82_name
     name: name_82
-    exclusive_ram_id: minigame
+    exclusive_ram_id: board_code
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x820
     subsegments:
@@ -420,7 +419,7 @@ segments:
     vram: 0x800D6B70
     dir: overlays/ovl_81_name
     name: name_81
-    exclusive_ram_id: minigame
+    exclusive_ram_id: board_code
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x2D60
     subsegments:
@@ -435,7 +434,7 @@ segments:
     dir: overlays/ovl_80_shared_board
     name: shared_board
     subalign: 8
-    exclusive_ram_id: minigame
+    exclusive_ram_id: board_code
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x32A0
     subsegments:

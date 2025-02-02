@@ -98,7 +98,7 @@ void* func_800D8010(s32, s32);
 void func_800D8944(void*);
 void func_800D8F0C(void*);
 void func_80089A20_8A620(Vec*, s32);
-void func_800D8E88(void);
+void func_800D8E88_C0C58_name_81(void);
 s16 func_800F3750(void);
 void* func_800F375C(s32);
 void func_800F38DC(s32, s32, s32);

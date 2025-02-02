@@ -36,9 +36,9 @@ void func_80105FD4_4F0824_name_73(void) {
 }
 
 void func_80106054_4F08A4_name_73(void) {
-    func_800E52F8();
-    func_800E5000();
-    func_800F64FC();
+    func_800E52F8_CD0C8_name_81();
+    func_800E5000_CCDD0_name_81();
+    func_800F64FC_DE2CC_name_81();
 }
 
 void func_80106080_4F08D0_name_73(void) {

@@ -140,13 +140,13 @@ void* func_80106740_3D9830(s32 arg0) {
     func_8001C8E4_1D4E4(*temp_v0->unk3C->unk40, 0x1800);
     func_8001C448_1D048(*temp_v0->unk3C->unk40);
     func_800D8944(temp_v0);
-    func_800D8F0C(temp_v0);
+    func_800D8F0C_C0CDC_name_81(temp_v0);
     func_8001C814_1D414(*temp_v0->unk3C->unk40, 2, 1);
     return temp_v0;
 }
 
 void func_801067D4_3D98C4(object* arg0, Vec * arg1) {
-    func_800D8E88();
+    func_800D8E88_C0C58_name_81();
     func_8001C814_1D414(*arg0->unk3C->unk40, 3, 0);
     HuVecCopy3F(&arg0->coords, arg1);
 }

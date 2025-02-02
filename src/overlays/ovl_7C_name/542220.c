@@ -232,8 +232,8 @@ void func_8010D1E8_549A68_name_7C(void) {
         func_8001ACDC_1B8DC(temp->unk_28);
     }
 
-    func_800E52F8();
-    func_800E5000();
+    func_800E52F8_CD0C8_name_81();
+    func_800E5000_CCDD0_name_81();
     *temp_s2 = 0;
     while (1) {
         HuPrcVSleep();

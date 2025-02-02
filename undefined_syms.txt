@@ -1,1 +1,0 @@
-multVecGetLengthSqr = 0x800880F0;

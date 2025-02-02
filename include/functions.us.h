@@ -7,9 +7,9 @@
 void SprAttrSet(s16, s16, u16);
 void SprAttrReset(s16, s16, u16);
 s16 HuAudFXPlay(s32);
-void func_800E52F8(void);
-void func_800E5000(void);
-void func_800F64FC(void);
+void func_800E52F8_CD0C8_name_81(void);
+void func_800E5000_CCDD0_name_81(void);
+void func_800F64FC_DE2CC_name_81(void);
 void func_8001C814_1D414(s16, s32, s32);
 void func_8001C1A0_1CDA0(s16, f32, f32, f32);
 void func_8000B460_C060(omObjData*, u16, s32);
