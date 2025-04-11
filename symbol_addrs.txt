@@ -689,6 +689,8 @@ D_800CC440_CD040 = 0x800CC440; //size:0x60
 D_800CE1DC_CEDDC = 0x800CE1DC; //size:0xC
 
 DrawSpaces = 0x800EA6F4; //rom:0xFE314 segment:shared_board
+HmfModelData = 0x800D03F8; //rom:0xD0FF8
+D_801093A8_3C61C8_BowserEvent = 0x801093A8; //rom:0x3C61C8 size:0x08 segment:BowserEvent
 
 //libultra symbols
 //auxbus.c

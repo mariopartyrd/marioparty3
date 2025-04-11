@@ -7,23 +7,21 @@ void func_80109220_3C6040_BowserEvent(omObjData*);
 s32 func_8010926C_3C608C_BowserEvent(void);
 s32 func_801092D4_3C60F4_BowserEvent(void);
 void func_80107724_3C4544_BowserEvent(void);
+s32 func_80107A9C_3C48BC_BowserEvent(void);
+s32 func_80107DDC_3C4BFC_BowserEvent(void);
+s32 func_801085E4_3C5404_BowserEvent(void);
+s32 func_80108664_3C5484_BowserEvent(void);
+s32 func_801086E4_3C5504_BowserEvent(void);
+s32 func_80108A2C_3C584C_BowserEvent(void);
+s32 func_80108BB0_3C59D0_BowserEvent(void);
+s32 func_8010778C_3C45AC_BowserEvent(void);
+s32 func_801078CC_3C46EC_BowserEvent(void);
 
 extern s16 D_801094F6_3C6316_BowserEvent;
 extern s32 D_801094F8_3C6318_BowserEvent;
 extern char D_80109508_3C6328_BowserEvent[];
-extern u16 D_80109434_3C6254_BowserEvent[2][3][4];
-// extern s16 D_80109434_3C6254_BowserEvent[2][3][4] = {
-//     {
-//         {0x0014, 0x0014, 0x000A, 0x000A},
-//         {0x0014, 0x0014, 0x000F, 0x000F},
-//         {0x001E, 0x001E, 0x0014, 0x0014}
-//     },
-//     {
-//         {0x000A, 0x000A, 0x0014, 0x0014},
-//         {0x0014, 0x0014, 0x001E, 0x001E},
-//         {0x001E, 0x001E, 0x0028, 0x0028}
-//     }
-// };
+// extern u16 D_80109434_3C6254_BowserEvent[2][3][4];
+
 
 extern s16 D_80109418_3C6238_BowserEvent[];
 extern u8 D_801094F0_3C6310_BowserEvent;
@@ -47,6 +45,107 @@ extern s32 D_80109500_3C6320_BowserEvent;
 extern s32 D_80109504_3C6324_BowserEvent;
 extern s16 D_8010951A_3C633A_BowserEvent[];
 extern u8 D_801093A4_3C61C4_BowserEvent;
+
+void* D_80109350_3C6170_BowserEvent = 0;
+
+s32 D_80109354_3C6174_BowserEvent[] = {
+    0x00004200,
+    0x00004201,
+    0x00004202,
+    0x00004203,
+    0x00004204,
+    0x00004205,
+    0x00004206,
+    0x00004207,
+    0x00004208,
+    0x00004209,
+};
+
+typedef struct UnkBowser {
+    s16 unk_00;
+    s16 unk_02;
+    s16 unk_04;
+    s16 unk_06;
+} UnkBowser; //sizeof 0x8
+
+UnkBowser D_8010937C_3C619C_BowserEvent[] = {
+    {64, -206, 200, 20},
+    {64, -186, 200, 20},
+    {64, -166, 200, 20},
+    {64, -146, 200, 20},
+    {64, -126, 200, 20}
+};
+
+u8 D_801093A4_3C61C4_BowserEvent = 94;
+
+// typedef struct UnkBowser2 {
+
+// } UnkBowser2;
+
+u8 D_801093A8_3C61C8_BowserEvent[][2] = {
+    {1, 0},
+    {9, 15},
+    {11, 8},
+    {13, 0}
+};
+
+Vec D_801093B0_3C61D0_BowserEvent = {0.0f, 0.0f, 2250.0f};
+Vec D_801093BC_3C61DC_BowserEvent = {0.0f, 0.0f, -1000.0f};
+
+typedef struct UnkBowser2 {
+    s32 unk_00;
+    s32 unk_04;
+    s32 unk_08;
+    s32 unk_0C;
+    s32 unk_10;
+    s32 unk_14;
+    s32 unk_18;
+    s32 unk_1C;
+    s32 unk_20;
+} UnkBowser2; //sizeof 0x24
+
+UnkBowser2 D_801093C8_3C61E8_BowserEvent = {
+    0x00000008, 0x000A0035, 0x000A0032, 0x000A0038,
+    0x000A0040, 0x000A0043, 0x000A0041, 0x000A0042, 0x000A0044
+};
+
+void* D_801093EC_3C620C_BowserEvent[] = {
+    func_8010778C_3C45AC_BowserEvent,
+    func_801078CC_3C46EC_BowserEvent,
+    func_80107A9C_3C48BC_BowserEvent,
+    func_80107DDC_3C4BFC_BowserEvent,
+    func_801085E4_3C5404_BowserEvent,
+    func_80108664_3C5484_BowserEvent,
+    func_801086E4_3C5504_BowserEvent,
+    func_80108A2C_3C584C_BowserEvent,
+    func_80108BB0_3C59D0_BowserEvent,
+    func_80108BB0_3C59D0_BowserEvent
+};
+
+u32 D_80109414_3C6234_BowserEvent = 0;
+s16 D_80109418_3C6238_BowserEvent[] = {90, 89, 87, 71, 70, 84, 85, 86, 62, 61, 58, 59, 60, -1};
+u16 D_80109434_3C6254_BowserEvent[2][3][4] = {
+    {
+        {20, 20, 10, 10},
+        {20, 20, 15, 15},
+        {30, 30, 20, 20}
+    },
+    {
+        {10, 10, 10, 10},
+        {20, 20, 20, 20},
+        {30, 30, 30, 30}
+    }
+};
+
+s16 D_80109464_3C6284_BowserEvent[][2] = {
+    {20, 20},
+    {30, 30},
+    {30, 30},
+    {40, 40},
+    {30, 40},
+    {50, 50},
+    {0, 0}
+};
 
 void func_801059A0_3C27C0_BowserEvent(void) {
     s32 i;
