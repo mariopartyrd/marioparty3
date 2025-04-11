@@ -332,7 +332,160 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_6E_name/4C2BD0", func_8010F660_4CC890
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_6E_name/4C2BD0", func_8010F910_4CCB40_name_6E);
 
+void func_8000BB94_C794(u16);                          /* extern */
+void func_8000BD94_C994(u16, s32, s32);                    /* extern */
+void func_8000BDDC_C9DC(u16, s32);                       /* extern */
+void func_8000C184_CD84(u16);
+void func_80017954_18554(s16, s32, u8, s16);             /* extern */
+void func_8001C150_1CD50(s16, f32, f32, f32);                /* extern */
+void func_8001C624_1D224(s16, u8, s32, s32, s32);          /* extern */
+void func_8004AC10_4B810(s32, u8);                       /* extern */
+void func_800E4F50_CCD20_name_81(Addr*);                  /* extern */
+void func_800E5040_CCE10_name_81(s32, s32);                /* extern */
+void func_80106C78_4C3EA8_name_6E(void);                   /* extern */
+void func_80106CA8_4C3ED8_name_6E(void);                   /* extern */
+void func_80106CCC_4C3EFC_name_6E(s32);                  /* extern */
+void func_8010724C_4C447C_name_6E(void*, f32, f32, f32, s32, s32); /* extern */
+void func_80107480_4C46B0_name_6E(void*, f32, f32, f32, s32); /* extern */
+void func_801074AC_4C46DC_name_6E(s16);                /* extern */
+void func_8010E5C4_4CB7F4_name_6E(void*, f32, f32, f32, s32, s32); /* extern */
+void func_8010EF28_4CC158_name_6E(s32);                  /* extern */
+void func_8010F0A0_4CC2D0_name_6E(void);                   /* extern */
+void func_8010F12C_4CC35C_name_6E(void);                   /* extern */
+void func_80110270_4CD4A0_name_6E(void);                   /* extern */
+void func_80110DB0_4CDFE0_name_6E(f32, f32, f32, s16);       /* extern */
+void func_801118F8_4CEB28_name_6E(s32, s32);               /* extern */
+void func_8011196C_4CEB9C_name_6E(s32);                  /* extern */
+extern Addr D_128CC60;
+
+extern s32 D_80111AC4_4CECF4_name_6E;
+extern Vec D_80111AD0_4CED00_name_6E;
+extern Vec D_80111ADC_4CED0C_name_6E;
+extern s32 D_80111B8C_4CEDBC_name_6E;
+
+typedef struct UnkModel {
+/* 0x00 */ omObjData* obj;
+/* 0x04 */ char unk_04[0x14];
+/* 0x18 */ omObjData* obj2;
+} UnkModel; //sizeof 0x14
+
+typedef struct Unk {
+    s16 unk_00;
+    char unk_02[6];
+} Unk; //sizeof 0x8
+
+extern Unk D_80112088_4CF2B8_name_6E[6];
+extern UnkModel D_801122A0_4CF4D0_name_6E;
+
+extern s16 D_80112330_4CF560_name_6E;
+extern s16 D_80112378_4CF5A8_name_6E[];
+extern s16 D_801123A4_4CF5D4_name_6E;
+
+typedef struct Unk3 {
+    s16 unk_00;
+    u8 unk_02;
+    char unk_03[0xBD];
+} Unk3; //sizeof 0xC0
+
+extern Unk3* D_800D03F8_D0FF8;
+
+#ifdef NON_MATCHING
+void func_8010FC98_4CCEC8_name_6E(void) {
+    omObjData* temp_s5;
+    omObjData* temp_s7;
+    s32 temp_s4;
+    s32 var_a3;
+    s32 var_s0;
+    s32 var_s1;
+    s32 var_s1_2;
+    s32 var_s2;
+    s32 var_s3;
+    s32 var_v0;
+    u16 temp_fp;
+    u16* temp_s0;
+    s32 i, j;
+
+    temp_s5 = D_801122A0_4CF4D0_name_6E.obj;
+    temp_s7 = D_801122A0_4CF4D0_name_6E.obj2;
+    temp_fp = temp_s5->model[1];
+    Hu3DCamSetPerspective(0, 40.0f, 80.0f, 8000.0f);
+    
+    D_80111AD0_4CED00_name_6E.x = 0.0f;
+    D_80111AD0_4CED00_name_6E.y = 190.0f;
+    D_80111AD0_4CED00_name_6E.z = 3770.0f;
+    
+    D_80111ADC_4CED0C_name_6E.x = 0.0f;
+    D_80111ADC_4CED0C_name_6E.y = 130.0f;
+    D_80111ADC_4CED0C_name_6E.z = 450.0f;
+    
+    D_80111AC4_4CECF4_name_6E = 1;
+    var_s3 = 0;
+    func_800E4F50_CCD20_name_81((u8 (*)[]) D_128CC60);
+    func_800E5040_CCE10_name_81(0x20, 0);
+    func_8010EF28_4CC158_name_6E(7);
+    for (i = 0; i < 6; i++) {
+        // if (D_80112088_4CF2B8_name_6E[i].unk_00 > 0) {
+            for (j = 0, temp_s4 = D_80112088_4CF2B8_name_6E[i].unk_00; j < temp_s4; var_s3++, j++) {
+                func_8000BD94_C994(D_80112378_4CF5A8_name_6E[var_s3], 0, 0);
+                func_8000BDDC_C9DC(D_80112378_4CF5A8_name_6E[var_s3], 1);
+                func_8000BB94_C794(D_80112378_4CF5A8_name_6E[var_s3]);
+                func_8000C184_CD84(D_80112378_4CF5A8_name_6E[var_s3]);
+            }
+        // }
+    }
+
+    func_80055670_56270(D_801123A4_4CF5D4_name_6E);
+    func_8010F12C_4CC35C_name_6E();
+    func_8001C5B4_1D1B4(temp_s5->model[1], temp_s5->motion[13]);
+    func_8001C814_1D414(temp_s5->model[1], 2, 2);
+    func_8001C0C4_1CCC4(temp_s5->model[1], 0.0f, 0.0f, 2220.0f);
+    func_8001C0C4_1CCC4(temp_s5->model[2], 0.0f, -5.0f, 2220.0f);
+    func_8001C150_1CD50(temp_s5->model[1], 0, 0, 0);
+    func_8001C1A0_1CDA0(temp_s5->model[1], 1.5f, 1.5f, 1.5f);
+    func_8001C1A0_1CDA0(temp_s5->model[2], 1.5f, 1.5f, 1.5f);
+    HuPrcVSleep();
+    func_8010F0A0_4CC2D0_name_6E();
+    HuPrcSleep(30);
+    func_8001C258_1CE58(temp_s7->model[6], 4, 0);
+    func_8001C0C4_1CCC4(temp_s7->model[6], 0.0f, 1000.0f, 2120.0f);
+    func_8001C150_1CD50(temp_s7->model[6], 0, 0, 0);
+    func_8001C1A0_1CDA0(temp_s7->model[6], 1.5f, 1.5f, 1.5f);
+    func_8010E5C4_4CB7F4_name_6E(temp_s7, 0.0f, 400.0f, 2120.0f, 0x3C, 0);
+    D_80111B8C_4CEDBC_name_6E = 0;
+    HuPrcSleep(20);
+    func_8001C624_1D224(temp_fp, D_800D03F8_D0FF8[temp_s5->motion[0]].unk_02, 0, 0xA, 2);
+    func_80107480_4C46B0_name_6E(temp_s5, 0.0f, 180.0f, 0.0f, 8);
+    HuPrcSleep(20);
+    func_80106C78_4C3EA8_name_6E();
+    func_80106CCC_4C3EFC_name_6E(0x5A7E);
+    func_80106CA8_4C3ED8_name_6E();
+    func_8001C624_1D224(temp_fp, D_800D03F8_D0FF8[temp_s5->motion[4]].unk_02, 0, 0xA, 0);
+    func_801074AC_4C46DC_name_6E(temp_fp);
+    func_8001C624_1D224(temp_fp, D_800D03F8_D0FF8[temp_s5->motion[0]].unk_02, 0, 0xA, 2);
+    func_80107480_4C46B0_name_6E(temp_s5, 0.0f, 0.0f, 0.0f, 0xA);
+    func_8001C624_1D224(temp_fp, D_800D03F8_D0FF8[temp_s5->motion[11]].unk_02, 0, 0xA, 2);
+    func_801118F8_4CEB28_name_6E(0, 0x1F);
+    func_8010724C_4C447C_name_6E(temp_s5, 0.0f, 0.0f, 2930.0f, 0x28, 0);
+    func_8011196C_4CEB9C_name_6E(0);
+    func_8001C624_1D224(temp_fp, D_800D03F8_D0FF8[temp_s5->motion[0]].unk_02, 0, 0xA, 2);
+    HuPrcSleep(20);
+    func_8004AC10_4B810(0x2C6, GwStory.unk1);
+    func_8001C624_1D224(temp_fp, D_800D03F8_D0FF8[temp_s5->motion[2]].unk_02, 0, 0xA, 0);
+    func_80017954_18554(temp_fp, 2, GwStory.unk1, D_80112330_4CF560_name_6E);
+    func_8010E5C4_4CB7F4_name_6E(temp_s7, 0.0f, 400.0f, 2500.0f, 0x14, 0);
+    func_801074AC_4C46DC_name_6E(temp_fp);
+    func_8001C624_1D224(temp_fp, D_800D03F8_D0FF8[temp_s5->motion[3]].unk_02, 0, 0xA, 2);
+    func_80110270_4CD4A0_name_6E();
+    HuPrcVSleep();
+    for (i = 0; i < 4; i++) {
+        func_80110DB0_4CDFE0_name_6E(0.0f, 400.0f, 2500.0f, i << 3);
+        HuPrcSleep(2);
+    }
+}
+
+#else
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_6E_name/4C2BD0", func_8010FC98_4CCEC8_name_6E);
+#endif
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_6E_name/4C2BD0", func_80110270_4CD4A0_name_6E);
 

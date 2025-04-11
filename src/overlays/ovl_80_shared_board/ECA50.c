@@ -44,7 +44,19 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9B54
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9CB0_ED8D0_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9CE8_ED908_shared_board);
+void func_800D9CE8_ED908_shared_board(Object* arg0, s16 arg1, s32 arg2) {
+    u16 var_v1;
+
+    if (arg1 == -1) {
+        var_v1 = arg0->unk44;
+        arg0->unk46 = arg1;
+    } else {
+        var_v1 = arg0->unk3C->motion[arg1];
+        arg0->unk46 = arg1;
+    }
+    func_8001F304_1FF04(arg0->unk3C->model[0], var_v1);
+    func_8001C814_1D414(arg0->unk3C->model[0], -1, arg2);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9D84_ED9A4_shared_board);
 

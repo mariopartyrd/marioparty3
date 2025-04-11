@@ -1,4 +1,5 @@
 #include "common.h"
+#include "ovl_80.h"
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", GetCurrentPlayerIndex);
 
@@ -32,7 +33,17 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F226
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F22C0_105EE0_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F2304_105F24_shared_board);
+void func_800F2304_105F24_shared_board(s32 playerIndex, s16 arg1, u16 arg2) {
+    GW_PLAYER* player;
+
+    player = GetPlayerStruct(playerIndex);
+    if (player == GetPlayerStruct(CUR_PLAYER)) {
+        func_800D9CE8_ED908_shared_board(player->player_obj, arg1, arg2);
+        if ((player->itemTurn != 0) & (arg1 < 7)) {
+            func_800E6420_FA040_shared_board(arg1, arg2);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F2388_105FA8_shared_board);
 

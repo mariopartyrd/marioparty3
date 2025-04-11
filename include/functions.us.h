@@ -10,7 +10,7 @@ s16 HuAudFXPlay(s32);
 void func_800E52F8_CD0C8_name_81(void);
 void func_800E5000_CCDD0_name_81(void);
 void func_800F64FC_DE2CC_name_81(void);
-void func_8001C814_1D414(s16, s32, s32);
+void func_8001C814_1D414(s16, s32, s16);
 void func_8001C1A0_1CDA0(s16, f32, f32, f32);
 void func_8000B460_C060(omObjData*, u16, s32);
 void func_8001C5B4_1D1B4(s16, s16);
@@ -127,4 +127,6 @@ void func_8005E1A8_5EDA8(s16, s16);
 void func_8006022C_60E2C(s32, s32);
 void func_80060394_60F94(s32, s16*, s32);
 void func_80061388_61F88(s16);
+void func_8001F304_1FF04(s16, s16);
+
 #endif

@@ -71,7 +71,7 @@ void func_8000EA10_F610(void **arg1, s32 arg2, s32 arg3, u64 **arg4, s32 *arg5) 
 }
 
 /* Retrieve available frame buffer (triple buffering?) */
-void *func_8000EB60_F760(void) {
+void* func_8000EB60_F760(void) {
     void *current;
     void *next;
     void *fBuffer;

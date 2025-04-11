@@ -92,7 +92,6 @@ void func_800EBF2C(void*, s32, void*);
 void func_80106308_3D93F8(void);
 void func_8001C258_1CE58(s16, s32, s32);
 void func_8001C448_1D048(s16);
-void func_8001C814_1D414(s16, s32, s32);
 void func_8001C8E4_1D4E4(s16, s32);
 void* func_800D8010(s32, s32);
 void func_800D8944(void*);
