@@ -414,8 +414,8 @@ __rmonHitBreak = 0x800874A4;
 __rmonHitSpBreak = 0x80087580;
 __rmonHitCpuFault = 0x8008760C;
 rmonFindFaultedThreads = 0x80087638;
-__sqrtf = 0x80087B10; //rom:0x88710
-__sqrt = 0x80087B18; //rom:0x88718
+sqrtf = 0x80087B10; //rom:0x88710
+sqrt = 0x80087B18; //rom:0x88718
 
 __osInitialize_autodetect = 0x8007F048;
 __osInitialize_emu = 0x8007F860;
@@ -439,7 +439,6 @@ __divdi3 = 0x80087F00;
 __moddi3 = 0x80087FB0;
 __udivdi3 = 0x80088070;
 __umoddi3 = 0x80088090;
-sqrt = 0x800880D0;
 ldiv = 0x80086C40;
 lldiv = 0x80086CC4;
 
@@ -691,6 +690,7 @@ D_800CE1DC_CEDDC = 0x800CE1DC; //size:0xC
 DrawSpaces = 0x800EA6F4; //rom:0xFE314 segment:shared_board
 HmfModelData = 0x800D03F8; //rom:0xD0FF8
 D_801093A8_3C61C8_BowserEvent = 0x801093A8; //rom:0x3C61C8 size:0x08 segment:BowserEvent
+BoardGetTurnTier = 0x800FB578; //rom:0x10F198 segment:shared_board
 
 //libultra symbols
 //auxbus.c
@@ -726,8 +726,8 @@ _Printf = 0x80081A40; //rom:0x82640
 proutSprintf = 0x8007BE18; //rom:0x7CA18
 swapChainTask = 0x800B1800;
 gMesgQueue = 0x800B1960;
-rspBootAddressStart = 0x8008F0F0;
-rspBootAddressEnd = 0x8008F1C0;
+rspbootTextStart = 0x8008F0F0; //name_end:rspbootTextEnd
+//rspBootAddressEnd = 0x8008F1C0;
 gTaskDataPointers = 0x800CC390;
 gSwapChainMesgTotal = 0x800CC3BC;
 ringBufferIndex = 0x800CB8AE;

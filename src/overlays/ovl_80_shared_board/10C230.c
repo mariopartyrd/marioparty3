@@ -260,29 +260,56 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FA95
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FAB98_10E7B8_shared_board);
 
-s32 func_800FB578_10F198_shared_board(s32 arg0) {
-    s32 var_a1;
-    s32 var_a0;
-    u32 temp_a2;
+// static const u8 D_80101DE8_115A08_shared_board[9][3] = {
+//     {  4,  7, 11 }, // 10 turns
+//     {  6, 11, 16 }, // 15 turns
+//     {  6, 16, 21 }, // 20 turns
+//     {  9, 17, 26 }, // 25 turns
+//     { 11, 21, 31 }, // 30 turns
+//     { 11, 21, 36 }, // 35 turns
+//     { 14, 27, 41 }, // 40 turns
+//     { 16, 31, 46 }, // 45 turns
+//     { 16, 36, 51 }, // 50 turns
+// };
+
+/**
+ * @brief Gets the current game phase based on the given turn number.
+ *
+ * This function determines which phase of the game the given turn falls into:
+ * early game (0), mid game (1), or late game (2). The thresholds for these
+ * phases depend on the total number of turns set for the game and are defined
+ * in a lookup table.
+ *
+ * If the special value `CUR_TURN` is passed, the current turn from GwSystem
+ * is used.
+ *
+ * @param turn The turn number to check. Pass `CUR_TURN` to use the current game turn.
+ * @return An integer representing the game phase:
+ *         - 0: Early game
+ *         - 1: Mid game
+ *         - 2: Late game
+ */
+s32 BoardGetTurnTier(s32 turn) {
+    u32 turnTierIndex;
     s32 i;
     GW_SYSTEM* system = &GwSystem;
 
-    if (arg0 == CUR_PLAYER) {
-        arg0 = system->current_turn;
+    if (turn == CUR_TURN) {
+        turn = system->current_turn;
     }
 
-    temp_a2 = (system->total_turns / 5) - 2;
+    turnTierIndex = (system->total_turns / 5) - 2;
 
-    if (system->total_turns < arg0) {
-        arg0 = system->total_turns;
+    if (system->total_turns < turn) {
+        turn = system->total_turns;
     }
 
-    if (temp_a2 >= 9) {
-        temp_a2 = 0;
+    if (turnTierIndex >= 9) {
+        turnTierIndex = 0;
     }
 
     for (i = 0; i < 3; i++) {
-        if (D_80101DE8_115A08_shared_board[temp_a2][i] > arg0) {
+        if (D_80101DE8_115A08_shared_board[turnTierIndex][i] > turn) {
             break;
         }
     }

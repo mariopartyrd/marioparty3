@@ -267,7 +267,7 @@ void HuPrcCurrentDtor(process_func destructor)
 }
 
 void HuPrcCall(s32 time)
- {
+{
     Process* cur_proc_local;
     s32 ret;
 

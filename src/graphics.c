@@ -17,8 +17,6 @@ extern u64 *gThreadYieldStack;
 extern u64 *gThreadOutStack;
 extern u64 *gThread3Stack;
 
-extern u8 rspBootAddressStart;
-extern u8 rspBootAddressEnd;
 extern Gfx gTaskDataPointers[];
 
 extern s32 D_800CC0A4_CCCA4;
@@ -50,8 +48,8 @@ void func_8000EA10_F610(void **arg1, s32 arg2, s32 arg3, u64 **arg4, s32 *arg5) 
     swapChainTask.mesgQueue.mtqueue = (OSThread*) &gMesgQueue;
     swapChainTask.task.t.type = 1;
     swapChainTask.task.t.flags = 2;
-    swapChainTask.task.t.ucode_boot = (u64*) &rspBootAddressStart;
-    swapChainTask.task.t.ucode_boot_size = (s32) (&rspBootAddressEnd - &rspBootAddressStart);
+    swapChainTask.task.t.ucode_boot = (u64*)rspbootTextStart;
+    swapChainTask.task.t.ucode_boot_size = (u32)rspbootTextEnd - (u32)rspbootTextStart;
     swapChainTask.task.t.ucode_size = 0x1000;
     swapChainTask.task.t.ucode_data_size = 0x800;
     swapChainTask.task.t.dram_stack_size = 0x400;

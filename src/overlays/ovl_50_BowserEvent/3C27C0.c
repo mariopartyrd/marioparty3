@@ -1,6 +1,25 @@
 #include "common.h"
 #include "../ovl_80_shared_board/ovl_80.h"
 
+typedef struct UnkBowser {
+    s16 unk_00;
+    s16 unk_02;
+    s16 unk_04;
+    s16 unk_06;
+} UnkBowser; //sizeof 0x8
+
+typedef struct UnkBowser2 {
+    s32 unk_00;
+    s32 unk_04;
+    s32 unk_08;
+    s32 unk_0C;
+    s32 unk_10;
+    s32 unk_14;
+    s32 unk_18;
+    s32 unk_1C;
+    s32 unk_20;
+} UnkBowser2; //sizeof 0x24
+
 void func_8005A6B0_5B2B0(void);
 void func_80108D2C_3C5B4C_BowserEvent(void);
 void func_80109220_3C6040_BowserEvent(omObjData*);
@@ -20,17 +39,12 @@ s32 func_801078CC_3C46EC_BowserEvent(void);
 extern s16 D_801094F6_3C6316_BowserEvent;
 extern s32 D_801094F8_3C6318_BowserEvent;
 extern char D_80109508_3C6328_BowserEvent[];
-// extern u16 D_80109434_3C6254_BowserEvent[2][3][4];
 
-
-extern s16 D_80109418_3C6238_BowserEvent[];
 extern u8 D_801094F0_3C6310_BowserEvent;
 extern s32 D_801094F4_3C6314_BowserEvent;
 extern u32 D_800D2094_D2C94;
-extern u32 D_80109414_3C6234_BowserEvent;
 extern s32 D_8010956C_3C638C_BowserEvent;
 extern omObjData* D_80109550_3C6370_BowserEvent;
-extern void* D_80109350_3C6170_BowserEvent;
 extern s16 D_80109518_3C6338_BowserEvent[5][5];
 extern s16 D_80109554_3C6374_BowserEvent[2];
 extern s16 D_80109558_3C6378_BowserEvent;
@@ -44,8 +58,8 @@ extern s32 D_80109568_3C6388_BowserEvent;
 extern s32 D_80109500_3C6320_BowserEvent;
 extern s32 D_80109504_3C6324_BowserEvent;
 extern s16 D_8010951A_3C633A_BowserEvent[];
-extern u8 D_801093A4_3C61C4_BowserEvent;
 
+//.data
 void* D_80109350_3C6170_BowserEvent = 0;
 
 s32 D_80109354_3C6174_BowserEvent[] = {
@@ -61,13 +75,6 @@ s32 D_80109354_3C6174_BowserEvent[] = {
     0x00004209,
 };
 
-typedef struct UnkBowser {
-    s16 unk_00;
-    s16 unk_02;
-    s16 unk_04;
-    s16 unk_06;
-} UnkBowser; //sizeof 0x8
-
 UnkBowser D_8010937C_3C619C_BowserEvent[] = {
     {64, -206, 200, 20},
     {64, -186, 200, 20},
@@ -77,32 +84,14 @@ UnkBowser D_8010937C_3C619C_BowserEvent[] = {
 };
 
 u8 D_801093A4_3C61C4_BowserEvent = 94;
-
-// typedef struct UnkBowser2 {
-
-// } UnkBowser2;
-
 u8 D_801093A8_3C61C8_BowserEvent[][2] = {
     {1, 0},
     {9, 15},
     {11, 8},
     {13, 0}
 };
-
 Vec D_801093B0_3C61D0_BowserEvent = {0.0f, 0.0f, 2250.0f};
 Vec D_801093BC_3C61DC_BowserEvent = {0.0f, 0.0f, -1000.0f};
-
-typedef struct UnkBowser2 {
-    s32 unk_00;
-    s32 unk_04;
-    s32 unk_08;
-    s32 unk_0C;
-    s32 unk_10;
-    s32 unk_14;
-    s32 unk_18;
-    s32 unk_1C;
-    s32 unk_20;
-} UnkBowser2; //sizeof 0x24
 
 UnkBowser2 D_801093C8_3C61E8_BowserEvent = {
     0x00000008, 0x000A0035, 0x000A0032, 0x000A0038,
@@ -137,6 +126,7 @@ u16 D_80109434_3C6254_BowserEvent[2][3][4] = {
     }
 };
 
+//unused
 s16 D_80109464_3C6284_BowserEvent[][2] = {
     {20, 20},
     {30, 30},
@@ -147,6 +137,7 @@ s16 D_80109464_3C6284_BowserEvent[][2] = {
     {0, 0}
 };
 
+//.text
 void func_801059A0_3C27C0_BowserEvent(void) {
     s32 i;
     
@@ -390,7 +381,7 @@ s32 func_80107658_3C4478_BowserEvent(s32 arg0, s32 arg1) {
     s32 temp_s0;
     s32 playerRank;
 
-    temp_s0 = func_800FB578_10F198_shared_board(CUR_PLAYER);
+    temp_s0 = BoardGetTurnTier(CUR_TURN);
     playerRank = BoardPlayerRankCalc(arg1);
     return D_80109434_3C6254_BowserEvent[arg0][temp_s0][playerRank];
 }
@@ -399,7 +390,7 @@ u16 func_801076CC_3C44EC_BowserEvent(s32 playerIndex, s32 arg1) {
     s32 temp_s0;
     s32 playerRank;
 
-    temp_s0 = func_800FB578_10F198_shared_board(CUR_PLAYER);
+    temp_s0 = BoardGetTurnTier(CUR_TURN);
     playerRank = BoardPlayerRankCalc(playerIndex);
     return D_80109434_3C6254_BowserEvent[2][temp_s0][playerRank];
 }

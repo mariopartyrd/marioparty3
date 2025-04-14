@@ -7,6 +7,7 @@
 #include "game/object.h"
 
 #define CUR_PLAYER -1
+#define CUR_TURN -1
 
 #define MAX_PLAYERS 4
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))

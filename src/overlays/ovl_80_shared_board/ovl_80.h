@@ -132,7 +132,7 @@ void func_800ECC0C_10082C_shared_board(Vec*);
 void func_800ED128_100D48_shared_board(Vec*, Vec*, Vec*, s32);
 void func_800F5D44_109964_shared_board(s32, s32);
 void func_800E6CF8_FA918_shared_board(u8* input, u8* output, s32 compressedSize);
-s32 func_800FB578_10F198_shared_board(s32);
+s32 BoardGetTurnTier(s32);
 void func_800F5E24_109A44_shared_board(s32);
 void func_800D95C4_ED1E4_shared_board(f32);
 void func_800EA60C_FE22C_shared_board(void);

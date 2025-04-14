@@ -420,7 +420,7 @@ void func_8010FC98_4CCEC8_name_6E(void) {
     
     D_80111AC4_4CECF4_name_6E = 1;
     var_s3 = 0;
-    func_800E4F50_CCD20_name_81((u8 (*)[]) D_128CC60);
+    func_800E4F50_CCD20_name_81(hvq_data_ROM_START);
     func_800E5040_CCE10_name_81(0x20, 0);
     func_8010EF28_4CC158_name_6E(7);
     for (i = 0; i < 6; i++) {

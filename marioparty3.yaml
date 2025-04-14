@@ -269,7 +269,7 @@ segments:
       - [0x88830, asm, libkmc/strcpy]
       - [0x88900, hasm, libkmc/mmuldi3]
       - [0x88CD0, hasm, sqrt]
-      - [0x88CE0, asm]
+      - [0x88CE0, asm, libhmath/sqrtf]
       - [0x88CF0, c]
       - [0x88D50, asm]
       - [0x890B0, asm]
