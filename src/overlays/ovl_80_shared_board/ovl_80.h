@@ -181,6 +181,7 @@ void func_800EBF48_FFB68_shared_board(s16, s8);
 s16 func_800EBFE8_FFC08_shared_board(s16, s16*, s16);
 void func_800D9CE8_ED908_shared_board(Object*, s16, u16);
 void func_800E6420_FA040_shared_board(s16, s32);
+f32 func_800D8790_EC3B0_shared_board(Vec*);
 
 extern Object* D_801011FC_114E1C_shared_board;
 extern s16 D_80101480_1150A0_shared_board;

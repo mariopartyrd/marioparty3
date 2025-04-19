@@ -576,6 +576,7 @@ rnd_seed = 0x80097650; //rom:0x98250 type:u32
 SavePlayerStruct = 0x8004F544; //rom:0x50144
 GetSpaceData = 0x800EB160; //rom:0xFED80
 SaveFileEncode = 0x8004F5A4; //rom:0x501A4
+gEncodedSaveBuffer = 0x800CD0C0;
 
 gCoinBlockSpaceIndex = 0x800CE1C4; // type:s16
 gStarBlockSpaceIndex = 0x800D124E; // type:s16

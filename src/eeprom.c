@@ -1,6 +1,15 @@
 #include "common.h"
 #include "siman.h"
 
+#define SAVE_FILE_HEADER_SIZE 0x20
+#define SAVE_FILE_SIZE 0x2A0
+
+typedef struct EepData {
+/* 0x00 */ u16 eepFileOffset;
+/* 0x04 */ u8* eepromBuffer;
+/* 0x08 */ u16 size;
+} EepData; //sizeof 0x0C
+
 typedef struct UnkEepStruct {
     char unk_00[0x10];
 } UnkEepStruct;
@@ -18,21 +27,15 @@ typedef struct unkfunc_8007EE0C {
     OSMesgQueue* mesgQueue;
 } unkfunc_8007EE0C;
 
-typedef struct UnkEep {
-    u16 unk0;
-    char unk2[2];
-    u8* unk4;
-    u16 unk8;
-} UnkEep;
-
 extern u8 D_80097710_98310[];
 extern u8 D_800D0450_D1050[];
 extern u8 D_800AC7F0_AD3F0;
 extern u8 D_800AC7F1_AD3F1;
-s32 func_8000C9C8_D5C8(s8);
 extern u8 D_800D0E50_D1A50[];
+
 void ClearCommonBuf(void);
-//some kind of osEepromLongWrite wrapper?
+s32 _WriteEeprom(EepData* arg0);
+s32 func_8000C9C8_D5C8(s8);
 s32 WriteEeprom(OSMesgQueue* arg0, u8 arg1, u8* arg2, s32 arg3);
 
 s32 _InitEeprom(s8** arg0) {
@@ -112,11 +115,28 @@ s32 InitEeprom(unkfunc_8001AFD8* arg0) {
     return RequestSIFunction(&sp10, (void*)&_InitEeprom, &sp20, 1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/eeprom", _WriteEeprom);
+s32 _WriteEeprom(EepData* arg0) {
+    u16 alignedOffset = (arg0->eepFileOffset >> 3);
+    u16 alignedSize = (arg0->size + (arg0->eepFileOffset & 7) + 7) & ~7;
+    u8* alignedEepBuffer = (u8*) ((u32)arg0->eepromBuffer & ~7);
+    
+    return (WriteEeprom(&D_800CE1A0_CEDA0, alignedOffset, alignedEepBuffer, alignedSize) != 0) * 2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/eeprom", WriteEepromBox2);
 
-INCLUDE_ASM("asm/nonmatchings/eeprom", WriteEepromBox);
+void WriteEepromBox(s8 saveFileIndex) {
+    unkMesg sp10;
+    EepData sp20;
+
+    D_800AC7F0_AD3F0 = 0;
+    sp20.eepFileOffset = (saveFileIndex * SAVE_FILE_SIZE) + SAVE_FILE_HEADER_SIZE;
+    sp20.eepromBuffer = D_800D0E50_D1A50;
+    sp20.size = SAVE_FILE_SIZE;
+    if (RequestSIFunction(&sp10, &_WriteEeprom, &sp20, 1) == 0) {
+        D_800AC7F1_AD3F1 = saveFileIndex;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/eeprom", func_8000C6C0_D2C0);
 

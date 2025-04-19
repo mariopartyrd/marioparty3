@@ -161,7 +161,59 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F965
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F96E0_10D300_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F9A68_10D688_shared_board);
+extern Vec2f D_80101D5C_11597C_shared_board[];
+extern Vec2f D_80101D84_1159A4_shared_board[];
+
+//if player should jump to next space
+s32 func_800F9A68_10D688_shared_board(s32 arg0) {
+    Vec sp10;
+    GW_PLAYER* curPlayer;
+    GW_PLAYER* player;
+    f32 var_f4;
+    SpaceData* space;
+    SpaceData* nextSpace;
+    s32 var_s2;
+    s32 var_s4;
+    s32 i;
+    Vec* temp;
+
+    curPlayer = GetPlayerStruct(arg0);
+    var_s2 = 0;
+    var_s4 = 0;
+
+    for (i = 0; i < 4; i++) {
+        if (i == arg0) {
+            continue;
+        }
+        player = GetPlayerStruct(i);
+        if (curPlayer->clink == player->clink) {
+            var_s4 += curPlayer->cidx == player->cidx;
+        }
+        if (curPlayer->nlink == player->clink) {
+            var_s2 += curPlayer->nidx == player->cidx;
+        }        
+    }
+    
+    space = GetSpaceData(func_800EB184_FEDA4_shared_board(curPlayer->clink, curPlayer->cidx));
+    HuVecSubtract(&sp10, &GetSpaceData(func_800EB184_FEDA4_shared_board(curPlayer->nlink, curPlayer->nidx))->coords, &space->coords);
+    var_f4 = func_800D8790_EC3B0_shared_board(&sp10);
+    if ((var_s4 == 0) || (!(D_80101D5C_11597C_shared_board[var_s4].x < var_f4)) || (!(var_f4 <= D_80101D5C_11597C_shared_board[var_s4].y))) {
+        if (var_s2 != 0) {
+            if (D_80101D84_1159A4_shared_board[var_s2].x < 0.0f) {
+                var_f4 -= 360.0f;
+            }
+            if (!(D_80101D84_1159A4_shared_board[var_s2].x < var_f4) || (!(var_f4 <= D_80101D84_1159A4_shared_board[var_s2].y))) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return 0;
+        }
+    } else {
+        return 1;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F9C68_10D888_shared_board);
 
