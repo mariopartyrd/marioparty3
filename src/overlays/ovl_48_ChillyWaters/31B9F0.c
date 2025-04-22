@@ -583,7 +583,7 @@ void ItemUseWackyWatch(void) {
         func_80055458_56058(D_8011FB80_3356F0_ChillyWaters[i], 0, 0U);
         func_80055420_56020(D_8011FB80_3356F0_ChillyWaters[i], 0, 0xFF, 0xFF, 0);
     }
-    temp_v0_3 = func_800D90C8_ECCE8_shared_board(0x46, 0);
+    temp_v0_3 = MBModelCreate(0x46, 0);
     D_8011FB90_335700_ChillyWaters = temp_v0_3;
     func_8001C258_1CE58(temp_v0_3->unk3C->model[0], 0x180, 0);
     func_8001C8E4_1D4E4(temp_v0_3->unk3C->model[0], 0x1800);

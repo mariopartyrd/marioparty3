@@ -14,5 +14,5 @@ board_overlay_entrypoint D_80119C70_424BB0_board_blowhard_intro[] = {
 };
 
 void func_801059A0_4108E0_board_blowhard_intro(void) {
-    func_800359E0_365E0(D_80119C70_424BB0_board_blowhard_intro, D_800A1764_A2364);
+    ovlEventCall(D_80119C70_424BB0_board_blowhard_intro, omovlevtno);
 }

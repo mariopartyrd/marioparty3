@@ -31,5 +31,5 @@ board_overlay_entrypoint D_8011D010_3975F0_CreepyCavern[] = {
 };
 
 void func_801059A0_37FF80_CreepyCavern(void) {
-    func_800359E0_365E0(D_8011D010_3975F0_CreepyCavern, D_800A1764_A2364);
+    ovlEventCall(D_8011D010_3975F0_CreepyCavern, omovlevtno);
 }

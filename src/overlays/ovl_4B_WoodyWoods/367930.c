@@ -16,5 +16,5 @@ board_overlay_entrypoint D_8011B710_37D6A0_WoodyWoods[] = {
 };
 
 void func_801059A0_367930_WoodyWoods(void) {
-    func_800359E0_365E0(D_8011B710_37D6A0_WoodyWoods, D_800A1764_A2364);
+    ovlEventCall(D_8011B710_37D6A0_WoodyWoods, omovlevtno);
 }

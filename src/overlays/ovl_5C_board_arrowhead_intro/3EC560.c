@@ -14,5 +14,5 @@ board_overlay_entrypoint D_80116570_3FD130_board_arrowhead_intro[] = {
 };
 
 void func_801059A0_3EC560_board_arrowhead_intro(void) {
-    func_800359E0_365E0(D_80116570_3FD130_board_arrowhead_intro, D_800A1764_A2364);
+    ovlEventCall(D_80116570_3FD130_board_arrowhead_intro, omovlevtno);
 }

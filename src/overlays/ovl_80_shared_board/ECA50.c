@@ -1,4 +1,27 @@
 #include "common.h"
+#include "malloc.h"
+
+typedef struct UnkBoard3 {
+/* 0x00 */ void* doublyLinkedList;
+/* 0x04 */ s32 unk_04;
+/* 0x08 */ char unk_08[2];
+/* 0x0A */ s16 unk_0A;
+/* 0x0C */ Vec vec0;
+/* 0x18 */ Vec vec1;
+/* 0x24 */ Vec vec2;
+/* 0x30 */ Vec vec3; //could also be 3 s32s
+/* 0x3C */ char unk_3C[8];
+/* 0x44 */ s16 unk_44;
+/* 0x46 */ s16 unk_46;
+} UnkBoard3; //sizeof 0x48
+
+typedef struct Node {
+/* 0x00 */ struct Node* next;
+/* 0x04 */ struct Node* prev;
+} Node;
+
+extern Node* D_80102AB0_1166D0_shared_board;
+extern u16 D_80102AB4_1166D4_shared_board;
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D8E30_ECA50_shared_board);
 
@@ -14,11 +37,34 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D8F80
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D8FC4_ECBE4_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9004_ECC24_shared_board);
+UnkBoard3* func_800D9004_ECC24_shared_board(void) {
+    UnkBoard3* temp_v0;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D90C8_ECCE8_shared_board);
+    temp_v0 = HuMemMemoryAllocTemp(sizeof(UnkBoard3));
+    if (temp_v0 != NULL) {
+        D_80102AB4_1166D4_shared_board++;
+        temp_v0->doublyLinkedList = D_80102AB0_1166D0_shared_board;
+        temp_v0->unk_04 = 0;
+        if (D_80102AB0_1166D0_shared_board != NULL) {
+            D_80102AB0_1166D0_shared_board->prev = (Node* ) temp_v0;
+        }
+        D_80102AB0_1166D0_shared_board = (Node* ) temp_v0;
+        temp_v0->unk_0A = 8;
+        HuVecCopyXYZ(&temp_v0->vec0, 0.0f, 0.0f, 0.0f);
+        HuVecCopyXYZ(&temp_v0->vec1, 0.0f, 0.0f, 1.0f);
+        HuVecCopyXYZ(&temp_v0->vec2, 1.0f, 1.0f, 1.0f);
+        temp_v0->vec3.x = 0.0f;
+        temp_v0->vec3.y = 0.0f;
+        temp_v0->vec3.z = 0.0f;
+        temp_v0->unk_44 = -1;
+        temp_v0->unk_46 = -1;
+    }
+    return temp_v0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D912C_ECD4C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelCreate);
+
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelFileCreate);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D93C0_ECFE0_shared_board);
 

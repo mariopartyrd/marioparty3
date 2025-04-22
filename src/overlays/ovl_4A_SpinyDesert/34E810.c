@@ -16,5 +16,5 @@ board_overlay_entrypoint D_8011C0E0_364F50_SpinyDesert[] = {
 };
 
 void func_801059A0_34E810_SpinyDesert(void) {
-    func_800359E0_365E0(D_8011C0E0_364F50_SpinyDesert, D_800A1764_A2364);
+    ovlEventCall(D_8011C0E0_364F50_SpinyDesert, omovlevtno);
 }

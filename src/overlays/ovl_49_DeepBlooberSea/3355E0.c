@@ -16,5 +16,5 @@ board_overlay_entrypoint D_8011C630_34C270_DeepBlooberSea[] = {
 };
 
 void func_801059A0_3355E0_DeepBlooberSea(void) {
-    func_800359E0_365E0(D_8011C630_34C270_DeepBlooberSea, D_800A1764_A2364);
+    ovlEventCall(D_8011C630_34C270_DeepBlooberSea, omovlevtno);
 }

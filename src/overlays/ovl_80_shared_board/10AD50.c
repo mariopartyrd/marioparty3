@@ -1,9 +1,16 @@
 #include "common.h"
 #include "ovl_80.h"
 
+extern Object* D_80105620_119240_shared_board;
+extern Object* D_80105624_119244_shared_board;
+
 const u8 D_80102520_116140_shared_board[] = {1, 2, 4, 8};
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10AD50", func_800F7130_10AD50_shared_board);
+void func_800F7130_10AD50_shared_board(omObjData* arg0) {
+    D_80105620_119240_shared_board->coords.y = -HuMathSin(arg0->rot.x) * 3.0f;
+    D_80105624_119244_shared_board->coords.y = -HuMathSin(arg0->rot.x) * 3.0f;
+    arg0->rot.x += 3.0f;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10AD50", func_800F71A8_10ADC8_shared_board);
 

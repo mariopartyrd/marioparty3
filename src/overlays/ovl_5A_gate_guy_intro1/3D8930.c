@@ -12,5 +12,5 @@ board_overlay_entrypoint D_80105AE0_3D8A70_gate_guy_intro1[] = {
 };
 
 void func_801059A0_3D8930_gate_guy_intro1(void) {
-    func_800359E0_365E0(D_80105AE0_3D8A70_gate_guy_intro1, D_800A1764_A2364);
+    ovlEventCall(D_80105AE0_3D8A70_gate_guy_intro1, omovlevtno);
 }

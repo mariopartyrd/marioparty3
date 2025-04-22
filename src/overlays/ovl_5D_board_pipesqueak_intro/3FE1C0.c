@@ -14,5 +14,5 @@ board_overlay_entrypoint D_80117400_40FC20_board_pipesqueak_intro[] = {
 };
 
 void func_801059A0_3FE1C0_board_pipesqueak_intro(void) {
-    func_800359E0_365E0(D_80117400_40FC20_board_pipesqueak_intro, D_800A1764_A2364);
+    ovlEventCall(D_80117400_40FC20_board_pipesqueak_intro, omovlevtno);
 }

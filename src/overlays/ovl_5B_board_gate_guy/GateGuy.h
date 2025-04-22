@@ -43,7 +43,7 @@ typedef struct unkStruct06 {
 /* 0x0C */ char unk_0C[4];
 } unkStruct06;
 
-extern s16 D_800A1764_A2364;
+extern s16 omovlevtno;
 f32 func_800D76D0_EB2F0_shared_board(void*);
 void func_80100CEC_E8ABC_name_81(u8);
 s32 func_800E1824_C95F4_name_81(s32, s32, s32);

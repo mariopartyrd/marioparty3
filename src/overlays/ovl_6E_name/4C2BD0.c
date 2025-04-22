@@ -381,13 +381,13 @@ extern s16 D_80112330_4CF560_name_6E;
 extern s16 D_80112378_4CF5A8_name_6E[];
 extern s16 D_801123A4_4CF5D4_name_6E;
 
-typedef struct Unk3 {
+typedef struct HmfModel {
     s16 unk_00;
     u8 unk_02;
     char unk_03[0xBD];
-} Unk3; //sizeof 0xC0
+} HmfModel; //sizeof 0xC0
 
-extern Unk3* HmfModelData;
+extern HmfModel* HmfModelData;
 
 #ifdef NON_MATCHING
 void func_8010FC98_4CCEC8_name_6E(void) {

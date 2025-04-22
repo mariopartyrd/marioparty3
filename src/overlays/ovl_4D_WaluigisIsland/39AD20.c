@@ -16,5 +16,5 @@ board_overlay_entrypoint D_8011B550_3B08D0_WaluigisIsland[] = {
 };
 
 void func_801059A0_39AD20_WaluigisIsland(void) {
-    func_800359E0_365E0(D_8011B550_3B08D0_WaluigisIsland, D_800A1764_A2364);
+    ovlEventCall(D_8011B550_3B08D0_WaluigisIsland, omovlevtno);
 }

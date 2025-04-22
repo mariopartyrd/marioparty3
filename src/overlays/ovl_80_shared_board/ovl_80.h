@@ -70,7 +70,7 @@ typedef struct HvqUnk {
 } HvqUnk;
 
 void func_800DA790_EE3B0_shared_board(s32, u16, char*, s32, s32);
-Object* func_800D90C8_ECCE8_shared_board(u8, s32);
+Object* MBModelCreate(u8, s32);
 void func_800D9714_ED334_shared_board(Object*);
 void func_800F3400_107020_shared_board(omObjData*);
 void func_800F4190_107DB0_shared_board(void);

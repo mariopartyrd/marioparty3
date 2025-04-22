@@ -53,4 +53,4 @@ u32 HuMemUsedMemoryBlockGetTemp(void)
 
 
 //does this belong to another file?
-INCLUDE_ASM("asm/nonmatchings/malloctemp", func_800359E0_365E0);
+INCLUDE_ASM("asm/nonmatchings/malloctemp", ovlEventCall);
