@@ -100,6 +100,7 @@ segments:
       - [0x360A0, c, main]
       - [0x36440, c, mallocperm]
       - [0x36510, c, malloctemp]
+      - [0x365E0, c, ovlEvent]
       - [0x36650, c, save]
       - [0x36CD0, c, malloc]
       - [0x36F80, asm]
@@ -1197,6 +1198,7 @@ segments:
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0xB0
+    subalign: 16
     subsegments:
       - [0x28A290, c]
       - [0x290E90, data, 28A290] #8010C5A0

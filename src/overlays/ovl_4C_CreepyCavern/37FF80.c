@@ -21,7 +21,7 @@ void func_80107B90_382170_CreepyCavern(void);
 void func_80107C14_3821F4_CreepyCavern(void);
 void func_8011C348_396928_CreepyCavern(void);
 
-board_overlay_entrypoint D_8011D010_3975F0_CreepyCavern[] = {
+OvlEntrypoint D_8011D010_3975F0_CreepyCavern[] = {
     {0, func_80107744_381D24_CreepyCavern},
     {1, func_80107780_381D60_CreepyCavern},
     {2, func_80107B90_382170_CreepyCavern},

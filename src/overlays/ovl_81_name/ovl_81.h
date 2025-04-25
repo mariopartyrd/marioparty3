@@ -15,7 +15,6 @@ void func_800E8D10_D0AE0_name_81(void);
 void func_800E94D0_D12A0_name_81(void);
 void func_800E9B10_D18E0_name_81(s32, s16);
 void func_800EB664_D3434_name_81(void);
-unkStruct07* func_800F375C_DB52C_name_81(s32);
 void func_800F3DFC_DBBCC_name_81(s32);
 void func_800F3F4C_DBD1C_name_81(void);
 void func_800F4080_DBE50_name_81(void);

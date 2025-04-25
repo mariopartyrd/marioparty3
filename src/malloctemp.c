@@ -50,7 +50,3 @@ u32 HuMemUsedMemoryBlockGetTemp(void)
 {
     return HuMemUsedMemoryBlockGet(temp_heap_addr);
 }
-
-
-//does this belong to another file?
-INCLUDE_ASM("asm/nonmatchings/malloctemp", ovlEventCall);

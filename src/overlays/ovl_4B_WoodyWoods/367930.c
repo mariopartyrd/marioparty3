@@ -6,7 +6,7 @@ void func_80107B34_369AC4_WoodyWoods(void);
 void func_80107BB8_369B48_WoodyWoods(void);
 void func_8011AA10_37C9A0_WoodyWoods(void);
 
-board_overlay_entrypoint D_8011B710_37D6A0_WoodyWoods[] = {
+OvlEntrypoint D_8011B710_37D6A0_WoodyWoods[] = {
     {0, func_80107744_3696D4_WoodyWoods},
     {1, func_80107780_369710_WoodyWoods},
     {2, func_80107B34_369AC4_WoodyWoods},

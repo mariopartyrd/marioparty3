@@ -47,6 +47,31 @@ typedef struct UnkDiceRelated {
 /* 0x08 */ UnkDiceRelatedInner UnkDiceInner;
 } UnkDiceRelated; //sizeof 0x4C
 
+typedef struct PartnerStats {
+/* 0x2C */ s8 frontPoweredUp;
+/* 0x2D */ s8 backPoweredUp;
+/* 0x2E */ s8 frontHp;
+/* 0x2F */ s8 backHp;
+/* 0x30 */ s8 frontCost;
+/* 0x31 */ s8 backCost;
+/* 0x32 */ s8 frontPower;
+/* 0x33 */ s8 backPower;
+/* 0x34 */ s8 frontID;
+/* 0x35 */ s8 backID;
+} PartnerStats;
+
+typedef struct {
+/* 0x2C */ s8 hatenaPrize;  // happening-space star
+/* 0x2D */ s8 redPrize;
+/* 0x2E */ s8 bluePrize;
+/* 0x2F */ s8 eventPrize;
+/* 0x30 */ s8 kupaPrize;
+/* 0x31 */ s8 battlePrize;
+/* 0x32 */ s8 itemPrize;
+/* 0x33 */ s8 bankPrize;
+/* 0x34 */ s8 gamblePrize;
+/* 0x35 */ s8 duelNo;
+} PrizeStats;
 
 typedef struct GwPlayer_s {
 /* 0x00 */ u8 group;
@@ -78,16 +103,10 @@ typedef struct GwPlayer_s {
 /* 0x24 */ Object* player_obj;
 /* 0x28 */ s16 gamePrize; //minigame star
 /* 0x2A */ s16 coinPrize; //coin star
-/* 0x2C */ s8 hatenaPrize; //happening space star
-/* 0x2D */ s8 redPrize;
-/* 0x2E */ s8 bluePrize;
-/* 0x2F */ s8 eventPrize;
-/* 0x30 */ s8 kupaPrize;
-/* 0x31 */ s8 battlePrize;
-/* 0x32 */ s8 itemPrize;
-/* 0x33 */ s8 bankPrize;
-/* 0x34 */ s8 gamblePrize;
-/* 0x35 */ s8 duelNo;
+/* 0x2C */ union {
+    PrizeStats      prize;
+    PartnerStats    partners;
+} stats;
 /* 0x36 */ char unk_36[2];
 } GW_PLAYER __attribute__((aligned(4))); //sizeof 0x38;
 
@@ -171,10 +190,10 @@ typedef struct RectF {
 /* 0x0C */ f32 y2;
 } RectF; //sizeof 0x10
 
-typedef struct board_overlay_entrypoint {
+typedef struct OvlEntrypoint {
 /* 0x00 */ s16 index;
-/* 0x04 */ void* fn;
-} board_overlay_entrypoint; //sizeof 0x08
+/* 0x04 */ void (*fn)(void);
+} OvlEntrypoint; //sizeof 0x08
 
 typedef struct RGB {
 /* 0x00 */ u8 r;
@@ -219,13 +238,6 @@ typedef struct str800D5298 {
     s32 unk64;
     s32 unk68;
 } str800D5298;
-
-typedef struct unkStruct07 {
-/* 0x00 */ char unk_00[0x17];
-/* 0x17 */ u8 unk_17;
-/* 0x18 */ char unk_18[12];
-/* 0x24 */ Object* unk_24;
-} unkStruct07;
 
 typedef struct HeapNode {
 /* 0x00 */ s32 size;

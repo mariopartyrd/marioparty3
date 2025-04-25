@@ -137,14 +137,14 @@ s32 func_800EEA58_102678_shared_board(s32 arg0) {
 
     //calc what the highest amount of happening spaces landed on was
     for (i = 0, var_a0_2 = -100000; i < MAX_PLAYERS; i++) {
-        if (var_a0_2 < GwPlayer[i].hatenaPrize) {
-            var_a0_2 =  GwPlayer[i].hatenaPrize;
+        if (var_a0_2 < GwPlayer[i].stats.prize.hatenaPrize) {
+            var_a0_2 =  GwPlayer[i].stats.prize.hatenaPrize;
         }
     }
 
     //award players 1000 points (a star) for landing on the most happening spaces
     for (i = 0; i < MAX_PLAYERS; i++) {
-        if (GwPlayer[i].hatenaPrize == var_a0_2) {
+        if (GwPlayer[i].stats.prize.hatenaPrize == var_a0_2) {
             score[i] += 1000;
         }
     }
@@ -193,12 +193,12 @@ s32 func_800EECF0_102910_shared_board(s32 arg0) {
         }
 
         for (i = 0, var_a0_2 = -100000; i < MAX_PLAYERS; i++) {
-            if (var_a0_2 < GwPlayer[i].hatenaPrize) {
-                var_a0_2 = GwPlayer[i].hatenaPrize;
+            if (var_a0_2 < GwPlayer[i].stats.prize.hatenaPrize) {
+                var_a0_2 = GwPlayer[i].stats.prize.hatenaPrize;
             }
         }
         
-        if (GwPlayer[arg0].hatenaPrize == var_a0_2) {
+        if (GwPlayer[arg0].stats.prize.hatenaPrize == var_a0_2) {
             playerBaseScore += 1000;
         }
     }

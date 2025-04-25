@@ -17,7 +17,7 @@ void func_8001C5B4_1D1B4(s16, s16);
 void func_80106850_4F10A0_name_73(omObjData*, s32);
 void func_8001C0C4_1CCC4(s16, f32, f32, f32);
 u16 func_8000B108_BD08(s32 arg0, s32 arg1);
-void ovlEventCall(board_overlay_entrypoint*, s16);
+void ovlEventCall(OvlEntrypoint*, s16);
 f32 HuMathCos(f32);
 s16 func_8000B13C_BD3C(s32);
 s16 Hu3DModelCreate(void*, s32);

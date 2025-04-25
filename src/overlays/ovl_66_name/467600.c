@@ -110,19 +110,19 @@ void func_80105C6C_46789C_name_66(s16 playerIndex) {
     print8(DEFAULT_X_POS, TextYPos, buffer);
     INCREMENT_TEXT_Y_POSITION();
 
-    sprintf(buffer, "GPRZ:%4X,CPRZ:%4X,HPRZ:%4X", GwPlayer[playerIndex].gamePrize, GwPlayer[playerIndex].coinPrize, GwPlayer[playerIndex].hatenaPrize);
+    sprintf(buffer, "GPRZ:%4X,CPRZ:%4X,HPRZ:%4X", GwPlayer[playerIndex].gamePrize, GwPlayer[playerIndex].coinPrize, GwPlayer[playerIndex].stats.prize.hatenaPrize);
     print8(DEFAULT_X_POS, TextYPos, buffer);
     INCREMENT_TEXT_Y_POSITION();
 
-    sprintf(buffer, "RPRZ:%2X,BPRZ:%2X,EPRZ:%2X,KPRZ:%2X", GwPlayer[playerIndex].redPrize, GwPlayer[playerIndex].bluePrize, GwPlayer[playerIndex].eventPrize, GwPlayer[playerIndex].kupaPrize);
+    sprintf(buffer, "RPRZ:%2X,BPRZ:%2X,EPRZ:%2X,KPRZ:%2X", GwPlayer[playerIndex].stats.prize.redPrize, GwPlayer[playerIndex].stats.prize.bluePrize, GwPlayer[playerIndex].stats.prize.eventPrize, GwPlayer[playerIndex].stats.prize.kupaPrize);
     print8(DEFAULT_X_POS, TextYPos, buffer);
     INCREMENT_TEXT_Y_POSITION();
 
-    sprintf(buffer, "BTLPRZ:%2X,IPRZ:%2X,BNKPRZ:%2X", GwPlayer[playerIndex].battlePrize, GwPlayer[playerIndex].itemPrize, GwPlayer[playerIndex].bankPrize);
+    sprintf(buffer, "BTLPRZ:%2X,IPRZ:%2X,BNKPRZ:%2X", GwPlayer[playerIndex].stats.prize.battlePrize, GwPlayer[playerIndex].stats.prize.itemPrize, GwPlayer[playerIndex].stats.prize.bankPrize);
     print8(DEFAULT_X_POS, TextYPos, buffer);
     INCREMENT_TEXT_Y_POSITION();
 
-    sprintf(buffer, "GBPRZ#%2d,DUEL#%2d", GwPlayer[playerIndex].gamblePrize, GwPlayer[playerIndex].duelNo);
+    sprintf(buffer, "GBPRZ#%2d,DUEL#%2d", GwPlayer[playerIndex].stats.prize.gamblePrize, GwPlayer[playerIndex].stats.prize.duelNo);
     print8(DEFAULT_X_POS, TextYPos, buffer);
     INCREMENT_TEXT_Y_POSITION();
 

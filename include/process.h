@@ -40,8 +40,6 @@
 // } Process;
 
 // void HuPrcSysInit();
-// void HuPrcLink(Process**root, Process*process);
-// void HuPrcUnlink(Process**root, Process*process);
 // Process* HuPrcCreate(process_func func, u16 priority, s32 stack_size, s32 extra_data_size);
 // void HuPrcChildLink(Process*process, Process*child);
 // void HuPrcChildUnlink(Process*process);

@@ -177,9 +177,9 @@ void func_8000E804_F404(void) {
         GwPlayer[i].cpu_difficulty = 0;
         GwPlayer[i].star = 0;
         GwPlayer[i].gamePrize = 0;
-        GwPlayer[i].bluePrize = 0;
-        GwPlayer[i].redPrize = 0;
-        GwPlayer[i].hatenaPrize = 0;
+        GwPlayer[i].stats.prize.bluePrize = 0;
+        GwPlayer[i].stats.prize.redPrize = 0;
+        GwPlayer[i].stats.prize.hatenaPrize = 0;
     }
 }
 

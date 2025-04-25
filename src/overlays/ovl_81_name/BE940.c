@@ -1009,9 +1009,16 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F336C_DB13C_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F3500_DB2D0_name_81);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F3750_DB520_name_81);
+s16 DuelGetCurrentPlayerIndex(void){
+    return GwSystem.current_player_index;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F375C_DB52C_name_81);
+GW_PLAYER* DuelGetPlayerStruct(s32 player) {
+    if (player < 0) {
+        player = DuelGetCurrentPlayerIndex();
+    }
+    return &GwPlayer[player];
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F379C_DB56C_name_81);
 
@@ -1194,7 +1201,53 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F82EC_E00BC_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F8358_E0128_name_81);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F8418_E01E8_name_81);
+typedef struct DuelPartnerInitialStats {
+    u8 unk_00;
+    u8 hp;
+    u8 power;
+    u8 cost;
+    char unk_04[0x10];
+} DuelPartnerInitialStats; //sizeof 0x14
+
+extern DuelPartnerInitialStats D_8010186C_E963C_name_81[];
+
+#define POWERUP_NONE 1
+#define POWERUP_ACTIVE 2
+
+void func_800F8418_E01E8_name_81(s32 arg0, s32 partnerID, s32 arg2) {
+    GW_PLAYER* player;
+
+    player = DuelGetPlayerStruct(arg0);
+    switch (arg2) {
+        case 0:
+        player->stats.partners.frontID = partnerID;
+        player->stats.partners.frontPoweredUp = POWERUP_NONE;
+        player->stats.partners.frontHp = D_8010186C_E963C_name_81[partnerID].hp;
+        player->stats.partners.frontCost = D_8010186C_E963C_name_81[partnerID].cost;
+        player->stats.partners.frontPower = D_8010186C_E963C_name_81[partnerID].power;
+        break;
+    case 1:
+        player->stats.partners.backID = partnerID;
+        player->stats.partners.backPoweredUp = POWERUP_NONE;
+        player->stats.partners.backHp = D_8010186C_E963C_name_81[partnerID].hp;
+        player->stats.partners.backCost = D_8010186C_E963C_name_81[partnerID].cost;
+        player->stats.partners.backPower = D_8010186C_E963C_name_81[partnerID].power;
+        break;
+    }
+    if (player->stats.partners.frontID != -1) {
+        player->stats.partners.frontPower = D_8010186C_E963C_name_81[player->stats.partners.frontID].power;
+        player->stats.partners.frontCost = D_8010186C_E963C_name_81[player->stats.partners.frontID].cost;
+    }
+    if (player->stats.partners.backID != -1) {
+        player->stats.partners.backPower = D_8010186C_E963C_name_81[player->stats.partners.backID].power;
+        player->stats.partners.backCost = D_8010186C_E963C_name_81[player->stats.partners.backID].cost;
+    }
+    if (arg0 == 0) {
+        GWBoardFlagClear(0x12);
+    } else {
+        GWBoardFlagClear(0x13);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F85A4_E0374_name_81);
 
@@ -1310,15 +1363,15 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     func_800F3DFC_DBBCC_name_81(0);
     func_800F3DFC_DBBCC_name_81(1);
     for (i = 0; i < 2; i++) {
-        func_800D8944_C0714_name_81(func_800F375C_DB52C_name_81(i)->unk_24);
-        temp_v0 = func_800F375C_DB52C_name_81(i)->unk_24;
+        func_800D8944_C0714_name_81(DuelGetPlayerStruct(i)->player_obj);
+        temp_v0 = DuelGetPlayerStruct(i)->player_obj;
         temp_v0->unkA |= 2;
-        temp_a0 = func_800F375C_DB52C_name_81(i)->unk_24;
+        temp_a0 = DuelGetPlayerStruct(i)->player_obj;
         func_800D8E88_C0C58_name_81(temp_a0);
     }
 
-    func_8001FDE8_209E8(func_800F375C_DB52C_name_81(0)->unk_24->unk3C->model[0]);
-    func_8001FDE8_209E8(func_800F375C_DB52C_name_81(1)->unk_24->unk3C->model[0]);
+    func_8001FDE8_209E8(DuelGetPlayerStruct(0)->player_obj->unk3C->model[0]);
+    func_8001FDE8_209E8(DuelGetPlayerStruct(1)->player_obj->unk3C->model[0]);
     func_800F8C68_E0A38_name_81(0);
     func_800F8C68_E0A38_name_81(1);
     func_800F4300_DC0D0_name_81();
@@ -1327,14 +1380,14 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     func_800E2870_CA640_name_81();
     func_800F6390_DE160_name_81();
     for (i = 0; i < 2; i++) {
-        temp_s1 = GwPlayer[i].gamblePrize;
-        temp_s2 = GwPlayer[i].duelNo;
-        GwPlayer[i].gamblePrize = 0;
-        GwPlayer[i].duelNo = 0;
+        temp_s1 = GwPlayer[i].stats.prize.gamblePrize;
+        temp_s2 = GwPlayer[i].stats.prize.duelNo;
+        GwPlayer[i].stats.prize.gamblePrize = 0;
+        GwPlayer[i].stats.prize.duelNo = 0;
         func_800F5BB4_DD984_name_81(i);
         func_800F5EB0_DDC80_name_81(i);
-        GwPlayer[i].gamblePrize = temp_s1;
-        GwPlayer[i].duelNo = temp_s2;
+        GwPlayer[i].stats.prize.gamblePrize = temp_s1;
+        GwPlayer[i].stats.prize.duelNo = temp_s2;
         func_800F5BB4_DD984_name_81(i);
         func_800F5EB0_DDC80_name_81(i);
     }

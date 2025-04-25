@@ -148,8 +148,8 @@ HuDecode = 0x8000B000;
 rand8 = 0x8000B16C;
 
 HuPrcSysInit = 0x8004EB20;
-HuPrcLink = 0x8004EB34;
-HuPrcUnlink = 0x8004EBC8;
+LinkProcess = 0x8004EB34;
+UnlinkProcess = 0x8004EBC8;
 HuPrcCreate = 0x8004EC04;
 HuPrcChildLink = 0x8004ED30;
 HuPrcChildUnlink = 0x8004ED84;
@@ -661,7 +661,8 @@ _CheckFlag = 0x80035EB0; //rom:0x36AB0
 _SetFlag = 0x80035EF4; //rom:0x36AF4
 _ClearFlag = 0x80035F44; //rom:0x36B44
 SprPriSet = 0x80055294; //rom:0x55E94
-
+DuelGetCurrentPlayerIndex = 0x800F3750; //rom:0xDB520 segment:name_81
+DuelGetPlayerStruct = 0x800F375C; //rom:0xDB52C segment:name_81
 ShowPlayerCoinChange = 0x800E1F48; //rom:0xF5B68
 
 GWBoardFlagCheck = 0x80035F98;
@@ -695,7 +696,7 @@ MBModelFileCreate = 0x800D912C; //rom:0xECD4C segment:shared_board
 ovlEventCall = 0x800359E0; //rom:0x365E0
 D_801093A8_3C61C8_BowserEvent = 0x801093A8; //rom:0x3C61C8 size:0x08 segment:BowserEvent
 BoardGetTurnTier = 0x800FB578; //rom:0x10F198 segment:shared_board
-D_800A1764_A2364 = 0x800A1764; //rom:0xA2364
+omovlevtno = 0x800A1764; //rom:0xA2364
 
 //libultra symbols
 //auxbus.c

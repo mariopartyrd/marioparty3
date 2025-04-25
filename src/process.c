@@ -17,7 +17,7 @@ void HuPrcSysInit()
     top_process = NULL;
 }
 
-void HuPrcLink(Process** root, Process* process)
+static void LinkProcess(Process** root, Process* process)
 {
     Process* src_process = *root;
     if (src_process != NULL && (src_process->priority >= process->priority))
@@ -51,7 +51,7 @@ void HuPrcLink(Process** root, Process* process)
     }
 }
 
-void HuPrcUnlink(Process** root, Process* process)
+static void UnlinkProcess(Process** root, Process* process)
 {
     if (process->next)
     {
@@ -99,7 +99,7 @@ Process* HuPrcCreate(process_func func, u16 priority, s32 stack_size, s32 extra_
     process->destructor = NULL;
     process->user_data = NULL;
     process->dtor_idx = 0;
-    HuPrcLink(&top_process, process);
+    LinkProcess(&top_process, process);
     process->oldest_child = NULL;
     process->relative = NULL;
     process_count++;
@@ -218,7 +218,7 @@ void HuPrcTerminate(Process* process)
     {
         process->destructor();
     }
-    HuPrcUnlink(&top_process, process);
+    UnlinkProcess(&top_process, process);
     process_count--;
     longjmp(&process_jmp_buf, 2);
 }
@@ -336,7 +336,7 @@ void HuPrcCall(s32 time)
     }
 }
 
-void * HuPrcAllocMem(s32 size)
+void* HuPrcAllocMem(s32 size)
 {
     Process* process = HuPrcCurrentGet();
     return (void *)HuMemMemoryAlloc((HeapNode *)process->heap, size);
