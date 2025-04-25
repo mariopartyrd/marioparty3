@@ -1,6 +1,27 @@
 #include "common.h"
 #include "ovl_81.h"
 
+#define POWERUP_NONE 1
+#define POWERUP_ACTIVE 2
+
+typedef struct DuelPartnerInitialStats {
+    u8 unk_00;
+    u8 hp;
+    u8 power;
+    u8 cost;
+    char unk_04[0x10];
+} DuelPartnerInitialStats; //sizeof 0x14
+
+extern DuelPartnerInitialStats DuelPartnerStats[];
+extern Object* D_80105450_ED220_name_81[][2];
+
+GW_PLAYER* DuelGetPlayerStruct(s32 player);
+Object* func_800F8960_E0730_name_81(s32 arg0, s32 arg1);
+void func_800ECF1C_D4CEC_name_81(s32, Vec*, Vec*);
+void HuVecAdd(Vec* out, Vec* a, Vec* b);
+void func_800D7828_BF5F8_name_81(Vec*);
+void func_800D7934_BF704_name_81(Vec*, f32);
+
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800D6B70_BE940_name_81);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800D6C3C_BEA0C_name_81);
@@ -782,7 +803,30 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800ECF1C_D4CEC_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800ED118_D4EE8_name_81);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800ED214_D4FE4_name_81);
+void func_800ED214_D4FE4_name_81(s32 playerIndex) {
+    Vec sp10;
+    Vec sp20;
+    GW_PLAYER* player;
+    Object* temp_v0;
+
+    player = DuelGetPlayerStruct(playerIndex);
+    func_800ECF1C_D4CEC_name_81(playerIndex, &sp10, &sp20);
+    if (player->stats.partners.frontID != PARTNER_NONE) {
+        temp_v0 = func_800F8960_E0730_name_81(playerIndex, 0);
+        HuVecCopy3F(&temp_v0->coords, &player->player_obj->coords);
+        HuVecAdd(&temp_v0->coords, &temp_v0->coords, &sp10);
+        func_800D7828_BF5F8_name_81(&sp10);
+        HuVecCopy3F(&temp_v0->unk18, &sp10);
+    }
+    if (player->stats.partners.backID != PARTNER_NONE) {
+        temp_v0 = func_800F8960_E0730_name_81(playerIndex, 1);
+        HuVecCopy3F(&temp_v0->coords, &player->player_obj->coords);
+        HuVecAdd(&temp_v0->coords, &temp_v0->coords, &sp20);
+        func_800D7828_BF5F8_name_81(&sp20);
+        func_800D7934_BF704_name_81(&sp20, 180.0f);
+        HuVecCopy3F(&temp_v0->unk18, &sp20);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800ED31C_D50EC_name_81);
 
@@ -1201,19 +1245,6 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F82EC_E00BC_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F8358_E0128_name_81);
 
-typedef struct DuelPartnerInitialStats {
-    u8 unk_00;
-    u8 hp;
-    u8 power;
-    u8 cost;
-    char unk_04[0x10];
-} DuelPartnerInitialStats; //sizeof 0x14
-
-extern DuelPartnerInitialStats D_8010186C_E963C_name_81[];
-
-#define POWERUP_NONE 1
-#define POWERUP_ACTIVE 2
-
 void func_800F8418_E01E8_name_81(s32 arg0, s32 partnerID, s32 arg2) {
     GW_PLAYER* player;
 
@@ -1222,25 +1253,25 @@ void func_800F8418_E01E8_name_81(s32 arg0, s32 partnerID, s32 arg2) {
         case 0:
         player->stats.partners.frontID = partnerID;
         player->stats.partners.frontPoweredUp = POWERUP_NONE;
-        player->stats.partners.frontHp = D_8010186C_E963C_name_81[partnerID].hp;
-        player->stats.partners.frontCost = D_8010186C_E963C_name_81[partnerID].cost;
-        player->stats.partners.frontPower = D_8010186C_E963C_name_81[partnerID].power;
+        player->stats.partners.frontHp = DuelPartnerStats[partnerID].hp;
+        player->stats.partners.frontCost = DuelPartnerStats[partnerID].cost;
+        player->stats.partners.frontPower = DuelPartnerStats[partnerID].power;
         break;
     case 1:
         player->stats.partners.backID = partnerID;
         player->stats.partners.backPoweredUp = POWERUP_NONE;
-        player->stats.partners.backHp = D_8010186C_E963C_name_81[partnerID].hp;
-        player->stats.partners.backCost = D_8010186C_E963C_name_81[partnerID].cost;
-        player->stats.partners.backPower = D_8010186C_E963C_name_81[partnerID].power;
+        player->stats.partners.backHp = DuelPartnerStats[partnerID].hp;
+        player->stats.partners.backCost = DuelPartnerStats[partnerID].cost;
+        player->stats.partners.backPower = DuelPartnerStats[partnerID].power;
         break;
     }
-    if (player->stats.partners.frontID != -1) {
-        player->stats.partners.frontPower = D_8010186C_E963C_name_81[player->stats.partners.frontID].power;
-        player->stats.partners.frontCost = D_8010186C_E963C_name_81[player->stats.partners.frontID].cost;
+    if (player->stats.partners.frontID != PARTNER_NONE) {
+        player->stats.partners.frontPower = DuelPartnerStats[player->stats.partners.frontID].power;
+        player->stats.partners.frontCost = DuelPartnerStats[player->stats.partners.frontID].cost;
     }
-    if (player->stats.partners.backID != -1) {
-        player->stats.partners.backPower = D_8010186C_E963C_name_81[player->stats.partners.backID].power;
-        player->stats.partners.backCost = D_8010186C_E963C_name_81[player->stats.partners.backID].cost;
+    if (player->stats.partners.backID != PARTNER_NONE) {
+        player->stats.partners.backPower = DuelPartnerStats[player->stats.partners.backID].power;
+        player->stats.partners.backCost = DuelPartnerStats[player->stats.partners.backID].cost;
     }
     if (arg0 == 0) {
         GWBoardFlagClear(0x12);
@@ -1249,17 +1280,90 @@ void func_800F8418_E01E8_name_81(s32 arg0, s32 partnerID, s32 arg2) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F85A4_E0374_name_81);
+void func_800F85A4_E0374_name_81(s32 arg0, s32 frontOrBackBool) {
+    GW_PLAYER* player = DuelGetPlayerStruct(arg0);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F86F8_E04C8_name_81);
+    switch (frontOrBackBool) {
+    case 0:
+        player->stats.partners.frontID = PARTNER_NONE;
+        player->stats.partners.frontPoweredUp = 0;
+        player->stats.partners.frontHp = 0;
+        player->stats.partners.frontCost = 0;
+        player->stats.partners.frontPower = 0;
+        break;
+    case 1:
+        player->stats.partners.backID = PARTNER_NONE;
+        player->stats.partners.backPoweredUp = 0;
+        player->stats.partners.backHp = 0;
+        player->stats.partners.backCost = 0;
+        player->stats.partners.backPower = 0;
+        break;
+    }
+
+    if (player->stats.partners.frontID != PARTNER_NONE) {
+        player->stats.partners.frontPower = DuelPartnerStats[player->stats.partners.frontID].power * player->stats.partners.frontPoweredUp;
+        player->stats.partners.frontCost = DuelPartnerStats[player->stats.partners.frontID].cost * player->stats.partners.frontPoweredUp;
+    }
+    if (player->stats.partners.backID != PARTNER_NONE) {
+        player->stats.partners.backPower = DuelPartnerStats[player->stats.partners.backID].power * player->stats.partners.backPoweredUp;
+        player->stats.partners.backCost = DuelPartnerStats[player->stats.partners.backID].cost * player->stats.partners.backPoweredUp;
+    }
+    if (arg0 == 0) {
+        GWBoardFlagClear(0x12);
+    } else {
+        GWBoardFlagClear(0x13);
+    }
+}
+
+void func_800F86F8_E04C8_name_81(s32 arg0) {
+    GW_PLAYER* temp_v0 = DuelGetPlayerStruct(arg0);
+    s32 frontID = temp_v0->stats.partners.frontID;
+    s32 frontHP = temp_v0->stats.partners.frontHp;
+    s32 frontPoweredUp = (s8)temp_v0->stats.partners.frontPoweredUp; //TODO: seems fake
+    s32 frontCost = temp_v0->stats.partners.frontCost;
+    s32 frontPower = temp_v0->stats.partners.frontPower;
+    Object* temp;
+
+    temp_v0->stats.partners.frontID = temp_v0->stats.partners.backID;
+    temp_v0->stats.partners.frontHp = temp_v0->stats.partners.backHp;
+    temp_v0->stats.partners.frontPoweredUp = temp_v0->stats.partners.backPoweredUp;
+    temp_v0->stats.partners.frontCost = temp_v0->stats.partners.backCost;
+    temp_v0->stats.partners.frontPower = temp_v0->stats.partners.backPower;
+    temp_v0->stats.partners.backID = frontID;
+    temp_v0->stats.partners.backHp = frontHP;
+    temp_v0->stats.partners.backPoweredUp = frontPoweredUp;
+    temp_v0->stats.partners.backCost = frontCost;
+    temp_v0->stats.partners.backPower = frontPower;
+
+    temp = D_80105450_ED220_name_81[arg0][0];
+    D_80105450_ED220_name_81[arg0][0] = D_80105450_ED220_name_81[arg0][1];
+    D_80105450_ED220_name_81[arg0][1] = temp;
+
+    func_800ED214_D4FE4_name_81(arg0);
+    func_800F5BB4_DD984_name_81(arg0);
+    func_800F5EB0_DDC80_name_81(arg0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F87B8_E0588_name_81);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F8860_E0630_name_81);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F8960_E0730_name_81);
+Object* func_800F8960_E0730_name_81(s32 arg0, s32 arg1) {
+    return D_80105450_ED220_name_81[arg0][arg1];
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F8980_E0750_name_81);
+s32 func_800F8980_E0750_name_81(s32 playerIndex) {
+    GW_PLAYER* player = DuelGetPlayerStruct(playerIndex);
+    s32 totalPartnerCost = 0;
+    
+    if (player->stats.partners.frontID != PARTNER_NONE) {
+        totalPartnerCost = player->stats.partners.frontCost;
+    }
+    if (player->stats.partners.backID != PARTNER_NONE) {
+        totalPartnerCost += player->stats.partners.backCost;
+    }
+    return totalPartnerCost;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800F89D0_E07A0_name_81);
 
