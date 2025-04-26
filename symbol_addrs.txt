@@ -664,7 +664,9 @@ SprPriSet = 0x80055294; //rom:0x55E94
 DuelGetCurrentPlayerIndex = 0x800F3750; //rom:0xDB520 segment:name_81
 DuelGetPlayerStruct = 0x800F375C; //rom:0xDB52C segment:name_81
 ShowPlayerCoinChange = 0x800E1F48; //rom:0xF5B68
-DuelPartnerStats = 0x8010186C; //rom:0xE963C size:0xF0 segment:name_81
+PartnersBaseStats = 0x8010186C; //rom:0xE963C size:0xF0 segment:name_81
+Duel_PowerUpPartners = 0x800F87B8; //rom:0xE0588 segment:name_81
+Duel_PowerDownPartners = 0x800F8860; //rom:0xE0630 segment:name_81
 
 GWBoardFlagCheck = 0x80035F98;
 GWBoardFlagSet = 0x80035FDC;

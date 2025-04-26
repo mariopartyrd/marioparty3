@@ -48,8 +48,8 @@ typedef struct UnkDiceRelated {
 } UnkDiceRelated; //sizeof 0x4C
 
 typedef struct PartnerStats {
-/* 0x2C */ u8 frontPoweredUp;
-/* 0x2D */ u8 backPoweredUp;
+/* 0x2C */ s8 frontPoweredUp;
+/* 0x2D */ s8 backPoweredUp;
 /* 0x2E */ s8 frontHp;
 /* 0x2F */ s8 backHp;
 /* 0x30 */ s8 frontCost;
