@@ -2,6 +2,32 @@
 #include "game/object.h"
 #include "malloc.h"
 
+#define POWERUP_NONE 1
+#define POWERUP_ACTIVE 2
+
+typedef struct DuelPartnerInitialStats {
+    u8 unk_00;
+    u8 hp;
+    s8 power;
+    s8 cost;
+    char unk_04[0x10];
+} DuelPartnerInitialStats; //sizeof 0x14
+
+extern DuelPartnerInitialStats PartnersBaseStats[];
+extern Object* D_80105450_ED220_name_81[][2];
+extern s32 D_80101A8C_E985C_name_81;
+extern s32 D_80101A90_E9860_name_81;
+extern s32 D_80101A94_E9864_name_81;
+extern s32 D_80101A98_E9868_name_81;
+extern s16 D_80105494_ED264_name_81;
+extern s16 D_80105496_ED266_name_81;
+
+GW_PLAYER* DuelGetPlayerStruct(s32 player);
+Object* func_800F8960_E0730_name_81(s32 arg0, s32 arg1);
+void func_800ECF1C_D4CEC_name_81(s32, Vec*, Vec*);
+void HuVecAdd(Vec* out, Vec* a, Vec* b);
+void func_800D7828_BF5F8_name_81(Vec*);
+void func_800D7934_BF704_name_81(Vec*, f32);
 void func_800D7EB8_BFC88_name_81(void);
 void func_800D8944_C0714_name_81(Object*);
 void func_800D8E88_C0C58_name_81(Object*);
@@ -29,10 +55,3 @@ void func_800E4F50_CCD20_name_81(Addr);
 void func_800E52DC_CD0AC_name_81(s32);
 void func_800E8110_CFEE0_name_81(void);
 void func_800E8180_CFF50_name_81(f32, f32);
-
-extern s32 D_80101A8C_E985C_name_81;
-extern s32 D_80101A90_E9860_name_81;
-extern s32 D_80101A94_E9864_name_81;
-extern s32 D_80101A98_E9868_name_81;
-extern s16 D_80105494_ED264_name_81;
-extern s16 D_80105496_ED266_name_81;

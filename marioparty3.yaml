@@ -425,8 +425,43 @@ segments:
     bss_size: 0x2D60
     subsegments:
       - [0xBE940, c]
-      - [0xE8BE0, data, BE940] #80100E10
-      - [0xE9A00, .rodata, BE940] #80101C30
+      - [0xBECB0, c]
+      - [0xBFB40, c]
+      - [0xC1580, c]
+      - [0xC1BA0, c]
+      - [0xC1D60, c]
+      - [0xC4430, c]
+      - [0xC45D0, c]
+      - [0xC5770, c]
+      - [0xC9330, c]
+      - [0xC9690, c]
+      - [0xCA640, c]
+      - [0xCCD20, c]
+      - [0xD1190, c]
+      - [0xD28F0, c]
+      - [0xD3450, c]
+      - [0xD5B20, c]
+      - [0xDBE50, c]
+      - [0xDC0D0, c]
+      - [0xDC4E0, c]
+      - [0xDFD60, c]
+      - [0xE3CD0, c]
+      - [0xE78B0, c]
+      - [0xE7AE0, c]
+      - [0xE8BE0, data] #80100E10
+      - [0xE9A00, .rodata, BECB0]
+      - [0xE9A18, .rodata, BFB40]
+      - [0xE9FD8, .rodata, C1580]
+      - [0xEA060, .rodata, C1D60]
+      - [0xEA0D0, .rodata, C45D0]
+      - [0xEA130, .rodata, C5770]
+      - [0xEA220, .rodata, CA640]
+      - [0xEA330, .rodata, D5B20]
+      - [0xEA488, .rodata, DC4E0]
+      - [0xEA4F8, .rodata, DFD60]
+      - [0xEA5C8, .rodata, E3CD0]
+      - [0xEA778, .rodata, E78B0]
+      #- [0xE9A00, rodata] #80101C30
       - {0xEA790, type: bss, vram: 0x801029C0, name: ovl_81_bss}
 
   - type: code

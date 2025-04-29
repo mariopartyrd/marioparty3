@@ -667,6 +667,11 @@ ShowPlayerCoinChange = 0x800E1F48; //rom:0xF5B68
 PartnersBaseStats = 0x8010186C; //rom:0xE963C size:0xF0 segment:name_81
 Duel_PowerUpPartners = 0x800F87B8; //rom:0xE0588 segment:name_81
 Duel_PowerDownPartners = 0x800F8860; //rom:0xE0630 segment:name_81
+D_80100E50_E8C20_name_81 = 0x80100E50; //rom:0xE8C20 size:0xC segment:name_81
+D_80100E5C_E8C2C_name_81 = 0x80100E5C; //rom:0xE8C2C size:0x8 segment:name_81
+D_80100E64_E8C34_name_81 = 0x80100E64; //rom:0xE8C34 size:0x1F segment:name_81
+D_801026B8_EA488_name_81 = 0x801026B8; //rom:0xEA488 force_migration:true segment:name_81
+D_801026E8_EA4B8_name_81 = 0x801026E8; //rom:0xEA4B8 force_migration:true segment:name_81
 
 GWBoardFlagCheck = 0x80035F98;
 GWBoardFlagSet = 0x80035FDC;

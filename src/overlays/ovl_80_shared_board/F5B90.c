@@ -690,7 +690,8 @@ extern Gfx D_801013D8_114FF8_shared_board[];
 extern u8* D_80105220_118E40_shared_board[]; //space form images
 extern f32 D_80105290_118EB0_shared_board[];
 extern s32 D_801052B0_118ED0_shared_board;
-u8 (*D_801012C4_114EE4_shared_board)[0x80];
+// u8 (*D_801012C4_114EE4_shared_board)[16][0x80]; //correct definition
+u8 (*D_801012C4_114EE4_shared_board)[128];
 
 void DrawSpaces(Gfx** arg0, s32 arg1, s32 arg2) {
     Gfx** gfxPos = arg0;
