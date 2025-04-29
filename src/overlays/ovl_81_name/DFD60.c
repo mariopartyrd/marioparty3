@@ -17,19 +17,18 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F82EC_E00BC_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8358_E0128_name_81);
 
-void func_800F8418_E01E8_name_81(s32 arg0, s32 partnerID, s32 arg2) {
-    GW_PLAYER* player;
+void func_800F8418_E01E8_name_81(s32 playerIndex, s32 partnerID, s32 frontOrBackIndex) {
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
 
-    player = DuelGetPlayerStruct(arg0);
-    switch (arg2) {
-        case 0:
+    switch (frontOrBackIndex) {
+        case PARTNER_FRONT:
         player->stats.partners.frontID = partnerID;
         player->stats.partners.frontPoweredUp = POWERUP_NONE;
         player->stats.partners.frontHp = PartnersBaseStats[partnerID].hp;
         player->stats.partners.frontCost = PartnersBaseStats[partnerID].cost;
         player->stats.partners.frontPower = PartnersBaseStats[partnerID].power;
         break;
-    case 1:
+    case PARTNER_BACK:
         player->stats.partners.backID = partnerID;
         player->stats.partners.backPoweredUp = POWERUP_NONE;
         player->stats.partners.backHp = PartnersBaseStats[partnerID].hp;
@@ -37,33 +36,36 @@ void func_800F8418_E01E8_name_81(s32 arg0, s32 partnerID, s32 arg2) {
         player->stats.partners.backPower = PartnersBaseStats[partnerID].power;
         break;
     }
+
     if (player->stats.partners.frontID != PARTNER_NONE) {
         player->stats.partners.frontPower = PartnersBaseStats[player->stats.partners.frontID].power;
         player->stats.partners.frontCost = PartnersBaseStats[player->stats.partners.frontID].cost;
     }
+
     if (player->stats.partners.backID != PARTNER_NONE) {
         player->stats.partners.backPower = PartnersBaseStats[player->stats.partners.backID].power;
         player->stats.partners.backCost = PartnersBaseStats[player->stats.partners.backID].cost;
     }
-    if (arg0 == 0) {
+
+    if (playerIndex == 0) {
         GWBoardFlagClear(0x12);
     } else {
         GWBoardFlagClear(0x13);
     }
 }
 
-void func_800F85A4_E0374_name_81(s32 arg0, s32 frontOrBackBool) {
-    GW_PLAYER* player = DuelGetPlayerStruct(arg0);
+void func_800F85A4_E0374_name_81(s32 playerIndex, s32 frontOrBackIndex) {
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
 
-    switch (frontOrBackBool) {
-    case 0:
+    switch (frontOrBackIndex) {
+    case PARTNER_FRONT:
         player->stats.partners.frontID = PARTNER_NONE;
         player->stats.partners.frontPoweredUp = 0;
         player->stats.partners.frontHp = 0;
         player->stats.partners.frontCost = 0;
         player->stats.partners.frontPower = 0;
         break;
-    case 1:
+    case PARTNER_BACK:
         player->stats.partners.backID = PARTNER_NONE;
         player->stats.partners.backPoweredUp = 0;
         player->stats.partners.backHp = 0;
@@ -80,44 +82,48 @@ void func_800F85A4_E0374_name_81(s32 arg0, s32 frontOrBackBool) {
         player->stats.partners.backPower = PartnersBaseStats[player->stats.partners.backID].power * player->stats.partners.backPoweredUp;
         player->stats.partners.backCost = PartnersBaseStats[player->stats.partners.backID].cost * player->stats.partners.backPoweredUp;
     }
-    if (arg0 == 0) {
+
+    //TODO: what are these flags?
+    if (playerIndex == 0) {
         GWBoardFlagClear(0x12);
     } else {
         GWBoardFlagClear(0x13);
     }
 }
 
-void func_800F86F8_E04C8_name_81(s32 arg0) {
-    GW_PLAYER* temp_v0 = DuelGetPlayerStruct(arg0);
-    s32 frontID = temp_v0->stats.partners.frontID;
-    s32 frontHP = temp_v0->stats.partners.frontHp;
-    s32 frontPoweredUp = temp_v0->stats.partners.frontPoweredUp;
-    s32 frontCost = temp_v0->stats.partners.frontCost;
-    s32 frontPower = temp_v0->stats.partners.frontPower;
-    Object* temp;
+//swaps front and back partners for playerIndex player
+void Duel_SwapPartnerPositions(s32 playerIndex) {
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    s32 frontID = player->stats.partners.frontID;
+    s32 frontHP = player->stats.partners.frontHp;
+    s32 frontPoweredUp = player->stats.partners.frontPoweredUp;
+    s32 frontCost = player->stats.partners.frontCost;
+    s32 frontPower = player->stats.partners.frontPower;
+    Object* tempPartner;
 
-    temp_v0->stats.partners.frontID = temp_v0->stats.partners.backID;
-    temp_v0->stats.partners.frontHp = temp_v0->stats.partners.backHp;
-    temp_v0->stats.partners.frontPoweredUp = temp_v0->stats.partners.backPoweredUp;
-    temp_v0->stats.partners.frontCost = temp_v0->stats.partners.backCost;
-    temp_v0->stats.partners.frontPower = temp_v0->stats.partners.backPower;
-    temp_v0->stats.partners.backID = frontID;
-    temp_v0->stats.partners.backHp = frontHP;
-    temp_v0->stats.partners.backPoweredUp = frontPoweredUp;
-    temp_v0->stats.partners.backCost = frontCost;
-    temp_v0->stats.partners.backPower = frontPower;
+    player->stats.partners.frontID = player->stats.partners.backID;
+    player->stats.partners.frontHp = player->stats.partners.backHp;
+    player->stats.partners.frontPoweredUp = player->stats.partners.backPoweredUp;
+    player->stats.partners.frontCost = player->stats.partners.backCost;
+    player->stats.partners.frontPower = player->stats.partners.backPower;
 
-    temp = D_80105450_ED220_name_81[arg0][0];
-    D_80105450_ED220_name_81[arg0][0] = D_80105450_ED220_name_81[arg0][1];
-    D_80105450_ED220_name_81[arg0][1] = temp;
+    player->stats.partners.backID = frontID;
+    player->stats.partners.backHp = frontHP;
+    player->stats.partners.backPoweredUp = frontPoweredUp;
+    player->stats.partners.backCost = frontCost;
+    player->stats.partners.backPower = frontPower;
 
-    func_800ED214_D4FE4_name_81(arg0);
-    func_800F5BB4_DD984_name_81(arg0);
-    func_800F5EB0_DDC80_name_81(arg0);
+    tempPartner = Duel_PartnerObjects[playerIndex][PARTNER_FRONT];
+    Duel_PartnerObjects[playerIndex][PARTNER_FRONT] = Duel_PartnerObjects[playerIndex][PARTNER_BACK];
+    Duel_PartnerObjects[playerIndex][PARTNER_BACK] = tempPartner;
+
+    func_800ED214_D4FE4_name_81(playerIndex);
+    func_800F5BB4_DD984_name_81(playerIndex);
+    func_800F5EB0_DDC80_name_81(playerIndex);
 }
 
 void Duel_PowerUpPartners(s32 playerIndex) {
-    GW_PLAYER* player = DuelGetPlayerStruct(playerIndex);
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
 
     if ((player->stats.partners.frontID != PARTNER_NONE)
         && (player->stats.partners.frontPoweredUp == POWERUP_NONE)) {
@@ -136,10 +142,10 @@ void Duel_PowerUpPartners(s32 playerIndex) {
 }
 
 void Duel_PowerDownPartners(s32 playerIndex) {
-    GW_PLAYER* player = DuelGetPlayerStruct(playerIndex);
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
     
     if ((player->stats.partners.frontID != PARTNER_NONE) && (player->stats.partners.frontPoweredUp == POWERUP_ACTIVE)) {
-        player->stats.partners.frontPoweredUp = 1;
+        player->stats.partners.frontPoweredUp = POWERUP_NONE;
         player->stats.partners.frontHp = (player->stats.partners.frontHp + 1) / 2;
         player->stats.partners.frontCost = player->stats.partners.frontCost / 2;
         player->stats.partners.frontPower = player->stats.partners.frontPower / 2;
@@ -152,12 +158,12 @@ void Duel_PowerDownPartners(s32 playerIndex) {
     }
 }
 
-Object* func_800F8960_E0730_name_81(s32 arg0, s32 arg1) {
-    return D_80105450_ED220_name_81[arg0][arg1];
+Object* Duel_GetPlayerPartnerRef(s32 playerIndex, s32 frontOrBackIndex) {
+    return Duel_PartnerObjects[playerIndex][frontOrBackIndex];
 }
 
 s32 func_800F8980_E0750_name_81(s32 playerIndex) {
-    GW_PLAYER* player = DuelGetPlayerStruct(playerIndex);
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
     s32 totalPartnerCost = 0;
     
     if (player->stats.partners.frontID != PARTNER_NONE) {

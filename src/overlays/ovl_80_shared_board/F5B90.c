@@ -670,18 +670,18 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EA6E0
 
 void func_80012640_13240(s32, Gfx**);
 void func_800127C4_133C4(s32, Gfx**);
-void func_80017C10_18810(void*, f32, f32, f32); //fix arg0 type
-void func_80017CD0_188D0(void*, f32, f32, f32); //fix arg0 type
-void func_800185A4_191A4(void*, f32); //fix arg0 type
+void func_80017C10_18810(Mtx*, f32, f32, f32);
+void func_80017CD0_188D0(Mtx*, f32, f32, f32);
+void func_800185A4_191A4(Mtx*, f32);
 u16 func_8004D6AC_4E2AC(s32, s32, s32);
 void func_8004D6E8_4E2E8(s16);
-void func_800898F0_8A4F0(void*, s32); //fix arg0 type
-void func_80089980_8A580(void*, s32); //fix arg0 type
+void func_800898F0_8A4F0(Mtx*, Mtx*);
+void func_80089980_8A580(Mtx*, Mtx*);
 void func_800E989C_FD4BC_shared_board(void*);
 extern Addr D_101358;
 extern Addr D_101398;
-extern u16 D_800CCF28_CDB28;
-extern s32 D_800D1F68_D2B68;
+extern s16 D_800CCF28_CDB28;
+extern Mtx* D_800D1F68_D2B68;
 extern u16 D_80105210_118E30_shared_board;
 extern s16 D_80105260_118E80_shared_board;
 extern u16 D_80105262_118E82_shared_board;
@@ -690,14 +690,13 @@ extern Gfx D_801013D8_114FF8_shared_board[];
 extern u8* D_80105220_118E40_shared_board[]; //space form images
 extern f32 D_80105290_118EB0_shared_board[];
 extern s32 D_801052B0_118ED0_shared_board;
-// u8 (*D_801012C4_114EE4_shared_board)[16][0x80]; //correct definition
-u8 (*D_801012C4_114EE4_shared_board)[128];
+extern u8 (*D_801012C4_114EE4_shared_board)[SPACES_MAX];
 
-void DrawSpaces(Gfx** arg0, s32 arg1, s32 arg2) {
+void DrawSpaces(Gfx** arg0, Mtx* arg1, s32 arg2) {
     Gfx** gfxPos = arg0;
-    char sp10[0x40]; //unknown type and size
+    Mtx sp10;
     char sp50[4]; //unknown type and size
-    s32 sp5C;
+    Mtx* sp5C;
     u8* sp64;
     u8* sp6C;
     s32 sp74;
@@ -706,7 +705,7 @@ void DrawSpaces(Gfx** arg0, s32 arg1, s32 arg2) {
     s32 sp94;
     SpaceData* temp_s0;
     s16 var_v0;
-    s32 temp_s0_3;
+    Mtx* temp_s0_3;
     s32 i, j;
     s32 var_s5;
     u32 temp_s4;
@@ -761,13 +760,13 @@ void DrawSpaces(Gfx** arg0, s32 arg1, s32 arg2) {
                         break;
                     }
                     temp_s0 = GetSpaceData(spaceId);
-                    func_80089980_8A580(&sp10, sp5C + 0x40);
+                    func_80089980_8A580(&sp10, &sp5C[1]);
                     func_80017C10_18810(&sp10, temp_s0->coords.x, temp_s0->coords.y, temp_s0->coords.z);
                     if ((i == 0xD) && (var_s5 < D_801052B0_118ED0_shared_board)) {
                         func_800185A4_191A4(&sp10, D_80105290_118EB0_shared_board[var_s5++]);
                     }
                     func_80017CD0_188D0(&sp10, temp_s0->rot.x, 1.0f, temp_s0->rot.z);
-                    temp_s0_3 = ((s32) (D_800CCF28_CDB28++ << 0x10) >> 0xA) + D_800D1F68_D2B68;
+                    temp_s0_3 = &D_800D1F68_D2B68[D_800CCF28_CDB28++];
                     func_800898F0_8A4F0(&sp10, temp_s0_3);
                     gSPMatrix((*gfxPos)++, OS_K0_TO_PHYSICAL(temp_s0_3), G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
                     gSPVertex((*gfxPos)++, sp64, 4, 0);
@@ -841,7 +840,7 @@ void func_800EBDAC_FF9CC_shared_board(void) {
     if (D_801012C4_114EE4_shared_board != NULL) {
         HuMemMemoryFreeTemp(D_801012C4_114EE4_shared_board);
     }
-    D_801012C4_114EE4_shared_board = HuMemMemoryAllocTemp(0x800);
+    D_801012C4_114EE4_shared_board = HuMemMemoryAllocTemp(SPACE_TYPES_TOTAL * SPACES_MAX);
     for (i = 0; i < 16; i++) {
         var_s0 = 0;
 

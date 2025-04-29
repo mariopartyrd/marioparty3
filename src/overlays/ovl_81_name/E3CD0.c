@@ -19,11 +19,10 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FC198_E3F68_n
 
 void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     Process* temp_v0_2;
-    Object* temp_a0;
     UnkOvl81_1* temp_v0_3;
     s32 frontPartnerID;
     s32 backPartnerID;
-    Object* temp_v0;
+    Object* playerObj;
     s32 i;
 
     func_800E8D10_D0AE0_name_81();
@@ -40,15 +39,14 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     func_800F3DFC_DBBCC_name_81(0);
     func_800F3DFC_DBBCC_name_81(1);
     for (i = 0; i < 2; i++) {
-        func_800D8944_C0714_name_81(DuelGetPlayerStruct(i)->player_obj);
-        temp_v0 = DuelGetPlayerStruct(i)->player_obj;
-        temp_v0->unkA |= 2;
-        temp_a0 = DuelGetPlayerStruct(i)->player_obj;
-        func_800D8E88_C0C58_name_81(temp_a0);
+        func_800D8944_C0714_name_81(Duel_GetPlayerStruct(i)->player_obj);
+        playerObj = Duel_GetPlayerStruct(i)->player_obj;
+        playerObj->unkA |= 2;
+        func_800D8E88_C0C58_name_81(Duel_GetPlayerStruct(i)->player_obj);
     }
 
-    func_8001FDE8_209E8(DuelGetPlayerStruct(0)->player_obj->unk3C->model[0]);
-    func_8001FDE8_209E8(DuelGetPlayerStruct(1)->player_obj->unk3C->model[0]);
+    func_8001FDE8_209E8(Duel_GetPlayerStruct(0)->player_obj->unk3C->model[0]);
+    func_8001FDE8_209E8(Duel_GetPlayerStruct(1)->player_obj->unk3C->model[0]);
     func_800F8C68_E0A38_name_81(0);
     func_800F8C68_E0A38_name_81(1);
     func_800F4300_DC0D0_name_81();

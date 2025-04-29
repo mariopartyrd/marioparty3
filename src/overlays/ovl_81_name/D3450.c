@@ -86,24 +86,26 @@ void func_800ED214_D4FE4_name_81(s32 playerIndex) {
     Vec sp10;
     Vec sp20;
     GW_PLAYER* player;
-    Object* temp_v0;
+    Object* partner;
 
-    player = DuelGetPlayerStruct(playerIndex);
+    player = Duel_GetPlayerStruct(playerIndex);
     func_800ECF1C_D4CEC_name_81(playerIndex, &sp10, &sp20);
+
     if (player->stats.partners.frontID != PARTNER_NONE) {
-        temp_v0 = func_800F8960_E0730_name_81(playerIndex, 0);
-        HuVecCopy3F(&temp_v0->coords, &player->player_obj->coords);
-        HuVecAdd(&temp_v0->coords, &temp_v0->coords, &sp10);
+        partner = Duel_GetPlayerPartnerRef(playerIndex, PARTNER_FRONT);
+        HuVecCopy3F(&partner->coords, &player->player_obj->coords);
+        HuVecAdd(&partner->coords, &partner->coords, &sp10);
         func_800D7828_BF5F8_name_81(&sp10);
-        HuVecCopy3F(&temp_v0->unk18, &sp10);
+        HuVecCopy3F(&partner->unk18, &sp10);
     }
+
     if (player->stats.partners.backID != PARTNER_NONE) {
-        temp_v0 = func_800F8960_E0730_name_81(playerIndex, 1);
-        HuVecCopy3F(&temp_v0->coords, &player->player_obj->coords);
-        HuVecAdd(&temp_v0->coords, &temp_v0->coords, &sp20);
+        partner = Duel_GetPlayerPartnerRef(playerIndex, PARTNER_BACK);
+        HuVecCopy3F(&partner->coords, &player->player_obj->coords);
+        HuVecAdd(&partner->coords, &partner->coords, &sp20);
         func_800D7828_BF5F8_name_81(&sp20);
         func_800D7934_BF704_name_81(&sp20, 180.0f);
-        HuVecCopy3F(&temp_v0->unk18, &sp20);
+        HuVecCopy3F(&partner->unk18, &sp20);
     }
 }
 

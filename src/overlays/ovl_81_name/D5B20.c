@@ -184,7 +184,7 @@ s16 DuelGetCurrentPlayerIndex(void){
     return GwSystem.current_player_index;
 }
 
-GW_PLAYER* DuelGetPlayerStruct(s32 player) {
+GW_PLAYER* Duel_GetPlayerStruct(s32 player) {
     if (player < 0) {
         player = DuelGetCurrentPlayerIndex();
     }

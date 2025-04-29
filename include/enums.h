@@ -3,6 +3,9 @@
 
 #include "common.h"
 
+#define SPACE_TYPES_TOTAL 16
+#define SPACES_MAX 128
+
 enum ITEMS {
     ITEM_NONE = -1,
     ITEM_MUSHROOM = 0,
