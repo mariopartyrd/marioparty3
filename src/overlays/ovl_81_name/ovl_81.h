@@ -73,3 +73,4 @@ void func_800F85A4_E0374_name_81(s32 playerIndex, s32 frontOrBackIndex);
 void func_800D90D0_C0EA0_name_81(Object*, s16, u16);
 s16 Duel_GetCurrentPlayerIndex(void);
 void func_800D918C_C0F5C_name_81(Object*, s16, s16, s16, s32);
+s32 func_800EFE20_D7BF0_name_81(f32);

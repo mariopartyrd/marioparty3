@@ -343,13 +343,149 @@ s32 func_800F8AEC_E08BC_name_81(s32 playerIndex, s32 arg1, s16 arg2, s16 arg3, u
     return partnerCount;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8C68_E0A38_name_81);
+void func_800F8C68_E0A38_name_81(s32 arg0) {
+    Object* frontPartnerObj = Duel_PartnerObjects[arg0][0];
+    Object* backPartnerObj;
+    
+    if (frontPartnerObj != NULL) {
+        func_8001FDE8_209E8(frontPartnerObj->unk3C->model[0]);
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8CD8_E0AA8_name_81);
+    backPartnerObj = Duel_PartnerObjects[arg0][1];
+    if (backPartnerObj != NULL) {
+        func_8001FDE8_209E8(backPartnerObj->unk3C->model[0]);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8D9C_E0B6C_name_81);
+void func_800F8CD8_E0AA8_name_81(s32 playerIndex, f32 arg1) {
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8EB8_E0C88_name_81);
+    if (playerIndex == PARTNER_NONE) {
+        playerIndex = Duel_GetCurrentPlayerIndex();
+    }
+    
+    if (player->stats.partners.frontID != PARTNER_NONE) {
+        func_8001C92C_1D52C(Duel_PartnerObjects[playerIndex][0]->unk3C->model[0], arg1);
+    }
+    
+    if (player->stats.partners.backID != PARTNER_NONE) {
+        func_8001C92C_1D52C(Duel_PartnerObjects[playerIndex][1]->unk3C->model[0], arg1);
+    }
+}
+
+void func_800F8D9C_E0B6C_name_81(s32 arg0, s32* arg1, s32* arg2) {
+    GW_PLAYER* curPlayer = NULL;
+    GW_PLAYER* opponent = NULL;
+    s32 i;
+    
+    for (i = 0; i < 2; i++) {
+        if (i == Duel_GetCurrentPlayerIndex()) {
+            curPlayer = Duel_GetPlayerStruct(i);
+        } else {
+            opponent = Duel_GetPlayerStruct(i);
+        }
+    }
+
+    switch (arg0) {
+    case 0:
+        *arg1 = curPlayer->stats.partners.frontID;
+        *arg2 = opponent->stats.partners.backID;
+        return;
+    case 1:
+        *arg1 = curPlayer->stats.partners.backID;
+        *arg2 = opponent->stats.partners.frontID;
+        return;
+    case 2:
+        *arg1 = curPlayer->stats.partners.backID;
+        *arg2 = opponent->stats.partners.backID;
+        return;
+    case 3:
+        *arg1 = curPlayer->stats.partners.frontID;
+        *arg2 = opponent->stats.partners.frontID;
+        return;
+    }
+}
+
+//what does this do?
+void func_800F8EB8_E0C88_name_81(u32 arg0, s32 arg1, s32* arg2, s32* arg3) {
+    *arg3 = 0;
+    
+    switch (arg0) {
+    case 0:
+    case 1:
+    case 2:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 10:
+        break;
+    case 3:
+        *arg2 = -*arg2;
+        break;
+    case 9:
+        if (arg1 != -1) {
+            *arg2 = 100;
+        } else {
+            *arg2 = 0;
+        }
+        break;
+    case 11:
+        if (func_800EFE20_D7BF0_name_81(100.0f) < 40) {
+            *arg2 *= 3;
+        } else {
+            *arg2 = 0;
+        }
+        break;
+    case 8:
+        if (*arg2 == 4) {
+            *arg2 = 0xCA;
+        } else if (*arg2 == 2) {
+            *arg2 = 0xC9;
+        } else {
+            *arg2 = 0xC8;
+        }
+        break;
+    }
+
+    if (*arg2 > 0) {
+        if ((*arg2 - 0xC8) >= 2U) {
+            if (*arg2 != 0xCA) {
+                if (arg1 != -1) {
+                    if (func_800EFE20_D7BF0_name_81(10.0f) == 0) {
+                        *arg2 = 0x12C;
+                    }
+                }
+            }
+        }
+    }
+
+    if (arg1 != -1) {
+        if (arg1 == 4) {
+            if (*arg2 == 0xC8) {
+                *arg3 = 1;
+            } else if (*arg2 == 0xC9) {
+                *arg3 = 2;
+            } else if (*arg2 == 0xCA) {
+                *arg3 = 4;
+            } else {
+                if ((*arg2 > 0) && (*arg2 != 0x64)) {
+                    if (*arg2 != 0x12C) {
+                        *arg3 = *arg2;
+                    }
+                }                
+            }
+        }
+    } else {
+        if ((*arg2 > 0) && ((u32)(*arg2 - 0xC8) >= 2U) && (*arg2 != 0xCA)) {
+            *arg2 = -*arg2;
+        }
+    }
+
+    if ((*arg3 > 0) && ((u32)(*arg3 - 0xC8) >= 2U) && (*arg3 != 0xCA) && (func_800EFE20_D7BF0_name_81(10.0f) == 0)) {
+        *arg3 = 0x12C;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F90BC_E0E8C_name_81);
 

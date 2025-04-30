@@ -87,7 +87,17 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/D5B20", func_800EFC28_D79F8_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/D5B20", func_800EFD24_D7AF4_name_81);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/D5B20", func_800EFE20_D7BF0_name_81);
+s32 func_800EFE20_D7BF0_name_81(f32 arg0) { //800EEF80 in party mode
+    // rand8 returns an unsigned byte
+    u8 randomByte1 = rand8();
+    u8 randomByte2 = rand8();
+    s32 shiftedByte1 = (randomByte1 << 8);
+
+    // Normalize the 16-bit number to the range [0, 1), then multiply by arg0
+    s32 scaledRandom = ((randomByte2 | shiftedByte1) / 65536.0f) * arg0;
+    
+    return scaledRandom;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/D5B20", func_800EFE8C_D7C5C_name_81);
 

@@ -129,5 +129,6 @@ void func_80060394_60F94(s32, s16*, s32);
 void func_80061388_61F88(s16);
 void func_8001F304_1FF04(s16, s16);
 void HuVecSubtract(Vec * dest, Vec * a, Vec * b);
+void func_8001C92C_1D52C(s16, f32);
 
 #endif
