@@ -1,21 +1,133 @@
 #include "common.h"
 #include "ovl_81.h"
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F7F90_DFD60_name_81);
+void func_800F7F90_DFD60_name_81(void) {
+    s32 i, j;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F7FDC_DFDAC_name_81);
+    for (i = 0; i < 2; i++) {
+        for (j = 0; j < 2; j++){
+            Duel_PartnerObjects[i][j] = NULL;
+        }
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8034_DFE04_name_81);
+void func_800F7FDC_DFDAC_name_81(void) {
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8050_DFE20_name_81);
+    for (i = 0; i < 2; i++) {
+        func_800F82EC_E00BC_name_81(i);
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8108_DFED8_name_81);
+    if (D_8010195C_E972C_name_81 != 0) {
+        omDelPrcObj(D_8010195C_E972C_name_81);
+        D_8010195C_E972C_name_81 = 0;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F821C_DFFEC_name_81);
+//partnerIndex arg goes unused?
+Object* func_800F8034_DFE04_name_81(s32 partnerIndex) {
+    return func_800F8050_DFE20_name_81(7);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F82EC_E00BC_name_81);
+Object* func_800F8050_DFE20_name_81(s32 partnerIndex) {
+    Object* obj = func_800D8010_BFDE0_name_81(PartnersBaseStats[partnerIndex].unk_00, D_801017DC_E95AC_name_81[partnerIndex]);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8358_E0128_name_81);
+    if (partnerIndex == PARTNER_BOO) {
+        func_8001FA68_20668(obj->unk3C->model[0]);
+        func_8001F9E4_205E4(obj->unk3C->model[0], 0xFF);
+        func_8001FA68_20668(obj->unk40->model[0]);
+        func_8001F9E4_205E4(obj->unk40->model[0], 0xFF);
+    }
+
+    func_800D8944_C0714_name_81(obj);
+    return obj;
+}
+
+void func_800F8108_DFED8_name_81(s32 playerIndex) {
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    
+    if (Duel_PartnerObjects[playerIndex][0] != NULL) {
+        func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][0]);
+        Duel_PartnerObjects[playerIndex][0] = NULL;
+    }
+
+    if (player->stats.partners.frontID != -1) {
+        if (player->stats.partners.frontID == 7) {
+            Duel_PartnerObjects[playerIndex][0] = func_800F8034_DFE04_name_81(playerIndex);
+        } else {
+            Duel_PartnerObjects[playerIndex][0] = func_800F8050_DFE20_name_81(player->stats.partners.frontID);
+        }
+    }
+
+    if (Duel_PartnerObjects[playerIndex][1] != 0) {
+        func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][1]);
+        Duel_PartnerObjects[playerIndex][1] = 0;
+    }
+
+    if (player->stats.partners.backID != -1) {
+        if (player->stats.partners.backID == 7) {
+            Duel_PartnerObjects[playerIndex][1] = func_800F8034_DFE04_name_81(playerIndex);
+        } else {
+            Duel_PartnerObjects[playerIndex][1] = func_800F8050_DFE20_name_81(player->stats.partners.backID);
+        }
+    }
+}
+
+void func_800F821C_DFFEC_name_81(s32 playerIndex, s32 partnerIndex) {
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    Object* partnerObj = Duel_PartnerObjects[playerIndex][partnerIndex];
+    s32 partnerID;
+    
+    if (partnerObj != NULL) {
+        func_800D8F3C_C0D0C_name_81(partnerObj);
+        Duel_PartnerObjects[playerIndex][partnerIndex] = NULL;
+    }
+    
+    if (partnerIndex == 0) {
+        partnerID = player->stats.partners.frontID;
+    } else {
+        partnerID = player->stats.partners.backID;
+    }
+    
+    if (partnerID != PARTNER_NONE) {
+        if (partnerID == PARTNER_PIRANHA_PLANT) {
+            Duel_PartnerObjects[playerIndex][partnerIndex] = func_800F8034_DFE04_name_81(playerIndex);
+        } else {
+            Duel_PartnerObjects[playerIndex][partnerIndex] = func_800F8050_DFE20_name_81(partnerID);
+        }
+    }
+}
+
+void func_800F82EC_E00BC_name_81(s32 playerIndex) {
+    s32 i;
+    
+    for (i = 0; i < 2; i++) {
+        if (Duel_PartnerObjects[playerIndex][i] != NULL) {
+            func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][i]);
+            Duel_PartnerObjects[playerIndex][i] = NULL;
+        }
+    }
+}
+
+void func_800F8358_E0128_name_81(s32 playerIndex) {
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+
+    if (player->stats.partners.frontID == PARTNER_NONE) {
+        if (Duel_PartnerObjects[playerIndex][0] != NULL) {
+            func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][0]);
+            Duel_PartnerObjects[playerIndex][0] = NULL;
+            func_800F85A4_E0374_name_81(playerIndex, 0);
+        }
+    }
+    
+    if (player->stats.partners.backID == PARTNER_NONE) {
+        if (Duel_PartnerObjects[playerIndex][1] != NULL) {
+            func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][1]);
+            Duel_PartnerObjects[playerIndex][1] = 0;
+            func_800F85A4_E0374_name_81(playerIndex, 1);
+        }
+    }
+}
 
 void func_800F8418_E01E8_name_81(s32 playerIndex, s32 partnerID, s32 frontOrBackIndex) {
     GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
@@ -175,9 +287,61 @@ s32 func_800F8980_E0750_name_81(s32 playerIndex) {
     return totalPartnerCost;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F89D0_E07A0_name_81);
+s32 func_800F89D0_E07A0_name_81(s32 playerIndex, s32 frontOrBackIndex, s16 arg2, s16 arg3) {
+    s32 partnerCount = 0;
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    
+    if (playerIndex == CUR_PLAYER) {
+        playerIndex = Duel_GetCurrentPlayerIndex();
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8AEC_E08BC_name_81);
+    if (frontOrBackIndex == PARTNER_FRONT) {
+        if ((player->stats.partners.frontID != PARTNER_NONE) && (D_801017DC_E95AC_name_81[player->stats.partners.frontID] != NULL)) {
+            func_800D90D0_C0EA0_name_81(Duel_PartnerObjects[playerIndex][0], arg2, arg3);
+            partnerCount++;
+        }
+    }
+
+    if (frontOrBackIndex == PARTNER_BACK) {
+        if ((player->stats.partners.backID != PARTNER_NONE) && (D_801017DC_E95AC_name_81[player->stats.partners.backID] != NULL)) {
+            func_800D90D0_C0EA0_name_81(Duel_PartnerObjects[playerIndex][1], arg2, arg3);
+            partnerCount++;
+        }
+    }
+    return partnerCount;
+}
+
+s32 func_800F8AEC_E08BC_name_81(s32 playerIndex, s32 arg1, s16 arg2, s16 arg3, u16 arg4, u16 flags) {
+    s32 partnerCount = 0;
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    u16 flagsCopy = flags;
+    
+    if (playerIndex == CUR_PLAYER) {
+        playerIndex = Duel_GetCurrentPlayerIndex();
+    }
+    
+    if (arg1 == 0) {
+        if ((player->stats.partners.frontID != PARTNER_NONE) && (D_801017DC_E95AC_name_81[player->stats.partners.frontID] != NULL)) {
+            if (player->stats.partners.frontID == PARTNER_THWOMP) {
+                flagsCopy &= ~4;
+            }
+            func_800D918C_C0F5C_name_81(Duel_PartnerObjects[playerIndex][0], arg2, arg3, arg4, flagsCopy);
+            partnerCount++;
+        }
+    }
+    
+    if (arg1 == 1) {
+        if ((player->stats.partners.backID != PARTNER_NONE) && (D_801017DC_E95AC_name_81[player->stats.partners.backID] != NULL)) {
+            if (player->stats.partners.backID == PARTNER_THWOMP) {
+                flags &= ~4;
+            }
+            func_800D918C_C0F5C_name_81(Duel_PartnerObjects[playerIndex][1], arg2, arg3, arg4, flags);
+            partnerCount++;
+        }
+    }
+    
+    return partnerCount;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F8C68_E0A38_name_81);
 

@@ -661,7 +661,7 @@ _CheckFlag = 0x80035EB0; //rom:0x36AB0
 _SetFlag = 0x80035EF4; //rom:0x36AF4
 _ClearFlag = 0x80035F44; //rom:0x36B44
 SprPriSet = 0x80055294; //rom:0x55E94
-DuelGetCurrentPlayerIndex = 0x800F3750; //rom:0xDB520 segment:name_81
+Duel_GetCurrentPlayerIndex = 0x800F3750; //rom:0xDB520 segment:name_81
 Duel_GetPlayerStruct = 0x800F375C; //rom:0xDB52C segment:name_81
 ShowPlayerCoinChange = 0x800E1F48; //rom:0xF5B68
 PartnersBaseStats = 0x8010186C; //rom:0xE963C size:0xF0 segment:name_81
@@ -674,7 +674,7 @@ D_801026B8_EA488_name_81 = 0x801026B8; //rom:0xEA488 force_migration:true segmen
 D_801026E8_EA4B8_name_81 = 0x801026E8; //rom:0xEA4B8 force_migration:true size:0x40 type:jtbl segment:name_81
 Duel_SwapPartnerPositions = 0x800F86F8; //rom:0xE04C8 segment:name_81
 Duel_GetPlayerPartnerRef = 0x800F8960; //rom:0xE0730 segment:name_81
-Duel_PartnerObjects = 0x80105450; //rom:0xED220 segment:name_81
+Duel_PartnerObjects = 0x80105450; //rom:0xED220 size:0x10 segment:name_81
 
 GWBoardFlagCheck = 0x80035F98;
 GWBoardFlagSet = 0x80035FDC;

@@ -85,12 +85,11 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/D3450", func_800ED118_D4EE8_n
 void func_800ED214_D4FE4_name_81(s32 playerIndex) {
     Vec sp10;
     Vec sp20;
-    GW_PLAYER* player;
+    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
     Object* partner;
 
-    player = Duel_GetPlayerStruct(playerIndex);
     func_800ECF1C_D4CEC_name_81(playerIndex, &sp10, &sp20);
-
+    
     if (player->stats.partners.frontID != PARTNER_NONE) {
         partner = Duel_GetPlayerPartnerRef(playerIndex, PARTNER_FRONT);
         HuVecCopy3F(&partner->coords, &player->player_obj->coords);
