@@ -65,7 +65,7 @@ void func_8000E3C0_EFC0(void) {
     func_8001A070_1AC70(&HuMemMemoryAllocPerm, &HuMemMemoryFreePerm, D_800D4082_D4C82, D_800CD2F4_CDEF4, D_800D6A56_D7656, D_800D1710_D2310);
     Hu3DCamInit(1);
     pfInit();
-    func_80036380_36F80(strings_jp_ROM_START);
+    func_80036380_36F80(strings_japanese_ROM_START);
     D_800D1F36_D2B36 = 0;
 
     do {

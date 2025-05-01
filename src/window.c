@@ -1,39 +1,53 @@
 #include "common.h"
 #include "malloc.h"
 
+#define WINDOWS_MAX 16
+
 typedef struct TextWindow {
     /* 0x000 */ u8 unk_00;
-    /* 0x001 */ char pad1[3];
+    /* 0x001 */ char pad1[3];                       /* maybe part of unk_00[4]? */
     /* 0x004 */ s8 unk_04;
     /* 0x005 */ u8 unk_05;
-    /* 0x006 */ char pad6[0xA];
+    /* 0x006 */ char pad6[0xA];                     /* maybe part of unk_05[0xB]? */
     /* 0x010 */ u8 unk_10;
-    /* 0x011 */ char pad11[7];
+    /* 0x011 */ char pad11[7];                      /* maybe part of unk_10[8]? */
     /* 0x018 */ s16 unk_18;
     /* 0x01A */ s16 unk_1A;
-    /* 0x01C */ char pad1C[0x10];
+    /* 0x01C */ char pad1C[0x10];                   /* maybe part of unk_1A[9]? */
     /* 0x02C */ s16 unk_2C;
     /* 0x02E */ s16 unk_2E;
-    /* 0x030 */ char pad30[4];
+    /* 0x030 */ char pad30[4];                      /* maybe part of unk_2E[3]? */
     /* 0x034 */ s16 unk_34;
-    /* 0x036 */ char pad36[0x28];
+    /* 0x036 */ char pad36[6];                      /* maybe part of unk_34[4]? */
+    /* 0x03C */ u16 unk3C;                          /* inferred */
+    /* 0x03E */ u16 unk3E;                          /* inferred */
+    /* 0x040 */ char pad40[8];                      /* maybe part of unk3E[5]? */
+    /* 0x048 */ u16 unk48;                          /* inferred */
+    /* 0x04A */ u16 unk4A;                          /* inferred */
+    /* 0x04C */ s16 unk4C;                          /* inferred */
+    /* 0x04E */ char pad4E[6];                      /* maybe part of unk4C[4]? */
+    /* 0x054 */ s16 unk54;                          /* inferred */
+    /* 0x056 */ char pad56[8];                      /* maybe part of unk54[5]? */
     /* 0x05E */ s16 unk5E;
     /* 0x060 */ char pad60[2];
     /* 0x062 */ s16 unk62;
     /* 0x064 */ s16 unk64;
-    /* 0x066 */ char pad66[6];
+    /* 0x066 */ char pad66[6];                      /* maybe part of unk64[4]? */
     /* 0x06C */ s16 unk_6C;
     /* 0x06E */ s16 unk_6E[0xC];
-    /* 0x086 */ char pad86[0x27];
+    /* 0x086 */ char pad86[0x27];                   /* maybe part of unk_6E[2]? */
     /* 0x0AD */ s8 usingStringIDBool[5];
     /* 0x0B2 */ s8 unk_B2[6];
     /* 0x0B8 */ s32 unk_B8[4];
-    /* 0x0C8 */ char padC8[0x1B4];
+    /* 0x0C8 */ char padC8[0x1AC];                  /* maybe part of unk_B8[0x1B]? */
+    /* 0x274 */ s16 unk274;                         /* inferred */
+    /* 0x276 */ s16 unk276;                         /* inferred */
+    /* 0x278 */ char pad278[4];                     /* maybe part of unk276[3]? */
 } TextWindow;                                       /* size = 0x27C */
 
 extern TextWindow* D_800CC69C_CD29C;
 extern u8 D_800A2150_A2D50;
-extern u8 D_800A2151_A2D51;
+extern u8 gLanguageIndex;
 extern s16 D_800BDA50_BE650[12];
 extern s16 D_800BDA68_BE668;
 extern s8 D_800CB99C_CC59C;
@@ -47,7 +61,19 @@ extern u8 D_800D5206_D5E06[5];
 extern s8 D_800D5540_D6140;
 extern s8 D_800D6A26_D7626;
 extern s16 D_800D6B62_D7762;
+extern s32 D_800A25D0_A31D0[];
 
+s16 func_8005A968_5B568(s16, s16, s16, s16, s32, s16);
+s16 func_8005B7B8_5C3B8(s16 win_id, u32 spriteMainFsPair, s16 arg2, s16 arg3, u16 arg4);
+void func_8005BA90_5C690(s16, s16, s16);
+void func_8005BCA4_5C8A4(s16, s16, s16);
+void func_8005BDFC_5C9FC(s16, s32);
+void func_8005BEE0_5CAE0(s16, s32);
+void func_8005C060_5CC60(s16, s32, s32, s32, s32);
+void func_8005D294_5DE94(s16);
+void func_8005F904_60504(void);
+void func_8005FBF8_607F8(s16, s32, s32, s32);
+void func_8005FE90_60A90(s16);
 void func_800554C4_560C4(s32, s32, s32);
 s16 func_80055810_56410(void*);
 s32 func_800364DC_370DC(u32);
@@ -83,10 +109,12 @@ void func_8005A6B0_5B2B0(void) {
     s16 i;
 
     if (D_800A2150_A2D50 == 0) {
-        D_800CC69C_CD29C = HuMemMemoryAllocTemp(sizeof(TextWindow) * 16);
-        for (i = 0; i < 16; i++) {
+        D_800CC69C_CD29C = HuMemMemoryAllocTemp(sizeof(TextWindow) * WINDOWS_MAX);
+
+        for (i = 0; i < WINDOWS_MAX; i++) {
             D_800CC69C_CD29C[i].unk5E = -1;
         }
+        
         D_800CC69C_CD29C[0].unk62 = -1;
         D_800CC69C_CD29C[0].unk64 = 1;
         D_800CC69C_CD29C[0].unk5E = 0;
@@ -96,49 +124,56 @@ void func_8005A6B0_5B2B0(void) {
         D_800D6A26_D7626 = 0;
         D_800D1F34_D2B34 = 0;
         D_800D6B62_D7762 = 0x2710;
-        D_800A2151_A2D51 = GwCommon.unk_01;
-        if (D_800A2151_A2D51 >= 7 || D_800A2151_A2D51 == 0) {
-            D_800A2151_A2D51 = 2;
+        gLanguageIndex = GwCommon.languageIndex;
+
+        if (gLanguageIndex >= LANGUAGE_MAX || gLanguageIndex == LANGUAGE_NONE) {
+            gLanguageIndex = LANGUAGE_ENGLISH;
         }
-        if (D_800A2151_A2D51 == 1) {
-            D_800D1FE4_D2BE4 = HuReadFileTemp(0x2B);
-            func_80036414_37014(strings_jp_ROM_START);
+        if (gLanguageIndex == LANGUAGE_JAPANESE) {
+            D_800D1FE4_D2BE4 = HuReadFileTemp(0x0000002B);
+            func_80036414_37014(strings_japanese_ROM_START);
         } else {
-            D_800D1FE4_D2BE4 = HuReadFileTemp(0x2C);
-            switch (D_800A2151_A2D51) {
-            case 2:
-                func_80036414_37014(strings_en_ROM_START);
+            D_800D1FE4_D2BE4 = HuReadFileTemp(0x0000002C);
+            switch (gLanguageIndex) {
+            case LANGUAGE_ENGLISH:
+                func_80036414_37014(strings_english_ROM_START);
                 break;
-            case 3:
-                func_80036414_37014(strings_fr_ROM_START);
+            case LANGUAGE_FRENCH:
+                func_80036414_37014(strings_french_ROM_START);
                 break;
-            case 4:
-                func_80036414_37014(strings_de_ROM_START);
+            case LANGUAGE_GERMAN:
+                func_80036414_37014(strings_german_ROM_START);
                 break;
-            case 5:
-                func_80036414_37014(strings_es_ROM_START);
+            case LANGUAGE_SPANISH:
+                func_80036414_37014(strings_spanish_ROM_START);
                 break;
-            case 6:
-                func_80036414_37014(strings_it_ROM_START);
+            case LANGUAGE_ITALIAN:
+                func_80036414_37014(strings_italian_ROM_START);
                 break;
             }
         }
+        
         temp_v0_4 = omAddPrcObj(func_8005DDDC_5E9DC, 0x1001, 0x800, 0);
         D_800D040C_D100C = temp_v0_4;
         omPrcSetStatBit(temp_v0_4, 0xA0);
+
         D_800A2150_A2D50 = 1;
         D_800CB99C_CC59C = 0;
-        D_800D4084_D4C84 = HuReadFileTemp(0x29);
-        D_800CE2C4_CEEC4 = HuReadFileTemp(0x2A);
+        D_800D4084_D4C84 = HuReadFileTemp(0x00000029);
+        D_800CE2C4_CEEC4 = HuReadFileTemp(0x0000002A);
+
         for (i = 0; i < ARRAY_COUNT(D_800BDA50_BE650); i++) {
             D_800BDA50_BE650[i] = -1;
         }
-        temp_v0_6 = ReadMainFS(0x33);
+
+        temp_v0_6 = ReadMainFS(0x00000033);
         D_800BDA68_BE668 = func_80055810_56410(temp_v0_6);
         HuFreeFilePerm(temp_v0_6);
+
         for (i = 0; i < ARRAY_COUNT(D_800D5206_D5E06); i++) {
             D_800D5206_D5E06[i] = 0;
         }
+
         D_800D5540_D6140 = 0xC;
         D_800CD2A4_CDEA4 = 0;
     }
@@ -185,13 +220,13 @@ s16 func_8005B7B8_5C3B8(s16 win_id, u32 spriteMainFsPair, s16 arg2, s16 arg3, u1
     void *spriteBytes;
     s16 i;
 
-    for (i = 4; i < 12; i++) {
+    for (i = 4; i < ARRAY_COUNT(window->unk_6E); i++) {
         if (window->unk_6E[i] != -1) {
             continue;
         }
         break;
     }
-    if (i >= 12) {
+    if (i >= ARRAY_COUNT(window->unk_6E)) {
         return -1;
     }
 
@@ -392,7 +427,38 @@ INCLUDE_ASM("asm/nonmatchings/window", func_800610E0_61CE0);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_80061100_61D00);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_80061188_61D88);
+s32 func_80061188_61D88(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, u16 arg5) {
+    TextWindow* temp_s2;
+    s32 temp_v0;
+    s32 temp_s0_2;
+    s32 temp_s1;
+    s32 temp_s0 = arg3 + 2;
+    
+    if ((arg0 != -1) & (arg4 < 0x30)) {
+        arg4 = 0x30;
+    }
+    
+    temp_v0 = func_8005A968_5B568(arg1, arg2, temp_s0, arg4, 0, arg5);
+    func_8005BDFC_5C9FC(temp_v0, 0);
+    temp_s2 = &D_800CC69C_CD29C[temp_v0];
+    func_8005BCA4_5C8A4(temp_v0, temp_s0 / 2, arg4 / 2);
+    func_8005BA90_5C690(temp_v0, (temp_s2->unk3C + temp_s0 / 2), (temp_s2->unk3E + arg4 / 2));
+    temp_s2->unk276 = arg0;
+    
+    if (arg0 != -1) {
+        temp_s2->unk274 = func_8005B7B8_5C3B8(temp_v0, D_800A25D0_A31D0[arg0], (0x18 - temp_s2->unk48), (0x18 - temp_s2->unk4A), 0);
+    }
+    
+    temp_s2->unk54 = 6;
+    temp_s2->unk4C = 6;
+    func_8005BEE0_5CAE0(temp_v0, 0xD0);
+    func_8005C060_5CC60(temp_v0, 1, 0x40, 0xF0, 0xFF);
+    func_8005FBF8_607F8(temp_v0, 0x40, 0x20, 0xB0);
+    func_8005D294_5DE94(temp_v0);
+    func_8005FE90_60A90(temp_v0);
+    func_8005F904_60504();
+    return temp_v0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/window", func_80061388_61F88);
 

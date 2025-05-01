@@ -2,29 +2,44 @@
 #include "game/object.h"
 #include "malloc.h"
 
+typedef enum PartnerObjIndex {
+    /* 0 */ PARTNEROBJINDEX_FRONT,
+    /* 1 */ PARTNEROBJINDEX_BACK,
+    /* 2 */ PARTNEROBJINDEX_MAX,
+} PartnerObjIndex;
+
 #define POWERUP_NONE 1
 #define POWERUP_ACTIVE 2
 
 #define PARTNER_FRONT 0
 #define PARTNER_BACK 1
 
-typedef struct DuelPartnerInitialStats {
-    u8 unk_00;
-    u8 hp;
-    s8 power;
-    s8 cost;
-    char unk_04[0x10];
-} DuelPartnerInitialStats; //sizeof 0x14
+typedef struct PartnerBaseAttributes {
+    /* 0x00 */ u8 unk_00;
+    /* 0x01 */ u8 hp;
+    /* 0x02 */ s8 power;
+    /* 0x03 */ s8 cost;
+    /* 0x04 */ void (*func1)(s16, s32, Vec*, Vec*, s32, s32);
+    /* 0x08 */ void (*func2)(s16, s32, Vec*, Vec*, s32, s32);
+    /* 0x0C */ void (*func3)(void);
+    /* 0x10 */ void (*func4)(void);
+} PartnerBaseAttributes; //sizeof 0x14
 
-extern DuelPartnerInitialStats PartnersBaseStats[];
-extern Object* Duel_PartnerObjects[][2];
+extern PartnerBaseAttributes PartnersBaseStats[];
+extern Object* Duel_PartnerObjects[][PARTNEROBJINDEX_MAX];
 extern s32 D_80101A8C_E985C_name_81;
 extern s32 D_80101A90_E9860_name_81;
 extern s32 D_80101A94_E9864_name_81;
 extern s32 D_80101A98_E9868_name_81;
 extern s16 D_80105494_ED264_name_81;
 extern s16 D_80105496_ED266_name_81;
+extern s32 D_80101980_E9750_name_81;
+extern s32 D_80101984_E9754_name_81;
+extern Object* D_80101988_E9758_name_81;
+extern s32* D_801017DC_E95AC_name_81[];
+extern s32 D_8010195C_E972C_name_81;
 
+void func_800D8F0C_C0CDC_name_81(Object*);
 GW_PLAYER* Duel_GetPlayerStruct(s32 playerIndex);
 Object* Duel_GetPlayerPartnerRef(s32 playerIndex, s32 frontOrBackIndex);
 void func_800ECF1C_D4CEC_name_81(s32, Vec*, Vec*);
@@ -63,8 +78,6 @@ void func_800F82EC_E00BC_name_81(s32);
 void func_8001F9E4_205E4(s16, u8);
 void func_8001FA68_20668(s16);
 Object* func_800D8010_BFDE0_name_81(u8, s32*);
-extern s32* D_801017DC_E95AC_name_81[];
-extern s32 D_8010195C_E972C_name_81;
 Object* func_800F8034_DFE04_name_81(s32);
 Object* func_800F8050_DFE20_name_81(s32);
 void func_800F8108_DFED8_name_81(s32 playerIndex);

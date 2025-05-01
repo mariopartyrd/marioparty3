@@ -162,7 +162,7 @@ typedef struct GW_SYSTEM {
 } GW_SYSTEM; //sizeof 0xA4
 typedef struct GwCommon_s {
 /* 0x00 */ u8 unk_00;
-/* 0x01 */ char unk_01;
+/* 0x01 */ u8 languageIndex;
 /* 0x02 */ u16 mgRecord[8]; //is this still 8 in length like mp1?
 /* 0x12 */ char unk_12[4];
 /* 0x16 */ u8 mgUnlock[7]; //is this still 7 in length like mp1?

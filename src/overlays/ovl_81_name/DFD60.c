@@ -407,93 +407,107 @@ void func_800F8D9C_E0B6C_name_81(s32 arg0, s32* arg1, s32* arg2) {
 }
 
 //what does this do?
-void func_800F8EB8_E0C88_name_81(u32 arg0, s32 arg1, s32* arg2, s32* arg3) {
+void func_800F8EB8_E0C88_name_81(u32 partnerID, s32 arg1, s32* damageAmount, s32* arg3) {
     *arg3 = 0;
     
-    switch (arg0) {
-    case 0:
-    case 1:
-    case 2:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 10:
+    switch (partnerID) {
+    case PARTNER_KOOPA:
+    case PARTNER_GOOMBA:
+    case PARTNER_TOAD:
+    case PARTNER_BOO:
+    case PARTNER_WHOMP:
+    case PARTNER_SNIFIT:
+    case PARTNER_PIRANHA_PLANT:
+    case PARTNER_MR_BLIZZARD:
         break;
-    case 3:
-        *arg2 = -*arg2;
+    case PARTNER_BOB_OMB:
+        *damageAmount = -*damageAmount;
         break;
-    case 9:
+    case PARTNER_THWOMP:
         if (arg1 != -1) {
-            *arg2 = 100;
+            *damageAmount = 100;
         } else {
-            *arg2 = 0;
+            *damageAmount = 0;
         }
         break;
-    case 11:
+    case PARTNER_BABY_BOWSER:
         if (func_800EFE20_D7BF0_name_81(100.0f) < 40) {
-            *arg2 *= 3;
+            *damageAmount *= 3;
         } else {
-            *arg2 = 0;
+            *damageAmount = 0;
         }
         break;
-    case 8:
-        if (*arg2 == 4) {
-            *arg2 = 0xCA;
-        } else if (*arg2 == 2) {
-            *arg2 = 0xC9;
+    case PARTNER_CHOMP:
+        if (*damageAmount == 4) {
+            *damageAmount = 0xCA;
+        } else if (*damageAmount == 2) {
+            *damageAmount = 0xC9;
         } else {
-            *arg2 = 0xC8;
+            *damageAmount = 0xC8;
         }
         break;
     }
 
-    if (*arg2 > 0) {
-        if ((*arg2 - 0xC8) >= 2U) {
-            if (*arg2 != 0xCA) {
+    if (*damageAmount > 0) {
+        if ((*damageAmount < 0xC8) || (*damageAmount >= 0xCA)) {
+            if (*damageAmount != 0xCA) {
                 if (arg1 != -1) {
+                    //related to miss chance potentially? gets a 10% chance of something...
                     if (func_800EFE20_D7BF0_name_81(10.0f) == 0) {
-                        *arg2 = 0x12C;
+                        *damageAmount = 0x12C;
                     }
                 }
             }
         }
     }
 
-    if (arg1 != -1) {
-        if (arg1 == 4) {
-            if (*arg2 == 0xC8) {
+    switch (arg1) {
+        case 4:
+            if (*damageAmount == 0xC8) {
                 *arg3 = 1;
-            } else if (*arg2 == 0xC9) {
+            } else if (*damageAmount == 0xC9) {
                 *arg3 = 2;
-            } else if (*arg2 == 0xCA) {
+            } else if (*damageAmount == 0xCA) {
                 *arg3 = 4;
             } else {
-                if ((*arg2 > 0) && (*arg2 != 0x64)) {
-                    if (*arg2 != 0x12C) {
-                        *arg3 = *arg2;
+                if ((*damageAmount > 0) && (*damageAmount != 0x64)) {
+                    if (*damageAmount != 0x12C) {
+                        *arg3 = *damageAmount;
                     }
                 }                
             }
-        }
-    } else {
-        if ((*arg2 > 0) && ((u32)(*arg2 - 0xC8) >= 2U) && (*arg2 != 0xCA)) {
-            *arg2 = -*arg2;
-        }
+            break;
+
+        case -1:
+            if ((*damageAmount > 0) && ((*damageAmount < 0xC8) || (*damageAmount >= 0xCA)) && (*damageAmount != 0xCA)) {
+                *damageAmount = -*damageAmount;
+            }
+            break;
     }
 
-    if ((*arg3 > 0) && ((u32)(*arg3 - 0xC8) >= 2U) && (*arg3 != 0xCA) && (func_800EFE20_D7BF0_name_81(10.0f) == 0)) {
+    if ((*arg3 > 0) && ((*arg3 < 0xC8) || (*arg3 >= 0xCA)) && (*arg3 != 0xCA) && (func_800EFE20_D7BF0_name_81(10.0f) == 0)) {
         *arg3 = 0x12C;
     }
 }
 
+
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F90BC_E0E8C_name_81);
 
+//https://decomp.me/scratch/D9mX0
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F924C_E101C_name_81);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FA120_E1EF0_name_81);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAB1C_E28EC_name_81);
+void func_800FAB1C_E28EC_name_81(void) {
+    Object* temp_v0;
+
+    D_80101980_E9750_name_81 = 0;
+    D_80101984_E9754_name_81 = 0;
+    temp_v0 = func_800D8010_BFDE0_name_81(0x3C, 0);
+    D_80101988_E9758_name_81 = temp_v0;
+    func_800D8944_C0714_name_81(temp_v0);
+    func_800D8F0C_C0CDC_name_81(D_80101988_E9758_name_81);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAB68_E2938_name_81);
 
