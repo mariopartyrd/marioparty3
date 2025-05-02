@@ -1,7 +1,7 @@
 #include "common.h"
 #include "ovl_81.h"
 
-void func_800F7F90_DFD60_name_81(void) {
+void Duel_ClearPartnerObjects(void) {
     s32 i, j;
 
     for (i = 0; i < 2; i++) {
@@ -29,10 +29,10 @@ Object* func_800F8034_DFE04_name_81(s32 partnerIndex) {
     return func_800F8050_DFE20_name_81(7);
 }
 
-Object* func_800F8050_DFE20_name_81(s32 partnerIndex) {
-    Object* obj = func_800D8010_BFDE0_name_81(PartnersBaseStats[partnerIndex].unk_00, D_801017DC_E95AC_name_81[partnerIndex]);
+Object* func_800F8050_DFE20_name_81(s32 partnerID) {
+    Object* obj = func_800D8010_BFDE0_name_81(PartnersBaseStats[partnerID].unk_00, D_801017DC_E95AC_name_81[partnerID]);
 
-    if (partnerIndex == PARTNER_BOO) {
+    if (partnerID == PARTNER_BOO) {
         func_8001FA68_20668(obj->unk3C->model[0]);
         func_8001F9E4_205E4(obj->unk3C->model[0], 0xFF);
         func_8001FA68_20668(obj->unk40->model[0]);
@@ -533,16 +533,37 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAFAC_E2D7C_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FB038_E2E08_name_81);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FB0B8_E2E88_name_81);
+void func_800FB0B8_E2E88_name_81(Object* arg0, s32 arg1, s32 arg2) {
+    if (arg0->unk8 == 0x2C) {
+        if (D_80101992_E9762_name_81 == 0) {
+            func_800FAEFC_E2CCC_name_81(7);
+        }
+        func_800FB038_E2E08_name_81(arg0, arg1 - 1, arg2);
+        return;
+    }
+    func_800D90D0_C0EA0_name_81(arg0, arg1, arg2);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FB148_E2F18_name_81);
+void func_800FB148_E2F18_name_81(void) {
+    *D_80101968_E9738_name_81 = 0;
+}
 
 void func_800FB158_E2F28_name_81(void) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FB160_E2F30_name_81);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FB524_E32F4_name_81);
+void func_800FB524_E32F4_name_81(void* arg0) {
+    Process* curProcess;
+    Process* newProcess;
+
+    curProcess = HuPrcCurrentGet();
+    newProcess = omAddPrcObj(func_800FB160_E2F30_name_81, 0x1005U, 0, 0);
+    newProcess->user_data = arg0;
+    omPrcSetStatBit(newProcess, 0x80);
+    HuPrcChildLink(curProcess, newProcess);
+    HuPrcChildWait();
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FB59C_E336C_name_81);
 
