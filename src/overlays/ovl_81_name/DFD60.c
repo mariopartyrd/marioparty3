@@ -491,6 +491,51 @@ void func_800F8EB8_E0C88_name_81(u32 partnerID, s32 arg1, s32* damageAmount, s32
 }
 
 
+void func_8005FBA4_607A4(u8*, s32);                     /* extern */
+s32 func_80061188_61D88(s16 arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4, u16 arg5);
+void func_80061A5C_6265C(s16, s32);                      /* extern */
+void func_800EED68_D6B38_name_81(s16, s32);            /* extern */
+void func_800EF3B4_D7184_name_81(s16);                 /* extern */
+
+// void func_800F90BC_E0E8C_name_81(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+//     u8 sp18[64];
+//     u8 spB8[64];
+//     u8 sp98[64];
+//     s16 spD8[2];
+//     s32 temp_v0;
+
+//     if (arg1 != 0) {
+//         func_8005FBA4_607A4(sp98, arg1);
+//         func_8006022C_60E2C(sp98, 0);
+//     }
+//     if (arg2 != 0) {
+//         func_8005FBA4_607A4(spB8, arg2);
+//         func_8006022C_60E2C(spB8, 1);
+//     }
+    
+//     func_8005FBA4_607A4(sp18, arg0);
+//     func_80060394_60F94(1, spD8, sp18);
+//     temp_v0 = func_80061188_61D88(-1, 0xA0 - spD8[0] / 2, 0x78 - spD8[1] / 2, spD8[0], spD8[0], 0);
+    
+//     if (arg1 != 0) {
+//         func_8005B6BC_5C2BC(temp_v0, (u32)sp98, 0);
+//     }
+//     if (arg2 != 0) {
+//         func_8005B6BC_5C2BC(temp_v0, (u32)spB8, 1);
+//     }
+    
+//     func_8005B43C_5C03C(temp_v0, sp18, -1, -1);
+//     func_80061388_61F88(temp_v0);
+    
+//     if (arg3 == -1) {
+//         func_800EF3B4_D7184_name_81(temp_v0);
+//     } else {
+//         func_800EED68_D6B38_name_81(temp_v0, arg3);
+//     }
+//     func_80061A5C_6265C(temp_v0, 0);
+//     func_8005F364_5FF64(temp_v0);
+// }
+
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F90BC_E0E8C_name_81);
 
 void func_800F924C_E101C_name_81(s32 arg0) {
@@ -933,29 +978,125 @@ void func_800FAB1C_E28EC_name_81(void) {
     func_800D8F0C_C0CDC_name_81(D_80101988_E9758_name_81);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAB68_E2938_name_81);
+Process* func_800FAB68_E2938_name_81(s32 arg0, s32 arg1, s16* arg2, f32* arg3, f32* arg4) {
+    Process* temp_v0;
+    u8* temp_a0;
+    UnkBoard5* temp_v0_2;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAC1C_E29EC_name_81);
+    temp_v0 = omAddPrcObj(func_800FA120_E1EF0_name_81, 0U, 0, 0x40);
+    temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkBoard5));
+    temp_v0->user_data = temp_v0_2;
+    temp_a0 = D_80101980_E9750_name_81;
+    D_80101980_E9750_name_81++;
+    temp_v0_2->unk_00 = temp_a0;
+    temp_v0_2->unk_04 = arg0;
+    temp_v0_2->unk_08 = arg1;
+    temp_v0_2->unk_0C = arg2;
+    temp_v0_2->unk_10 = arg3;
+    temp_v0_2->unk_14 = arg4;
+    return temp_v0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAC4C_E2A1C_name_81);
+void func_800FAC1C_E29EC_name_81(Vec* arg0) {
+    HuVecCopy3F(&D_80105460_ED230_name_81, arg0);
+    func_800FC8C4_E4694_name_81(&D_80105460_ED230_name_81);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAC94_E2A64_name_81);
+void func_800FAC4C_E2A1C_name_81(void) {
+    while (D_80101980_E9750_name_81 != 0) {
+        HuPrcVSleep();
+    }
+    func_800D8F3C_C0D0C_name_81(D_80101988_E9758_name_81);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAD04_E2AD4_name_81);
+void func_800FAC94_E2A64_name_81(PartnerFunc* arg0, PartnerFunc* arg1) {
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FADB4_E2B84_name_81);
+    for (i = 0; i < 12; i++) {
+        PartnersBaseStats[i].func1 = arg0[i];
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAE18_E2BE8_name_81);
+    for (i = 0; i < 12; i++) {
+        PartnersBaseStats[i].func2 = arg1[i];
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAE98_E2C68_name_81);
+void func_800FAD04_E2AD4_name_81(s32 arg0) {
+    s32* var_s1;
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAEE8_E2CB8_name_81);
+    var_s1 = D_8010180C_E95DC_name_81[arg0];
+    if (var_s1 == NULL) {
+        D_80101990_E9760_name_81 = 0;
+        return;
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAEFC_E2CCC_name_81);
+    D_80101990_E9760_name_81 = *var_s1++;
+    
+    for (i = 0; i < D_80101990_E9760_name_81; i++) {
+        D_80105470_ED240_name_81[i] = func_8001F1FC_1FDFC(ReadMainFS(*var_s1++), 8);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FAFAC_E2D7C_name_81);
+void func_800FADB4_E2B84_name_81(void) {
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FB038_E2E08_name_81);
+    for (i = 0; i < D_80101990_E9760_name_81; i++) {
+        func_8002D4B8_2E0B8(D_80105470_ED240_name_81[i]);
+    }
+}
+
+void func_800FAE18_E2BE8_name_81(Object* arg0, s16 arg1, s16 arg2) {
+    if (arg1 <= D_80101990_E9760_name_81) {
+        func_8001F304_1FF04(arg0->omObj1->model[0], D_80105470_ED240_name_81[arg1]);
+        func_8001C814_1D414(arg0->omObj1->model[0], -1, arg2);
+    }
+}
+
+void func_800FAE98_E2C68_name_81(Object* arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+    func_8001C624_1D224(arg0->omObj1->model[0], D_80105470_ED240_name_81[arg1], arg2, arg3, arg4);
+}
+
+void func_800FAEE8_E2CB8_name_81(void) {
+    D_80101992_E9762_name_81 = 0;
+    D_80101994_E9764_name_81 = 0;
+}
+
+void func_800FAEFC_E2CCC_name_81(s32 arg0) {
+    s32* var_s1;
+    s32 i;
+
+    var_s1 = D_8010183C_E960C_name_81[arg0];
+    if (var_s1 == NULL) {
+        D_80101992_E9762_name_81 = 0;
+        return;
+    }
+
+    D_80101992_E9762_name_81 = *var_s1++;
+    
+    for (i = 0; i < D_80101992_E9762_name_81; i++) {
+        D_80105480_ED250_name_81[i] = func_8001F1FC_1FDFC(ReadMainFS(*var_s1++), 8);
+    }
+}
+
+void func_800FAFAC_E2D7C_name_81(void) {
+    s32 i;
+
+    while (D_80101994_E9764_name_81 != 0) {
+        HuPrcVSleep();
+    }
+    
+    for (i = 0; i < D_80101992_E9762_name_81; i++) {
+        func_8002D4B8_2E0B8(D_80105480_ED250_name_81[i]);
+    }
+}
+
+void func_800FB038_E2E08_name_81(Object* arg0, s16 arg1, u16 arg2) {
+    if (arg1 < D_80101992_E9762_name_81) {
+        func_8001F304_1FF04(arg0->omObj1->model[0], D_80105480_ED250_name_81[arg1]);
+        func_8001C814_1D414(arg0->omObj1->model[0], -1, arg2);
+    }
+}
 
 void func_800FB0B8_E2E88_name_81(Object* arg0, s32 arg1, s32 arg2) {
     if (arg0->unk8 == 0x2C) {
@@ -975,7 +1116,89 @@ void func_800FB148_E2F18_name_81(void) {
 void func_800FB158_E2F28_name_81(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800FB160_E2F30_name_81);
+INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_80102758_EA528_name_81);
+
+INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_80102788_EA558_name_81);
+
+INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_801027B8_EA588_name_81);
+
+INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_801027C8_EA598_name_81);
+
+void func_800FB160_E2F30_name_81(void) {
+    s16 sp18[2];
+    u16 sp36;
+    s32 sp3C;
+    UnkBoard4* temp_s4;
+    u16* temp_s1;
+    s32 temp_fp;
+    s32 temp_s7;
+    s32 var_s3;
+    u8 playerPad;
+    void* temp_v0_2;
+    s32 playerIndex = (s32)HuPrcCurrentGet()->user_data;
+    const s32 sp20[3] = {0x001300D3, 0x001300D2, 0x001300D4};
+    s32 i;
+    
+    playerPad = GwPlayer[playerIndex].pad;
+    var_s3 = 0;
+    func_80060388_60F88(0x78);
+    func_800604A8_610A8(sp18, 0x4F00, 0x4F0A);
+    sp36 = func_80061188_61D88(D_801019C8_E9798_name_81[0], 0xA0 - sp18[0] / 2, 0x3C, sp18[0], sp18[1], 0);
+    func_8005E1A8_5EDA8(sp36, 0x78);
+    func_8005FBF8_607F8(sp36, 1, 0xB9, 0xE7);
+    func_8005B43C_5C03C(sp36, D_80101998_E9768_name_81[0], -1, -1);
+    func_80061388_61F88(sp36);
+    temp_s4 = func_800F4528_DC2F8_name_81(3, 2);
+    
+    for (i = 0; i < 3; i++) {
+        temp_v0_2 = ReadMainFS(sp20[i]);
+        temp_s4->unk_0C[i] = func_80055810_56410(temp_v0_2);
+        HuFreeFilePerm(temp_v0_2);
+        func_80055024_55C24(temp_s4->unk_0A, i, temp_s4->unk_0C[i], 0);
+        SprPriSet(temp_s4->unk_0A, i, 1U);
+        SprAttrSet(temp_s4->unk_0A, i, 0U);
+        if (i == 0) {
+            func_80054904_55504(temp_s4->unk_0A, 0, 0xA0, 0x7E); 
+        } else {
+            func_80054904_55504(temp_s4->unk_0A, i, 0, i * 0xE);      
+        }   
+    }
+
+    sp3C = func_800E1824_C95F4_name_81(0x10, 0xA0, 0);
+    temp_fp = func_800E1824_C95F4_name_81(0x11, 0xAE, 0);
+    temp_s7 = func_800E1824_C95F4_name_81(4, 0xBC, 0);
+    
+    while (1) {
+        if (D_800C9520_CA120[playerPad] & B_BUTTON) {
+            break;
+        }
+        if (D_800D0590_D1190[playerPad] & 1) {
+            var_s3++;
+            var_s3 %= 12;
+            func_8005D294_5DE94(sp36);
+            func_8005B43C_5C03C(sp36, D_80101998_E9768_name_81[var_s3], -1, -1);
+            func_80061934_62534(sp36, D_801019C8_E9798_name_81[var_s3]);
+        }
+        if (D_800D0590_D1190[playerPad] & 2) {
+            var_s3--;
+            if (var_s3 < 0) {
+                var_s3 = 0xB;
+            }
+            func_8005D294_5DE94(sp36);
+            func_8005B43C_5C03C(sp36, D_80101998_E9768_name_81[var_s3], -1, -1);
+            func_80061934_62534(sp36, D_801019C8_E9798_name_81[var_s3]);
+        }
+        HuPrcVSleep();
+    }
+    
+    func_800F4584_DC354_name_81(temp_s4);
+    func_800E1854_C9624_name_81(sp3C);
+    func_800E1854_C9624_name_81(temp_fp);
+    func_800E1854_C9624_name_81(temp_s7);
+    func_80061A5C_6265C(sp36, 0);
+    func_8005F364_5FF64(sp36);
+    omDelPrcObj(0);
+}
 
 void func_800FB524_E32F4_name_81(void* arg0) {
     Process* curProcess;
@@ -1025,13 +1248,4 @@ void func_800FBDD4_E3BA4_name_81(void) {
     }
 }
 
-
-INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_80102758_EA528_name_81);
-
-INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_80102788_EA558_name_81);
-
-INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_801027B8_EA588_name_81);
-
-INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_801027C8_EA598_name_81);
-
-INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_801027EC_EA5BC_name_81);
+// INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_801027EC_EA5BC_name_81);

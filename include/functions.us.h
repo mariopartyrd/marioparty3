@@ -44,7 +44,7 @@ void func_8001C448_1D048(s16);
 void func_8001C8E4_1D4E4(s16, s32);
 void HuFreeFilePerm(void*);
 s16 func_80055810_56410(void*);
-s16 func_8005279C_5339C(s32, s32);
+s16 func_8005279C_5339C(u16, u16);
 void pfClsScr(void);
 u8 rand8(void);
 s32 GWBoardFlagCheck(s32);
@@ -130,5 +130,6 @@ void func_80061388_61F88(s16);
 void func_8001F304_1FF04(s16, s16);
 void HuVecSubtract(Vec * dest, Vec * a, Vec * b);
 void func_8001C92C_1D52C(s16, f32);
+void HuVecAdd(Vec* out, Vec* a, Vec* b);
 
 #endif

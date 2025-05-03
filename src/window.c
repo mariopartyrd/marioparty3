@@ -62,7 +62,13 @@ extern s8 D_800D5540_D6140;
 extern s8 D_800D6A26_D7626;
 extern s16 D_800D6B62_D7762;
 extern s32 D_800A25D0_A31D0[];
+extern s8 D_800BDA6A_BE66A;
+extern u16 D_800BDA6C_BE66C;
+extern u16 D_800BDA6E_BE66E;
+extern u8 D_800D5206_D5E06[5];
+extern s8 D_800D5540_D6140;
 
+void func_800605A4_611A4(u32);
 s16 func_8005A968_5B568(s16, s16, s16, s16, s32, s16);
 s16 func_8005B7B8_5C3B8(s16 win_id, u32 spriteMainFsPair, s16 arg2, s16 arg3, u16 arg4);
 void func_8005BA90_5C690(s16, s16, s16);
@@ -373,7 +379,31 @@ INCLUDE_ASM("asm/nonmatchings/window", func_80060388_60F88);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_80060394_60F94);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_800604A8_610A8);
+void func_800604A8_610A8(s16* arg0, s16 arg1, s16 arg2) {
+    u32 i;
+
+    if (arg2 < arg1) {
+        arg0[1] = 0x64;
+        arg0[0] = 0x64;
+        return;
+    }
+    
+    D_800BDA6A_BE66A = 0;
+    D_800BDA6E_BE66E = 0;
+    D_800BDA6C_BE66C = 0;
+    
+    for (i = arg1; arg2 >= i; i++) {
+        func_800605A4_611A4(i);
+    }
+
+    for (i = 0; i < ARRAY_COUNT(D_800D5206_D5E06); i++) {
+        D_800D5206_D5E06[i] = 0;
+    }
+
+    D_800D5540_D6140 = 0xC;
+    arg0[0] = D_800BDA6C_BE66C + 10;
+    arg0[1] = D_800BDA6E_BE66E + 6;
+}
 
 INCLUDE_RODATA("asm/nonmatchings/window", D_800A7CB0_A88B0);
 
@@ -427,7 +457,7 @@ INCLUDE_ASM("asm/nonmatchings/window", func_800610E0_61CE0);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_80061100_61D00);
 
-s32 func_80061188_61D88(s16 arg0, s16 arg1, s16 arg2, s32 arg3, s32 arg4, u16 arg5) {
+s32 func_80061188_61D88(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 arg5) {
     TextWindow* temp_s2;
     s32 temp_v0;
     s32 temp_s0_2;

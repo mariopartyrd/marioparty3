@@ -2,6 +2,8 @@
 #include "game/object.h"
 #include "malloc.h"
 
+typedef void (*PartnerFunc)(s16, s32, Object*, Object*, s32, s32);
+
 typedef enum PartnerObjIndex {
     /* 0 */ PARTNEROBJINDEX_FRONT,
     /* 1 */ PARTNEROBJINDEX_BACK,
@@ -25,6 +27,31 @@ typedef struct PartnerBaseAttributes {
     /* 0x10 */ void (*func4)(void);
 } PartnerBaseAttributes; //sizeof 0x14
 
+typedef struct UnkBoard4 {
+    /* 0x00 */ struct UnkBoard4* unk_00; //TODO: is this correct?
+    /* 0x04 */ struct UnkBoard4* unk_04; //TODO: is this correct?
+    /* 0x08 */ s16 unk_08;
+    /* 0x0A */ s16 unk_0A;
+    /* 0x0C */ s16* unk_0C;
+    /* 0x10 */ f32* unk_10;
+    /* 0x14 */ f32* unk_14;
+    /* 0x18 */ s16* unk_18;
+    /* 0x1C */ s16* unk_1C;
+} UnkBoard4; //sizeof 0x20
+
+typedef struct UnkBoard5 {
+    /* 0x00 */ u8* unk_00;
+    /* 0x04 */ s32 unk_04;
+    /* 0x08 */ s32 unk_08;
+    /* 0x0C */ s16* unk_0C;
+    /* 0x10 */ f32* unk_10;
+    /* 0x14 */ f32* unk_14;
+    /* 0x18 */ s16* unk_18;
+    /* 0x1C */ s16* unk_1C;
+} UnkBoard5; //sizeof 0x20
+
+extern UnkBoard4* D_80105400_ED1D0_name_81;
+extern u16 D_80105404_ED1D4_name_81;
 extern PartnerBaseAttributes PartnersBaseStats[];
 extern Object* Duel_PartnerObjects[][PARTNEROBJINDEX_MAX];
 extern s32 D_80101A8C_E985C_name_81;
@@ -33,17 +60,41 @@ extern s32 D_80101A94_E9864_name_81;
 extern s32 D_80101A98_E9868_name_81;
 extern s16 D_80105494_ED264_name_81;
 extern s16 D_80105496_ED266_name_81;
-extern s32 D_80101980_E9750_name_81;
+extern u8* D_80101980_E9750_name_81;
 extern s32 D_80101984_E9754_name_81;
 extern Object* D_80101988_E9758_name_81;
 extern s32* D_801017DC_E95AC_name_81[];
 extern s32 D_8010195C_E972C_name_81;
+extern s32* D_8010180C_E95DC_name_81[];
+extern s16 D_80101990_E9760_name_81;
+extern s16 D_80105470_ED240_name_81[];
+extern s32* D_8010183C_E960C_name_81[];
+extern s16 D_80105480_ED250_name_81[];
+extern s16 D_80101992_E9762_name_81;
+extern u16 D_800C9520_CA120[];
+extern u16 D_800D0590_D1190[];
+extern s32 D_80101998_E9768_name_81[];
+extern s16 D_801019C8_E9798_name_81[];
 
+UnkBoard4* func_800F4528_DC2F8_name_81(s16 arg0, s16 arg1);
+void func_8005D294_5DE94(s16);                         /* extern */
+void func_8005FBF8_607F8(s16, s32, s32, s32);                /* extern */
+void func_80060388_60F88(s32);                  /* extern */
+void func_800604A8_610A8(s16*, s32, s32);                  /* extern */
+s32 func_80061188_61D88(s16 arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4, u16 arg5);
+void func_80061934_62534(s16, s16);                    /* extern */
+void func_80061A5C_6265C(s16, s32);                      /* extern */
+s32 func_800E1824_C95F4_name_81(s32, s32, s32);           /* extern */
+void func_800E1854_C9624_name_81(s32);                 /* extern */
+void func_800F4584_DC354_name_81(UnkBoard4*);
+void func_8001C624_1D224(s16, s16, s16, s16, s32);
+void func_8002D4B8_2E0B8(s16);
+s16 func_8001F1FC_1FDFC(void*, s32);
+void func_800FAD04_E2AD4_name_81(s32 arg0);
 void func_800D8F0C_C0CDC_name_81(Object*);
 GW_PLAYER* Duel_GetPlayerStruct(s32 playerIndex);
 Object* Duel_GetPlayerPartnerRef(s32 playerIndex, s32 frontOrBackIndex);
 void func_800ECF1C_D4CEC_name_81(s32, Vec*, Vec*);
-void HuVecAdd(Vec* out, Vec* a, Vec* b);
 void func_800D7828_BF5F8_name_81(Vec*);
 void func_800D7934_BF704_name_81(Vec*, f32);
 void func_800D7EB8_BFC88_name_81(void);
@@ -95,10 +146,15 @@ void func_800EB278_D3048_name_81(void);
 void func_800EB29C_D306C_name_81(void);
 void func_800EB49C_D326C_name_81(s32, s32, s32, s32, s32, s32, s32);
 void func_800EB58C_D335C_name_81(void);
+void func_800FA120_E1EF0_name_81(void);
+void func_800FC8C4_E4694_name_81(Vec*);
+
+extern Vec D_80105460_ED230_name_81;
 extern s32 D_801019E0_E97B0_name_81[][2];
 extern s32 D_80101A08_E97D8_name_81[];
 extern s32 D_80101A1C_E97EC_name_81[];
 extern s16 D_80101992_E9762_name_81;
+extern s16 D_80101994_E9764_name_81;
 extern s8* D_80101968_E9738_name_81;
 extern s8* D_8010196C_E973C_name_81;
 extern s8* D_80101970_E9740_name_81;
