@@ -252,9 +252,9 @@ s32 func_800EEF80_102BA0_shared_board(f32 arg0) { //800EFE20 in duel mode,
 
 //is there some kind of macro at play here? the cast to u8 is weird because `work` used to be u8[] in mp1/mp2
 void func_800EEFEC_102C0C_shared_board(Object* arg0, s16 arg1, s16 arg2, s32 arg3) {
-    arg0->unk3C->work[0] = (u8)func_80017790_18390(arg0->unk3C->model[0], arg1, arg2, arg3);
-    arg0->unk3C->work[1] = (u8)arg1;
-    arg0->unk3C->work[2] = (u8)arg2;
+    arg0->omObj1->work[0] = (u8)func_80017790_18390(arg0->omObj1->model[0], arg1, arg2, arg3);
+    arg0->omObj1->work[1] = (u8)arg1;
+    arg0->omObj1->work[2] = (u8)arg2;
 }
 
 void func_800EF068_102C88_shared_board(void) {

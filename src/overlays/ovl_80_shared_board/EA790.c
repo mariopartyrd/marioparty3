@@ -9,9 +9,9 @@ UnkBoard2* func_800D6B70_EA790_shared_board(s32 arg0) {
     temp_v0 = HuMemMemoryAllocTemp(sizeof(UnkBoard2));
     temp_v0->unk_00 = 0;
     temp_v0->obj = MBModelCreate(sp10[arg0], 0);
-    func_8001C258_1CE58(temp_v0->obj->unk3C->model[0], 0x180, 0);
-    func_8001C8E4_1D4E4(temp_v0->obj->unk3C->model[0], 0x1400);
-    func_8001C448_1D048(temp_v0->obj->unk3C->model[0]);
+    func_8001C258_1CE58(temp_v0->obj->omObj1->model[0], 0x180, 0);
+    func_8001C8E4_1D4E4(temp_v0->obj->omObj1->model[0], 0x1400);
+    func_8001C448_1D048(temp_v0->obj->omObj1->model[0]);
     func_800D9714_ED334_shared_board(temp_v0->obj);
     return temp_v0;
 }

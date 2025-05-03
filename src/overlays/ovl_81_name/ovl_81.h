@@ -19,8 +19,8 @@ typedef struct PartnerBaseAttributes {
     /* 0x01 */ u8 hp;
     /* 0x02 */ s8 power;
     /* 0x03 */ s8 cost;
-    /* 0x04 */ void (*func1)(s16, s32, Vec*, Vec*, s32, s32);
-    /* 0x08 */ void (*func2)(s16, s32, Vec*, Vec*, s32, s32);
+    /* 0x04 */ void (*func1)(s16, s32, Object*, Object*, s32, s32);
+    /* 0x08 */ void (*func2)(s16, s32, Object*, Object*, s32, s32);
     /* 0x0C */ void (*func3)(void);
     /* 0x10 */ void (*func4)(void);
 } PartnerBaseAttributes; //sizeof 0x14
@@ -91,7 +91,60 @@ void func_800FB160_E2F30_name_81(void);
 void func_800D90D0_C0EA0_name_81(Object*, s16, u16);
 void func_800FAEFC_E2CCC_name_81(s32);
 void func_800FB038_E2E08_name_81(Object*, s16, u16);
+void func_800EB278_D3048_name_81(void);
+void func_800EB29C_D306C_name_81(void);
+void func_800EB49C_D326C_name_81(s32, s32, s32, s32, s32, s32, s32);
+void func_800EB58C_D335C_name_81(void);
+extern s32 D_801019E0_E97B0_name_81[][2];
+extern s32 D_80101A08_E97D8_name_81[];
+extern s32 D_80101A1C_E97EC_name_81[];
 extern s16 D_80101992_E9762_name_81;
+extern s8* D_80101968_E9738_name_81;
+extern s8* D_8010196C_E973C_name_81;
+extern s8* D_80101970_E9740_name_81;
+extern s8* D_80101974_E9744_name_81;
+extern s8* D_80101978_E9748_name_81;
+extern s8* D_8010197C_E974C_name_81;
+extern Vec D_80105540_ED310_name_81;
+extern s32 D_8010554C_ED31C_name_81;
+extern s32 D_80105550_ED320_name_81;
+extern s32 D_80105558_ED328_name_81;
+extern s32 D_80105620_ED3F0_name_81;
+extern s32 D_8010570C_ED4DC_name_81;
+extern s32 D_80105718_ED4E8_name_81;
+extern s32 D_8010571C_ED4EC_name_81;
+
+
+s16 Duel_GetCurrentPlayerIndex(void);                   /* extern */
+void func_800036E8_42E8(s16, s32);                     /* extern */
+void func_800039A4_45A4(s32, s32);                       /* extern */
+void func_80003A70_4670(s16);                          /* extern */
+void func_80003B70_4770(s16, s32);                       /* extern */
+s16 func_8004A5C4_4B1C4(s32);                         /* extern */
+Process* func_800E415C_CBF2C_name_81(void);             /* extern */
+Process* func_800E47B8_CC588_name_81(s16, s8, Vec*, Vec*, s32); /* extern */
+void func_800E5954_CD724_name_81(void);                    /* extern */
+void func_800E5964_CD734_name_81(void);                    /* extern */
+Process* func_800E7D18_CFAE8_name_81(f32);            /* extern */
+void func_800E8870_D0640_name_81(u8);                 /* extern */
+void func_800EAFC4_D2D94_name_81(s32);                   /* extern */
+Process* func_800EC1E4_D3FB4_name_81(Vec*, Vec*, Vec*, f32); /* extern */
+void func_800EFABC_D788C_name_81(void*);               /* extern */
+void func_800F57B0_DD580_name_81(s16);                 /* extern */
+void func_800F5E2C_DDBFC_name_81(u32);                 /* extern */
+void func_800F74E4_DF2B4_name_81(s32);                   /* extern */
+void func_800F75EC_DF3BC_name_81(s32);                   /* extern */
+void func_800F8358_E0128_name_81(s32);                 /* extern */
+void func_800F8D9C_E0B6C_name_81(s32, s32*, s32*);     /* extern */
+void func_800F8EB8_E0C88_name_81(u32 partnerID, s32 arg1, s32* damageAmount, s32* arg3, s32 arg4);
+void func_800FAB1C_E28EC_name_81(void);                    /* extern */
+void func_800FAC4C_E2A1C_name_81(void);                    /* extern */
+void func_800FAEE8_E2CB8_name_81(void);                    /* extern */
+void func_800FAFAC_E2D7C_name_81(void);                    /* extern */
+void func_800FC888_E4658_name_81(s32);                   /* extern */
+void func_800FC8C4_E4694_name_81(Vec*);                /* extern */
+Vec* func_800FC8D0_E46A0_name_81(void);                 /* extern */
+void func_800FFAE0_E78B0_name_81(s32, s32);                /* extern */
 extern s8* D_80101968_E9738_name_81;
 extern s8* D_8010196C_E973C_name_81;
 extern s8* D_80101970_E9740_name_81;

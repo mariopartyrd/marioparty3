@@ -76,10 +76,10 @@ void func_800F89D0_10C5F0_shared_board(s32 arg0, s16 arg1, void* arg2) {
         func_800D9B24_ED744_shared_board(GwPlayer[system->current_player_index].player_obj);
     }
     
-    func_8001FDE8_209E8(GetPlayerStruct(0)->player_obj->unk3C->model[0]);
-    func_8001FDE8_209E8(GetPlayerStruct(1)->player_obj->unk3C->model[0]);
-    func_8001FDE8_209E8(GetPlayerStruct(2)->player_obj->unk3C->model[0]);
-    func_8001FDE8_209E8(GetPlayerStruct(3)->player_obj->unk3C->model[0]);
+    func_8001FDE8_209E8(GetPlayerStruct(0)->player_obj->omObj1->model[0]);
+    func_8001FDE8_209E8(GetPlayerStruct(1)->player_obj->omObj1->model[0]);
+    func_8001FDE8_209E8(GetPlayerStruct(2)->player_obj->omObj1->model[0]);
+    func_8001FDE8_209E8(GetPlayerStruct(3)->player_obj->omObj1->model[0]);
     func_800F2A20_106640_shared_board();
     func_800DF854_F3474_shared_board();
     func_800E17B0_F53D0_shared_board();

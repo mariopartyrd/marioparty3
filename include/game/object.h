@@ -45,8 +45,8 @@ typedef struct Object_s {
 /* 0x18 */ Vec unk18;
 /* 0x24 */ Vec unk24;
 /* 0x30 */ Vec unk30;
-/* 0x3C */ omObjData* unk3C;
-/* 0x40 */ omObjData* unk40;
+/* 0x3C */ omObjData* omObj1;
+/* 0x40 */ omObjData* omObj2;
 /* 0x44 */ s16 unk44;
 /* 0x46 */ s16 unk46;
 } Object;

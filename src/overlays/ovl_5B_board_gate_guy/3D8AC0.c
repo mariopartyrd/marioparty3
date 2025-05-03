@@ -67,7 +67,7 @@ void func_80105C64_3D8D54_board_gate_guy(s32 arg0, s32 arg1, unkStruct01* arg2) 
     f32 temp_f20;
 
     func_800EB708_D34D8_name_81(arg0, arg1, arg2);
-    temp_f20 = func_800D76D0_EB2F0_shared_board(arg2) + 15.0f;//could also potentially be func_800D76D0_BF4A0_name_81
+    temp_f20 = func_800D76D0_BF4A0_name_81(arg2) + 15.0f;
     arg2->unk_00 = HuMathSin(temp_f20);
     arg2->unk_08 = HuMathCos(temp_f20);
 }
@@ -136,18 +136,18 @@ void* func_80106740_3D9830_board_gate_guy(s32 arg0) {
     Object* obj;
 
     obj = func_800D8010_BFDE0_name_81(arg0 & 0xFF, 0);
-    func_8001C258_1CE58(obj->unk3C->model[0], 0x180, 0);
-    func_8001C8E4_1D4E4(obj->unk3C->model[0], 0x1800);
-    func_8001C448_1D048(obj->unk3C->model[0]);
+    func_8001C258_1CE58(obj->omObj1->model[0], 0x180, 0);
+    func_8001C8E4_1D4E4(obj->omObj1->model[0], 0x1800);
+    func_8001C448_1D048(obj->omObj1->model[0]);
     func_800D8944_C0714_name_81(obj);
     func_800D8F0C_C0CDC_name_81(obj);
-    func_8001C814_1D414(obj->unk3C->model[0], 2, 1);
+    func_8001C814_1D414(obj->omObj1->model[0], 2, 1);
     return obj;
 }
 
 void func_801067D4_3D98C4_board_gate_guy(Object* arg0, Vec * arg1) {
     func_800D8E88_C0C58_name_81();
-    func_8001C814_1D414(arg0->unk3C->model[0], 3, 0);
+    func_8001C814_1D414(arg0->omObj1->model[0], 3, 0);
     HuVecCopy3F(&arg0->coords, arg1);
 }
 

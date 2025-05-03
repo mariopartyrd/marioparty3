@@ -44,7 +44,7 @@ typedef struct unkStruct06 {
 } unkStruct06;
 
 extern s16 omovlevtno;
-f32 func_800D76D0_EB2F0_shared_board(void*);
+f32 func_800D76D0_BF4A0_name_81(void*);
 void func_80100CEC_E8ABC_name_81(u8);
 s32 func_800E1824_C95F4_name_81(s32, s32, s32);
 s32 func_800E88FC_D06CC_name_81(void);

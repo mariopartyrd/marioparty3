@@ -45,8 +45,8 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
         func_800D8E88_C0C58_name_81(Duel_GetPlayerStruct(i)->player_obj);
     }
 
-    func_8001FDE8_209E8(Duel_GetPlayerStruct(0)->player_obj->unk3C->model[0]);
-    func_8001FDE8_209E8(Duel_GetPlayerStruct(1)->player_obj->unk3C->model[0]);
+    func_8001FDE8_209E8(Duel_GetPlayerStruct(0)->player_obj->omObj1->model[0]);
+    func_8001FDE8_209E8(Duel_GetPlayerStruct(1)->player_obj->omObj1->model[0]);
     func_800F8C68_E0A38_name_81(0);
     func_800F8C68_E0A38_name_81(1);
     func_800F4300_DC0D0_name_81();
