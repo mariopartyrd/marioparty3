@@ -139,7 +139,7 @@ OverlayTable _ovltbl[] = {
     OVL_ENTRY(name_76),
     OVL_ENTRY(name_77),
     OVL_ENTRY(name_78),
-    OVL_ENTRY(name_79),
+    OVL_ENTRY(FileSelect),
     OVL_ENTRY(name_7A),
     OVL_ENTRY(name_7B),
     OVL_ENTRY(name_7C),

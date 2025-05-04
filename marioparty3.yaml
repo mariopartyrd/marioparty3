@@ -2231,8 +2231,8 @@ segments:
   - type: code
     start: 0x516AE0
     vram: 0x801059A0
-    dir: overlays/ovl_79_name
-    name: name_79
+    dir: overlays/ovl_79_FileSelect
+    name: FileSelect
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x1850
