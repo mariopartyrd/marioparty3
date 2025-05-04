@@ -267,24 +267,16 @@ enum OptionsFileSelect {
 //TODO: can the gotos be removed?
 //main function for handling input when an option hasn't been select yet
 u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
-    s32 temp_s0;
     s32 temp_v0;
     u32 temp_v1;
-    s32 temp_v1_2;
-    s32 var_a1;
-    s32 var_a1_2;
-    s32 var_a1_3;
-    s32 var_a1_4;
-    s32 var_s3;
-    s32 var_v0;
-    s32 var_v1;
+    s32 animTimerAdjusted;
+    s32 animTimer;
     u16 pressedInput;
-    u32 temp_v0_2;
     s32 cursorIndex;
     u32 selectedOption;
-    s32 var;
+    s32 unkValue;
 
-    var_s3 = 0;
+    animTimer = 0;
     
     if (arg0 < 0) {
         arg0 = 0;
@@ -292,7 +284,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
     
     selectedOption = arg0;
     cursorIndex = selectedOption;
-    var = UNK_VALUE;
+    unkValue = UNK_VALUE;
     
     while (1) {
         pressedInput = D_800D1244_D1E44;
@@ -358,7 +350,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
                     }
                     func_80110FB0_5220F0_FileSelect(selectedOption);
                 } else {
-                    if (D_801142DC_52541C_FileSelect[cursorIndex].unk_00 == var) {
+                    if (D_801142DC_52541C_FileSelect[cursorIndex].unk_00 == unkValue) {
                         cursorIndex = selectedOption + OPTION_FILES_NAME_BEGIN;
                         func_80110FB0_5220F0_FileSelect(selectedOption);
                     }
@@ -406,7 +398,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
                     if (cursorIndex < OPTION_FILES_NAME_BEGIN) {
                         cursorIndex = 7;
                     }
-                } while (D_801142DC_52541C_FileSelect[cursorIndex - OPTION_FILES_NAME_BEGIN].unk_00 != var);
+                } while (D_801142DC_52541C_FileSelect[cursorIndex - OPTION_FILES_NAME_BEGIN].unk_00 != unkValue);
             } else {
                 if (pressedInput & DPAD_RIGHT) {
                     cursorIndex = selectedOption;
@@ -415,7 +407,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
                         if (++cursorIndex > OPTION_MAX) {
                             cursorIndex = OPTION_FILE0_NAME;
                         }
-                    } while (D_801142DC_52541C_FileSelect[cursorIndex - OPTION_FILES_NAME_BEGIN].unk_00 != var);
+                    } while (D_801142DC_52541C_FileSelect[cursorIndex - OPTION_FILES_NAME_BEGIN].unk_00 != unkValue);
                 }
             }
             if (pressedInput & DPAD_UP) {
@@ -437,11 +429,11 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
         }
         func_8010AB1C_51BC5C_FileSelect(18, selectedOption);
         
-        var_a1_4 = (var_s3 < 0) ? var_s3 + 7 : var_s3;
-        var_a1_4 = (var_a1_4 >> 3);
-        func_8010AB58_51BC98_FileSelect(18, -var_a1_4);
+        animTimerAdjusted = (animTimer < 0) ? animTimer + 7 : animTimer;
+        animTimerAdjusted = (animTimerAdjusted >> 3);
+        func_8010AB58_51BC98_FileSelect(18, -animTimerAdjusted);
 
-        var_s3 = (var_s3 < 20) ? var_s3 + 1 : 0;
+        animTimer = (animTimer < 20) ? animTimer + 1 : 0;
         
         HuPrcVSleep();
     }
