@@ -76,4 +76,8 @@ enum REV_FLAGS {
     FLAG_UNK_80 = 0x80
 };
 
+enum PlayerFlags {
+    PLAYER_IS_CPU = 1,
+  };
+
 #endif //_ENUMS_H_

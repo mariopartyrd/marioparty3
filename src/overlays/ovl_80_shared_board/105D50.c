@@ -1,20 +1,36 @@
 #include "common.h"
 #include "ovl_80.h"
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", GetCurrentPlayerIndex);
+s16 GetCurrentPlayerIndex(void) {
+    return GwSystem.current_player_index;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", GetPlayerStruct);
+GW_PLAYER* GetPlayerStruct(s32 playerIndex) {
+    if (playerIndex < 0) {
+        playerIndex = GetCurrentPlayerIndex();
+    }
+    return &GwPlayer[playerIndex];
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F217C_105D9C_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F2198_105DB8_shared_board);
+s32 func_800F217C_105D9C_shared_board(s16 arg0) {
+    if (arg0 == GwSystem.current_player_index) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
-void AdjustPlayerCoins(s32 arg0, s32 arg1) {
+s32 func_800F2198_105DB8_shared_board(s16 playerIndex) {
+    return GetPlayerStruct(playerIndex)->stat & PLAYER_IS_CPU;
+}
+
+void AdjustPlayerCoins(s32 playerIndex, s32 amount) {
     GW_PLAYER* player;
 
-    player = GetPlayerStruct(arg0);
-    player->coin = player->coin + arg1;
-    if (player->coin >= 1000) {
+    player = GetPlayerStruct(playerIndex);
+    player->coin = player->coin + amount;
+    if (player->coin > 999) {
         player->coin = 999;
     }
     if (player->coin < 0) {
@@ -26,7 +42,11 @@ void AdjustPlayerCoins(s32 arg0, s32 arg1) {
 }
 
 s32 PlayerHasCoins(s32 playerIndex, s32 requiredCoins) {
-    return GetPlayerStruct(playerIndex)->coin >= requiredCoins;
+    if (GetPlayerStruct(playerIndex)->coin >= requiredCoins) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F2260_105E80_shared_board);
