@@ -7,10 +7,12 @@ typedef struct UnkFileSelect2 {
     u32 unk_04; //can be messageID or message pointer
     void* unk_08;
 } UnkFileSelect2;
+
 typedef struct UnkFileSelect {
     u8 unk_00;
-    char unk_01[0x83];
-} UnkFileSelect;
+    u8 unk_01[0xB];
+    char unk_0C[0x78];
+} UnkFileSelect; //sizeof 0x84
 
 void func_8005A674_5B274(s32, s32, s32, s32);
 void func_801076D0_518810_FileSelect(s32, u32);
@@ -24,6 +26,8 @@ s32 func_80111B14_522C54_FileSelect(s32);
 void func_80019C00_1A800(s32);
 void func_8005D294_5DE94(s16);
 u32 func_80106AD8_517C18_FileSelect(u32);
+s32 func_8010AC58_51BD98_FileSelect(s32);
+s32 func_80112494_5235D4_FileSelect(s32, u8*);
 
 extern u16 D_800D1244_D1E44;
 extern u16 D_800D5558_D6158;
@@ -440,9 +444,27 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
     return selectedOption;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_79_FileSelect/516AE0", func_80109904_51AA44_FileSelect);
+s32 func_80109904_51AA44_FileSelect(s32 arg0) {
+    u8 buf[32]; //TODO: figure out correct type of this
+    s32 temp_s0;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_79_FileSelect/516AE0", func_80109968_51AAA8_FileSelect);
+    bzero(&buf, sizeof(buf));
+    func_80112494_5235D4_FileSelect(arg0, buf);
+    HuPrcSleep(3);
+    func_801076D0_518810_FileSelect(4, 0x2A11);
+    temp_s0 = func_8010AC58_51BD98_FileSelect(arg0);
+    HuPrcSleep(3);
+    return temp_s0;
+}
+
+s32 func_80109968_51AAA8_FileSelect(s32 arg0) {
+    s32 temp_s0;
+
+    HuPrcSleep(3);
+    temp_s0 = func_8010AC58_51BD98_FileSelect(arg0);
+    HuPrcSleep(3);
+    return temp_s0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_79_FileSelect/516AE0", func_801099A8_51AAE8_FileSelect);
 
@@ -721,7 +743,18 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_79_FileSelect/516AE0", func_80112184_
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_79_FileSelect/516AE0", func_801122B0_5233F0_FileSelect);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_79_FileSelect/516AE0", func_80112494_5235D4_FileSelect);
+s32 func_80112494_5235D4_FileSelect(s32 arg0, u8* arg1) {
+    s32 i;
+
+    for (i = 0; i < 10; i++) {
+        D_801142DC_52541C_FileSelect[arg0].unk_01[i] = arg1[i];
+    }
+    
+    //terminate string
+    D_801142DC_52541C_FileSelect[arg0].unk_01[i] = '\0';
+    D_801142DC_52541C_FileSelect[arg0].unk_01[i+1] = '\0';
+    return i;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_79_FileSelect/516AE0", func_80112508_523648_FileSelect);
 

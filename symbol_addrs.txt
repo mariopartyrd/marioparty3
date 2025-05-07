@@ -677,6 +677,7 @@ Duel_GetPlayerPartnerRef = 0x800F8960; //rom:0xE0730 segment:name_81
 Duel_PartnerObjects = 0x80105450; //rom:0xED220 size:0x10 segment:name_81
 gLanguageIndex = 0x800A2151; //rom:0xA2D51 type:u8
 Duel_ClearPartnerObjects = 0x800F7F90; //rom:0xDFD60 segment:name_81
+D_801142DC_52541C_FileSelect = 0x801142DC; //rom:0x52541C size:0x18C segment:FileSelect
 
 GWBoardFlagCheck = 0x80035F98;
 GWBoardFlagSet = 0x80035FDC;

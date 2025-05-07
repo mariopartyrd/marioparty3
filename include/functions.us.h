@@ -131,5 +131,6 @@ void func_8001F304_1FF04(s16, s16);
 void HuVecSubtract(Vec * dest, Vec * a, Vec * b);
 void func_8001C92C_1D52C(s16, f32);
 void HuVecAdd(Vec* out, Vec* a, Vec* b);
+void func_8001C92C_1D52C(s16, f32);
 
 #endif

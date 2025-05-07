@@ -1,45 +1,5 @@
 #include "common.h"
 
-#define SCREEN_WIDTH_CENTER SCREEN_WIDTH / 2.0f
-#define SCREEN_HEIGHT_CENTER SCREEN_HEIGHT / 2.0f
-#define ASPECT_RATIO (4.0f / 3.0f)
-
-typedef struct {
-    Mtx perspMtx;
-    Mtx lookAtMtx;
-} HuCamMtxs;
-
-typedef struct HuCamera {
-    /* 0x000 */ u16 perspNorm;
-    /* 0x002 */ char pad2[2];
-    /* 0x004 */ f32 unk4;
-    /* 0x008 */ f32 unk8;
-    /* 0x00C */ f32 unkC;
-    /* 0x010 */ Vec pos;
-    /* 0x01C */ Vec at;
-    /* 0x028 */ Vec up;
-    /* 0x034 */ Vec screenScale;
-    /* 0x040 */ Vec screenPos;
-    /* 0x04C */ s32 unk4C;
-    /* 0x050 */ f32 fov;
-    /* 0x054 */ f32 near;
-    /* 0x058 */ f32 far;
-    /* 0x05C */ f32 unk5C;
-    /* 0x060 */ Vp viewports[3];
-    /* 0x090 */ f32 screenLeft;
-    /* 0x094 */ f32 screenTop;
-    /* 0x098 */ f32 screenRight;
-    /* 0x09C */ f32 screenBottom;
-    /* 0x0A0 */ s32 unkA0;
-    /* 0x0A4 */ s32 unkA4;
-    /* 0x0A8 */ s32 unkA8;
-    /* 0x0AC */ s32 unkAC;
-    /* 0x0B0 */ HuCamMtxs mtxs[3];
-} HuCamera;
-
-f32 HuMathCos(f32);
-f32 HuMathSin(f32);
-
 extern HuCamera* gCameraList;
 extern u8 D_800D2008_D2C08;
 extern s16 D_800D418E_D4D8E;

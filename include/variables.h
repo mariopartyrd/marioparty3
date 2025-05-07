@@ -20,4 +20,6 @@ extern s16 D_800D51F8_D5DF8;
 extern UnkOvl81 D_800D1360_D1F60;
 extern s8 D_800CD280_CDE80;
 
+extern HuCamera* gCameraList;
+
 #endif //_VARIABLES_H_

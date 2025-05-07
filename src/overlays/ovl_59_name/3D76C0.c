@@ -1,6 +1,40 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_59_name/3D76C0", func_801059A0_3D76C0_name_59);
+void func_80105B64_3D7884_name_59(omObjData*);      /* extern */
+void func_80106254_3D7F74_name_59(omObjData*);      /* extern */
+void func_80106850_3D8570_name_59(void);                   /* extern */
+void func_801068D4_3D85F4_name_59(omObjData*);      /* extern */
+extern Vec D_80106C10_3D8930_name_59;
+extern f32 D_80106C1C_3D893C_name_59;
+extern Vec D_80106C2C_3D894C_name_59;
+
+void func_801059A0_3D76C0_name_59(void) {
+    Hu3DCamInit(1);
+    Hu3DAnimInit(1);
+    func_800142A0_14EA0(0x2D);
+    omInitObjMan(0x33, 0xA);
+    func_8004A208_4AE08();
+    omSetStatBit(omAddObj(0x7FDA, 0U, 0U, -1, func_8004B340_4BF40), 0xA0U);
+    omAddObj(0x2710, 0U, 0U, -1, func_801068D4_3D85F4_name_59);
+    HmfLightMaxSet(4);
+    HmfLightColorSet(0, 0x78, 0x78, 0x78);
+    HmfLightColorSet(1, 0x40, 0x40, 0x60);
+    HmfLightDirSet(1, -100.0f, 100.0f, 100.0f);
+    HmfLightColorSet(2, 0, 0, 0);
+    HmfLightColorSet(3, 0, 0, 0);
+    D_80106C10_3D8930_name_59.x = D_80106C10_3D8930_name_59.y = D_80106C10_3D8930_name_59.z = 0.0f;
+    D_80106C1C_3D893C_name_59 = 400.0f;
+    D_80106C2C_3D894C_name_59.x = D_80106C2C_3D894C_name_59.z = 0.0f;
+    D_80106C2C_3D894C_name_59.y = 150.0f;
+    gCameraList->fov = 45.0f;
+    func_80106850_3D8570_name_59();
+    omAddObj(0x7D0, 0xAU, 0xAU, -1, func_80105B64_3D7884_name_59);
+    omAddObj(0x7D0, 0U, 0U, -1, func_80106254_3D7F74_name_59);
+    WipeCreateIn(0, 0x10);
+    D_800CD280_CDE80 = 1;
+    func_80050ABC_516BC();
+    HuAudSeqPlay(8);
+}
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_59_name/3D76C0", D_80106990_3D86B0_name_59);
 
