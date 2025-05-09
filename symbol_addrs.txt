@@ -797,3 +797,4 @@ D_801018E4_115504_shared_board = 0x801018E4; //rom:0x115504 size:0x44 segment:sh
 PlayerBoardStatusRootPosition = 0x80101794; //rom:0x1153B4 size:0x20 segment:shared_board
 UpdatePlayerBoardStatus = 0x800F2E30; //rom:0x106A50 segment:shared_board
 ItemUseWackyWatch = 0x80115B80; //rom:0x32B6F0 segment:ChillyWaters
+ShowMessage = 0x800EC8EC; //rom:0x10050C segment:shared_board

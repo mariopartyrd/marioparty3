@@ -22,9 +22,17 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECDD
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECE4C_100A6C_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", RNGPercentChance);
+s32 RNGPercentChance(s8 arg0) {
+    u8 randByte = rand8();
+    s32 chance = arg0;
+    return (randByte * 99 >> 8) < chance;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", GetTurnsElapsed);
+s16 GetTurnsElapsed(void) {
+    GW_SYSTEM* system = &GwSystem;
+    
+    return system->total_turns - system->current_turn + 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECF18_100B38_shared_board);
 

@@ -43,13 +43,13 @@ typedef struct Object_s {
 /* 0x0C */ Vec coords;
 // Three Vec groups (Scale?, Rotation?, Position?)
 /* 0x18 */ Vec unk18;
-/* 0x24 */ Vec unk24;
+/* 0x24 */ Vec scale;
 /* 0x30 */ Vec unk30;
 /* 0x3C */ omObjData* omObj1;
 /* 0x40 */ omObjData* omObj2;
 /* 0x44 */ s16 unk44;
 /* 0x46 */ s16 unk46;
-} Object;
+} Object; //sizeof 0x48
 
 Process* omInitObjMan(s16 max_objs, s32 prio);
 void omSetStatBit(omObjData *obj, u16 stat);

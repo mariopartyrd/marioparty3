@@ -43,7 +43,7 @@ typedef struct LinkData {
 typedef struct UnkBoard {
 /* 0x00 */ s16 unk_00;
 /* 0x02 */ s16 unk_02;
-/* 0x04 */ s32 unk_04;
+/* 0x04 */ Object* unk_04;
 /* 0x08 */ omObjData* unk_08;
 } UnkBoard; //sizeof 0x0C
 
@@ -79,7 +79,7 @@ void func_800F4798_1083B8_shared_board(u32, s32);
 void func_800F4874_108494_shared_board(s32, s16, s16);
 s32 func_800EECB0_1028D0_shared_board(s32);
 s32 func_800D9E0C_EDA2C_shared_board(s32);
-void func_800D9D84_ED9A4_shared_board(s32, s16, s32, s32, u16);
+void func_800D9D84_ED9A4_shared_board(Object*, s16, s32, s32, u16);
 void func_800EE7AC_1023CC_shared_board(omObjData* func);
 s32 BoardPlayerRankCalc(s32 player);
 void UpdatePlayerBoardStatus(s32);
@@ -127,7 +127,7 @@ void func_800E1F28_F5B48_shared_board(s32, s32);
 void func_800E48F4_F8514_shared_board(void);
 void func_800EC6C8_1002E8_shared_board(void);
 void func_800EC6EC_10030C_shared_board(void);
-void func_800EC8EC_10050C_shared_board(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
+void ShowMessage(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
 void func_800ECC0C_10082C_shared_board(Vec*);
 void func_800ED128_100D48_shared_board(Vec*, Vec*, Vec*, s32);
 void func_800F5D44_109964_shared_board(s32, s32);
@@ -147,7 +147,7 @@ void func_800EC134_FFD54_shared_board(s32);
 void func_800EC1E8_FFE08_shared_board(s32, char*, s32, s32, s32, s32);
 void func_800EC3C0_FFFE0_shared_board(s32);
 void func_800EC3E4_100004_shared_board(void);
-u32 func_800EE884_1024A4_shared_board(s32 arg0, s16 arg1, s16 arg2);
+u32 func_800EE884_1024A4_shared_board(Object* arg0, s16 arg1, s16 arg2);
 void func_800E69BC_FA5DC_shared_board(s32);
 s32 func_800E9344_FCF64_shared_board(f32, f32);
 void func_800E6630_FA250_shared_board(Addr);

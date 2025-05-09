@@ -39,7 +39,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EE74
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EE7AC_1023CC_shared_board);
 
-u32 func_800EE884_1024A4_shared_board(s32 arg0, s16 arg1, s16 arg2) {
+u32 func_800EE884_1024A4_shared_board(Object* arg0, s16 arg1, s16 arg2) {
     omObjData* obj;
     UnkBoard* temp_s1;
     s32 i;
@@ -66,7 +66,7 @@ u32 func_800EE884_1024A4_shared_board(s32 arg0, s16 arg1, s16 arg2) {
     return ret;
 }
 
-void func_800EE94C_10256C_shared_board(s32 arg0, s16 arg1, s32 arg2) {
+void func_800EE94C_10256C_shared_board(Object* arg0, s16 arg1, s32 arg2) {
     func_800D9D84_ED9A4_shared_board(arg0, arg1, 0, 0xA, arg2);
 }
 

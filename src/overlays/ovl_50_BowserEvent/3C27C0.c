@@ -37,7 +37,7 @@ s32 func_8010778C_3C45AC_BowserEvent(void);
 s32 func_801078CC_3C46EC_BowserEvent(void);
 
 extern s16 D_801094F6_3C6316_BowserEvent;
-extern s32 D_801094F8_3C6318_BowserEvent;
+extern Object* D_801094F8_3C6318_BowserEvent;
 extern char D_80109508_3C6328_BowserEvent[];
 
 extern u8 D_801094F0_3C6310_BowserEvent;

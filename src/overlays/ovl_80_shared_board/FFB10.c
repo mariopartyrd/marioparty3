@@ -87,7 +87,7 @@ void func_800EC70C_10032C_shared_board(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s
     func_800EBF48_FFB68_shared_board(temp_v0, GwSystem.current_player_index);
 }
 
-void func_800EC8EC_10050C_shared_board(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
+void ShowMessage(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
     func_800EC70C_10032C_shared_board(arg0, arg1, arg2, arg3, arg4, arg5, arg6, -1);
 }
 
