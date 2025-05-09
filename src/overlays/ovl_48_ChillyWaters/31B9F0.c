@@ -113,7 +113,7 @@ void func_80107C2C_31D79C_ChillyWaters(void) {
     GWBoardFlagClear(0x12);
     GwSystem.bank_coins = 0;
     GwSystem.slow_dice_flags = 0;
-    GwSystem.unk_54 = 0;
+    GwSystem.forceShopHost = 0;
     GwSystem.boardData.halfWordBytes[1] = 0;
     omOvlReturnEx(1);
 }
