@@ -23,7 +23,6 @@ extern s16 D_800D1244_D1E44[];
 extern s16 D_800D1382_D1F82[];
 extern s16 gNumOfControllers;
 extern s8 D_800D20A1_D2CA1[];
-extern u16 D_800D5558_D6158[];
 
 extern s16 D_800ABF9C_ACB9C;
 extern OSMesgQueue D_800ABFA0_ACBA0;

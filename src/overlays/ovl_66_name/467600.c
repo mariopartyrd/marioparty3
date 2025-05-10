@@ -13,10 +13,7 @@ s16 StringBufferIndex = 0; //only used once and never written to?
 u16 TextYPos = DEFAULT_Y_POS;
 
 extern s32 fontcolor;
-extern char D_800D5218_D5E18[];
 extern u8 D_801068C0_4684F0_name_66[512];
-extern u16 D_800D5558_D6158;
-extern u16 D_800D530C_D5F0C;
 
 void func_80106108_467D38_name_66(omObjData*);
 void func_80106134_467D64_name_66(void);
@@ -64,7 +61,7 @@ void func_80105BB4_4677E4_name_66(void) {
     func_80050974_51574();
     while (1) {
         HuPrcVSleep();
-        if (D_800D5558_D6158 & 0x8000) {
+        if (D_800D5558_D6158[0] & 0x8000) {
             var_s1 = (var_s1 == 0) ? 2 : 0;
         }
 
@@ -142,7 +139,7 @@ void func_80106134_467D64_name_66(void) {
     while (1) {
         HuPrcVSleep();
         func_801062A0_467ED0_name_66();
-        if (D_800D5558_D6158 & 0x8000) {
+        if (D_800D5558_D6158[0] & 0x8000) {
             for (j = 0; j < ARRAY_COUNT(GwStory.unk3); j++) {
                 GwStory.unk3[j] = 0;
             }

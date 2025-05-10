@@ -1767,7 +1767,9 @@ segments:
     bss_size: 0x10
     subsegments:
       - [0x3D7150, c]
-      - [0x3D7690, data, 3D7150] #80105EE0
+      - [0x3D7180, c]
+      - [0x3D7690, .data, 3D7150] #80105EE0
+      - [0x3D76B0, .data, 3D7180]
       - {0x3D76C0, type: bss, vram: 0x80105F10, name: ovl_58_bss}
 
   - type: code

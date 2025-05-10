@@ -7,7 +7,6 @@ typedef struct UnkOmData {
 } UnkOmData;
 
 extern UnkOmData D_80109338_4F3B88_name_73;
-extern u16 D_800D530C_D5F0C;
 extern s8 D_80108E78_4F36C8_name_73;
 void func_80106054_4F08A4_name_73(void);
 void func_80106544_4F0D94_name_73(omObjData*);

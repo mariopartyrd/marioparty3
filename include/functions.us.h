@@ -132,5 +132,15 @@ void HuVecSubtract(Vec * dest, Vec * a, Vec * b);
 void func_8001C92C_1D52C(s16, f32);
 void HuVecAdd(Vec* out, Vec* a, Vec* b);
 void func_8001C92C_1D52C(s16, f32);
-
+s16 InitEspriteSlot(s16, s32, s32);
+u16 func_8000B838_C438(s32);
+void func_8000BB54_C754(s32);
+void func_8000BBD4_C7D4(u16, s32, s32);
+void func_8000BCC8_C8C8(u16, s32);
+void func_8000C184_CD84(u16);
+s32 CheckControllerRead(s16 padNum);
+s32 GWContErrorGet(void);
+void func_8005F524_60124(void);
+void omOvlHisChg(s16 arg0, s32 overlay, s16 event, s16 stat);
+void GWContErrorSet(void);
 #endif

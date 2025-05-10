@@ -30,7 +30,6 @@ s32 func_8010AC58_51BD98_FileSelect(s32);
 s32 func_80112494_5235D4_FileSelect(s32, u8*);
 
 extern u16 D_800D1244_D1E44;
-extern u16 D_800D5558_D6158;
 extern UnkFileSelect D_801142DC_52541C_FileSelect[3];
 extern UnkFileSelect2 D_80114158_525298_FileSelect[];
 
@@ -246,14 +245,6 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_79_FileSelect/516AE0", func_80108EB8_
 
 #define CLAMP_BELOW(val, limit) ((val) < (limit) ? (val) : 0)
 
-#define DPAD_RIGHT 0x100
-#define DPAD_LEFT 0x200
-#define DPAD_DOWN 0x400
-#define DPAD_UP 0x800
-
-#define BUTTON_A 0x8000
-#define BUTTON_B 0x4000
-
 enum OptionsFileSelect {
     OPTION_FILE0 = 0,
     OPTION_FILE1 = 1,
@@ -296,7 +287,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
         if (temp_v0 != -1) {
             pressedInput |= temp_v0;
         }
-        if (D_800D5558_D6158 & BUTTON_A) {
+        if (D_800D5558_D6158[0] & A_BUTTON) {
             switch (selectedOption) {
             case OPTION_FILE0:
                 func_8005A674_5B274(0, 5, 0, 5);
@@ -321,7 +312,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
             }
             return selectedOption;
         }
-        if ((D_800D5558_D6158 & BUTTON_B)) {
+        if ((D_800D5558_D6158[0] & B_BUTTON)) {
             if (selectedOption > OPTION_MAX)  {
                 goto checkIfCursorIndexChanged;
             }
@@ -331,11 +322,11 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
         case OPTION_FILE1:
         case OPTION_FILE2:
             temp_v1 = func_80108834_519974_FileSelect();
-            if (pressedInput & (DPAD_LEFT | DPAD_RIGHT)) {
+            if (pressedInput & (L_JPAD | R_JPAD)) {
                 func_801076D0_518810_FileSelect(4, 0x2A00);
                 func_80110FB0_5220F0_FileSelect(selectedOption);
                 cursorIndex = selectedOption + 1;
-                if (pressedInput & DPAD_LEFT) {
+                if (pressedInput & L_JPAD) {
                     cursorIndex = selectedOption - 1;
                     //if less than 0, wrap index back around to file index 2
                     if (cursorIndex < 0) {
@@ -344,8 +335,8 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
                 } else {
                     cursorIndex = CLAMP_BELOW(cursorIndex, OPTION_FILES_END);
                 }
-            } else if (pressedInput & (DPAD_UP | DPAD_DOWN)) {
-                if (pressedInput & DPAD_UP) {
+            } else if (pressedInput & (U_JPAD | D_JPAD)) {
+                if (pressedInput & U_JPAD) {
                     cursorIndex = OPTION_COPY;
                     if ((temp_v1 - 1) < (OPTION_FILES_END - 1)) {
                         func_801076D0_518810_FileSelect(4, 0x2A01);
@@ -363,7 +354,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
             break;
         case OPTION_COPY:
             temp_v1 = func_80108834_519974_FileSelect();
-            if (pressedInput & (DPAD_LEFT | DPAD_RIGHT)) {
+            if (pressedInput & (L_JPAD | R_JPAD)) {
                 if (temp_v1 == 0) {
                     func_801076D0_518810_FileSelect(4, 0x2A13);
                 } else {
@@ -371,14 +362,14 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
                 }
                 cursorIndex = OPTION_ERASE;
             }
-            if (pressedInput & DPAD_DOWN) {
+            if (pressedInput & D_JPAD) {
                 cursorIndex = OPTION_FILE1;
                 func_801076D0_518810_FileSelect(4, 0x2A00);
             }
             break;
         case OPTION_ERASE:
             temp_v1 = func_80108834_519974_FileSelect() ;
-            if (pressedInput & (DPAD_LEFT | DPAD_RIGHT)) {
+            if (pressedInput & (L_JPAD | R_JPAD)) {
                 cursorIndex = OPTION_FILES_END;
                 if ((temp_v1 - 1) < 2) {
                     func_801076D0_518810_FileSelect(4, 0x2A01);
@@ -386,7 +377,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
                     func_801076D0_518810_FileSelect(4, 0x2A03);
                 }
             }
-            if (pressedInput & DPAD_DOWN) {
+            if (pressedInput & D_JPAD) {
                 cursorIndex = 2;
                 func_801076D0_518810_FileSelect(4, 0x2A00);
             }
@@ -395,7 +386,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
         case OPTION_FILE1_NAME:
         case OPTION_FILE2_NAME:
             func_801076D0_518810_FileSelect(4, 0x2A11);
-            if (pressedInput & DPAD_LEFT) {
+            if (pressedInput & L_JPAD) {
                 cursorIndex = selectedOption;
                 do {
                     cursorIndex -= 1;
@@ -404,7 +395,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
                     }
                 } while (D_801142DC_52541C_FileSelect[cursorIndex - OPTION_FILES_NAME_BEGIN].unk_00 != unkValue);
             } else {
-                if (pressedInput & DPAD_RIGHT) {
+                if (pressedInput & R_JPAD) {
                     cursorIndex = selectedOption;
                     do {
                         //if cursor goes over max, wrap around back to file 0 name
@@ -414,7 +405,7 @@ u32 func_80109570_51A6B0_FileSelect(s32 arg0) {
                     } while (D_801142DC_52541C_FileSelect[cursorIndex - OPTION_FILES_NAME_BEGIN].unk_00 != unkValue);
                 }
             }
-            if (pressedInput & DPAD_UP) {
+            if (pressedInput & U_JPAD) {
                 cursorIndex = selectedOption - OPTION_FILES_NAME_BEGIN;
                 func_801076D0_518810_FileSelect(4, 0x2A00);
             }
