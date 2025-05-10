@@ -88,13 +88,13 @@ void func_80105C80_3D7430_name_58(void) {
     func_8000BBD4_C7D4(temp_v0_2, 0xA0, 0x78);
     func_8000BB54_C754(temp_v0_2);
     func_8000BCC8_C8C8(temp_v0_2, 0xFFFF);
-    WipeCreateIn(0xB, 0x1E);
+    WipeCreateIn(0xB, 30);
 
     while (WipeStatGet() != 0) {
         HuPrcVSleep();
     }
     
-    HuPrcSleep(0x25);
+    HuPrcSleep(37);
     WipeCreateOut(0xB, 9);
     
     while (WipeStatGet() != 0) {
@@ -115,7 +115,7 @@ void func_80105C80_3D7430_name_58(void) {
         HuPrcVSleep();
     }
     
-    HuPrcSleep(0x25);
+    HuPrcSleep(37);
     WipeCreateOut(0xB, 9);
     
     while (WipeStatGet() != 0) {
@@ -135,7 +135,7 @@ void func_80105C80_3D7430_name_58(void) {
         HuPrcVSleep();
     }
     
-    HuPrcSleep(0x25);
+    HuPrcSleep(37);
     D_800D530C_D5F0C = 1;
     
     while (1) {

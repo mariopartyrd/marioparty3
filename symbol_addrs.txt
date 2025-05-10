@@ -711,6 +711,10 @@ ovlEventCall = 0x800359E0; //rom:0x365E0
 D_801093A8_3C61C8_BowserEvent = 0x801093A8; //rom:0x3C61C8 size:0x08 segment:BowserEvent
 BoardGetTurnTier = 0x800FB578; //rom:0x10F198 segment:shared_board
 omovlevtno = 0x800A1764; //rom:0xA2364
+Hu3DModelPosSet = 0x8001C0C4; //rom:0x1CCC4
+Hu3DModelRotSet = 0x8001C150; //rom:0x1CD50
+Hu3DModelScaleSet = 0x8001C1A0; //rom:0x1CDA0
+omdispinfo = 0x800A1760; //rom:0xA2360 type:u16
 
 //libultra symbols
 //auxbus.c

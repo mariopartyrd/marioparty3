@@ -9,8 +9,8 @@ void func_8000BCC8_C8C8(u16, s32);
 void func_8000BE5C_CA5C(u16, f32, f32);
 void func_8000C184_CD84(u16);
 void func_8001ACDC_1B8DC(s16);
-void func_8001C150_1CD50(s16, f32, f32, f32);
-void func_8001C1A0_1CDA0(s16, f32, f32, f32);
+void Hu3DModelRotSet(s16, f32, f32, f32);
+void Hu3DModelScaleSet(s16, f32, f32, f32);
 void func_8001C258_1CE58(s16, s32, s32);
 void func_80055670_56270(s16);
 void func_8010B82C_507A8C_name_78(s32);
@@ -393,20 +393,20 @@ s32 func_80113ED4_510134_name_78(UnkStarLift* arg0) {
     func_8001C258_1CE58(sp20[1][12], 4, 4);
     
     for (var_f20 = 0.0f; var_f20 < 180.0f; var_f20 += (180.0f / 7.0f)) {
-        func_8001C150_1CD50(temp, 0, var_f20, 0);
+        Hu3DModelRotSet(temp, 0, var_f20, 0);
         HuPrcVSleep();
     }
     
-    func_8001C150_1CD50(temp, 0, 180.0f, 0);
+    Hu3DModelRotSet(temp, 0, 180.0f, 0);
     temp_s5->work[0] = 1;
     temp_s5->work[1] = 36;
     
     for (var_f20 = 1.0f; var_f20 < 2.5f; var_f20 += (3.0f / 14.0f)) {
-        func_8001C1A0_1CDA0(temp, var_f20, var_f20, var_f20);
+        Hu3DModelScaleSet(temp, var_f20, var_f20, var_f20);
         HuPrcVSleep();
     }
     
-    func_8001C1A0_1CDA0(temp, 2.5f, 2.5f, 2.5f);
+    Hu3DModelScaleSet(temp, 2.5f, 2.5f, 2.5f);
     prevBoardIndex = -1;
     pad = func_8010D684_5098E4_name_78(D_8011A948_516BA8_name_78, &unk_68);
     boardCountMaxCopy = boardCountMax;
@@ -480,18 +480,18 @@ s32 func_80113ED4_510134_name_78(UnkStarLift* arg0) {
     func_8000BBFC_C7FC(backgroundEspriteSlot, 0);
 
     for (var_f20 = 2.5f; var_f20 > 1.0f; var_f20 += -(3.0f / 14.0f)) {
-        func_8001C1A0_1CDA0(temp, var_f20, var_f20, var_f20);
+        Hu3DModelScaleSet(temp, var_f20, var_f20, var_f20);
         HuPrcVSleep();
     }
 
-    func_8001C1A0_1CDA0(temp, 1.0f, 1.0f, 1.0f);
+    Hu3DModelScaleSet(temp, 1.0f, 1.0f, 1.0f);
 
     for (var_f20 = 180.0f; var_f20 < 360.0f; var_f20 += (180.0f / 7.0f)) {
-        func_8001C150_1CD50(temp, 0, var_f20, 0);
+        Hu3DModelRotSet(temp, 0, var_f20, 0);
         HuPrcVSleep();
     }
 
-    func_8001C150_1CD50(temp, 0, 0.0f, 0);
+    Hu3DModelRotSet(temp, 0, 0.0f, 0);
     func_8001C258_1CE58(sp20[1][12], 4, 0);
     HuAudFXPlay(0x2DA);
     func_8010E8C8_50AB28_name_78(&sp20, 2, 7, 360.0f, 400.0f, 1.0f, 0.1f, 1);

@@ -337,7 +337,7 @@ void func_8000BD94_C994(u16, s32, s32);                    /* extern */
 void func_8000BDDC_C9DC(u16, s32);                       /* extern */
 void func_8000C184_CD84(u16);
 void func_80017954_18554(s16, s32, u8, s16);             /* extern */
-void func_8001C150_1CD50(s16, f32, f32, f32);                /* extern */
+void Hu3DModelRotSet(s16, f32, f32, f32);                /* extern */
 void func_8001C624_1D224(s16, u8, s32, s32, s32);          /* extern */
 void func_8004AC10_4B810(s32, u8);                       /* extern */
 void func_800E4F50_CCD20_name_81(Addr*);                  /* extern */
@@ -438,18 +438,18 @@ void func_8010FC98_4CCEC8_name_6E(void) {
     func_8010F12C_4CC35C_name_6E();
     func_8001C5B4_1D1B4(temp_s5->model[1], temp_s5->motion[13]);
     func_8001C814_1D414(temp_s5->model[1], 2, 2);
-    func_8001C0C4_1CCC4(temp_s5->model[1], 0.0f, 0.0f, 2220.0f);
-    func_8001C0C4_1CCC4(temp_s5->model[2], 0.0f, -5.0f, 2220.0f);
-    func_8001C150_1CD50(temp_s5->model[1], 0, 0, 0);
-    func_8001C1A0_1CDA0(temp_s5->model[1], 1.5f, 1.5f, 1.5f);
-    func_8001C1A0_1CDA0(temp_s5->model[2], 1.5f, 1.5f, 1.5f);
+    Hu3DModelPosSet(temp_s5->model[1], 0.0f, 0.0f, 2220.0f);
+    Hu3DModelPosSet(temp_s5->model[2], 0.0f, -5.0f, 2220.0f);
+    Hu3DModelRotSet(temp_s5->model[1], 0, 0, 0);
+    Hu3DModelScaleSet(temp_s5->model[1], 1.5f, 1.5f, 1.5f);
+    Hu3DModelScaleSet(temp_s5->model[2], 1.5f, 1.5f, 1.5f);
     HuPrcVSleep();
     func_8010F0A0_4CC2D0_name_6E();
     HuPrcSleep(30);
     func_8001C258_1CE58(temp_s7->model[6], 4, 0);
-    func_8001C0C4_1CCC4(temp_s7->model[6], 0.0f, 1000.0f, 2120.0f);
-    func_8001C150_1CD50(temp_s7->model[6], 0, 0, 0);
-    func_8001C1A0_1CDA0(temp_s7->model[6], 1.5f, 1.5f, 1.5f);
+    Hu3DModelPosSet(temp_s7->model[6], 0.0f, 1000.0f, 2120.0f);
+    Hu3DModelRotSet(temp_s7->model[6], 0, 0, 0);
+    Hu3DModelScaleSet(temp_s7->model[6], 1.5f, 1.5f, 1.5f);
     func_8010E5C4_4CB7F4_name_6E(temp_s7, 0.0f, 400.0f, 2120.0f, 0x3C, 0);
     D_80111B8C_4CEDBC_name_6E = 0;
     HuPrcSleep(20);

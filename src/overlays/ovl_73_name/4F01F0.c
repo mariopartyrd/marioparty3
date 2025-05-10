@@ -47,9 +47,9 @@ void func_80106080_4F08D0_name_73(void) {
     D_80109338_4F3B88_name_73.unk_00 = temp_v0;
     temp_v0->model[1] = func_8000B108_BD08(0xA011B, 0x2B9);
     func_8001C814_1D414(temp_v0->model[1], 2, 2);
-    func_8001C1A0_1CDA0(temp_v0->model[1], 0.9f, 0.9f, 0.9f);
+    Hu3DModelScaleSet(temp_v0->model[1], 0.9f, 0.9f, 0.9f);
     temp_v0->model[2] = func_8000B108_BD08(9, 0x2B9);
-    func_8001C1A0_1CDA0(temp_v0->model[2], 2.0f, 1.0f, 2.0f);
+    Hu3DModelScaleSet(temp_v0->model[2], 2.0f, 1.0f, 2.0f);
     func_8000B460_C060(temp_v0, 0, 0xA011C);
     func_8000B460_C060(temp_v0, 1, 0xA011D);
     func_8000B460_C060(temp_v0, 2, 0xA011E);
@@ -61,9 +61,9 @@ void func_80106080_4F08D0_name_73(void) {
     temp_v0->trans.x = 0.0f;
     temp_v0->trans.y = 0.0f;
     temp_v0->trans.z = 0.0f;
-    func_8001C0C4_1CCC4(temp_v0->model[0], temp_v0->trans.x, temp_v0->trans.y, temp_v0->trans.z);
-    func_8001C0C4_1CCC4(temp_v0->model[1], 0.0f, 0.0f, 2300.0f);
-    func_8001C0C4_1CCC4(temp_v0->model[2], 0.0f, 0.0f, 2300.0f);
+    Hu3DModelPosSet(temp_v0->model[0], temp_v0->trans.x, temp_v0->trans.y, temp_v0->trans.z);
+    Hu3DModelPosSet(temp_v0->model[1], 0.0f, 0.0f, 2300.0f);
+    Hu3DModelPosSet(temp_v0->model[2], 0.0f, 0.0f, 2300.0f);
     omPrcSetDestructor(0, func_80106544_4F0D94_name_73);
     D_80109338_4F3B88_name_73.objFunc = func_80106270_4F0AC0_name_73;
     while (1) {

@@ -60,7 +60,7 @@ Process* omAddPrcObj(process_func func, u16 priority, s32 stackSize, s32 extData
 s32 omOvlCallEx(s32 arg0, s16 arg1, u16 arg2);
 void omMain(void);
 void omPrcSetStatBit(Process*, s32);
-s32 omOvlGotoEx(s32, s16, u16);
+void omOvlGotoEx(s32, s16, u16);
 void omDestroyObjMan(void);
 void omPrcSetDestructor(s32, void*);
 void omPrcResetStatBit(Process*, s32);

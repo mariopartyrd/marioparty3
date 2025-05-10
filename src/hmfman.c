@@ -26,13 +26,13 @@ INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001BF14_1CB14);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001BF90_1CB90);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C0C4_1CCC4);
+INCLUDE_ASM("asm/nonmatchings/hmfman", Hu3DModelPosSet);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C114_1CD14);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C150_1CD50);
+INCLUDE_ASM("asm/nonmatchings/hmfman", Hu3DModelRotSet);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C1A0_1CDA0);
+INCLUDE_ASM("asm/nonmatchings/hmfman", Hu3DModelScaleSet);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C1F0_1CDF0);
 

@@ -588,7 +588,7 @@ void ItemUseWackyWatch(void) {
     func_8001C258_1CE58(temp_v0_3->omObj1->model[0], 0x180, 0);
     func_8001C8E4_1D4E4(temp_v0_3->omObj1->model[0], 0x1800);
     func_8001C448_1D048(temp_v0_3->omObj1->model[0]);
-    func_8001C1A0_1CDA0(temp_v0_3->omObj1->model[0], 0.0f, 0.0f, 0.0f);
+    Hu3DModelScaleSet(temp_v0_3->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     HuVecCopy3F(&temp_v0_3->coords, &GetPlayerStruct(CUR_PLAYER)->player_obj->coords);
     func_800D9714_ED334_shared_board(temp_v0_3);
     func_800D9B24_ED744_shared_board(temp_v0_3);

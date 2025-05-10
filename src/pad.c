@@ -82,7 +82,13 @@ s32 _ReadController(s32 arg0)
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/pad", ReadController);
+void ReadController(void) {
+    osRecvMesg(&D_800ABFA0_ACBA0, NULL, 1);
+    if (D_800ABF80_ACB80 < 8) {
+        RequestSIFunction(&D_800ABF00_ACB00[D_800ABF84_ACB84], &_ReadController, 0, 0);
+    }
+    osSendMesg(&D_800ABFA0_ACBA0, NULL, 1);
+}
 
 void SetStickValueLimit(s8 arg0, s8 arg1) {
     D_800ABF8E_ACB8E = arg0;
