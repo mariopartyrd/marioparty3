@@ -14,7 +14,7 @@ s32 D_80105F00_3D76B0_name_58 = 0;
 s32 D_80105F04_3D76B4_name_58 = 0;
 
 void func_801059D0_3D7180_name_58(void) {
-    Hu3DCamInit(1U);
+    Hu3DCamInit(1);
     omInitObjMan(0x10, 4);
     D_800D6A58_D7658 = 1;
     

@@ -143,4 +143,7 @@ s32 GWContErrorGet(void);
 void func_8005F524_60124(void);
 void omOvlHisChg(s16 arg0, s32 overlay, s16 event, s16 stat);
 void GWContErrorSet(void);
+void Hu3DAnimInit(s32);
+void HuAudSeqPlay(s32);
+
 #endif

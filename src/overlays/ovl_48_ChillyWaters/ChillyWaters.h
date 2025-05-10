@@ -56,7 +56,6 @@ void func_801176A4_32D214_ChillyWaters(void);
 void func_801177DC_32D34C_ChillyWaters(void);
 void func_80117C60_32D7D0_ChillyWaters(void);
 void func_8011C88C_3323FC_ChillyWaters(void);
-void HuAudSeqPlay(s32);
 void func_800EBA60_FF680_shared_board(void*);
 void func_800F8D48_10C968_shared_board(void*);
 void func_800F8D6C_10C98C_shared_board(s32);
