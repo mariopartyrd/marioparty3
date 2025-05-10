@@ -67,7 +67,6 @@ extern HuArchive gArchive;
 
 void HuInitArchive(u8* fsRomPtr);
 void HuInitFileInfo(EArchiveType type, s32 index, HuFileInfo* info);
-s16 Hu3DModelCreate(s32 dirAndFile);
 void* HuDecodeFilePerm(EArchiveType type, s32 index);
 void* HuDecodeFileTemp(EArchiveType type, s32 index);
 void* HuDecodeFileTag(EArchiveType type, s32 index, s32 tag);

@@ -83,7 +83,7 @@ void func_80105C80_3D7430_name_58(void) {
     u16 temp_v0_2;
     u16 temp_v0_4;
 
-    temp_v0 = func_8000B838_C438(0x110000);
+    temp_v0 = func_8000B838_C438(0x00110000);
     temp_v0_2 = InitEspriteSlot(temp_v0, 0, 1);
     func_8000BBD4_C7D4(temp_v0_2, 0xA0, 0x78);
     func_8000BB54_C754(temp_v0_2);
@@ -104,7 +104,7 @@ void func_80105C80_3D7430_name_58(void) {
     func_8000C184_CD84(temp_v0_2);
     func_80055670_56270(temp_v0);
     HuPrcSleep(9);
-    temp_v0_3 = func_8000B838_C438(0x110001);
+    temp_v0_3 = func_8000B838_C438(0x00110001);
     temp_v0_4 = InitEspriteSlot(temp_v0_3, 0, 1);
     func_8000BBD4_C7D4(temp_v0_4, 0xA0, 0x78);
     func_8000BB54_C754(temp_v0_4);

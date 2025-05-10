@@ -281,17 +281,15 @@ typedef struct HuCamera {
     /* 0x034 */ Vec screenScale;
     /* 0x040 */ Vec screenPos;
     /* 0x04C */ s32 unk4C;
-    /* 0x050 */ f32 fov;
-    /* 0x054 */ f32 near;
-    /* 0x058 */ f32 far;
+    /* 0x050 */ f32 fov[3];
     /* 0x05C */ f32 unk5C;
     /* 0x060 */ Vp viewports[3];
     /* 0x090 */ f32 screenLeft;
     /* 0x094 */ f32 screenTop;
     /* 0x098 */ f32 screenRight;
     /* 0x09C */ f32 screenBottom;
-    /* 0x0A0 */ s32 unkA0;
-    /* 0x0A4 */ s32 unkA4;
+    /* 0x0A0 */ void (*unkA0)(void); //TODO: get correct signature for this
+    /* 0x0A4 */ void* unkA4;
     /* 0x0A8 */ s32 unkA8;
     /* 0x0AC */ s32 unkAC;
     /* 0x0B0 */ HuCamMtxs mtxs[3];
