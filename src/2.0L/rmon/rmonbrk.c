@@ -1,13 +1,5 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonbrk", __rmonRCPrunning);
-
-INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonbrk", __rmonIdleRCP);
-
-INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonbrk", __rmonStepRCP);
-
-INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonbrk", __rmonRunRCP);
-
 INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonbrk", __rmonSetBreak);
 
 INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonbrk", __rmonListBreak);

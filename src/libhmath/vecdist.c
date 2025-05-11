@@ -16,7 +16,7 @@ f32 _HuVecDistanceSqr(Vec * a, Vec * b)
     return (x * x) + (y * y) + (z * z);
 }
 #else
-INCLUDE_ASM(f32, "libhmath/vecdist", HuVecDistanceSqr, Vec * a, Vec * b);
+INCLUDE_ASM("asm/nonmatchings/libhmath/vecdist", HuVecDistanceSqr);
 #endif
 
 // https://decomp.me/scratch/02P6S
@@ -33,5 +33,5 @@ f32 _HuVecDistance(Vec * arg0, Vec * arg1) {
     return HuSqrtf((temp_f0 * temp_f0) + (temp_f2 * temp_f2) + (temp_f12 * temp_f12));
 }
 #else
-INCLUDE_ASM(f32, "libhmath/vecdist", HuVecDistance, Vec * a, Vec * b);
+INCLUDE_ASM("asm/nonmatchings/libhmath/vecdist", HuVecDistance);
 #endif

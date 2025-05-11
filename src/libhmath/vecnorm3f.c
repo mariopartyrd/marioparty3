@@ -21,5 +21,5 @@ void _HuVecNormalize3F(Vec * vec)
     vec->z = invMag * z;
 }
 #else
-INCLUDE_ASM(void, "libhmath/vecnorm3f", HuVecNormalize3F, Vec * vec);
+INCLUDE_ASM("asm/nonmatchings/libhmath/vecnorm3f", HuVecNormalize3F);
 #endif
