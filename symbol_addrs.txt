@@ -145,6 +145,10 @@ HuDecodeFslide = 0x8000A9E8;
 HuDecodeRLE = 0x8000AE64;
 HuDecode = 0x8000B000;
 
+HuProfInit = 0x8004D410;
+HuProfRecordAwaitRsp = 0x8004D534;
+HuProfRecordSample = 0x8004D574;
+
 rand8 = 0x8000B16C;
 
 HuPrcSysInit = 0x8004EB20;
