@@ -14,7 +14,7 @@ extern UnkC1F0 D_800D04B8_D10B8[];
 
 void func_8000B5F0_C1F0(u8 arg0) {
     D_80097660_98260 = arg0;
-    Hu3DCamInit((u32) D_80097660_98260);
+    Hu3DCamInit(D_80097660_98260);
     gCameraList[0].fov[0] = 45.0f;
     D_80097661_98261 = 0;
 }

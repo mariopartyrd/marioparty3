@@ -186,6 +186,11 @@ typedef struct GW_STORY {
     /* 0x64 */ char unk_64[0x10];
 } GW_STORY; /* size = 0x74 */
 
+typedef struct MinigameTable {
+    /* 0x00 */ u8 minigameType;
+    /* 0x01 */ char unk_01[0x13];
+} MinigameTable;
+
 typedef struct RectF {
 /* 0x00 */ f32 x1;
 /* 0x04 */ f32 y1;

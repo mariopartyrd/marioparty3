@@ -145,5 +145,10 @@ void omOvlHisChg(s16 arg0, s32 overlay, s16 event, s16 stat);
 void GWContErrorSet(void);
 void Hu3DAnimInit(s32);
 void HuAudSeqPlay(s32);
+s16 GWMgUnlockCheck(s16 arg0);
+s32 _CheckFlag(s32);
+void GWMgUnlockSet(s16 bitPos);
+void _ClearFlag(s32 flag);
+void func_8000B5F0_C1F0(u8 arg0);
 
 #endif

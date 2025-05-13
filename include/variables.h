@@ -26,5 +26,7 @@ extern char D_800D5218_D5E18[];
 extern u16 D_800D5558_D6158[4];
 extern u16 D_800D530C_D5F0C;
 extern s8 D_800D6A58_D7658;
+extern MinigameTable D_800A6D44_A7944[];
+extern s16 omovlhisidx;
 
 #endif //_VARIABLES_H_

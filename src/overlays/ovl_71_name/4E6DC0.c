@@ -12,13 +12,6 @@ void func_800E6720_FA340_shared_board(s32, s32);
 void func_80107024_4E8444_name_71(void);
 extern s32 D_8010AD0C_4EC12C_name_71[];
 
-typedef struct MinigameTable {
-    u8 minigameType;
-    char unk_01[0x13];
-} MinigameTable;
-
-extern MinigameTable D_800A6D44_A7944[];
-
 //updates mg star coins on results scene load
 void func_801059A0_4E6DC0_name_71(void) {
     omObjData* obj;

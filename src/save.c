@@ -1,8 +1,6 @@
 #include "common.h"
 #include "pad.h"
 
-s32 _CheckFlag(s32);
-
 extern s32 D_800B1A30_B2630;
 
 void GWInit(void) {
@@ -57,7 +55,7 @@ void GWMgUnlockReset(s16 bitPos) {
 }
 
 // check bit
-s32 GWMgUnlockCheck(s16 arg0) {
+s16 GWMgUnlockCheck(s16 arg0) {
     s16 sp10;
     s16 sp12;
 

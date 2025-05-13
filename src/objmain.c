@@ -54,7 +54,6 @@ extern u16 D_800D6A56_D7656;
 extern s8 D_800A1762_A2362;
 extern u16 D_800B23C0_B2FC0;
 extern u16 D_800CD050_CDC50;
-extern s16 omovlhisidx;
 extern omOvlHisData omovlhis[12];
 
 typedef struct OverlayInfo {
