@@ -1,3 +1,3 @@
 #include "common.h"
 
-INCLUDE_ASM(s32, "libhmath/sin", HuMathSin);
+INCLUDE_ASM("asm/nonmatchings/libhmath/sin", HuMathSin);
