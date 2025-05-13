@@ -55,21 +55,21 @@ typedef struct
     void* bytesCopy;
 } HuFileInfoD;
 
-extern u8* gArchiveRomAddr; // FS ROM location
-extern u32 gArchiveDirCount; // Directory count
-extern s32* gArchiveTblAddr; // Directory offset table pointer.
+extern u8* DataRomAddr; // FS ROM location
+extern u32 DataDirMax; // Directory count
+extern s32* DataDirTbl; // Directory offset table pointer.
 
-extern u8* gArchiveRomAddrCopy; // FS ROM location (copy)
-extern u32 gArchiveDirCountCopy; // Directory count (copy)
-extern s32* gArchiveTblAddrCopy; // Directory offset table pointer (copy)
+extern u8* DataFileRomAddr; // FS ROM location (copy)
+extern u32 DataFileMax; // Directory count (copy)
+extern s32* DataFileTbl; // Directory offset table pointer (copy)
 
 extern HuArchive gArchive;
 
-void HuInitArchive(u8* fsRomPtr);
-void HuInitFileInfo(EArchiveType type, s32 index, HuFileInfo* info);
-void* HuDecodeFilePerm(EArchiveType type, s32 index);
-void* HuDecodeFileTemp(EArchiveType type, s32 index);
-void* HuDecodeFileTag(EArchiveType type, s32 index, s32 tag);
-void HuInitDirectory(EArchiveType type, s32 dir);
+void DataInit(u8* fsRomPtr);
+void DataInfoRead(EArchiveType type, s32 index, HuFileInfo* info);
+void* DataDecode(EArchiveType type, s32 index);
+void* DataDecodeTemp(EArchiveType type, s32 index);
+void* DataDecodeNum(EArchiveType type, s32 index, s32 tag);
+void DataDirInit(EArchiveType type, s32 dir);
 
 #endif

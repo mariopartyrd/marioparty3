@@ -126,24 +126,24 @@ HuMemHeapAllocTempSizeGet = 0x800359A0;
 HuMemUsedMemoryBlockGetTemp = 0x800359C0;
 
 osPiRawStartDma = 0x80080A60; //rom:0x81660
-HuInitArchive = 0x80009AC0;
-HuInitFileInfo = 0x80009B64;
-ReadMainFS = 0x80009C10;
-HuReadFileTemp = 0x80009C74;
-HuReadFileTag = 0x80009CD8;
-HuDecodeFilePerm = 0x80009D4C;
-HuDecodeFileTemp = 0x80009DA8;
-HuDecodeFileTag = 0x80009E04;
-HuFreeFilePerm = 0x80009E6C;
-HuFreeFileTemp = 0x80009E8C;
-HuInitDirectory = 0x80009EAC;
+DataInit = 0x80009AC0;
+DataInfoRead = 0x80009B64;
+DataRead = 0x80009C10;
+DataReadTemp = 0x80009C74;
+DataReadNum = 0x80009CD8;
+DataDecode = 0x80009D4C;
+DataDecodeTemp = 0x80009DA8;
+DataDecodeNum = 0x80009E04;
+DataClose = 0x80009E6C;
+DataCloseTemp = 0x80009E8C;
+DataDirInit = 0x80009EAC;
 
 HuDecodeNone = 0x8000A230;
 HuDecodeLZ = 0x8000A2CC;
 HuDecodeSlide = 0x8000A53C;
 HuDecodeFslide = 0x8000A9E8;
 HuDecodeRLE = 0x8000AE64;
-HuDecode = 0x8000B000;
+DecodeData = 0x8000B000;
 
 HuProfInit = 0x8004D410;
 HuProfRecordAwaitRsp = 0x8004D534;
@@ -450,12 +450,12 @@ gCameraList = 0x800A0550;
 
 gHuMemIsDirty = 0x800A08A0;
 
-gArchiveRomAddr = 0x800ABFC0;
-gArchiveDirCount = 0x800ABFC4;
-gArchiveTblAddr = 0x800ABFC8;
-gArchiveRomAddrCopy = 0x800ABFCC;
-gArchiveDirCountCopy = 0x800ABFD0;
-gArchiveTblAddrCopy = 0x800ABFD4;
+DataRomAddr = 0x800ABFC0;
+DataDirMax = 0x800ABFC4;
+DataDirTbl = 0x800ABFC8;
+DataFileRomAddr = 0x800ABFCC;
+DataFileMax = 0x800ABFD0;
+DataFileTbl = 0x800ABFD4;
 gArchive = 0x800ABFE0;
 
 
@@ -565,6 +565,20 @@ ScissorSet = 0x8000B364; //rom:0xBF64
 ViewportSet = 0x8000B3C8; //rom:0xBFC8
 SprAttrSet = 0x800553A8; //rom:0x55FA8
 SprAttrReset = 0x8005532C; //rom:0x55F2C
+
+SprModelRead = 0x8000B4F8; //rom:0xC0F8
+HmfAnimRead = 0x8000B554; //rom:0xC154
+HmfSprModelCreate = 0x8001443C; //rom:0x1503C
+HmfAnimCreate = 0x800323CC; //rom:0x32FCC
+
+readBuffer = 0x800ABFF0;
+textBuffer = 0x800AC3F0;
+
+FileCreate = 0x80009F64; //rom:0xAB64
+FileClose = 0x80009FF8; //rom:0xABF8
+FileRead = 0x8000A028; //rom:0xAC28
+FileReadBuf = 0x8000A0D4; //rom:0xACD4
+FileSeek = 0x8000A150; //rom:0xAD50
 
 omOvlCallEx = 0x80048128; //rom:0x48D28
 omOvlGotoEx = 0x80048228; //rom:0x48E28

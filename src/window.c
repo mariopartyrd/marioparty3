@@ -136,10 +136,10 @@ void func_8005A6B0_5B2B0(void) {
             gLanguageIndex = LANGUAGE_ENGLISH;
         }
         if (gLanguageIndex == LANGUAGE_JAPANESE) {
-            D_800D1FE4_D2BE4 = HuReadFileTemp(0x0000002B);
+            D_800D1FE4_D2BE4 = DataReadTemp(0x0000002B);
             func_80036414_37014(strings_japanese_ROM_START);
         } else {
-            D_800D1FE4_D2BE4 = HuReadFileTemp(0x0000002C);
+            D_800D1FE4_D2BE4 = DataReadTemp(0x0000002C);
             switch (gLanguageIndex) {
             case LANGUAGE_ENGLISH:
                 func_80036414_37014(strings_english_ROM_START);
@@ -165,16 +165,16 @@ void func_8005A6B0_5B2B0(void) {
 
         D_800A2150_A2D50 = 1;
         D_800CB99C_CC59C = 0;
-        D_800D4084_D4C84 = HuReadFileTemp(0x00000029);
-        D_800CE2C4_CEEC4 = HuReadFileTemp(0x0000002A);
+        D_800D4084_D4C84 = DataReadTemp(0x00000029);
+        D_800CE2C4_CEEC4 = DataReadTemp(0x0000002A);
 
         for (i = 0; i < ARRAY_COUNT(D_800BDA50_BE650); i++) {
             D_800BDA50_BE650[i] = -1;
         }
 
-        temp_v0_6 = ReadMainFS(0x00000033);
+        temp_v0_6 = DataRead(0x00000033);
         D_800BDA68_BE668 = func_80055810_56410(temp_v0_6);
-        HuFreeFilePerm(temp_v0_6);
+        DataClose(temp_v0_6);
 
         for (i = 0; i < ARRAY_COUNT(D_800D5206_D5E06); i++) {
             D_800D5206_D5E06[i] = 0;
@@ -236,7 +236,7 @@ s16 func_8005B7B8_5C3B8(s16 win_id, u32 spriteMainFsPair, s16 arg2, s16 arg3, u1
         return -1;
     }
 
-    spriteBytes = ReadMainFS(spriteMainFsPair);
+    spriteBytes = DataRead(spriteMainFsPair);
     spriteId = func_80055810_56410(spriteBytes);
     window->unk_6E[i] = spriteId;
     HuMemMemoryFreePerm(spriteBytes);

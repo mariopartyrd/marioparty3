@@ -281,7 +281,7 @@ void func_800F3BD0_1077F0_shared_board(s32 arg0) {
     temp_s4 = &D_801057E0_119400_shared_board[arg0];
     temp_s4->prevCoins = -1;
     temp_s4->prevStars = -1;
-    temp_v0 = ReadMainFS(0x1300CF);
+    temp_v0 = DataRead(0x1300CF);
     temp_s4->unk_3A = func_80055810_56410(temp_v0);
     temp_s2 = temp_s4->playerIndex;
     for (i = 0; i < 5; i++) {
@@ -296,7 +296,7 @@ void func_800F3BD0_1077F0_shared_board(s32 arg0) {
         func_80055458_56058(temp_s2, i + 4, 0x100U);
         func_800552DC_55EDC(temp_s2, i + 4, 0.0f);        
     }
-    HuFreeFilePerm(temp_v0);
+    DataClose(temp_v0);
 }
 
 void func_800F3D70_107990_shared_board(s32 arg0) {
@@ -376,39 +376,39 @@ void func_800F4190_107DB0_shared_board(void) {
 
     spriteIDs = D_80105588_1191A8_shared_board;
     //unk sprite id
-    temp_v0 = ReadMainFS(0x13010F);
+    temp_v0 = DataRead(0x13010F);
     spriteIDs[0] = func_80055810_56410(temp_v0);
-    HuFreeFilePerm(temp_v0);
+    DataClose(temp_v0);
     
     //create player sprite ids
     for (i = 0; i < MAX_PLAYERS; i++) {
-        temp_v0 = ReadMainFS(D_80101944_115564_shared_board[GwPlayer[i].chr]);
+        temp_v0 = DataRead(D_80101944_115564_shared_board[GwPlayer[i].chr]);
         spriteIDs[i + 1] = func_80055810_56410(temp_v0);
-        HuFreeFilePerm(temp_v0);
+        DataClose(temp_v0);
     }
 
     //create coin and star sprite ids
     for (i = 0; i < ARRAY_COUNT(sp10); i++) {
-        temp_v0 = ReadMainFS(sp10[i]);
+        temp_v0 = DataRead(sp10[i]);
         spriteIDs[i + 5] = func_80055810_56410(temp_v0);
-        HuFreeFilePerm(temp_v0);
+        DataClose(temp_v0);
     }
 
     //create placement sprite id
-    temp_v0 = ReadMainFS(0x130110);
+    temp_v0 = DataRead(0x130110);
     spriteIDs[8] = func_80055810_56410(temp_v0);
-    HuFreeFilePerm(temp_v0);
+    DataClose(temp_v0);
 
     //create COM text sprite id
-    temp_v0 = ReadMainFS(0x1300D1);
+    temp_v0 = DataRead(0x1300D1);
     spriteIDs[9] = func_80055810_56410(temp_v0);
-    HuFreeFilePerm(temp_v0);
+    DataClose(temp_v0);
 
     //create item sprite ids
     for (i = 0; i < ITEMS_END; i++) {
-        temp_v0 = ReadMainFS(D_801019D0_1155F0_shared_board[i]);
+        temp_v0 = DataRead(D_801019D0_1155F0_shared_board[i]);
         spriteIDs[i + 10] = func_80055810_56410(temp_v0);
-        HuFreeFilePerm(temp_v0);
+        DataClose(temp_v0);
     }
 }
 
@@ -765,16 +765,16 @@ void func_800F5F98_109BB8_shared_board(s32 arg0, s32 arg1) {
     for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
         var_s2 = NULL;
         if (GwPlayer[arg0].itemNo[i] != -1) {
-            var_s2 = ReadMainFS(D_8010197C_11559C_shared_board[GwPlayer[arg0].itemNo[i]]);
+            var_s2 = DataRead(D_8010197C_11559C_shared_board[GwPlayer[arg0].itemNo[i]]);
         } else {
             if (i == 0) {
-                var_s2 = ReadMainFS(0x13025E);
+                var_s2 = DataRead(0x13025E);
             }
         }
 
         if (var_s2 != NULL) {
             temp_s7->unk_40[i] = func_80055810_56410(var_s2);
-            HuFreeFilePerm(var_s2);
+            DataClose(var_s2);
             func_80055024_55C24(temp_s5, i + 2, temp_s7->unk_40[i], 0);
             if (i != 0) {
                 SprPriSet(temp_s5, i + 2, (arg0 * 5) + 0x4790);

@@ -4,7 +4,7 @@ INCLUDE_ASM("asm/nonmatchings/14EA0", func_800142A0_14EA0);
 
 INCLUDE_ASM("asm/nonmatchings/14EA0", func_800143F0_14FF0);
 
-INCLUDE_ASM("asm/nonmatchings/14EA0", func_8001443C_1503C);
+INCLUDE_ASM("asm/nonmatchings/14EA0", HmfSprModelCreate);
 
 INCLUDE_ASM("asm/nonmatchings/14EA0", func_80014618_15218);
 

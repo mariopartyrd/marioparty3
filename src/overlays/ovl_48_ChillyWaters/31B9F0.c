@@ -566,17 +566,17 @@ void ItemUseWackyWatch(void) {
     s32 temp;
     
     temp_s4 = func_8005279C_5339C(1, 0);
-    temp_v0 = ReadMainFS(D_8010197C_11559C_shared_board[18]);
+    temp_v0 = DataRead(D_8010197C_11559C_shared_board[18]);
     temp_s7 = func_80055810_56410(temp_v0);
-    HuFreeFilePerm(temp_v0);
+    DataClose(temp_v0);
     func_80055024_55C24(temp_s4, 0, temp_s7, 0);
     SprPriSet(temp_s4, 0, 0x4776U);
     SprAttrSet(temp_s4, 0, 0x1000U);
     for (i = 0; i < 4; i++) {
         D_8011FB80_3356F0_ChillyWaters[i] = func_8005279C_5339C(1, 0);
-        temp_v0 = ReadMainFS((i + 0x1BB) | 0x130000);
+        temp_v0 = DataRead((i + 0x1BB) | 0x130000);
         sp18[i] = func_80055810_56410(temp_v0);
-        HuFreeFilePerm(temp_v0);
+        DataClose(temp_v0);
         func_80055024_55C24(D_8011FB80_3356F0_ChillyWaters[i], 0, sp18[i], 0);
         SprPriSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x4780U);
         SprAttrSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x980CU);

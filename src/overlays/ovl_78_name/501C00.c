@@ -445,9 +445,9 @@ s32 func_80113ED4_510134_name_78(UnkStarLift* arg0) {
                 func_8000C184_CD84(backgroundEspriteSlot);
                 func_80055670_56270(var_s6);
             }
-            temp_v0_4 = HuReadFileTemp(mainFSArray[curBoardIndex]);
+            temp_v0_4 = DataReadTemp(mainFSArray[curBoardIndex]);
             var_s6 = func_80055810_56410(temp_v0_4);
-            HuFreeFileTemp(temp_v0_4);
+            DataCloseTemp(temp_v0_4);
             backgroundEspriteSlot = InitEspriteSlot(var_s6, 0, 1);
             func_8000BC48_C848(backgroundEspriteSlot, 0x1000);
             func_8000BCC8_C8C8(backgroundEspriteSlot, 1);

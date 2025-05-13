@@ -26,6 +26,6 @@ void HuDecodeLZ(DecodeStruct* decode);
 void HuDecodeSlide(DecodeStruct* decode);
 void HuDecodeFslide(DecodeStruct* decode);
 void HuDecodeRLE(DecodeStruct* decode);
-void HuDecode(void * src, void * dest, s32 len, EDecodeType decodeType);
+void DecodeData(void * src, void * dest, s32 len, EDecodeType decodeType);
 
 #endif

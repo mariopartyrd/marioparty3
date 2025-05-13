@@ -33,19 +33,19 @@ extern Vec D_800975A8_981A8[];
 extern s16 gNumOfControllers;
 
 u16 func_8000B0A0_BCA0(s32 arg0, s32 arg1) {
-    return Hu3DModelCreate(ReadMainFS(arg0), arg1);
+    return Hu3DModelCreate(DataRead(arg0), arg1);
 }
 
 u16 func_8000B0D4_BCD4(s32 arg0, s32 arg1) {
-    return Hu3DModelCreate(ReadMainFS(arg0), arg1);
+    return Hu3DModelCreate(DataRead(arg0), arg1);
 }
 
 u16 func_8000B108_BD08(s32 arg0, s32 arg1) {
-    return Hu3DModelCreate(ReadMainFS(arg0), arg1);
+    return Hu3DModelCreate(DataRead(arg0), arg1);
 }
 
 s16 func_8000B13C_BD3C(s32 arg0) {
-    return Hu3DModelCreate(ReadMainFS(arg0), 0x1D);
+    return Hu3DModelCreate(DataRead(arg0), 0x1D);
 }
 
 u8 rand8(void) {
@@ -173,26 +173,26 @@ s8 func_8000B4B4_C0B4(void) {
     return temp_v1;
 }
 
-u16 func_8000B4F8_C0F8(s32 arg0, s32 arg1, s32 arg2) {
+u16 SprModelRead(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
     void* temp_v0;
 
-    temp_v0 = ReadMainFS(arg0);
-    temp_s0 = func_8001443C_1503C(temp_v0, arg1, arg2);
+    temp_v0 = DataRead(arg0);
+    temp_s0 = HmfSprModelCreate(temp_v0, arg1, arg2);
     HuMemMemoryFreePerm(temp_v0);
     return temp_s0;
 }
 
-s16 func_8000B554_C154(s32 arg0, s32 arg1, s32 arg2) {
+s16 HmfAnimRead(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
     void* temp_v0;
 
-    temp_v0 = ReadMainFS(arg1);
-    temp_s0 = func_800323CC_32FCC(arg0, temp_v0, 0, arg2);
+    temp_v0 = DataRead(arg1);
+    temp_s0 = HmfAnimCreate(arg0, temp_v0, 0, arg2);
     HuMemMemoryFreePerm(temp_v0);
     return temp_s0;
 }
 
 s16 func_8000B5BC_C1BC(s32 arg0) {
-    return Hu3DModelCreate(HuReadFileTag(arg0, 0x7918), 0);
+    return Hu3DModelCreate(DataReadNum(arg0, 0x7918), 0);
 }

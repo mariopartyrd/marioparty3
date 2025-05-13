@@ -2,8 +2,8 @@
 #include "decode.h"
 #include "rom.h"
 
-u8 __attribute__((aligned(16))) D_800ABFF0_ACBF0[1024]; // src copy
-u8 __attribute__((aligned(16))) D_800AC3F0_ACFF0[1024]; // window
+u8 __attribute__((aligned(16))) readBuffer[1024]; // src copy
+u8 __attribute__((aligned(16))) textBuffer[1024]; // window
 
 void HuDecodeNone(DecodeStruct* decode)
 {
@@ -35,45 +35,45 @@ void HuDecodeLZ(DecodeStruct* decode)
     s32 len;
     s32 copyVal;
 
-    bzero(&D_800AC3F0_ACFF0, 1024);
+    bzero(&textBuffer, 1024);
 
     while (decode->len) {
         flag = flag >> 1;
         if ((flag & 0x100) == 0) {
             if (decode->chunkLen >= 1024) {
-                dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                 decode->src += 1024;
                 decode->chunkLen = 0;
             }
-            byte1 = D_800ABFF0_ACBF0[decode->chunkLen++];
+            byte1 = readBuffer[decode->chunkLen++];
 
             flag = 0xFF00 | (byte1 & 0xFF);
         }
         if ((flag & 0x1)) {
             u32 read_val;
             if (decode->chunkLen >= 1024) {
-                dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                 decode->src += 1024;
                 decode->chunkLen = 0;
             }
-            read_val = D_800ABFF0_ACBF0[decode->chunkLen++];
-            D_800AC3F0_ACFF0[windowPos++] = *(decode->dest++) = read_val;
+            read_val = readBuffer[decode->chunkLen++];
+            textBuffer[windowPos++] = *(decode->dest++) = read_val;
             windowPos &= 0x3FF;
             decode->len--;
         } else {
             if (decode->chunkLen >= 1024) {
-                dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                 decode->src += 1024;
                 decode->chunkLen = 0;
             }
-            byte1 = D_800ABFF0_ACBF0[decode->chunkLen++];
+            byte1 = readBuffer[decode->chunkLen++];
 
             if (decode->chunkLen >= 1024) {
-                dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                 decode->src += 1024;
                 decode->chunkLen = 0;
             }
-            len = D_800ABFF0_ACBF0[decode->chunkLen++];
+            len = readBuffer[decode->chunkLen++];
 
             byte1 = byte1 | ((len & 0xC0) << 2);
             len = 3 + (len & 0x3F);
@@ -81,8 +81,8 @@ void HuDecodeLZ(DecodeStruct* decode)
             for (i = 0; i < len; i++) {
                 {
                     winTemp = windowPos++;
-                    *(decode->dest++) = (copyVal = D_800AC3F0_ACFF0[(byte1 + i) & 0x3FF]);
-                    D_800AC3F0_ACFF0[winTemp] = copyVal;
+                    *(decode->dest++) = (copyVal = textBuffer[(byte1 + i) & 0x3FF]);
+                    textBuffer[winTemp] = copyVal;
                     windowPos &= 0x3FF;
                 }
             }
@@ -99,25 +99,25 @@ void HuDecodeSlide(DecodeStruct* decode)
 
     // Advance past the first 4 bytes.
     if (decode->chunkLen >= 1024) {
-        dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+        dmaRead(decode->src, readBuffer, sizeof(readBuffer));
         decode->src += 1024;
         decode->chunkLen = 0;
     }
     decode->chunkLen++;
     if (decode->chunkLen >= 1024) {
-        dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+        dmaRead(decode->src, readBuffer, sizeof(readBuffer));
         decode->src += 1024;
         decode->chunkLen = 0;
     }
     decode->chunkLen++;
     if (decode->chunkLen >= 1024) {
-        dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+        dmaRead(decode->src, readBuffer, sizeof(readBuffer));
         decode->src += 1024;
         decode->chunkLen = 0;
     }
     decode->chunkLen++;
     if (decode->chunkLen >= 1024) {
-        dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+        dmaRead(decode->src, readBuffer, sizeof(readBuffer));
         decode->src += 1024;
         decode->chunkLen = 0;
     }
@@ -134,32 +134,32 @@ void HuDecodeSlide(DecodeStruct* decode)
                 u32 chunkByte1, chunkByte2, chunkByte3, chunkByte4;
 
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                chunkByte1 = D_800ABFF0_ACBF0[decode->chunkLen++];
+                chunkByte1 = readBuffer[decode->chunkLen++];
 
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                chunkByte2 = D_800ABFF0_ACBF0[decode->chunkLen++];
+                chunkByte2 = readBuffer[decode->chunkLen++];
 
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                chunkByte3 = D_800ABFF0_ACBF0[decode->chunkLen++];
+                chunkByte3 = readBuffer[decode->chunkLen++];
 
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                chunkByte4 = D_800ABFF0_ACBF0[decode->chunkLen++];
+                chunkByte4 = readBuffer[decode->chunkLen++];
 
                 curCodeWord = (chunkByte1 << 24) + (chunkByte2 << 16) + (chunkByte3 << 8) + chunkByte4;
                 codeWordBitsRemaining = 32;
@@ -172,11 +172,11 @@ void HuDecodeSlide(DecodeStruct* decode)
 
                 // Copy the next byte from the source to the destination.
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                nextByte = D_800ABFF0_ACBF0[decode->chunkLen++];
+                nextByte = readBuffer[decode->chunkLen++];
 
                 *(decode->dest++) = nextByte;
                 decode->len--;
@@ -190,18 +190,18 @@ void HuDecodeSlide(DecodeStruct* decode)
                 // Interpret the next two bytes as a distance to travel backwards and a
                 // a length to read.
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                back = D_800ABFF0_ACBF0[decode->chunkLen++];
+                back = readBuffer[decode->chunkLen++];
 
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                back2 = D_800ABFF0_ACBF0[decode->chunkLen++];
+                back2 = readBuffer[decode->chunkLen++];
 
                 back3 = (back << 8) + back2;
                 count = (back << 8) >> 12;
@@ -209,13 +209,13 @@ void HuDecodeSlide(DecodeStruct* decode)
                 ptr = decode->dest - back3;
                 if (count == 0) {
                     if (decode->chunkLen >= 1024) {
-                        dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                        dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                         decode->src += 1024;
                         decode->chunkLen = 0;
                     }
 
                     count = 0x12;
-                    count += D_800ABFF0_ACBF0[decode->chunkLen++];
+                    count += readBuffer[decode->chunkLen++];
                 } else {
                     count += 2;
                 }
@@ -245,25 +245,25 @@ void HuDecodeFslide(DecodeStruct *decode)
 
     // Advance past the first 4 bytes.
     if (decode->chunkLen >= 1024) {
-        dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+        dmaRead(decode->src, readBuffer, sizeof(readBuffer));
         decode->src += 1024;
         decode->chunkLen = 0;
     }
     decode->chunkLen++;
     if (decode->chunkLen >= 1024) {
-        dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+        dmaRead(decode->src, readBuffer, sizeof(readBuffer));
         decode->src += 1024;
         decode->chunkLen = 0;
     }
     decode->chunkLen++;
     if (decode->chunkLen >= 1024) {
-        dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+        dmaRead(decode->src, readBuffer, sizeof(readBuffer));
         decode->src += 1024;
         decode->chunkLen = 0;
     }
     decode->chunkLen++;
     if (decode->chunkLen >= 1024) {
-        dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+        dmaRead(decode->src, readBuffer, sizeof(readBuffer));
         decode->src += 1024;
         decode->chunkLen = 0;
     }
@@ -279,32 +279,32 @@ void HuDecodeFslide(DecodeStruct *decode)
                 u32 chunkByte1, chunkByte2, chunkByte3, chunkByte4;
 
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                chunkByte1 = D_800ABFF0_ACBF0[decode->chunkLen++];
+                chunkByte1 = readBuffer[decode->chunkLen++];
 
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                chunkByte2 = D_800ABFF0_ACBF0[decode->chunkLen++];
+                chunkByte2 = readBuffer[decode->chunkLen++];
 
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                chunkByte3 = D_800ABFF0_ACBF0[decode->chunkLen++];
+                chunkByte3 = readBuffer[decode->chunkLen++];
 
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                chunkByte4 = D_800ABFF0_ACBF0[decode->chunkLen++];
+                chunkByte4 = readBuffer[decode->chunkLen++];
 
                 curCodeWord = (chunkByte1 << 24) + (chunkByte2 << 16) + (chunkByte3 << 8) + chunkByte4;
                 codeWordBitsRemaining = 32;
@@ -317,11 +317,11 @@ void HuDecodeFslide(DecodeStruct *decode)
 
                 // Copy the next byte from the source to the destination.
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                nextByte = D_800ABFF0_ACBF0[decode->chunkLen++];
+                nextByte = readBuffer[decode->chunkLen++];
 
                 *(decode->dest++) = nextByte;
                 decode->len--;
@@ -335,18 +335,18 @@ void HuDecodeFslide(DecodeStruct *decode)
                 // Interpret the next two bytes as a distance to travel backwards and a
                 // a length to read.
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                back = D_800ABFF0_ACBF0[decode->chunkLen++];
+                back = readBuffer[decode->chunkLen++];
 
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
-                back2 = D_800ABFF0_ACBF0[decode->chunkLen++];
+                back2 = readBuffer[decode->chunkLen++];
 
                 back3 = (back << 8) + back2;
                 count = (back << 8) >> 12;
@@ -354,13 +354,13 @@ void HuDecodeFslide(DecodeStruct *decode)
                 ptr = decode->dest - back3;
                 if (count == 0) {
                     if (decode->chunkLen >= 1024) {
-                        dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                        dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                         decode->src += 1024;
                         decode->chunkLen = 0;
                     }
 
                     count = 0x12;
-                    count += D_800ABFF0_ACBF0[decode->chunkLen++];
+                    count += readBuffer[decode->chunkLen++];
                 } else {
                     count += 2;
                 }
@@ -387,21 +387,21 @@ void HuDecodeRLE(DecodeStruct* decode)
 
     while (decode->len != 0) {
         if (decode->chunkLen >= 1024) {
-            dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+            dmaRead(decode->src, readBuffer, sizeof(readBuffer));
             decode->src += 1024;
             decode->chunkLen = 0;
         }
 
-        curCodeByte = D_800ABFF0_ACBF0[decode->chunkLen++];
+        curCodeByte = readBuffer[decode->chunkLen++];
         if (curCodeByte < 0x80) {
             // No sign bit means we repeat the next byte n times.
             if (decode->chunkLen >= 1024) {
-                dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                 decode->src += 1024;
                 decode->chunkLen = 0;
             }
 
-            byteValue = D_800ABFF0_ACBF0[decode->chunkLen++];
+            byteValue = readBuffer[decode->chunkLen++];
 
             for (i = 0; i < curCodeByte; i++) {
                 *(decode->dest++) = byteValue;
@@ -412,12 +412,12 @@ void HuDecodeRLE(DecodeStruct* decode)
 
             for (i = 0; i < curCodeByte; i++) {
                 if (decode->chunkLen >= 1024) {
-                    dmaRead(decode->src, D_800ABFF0_ACBF0, sizeof(D_800ABFF0_ACBF0));
+                    dmaRead(decode->src, readBuffer, sizeof(readBuffer));
                     decode->src += 1024;
                     decode->chunkLen = 0;
                 }
 
-                byteValue = D_800ABFF0_ACBF0[decode->chunkLen++];
+                byteValue = readBuffer[decode->chunkLen++];
                 *(decode->dest++) = byteValue;
             }
         }
@@ -426,7 +426,7 @@ void HuDecodeRLE(DecodeStruct* decode)
     }
 }
 
-void HuDecode(void * src, void * dest, s32 len, EDecodeType decodeType)
+void DecodeData(void * src, void * dest, s32 len, EDecodeType decodeType)
 {
     DecodeStruct decodeStruct;
     DecodeStruct * decodePtr = &decodeStruct;

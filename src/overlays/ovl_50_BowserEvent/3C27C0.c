@@ -282,25 +282,25 @@ void func_80106C78_3C3A98_BowserEvent(void) {
 
     if (D_8010955E_3C637E_BowserEvent == -1) {
         D_8010955E_3C637E_BowserEvent = func_8005279C_5339C(1, 5);
-        temp_v0 = ReadMainFS(0x1301EB);
+        temp_v0 = DataRead(0x1301EB);
         D_80109560_3C6380_BowserEvent = func_80055810_56410(temp_v0);
-        HuFreeFilePerm(temp_v0);
+        DataClose(temp_v0);
         func_80055024_55C24(D_8010955E_3C637E_BowserEvent, 0, D_80109560_3C6380_BowserEvent, 0);
         SprPriSet(D_8010955E_3C637E_BowserEvent, 0, 0x4770);
         SprAttrSet(D_8010955E_3C637E_BowserEvent, 0, 0x1000);
         func_80054904_55504(D_8010955E_3C637E_BowserEvent, 0, D_8010951A_3C633A_BowserEvent[0] + 0x64, D_8010951A_3C633A_BowserEvent[1] + 0x32);
         func_80055420_56020(D_8010955E_3C637E_BowserEvent, 0, 0, 0, 0);
         D_8010955A_3C637A_BowserEvent = func_8005279C_5339C(1, 5);
-        temp_v0 = ReadMainFS(0x1301E9);
+        temp_v0 = DataRead(0x1301E9);
         D_8010955C_3C637C_BowserEvent = func_80055810_56410(temp_v0);
-        HuFreeFilePerm(temp_v0);
+        DataClose(temp_v0);
         func_80055024_55C24(D_8010955A_3C637A_BowserEvent, 0, D_8010955C_3C637C_BowserEvent, 0);
         SprPriSet(D_8010955A_3C637A_BowserEvent, 0, 0x4770);
         SprAttrSet(D_8010955A_3C637A_BowserEvent, 0, 0x1000);
         func_80054904_55504(D_8010955A_3C637A_BowserEvent, 0, D_8010951A_3C633A_BowserEvent[0] + 0x64, D_8010951A_3C633A_BowserEvent[1] - 0x1E);
-        temp_v0 = ReadMainFS(0x130260);
+        temp_v0 = DataRead(0x130260);
         D_80109558_3C6378_BowserEvent = func_80055810_56410(temp_v0);
-        HuFreeFilePerm(temp_v0);
+        DataClose(temp_v0);
         randVal = func_800EEF80_102BA0_shared_board(5.0f);
         for (i = 0; i < ARRAY_COUNT(D_80109554_3C6374_BowserEvent); i++) {
             D_80109554_3C6374_BowserEvent[i] = func_8005279C_5339C(1, 5);
@@ -334,9 +334,9 @@ void func_80106FC8_3C3DE8_BowserEvent(void) {
 
     if (D_80109562_3C6382_BowserEvent == -1) {
         D_80109562_3C6382_BowserEvent = func_8005279C_5339C(1, 5);
-        temp_v0 = ReadMainFS(0x1301EA);
+        temp_v0 = DataRead(0x1301EA);
         D_80109564_3C6384_BowserEvent = func_80055810_56410(temp_v0);
-        HuFreeFilePerm(temp_v0);
+        DataClose(temp_v0);
         func_80055024_55C24(D_80109562_3C6382_BowserEvent, 0, D_80109564_3C6384_BowserEvent, 0);
         SprPriSet(D_80109562_3C6382_BowserEvent, 0, 0x100);
         SprAttrSet(D_80109562_3C6382_BowserEvent, 0, 0x1000);

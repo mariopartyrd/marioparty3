@@ -1034,7 +1034,7 @@ void func_800FAD04_E2AD4_name_81(s32 arg0) {
     D_80101990_E9760_name_81 = *var_s1++;
     
     for (i = 0; i < D_80101990_E9760_name_81; i++) {
-        D_80105470_ED240_name_81[i] = func_8001F1FC_1FDFC(ReadMainFS(*var_s1++), 8);
+        D_80105470_ED240_name_81[i] = func_8001F1FC_1FDFC(DataRead(*var_s1++), 8);
     }
 }
 
@@ -1075,7 +1075,7 @@ void func_800FAEFC_E2CCC_name_81(s32 arg0) {
     D_80101992_E9762_name_81 = *var_s1++;
     
     for (i = 0; i < D_80101992_E9762_name_81; i++) {
-        D_80105480_ED250_name_81[i] = func_8001F1FC_1FDFC(ReadMainFS(*var_s1++), 8);
+        D_80105480_ED250_name_81[i] = func_8001F1FC_1FDFC(DataRead(*var_s1++), 8);
     }
 }
 
@@ -1151,9 +1151,9 @@ void func_800FB160_E2F30_name_81(void) {
     temp_s4 = func_800F4528_DC2F8_name_81(3, 2);
     
     for (i = 0; i < 3; i++) {
-        temp_v0_2 = ReadMainFS(sp20[i]);
+        temp_v0_2 = DataRead(sp20[i]);
         temp_s4->unk_0C[i] = func_80055810_56410(temp_v0_2);
-        HuFreeFilePerm(temp_v0_2);
+        DataClose(temp_v0_2);
         func_80055024_55C24(temp_s4->unk_0A, i, temp_s4->unk_0C[i], 0);
         SprPriSet(temp_s4->unk_0A, i, 1U);
         SprAttrSet(temp_s4->unk_0A, i, 0U);

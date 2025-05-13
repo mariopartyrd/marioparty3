@@ -28,7 +28,7 @@ INCLUDE_ASM("asm/nonmatchings/32160", func_800322AC_32EAC);
 
 INCLUDE_ASM("asm/nonmatchings/32160", func_8003235C_32F5C);
 
-INCLUDE_ASM("asm/nonmatchings/32160", func_800323CC_32FCC);
+INCLUDE_ASM("asm/nonmatchings/32160", HmfAnimCreate);
 
 INCLUDE_ASM("asm/nonmatchings/32160", func_80032694_33294);
 
