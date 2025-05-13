@@ -28,7 +28,7 @@ extern Vec D_8010D48C_4E664C_name_70;
 
 
 void func_801059A0_4DEB60_name_70(void) {
-    void (*var_a0_2)() = NULL;
+    void (*procFunc)(void) = NULL;
     s16 var_a1 = 0;
     s16 i;
     s16 j;
@@ -89,7 +89,7 @@ void func_801059A0_4DEB60_name_70(void) {
     
     switch (D_8010D40A_4E65CA_name_70) {
     case 5:
-        var_a0_2 = func_801094B0_4E2670_name_70;
+        procFunc = func_801094B0_4E2670_name_70;
         D_8010D411_4E65D1_name_70 = 1;
         break;
     case 4:
@@ -97,12 +97,12 @@ void func_801059A0_4DEB60_name_70(void) {
             break;
         }
         if (GwSystem.playMode & 2) {
-            var_a0_2 = func_80108350_4E1510_name_70;
+            procFunc = func_80108350_4E1510_name_70;
             D_8010D411_4E65D1_name_70 = 0;
             break;
         }
     case 3:
-        var_a0_2 = func_80109A90_4E2C50_name_70;
+        procFunc = func_80109A90_4E2C50_name_70;
         D_8010D411_4E65D1_name_70 = 2;
         break;
     case 0:
@@ -112,14 +112,14 @@ void func_801059A0_4DEB60_name_70(void) {
     case 7:
     case 8:
     default:
-        var_a0_2 = func_80108350_4E1510_name_70;
+        procFunc = func_80108350_4E1510_name_70;
         D_8010D411_4E65D1_name_70 = 0;
         break;
     }
 
-    omAddPrcObj(var_a0_2, 0x1001U, 0x800, 0);
-    omAddObj(0, 0U, 0U, -1, func_80105D9C_4DEF5C_name_70);
-    omAddObj(0, 0U, 0U, -1, func_80106310_4DF4D0_name_70);
+    omAddPrcObj(procFunc, 0x1001U, 0x800, 0);
+    omAddObj(0, 0, 0, -1, func_80105D9C_4DEF5C_name_70);
+    omAddObj(0, 0, 0, -1, func_80106310_4DF4D0_name_70);
     func_80106388_4DF548_name_70();
     func_80106850_4DFA10_name_70(&D_8010D45C_4E661C_name_70, &D_8010D48C_4E664C_name_70);
     func_801067CC_4DF98C_name_70();
