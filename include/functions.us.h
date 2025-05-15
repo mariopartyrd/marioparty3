@@ -4,8 +4,10 @@
 #include "common.h"
 #include "game/object.h"
 
+#ifndef SKIP_SPR_DECL
 void SprAttrSet(s16, s16, u16);
 void SprAttrReset(s16, s16, u16);
+#endif
 s16 HuAudFXPlay(s32);
 void func_800E52F8_CD0C8_name_81(void);
 void func_800E5000_CCDD0_name_81(void);
