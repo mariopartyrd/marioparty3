@@ -107,7 +107,7 @@ segments:
       - [0x37210, c, gamemes]
       - [0x45F50, c, pause]
       - [0x471D0, c]
-      - [0x47D60, c, objmain] # TODO: compare with both files 47D60.c and 47d60.c in master
+      - [0x47D60, c, objmain]
       - [0x4B120, c]
       - [0x4BF40, c]
       - [0x4E010, c, profiler]
