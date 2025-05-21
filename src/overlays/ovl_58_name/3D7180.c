@@ -57,11 +57,11 @@ void func_80105BA4_3D7354_name_58(omObjData* arg0) {
     if (WipeStatGet() == 0) {
         func_8005F524_60124();
         if (D_80105F00_3D76B0_name_58 != 0) {
-            omOvlGotoEx(0x7A, 2, 0x92U);
+            omOvlGotoEx(name_7A, 2, 0x92);
             return;
         }
-        omOvlCallEx(0x7A, 2, 0x92U);
-        omOvlHisChg(1, 0x7A, 2, 0x92);
+        omOvlCallEx(name_7A, 2, 0x92);
+        omOvlHisChg(1, name_7A, 2, 0x92);
     }
 }
 
