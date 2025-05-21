@@ -658,7 +658,7 @@ void func_80107838_2BECA8_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_
         }
     } else {
         if (arg1->unk0C != 0) {
-            D_8010E6E0_2C5B50_tick_tock_hop->unk1E = (u16) (D_8010E6E0_2C5B50_tick_tock_hop->unk1E + 1);
+            D_8010E6E0_2C5B50_tick_tock_hop->unk1E++;
             D_8010E6E0_2C5B50_tick_tock_hop->unk1C++;
             D_8010E6E0_2C5B50_tick_tock_hop->unk24 = D_8010E6E0_2C5B50_tick_tock_hop->unk1C * 0.03f + 1.0f;
         }
@@ -1248,7 +1248,6 @@ void func_801096B0_2C0B20_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_
 
 void func_80109700_2C0B70_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_8010E6F4_2C5B64_Unk04_Struct* arg1) {
     D_8010E6E4_2C5B54_Struct* temp_s3 = arg1->unk3C;
-    s32 temp_rand;
 
     temp_s3->unk24 = 99;
     D_800CDA7C_CE67C[temp_s3->unk00] = 0;
@@ -1259,11 +1258,8 @@ void func_80109700_2C0B70_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_
     }
     if (arg1->unk0C == 0) {
         if (temp_s3->unk44->unk00 != 0) {
-            if (D_8010E6E0_2C5B50_tick_tock_hop->unk1C > temp_s3->unk50) {
-                temp_rand = rand16();
-                if (temp_rand == (temp_rand / 6) * 6) {
-                    temp_s3->unk04 |= 0x20;
-                }
+            if (D_8010E6E0_2C5B50_tick_tock_hop->unk1C > temp_s3->unk50 && rand16() % 6 == 0) {
+                temp_s3->unk04 |= 0x20;
             }
             if (arg1->unk0D == 0) {
                 arg1->unk0C = 1;
