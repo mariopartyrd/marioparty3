@@ -350,6 +350,8 @@ __checkHardware_msp = 0x8007F82C;
 send = 0x80080EF0;
 kdebugserver = 0x80081098;
 
+sqrtf = 0x80081240; //rom:0x81E40
+
 isPrintfInit = 0x80081320;
 is_proutSyncPrintf = 0x80081394;
 __checkHardware_isv = 0x80081580;
@@ -418,7 +420,7 @@ __rmonHitBreak = 0x800874A4;
 __rmonHitSpBreak = 0x80087580;
 __rmonHitCpuFault = 0x8008760C;
 rmonFindFaultedThreads = 0x80087638;
-sqrtf = 0x80087B10; //rom:0x88710
+
 sqrt = 0x80087B18; //rom:0x88718
 
 __osInitialize_autodetect = 0x8007F048;

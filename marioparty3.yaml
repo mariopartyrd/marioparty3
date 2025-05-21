@@ -303,7 +303,7 @@ segments:
       - [0x81AD0, c, 2.0L/io/ai]
       - [0x81AF0, c, 2.0L/debug/kdebugserver]
       - [0x81DB0, c, 2.0L/debug/threadprofile]
-      - [0x81E40, asm] # TODO: supposedly 2.0L/gu/sqrtf, but it conflicts with 0x88710
+      - [0x81E40, hasm, 2.0L/gu/sqrtf]
       - [0x81E50, c, 2.0L/debug/readhost]
       - [0x81F20, c, 2.0L/os/initialize_isv]
       - [0x824C0, hasm, 2.0L/monutil]
@@ -355,7 +355,7 @@ segments:
       - [0x88440, c, libkmc/abs]
       - [0x88460, c, libkmc/fmod]
       - [0x88640, asm, libkmc/memset]
-      - [0x88710, hasm, 2.0L/gu/sqrtf]
+      - [0x88710, asm] # What is this? sqrtf is already defined in 0x81E40.
       - [0x88720, asm, libkmc/strcmp]
       - [0x88830, c, libkmc/strcpy]
       - [0x88900, hasm, libkmc/mmuldi3]
@@ -1439,9 +1439,10 @@ segments:
     subsegments:
       - [0x2BCE10, c]
       - [0x2C0E70, c]
-      - [0x2C5910, data, 2BCE10] #8010E4A0
-      - [0x2C5B10, .rodata, 2BCE10] #8010E6A0
-      - [0x2C5B10, .rodata, 2C0E70] #80112700
+      - [0x2C5910, .data, 2BCE10] #8010E4A0
+      - [0x2C5920, .data, 2C0E70] #8010E4B0
+      - [0x2C5A60, .rodata, 2BCE10] #8010E6A0
+      - [0x2C5B10, .rodata, 2C0E70] #8010E750
       - {0x2C5B50, type: bss, vram: 0x8010E6E0, name: ovl_39_bss}
 
   - type: code
