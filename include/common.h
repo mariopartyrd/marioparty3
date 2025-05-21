@@ -20,5 +20,6 @@
 #include "macros.h"
 #include "enums.h"
 #include "ld_addrs.h"
+#include "overlay.h"
 
 #endif

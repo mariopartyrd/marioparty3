@@ -9,19 +9,20 @@ typedef struct unkProcessStruct {
     void (*unk8)();
 } unkProcessStruct;
 
-void omDestroyPrcObj(void);
 extern s16 D_800A1774_A2374;
 extern s16 D_800A1776_A2376;
 extern s16 D_800A1778_A2378;
 extern unkProcessStruct* D_800A177C_A237C;
+extern s16 D_800A1780_A2380;
+extern s16 D_800D0A3A_D163A;
+extern s8 D_800D1710_D2310;
 
+void omDestroyPrcObj(void);
 void func_8000BA00_C600(void);
 void func_800166D0_172D0(void);
 void func_8001AFE4_1BBE4(void);
 void func_80021AF4_226F4(void);
 void func_80037190_37D90(void);
-
-
 void omInsertObj(omObjData * obj);
 void func_80047CDC_488DC(u16 arg0, omObjData * obj);
 void func_8004A444_4B044(s32);
@@ -407,21 +408,21 @@ void omDestroyPrcObj(void)
 
 INCLUDE_ASM("asm/nonmatchings/objmain", omPrcSetDestructor);
 
-s32 omOvlCallEx(s32 arg0, s16 arg1, u16 arg2) {
+s32 omOvlCallEx(s32 ovlID, s16 event, u16 stat) {
     omOvlHisData* history;
-    s32 ret;
+    s32 overlayLoadedStatus;
 
     if (omovlhisidx < ARRAY_COUNT(omovlhis)) {
         history = &omovlhis[++omovlhisidx];
-        history->overlayID = arg0;
-        history->event = arg1;
-        history->stat = arg2;
-        omOvlGotoEx(arg0, arg1, arg2);
-        ret = 1;
-    } else {
-        ret = 0;
+        history->overlayID = ovlID;
+        history->event = event;
+        history->stat = stat;
+        omOvlGotoEx(ovlID, event, stat);
+        overlayLoadedStatus = TRUE;
+    } else { //else, history is full, cannot call overlay
+        overlayLoadedStatus = FALSE;
     }
-    return ret;
+    return overlayLoadedStatus;
 }
 
 s32 omOvlReturnEx(s16 level) {
@@ -436,36 +437,36 @@ s32 omOvlReturnEx(s16 level) {
     return 1;
 }
 
-void omOvlGotoEx(s32 arg0, s16 arg1, u16 arg2) {
+void omOvlGotoEx(s32 ovlID, s16 event, u16 stat) {
     u8 var_a0_2;
     u8 var_v1;
 
-    if ((D_800CE200_CEE00 != 0x7F) & (D_800CE200_CEE00 != 0)) {
+    if ((D_800CE200_CEE00 != name_7F) & (D_800CE200_CEE00 != test_menu1)) {
         D_800A1758_A2358 = D_800CE200_CEE00;
         D_800A1756_A2356 = D_800CE202_CEE02;
     }
     
     D_800A176C_A236C = 1;
-    D_800CE200_CEE00 = arg0;
-    omovlevtno = arg1;
-    D_800A1766_A2366 = arg2;
+    D_800CE200_CEE00 = ovlID;
+    omovlevtno = event;
+    D_800A1766_A2366 = stat;
     D_800D0A3A_D163A = 0;
 
-    if (arg2 & 0x40 && D_800CCF52_CDB52 != 2) {
+    if (stat & 0x40 && D_800CCF52_CDB52 != 2) {
         func_8004A444_4B044(2);
-    } else if (arg2 & 0x80 && (D_800CCF52_CDB52 != 3)) {
+    } else if (stat & 0x80 && (D_800CCF52_CDB52 != 3)) {
         func_8004A444_4B044(3);
     }
 
-    if ((D_800D4082_D4C82 != D_800A1920_A2520[arg0].unk_00) || (D_800CD2F4_CDEF4 != D_800A1920_A2520[arg0].unk_02) || (D_800D6A56_D7656 != D_800A1920_A2520[arg0].unk_04)) {
-        func_8004A468_4B068(D_800A1920_A2520[arg0].unk_00, D_800A1920_A2520[arg0].unk_02, D_800A1920_A2520[arg0].unk_04);
+    if ((D_800D4082_D4C82 != D_800A1920_A2520[ovlID].unk_00) || (D_800CD2F4_CDEF4 != D_800A1920_A2520[ovlID].unk_02) || (D_800D6A56_D7656 != D_800A1920_A2520[ovlID].unk_04)) {
+        func_8004A468_4B068(D_800A1920_A2520[ovlID].unk_00, D_800A1920_A2520[ovlID].unk_02, D_800A1920_A2520[ovlID].unk_04);
     }
 
-    if (!(arg2 & 0x2000)) {
-        if (arg2 & 2) {
+    if (!(stat & 0x2000)) {
+        if (stat & 2) {
             var_a0_2 = D_800A1740_A2340[GwSystem.current_board_index][0];
             var_v1 = D_800A1740_A2340[GwSystem.current_board_index][1];
-        } else if (arg2 & 4) {
+        } else if (stat & 4) {
             var_a0_2 = D_800A16B0_A22B0[GwSystem.minigame_index - 1][0];
             var_v1 = D_800A16B0_A22B0[GwSystem.minigame_index - 1][1];
         } else {
@@ -473,19 +474,19 @@ void omOvlGotoEx(s32 arg0, s16 arg1, u16 arg2) {
             var_v1 = 20;
         }
 
-        if (arg2 & 0x100) {
+        if (stat & 0x100) {
             var_a0_2 = 1;
             var_v1 = 20;
-        } else if (arg2 & 0x200) {
+        } else if (stat & 0x200) {
             var_a0_2 = 2;
             var_v1 = 20;
-        } else if (arg2 & 0x400) {
+        } else if (stat & 0x400) {
             var_a0_2 = 3;
             var_v1 = 20;
-        } else if (arg2 & 0x800) {
+        } else if (stat & 0x800) {
             var_a0_2 = 4;
             var_v1 = 20;
-        } else if (arg2 & 0x1000) {
+        } else if (stat & 0x1000) {
             var_a0_2 = 5;
             var_v1 = 20;
         }
@@ -539,7 +540,11 @@ INCLUDE_ASM("asm/nonmatchings/objmain", func_8004A208_4AE08);
 
 INCLUDE_ASM("asm/nonmatchings/objmain", func_8004A354_4AF54);
 
-INCLUDE_ASM("asm/nonmatchings/objmain", func_8004A444_4B044);
+void func_8004A444_4B044(s32 arg0) {
+    D_800A1780_A2380 = 1;
+    D_800D0A3A_D163A = 4;
+    D_800D1710_D2310 = arg0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/objmain", func_8004A468_4B068);
 
