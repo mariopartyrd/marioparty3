@@ -375,7 +375,57 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FC3D
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FC4E0_110100_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FC594_1101B4_shared_board);
+extern u16 D_800D03FC;
+extern u16 D_800CE208;
+extern u16 D_800CDD68;
+extern s16 gPrevItemBlockSpaceIndexes[10];
+extern s16 gPrevCoinBlockSpaceIndexes[10];
+extern s16 gPrevStarBlockSpaceIndexes[10];
+s16 func_800EBCD4_FF8F4_shared_board(u8);
+
+void func_800FC594_1101B4_shared_board(void) {
+    s32 i;
+
+    if (GWBoardFlagCheck(0xF) != 0) {
+        while (gCoinBlockSpaceIndex == -1 || gCoinBlockSpaceIndex == gStarBlockSpaceIndex || gCoinBlockSpaceIndex == gItemBlockSpaceIndex) {
+            gCoinBlockSpaceIndex = func_800EBCD4_FF8F4_shared_board(D_800D03FC);
+            D_800D03FC++;
+            for (i = 0; i < 10; i++) {
+                if (gCoinBlockSpaceIndex == gPrevCoinBlockSpaceIndexes[i]) {
+                    break;
+                }
+            }
+            if (i != 0xA) {
+                gCoinBlockSpaceIndex = -1;
+            }
+        }
+        while (gStarBlockSpaceIndex == -1 || gCoinBlockSpaceIndex == gStarBlockSpaceIndex || gItemBlockSpaceIndex == gStarBlockSpaceIndex) {
+            gStarBlockSpaceIndex = func_800EBCD4_FF8F4_shared_board(D_800CE208);
+            D_800CE208++;
+            for (i = 0; i < 10; i++) {
+                if (gStarBlockSpaceIndex == gPrevStarBlockSpaceIndexes[i]) {
+                    break;
+                }
+            }
+            if (i != 0xA) {
+                gStarBlockSpaceIndex = -1;
+            }
+        }
+        
+        while (gItemBlockSpaceIndex == -1 || gCoinBlockSpaceIndex == gItemBlockSpaceIndex || gStarBlockSpaceIndex == gItemBlockSpaceIndex) {
+            gItemBlockSpaceIndex = func_800EBCD4_FF8F4_shared_board(D_800CDD68);
+            D_800CDD68++;
+            for (i = 0; i < 10; i++) {
+                if (gItemBlockSpaceIndex == gPrevItemBlockSpaceIndexes[i]) {
+                    break;
+                }
+            }
+            if (i != 0xA) {
+                gItemBlockSpaceIndex = -1;
+            }
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FC7C8_1103E8_shared_board);
 

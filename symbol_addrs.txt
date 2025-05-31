@@ -597,14 +597,14 @@ SavePlayerStruct = 0x8004F544; //rom:0x50144
 GetSpaceData = 0x800EB160; //rom:0xFED80
 SaveFileEncode = 0x8004F5A4; //rom:0x501A4
 gEncodedSaveBuffer = 0x800CD0C0;
-
+gTotalSpaces = 0x80105210; // type:u16
 gCoinBlockSpaceIndex = 0x800CE1C4; // type:s16
 gStarBlockSpaceIndex = 0x800D124E; // type:s16
 gItemBlockSpaceIndex = 0x800CC4E4; // type:s16
 
-gPrevCoinBlockIndexes = 0x800CE1E8; //type:s16 size:0x14
-gPrevStarBlockIndexes = 0x800D59E0; //type:s16 size:0x14
-gPrevItemBlockIndexes = 0x800CC378; //type:s16 size:0x14
+gPrevCoinBlockSpaceIndexes = 0x800CE1E8; //type:s16 size:0x14
+gPrevStarBlockSpaceIndexes = 0x800D59E0; //type:s16 size:0x14
+gPrevItemBlockSpaceIndexes = 0x800CC378; //type:s16 size:0x14
 
 //gTotalTurns = 0x800CD05A;
 //gCurrentTurn = 0x800CD05B;
@@ -724,7 +724,10 @@ D_800CC440_CD040 = 0x800CC440; //size:0x60
 D_800CE1DC_CEDDC = 0x800CE1DC; //size:0xC
 
 DrawSpaces = 0x800EA6F4; //rom:0xFE314 segment:shared_board
-HmfModelData = 0x800D03F8;
+HmfModelData = 0x800D03F8; //type:u32
+D_800D03FC = 0x800D03FC; //type:s16
+D_800CE208 = 0x800CE208; //type:s16
+
 MBModelCreate = 0x800D90C8; //rom:0xECCE8 segment:shared_board
 MBModelFileCreate = 0x800D912C; //rom:0xECD4C segment:shared_board
 ovlEventCall = 0x800359E0; //rom:0x365E0
@@ -735,6 +738,7 @@ Hu3DModelPosSet = 0x8001C0C4; //rom:0x1CCC4
 Hu3DModelRotSet = 0x8001C150; //rom:0x1CD50
 Hu3DModelScaleSet = 0x8001C1A0; //rom:0x1CDA0
 omdispinfo = 0x800A1760; //rom:0xA2360 type:u16
+D_80101E04_115A24_shared_board = 0x80101E04; //rom:0x115A24 size:0xF type:u8 segment:shared_board
 
 //libultra symbols
 //auxbus.c
@@ -821,4 +825,5 @@ D_801018E4_115504_shared_board = 0x801018E4; //rom:0x115504 size:0x44 segment:sh
 PlayerBoardStatusRootPosition = 0x80101794; //rom:0x1153B4 size:0x20 segment:shared_board
 UpdatePlayerBoardStatus = 0x800F2E30; //rom:0x106A50 segment:shared_board
 ItemUseWackyWatch = 0x80115B80; //rom:0x32B6F0 segment:ChillyWaters
+D_80100F94_114BB4_shared_board = 0x80100F94; //rom:0x114BB4 segment:shared_board size:0x14
 ShowMessage = 0x800EC8EC; //rom:0x10050C segment:shared_board

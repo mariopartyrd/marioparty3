@@ -69,6 +69,17 @@ typedef struct HvqUnk {
     HvqHeader* unk8;
 } HvqUnk;
 
+void func_80012640_13240(s32, Gfx**);
+void func_800127C4_133C4(s32, Gfx**);
+void func_80017C10_18810(Mtx*, f32, f32, f32);
+void func_80017CD0_188D0(Mtx*, f32, f32, f32);
+void func_800185A4_191A4(Mtx*, f32);
+u16 func_8004D6AC_4E2AC(s32, s32, s32);
+void func_8004D6E8_4E2E8(s16);
+void func_800898F0_8A4F0(Mtx*, Mtx*);
+void func_80089980_8A580(Mtx*, Mtx*);
+void func_800E989C_FD4BC_shared_board(void*);
+s16 func_800EB5DC_FF1FC_shared_board(u16, u8);
 void func_800DA790_EE3B0_shared_board(s32, u16, char*, s32, s32);
 Object* MBModelCreate(u8, s32);
 void func_800D9714_ED334_shared_board(Object*);
@@ -196,6 +207,19 @@ extern s16 D_80105666_119286_shared_board;
 extern u8 D_80101DE8_115A08_shared_board[][3];
 extern s32 D_80102DCC_1169EC_shared_board;
 extern HvqHeader* D_80102DD0_1169F0_shared_board;
+extern Addr D_101358;
+extern Addr D_101398;
+extern s16 D_800CCF28_CDB28;
+extern Mtx* D_800D1F68_D2B68;
+extern u16 gTotalSpaces;
+extern s16 D_80105260_118E80_shared_board;
+extern u16 D_80105262_118E82_shared_board;
+extern u8 D_80101308_114F28_shared_board[]; //u8 array that links space type to render type
+extern Gfx D_801013D8_114FF8_shared_board[];
+extern u8* D_80105220_118E40_shared_board[]; //space form images
+extern f32 D_80105290_118EB0_shared_board[];
+extern s32 D_801052B0_118ED0_shared_board;
+extern u8 (*D_801012C4_114EE4_shared_board)[SPACES_MAX];
 extern s32 D_80103138_116D58_shared_board;
 extern OSMesgQueue D_80104880_1184A0_shared_board;
 extern OSMesgQueue D_80104928_118548_shared_board;
@@ -254,6 +278,7 @@ extern s32 D_8010178C_1153AC_shared_board;
 extern char D_800D5218_D5E18[];
 extern s16 gCoinBlockSpaceIndex;
 extern s16 gStarBlockSpaceIndex;
+extern s16 gItemBlockSpaceIndex;
 extern s16 D_80105588_1191A8_shared_board[];
 extern RGB D_8010188C_1154AC_shared_board[];
 extern s8 D_800D20B1_D2CB1;

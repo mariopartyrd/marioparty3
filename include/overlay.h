@@ -2,7 +2,7 @@
 #ifndef OVERLAY_H
 #define OVERLAY_H
 
-#include "common.h"    // whatever you need for u8*
+#include "common.h"
 
 typedef struct OverlayTable {
 /* 0x00 */ u8* romStart;
@@ -15,7 +15,6 @@ typedef struct OverlayTable {
 /* 0x1C */ u8* bssVramStart;
 /* 0x20 */ u8* bssVramEnd;
 } OverlayTable; //sizeof 0x24
-
 
 // the enum of all your overlay IDs:
 typedef enum {

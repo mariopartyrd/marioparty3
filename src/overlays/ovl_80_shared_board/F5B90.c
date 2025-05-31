@@ -668,30 +668,6 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EA6B0
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EA6E0_FE300_shared_board);
 
-void func_80012640_13240(s32, Gfx**);
-void func_800127C4_133C4(s32, Gfx**);
-void func_80017C10_18810(Mtx*, f32, f32, f32);
-void func_80017CD0_188D0(Mtx*, f32, f32, f32);
-void func_800185A4_191A4(Mtx*, f32);
-u16 func_8004D6AC_4E2AC(s32, s32, s32);
-void func_8004D6E8_4E2E8(s16);
-void func_800898F0_8A4F0(Mtx*, Mtx*);
-void func_80089980_8A580(Mtx*, Mtx*);
-void func_800E989C_FD4BC_shared_board(void*);
-extern Addr D_101358;
-extern Addr D_101398;
-extern s16 D_800CCF28_CDB28;
-extern Mtx* D_800D1F68_D2B68;
-extern u16 D_80105210_118E30_shared_board;
-extern s16 D_80105260_118E80_shared_board;
-extern u16 D_80105262_118E82_shared_board;
-extern u8 D_80101308_114F28_shared_board[]; //u8 array that links space type to render type
-extern Gfx D_801013D8_114FF8_shared_board[];
-extern u8* D_80105220_118E40_shared_board[]; //space form images
-extern f32 D_80105290_118EB0_shared_board[];
-extern s32 D_801052B0_118ED0_shared_board;
-extern u8 (*D_801012C4_114EE4_shared_board)[SPACES_MAX];
-
 void DrawSpaces(Gfx** arg0, Mtx* arg1, s32 arg2) {
     Gfx** gfxPos = arg0;
     Mtx sp10;
@@ -754,7 +730,7 @@ void DrawSpaces(Gfx** arg0, Mtx* arg1, s32 arg2) {
                             var_v0, var_v0, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
                 }
                 //read over a space types space array
-                for (j = 0; j < D_80105210_118E30_shared_board; j++) {
+                for (j = 0; j < gTotalSpaces; j++) {
                     s32 spaceId = D_801012C4_114EE4_shared_board[i][j];
                     if (spaceId == 0xff) {
                         break;
@@ -805,7 +781,68 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EB3C0
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EB4F0_FF110_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EB5DC_FF1FC_shared_board);
+extern s16 D_801054F8_119118_shared_board;
+extern u8 D_80101468_115088_shared_board[];
+extern s16 D_801054B6_1190D6_shared_board;
+extern s16 D_801054B8_1190D8_shared_board[];
+extern s16 D_801052B8_118ED8_shared_board[];
+
+s16 func_800EB5DC_FF1FC_shared_board(u16 arg0, u8 arg1) {
+    u8 var_s1;
+    SpaceData* space;
+    s32 i, j;
+    var_s1 = 0;
+
+    for (i = 0; i < gTotalSpaces; i++) {
+        space = GetSpaceData(i);
+        if (D_80101468_115088_shared_board[space->space_type & 0xF] & arg0){
+            var_s1++;
+        }
+    }
+
+    var_s1 -= D_801054F8_119118_shared_board;
+    if (arg1 < 5) {
+        var_s1 -= D_801054B6_1190D6_shared_board;
+    }
+
+    var_s1 = func_800EEF80_102BA0_shared_board(var_s1);
+
+    for (i = 0;; i = (++i < gTotalSpaces) ? i : 0) {
+        space = GetSpaceData(i);
+        for (j = 0; j < D_801054F8_119118_shared_board; j++) {
+            if (D_801054B8_1190D8_shared_board[j] == i) {
+                break;
+            }
+        }
+
+        if (j == D_801054F8_119118_shared_board) {
+            if (arg1 < 5) {
+                for (j = 0; j < D_801054B6_1190D6_shared_board; j++) {
+                    if (D_801052B8_118ED8_shared_board[j] == i) {
+                        break;
+                    }
+                }
+                if (j == D_801054B6_1190D6_shared_board) {
+                    if (D_80101468_115088_shared_board[space->space_type & 0xF] & arg0) {
+                        if (var_s1 == 0) {
+                            break;
+                        }
+                        var_s1--;
+                    }
+                }           
+            } else {
+                if (D_80101468_115088_shared_board[space->space_type & 0xF] & arg0) {
+                    if (var_s1 == 0) {
+                        break;
+                    }
+                    var_s1--;
+                }
+            }
+        }
+    }
+
+    return i;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", SetSpaceType);
 
@@ -827,7 +864,10 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EBCBC
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EBCC8_FF8E8_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EBCD4_FF8F4_shared_board);
+
+s16 func_800EBCD4_FF8F4_shared_board(u8 arg0) {
+    return func_800EB5DC_FF1FC_shared_board(2, arg0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EBCFC_FF91C_shared_board);
 
@@ -841,10 +881,10 @@ void func_800EBDAC_FF9CC_shared_board(void) {
         HuMemMemoryFreeTemp(D_801012C4_114EE4_shared_board);
     }
     D_801012C4_114EE4_shared_board = HuMemMemoryAllocTemp(SPACE_TYPES_TOTAL * SPACES_MAX);
-    for (i = 0; i < 16; i++) {
+    for (i = 0; i < SPACE_TYPES_TOTAL; i++) {
         var_s0 = 0;
 
-        for (j = 0; j < D_80105210_118E30_shared_board; j++) {
+        for (j = 0; j < gTotalSpaces; j++) {
             if (GetSpaceData(j)->space_type == i) {
                 D_801012C4_114EE4_shared_board[i][var_s0] = j;
                 var_s0++;
