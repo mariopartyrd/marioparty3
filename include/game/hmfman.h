@@ -55,13 +55,20 @@ typedef struct {
 } HmfModel; // Size 0xC0
 
 void func_8001A070_1AC70(void* arg0, void* arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5);
+s32 func_8001A894_1B494(s32, void*, s32); // unsure about second arg. Gfx*?
+void func_8001ACDC_1B8DC(s16);
 void func_8001B0B4_1BCB4(void** arg0, u32 arg1);
 void func_8001BF90_1CB90(u32 arg0, u32 arg1);
 void Hu3DModelPosSet(s16 arg0, f32 x, f32 y, f32 z);
 void Hu3DModelRotSet(s16 arg0, f32 x, f32 y, f32 z);
 void Hu3DModelScaleSet(s16 arg0, f32 x, f32 y, f32 z);
 void func_8001C258_1CE58(s16 arg0, s32 arg1, s32 arg2);
+void func_8001C448_1D048(s16);
 f32 func_8001C7D0_1D3D0(s16 arg0);
+void func_8001C8E4_1D4E4(s16, s32);
+void func_8001C92C_1D52C(s16, f32);
+void func_8001F304_1FF04(s16, s16);
+void func_8001FDE8_209E8(s16);
 
 extern HmfModel* HmfModelData;
 
