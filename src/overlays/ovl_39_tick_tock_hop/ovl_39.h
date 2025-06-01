@@ -1,7 +1,6 @@
 #ifndef _OVL_39_H
 #define _OVL_39_H
 
-#define SKIP_SPR_DECL
 #include "common.h"
 
 #define rand16() ((rand8() << 8) | rand8())
@@ -9,66 +8,12 @@
 // EXTERN
 
 typedef struct {
-    /* 0x00 */ Gfx* unk00;
-    /* 0x04 */ Gfx* unk04[3]; // unknown length
-    /* 0x10 */ void* unk10;
-    /* 0x14 */ void* unk14;
-} HmfModelData_Unk64_Unk3C_Struct; // Size unknown
-
-typedef struct {
-    /* 0x00 */ char unk00[0x50];
-    /* 0x50 */ s32 unk50;
-} HmfModelData_Unk64_Unk60_Struct; // Size unknown
-
-typedef struct {
-    /* 0x00 */ char unk00[8];
-    /* 0x08 */ s32 unk08;
-} HmfModelData_Unk64_Unk98_Struct; // Size unknown
-
-typedef struct {
-    /* 0x00 */ char unk00[0xE];
-    /* 0x0E */ s16 unk0E;
-    /* 0x10 */ char unk10[0x2C];
-    /* 0x3C */ HmfModelData_Unk64_Unk3C_Struct* unk3C;
-    /* 0x40 */ char unk40[4];
-    /* 0x44 */ Vtx* unk44[1]; // unknown length
-    /* 0x48 */ char unk48[0x18];
-    /* 0x60 */ HmfModelData_Unk64_Unk60_Struct* unk60;
-    /* 0x64 */ char unk64[0x34];
-    /* 0x98 */ HmfModelData_Unk64_Unk98_Struct* unk98;
-} HmfModelData_Unk64_Struct; // Size unknown
-
-typedef struct {
-    /* 0x00 */ char unk00[2];
-    /* 0x02 */ u8 unk02;
-    /* 0x03 */ char unk03[0x15];
-    /* 0x18 */ s32 unk18;
-    /* 0x1C */ f32 unk1C;
-    /* 0x20 */ f32 unk20;
-    /* 0x24 */ f32 unk24;
-    /* 0x28 */ f32 unk28;
-    /* 0x2C */ f32 unk2C;
-    /* 0x30 */ f32 unk30;
-    /* 0x34 */ f32 unk34;
-    /* 0x38 */ f32 unk38;
-    /* 0x3C */ f32 unk3C;
-    /* 0x40 */ f32 unk40;
-    /* 0x44 */ f32 unk44;
-    /* 0x48 */ char unk48[0x1C];
-    /* 0x64 */ HmfModelData_Unk64_Struct* unk64;
-    /* 0x68 */ char unk68[0xC];
-    /* 0x74 */ f32 unk74[16];
-    /* 0x78 */ char unkB4[0xC];
-} HmfModelData_Struct; // Size 0xC0
-
-typedef struct {
     /* 0x00 */ char unk00[2];
     /* 0x02 */ s16 unk02;
     /* 0x04 */ char unk04[0x14];
 } D_800CCF58_CDB58_Struct; // Size 0x18
 
-extern HmfModelData_Struct* HmfModelData;
-extern D_800CCF58_CDB58_Struct* D_800CCF58_CDB58;
+extern D_800CCF58_CDB58_Struct* D_800CCF58_CDB58; // esprite
 
 // LOCAL
 

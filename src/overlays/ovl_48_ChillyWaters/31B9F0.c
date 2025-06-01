@@ -498,7 +498,7 @@ void func_801155C4_32B134_ChillyWaters(omObjData* obj) {
         break;
     }
 
-    SprAttrReset(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0x8000U);
+    HuSprAttrReset(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0x8000U);
     for (i = 0; i < 255; i += 255 / var_s3) {
         func_80055458_56058(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, i & 0xFFFF);
         HuPrcVSleep();
@@ -565,21 +565,21 @@ void ItemUseWackyWatch(void) {
     GW_SYSTEM* system = &GwSystem;
     s32 temp;
     
-    temp_s4 = func_8005279C_5339C(1, 0);
+    temp_s4 = HuSprGrpCreate(1, 0);
     temp_v0 = DataRead(D_8010197C_11559C_shared_board[18]);
     temp_s7 = func_80055810_56410(temp_v0);
     DataClose(temp_v0);
     func_80055024_55C24(temp_s4, 0, temp_s7, 0);
-    SprPriSet(temp_s4, 0, 0x4776U);
-    SprAttrSet(temp_s4, 0, 0x1000U);
+    HuSprPriSet(temp_s4, 0, 0x4776U);
+    HuSprAttrSet(temp_s4, 0, 0x1000U);
     for (i = 0; i < 4; i++) {
-        D_8011FB80_3356F0_ChillyWaters[i] = func_8005279C_5339C(1, 0);
+        D_8011FB80_3356F0_ChillyWaters[i] = HuSprGrpCreate(1, 0);
         temp_v0 = DataRead((i + 0x1BB) | 0x130000);
         sp18[i] = func_80055810_56410(temp_v0);
         DataClose(temp_v0);
         func_80055024_55C24(D_8011FB80_3356F0_ChillyWaters[i], 0, sp18[i], 0);
-        SprPriSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x4780U);
-        SprAttrSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x980CU);
+        HuSprPriSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x4780U);
+        HuSprAttrSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x980CU);
         func_80055458_56058(D_8011FB80_3356F0_ChillyWaters[i], 0, 0U);
         func_80055420_56020(D_8011FB80_3356F0_ChillyWaters[i], 0, 0xFF, 0xFF, 0);
     }
@@ -592,7 +592,7 @@ void ItemUseWackyWatch(void) {
     HuVecCopy3F(&temp_v0_3->coords, &GetPlayerStruct(CUR_PLAYER)->player_obj->coords);
     func_800D9714_ED334_shared_board(temp_v0_3);
     func_800D9B24_ED744_shared_board(temp_v0_3);
-    SprAttrSet(D_8010570C_11932C_shared_board, 0, 0x8000U);
+    HuSprAttrSet(D_8010570C_11932C_shared_board, 0, 0x8000U);
     func_800F68E0_10A500_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), 0);
     func_800F6E4C_10AA6C_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), &sp30, &sp34);
     func_80054904_55504(temp_s4, 0, sp30, sp34);
@@ -656,10 +656,10 @@ void ItemUseWackyWatch(void) {
     HuPrcChildWait();
     
     for (i = 0; i < 3; i++) {
-        SprAttrSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x8000);
+        HuSprAttrSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x8000);
     }
 
-    SprAttrReset(D_8011FB8E_3356FE_ChillyWaters, 0, 0x8000U);
+    HuSprAttrReset(D_8011FB8E_3356FE_ChillyWaters, 0, 0x8000U);
     func_80055458_56058(D_8011FB8E_3356FE_ChillyWaters, 0, 0xFFU);
     func_80054904_55504(D_8011FB8E_3356FE_ChillyWaters, 0, 0xA0, 0x78);
     HuPrcChildLink(HuPrcCurrentGet(), omAddPrcObj(func_80115734_32B2A4_ChillyWaters, 0x4002U, 0, 0));
@@ -671,7 +671,7 @@ void ItemUseWackyWatch(void) {
     
     for (i = 0; i <= 2880; i += 50) {
         temp_f20 = (HuMathSin(i) / 2.0f) + 1.0f;
-        SprScale(D_8011FB8E_3356FE_ChillyWaters, 0, temp_f20, (HuMathSin(i) / 3.0f) + 1.0f);
+        HuSprScaleSet(D_8011FB8E_3356FE_ChillyWaters, 0, temp_f20, (HuMathSin(i) / 3.0f) + 1.0f);
         if (i >= (2880 / 2 + 1)) {
             sp40 = 1;
         }
@@ -684,7 +684,7 @@ void ItemUseWackyWatch(void) {
     func_800FFAEC_11370C_shared_board(temp_s1_2);
     
     for (var_f20 = 0.0f; WipeStatGet() != 0; var_f20 += 0.1f) {
-        SprScale(D_8011FB8E_3356FE_ChillyWaters, 0, var_f20, var_f20);
+        HuSprScaleSet(D_8011FB8E_3356FE_ChillyWaters, 0, var_f20, var_f20);
         HuPrcVSleep();
     }
     

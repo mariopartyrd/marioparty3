@@ -2,6 +2,8 @@
 
 void func_8000086C_146C(str800D5298*);
 void func_800035E8_41E8(s16);
+s32 func_80007064_7C64(s32);
+extern u16 D_800A1902_A2502;
 extern s16 D_800A1904_A2504;
 extern u16 D_800A1906_A2506;
 extern u8 D_800D09A8_D15A8;
@@ -40,7 +42,15 @@ INCLUDE_ASM("asm/nonmatchings/4B120", func_8004AA38_4B638);
 
 INCLUDE_ASM("asm/nonmatchings/4B120", func_8004AA60_4B660);
 
-INCLUDE_ASM("asm/nonmatchings/4B120", HuAudFXPlay);
+s16 HuAudFXPlay(s16 arg0) {
+    if (D_800A1902_A2502 == 0) {
+        return 0;
+    }
+    if (arg0 == 0) {
+        return 0;
+    }
+    return func_80007064_7C64(arg0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/4B120", func_8004AAD0_4B6D0);
 

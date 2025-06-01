@@ -54,16 +54,22 @@ typedef struct Object_s {
 void omInitObjMan(s16 numOfObjs, s32 numOfPrcs);
 void omSetStatBit(omObjData *obj, u16 stat);
 s32 omOvlReturnEx(s16 level);
-omObjData* omAddObjEx(Process *objman_process, s16 prio, u16 mdlcnt, u16 mtncnt, s16 group, omObjFunc func);
-omObjData* omAddObj(s16 priority, u16 arg1, u16 arg2, s16 arg3, omObjFunc func);
+omObjData* omAddObj(s16 prio, u16 mdlcnt, u16 mtncnt, s16 group, omObjFunc func);
 Process* omAddPrcObj(process_func func, u16 priority, s32 stackSize, s32 extDataSize);
-s32 omOvlCallEx(s32 arg0, s16 arg1, u16 arg2);
+s32 omOvlCallEx(s32 ovlID, s16 event, u16 stat);
 void omMain(void);
-void omPrcSetStatBit(Process*, s32);
-void omOvlGotoEx(s32, s16, u16);
+void omPrcSetStatBit(Process* prc, s32 stat);
+void omOvlGotoEx(s32 ovlID, s16 event, u16 stat);
+void omOvlHisChg(s16 level, s32 overlay, s16 event, s16 stat);
 void omDestroyObjMan(void);
 void omPrcSetDestructor(s32, void*);
-void omPrcResetStatBit(Process*, s32);
+void omPrcResetStatBit(Process* prc, s32 stat);
 void omDelObj(omObjData*);
+
+void omOutView(omObjData* object);
+
+extern Vec CRot;
+extern Vec Center;
+extern f32 CZoom;
 
 #endif //_GAME_OBJECT_H

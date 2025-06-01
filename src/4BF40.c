@@ -1,6 +1,34 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/4BF40", func_8004B340_4BF40);
+void Hu3DCamSetPositionOrientation(s16 camIndex, Vec* pos, Vec* at, Vec* up);
+void Hu3DCamUpdateMtx(s32);
+extern f32 D_800CB890_CC490;
+extern f32 D_800CE17C_CED7C[];
+extern f32 D_800D5210_D5E10;
+
+void omOutView(omObjData* object) {
+    Vec pos, at, up;
+    f32 rot_x = CRot.x;
+    f32 rot_y = CRot.y;
+
+    pos.x = Center.x + HuMathSin(rot_y) * HuMathCos(rot_x) * CZoom;
+    pos.y = Center.y + -HuMathSin(rot_x) * CZoom;
+    pos.z = Center.z + HuMathCos(rot_y) * HuMathCos(rot_x) * CZoom;
+    at.x = Center.x;
+    at.y = Center.y;
+    at.z = Center.z;
+    up.x = HuMathSin(rot_y) * HuMathSin(rot_x);
+    up.y = HuMathCos(rot_x);
+    up.z = HuMathCos(rot_y) * HuMathSin(rot_x);
+    D_800CE17C_CED7C[0] = pos.x;
+    D_800CE17C_CED7C[1] = pos.z;
+    D_800CE17C_CED7C[-1] = CRot.y; // actually D_800CE178_CED78?
+    D_800CE17C_CED7C[2] = gCameraList->fov[0];
+    D_800CE17C_CED7C[3] = D_800D5210_D5E10;
+    D_800CE17C_CED7C[4] = D_800CB890_CC490;
+    Hu3DCamSetPositionOrientation(0, &pos, &at, &up);
+    Hu3DCamUpdateMtx(0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/4BF40", func_8004B4D4_4C0D4);
 

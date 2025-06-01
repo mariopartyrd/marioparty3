@@ -2,7 +2,6 @@
 
 typedef s16 Array2D[2][18];
 
-s16 InitEspriteSlot(s16, s32, s32);
 void func_8000BBFC_C7FC(u16, s16);
 void func_8000BC48_C848(u16, s32);
 void func_8000BCC8_C8C8(u16, s32);

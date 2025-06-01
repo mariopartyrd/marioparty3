@@ -14,7 +14,7 @@ void func_801059A0_3D76C0_name_59(void) {
     func_800142A0_14EA0(0x2D);
     omInitObjMan(0x33, 0xA);
     func_8004A208_4AE08();
-    omSetStatBit(omAddObj(0x7FDA, 0U, 0U, -1, func_8004B340_4BF40), 0xA0U);
+    omSetStatBit(omAddObj(0x7FDA, 0U, 0U, -1, omOutView), 0xA0U);
     omAddObj(0x2710, 0U, 0U, -1, func_801068D4_3D85F4_name_59);
     HmfLightMaxSet(4);
     HmfLightColorSet(0, 0x78, 0x78, 0x78);

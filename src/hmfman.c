@@ -1,4 +1,4 @@
-#include "common.h"
+#include "game/hmfman.h"
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001A070_1AC70);
 
@@ -26,17 +26,48 @@ INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001BF14_1CB14);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001BF90_1CB90);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", Hu3DModelPosSet);
+void Hu3DModelPosSet(s16 arg0, f32 x, f32 y, f32 z) {
+    if (arg0 >= 0 && HmfModelData[arg0].unk64 != NULL) {
+        HmfModelData[arg0].pos.x = x;
+        HmfModelData[arg0].pos.y = y;
+        HmfModelData[arg0].pos.z = z;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C114_1CD14);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", Hu3DModelRotSet);
+void Hu3DModelRotSet(s16 arg0, f32 x, f32 y, f32 z) {
+    if (arg0 >= 0 && HmfModelData[arg0].unk64 != NULL) {
+        HmfModelData[arg0].rot.x = x;
+        HmfModelData[arg0].rot.y = y;
+        HmfModelData[arg0].rot.z = z;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", Hu3DModelScaleSet);
+void Hu3DModelScaleSet(s16 arg0, f32 x, f32 y, f32 z) {
+    if (arg0 >= 0 && HmfModelData[arg0].unk64 != NULL) {
+        HmfModelData[arg0].scale.x = x;
+        HmfModelData[arg0].scale.y = y;
+        HmfModelData[arg0].scale.z = z;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C1F0_1CDF0);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C258_1CE58);
+void func_8001C258_1CE58(s16 arg0, s32 arg1, s32 arg2) {
+    HmfModel* model = &HmfModelData[arg0];
+
+    if (model->unk64 != NULL) {
+        if (arg1 & 0xB3F82) {
+            arg2 |= 0x800000;
+        }
+        if (arg1 & 0x1C00) {
+            func_8001C8E4_1D4E4(arg0, arg2 & 0x1C00);
+        }
+        model->unk18 &= ~arg1;
+        model->unk18 |= arg2;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C2FC_1CEFC);
 
@@ -60,7 +91,12 @@ INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C718_1D318);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C760_1D360);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C7D0_1D3D0);
+f32 func_8001C7D0_1D3D0(s16 arg0) {
+    if (HmfModelData[arg0].unk04 == 0xFF) {
+        return -1.0f;
+    }
+    return HmfModelData[arg0].unk4C;
+}
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C814_1D414);
 

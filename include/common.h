@@ -22,4 +22,8 @@
 #include "ld_addrs.h"
 #include "overlay.h"
 
+#include "game/esprite.h"
+#include "game/hmfman.h"
+#include "game/sprite.h"
+
 #endif

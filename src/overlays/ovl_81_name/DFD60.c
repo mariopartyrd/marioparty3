@@ -1155,8 +1155,8 @@ void func_800FB160_E2F30_name_81(void) {
         temp_s4->unk_0C[i] = func_80055810_56410(temp_v0_2);
         DataClose(temp_v0_2);
         func_80055024_55C24(temp_s4->unk_0A, i, temp_s4->unk_0C[i], 0);
-        SprPriSet(temp_s4->unk_0A, i, 1U);
-        SprAttrSet(temp_s4->unk_0A, i, 0U);
+        HuSprPriSet(temp_s4->unk_0A, i, 1U);
+        HuSprAttrSet(temp_s4->unk_0A, i, 0U);
         if (i == 0) {
             func_80054904_55504(temp_s4->unk_0A, 0, 0xA0, 0x7E); 
         } else {

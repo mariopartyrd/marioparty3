@@ -209,24 +209,6 @@ typedef struct RGB {
 /* 0x02 */ u8 b;
 } RGB; //sizeof 0x3
 
-typedef struct ESprite2 {
-    char unk_00[0x14];
-    u16 unk_14;
-    char unk_18[0x30];
-    f32 unk_48;
-    f32 unk_4C;
-    char unk_50[0x34];
-    s32 unk_84;
-} ESprite2; //unknown size
-
-typedef struct ESprite {
-    char unk_00[8];
-    s16 unk_08;
-    s16 unk_0A;
-    s32 unk_0C;
-    ESprite2* unk_10[4]; //unknown size
-} ESprite; //unknown size
-
 typedef struct str800D5298 {
     s32 unk0;
     s32 unk4;

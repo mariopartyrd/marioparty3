@@ -3,10 +3,10 @@
 #include "malloc.h"
 
 typedef struct unkProcessStruct {
-    s16 unk0;
+    s16 stat;
     s16 unk2;
     Process* processInstance;
-    void (*unk8)();
+    void (*destructor)();
 } unkProcessStruct;
 
 extern s16 D_800A1774_A2374;
@@ -19,24 +19,36 @@ extern s8 D_800D1710_D2310;
 
 void omDestroyPrcObj(void);
 void func_8000BA00_C600(void);
+void func_8000BB94_C794(s32);
+void func_8000BBFC_C7FC(s32, s16);
 void func_800166D0_172D0(void);
 void func_8001AFE4_1BBE4(void);
 void func_80021AF4_226F4(void);
 void func_80037190_37D90(void);
 void omInsertObj(omObjData * obj);
-void func_80047CDC_488DC(u16 arg0, omObjData * obj);
+void func_80045350_45F50();
+void omAddMember(u16 group, omObjData * obj);
+void func_8004A354_4AF54(omObjData*);
 void func_8004A444_4B044(s32);
 void func_8004A468_4B068(u16, u16, u16);
+void func_8004CEA4_4DAA4();
 extern u8 D_800A16B0_A22B0[][2];
 extern u8 D_800A1740_A2340[][2];
 extern u16 D_800A1756_A2356;
-extern s32 D_800A1758_A2358;
-extern u16 D_800A1766_A2366;
+extern s32 omprevovl;
+extern u16 omovlstat;
 extern s8 D_800A176C_A236C;
-extern omObjData* D_800A1770_A2370;
+extern omObjData* omobjall;
 extern u8 D_800A1784_A2384;
+extern s16 D_800A18A8_A24A8[][2];
+extern u8 D_800A18B7_A24B7[];
 extern s16 D_800A1908_A2508;
 extern s16 D_800A190C_A250C;
+extern u16 D_800B23C2_B2FC2;
+extern u16 D_800B23C4_B2FC4;
+extern s16 D_800B23C6_B2FC6;
+extern s16 D_800B23C8_B2FC8;
+extern u16 D_800D1100_D1D00;
 
 typedef struct UnkomOvl {
     u16 unk_00;
@@ -45,26 +57,25 @@ typedef struct UnkomOvl {
     char unk_06[2]; //unused pad?
 } UnkomOvl;
 
-typedef struct
-{
-    u16 unk0;
-    u16 unk2;
-    u16 unk4;
-    u16* unk8;
-    omObjData** objs;        // 000C
-} HuObjUnk1;
+typedef struct {
+    u16 next_idx;
+    u16 max_objs;
+    u16 num_objs;
+    u16* next;
+    omObjData** objs;
+} omObjGroup;
 
 extern UnkomOvl D_800A1920_A2520[];
 
 extern f32 D_800CB890_CC490;
-extern s16 D_800CC430_CD030;
-extern s16 D_800CCF50_CDB50;
+extern s16 omobjlast;
+extern s16 ommaxobjs;
 extern u8 D_800CCF52_CDB52;
-extern s16 D_800CCF8C_CDB8C;
+extern s16 omnumobjs;
 extern f32 D_800CCF98_CDB98[];
-extern HuObjUnk1 D_800CD1E0_CDDE0[];
+extern omObjGroup omgroup[];
 extern u16 D_800CD2F4_CDEF4;
-extern s32 D_800CE200_CEE00;
+extern s32 omovl;
 extern u16 D_800CE202_CEE02;
 extern s16 D_800D0A3A_D163A;
 extern s32 D_800D2118_D2D18;
@@ -72,11 +83,11 @@ extern u16 D_800D4082_D4C82;
 extern f32 D_800D4198_D4D98[];
 extern f32 D_800D5210_D5E10;
 extern u16 D_800D530C_D5F0C;
-extern s16 D_800D5560_D6160;
+extern s16 omobjfirst;
 extern s32 D_800D6A40_D7640;
 extern u16 D_800D6A56_D7656;
 extern s8 D_800D6A90_D7690;
-extern s16 D_800D6B40_D7740;
+extern s16 omnextidx;
 
 
 extern s8 D_800A1762_A2362;
@@ -103,24 +114,24 @@ void omInitObjMan(s16 numOfObjs, s32 numOfPrcs)
     omObjData* obj;
     unkProcessStruct* prcInfo;
 
-    D_800CCF50_CDB50 = numOfObjs + 1;
-    D_800CCF8C_CDB8C = 0;
-    D_800D6B40_D7740 = 0;
-    D_800CC430_CD030 = -1;
-    D_800D5560_D6160 = -1;
+    ommaxobjs = numOfObjs + 1;
+    omnumobjs = 0;
+    omnextidx = 0;
+    omobjlast = -1;
+    omobjfirst = -1;
     D_800D2118_D2D18 = 0;
     D_800D530C_D5F0C = 0;
     D_800D6A90_D7690 = 0;
 
-    if (D_800A1770_A2370 != NULL) {
-        HuMemMemoryFreeTemp((void *)D_800A1770_A2370);
+    if (omobjall != NULL) {
+        HuMemMemoryFreeTemp((void *)omobjall);
     }
 
-    D_800A1770_A2370 = (omObjData *)HuMemMemoryAllocTemp(D_800CCF50_CDB50* sizeof(omObjData));
+    omobjall = (omObjData *)HuMemMemoryAllocTemp(ommaxobjs* sizeof(omObjData));
 
-    for (i = 0; i < D_800CCF50_CDB50; ++i)
+    for (i = 0; i < ommaxobjs; ++i)
     {
-        obj = &D_800A1770_A2370[i];
+        obj = &omobjall[i];
         obj->stat = 1;
         obj->next = -1;
         obj->prev = -1;
@@ -146,11 +157,11 @@ void omInitObjMan(s16 numOfObjs, s32 numOfPrcs)
 
     for (i = 0; i < 10; ++i)
     {
-        D_800CD1E0_CDDE0[i].unk2 = 0;
-        D_800CD1E0_CDDE0[i].unk4 = 0;
-        D_800CD1E0_CDDE0[i].unk0 = 0;
-        D_800CD1E0_CDDE0[i].objs = NULL;
-        D_800CD1E0_CDDE0[i].unk8 = 0;
+        omgroup[i].max_objs = 0;
+        omgroup[i].num_objs = 0;
+        omgroup[i].next_idx = 0;
+        omgroup[i].objs = NULL;
+        omgroup[i].next = 0;
     }
 
     prcCount = numOfPrcs + 2;
@@ -162,10 +173,10 @@ void omInitObjMan(s16 numOfObjs, s32 numOfPrcs)
     for (i = 0; i < D_800A1774_A2374; ++i)
     {
         prcInfo = &D_800A177C_A237C[i];
-        prcInfo->unk0 = 1;
+        prcInfo->stat = 1;
         prcInfo->unk2 = i + 1;
         prcInfo->processInstance = NULL;
-        prcInfo->unk8 = 0;
+        prcInfo->destructor = NULL;
     }
 
     D_800D5210_D5E10 = 20000.0f;
@@ -180,168 +191,183 @@ void omInitObjMan(s16 numOfObjs, s32 numOfPrcs)
     D_800CD050_CDC50 = 0x5A;
 }
 
-// clean up?
 INCLUDE_ASM("asm/nonmatchings/objmain", omDestroyObjMan);
 
-omObjData* omAddObj(s16 priority, u16 arg1, u16 arg2, s16 arg3, omObjFunc func)
+omObjData* omAddObj(s16 prio, u16 mdlcnt, u16 mtncnt, s16 group, omObjFunc func)
 {
-    omObjData* temp_s0;
-    s16* temp_v1;
-    s32 temp_s1;
-    s32 var_a0;
-    s32 var_a0_2;
+    omObjData* object;
+    s32 i;
 
-    if (D_800CCF8C_CDB8C == D_800CCF50_CDB50) {
+    if (omnumobjs == ommaxobjs) {
         return NULL;
     }
 
-    temp_s0 = &D_800A1770_A2370[D_800D6B40_D7740];
-    temp_s0->next_idx_alloc = D_800D6B40_D7740;
-    temp_s0->prio = priority;
+    object = &omobjall[omnextidx];
+    object->next_idx_alloc = omnextidx;
+    object->prio = prio;
 
-    omInsertObj(temp_s0);
+    omInsertObj(object);
 
-    if (arg1 != 0) {
-        temp_s0->model = HuMemMemoryAllocTemp(arg1* sizeof(s16));
-        temp_s0->mdlcnt = arg1;
-        for (var_a0 = 0; var_a0 < arg1; ++var_a0) {
-            temp_s0->model[var_a0] = -1;
+    if (mdlcnt != 0) {
+        object->model = HuMemMemoryAllocTemp(mdlcnt* sizeof(s16));
+        object->mdlcnt = mdlcnt;
+        for (i = 0; i < mdlcnt; ++i) {
+            object->model[i] = -1;
         }
     } else {
-        temp_s0->model = NULL;
-        temp_s0->mdlcnt = 0;
+        object->model = NULL;
+        object->mdlcnt = 0;
     }
 
-    if (arg2 != 0) {
-        temp_s0->motion = HuMemMemoryAllocTemp(arg2* sizeof(s16));
-        temp_s0->mtncnt = arg2;
+    if (mtncnt != 0) {
+        object->motion = HuMemMemoryAllocTemp(mtncnt* sizeof(s16));
+        object->mtncnt = mtncnt;
     } else {
-        temp_s0->motion = NULL;
-        temp_s0->mtncnt = 0;
+        object->motion = NULL;
+        object->mtncnt = 0;
     }
 
-    if (arg3 >= 0) {
-        func_80047CDC_488DC(arg3, temp_s0);
+    if (group >= 0) {
+        omAddMember(group, object);
     } else {
-        temp_s0->group = arg3;
-        temp_s0->group_idx = 0;
+        object->group = group;
+        object->group_idx = 0;
     }
 
-    temp_s0->stat = 4;
-    temp_s0->unk10 = 0;
-    temp_s0->func = func;
-    temp_s0->work[0] = temp_s0->work[1] = temp_s0->work[2] = temp_s0->work[3] = 0;
-    D_800D6B40_D7740 = temp_s0->next_idx;
-    ++D_800CCF8C_CDB8C;
+    object->stat = 4;
+    object->unk10 = 0;
+    object->func = func;
+    object->work[0] = object->work[1] = object->work[2] = object->work[3] = 0;
+    omnextidx = object->next_idx;
+    ++omnumobjs;
 
-    return temp_s0;
+    return object;
 }
 
-void omSetObjPrio(omObjData* arg0, s16 arg1)
+void omSetObjPrio(omObjData* obj, s16 prio)
 {
-    s16 temp_a0;
+    obj->prio = prio;
 
-    arg0->prio = arg1;
-
-    if (D_800CC430_CD030 != D_800D5560_D6160)
+    if (omobjlast != omobjfirst)
     {
-        temp_a0 = arg0->next;
-        if (temp_a0 >= 0) {
-            D_800A1770_A2370[temp_a0].prev = arg0->prev;
+        if (obj->next >= 0) {
+            omobjall[obj->next].prev = obj->prev;
+        }
+        if (obj->prev >= 0) {
+            omobjall[obj->prev].next = obj->next;
         }
 
-        if ((arg0->prev < 0) || (D_800A1770_A2370[arg0->prev].next = arg0->next, arg0->prev < 0)) {
-            D_800D5560_D6160 = D_800A1770_A2370[arg0->next].next_idx_alloc;
+        if (obj->prev < 0) {
+            omobjfirst = omobjall[obj->next].next_idx_alloc;
         }
-        if (arg0->next < 0) {
-            D_800CC430_CD030 = D_800A1770_A2370[arg0->prev].next_idx_alloc;
+        if (obj->next < 0) {
+            omobjlast = omobjall[obj->prev].next_idx_alloc;
         }
 
-        omInsertObj(arg0);
+        omInsertObj(obj);
     }
 }
 
 // register object into linked list, sort based on priority
 void omInsertObj(omObjData* obj)
 {
-    s16 temp_a0;
-    s16 temp_t0;
-    s16 temp_t1;
-    s16 var_a2;
-    omObjData* temp_a3;
-    s16 temp_t4;
+    s16 next_idx_alloc;
+    s16 prio;
+    s16 obj_idx;
+    omObjData* obj_new;
+    s16 prev_idx;
 
-    temp_t0 = obj->next_idx_alloc;
-    temp_t1 = obj->prio;
+    next_idx_alloc = obj->next_idx_alloc;
+    prio = obj->prio;
 
-    if (D_800D5560_D6160 == -1) {
+    if (omobjfirst == -1) {
         obj->prev = -1;
         obj->next = -1;
-        D_800D5560_D6160 = temp_t0;
-        D_800CC430_CD030 = temp_t0;
-    } else {
-        var_a2 = D_800D5560_D6160;
-        while (var_a2 != -1) {
-            temp_a3 = &D_800A1770_A2370[var_a2];
-            if (temp_a3->prio <= temp_t1) {
-                break;
-            }
-            temp_t4 = var_a2;
-            var_a2 = temp_a3->next;
+        omobjfirst = next_idx_alloc;
+        omobjlast = next_idx_alloc;
+        return;
+    }
+    for (obj_idx = omobjfirst; obj_idx != -1; obj_idx = obj_new->next) {
+        obj_new = &omobjall[obj_idx];
+        if (obj_new->prio <= prio) {
+            break;
         }
-        if (var_a2 != -1) {
-            obj->prev = temp_a3->prev;
-            obj->next = var_a2;
-            temp_a0 = temp_a3->prev;
-            if (temp_a0 != -1) {
-                D_800A1770_A2370[temp_a0].next = temp_t0;
-            } else {
-                D_800D5560_D6160 = temp_t0;
-            }
-            temp_a3->prev = temp_t0;
+        prev_idx = obj_idx;
+    }
+    if (obj_idx != -1) {
+        obj->prev = obj_new->prev;
+        obj->next = obj_idx;
+        if (obj_new->prev != -1) {
+            omobjall[obj_new->prev].next = next_idx_alloc;
         } else {
-            obj->next = -1;
-            obj->prev = temp_t4;
-            temp_a3->next = temp_t0;
-            D_800CC430_CD030 = temp_t0;
+            omobjfirst = next_idx_alloc;
         }
+        obj_new->prev = next_idx_alloc;
+    } else {
+        obj->next = -1;
+        obj->prev = prev_idx;
+        obj_new->next = next_idx_alloc;
+        omobjlast = next_idx_alloc;
     }
 }
 
 INCLUDE_ASM("asm/nonmatchings/objmain", omDelObj);
 
-INCLUDE_ASM("asm/nonmatchings/objmain", omSetStat);
+void omSetStat(omObjData* obj, u16 stat) {
+    obj->stat = stat;
+}
 
-INCLUDE_ASM("asm/nonmatchings/objmain", omSetStatBit);
+void omSetStatBit(omObjData* obj, u16 stat) {
+    obj->stat |= stat;
+}
 
-INCLUDE_ASM("asm/nonmatchings/objmain", omResetStatBit);
+void omResetStatBit(omObjData* obj, u16 stat) {
+    obj->stat &= ~stat;
+}
 
-INCLUDE_ASM("asm/nonmatchings/objmain", omPrcSetStat);
+void omPrcSetStat(Process* prc, s32 stat) {
+    D_800A177C_A237C[prc->dtor_idx].stat = stat;
+}
 
-INCLUDE_ASM("asm/nonmatchings/objmain", omPrcSetStatBit);
+void omPrcSetStatBit(Process* prc, s32 stat) {
+    D_800A177C_A237C[prc->dtor_idx].stat |= stat;
+}
 
-INCLUDE_ASM("asm/nonmatchings/objmain", omPrcResetStatBit);
+void omPrcResetStatBit(Process* prc, s32 stat) {
+    D_800A177C_A237C[prc->dtor_idx].stat &= ~stat;
+}
 
-INCLUDE_ASM("asm/nonmatchings/objmain", omSetTra);
+void omSetTra(omObjData* obj, float x, float y, float z) {
+    obj->trans.x = x;
+    obj->trans.y = y;
+    obj->trans.z = z;
+}
 
-INCLUDE_ASM("asm/nonmatchings/objmain", omSetRot);
+void omSetRot(omObjData* obj, float x, float y, float z) {
+    obj->rot.x = x;
+    obj->rot.y = y;
+    obj->rot.z = z;
+}
 
-INCLUDE_ASM("asm/nonmatchings/objmain", omSetSca);
+void omSetSca(omObjData* obj, float x, float y, float z) {
+    obj->scale.x = x;
+    obj->scale.y = y;
+    obj->scale.z = z;
+}
 
 INCLUDE_ASM("asm/nonmatchings/objmain", func_80047C0C_4880C);
 
-void func_80047CDC_488DC(u16 arg0, omObjData* obj)
+void omAddMember(u16 group, omObjData* obj)
 {
-    HuObjUnk1* temp_a2;
+    omObjGroup* group_ptr = &omgroup[group];
 
-    temp_a2 = &D_800CD1E0_CDDE0[arg0];
-    if (temp_a2->unk4 != temp_a2->unk2)
+    if (group_ptr->num_objs != group_ptr->max_objs)
     {
-        obj->group = arg0;
-        obj->group_idx = temp_a2->unk0;
-        temp_a2->objs[temp_a2->unk0] = obj;
-        temp_a2->unk0 = temp_a2->unk8[temp_a2->unk0];
-        ++temp_a2->unk4;
+        obj->group = group;
+        obj->group_idx = group_ptr->next_idx;
+        group_ptr->objs[group_ptr->next_idx] = obj;
+        group_ptr->next_idx = group_ptr->next[group_ptr->next_idx];
+        ++group_ptr->num_objs;
     }
 }
 
@@ -369,7 +395,7 @@ Process* omAddPrcObj(process_func func, u16 priority, s32 stackSize, s32 extData
 
     prevIdx             = D_800A1778_A2378;
     temp_s0             = &D_800A177C_A237C[D_800A1778_A2378];
-    temp_s0->unk0       = 4;
+    temp_s0->stat       = 4;
     D_800A1778_A2378    = temp_s0->unk2;
 
     newPrc = HuPrcCreate(func, priority, stackSize, extDataSize);
@@ -378,7 +404,7 @@ Process* omAddPrcObj(process_func func, u16 priority, s32 stackSize, s32 extData
     newPrc->dtor_idx         = prevIdx;
     HuPrcDtor(temp_s0->processInstance, omDestroyPrcObj);
 
-    temp_s0->unk8 = NULL;
+    temp_s0->destructor = NULL;
     ++D_800A1776_A2376;
 
     return temp_s0->processInstance;
@@ -390,17 +416,15 @@ INCLUDE_ASM("asm/nonmatchings/objmain", omDelPrcObj);
 
 void omDestroyPrcObj(void)
 {
-    process_func func;
     Process* currPrc;
     unkProcessStruct* temp_s0;
 
     currPrc = HuPrcCurrentGet();
     temp_s0 = &D_800A177C_A237C[currPrc->dtor_idx];
-    func = temp_s0->unk8;
-    if (func != NULL) {
-        func();
+    if (temp_s0->destructor != NULL) {
+        temp_s0->destructor();
     }
-    temp_s0->unk0 = 1;
+    temp_s0->stat = 1;
     temp_s0->unk2 = D_800A1778_A2378;
     D_800A1778_A2378 = currPrc->dtor_idx;
     --D_800A1776_A2376;
@@ -410,19 +434,18 @@ INCLUDE_ASM("asm/nonmatchings/objmain", omPrcSetDestructor);
 
 s32 omOvlCallEx(s32 ovlID, s16 event, u16 stat) {
     omOvlHisData* history;
-    s32 overlayLoadedStatus;
 
-    if (omovlhisidx < ARRAY_COUNT(omovlhis)) {
-        history = &omovlhis[++omovlhisidx];
-        history->overlayID = ovlID;
-        history->event = event;
-        history->stat = stat;
-        omOvlGotoEx(ovlID, event, stat);
-        overlayLoadedStatus = TRUE;
-    } else { //else, history is full, cannot call overlay
-        overlayLoadedStatus = FALSE;
+    // history is full, cannot call overlay
+    if (omovlhisidx >= ARRAY_COUNT(omovlhis)) {
+        return FALSE;
     }
-    return overlayLoadedStatus;
+
+    history = &omovlhis[++omovlhisidx];
+    history->overlayID = ovlID;
+    history->event = event;
+    history->stat = stat;
+    omOvlGotoEx(ovlID, event, stat);
+    return TRUE;
 }
 
 s32 omOvlReturnEx(s16 level) {
@@ -441,15 +464,15 @@ void omOvlGotoEx(s32 ovlID, s16 event, u16 stat) {
     u8 var_a0_2;
     u8 var_v1;
 
-    if ((D_800CE200_CEE00 != name_7F) & (D_800CE200_CEE00 != test_menu1)) {
-        D_800A1758_A2358 = D_800CE200_CEE00;
+    if ((omovl != name_7F) && (omovl != test_menu1)) {
+        omprevovl = omovl;
         D_800A1756_A2356 = D_800CE202_CEE02;
     }
     
     D_800A176C_A236C = 1;
-    D_800CE200_CEE00 = ovlID;
+    omovl = ovlID;
     omovlevtno = event;
-    D_800A1766_A2366 = stat;
+    omovlstat = stat;
     D_800D0A3A_D163A = 0;
 
     if (stat & 0x40 && D_800CCF52_CDB52 != 2) {
@@ -497,9 +520,8 @@ void omOvlGotoEx(s32 ovlID, s16 event, u16 stat) {
     D_800A190C_A250C = 0;
 }
 
-
-void omOvlHisChg(s16 arg0, s32 overlay, s16 event, s16 stat) {
-    s32 ovlhisIndex = omovlhisidx - arg0;
+void omOvlHisChg(s16 level, s32 overlay, s16 event, s16 stat) {
+    s32 ovlhisIndex = omovlhisidx - level;
     omOvlHisData* history;
     
     if (ovlhisIndex >= 0) {
@@ -524,6 +546,7 @@ void omOvlKill(void) {
 
 INCLUDE_ASM("asm/nonmatchings/objmain", omMain);
 
+void func_80048E88_49A88(void);
 INCLUDE_ASM("asm/nonmatchings/objmain", func_80048E88_49A88);
 
 INCLUDE_ASM("asm/nonmatchings/objmain", func_80048EE8_49AE8);
@@ -536,9 +559,43 @@ INCLUDE_ASM("asm/nonmatchings/objmain", func_80049FB8_4ABB8);
 
 INCLUDE_ASM("asm/nonmatchings/objmain", func_8004A0E0_4ACE0);
 
-INCLUDE_ASM("asm/nonmatchings/objmain", func_8004A208_4AE08);
+void func_8004A208_4AE08(void) {
+    func_80045350_45F50();
+    if (omovlstat & 0x10) {
+        func_80048E88_49A88();
+        if (omovlstat & 4) {
+            D_800D6A58_D7658 = 1;
+        }
+    }
+    if (omovlstat & 0x20) {
+        func_8004CEA4_4DAA4();
+    }
+    func_8004CF30_4DB30();
+    if (_CheckFlag(0xF) != 0) {
+        D_800B23C2_B2FC2 = func_8000B838_C438(0x94);
+        D_800B23C4_B2FC4 = InitEspriteSlot(D_800B23C2_B2FC2, 0, 1);
+        func_8000BBFC_C7FC(D_800B23C4_B2FC4, 0x100);
+        func_8000BCC8_C8C8(D_800B23C4_B2FC4, 1);
+        D_800B23C8_B2FC8 = D_800A18B7_A24B7[GwSystem.minigame_index];
+        func_8000BBD4_C7D4(D_800B23C4_B2FC4, D_800A18A8_A24A8[D_800B23C8_B2FC8][0], D_800A18A8_A24A8[D_800B23C8_B2FC8][1]);
+        D_800B23C6_B2FC6 = 0;
+        omSetStatBit(omAddObj(10, 0, 0, -1, func_8004A354_4AF54), 0xA0);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/objmain", func_8004A354_4AF54);
+void func_8004A354_4AF54(omObjData* arg0) {
+    D_800B23C6_B2FC6 += 10;
+    if (D_800B23C6_B2FC6 > 180) {
+        D_800B23C6_B2FC6 -= 180;
+    }
+    func_8000BBFC_C7FC(D_800B23C4_B2FC4, HuMathSin(D_800B23C6_B2FC6) * 255.0f);
+    func_8000BBD4_C7D4(D_800B23C4_B2FC4, D_800A18A8_A24A8[D_800B23C8_B2FC8][0], D_800A18A8_A24A8[D_800B23C8_B2FC8][1]);
+    if (D_800D1100_D1D00 == 1) {
+        func_8000BB54_C754(D_800B23C4_B2FC4);
+    } else {
+        func_8000BB94_C794(D_800B23C4_B2FC4);
+    }
+}
 
 void func_8004A444_4B044(s32 arg0) {
     D_800A1780_A2380 = 1;

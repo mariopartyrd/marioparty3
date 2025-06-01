@@ -4,53 +4,15 @@
 
 // EXTERN
 
-typedef struct {
-    /* 0x00 */ void* unk00;
-    /* 0x04 */ u16 unk04;
-    /* 0x06 */ u16 unk06;
-    /* 0x08 */ char unk08[4];
-} Func_80055194_55D94_Unk00_Struct; // Size 0xC
-
-typedef struct {
-    /* 0x00 */ Func_80055194_55D94_Unk00_Struct* unk00;
-    /* 0x04 */ char unk04[4];
-    /* 0x08 */ u8* unk08;
-    /* 0x0C */ s32 unk0C;
-    /* 0x10 */ s16 unk10;
-    /* 0x12 */ char unk12[6];
-    /* 0x18 */ u16 unk18;
-    /* 0x1A */ u16 unk1A;
-} Func_80055194_55D94_Struct; // Size unknown
-
-typedef struct {
-    /* 0x00 */ char unk00[0x10];
-    /* 0x10 */ s16 unk10;
-} Func_80055520_56120_Unk84_Struct;
-
-typedef struct {
-    /* 0x00 */ char unk00[0x84];
-    /* 0x84 */ Func_80055520_56120_Unk84_Struct* unk84;
-    /* 0x88 */ char unk88[8];
-    /* 0x90 */ s16 unk90;
-} Func_80055520_56120_Struct; // Size unknown
-
-s32 SprAttrReset();
-s32 SprAttrSet();
-
-void Hu3DModelRotSet(s16, f32, f32, f32);
 void* HuMemAlloc(s32);
 void* HuMemAllocTag(s32, s32);
 void HuMemFree(void*);
 void* memcpy(void*, const void*, unsigned int);
 void func_80017D24_18924(f32*, f32, f32, f32);
 s32 func_8001A894_1B494(s32, Gfx*, s32);
-void func_80054FF8_55BF8(s32, s32, s32);
-Func_80055194_55D94_Struct* func_80055194_55D94(s32);
-Func_80055520_56120_Struct* func_80055520_56120(s32, s32);
-f32 func_8008E108_8ED08(f32, f32);
+f32 atan2d(f32, f32);
 
 extern s16 D_800CDD6A_CE96A;
-extern f32 D_800D138C_D1F8C[];
 extern u8 D_800D1FF0_D2BF0;
 extern u8 D_800D2008_D2C08;
 
@@ -76,10 +38,10 @@ typedef struct {
 } RGBA;
 
 void func_80109F30_2C13A0_tick_tock_hop(D_8010E6F4_2C5B64_Struct* arg0);
-s32 func_8010AD60_2C21D0_tick_tock_hop(Func_80055194_55D94_Struct* arg0, f32 arg1);
-s32 func_8010B4D0_2C2940_tick_tock_hop(Func_80055194_55D94_Struct* arg0, f32 arg1);
-void func_8010CCD4_2C4144_tick_tock_hop(u16 arg0, Func_80055194_55D94_Struct* arg1, u16 arg2);
-s16 func_8010CED8_2C4348_tick_tock_hop(Func_80055194_55D94_Struct* arg0, HmfModelData_Unk64_Struct* arg1, f32 arg2, u16 arg3, u16 arg4);
+s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1);
+s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1);
+void func_8010CCD4_2C4144_tick_tock_hop(u16 arg0, HuSprite_Unk84_Struct* arg1, u16 arg2);
+s16 func_8010CED8_2C4348_tick_tock_hop(HuSprite_Unk84_Struct* arg0, HmfModelData_Unk64_Struct* arg1, f32 arg2, u16 arg3, u16 arg4);
 void func_8010D5DC_2C4A4C_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_8010E6F4_2C5B64_Unk04_Struct* arg1);
 f32 func_8010D938_2C4DA8_tick_tock_hop(D_8010E700_2C5B70_Struct* arg0, D_8010E700_2C5B70_Unk98_Struct* arg1, Vec* arg2, Vec* arg3);
 void func_8010DFB0_2C5420_tick_tock_hop(f32* arg0);
@@ -307,28 +269,28 @@ void func_80109F30_2C13A0_tick_tock_hop(D_8010E6F4_2C5B64_Struct* arg0) {
 
 s16 func_8010A07C_2C14EC_tick_tock_hop(u16 arg0, s32 arg1, s32 arg2, u16 arg3, s32 arg4) {
     D_8010E6F8_2C5B68_Struct* var_s0 = D_8010E6F8_2C5B68_tick_tock_hop;
-    Func_80055520_56120_Struct* temp_v0_2;
+    HuSprite* temp_v0_2;
     s16 var_s1;
 
     for (var_s1 = 0; var_s1 < 8; var_s1++, var_s0++) {
         if (var_s0->unk00 == 0) {
             var_s0->unk02 = func_8000B838_C438((arg1 << 16) | arg2);
-            var_s0->unk01 = func_8005279C_5339C(1, 0);
+            var_s0->unk01 = HuSprGrpCreate(1, 0);
             var_s0->unk06 = 0xFF;
-            SprAttrReset(var_s0->unk01, 0, -1);
+            HuSprAttrReset(var_s0->unk01, 0, -1);
             func_80055024_55C24(var_s0->unk01, 0, var_s0->unk02, 0);
-            SprAttrSet(var_s0->unk01, 0, arg4);
+            HuSprAttrSet(var_s0->unk01, 0, arg4);
             func_800550F4_55CF4(var_s0->unk01, 0, arg3);
-            SprPriSet(var_s0->unk01, 0, arg0);
+            HuSprPriSet(var_s0->unk01, 0, arg0);
             func_80054FF8_55BF8(var_s0->unk01, 0, 0);
             func_800550B4_55CB4(var_s0->unk01, 0, 1.0f);
-            SprScale(var_s0->unk01, 0, 1.0f, 1.0f);
+            HuSprScaleSet(var_s0->unk01, 0, 1.0f, 1.0f);
             func_80054904_55504(var_s0->unk01, 0, 100, 100);
-            temp_v0_2 = func_80055520_56120(var_s0->unk01, 0);
+            temp_v0_2 = HuSprGet(var_s0->unk01, 0);
             if (arg3 == 0) {
                 var_s0->unk04 = 99;
             } else {
-                var_s0->unk04 = temp_v0_2->unk84->unk10;
+                var_s0->unk04 = temp_v0_2->unk_84->unk10;
             }
             var_s0->unk00 = 2;
             func_8010A2B0_2C1720_tick_tock_hop(var_s1);
@@ -343,7 +305,7 @@ void func_8010A21C_2C168C_tick_tock_hop(s16 arg0, s32 arg1, s32 arg2) {
 
     if (temp_s0->unk00 != 0) {
         func_80054FF8_55BF8(temp_s0->unk01, 0, 0);
-        SprAttrReset(temp_s0->unk01, 0, 0x8000);
+        HuSprAttrReset(temp_s0->unk01, 0, 0x8000);
         func_80054904_55504(temp_s0->unk01, 0, arg1, arg2);
         temp_s0->unk00 = 2;
     }
@@ -353,7 +315,7 @@ void func_8010A2B0_2C1720_tick_tock_hop(s16 arg0) {
     D_8010E6F8_2C5B68_Struct* temp_s0 = &D_8010E6F8_2C5B68_tick_tock_hop[arg0];
 
     if (temp_s0->unk00 != 0) {
-        SprAttrSet(temp_s0->unk01, 0, 0x8000);
+        HuSprAttrSet(temp_s0->unk01, 0, 0x8000);
         temp_s0->unk00 = 1;
     }
 }
@@ -364,8 +326,8 @@ void func_8010A300_2C1770_tick_tock_hop(void) {
 
     var_s0 = D_8010E6F8_2C5B68_tick_tock_hop;
     for (var_s1 = 0; var_s1 < 8; var_s1++, var_s0++) {
-        if (var_s0->unk00 == 2 && func_80055520_56120(var_s0->unk01, 0)->unk90 + 1 >= var_s0->unk04) {
-            SprAttrSet(var_s0->unk01, 0, 0x8000);
+        if (var_s0->unk00 == 2 && HuSprGet(var_s0->unk01, 0)->unk_90 + 1 >= var_s0->unk04) {
+            HuSprAttrSet(var_s0->unk01, 0, 0x8000);
             func_80054FF8_55BF8(var_s0->unk01, 0, 0);
         }
     }
@@ -373,7 +335,7 @@ void func_8010A300_2C1770_tick_tock_hop(void) {
 
 s32 func_8010A3A8_2C1818_tick_tock_hop(s32 arg0, s32 arg1, f32 arg2, s32 arg3, s32 arg4) {
     D_8010E6FC_2C5B6C_Struct* var_s0;
-    HmfModelData_Struct* temp_v0_3;
+    HmfModel* temp_v0_3;
     s16 var_s1;
 
     var_s0 = D_8010E6FC_2C5B6C_tick_tock_hop;
@@ -399,7 +361,7 @@ s32 func_8010A3A8_2C1818_tick_tock_hop(s32 arg0, s32 arg1, f32 arg2, s32 arg3, s
 
 s32 func_8010A4A8_2C1918_tick_tock_hop(s16 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
     D_8010E6FC_2C5B6C_Struct* temp_s0;
-    HmfModelData_Struct* temp_s1;
+    HmfModel* temp_s1;
 
     if (arg0 >= 8) {
         return 0;
@@ -431,7 +393,7 @@ s32 func_8010A4A8_2C1918_tick_tock_hop(s16 arg0, f32 arg1, f32 arg2, f32 arg3, f
 
 void func_8010A620_2C1A90_tick_tock_hop(void) {
     D_8010E6FC_2C5B6C_Struct* var_s0;
-    HmfModelData_Struct* temp_s1;
+    HmfModel* temp_s1;
     s16 var_s2;
 
     var_s0 = D_8010E6FC_2C5B6C_tick_tock_hop;
@@ -478,9 +440,9 @@ s32 func_8010A788_2C1BF8_tick_tock_hop(s32 arg0, s32 arg1, s32 arg2) {
             if (arg2 & 8) {
                 func_8001C258_1CE58(var_s0->unk0A, 4, 4);
             }
-            var_s0->unk10 = &HmfModelData[var_s0->unk0A].unk1C;
-            var_s0->unk14 = &HmfModelData[var_s0->unk0A].unk20;
-            var_s0->unk18 = &HmfModelData[var_s0->unk0A].unk24;
+            var_s0->unk10 = &HmfModelData[var_s0->unk0A].pos.x;
+            var_s0->unk14 = &HmfModelData[var_s0->unk0A].pos.y;
+            var_s0->unk18 = &HmfModelData[var_s0->unk0A].pos.z;
             var_s0->unk04 = arg2;
             var_s0->unk0C = func_80055194_55D94(temp_v0_2)->unk10;
             var_s0->unk0E = 0;
@@ -496,18 +458,18 @@ s32 func_8010A788_2C1BF8_tick_tock_hop(s32 arg0, s32 arg1, s32 arg2) {
 
 void func_8010A90C_2C1D7C_tick_tock_hop(s16 arg0, f32 arg1, f32 arg2, f32 arg3) {
     if (arg0 < 2) {
-        HmfModelData_Struct* temp_v0 = &HmfModelData[D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk0A];
+        HmfModel* temp_v0 = &HmfModelData[D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk0A];
 
-        temp_v0->unk1C = arg1;
-        temp_v0->unk20 = arg2;
-        temp_v0->unk24 = arg3;
+        temp_v0->pos.x = arg1;
+        temp_v0->pos.y = arg2;
+        temp_v0->pos.z = arg3;
         func_8001C258_1CE58(D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk0A, 4, 0);
         D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk04 &= ~0x18;
     }
 }
 
 void func_8010A9B0_2C1E20_tick_tock_hop(s16 arg0, f32* arg1, f32* arg2, f32* arg3) {
-    HmfModelData_Struct* temp_t1;
+    HmfModel* temp_t1;
     D_8010E6F0_2C5B60_Struct* temp_s0;
 
     if (arg0 >= 2) {
@@ -517,17 +479,17 @@ void func_8010A9B0_2C1E20_tick_tock_hop(s16 arg0, f32* arg1, f32* arg2, f32* arg
     if (arg1 != NULL) {
         D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk10 = arg1;
     } else {
-        D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk10 = &temp_t1->unk1C;
+        D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk10 = &temp_t1->pos.x;
     }
     if (arg2 != NULL) {
         D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk14 = arg2;
     } else {
-        D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk14 = &temp_t1->unk20;
+        D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk14 = &temp_t1->pos.y;
     }
     if (arg3 != NULL) {
         D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk18 = arg3;
     } else {
-        D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk18 = &temp_t1->unk24;
+        D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk18 = &temp_t1->pos.z;
     }
     func_8001C258_1CE58(D_8010E6F0_2C5B60_tick_tock_hop[arg0].unk0A, 4, 0);
     temp_s0 = &D_8010E6F0_2C5B60_tick_tock_hop[arg0];
@@ -542,7 +504,7 @@ D_8010E6F0_2C5B60_Struct* func_8010AB40_2C1FB0_tick_tock_hop(s16 arg0) {
     return &D_8010E6F0_2C5B60_tick_tock_hop[arg0];
 }
 
-HmfModelData_Struct* func_8010AB78_2C1FE8_tick_tock_hop(s16 arg0) {
+HmfModel* func_8010AB78_2C1FE8_tick_tock_hop(s16 arg0) {
     if (arg0 >= 2) {
         return NULL;
     }
@@ -551,7 +513,7 @@ HmfModelData_Struct* func_8010AB78_2C1FE8_tick_tock_hop(s16 arg0) {
 
 void func_8010ABCC_2C203C_tick_tock_hop(void) {
     D_8010E6F0_2C5B60_Struct* var_s1;
-    HmfModelData_Struct* temp_s0;
+    HmfModel* temp_s0;
     s16 var_s2;
 
     var_s1 = D_8010E6F0_2C5B60_tick_tock_hop;
@@ -561,14 +523,14 @@ void func_8010ABCC_2C203C_tick_tock_hop(void) {
         }
         temp_s0 = &HmfModelData[var_s1->unk0A];
         if (var_s1->unk04 & 0x10) {
-            temp_s0->unk1C = *var_s1->unk10;
-            temp_s0->unk20 = *var_s1->unk14;
-            temp_s0->unk24 = *var_s1->unk18;
+            temp_s0->pos.x = *var_s1->unk10;
+            temp_s0->pos.y = *var_s1->unk14;
+            temp_s0->pos.z = *var_s1->unk18;
         }
-        temp_s0->unk28 = D_800D138C_D1F8C[0];
-        temp_s0->unk2C = D_800D138C_D1F8C[1];
+        temp_s0->rot.x = CRot.x;
+        temp_s0->rot.y = CRot.y;
         func_8010DFB0_2C5420_tick_tock_hop(temp_s0->unk74);
-        func_80017D24_18924(temp_s0->unk74, 0.0f, 0.0f, D_800D138C_D1F8C[2]);
+        func_80017D24_18924(temp_s0->unk74, 0.0f, 0.0f, CRot.z);
         if (var_s1->unk04 & 1) {
             if (var_s1->unk04 & 2) {
                 func_8010CCD4_2C4144_tick_tock_hop(var_s1->unk0A, func_80055194_55D94(var_s1->unk08), var_s1->unk0E);
@@ -587,7 +549,7 @@ void func_8010ABCC_2C203C_tick_tock_hop(void) {
     }
 }
 
-s32 func_8010AD60_2C21D0_tick_tock_hop(Func_80055194_55D94_Struct* arg0, f32 arg1) {
+s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
     HmfModelData_Unk64_Struct* temp_s6;
     Gfx* temp_v0_0;
     Gfx* temp_v0;
@@ -657,7 +619,7 @@ s32 func_8010AD60_2C21D0_tick_tock_hop(Func_80055194_55D94_Struct* arg0, f32 arg
     return temp_v0_2;
 }
 
-s32 func_8010B4D0_2C2940_tick_tock_hop(Func_80055194_55D94_Struct* arg0, f32 arg1) {
+s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
     HmfModelData_Unk64_Struct* temp_s4;
     Gfx* temp_v0_0;
     Gfx* temp_v0;
@@ -759,7 +721,7 @@ s32 func_8010B4D0_2C2940_tick_tock_hop(Func_80055194_55D94_Struct* arg0, f32 arg
     return temp_v0_2;
 }
 
-s16 func_8010C0E8_2C3558_tick_tock_hop(Func_80055194_55D94_Struct* arg0, RGBA* arg1) {
+s16 func_8010C0E8_2C3558_tick_tock_hop(HuSprite_Unk84_Struct* arg0, RGBA* arg1) {
     HmfModelData_Unk64_Struct* temp_s4;
     Gfx* temp_v0_0;
     Gfx* temp_v0_2;
@@ -865,8 +827,8 @@ s16 func_8010C0E8_2C3558_tick_tock_hop(Func_80055194_55D94_Struct* arg0, RGBA* a
     return temp_v0;
 }
 
-void func_8010CCD4_2C4144_tick_tock_hop(u16 arg0, Func_80055194_55D94_Struct* arg1, u16 arg2) {
-    HmfModelData_Struct* var_v1 = &HmfModelData[arg0];
+void func_8010CCD4_2C4144_tick_tock_hop(u16 arg0, HuSprite_Unk84_Struct* arg1, u16 arg2) {
+    HmfModel* var_v1 = &HmfModelData[arg0];
     HmfModelData_Unk64_Struct* temp_s2 = var_v1->unk64;
     Gfx* temp_s0 = temp_s2->unk3C->unk04[D_800D2008_D2C08];
 
@@ -878,8 +840,8 @@ void func_8010CCD4_2C4144_tick_tock_hop(u16 arg0, Func_80055194_55D94_Struct* ar
     gSPEndDisplayList(&temp_s0[4]);
 }
 
-void func_8010CDA4_2C4214_tick_tock_hop(u16 arg0, Func_80055194_55D94_Struct* arg1, u16 arg2, RGBA* arg3) {
-    HmfModelData_Struct* temp_hmf = &HmfModelData[arg0];
+void func_8010CDA4_2C4214_tick_tock_hop(u16 arg0, HuSprite_Unk84_Struct* arg1, u16 arg2, RGBA* arg3) {
+    HmfModel* temp_hmf = &HmfModelData[arg0];
     HmfModelData_Unk64_Struct* temp_s3 = temp_hmf->unk64;
     HmfModelData_Unk64_Unk3C_Struct* temp_v1 = temp_s3->unk3C;
     Gfx* temp_s0 = temp_v1->unk04[D_800D2008_D2C08];
@@ -895,7 +857,7 @@ void func_8010CDA4_2C4214_tick_tock_hop(u16 arg0, Func_80055194_55D94_Struct* ar
     gSPEndDisplayList(&temp_s0[7]);
 }
 
-s16 func_8010CED8_2C4348_tick_tock_hop(Func_80055194_55D94_Struct* arg0, HmfModelData_Unk64_Struct* arg1, f32 arg2, u16 arg3, u16 arg4) {
+s16 func_8010CED8_2C4348_tick_tock_hop(HuSprite_Unk84_Struct* arg0, HmfModelData_Unk64_Struct* arg1, f32 arg2, u16 arg3, u16 arg4) {
     Vtx* temp_s7;
     Vtx* var_s1;
     Vtx_t* var_t0;
@@ -984,19 +946,19 @@ void func_8010D2FC_2C476C_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_
 }
 
 s32 func_8010D34C_2C47BC_tick_tock_hop(s16 arg0, D_8010E700_2C5B70_Unk60_Struct* arg1, f32 arg2, s16 arg3, s32 arg4) {
-    HmfModelData_Struct* temp_v1 = &HmfModelData[arg0];
+    HmfModel* temp_v1 = &HmfModelData[arg0];
     D_8010E700_2C5B70_Struct* var_s0;
     s16 var_s1;
 
     var_s0 = D_8010E700_2C5B70_tick_tock_hop;
     for (var_s1 = 0; var_s1 < 2; var_s1++, var_s0++) {
         if (var_s0->unk04 == 0) {
-            var_s0->unk08 = &temp_v1->unk1C;
-            var_s0->unk0C = &temp_v1->unk20;
-            var_s0->unk10 = &temp_v1->unk24;
-            var_s0->unk14 = &temp_v1->unk28;
-            var_s0->unk18 = &temp_v1->unk2C;
-            var_s0->unk1C = &temp_v1->unk30;
+            var_s0->unk08 = &temp_v1->pos.x;
+            var_s0->unk0C = &temp_v1->pos.y;
+            var_s0->unk10 = &temp_v1->pos.z;
+            var_s0->unk14 = &temp_v1->rot.x;
+            var_s0->unk18 = &temp_v1->rot.y;
+            var_s0->unk1C = &temp_v1->rot.z;
             var_s0->unk60 = *arg1;
             var_s0->unk94 = arg2;
             var_s0->unk90 = 4;
@@ -1018,7 +980,7 @@ s32 func_8010D34C_2C47BC_tick_tock_hop(s16 arg0, D_8010E700_2C5B70_Unk60_Struct*
 
 D_8010E700_2C5B70_Unk98_Struct* func_8010D49C_2C490C_tick_tock_hop(s16 arg0, s16 arg1) {
     D_8010E700_2C5B70_Unk98_Struct* temp_v0;
-    HmfModelData_Struct* var_v1;
+    HmfModel* var_v1;
 
     if (arg0 >= 2) {
         return NULL;
@@ -1031,9 +993,9 @@ D_8010E700_2C5B70_Unk98_Struct* func_8010D49C_2C490C_tick_tock_hop(s16 arg0, s16
     }
     temp_v0 = &D_8010E700_2C5B70_tick_tock_hop[arg0].unk98[D_8010E700_2C5B70_tick_tock_hop[arg0].unk9E];
     var_v1 = &HmfModelData[arg1];
-    temp_v0->unk04 = &var_v1->unk1C;
-    temp_v0->unk08 = &var_v1->unk20;
-    temp_v0->unk0C = &var_v1->unk24;
+    temp_v0->unk04 = &var_v1->pos.x;
+    temp_v0->unk08 = &var_v1->pos.y;
+    temp_v0->unk0C = &var_v1->pos.z;
     D_8010E700_2C5B70_tick_tock_hop[arg0].unk9E++;
     return temp_v0;
 }
@@ -1166,35 +1128,35 @@ void func_8010DA80_2C4EF0_tick_tock_hop(s16* arg0, s16 arg1) {
 }
 
 void func_8010DB8C_2C4FFC_tick_tock_hop(omObjData* arg0) {
-    HmfModelData_Struct* temp_v0 = &HmfModelData[arg0->model[0]];
+    HmfModel* temp_v0 = &HmfModelData[arg0->model[0]];
 
-    arg0->scale.x = temp_v0->unk34;
-    arg0->scale.y = temp_v0->unk38;
-    arg0->scale.z = temp_v0->unk3C;
-    arg0->trans.x = temp_v0->unk1C;
-    arg0->trans.y = temp_v0->unk20;
-    arg0->trans.z = temp_v0->unk24;
-    if (temp_v0->unk28 >= 360.0f) {
-        temp_v0->unk28 -= 360.0f;
+    arg0->scale.x = temp_v0->scale.x;
+    arg0->scale.y = temp_v0->scale.y;
+    arg0->scale.z = temp_v0->scale.z;
+    arg0->trans.x = temp_v0->pos.x;
+    arg0->trans.y = temp_v0->pos.y;
+    arg0->trans.z = temp_v0->pos.z;
+    if (temp_v0->rot.x >= 360.0f) {
+        temp_v0->rot.x -= 360.0f;
     }
-    if (temp_v0->unk28 < 0.0f) {
-        temp_v0->unk28 += 360.0f;
+    if (temp_v0->rot.x < 0.0f) {
+        temp_v0->rot.x += 360.0f;
     }
-    if (temp_v0->unk2C >= 360.0f) {
-        temp_v0->unk2C -= 360.0f;
+    if (temp_v0->rot.y >= 360.0f) {
+        temp_v0->rot.y -= 360.0f;
     }
-    if (temp_v0->unk2C < 0.0f) {
-        temp_v0->unk2C += 360.0f;
+    if (temp_v0->rot.y < 0.0f) {
+        temp_v0->rot.y += 360.0f;
     }
-    if (temp_v0->unk30 >= 360.0f) {
-        temp_v0->unk30 -= 360.0f;
+    if (temp_v0->rot.z >= 360.0f) {
+        temp_v0->rot.z -= 360.0f;
     }
-    if (temp_v0->unk30 < 0.0f) {
-        temp_v0->unk30 += 360.0f;
+    if (temp_v0->rot.z < 0.0f) {
+        temp_v0->rot.z += 360.0f;
     }
-    arg0->rot.x = temp_v0->unk28;
-    arg0->rot.y = temp_v0->unk2C;
-    arg0->rot.z = temp_v0->unk30;
+    arg0->rot.x = temp_v0->rot.x;
+    arg0->rot.y = temp_v0->rot.y;
+    arg0->rot.z = temp_v0->rot.z;
 }
 
 // TODO: doesn't work with -Wa,--vr4300mul-off.
@@ -1206,14 +1168,14 @@ void func_8010DD00_2C5170_tick_tock_hop(Vec arg0, Vec arg1, f32* arg2) {
     sp10.x = arg1.x - arg0.x;
     sp10.y = arg1.y - arg0.y;
     sp10.z = arg1.z - arg0.z;
-    var_f2 = func_8008E108_8ED08(sp10.y, sqrtf(sp10.x * sp10.x + sp10.z * sp10.z));
+    var_f2 = atan2d(sp10.y, sqrtf(sp10.x * sp10.x + sp10.z * sp10.z));
     if (var_f2 < 0.0f) {
         var_f2 += temp_360;
     } else if (var_f2 >= temp_360) {
         var_f2 -= temp_360;
     }
     *(arg2++) = var_f2;
-    var_f2 = func_8008E108_8ED08(sp10.x, sp10.z);
+    var_f2 = atan2d(sp10.x, sp10.z);
     if (var_f2 < 0.0f) {
         var_f2 += temp_360;
     } else if (var_f2 >= temp_360) {
