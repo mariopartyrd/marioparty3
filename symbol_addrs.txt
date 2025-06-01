@@ -82,11 +82,13 @@ Hu3DCamSetPerspective = 0x8001247C;
 Hu3DCamUpdateMtx = 0x80012564;
 Hu3DCam3DToScreen = 0x8001291C;
 Hu3DAnimInit = 0x8001FE20;
-omInitObjMan = 0x80047160;
-omDestroyObjMan = 0x80047420; //rom:0x48020
-omAddObj = 0x80047620;
-omSetObjPrio = 0x800477A4; //rom:0x483A4
 
+// objmain
+omInitObjMan = 0x80047160; //rom:0x47D60
+omDestroyObjMan = 0x80047420; //rom:0x48020
+omAddObj = 0x80047620; //rom:0x48220
+omSetObjPrio = 0x800477A4; //rom:0x483A4
+omInsertObj = 0x80047898; //rom:0x48498
 omDelObj = 0x800479AC; //rom:0x485AC
 omSetStat = 0x80047B30; //rom:0x48730
 omSetStatBit = 0x80047B38; //rom:0x48738
@@ -97,11 +99,51 @@ omPrcResetStatBit = 0x80047BAC; //rom:0x487AC
 omSetTra = 0x80047BDC; //rom:0x487DC
 omSetRot = 0x80047BEC; //rom:0x487EC
 omSetSca = 0x80047BFC; //rom:0x487FC
-omAddPrcObj = 0x80047EA0;
+omAddMember = 0x80047CDC; //rom:0x488DC
+omAddPrcObj = 0x80047EA0; //rom:0x48AA0
 omDelPrcObj = 0x80048008; //rom:0x48C08
 omDestroyPrcObj = 0x80048054; //rom:0x48C54
 omPrcSetDestructor = 0x800480E4; //rom:0x48CE4
-omInsertObj = 0x80047898;
+omOvlCallEx = 0x80048128; //rom:0x48D28
+omOvlReturnEx = 0x8004819C; //rom:0x48D9C
+omOvlGotoEx = 0x80048228; //rom:0x48E28
+omOvlHisChg = 0x80048460; //rom:0x49060
+omOvlKill = 0x8004849C; //rom:0x4909C
+omMain = 0x80048504; //rom:0x49104
+omprevovl = 0x800A1758; //rom:0xA2358 type:s32
+omovlstat = 0x800A1766; //rom:0xA2366 type:u16
+omovlhisidx = 0x800A1768; //rom:0xA2368 size:0x02 type:s16
+omobjall = 0x800A1770; //rom:0xA2370
+omobjlast = 0x800CC430; //rom:0xCD030 type:s16
+ommaxobjs = 0x800CCF50; //rom:0xCDB50 type:s16
+omnumobjs = 0x800CCF8C; //rom:0xCDB8C type:s16
+omgroup = 0x800CD1E0; //rom:0xCDDE0
+omovl = 0x800CE200; //rom:0xCEE00 type:s32
+omovlhis = 0x800D2010; //rom:0xD2C10 size:0x60
+omobjfirst = 0x800D5560; //rom:0xD6160 type:s16
+omnextidx = 0x800D6B40; //rom:0xD7740 type:s16
+
+// 4BF40
+omOutView = 0x8004B340; //rom:0x4BF40
+CZoom = 0x800CE1C8; //rom:0xCEDC8
+CRot = 0x800D138C; //rom:0xD1F8C
+Center = 0x800D6ABC; //rom:0xD76BC
+
+// sprman
+HuSprGrpCreate = 0x8005279C; //rom:0x5339C
+HuSprScaleSet = 0x800551D8; //rom:0x55DD8
+HuSprPriSet = 0x80055294; //rom:0x55E94
+HuSprAttrReset = 0x8005532C; //rom:0x55F2C
+HuSprAttrSet = 0x800553A8; //rom:0x55FA8
+HuSprGet = 0x80055520; //rom:0x56120
+HuSprGrpLast = 0x800C9934; //rom:0xCA534
+HuSprGrpFirst = 0x800CC0A0; //rom:0xCCCA0
+HuSprGrpData = 0x800CDD70; //rom:0xCE970
+HuSprGrpNum = 0x800D520C; //rom:0xD5E0C
+
+// 8EA10
+atan2 = 0x8008DE10; //rom:0x8EA10
+atan2d = 0x8008E108; //rom:0x8ED08
 
 HuMemHeapInit = 0x800360D0;
 HuMemMemoryAlloc = 0x800360F0;
@@ -565,8 +607,6 @@ CameraScissorSet = 0x800124BC; //rom:0x130BC
 CameraViewportSet = 0x80012508; //rom:0x13108
 ScissorSet = 0x8000B364; //rom:0xBF64
 ViewportSet = 0x8000B3C8; //rom:0xBFC8
-SprAttrSet = 0x800553A8; //rom:0x55FA8
-SprAttrReset = 0x8005532C; //rom:0x55F2C
 
 SprModelRead = 0x8000B4F8; //rom:0xC0F8
 HmfAnimRead = 0x8000B554; //rom:0xC154
@@ -582,14 +622,6 @@ FileRead = 0x8000A028; //rom:0xAC28
 FileReadBuf = 0x8000A0D4; //rom:0xACD4
 FileSeek = 0x8000A150; //rom:0xAD50
 
-omOvlCallEx = 0x80048128; //rom:0x48D28
-omOvlGotoEx = 0x80048228; //rom:0x48E28
-omOvlReturnEx = 0x8004819C; //rom:0x48D9C
-omOvlHisChg = 0x80048460; //rom:0x49060
-omovlhis = 0x800D2010; //size:0x60
-omOvlKill = 0x8004849C; //rom:0x4909C
-omMain = 0x80048504; //rom:0x49104
-omovlhisidx = 0x800A1768; //rom:0xA2368 size:0x02 type:s16
 OvlLoad = 0x8000B2C4; //rom:0xBEC4
 rnd_seed = 0x80097650; //rom:0x98250 type:u32
 
@@ -680,7 +712,6 @@ GWCharPlayNumInc = 0x80035DA4; //rom:0x369A4
 _CheckFlag = 0x80035EB0; //rom:0x36AB0
 _SetFlag = 0x80035EF4; //rom:0x36AF4
 _ClearFlag = 0x80035F44; //rom:0x36B44
-SprPriSet = 0x80055294; //rom:0x55E94
 Duel_GetCurrentPlayerIndex = 0x800F3750; //rom:0xDB520 segment:name_81
 Duel_GetPlayerStruct = 0x800F375C; //rom:0xDB52C segment:name_81
 ShowPlayerCoinChange = 0x800E1F48; //rom:0xF5B68
@@ -807,7 +838,6 @@ D_800CDD56_CE956 = 0x800CDD56; //rom:0xCE956 type:s16
 D_800CDD58_CE958 = 0x800CDD58; //rom:0xCE958 type:s16
 D_800D037C_D0F7C = 0x800D037C; //rom:0xD0F7C type:s16
 D_800D51F8_D5DF8 = 0x800D51F8; //rom:0xD5DF8 type:s16
-SprScale = 0x800551D8; //rom:0x55DD8
 SetSpaceType = 0x800EB7F0; //rom:0xFF410 segment:shared_board
 
 n_aspMain_code = 0x800954C0; //rom:0x960C0 size:0xC60

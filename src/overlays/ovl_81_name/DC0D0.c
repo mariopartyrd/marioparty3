@@ -64,7 +64,7 @@ UnkBoard4* func_800F4528_DC2F8_name_81(s16 arg0, s16 arg1) {
 
     temp_v0 = func_800F4354_DC124_name_81(arg0);
     if (temp_v0 != NULL) {
-        temp_v0->unk_0A = func_8005279C_5339C(arg0, arg1);
+        temp_v0->unk_0A = HuSprGrpCreate(arg0, arg1);
     }
     return temp_v0;
 }
@@ -107,5 +107,5 @@ void func_800F466C_DC43C_name_81(UnkBoard4* arg0, s16 arg1, s16 arg2, s16 arg3) 
 void func_800F46BC_DC48C_name_81(UnkBoard4* arg0, s16 arg1, f32 arg2, f32 arg3) {
     arg0->unk_10[arg1] = arg2;
     arg0->unk_14[arg1] = arg3;
-    SprScale(arg0->unk_0A, arg1, arg2, arg3);
+    HuSprScaleSet(arg0->unk_0A, arg1, arg2, arg3);
 }

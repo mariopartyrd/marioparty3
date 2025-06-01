@@ -36,10 +36,10 @@ void UpdatePlayerBoardStatus(s32 playerIndex) {
         }
         
         if (var_v1 == 1) {
-            SprAttrSet(playerBoardStatus->playerIndex, COINS_ONES_DIGIT, 0x8000);
+            HuSprAttrSet(playerBoardStatus->playerIndex, COINS_ONES_DIGIT, 0x8000);
             coinDigits.digits[TENS] = coinDigits.digits[ONES];
         } else {
-            SprAttrReset(playerBoardStatus->playerIndex, COINS_ONES_DIGIT, 0x8000);
+            HuSprAttrReset(playerBoardStatus->playerIndex, COINS_ONES_DIGIT, 0x8000);
         }
     
         if (coinDigits.digits[HUNDREDS] == 0) {
@@ -111,7 +111,7 @@ void func_800F3370_106F90_shared_board(void) {
     for (i = 0; i < MAX_PLAYERS; i++) {
         BoardStatus* boardStatus = &D_801057E0_119400_shared_board[i];
         for (j = 0; j < 14; j++) {
-            SprAttrSet(boardStatus->playerIndex, j, 0x8000);
+            HuSprAttrSet(boardStatus->playerIndex, j, 0x8000);
         }
     }
 }
@@ -136,7 +136,7 @@ void func_800F3400_107020_shared_board(omObjData* arg0) {
                 if (temp_s2->uiUpdatePaused == FALSE) {
                     if (temp_s2->uiVisible & 1) {
                         for (j = 0; j < 14; j++) {
-                            SprAttrSet(temp_s2->playerIndex, j, 0x8000);
+                            HuSprAttrSet(temp_s2->playerIndex, j, 0x8000);
                         }
                         continue;
                     }
@@ -157,14 +157,14 @@ void func_800F3400_107020_shared_board(omObjData* arg0) {
 
                             func_80055024_55C24(temp_s2->playerIndex, j, D_8010559C_1191BC_shared_board[GwPlayer[i].itemNo[j - 11]], 0);
                             func_800550F4_55CF4(temp_s2->playerIndex, j, 0);
-                            SprPriSet(temp_s2->playerIndex, j, (i * 5) + 0x478E);
-                            SprAttrSet(temp_s2->playerIndex, j, 0);
+                            HuSprPriSet(temp_s2->playerIndex, j, (i * 5) + 0x478E);
+                            HuSprAttrSet(temp_s2->playerIndex, j, 0);
                             var_v1 = j;
                             if (i >= 2) {
                                 var_v1 = j + 3;
                             }
                             func_80054904_55504(temp_s2->playerIndex, j, D_801018E4_115504_shared_board[var_v1][0], D_801018E4_115504_shared_board[var_v1][1]);
-                            SprAttrSet(temp_s2->playerIndex, j, 0x8000);
+                            HuSprAttrSet(temp_s2->playerIndex, j, 0x8000);
                             if (D_80101790_1153B0_shared_board != 0) {
                                 break;
                             }
@@ -175,32 +175,32 @@ void func_800F3400_107020_shared_board(omObjData* arg0) {
                             }
                             break;
                         }
-                        SprAttrReset(temp_s2->playerIndex, j, 0x8000);
+                        HuSprAttrReset(temp_s2->playerIndex, j, 0x8000);
                     }
                     UpdatePlayerBoardStatus(i);
                 } else {
                     if (temp_s2->uiVisible & 1) {
                         for (j = 0; j < 5; j++) {
-                            SprAttrSet(temp_s2->playerIndex, j, 0x8000);
+                            HuSprAttrSet(temp_s2->playerIndex, j, 0x8000);
                         }
-                        SprAttrSet(temp_s2->playerIndex, 9, 0x8000);
+                        HuSprAttrSet(temp_s2->playerIndex, 9, 0x8000);
                         continue;
                     }
 
                     for (j = 0; j < 2; j++) {
-                        SprAttrReset(temp_s2->playerIndex, j, 0x8000);
+                        HuSprAttrReset(temp_s2->playerIndex, j, 0x8000);
                     }
 
                     for (j = 0; j < 3; j++) {
                         if (temp_s2->unk_40[j] != -1) {
-                            SprAttrReset(temp_s2->playerIndex, (j + 2), 0x8000);
+                            HuSprAttrReset(temp_s2->playerIndex, (j + 2), 0x8000);
                         }
                     }
 
                     if ((GwPlayer[i].stat & 1) && !(temp_s2->uiVisible & 1)) {
-                        SprAttrReset(temp_s2->playerIndex, 9, 0x8000);
+                        HuSprAttrReset(temp_s2->playerIndex, 9, 0x8000);
                     } else {
-                        SprAttrSet(temp_s2->playerIndex, 9, 0x8000);
+                        HuSprAttrSet(temp_s2->playerIndex, 9, 0x8000);
                     }
                 }
                 if (temp_s2->unkE > 0) {
@@ -226,7 +226,7 @@ void func_800F3400_107020_shared_board(omObjData* arg0) {
                 if (D_801055C8_1191E8_shared_board > 1.0f) {
                     D_801055C8_1191E8_shared_board = 1.0f;
                 }
-                SprScale(D_801055C2_1191E2_shared_board, 0, D_801055C8_1191E8_shared_board, D_801055C8_1191E8_shared_board);
+                HuSprScaleSet(D_801055C2_1191E2_shared_board, 0, D_801055C8_1191E8_shared_board, D_801055C8_1191E8_shared_board);
                 if (D_801055E4_119204_shared_board > 0) {
                     D_801055E4_119204_shared_board--;
                     D_801055CC_1191EC_shared_board.x += D_801055D4_1191F4_shared_board.x;
@@ -249,8 +249,8 @@ void func_800F39C0_1075E0_shared_board(s32 playerIndex) {
     temp_s1 = D_801057E0_119400_shared_board[playerIndex].playerIndex;
     func_80055024_55C24(temp_s1, 1, D_80105588_1191A8_shared_board[playerIndex+1], 0);
     func_800550F4_55CF4(temp_s1, 1, 0);
-    SprPriSet(temp_s1, 1, ((playerIndex * 5) + 0x4790));
-    SprAttrSet(temp_s1, 1, 0);
+    HuSprPriSet(temp_s1, 1, ((playerIndex * 5) + 0x4790));
+    HuSprAttrSet(temp_s1, 1, 0);
     func_80054904_55504(temp_s1, 1, D_801018E4_115504_shared_board[1][0], D_801018E4_115504_shared_board[1][1]);
 }
 
@@ -262,9 +262,9 @@ void func_800F3A80_1076A0_shared_board(s32 arg0) {
 
     for (i = 0; i < 2; i++) {
         func_80055024_55C24(temp_s2, i + 2, D_80105592_1191B2_shared_board[i], 0);
-        SprPriSet(temp_s2, i + 2, ((arg0 * 5) + 0x4790));
-        SprAttrReset(temp_s2, i + 2, 0xFFFF);
-        SprAttrSet(temp_s2, i + 2, 0x1000);
+        HuSprPriSet(temp_s2, i + 2, ((arg0 * 5) + 0x4790));
+        HuSprAttrReset(temp_s2, i + 2, 0xFFFF);
+        HuSprAttrSet(temp_s2, i + 2, 0x1000);
         func_800552DC_55EDC(temp_s2, i + 2, 0.0f);
         func_80054904_55504(temp_s2, i + 2, D_801018E4_115504_shared_board[i + 2][0], D_801018E4_115504_shared_board[i + 2][1]);
         func_800550B4_55CB4(temp_s2, i + 2, 0.0f);
@@ -288,9 +288,9 @@ void func_800F3BD0_1077F0_shared_board(s32 arg0) {
         func_80055024_55C24(temp_s2, i + 4, temp_s4->unk_3A, 0);
         func_800550F4_55CF4(temp_s2, i + 4, 1);
         func_80055140_55D40(temp_s2, i + 4, 0xAU, 0);
-        SprPriSet(temp_s2, i + 4, ((arg0 * 5) + 0x4790) & 0xFFFF);
-        SprAttrReset(temp_s2, i + 4, 0xFFFFU);
-        SprAttrSet(temp_s2, i + 4, 0U);
+        HuSprPriSet(temp_s2, i + 4, ((arg0 * 5) + 0x4790) & 0xFFFF);
+        HuSprAttrReset(temp_s2, i + 4, 0xFFFFU);
+        HuSprAttrSet(temp_s2, i + 4, 0U);
         func_80054904_55504(temp_s2, i + 4, D_801018E4_115504_shared_board[i + 4][0], D_801018E4_115504_shared_board[i + 4][1]);
         func_80055420_56020(temp_s2, i + 4, 0xFFU, 0xFFU, 0xFF);
         func_80055458_56058(temp_s2, i + 4, 0x100U);
@@ -304,11 +304,11 @@ void func_800F3D70_107990_shared_board(s32 arg0) {
     s16 temp_v0;
     
     temp_s0 = &D_801057E0_119400_shared_board[arg0];
-    temp_v0 = func_8005279C_5339C(0xE, 2);
+    temp_v0 = HuSprGrpCreate(0xE, 2);
     temp_s0->playerIndex = temp_v0;
     func_80055024_55C24(temp_v0, 0, D_80105588_1191A8_shared_board[0], 0);
-    SprPriSet(temp_v0, 0, ((arg0 * 5) + 0x4790));
-    SprAttrSet(temp_v0, 0, 0x1000);
+    HuSprPriSet(temp_v0, 0, ((arg0 * 5) + 0x4790));
+    HuSprAttrSet(temp_v0, 0, 0x1000);
     func_80054904_55504(temp_v0, 0, 0, 0);
 }
 
@@ -322,8 +322,8 @@ void func_800F3E34_107A54_shared_board(s32 arg0) {
     func_80055024_55C24(temp_s0, 0xA, D_80105598_1191B8_shared_board, 0);
     func_800550F4_55CF4(temp_s0, 0xA, 1);
     func_80055140_55D40(temp_s0, 0xA, 0, 0);
-    SprPriSet(temp_s0, 0xA, ((arg0 * 5) + 0x478F) & 0xFFFF);
-    SprAttrSet(temp_s0, 0xA, 0);
+    HuSprPriSet(temp_s0, 0xA, ((arg0 * 5) + 0x478F) & 0xFFFF);
+    HuSprAttrSet(temp_s0, 0xA, 0);
     func_80054904_55504(temp_s0, 0xA, D_801018E4_115504_shared_board[10][0], D_801018E4_115504_shared_board[10][1]);
 }
 
@@ -333,11 +333,11 @@ void func_800F3F0C_107B2C_shared_board(s32 playerIndex) {
     temp_s2 = D_801057E0_119400_shared_board[playerIndex].playerIndex;
     func_80055024_55C24(temp_s2, 9, D_8010559A_1191BA_shared_board, 0);
     func_800550F4_55CF4(temp_s2, 9, 0);
-    SprPriSet(temp_s2, 9, ((playerIndex * 5) + 0x478E) & 0xFFFF);
-    SprAttrSet(temp_s2, 9, 0);
+    HuSprPriSet(temp_s2, 9, ((playerIndex * 5) + 0x478E) & 0xFFFF);
+    HuSprAttrSet(temp_s2, 9, 0);
     func_80054904_55504(temp_s2, 9, D_801018E4_115504_shared_board[9][0], D_801018E4_115504_shared_board[9][1]);
     if (!(GwPlayer[playerIndex].stat & 1)) {
-        SprAttrSet(temp_s2, 9, 0x8000);
+        HuSprAttrSet(temp_s2, 9, 0x8000);
     }
 }
 
@@ -353,15 +353,15 @@ void func_800F3FF4_107C14_shared_board(s32 arg0) {
         curItem = (curItem == -1) ? 0 : curItem;
         func_80055024_55C24(temp_s3, i + 0xB, D_8010559C_1191BC_shared_board[curItem], 0);
         func_800550F4_55CF4(temp_s3, i + 0xB, 0);
-        SprPriSet(temp_s3, i + 0xB, ((arg0 * 5) + 0x478E));
-        SprAttrSet(temp_s3, i + 0xB, 0);
+        HuSprPriSet(temp_s3, i + 0xB, ((arg0 * 5) + 0x478E));
+        HuSprAttrSet(temp_s3, i + 0xB, 0);
         var_s1 = i + 0xB;
         if (arg0 >= 2) {
             var_s1 = i + 0xE;
         }
         func_80054904_55504(temp_s3, i + 0xB, D_801018E4_115504_shared_board[var_s1][0], D_801018E4_115504_shared_board[var_s1][1]);
         if (GwPlayer[arg0].itemNo[i] == -1) {
-            SprAttrSet(temp_s3, i + 0xB, 0x8000);
+            HuSprAttrSet(temp_s3, i + 0xB, 0x8000);
         }
     }
 }
@@ -777,12 +777,12 @@ void func_800F5F98_109BB8_shared_board(s32 arg0, s32 arg1) {
             DataClose(var_s2);
             func_80055024_55C24(temp_s5, i + 2, temp_s7->unk_40[i], 0);
             if (i != 0) {
-                SprPriSet(temp_s5, i + 2, (arg0 * 5) + 0x4790);
+                HuSprPriSet(temp_s5, i + 2, (arg0 * 5) + 0x4790);
             } else {
-                SprPriSet(temp_s5, i + 2, ((arg0 * 5) + 0x478F) & 0xFFFF);
+                HuSprPriSet(temp_s5, i + 2, ((arg0 * 5) + 0x478F) & 0xFFFF);
             }
-            SprAttrSet(temp_s5, i + 2, 0x180CU);
-            SprAttrReset(temp_s5, i + 2, 0x8000U);
+            HuSprAttrSet(temp_s5, i + 2, 0x180CU);
+            HuSprAttrReset(temp_s5, i + 2, 0x8000U);
             func_800552DC_55EDC(temp_s5, i + 2, 0.0f);
             if (GwPlayer[arg0].itemNo[0] != ITEM_NONE) {
                 if (arg1 != 0) {
@@ -814,7 +814,7 @@ void func_800F5F98_109BB8_shared_board(s32 arg0, s32 arg1) {
                     func_80054904_55504(temp_s5, 2, 0x12, 0);
                 }
             }
-            SprScale(temp_s5, i + 2, 1.0f, 1.0f);
+            HuSprScaleSet(temp_s5, i + 2, 1.0f, 1.0f);
             func_800550B4_55CB4(temp_s5, i + 2, 0.0f);
             if (arg0 == GwSystem.current_player_index) {
                 func_80055458_56058(temp_s5, i + 2, 0x100);
@@ -867,7 +867,7 @@ void func_800F64E4_10A104_shared_board(s32 arg0, s32 arg1) {
         case FALSE:
             for (i = 0; i < ARRAY_COUNT(temp_s2->unk_40); i++) {
                 if (temp_s2->unk_40[i] != -1) {
-                    SprAttrSet(temp_s2->playerIndex, i + 2, 0x8000);
+                    HuSprAttrSet(temp_s2->playerIndex, i + 2, 0x8000);
                     func_80055670_56270(temp_s2->unk_40[i]);
                     temp_s2->unk_40[i] = -1;
                 }
@@ -881,23 +881,23 @@ void func_800F64E4_10A104_shared_board(s32 arg0, s32 arg1) {
 
         case TRUE:
             for (i = 0; i < 2; i++) {
-                SprAttrSet(temp_s2->playerIndex, i + 2, 0x8000);
+                HuSprAttrSet(temp_s2->playerIndex, i + 2, 0x8000);
                 func_800550F4_55CF4(temp_s2->playerIndex, i + 2, 0);
             }
 
             func_80055670_56270(temp_s2->unk_3A);
             
             for (i = 0; i < 5; i++) {
-                SprAttrSet(temp_s2->playerIndex, i + 4, 0x8000);
+                HuSprAttrSet(temp_s2->playerIndex, i + 4, 0x8000);
                 func_800550F4_55CF4(temp_s2->playerIndex, i + 4, 0);
             }
             
             temp_s2->unk_3A = -1;
-            SprAttrSet(temp_s2->playerIndex, 0xA, 0x8000);
+            HuSprAttrSet(temp_s2->playerIndex, 0xA, 0x8000);
             func_800550F4_55CF4(temp_s2->playerIndex, 0xA, 0);
             
             for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
-                SprAttrSet(temp_s2->playerIndex, i + 0x0B, 0x8000);
+                HuSprAttrSet(temp_s2->playerIndex, i + 0x0B, 0x8000);
                 func_800550F4_55CF4(temp_s2->playerIndex, i + 0x0B, 0);
             }
             func_800F5F98_109BB8_shared_board(arg0, 0);
@@ -918,11 +918,10 @@ s32 func_800F6724_10A344_shared_board(s32 arg0) {
 }
 
 void func_800F6748_10A368_shared_board(s16 arg0, s16 arg1, f32* arg2, f32* arg3) {
-    ESprite2* temp_v0;
+    HuSprite* sprite = HuSprGrpData[arg0]->members[arg1];
 
-    temp_v0 = D_800CDD70_CE970[arg0]->unk_10[arg1];
-    *arg2 = temp_v0->unk_48;
-    *arg3 = temp_v0->unk_4C;
+    *arg2 = sprite->unk_48;
+    *arg3 = sprite->unk_4C;
 }
 
 void func_800F6780_10A3A0_shared_board(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
@@ -954,27 +953,27 @@ void func_800F6928_10A548_shared_board(s32 arg0, s32 arg1, f32 arg2) {
 }
 
 void func_800F696C_10A58C_shared_board(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
-    SprScale(D_801057E0_119400_shared_board[arg0].playerIndex, arg1 + 2, arg2, arg3);
+    HuSprScaleSet(D_801057E0_119400_shared_board[arg0].playerIndex, arg1 + 2, arg2, arg3);
 }
 
 void func_800F69B0_10A5D0_shared_board(s32 arg0, s32 arg1, s32 arg2) {
-    SprPriSet(D_801057E0_119400_shared_board[arg0].playerIndex, arg1 + 2, arg2);
+    HuSprPriSet(D_801057E0_119400_shared_board[arg0].playerIndex, arg1 + 2, arg2);
 }
 
-void func_800F69F8_10A618_shared_board(s32 arg0, s32 arg1, s32 arg2) {
-    SprAttrSet(D_801057E0_119400_shared_board[arg0].playerIndex, arg1 + 2, arg2);
+void func_800F69F8_10A618_shared_board(s32 arg0, s32 arg1, u16 arg2) {
+    HuSprAttrSet(D_801057E0_119400_shared_board[arg0].playerIndex, arg1 + 2, arg2);
 }
 
-void func_800F6A40_10A660_shared_board(s32 arg0, s32 arg1, s32 arg2) {
-    SprAttrReset(D_801057E0_119400_shared_board[arg0].playerIndex, arg1 + 2, arg2);
+void func_800F6A40_10A660_shared_board(s32 arg0, s32 arg1, u16 arg2) {
+    HuSprAttrReset(D_801057E0_119400_shared_board[arg0].playerIndex, arg1 + 2, arg2);
 }
 
 void func_800F6A88_10A6A8_shared_board(s16 arg0, u16 arg1) {
-    D_800CDD70_CE970[arg0]->unk_08 = arg1;
+    HuSprGrpData[arg0]->unk_08 = arg1;
 }
 
 void func_800F6AA4_10A6C4_shared_board(s16 arg0, s16 arg1) {
-    D_800CDD70_CE970[arg0]->unk_10[arg1]->unk_84 = 0;
+    HuSprGrpData[arg0]->members[arg1]->unk_84 = NULL;
 }
 
 void func_800F6AD0_10A6F0_shared_board(s32 arg0, f32 xScale, f32 yScale) {
@@ -985,14 +984,14 @@ void func_800F6AD0_10A6F0_shared_board(s32 arg0, f32 xScale, f32 yScale) {
     switch(temp_s1->uiUpdatePaused) {
     case FALSE:
         for (i = 0; i < 14; i++) {
-            SprScale(temp_s1->playerIndex, i, xScale, yScale);
+            HuSprScaleSet(temp_s1->playerIndex, i, xScale, yScale);
         }
         break;
     case TRUE:
         for (i = 0; i < 5; i++) {
-            SprScale(temp_s1->playerIndex, i, xScale, yScale);
+            HuSprScaleSet(temp_s1->playerIndex, i, xScale, yScale);
         }
-        SprScale(temp_s1->playerIndex, 9, xScale, yScale);
+        HuSprScaleSet(temp_s1->playerIndex, 9, xScale, yScale);
         break;
     }
 }

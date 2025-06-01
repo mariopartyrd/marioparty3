@@ -381,14 +381,6 @@ extern s16 D_80112330_4CF560_name_6E;
 extern s16 D_80112378_4CF5A8_name_6E[];
 extern s16 D_801123A4_4CF5D4_name_6E;
 
-typedef struct HmfModel {
-    s16 unk_00;
-    u8 unk_02;
-    char unk_03[0xBD];
-} HmfModel; //sizeof 0xC0
-
-extern HmfModel* HmfModelData;
-
 #ifdef NON_MATCHING
 void func_8010FC98_4CCEC8_name_6E(void) {
     omObjData* temp_s5;
@@ -453,28 +445,28 @@ void func_8010FC98_4CCEC8_name_6E(void) {
     func_8010E5C4_4CB7F4_name_6E(temp_s7, 0.0f, 400.0f, 2120.0f, 0x3C, 0);
     D_80111B8C_4CEDBC_name_6E = 0;
     HuPrcSleep(20);
-    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[0]].unk_02, 0, 0xA, 2);
+    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[0]].unk02, 0, 0xA, 2);
     func_80107480_4C46B0_name_6E(temp_s5, 0.0f, 180.0f, 0.0f, 8);
     HuPrcSleep(20);
     func_80106C78_4C3EA8_name_6E();
     func_80106CCC_4C3EFC_name_6E(0x5A7E);
     func_80106CA8_4C3ED8_name_6E();
-    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[4]].unk_02, 0, 0xA, 0);
+    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[4]].unk02, 0, 0xA, 0);
     func_801074AC_4C46DC_name_6E(temp_fp);
-    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[0]].unk_02, 0, 0xA, 2);
+    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[0]].unk02, 0, 0xA, 2);
     func_80107480_4C46B0_name_6E(temp_s5, 0.0f, 0.0f, 0.0f, 0xA);
-    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[11]].unk_02, 0, 0xA, 2);
+    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[11]].unk02, 0, 0xA, 2);
     func_801118F8_4CEB28_name_6E(0, 0x1F);
     func_8010724C_4C447C_name_6E(temp_s5, 0.0f, 0.0f, 2930.0f, 0x28, 0);
     func_8011196C_4CEB9C_name_6E(0);
-    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[0]].unk_02, 0, 0xA, 2);
+    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[0]].unk02, 0, 0xA, 2);
     HuPrcSleep(20);
     func_8004AC10_4B810(0x2C6, GwStory.unk1);
-    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[2]].unk_02, 0, 0xA, 0);
+    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[2]].unk02, 0, 0xA, 0);
     func_80017954_18554(temp_fp, 2, GwStory.unk1, D_80112330_4CF560_name_6E);
     func_8010E5C4_4CB7F4_name_6E(temp_s7, 0.0f, 400.0f, 2500.0f, 0x14, 0);
     func_801074AC_4C46DC_name_6E(temp_fp);
-    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[3]].unk_02, 0, 0xA, 2);
+    func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[3]].unk02, 0, 0xA, 2);
     func_80110270_4CD4A0_name_6E();
     HuPrcVSleep();
     for (i = 0; i < 4; i++) {

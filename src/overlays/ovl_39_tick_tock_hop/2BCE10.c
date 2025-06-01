@@ -10,7 +10,6 @@ void Hu3DModelRotSet(s16, f32, f32, f32);
 void* HuMemAllocTag(s32, s32);
 s32 func_8000B638_C238(void);
 s32 func_80017BB8_187B8(s32, s32);
-f32 func_8001C7D0_1D3D0(s32);
 s32 func_80037030_37C30(void);
 void func_80045010_45C10(const s16*, s32);
 void func_80045F1C_46B1C(s32, s32, s32);
@@ -19,7 +18,6 @@ void func_8004AC10_4B810(s32, s32);
 void func_8004AC98_4B898(s32, s16);
 void func_8004AD50_4B950(s32);
 void func_8004B25C_4BE5C(s16, s32, s32, s32);
-void func_80054FF8_55BF8(s32, s32, s32);
 void func_800E18D8_B4458_name_82(void);
 void func_800E19F0_B4570_name_82(s32);
 void func_800E1BA8_B4728_name_82(omObjData*, s32, s32, u16, s32, s32);
@@ -35,10 +33,7 @@ extern u16 D_800EC280_BEE00_name_82;
 extern omObjData* D_800EC598_BF118_name_82[];
 extern s8 D_800CBB6E_CC76E[];
 extern u16 D_800CDA7C_CE67C[];
-extern f32 D_800CE1C8_CEDC8;
-extern f32 D_800D138C_D1F8C[];
 extern s8 D_800D20A1_D2CA1[];
-extern f32 D_800D6ABC_D76BC[];
 
 // LOCAL
 
@@ -132,7 +127,7 @@ void func_801059BC_2BCE2C_tick_tock_hop(void) {
     func_800142A0_14EA0(0x30);
     omInitObjMan(50, 0);
     func_8004A208_4AE08();
-    omSetStatBit(omAddObj(0x7FDA, 0, 0, -1, func_8004B340_4BF40), 0xA0);
+    omSetStatBit(omAddObj(0x7FDA, 0, 0, -1, omOutView), 0xA0);
     HmfLightColorSet(0, 0xFF, 0xFF, 0xFF);
     HmfLightColorSet(1, 0xFF, 0xFF, 0xFF);
     HmfLightDirSet(1, -56.0f, 50.0f, 56.0f);
@@ -196,15 +191,15 @@ void func_80105D1C_2BD18C_tick_tock_hop(omObjData* arg0) {
 }
 
 void func_80105D40_2BD1B0_tick_tock_hop(void) {
-    if (D_800D138C_D1F8C[0] > 360.0f) {
-        D_800D138C_D1F8C[0] -= 360.0f;
-    } else if (D_800D138C_D1F8C[0] < 0.0f) {
-        D_800D138C_D1F8C[0] += 360.0f;
+    if (CRot.x > 360.0f) {
+        CRot.x -= 360.0f;
+    } else if (CRot.x < 0.0f) {
+        CRot.x += 360.0f;
     }
-    if (D_800D138C_D1F8C[1] > 360.0f) {
-        D_800D138C_D1F8C[1] -= 360.0f;
-    } else if (D_800D138C_D1F8C[1] < 0.0f) {
-        D_800D138C_D1F8C[1] += 360.0f;
+    if (CRot.y > 360.0f) {
+        CRot.y -= 360.0f;
+    } else if (CRot.y < 0.0f) {
+        CRot.y += 360.0f;
     }
     func_80109E2C_2C129C_tick_tock_hop(0);
 }
@@ -357,13 +352,13 @@ void func_801068D4_2BDD44_tick_tock_hop(omObjData* arg0) {
 }
 
 void func_80106904_2BDD74_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_8010E6F4_2C5B64_Unk04_Struct* arg1) {
-    D_800D6ABC_D76BC[0] = 0.0f;
-    D_800D6ABC_D76BC[1] = 0.0f;
-    D_800D6ABC_D76BC[2] = -137.0f;
-    D_800D138C_D1F8C[0] = 298.0f;
-    D_800D138C_D1F8C[1] = 180.0f;
-    D_800D138C_D1F8C[2] = 0.0f;
-    D_800CE1C8_CEDC8 = 990.0f;
+    Center.x = 0.0f;
+    Center.y = 0.0f;
+    Center.z = -137.0f;
+    CRot.x = 298.0f;
+    CRot.y = 180.0f;
+    CRot.z = 0.0f;
+    CZoom = 990.0f;
     func_80109CC0_2C1130_tick_tock_hop(0, arg1);
 }
 
@@ -453,8 +448,8 @@ void func_80106D80_2BE1F0_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_
         if (D_8010E6E0_2C5B50_tick_tock_hop->unk28 == 0) {
             D_8010E6E0_2C5B50_tick_tock_hop->unk28 = 1;
         }
-        sp20 = HmfModelData[D_8010E6E0_2C5B50_tick_tock_hop->unk12].unk2C;
-        sp24 = HmfModelData[D_8010E6E0_2C5B50_tick_tock_hop->unk10].unk2C;
+        sp20 = HmfModelData[D_8010E6E0_2C5B50_tick_tock_hop->unk12].rot.y;
+        sp24 = HmfModelData[D_8010E6E0_2C5B50_tick_tock_hop->unk10].rot.y;
         func_8010DE30_2C52A0_tick_tock_hop(&sp20, &sp24);
         if (ABS(sp20 - sp24) > 90.0f) {
             D_8010E6E0_2C5B50_tick_tock_hop->unk08 = D_8010E6E0_2C5B50_tick_tock_hop->unk0C = 0.0f;
@@ -480,8 +475,8 @@ void func_80106D80_2BE1F0_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_
         if (D_8010E6E0_2C5B50_tick_tock_hop->unk28 == 0) {
             D_8010E6E0_2C5B50_tick_tock_hop->unk28 = 1;
         }
-        sp20 = HmfModelData[D_8010E6E0_2C5B50_tick_tock_hop->unk12].unk2C;
-        sp24 = HmfModelData[D_8010E6E0_2C5B50_tick_tock_hop->unk10].unk2C;
+        sp20 = HmfModelData[D_8010E6E0_2C5B50_tick_tock_hop->unk12].rot.y;
+        sp24 = HmfModelData[D_8010E6E0_2C5B50_tick_tock_hop->unk10].rot.y;
         func_8010DE30_2C52A0_tick_tock_hop(&sp20, &sp24);
         if (ABS(sp20 - sp24) > 90.0f) {
             D_8010E6E0_2C5B50_tick_tock_hop->unk08 = D_8010E6E0_2C5B50_tick_tock_hop->unk0C = 0.0f;
@@ -709,8 +704,8 @@ void func_80107838_2BECA8_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_
             }
         } else {
             var_v0 = 0;
-            sp10 = HmfModelData[arg0->unk04[1]].unk2C;
-            sp14 = HmfModelData[arg0->unk04[0]].unk2C;
+            sp10 = HmfModelData[arg0->unk04[1]].rot.y;
+            sp14 = HmfModelData[arg0->unk04[0]].rot.y;
             func_8010DE30_2C52A0_tick_tock_hop(&sp10, &sp14);
             if (arg1->unk38 < ABS(sp10 - sp14)) {
                 if (D_8010E6E0_2C5B50_tick_tock_hop->unk0C > 0.0f) {
@@ -902,12 +897,12 @@ void func_8010847C_2BF8EC_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_
     }
     temp_s1->trans.x = HuMathSin(temp_f20) * arg1->unk2C;
     temp_s1->trans.z = HuMathCos(temp_f20) * arg1->unk30;
-    HmfModelData[temp_s1->model[1]].unk1C = temp_s1->trans.x;
-    HmfModelData[temp_s1->model[1]].unk24 = temp_s1->trans.z;
+    HmfModelData[temp_s1->model[1]].pos.x = temp_s1->trans.x;
+    HmfModelData[temp_s1->model[1]].pos.z = temp_s1->trans.z;
     if (ABS(D_8010E6E0_2C5B50_tick_tock_hop->unk00 - D_8010E6E0_2C5B50_tick_tock_hop->unk04) < 10.0f) {
-        HmfModelData[temp_s1->model[1]].unk20 = 30.0f;
+        HmfModelData[temp_s1->model[1]].pos.y = 30.0f;
     } else {
-        HmfModelData[temp_s1->model[1]].unk20 = 5.0f;
+        HmfModelData[temp_s1->model[1]].pos.y = 5.0f;
     }
 }
 
@@ -1156,8 +1151,8 @@ void func_8010908C_2C04FC_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_
         var_f2_2 = 0.5f;
     }
     Hu3DModelScaleSet(temp_s1->model[1], var_f2_2, var_f2_2, var_f2_2);
-    HmfModelData[temp_s1->model[1]].unk1C = temp_s1->trans.x;
-    HmfModelData[temp_s1->model[1]].unk24 = temp_s1->trans.z;
+    HmfModelData[temp_s1->model[1]].pos.x = temp_s1->trans.x;
+    HmfModelData[temp_s1->model[1]].pos.z = temp_s1->trans.z;
     if (temp_s1->trans.y < 10.0f) {
         arg1->unk1C[0] = 0;
         temp_s1->trans.y = 10.0f;
@@ -1170,7 +1165,7 @@ void func_8010908C_2C04FC_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_
 void func_8010942C_2C089C_tick_tock_hop(D_8010E6F4_2C5B64_Unk00_Struct* arg0, D_8010E6F4_2C5B64_Unk04_Struct* arg1) {
     D_8010E6E4_2C5B54_Struct* temp_s0 = arg1->unk3C;
     omObjData* temp_s1 = arg0->unk00;
-    HmfModelData_Struct* temp_v1 = &HmfModelData[temp_s1->model[0]];
+    HmfModel* temp_v1 = &HmfModelData[temp_s1->model[0]];
     s16 temp_a2;
 
     if (D_800CCF58_CDB58[temp_v1->unk02].unk02 - 1 <= temp_v1->unk40) {

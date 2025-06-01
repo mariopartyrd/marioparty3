@@ -4,20 +4,14 @@
 #include "common.h"
 #include "game/object.h"
 
-#ifndef SKIP_SPR_DECL
-void SprAttrSet(s16, s16, u16);
-void SprAttrReset(s16, s16, u16);
-#endif
-s16 HuAudFXPlay(s32);
+s16 HuAudFXPlay(s16);
 void func_800E52F8_CD0C8_name_81(void);
 void func_800E5000_CCDD0_name_81(void);
 void func_800F64FC_DE2CC_name_81(void);
 void func_8001C814_1D414(s16, s32, s16);
-void Hu3DModelScaleSet(s16, f32, f32, f32);
 void func_8000B460_C060(omObjData*, u16, s32);
 void func_8001C5B4_1D1B4(s16, s16);
 void func_80106850_4F10A0_name_73(omObjData*, s32);
-void Hu3DModelPosSet(s16, f32, f32, f32);
 u16 func_8000B108_BD08(s32 arg0, s32 arg1);
 void ovlEventCall(OvlEntrypoint*, s16);
 f32 HuMathCos(f32);
@@ -31,22 +25,16 @@ void HuMemMemoryFreePerm(void *ptr);
 void* DataRead(s32 dirAndFile);
 s32 HmfSprModelCreate(void*, s32, u8);
 s32 HmfAnimCreate(s32, void*, s32, s32);
-void func_80054904_55504(s16, s16, s16, s16);
 void func_80055024_55C24(s16, s16, s16, s32);
 void func_800552DC_55EDC(s16, s16, f32);
 void func_80055140_55D40(s32, s16, u16, s32);
-void func_800550B4_55CB4(s32, s16, f32);
 void func_800550F4_55CF4(s16, s16, s32);
-void SprScale(s16, s16, f32, f32);
-void SprPriSet(s16, s16, u16);
 void func_80055420_56020(s16, s16, u8, u8, u8);
 void func_80055458_56058(s16, s16, u16);
-void func_8001C258_1CE58(s16, s32, s32);
 void func_8001C448_1D048(s16);
 void func_8001C8E4_1D4E4(s16, s32);
 void DataClose(void*);
 s16 func_80055810_56410(void*);
-s16 func_8005279C_5339C(u16, u16);
 void pfClsScr(void);
 u8 rand8(void);
 s32 GWBoardFlagCheck(s32);
@@ -69,12 +57,8 @@ void HmfLightDirSet(s32, f32, f32, f32);
 void func_800007FC_13FC(str800D5298* arg0);
 void func_80000EA8_1AA8(str800D5298* arg0);
 void func_80000F30_1B30(u32 arg0);
-void func_8000BA30_C630(void); // esprite.h
 void func_800143F0_14FF0(void);
 void func_80014A3C_1563C(u32 arg0);
-void func_8001A070_1AC70(void *arg0, void *arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5); // hmfman.h
-void func_8001B0B4_1BCB4(void **arg0, u32 arg1); // hmfman.h
-void func_8001BF90_1CB90(u32 arg0, u32 arg1); // hmfman.h
 void func_800224BC_230BC(void);
 void GWInit(void); // save.h
 void GWMgRecordSet(s16 arg0, s16 arg1); // save.h
@@ -102,7 +86,6 @@ void func_8006A370_6AF70(s32);
 void func_8000B690_C290(s32);
 void func_800142A0_14EA0(s32);
 void func_80037258_37E58(void);
-void func_8004B340_4BF40(omObjData*);
 f32 HuMathCos(f32);
 f32 HuMathSin(f32);
 void* HuMemMemoryAlloc(HeapNode* heap, s32 size);
@@ -113,7 +96,6 @@ s32 WipeCreateOut(s32, s32);
 s32 WipeStatGet(void);
 void func_8004A994_4B594(s32);
 void func_8004AB0C_4B70C(s32);
-s16 HuAudFXPlay(s32);
 void DataCloseTemp(void*);
 void* DataReadTemp(s32);
 void func_80036414_37014(Addr);
@@ -134,16 +116,12 @@ void HuVecSubtract(Vec * dest, Vec * a, Vec * b);
 void func_8001C92C_1D52C(s16, f32);
 void HuVecAdd(Vec* out, Vec* a, Vec* b);
 void func_8001C92C_1D52C(s16, f32);
-s16 InitEspriteSlot(s16, s32, s32);
-u16 func_8000B838_C438(s32);
-void func_8000BB54_C754(s32);
 void func_8000BBD4_C7D4(u16, s32, s32);
 void func_8000BCC8_C8C8(u16, s32);
 void func_8000C184_CD84(u16);
 s32 CheckControllerRead(s16 padNum);
 s32 GWContErrorGet(void);
 void func_8005F524_60124(void);
-void omOvlHisChg(s16 arg0, s32 overlay, s16 event, s16 stat);
 void GWContErrorSet(void);
 void Hu3DAnimInit(s32);
 void HuAudSeqPlay(s32);

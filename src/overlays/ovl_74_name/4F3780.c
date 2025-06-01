@@ -50,7 +50,7 @@ void func_801059A0_4F3780_name_74(void) {
     ScissorSet(0U, 0.0f, 0.0f, 320.0f, 240.0f);
     ViewportSet(0U, 640.0f, 480.0f, 511.0f, 640.0f, 480.0f, 511.0f);
     Hu3DCamSetPerspective(0, 30.0f, 80.0f, 8000.0f);
-    omSetStatBit(omAddObj(0x7FDA, 0U, 0U, -1, func_8004B340_4BF40), 0xA0);
+    omSetStatBit(omAddObj(0x7FDA, 0U, 0U, -1, omOutView), 0xA0);
     HmfLightColorSet(1, 0xFF, 0xFF, 0xFF);
     
     for (var_a0_2 = 0, i = 0; i < MAX_PLAYERS; i++) {

@@ -1,0 +1,10 @@
+ommaxobjs = 0x800CCF50;
+omnumobjs = 0x800CCF8C;
+omgroup = 0x800CD1E0;
+omovl = 0x800CE200;
+omobjfirst = 0x800D5560;
+omnextidx = 0x800D6B40;
+
+HuSprGrpLast = 0x800C9934;
+HuSprGrpFirst = 0x800CC0A0;
+HuSprGrpNum = 0x800D520C;

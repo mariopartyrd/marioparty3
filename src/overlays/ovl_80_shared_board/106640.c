@@ -24,5 +24,5 @@ typedef struct Unused {
 void func_800F2DDC_1069FC_shared_board(Unused* arg0, s16 arg1, f32 arg2, f32 arg3) {
     arg0->unk_10[arg1] = arg2;
     arg0->unk_14[arg1] = arg3;
-    SprScale(arg0->unkA, arg1, arg2, arg3);
+    HuSprScaleSet(arg0->unkA, arg1, arg2, arg3);
 }
