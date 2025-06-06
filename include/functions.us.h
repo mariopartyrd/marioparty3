@@ -130,5 +130,8 @@ s32 _CheckFlag(s32);
 void GWMgUnlockSet(s16 bitPos);
 void _ClearFlag(s32 flag);
 void func_8000B5F0_C1F0(u8 arg0);
+void omOvlKill(void);
+void _SetFlag(s32 flag);
+void _ClearFlag(s32 flag);
 
 #endif

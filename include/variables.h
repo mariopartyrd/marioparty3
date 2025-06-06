@@ -28,4 +28,6 @@ extern s8 D_800D6A58_D7658;
 extern MinigameTable D_800A6D44_A7944[];
 extern s16 omovlhisidx;
 
+extern omOvlHisData omovlhis[12];
+
 #endif //_VARIABLES_H_

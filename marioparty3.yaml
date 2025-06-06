@@ -1646,7 +1646,7 @@ segments:
     subsegments:
       - [0x31B3B0, c]
       - [0x31B3E0, c]
-      - [0x31B4F0, data, 31B3B0] #80105AE0
+      - [0x31B4F0, .data, 31B3B0] #80105AE0
       - {0x31B510, type: bss, vram: 0x80105B00, name: ovl_47_bss}
 
   - type: code

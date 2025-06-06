@@ -1,11 +1,78 @@
 #include "common.h"
 #include "ovl_80.h"
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F8610_10C230_shared_board);
+typedef struct Unk800D6B48 {
+    void* unk_00;
+    void* unk_04;
+    s32 unk_08;
+    s32 unk_0C;
+    s32 unk_10;
+    s32 unk_14;
+    s16 unk_18;
+} Unk800D6B48; //sizeof 0x18
+
+typedef struct Unk800CD2A0 {
+    u8 unk_00;
+    s16 unk_02;
+} Unk800CD2A0;
+
+extern omOvlHisData D_800D4190_D4D90;
+extern Unk800D6B48 D_800D6B48_D7748[2];
+extern omOvlHisData D_800D20F0_D2CF0[5];
+extern Unk800CD2A0 D_800CD2A0_CDEA0;
+extern s32 D_80101B40_115760_shared_board[];
+extern s16 D_800D6A48_D7648;
+
+void func_800F8610_10C230_shared_board(s32 id, s16 event, u16 stat) {
+    omOvlHisData* overlay;
+
+    overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18++];
+    if (id != -2) {
+        if (id == -1) {
+            id = omovlhis[omovlhisidx].overlayID;
+            overlay->overlayID = id;
+        } else {
+            overlay->overlayID = id;
+        }
+    } else {
+        id = D_80101B40_115760_shared_board[GwSystem.current_board_index];
+        overlay->overlayID = id;
+    }
+    
+    overlay->event = event;
+    overlay->stat = stat;
+    
+    if (D_800D6B48_D7748->unk_18 >= ARRAY_COUNT(D_800D20F0_D2CF0)) {
+        D_800D6B48_D7748->unk_18 = ARRAY_COUNT(D_800D20F0_D2CF0) - 1;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F86B4_10C2D4_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F8774_10C394_shared_board);
+void func_800F8774_10C394_shared_board(void) {
+    s16 temp_v0;
+    s16 temp_v0_2;
+    omOvlHisData* overlay;
+
+    D_800D4190_D4D90.stat = 1;
+    if (D_800D6B48_D7748->unk_18 != 0) {
+        D_800D6B48_D7748->unk_18--;
+        overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18];
+        omOvlCallEx(overlay->overlayID, overlay->event, overlay->stat);
+        return;
+    }
+    if (D_800CD2A0_CDEA0.unk_02 != 0) {
+        D_800D4190_D4D90.stat = 0;
+        omOvlCallEx(D_80101B40_115760_shared_board[GwSystem.current_board_index], 2, 0x192);
+        return;
+    }
+    if (D_800D6A48_D7648 != 0) {
+        _SetFlag(0xC);
+    } else {
+        _ClearFlag(0xC);
+    }
+    omOvlReturnEx(1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F884C_10C46C_shared_board);
 
