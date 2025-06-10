@@ -48,6 +48,8 @@ typedef struct TextWindow {
 extern TextWindow* D_800CC69C_CD29C;
 extern u8 D_800A2150_A2D50;
 extern u8 gLanguageIndex;
+extern u8 D_800A232C_A2F2C[];
+extern u8* D_800A2344_A2F44[];
 extern s16 D_800BDA50_BE650[12];
 extern s16 D_800BDA68_BE668;
 extern s8 D_800CB99C_CC59C;
@@ -344,7 +346,23 @@ INCLUDE_ASM("asm/nonmatchings/window", func_8005F904_60504);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005F918_60518);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_8005FA90_60690);
+u8 func_8005FA90_60690(u8* arg0) {
+    s16 i, j;
+
+    for (i = 0; i < 10; i += 2) {
+        if (D_800A232C_A2F2C[i] == arg0[0] && D_800A232C_A2F2C[i + 1] == arg0[1]) {
+            return i / 2;
+        }
+    }
+    for (i = 0; i < 16; i++) {
+        for (j = 0; j < 32; j += 2) {
+            if (D_800A2344_A2F44[i][j] == arg0[0] && D_800A2344_A2F44[i][j + 1] == arg0[1]) {
+                return i * 16 + j / 2;
+            }
+        }
+    }
+    return 16;
+}
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005FBA4_607A4);
 

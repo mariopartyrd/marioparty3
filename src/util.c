@@ -1,4 +1,8 @@
-#include "common.h"
+#include "game/util.h"
+#include "game/camera.h"
+#include "game/data.h"
+#include "game/hmfman.h"
+#include "overlay.h"
 #include "rom.h"
 
 #define HAS_TEXT_SECTION 1

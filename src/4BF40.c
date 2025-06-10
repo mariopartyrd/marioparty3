@@ -1,9 +1,11 @@
 #include "common.h"
+#include "game/camera.h"
 
-void Hu3DCamSetPositionOrientation(s16 camIndex, Vec* pos, Vec* at, Vec* up);
-void Hu3DCamUpdateMtx(s32);
 extern f32 D_800CB890_CC490;
+extern f32 D_800CCF98_CDB98[];
 extern f32 D_800CE17C_CED7C[];
+extern f32 D_800D04B8_D10B8[][6];
+extern f32 D_800D4198_D4D98[];
 extern f32 D_800D5210_D5E10;
 
 void omOutView(omObjData* object) {
@@ -30,7 +32,33 @@ void omOutView(omObjData* object) {
     Hu3DCamUpdateMtx(0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/4BF40", func_8004B4D4_4C0D4);
+void omOutViewMulti(omObjData* object) {
+    u8 i;
+
+    for (i = 0; i < object->work[0]; i++) {
+        Vec pos, at, up;
+        f32 rot_x = CRotM[i].x;
+        f32 rot_y = CRotM[i].y;
+
+        pos.x = CenterM[i].x + HuMathSin(rot_y) * HuMathCos(rot_x) * CZoomM[i];
+        pos.y = CenterM[i].y + -HuMathSin(rot_x) * CZoomM[i];
+        pos.z = CenterM[i].z + HuMathCos(rot_y) * HuMathCos(rot_x) * CZoomM[i];
+        at.x = CenterM[i].x;
+        at.y = CenterM[i].y;
+        at.z = CenterM[i].z;
+        up.x = HuMathSin(rot_y) * HuMathSin(rot_x);
+        up.y = HuMathCos(rot_x);
+        up.z = HuMathCos(rot_y) * HuMathSin(rot_x);
+        D_800D04B8_D10B8[i][1] = pos.x;
+        D_800D04B8_D10B8[i][2] = pos.z;
+        D_800D04B8_D10B8[i][0] = CRotM[i].y;
+        D_800D04B8_D10B8[i][3] = gCameraList[i].fov[0];
+        D_800D04B8_D10B8[i][4] = D_800CCF98_CDB98[i];
+        D_800D04B8_D10B8[i][5] = D_800D4198_D4D98[i];
+        Hu3DCamSetPositionOrientation(i, &pos, &at, &up);
+        Hu3DCamUpdateMtx(i);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/4BF40", func_8004B760_4C360);
 

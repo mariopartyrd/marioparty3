@@ -102,7 +102,7 @@ void func_80105C80_3D7430_name_58(void) {
     }
     
     func_8000C184_CD84(temp_v0_2);
-    func_80055670_56270(temp_v0);
+    HuSprKill(temp_v0);
     HuPrcSleep(9);
     temp_v0_3 = func_8000B838_C438(0x00110001);
     temp_v0_4 = InitEspriteSlot(temp_v0_3, 0, 1);
@@ -123,7 +123,7 @@ void func_80105C80_3D7430_name_58(void) {
     }
     
     func_8000C184_CD84(temp_v0_4);
-    func_80055670_56270(temp_v0_3);
+    HuSprKill(temp_v0_3);
     HuPrcSleep(9);
     temp_s0_3 = InitEspriteSlot(func_8000B838_C438(0x110002), 0, 1);
     func_8000BBD4_C7D4(temp_s0_3, 0xA0, 0x78);

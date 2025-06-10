@@ -84,11 +84,11 @@ void func_800F4584_DC354_name_81(UnkBoard4* arg0) {
     
     for (i = 0; i < arg0->unk_08; i++) {
         if (arg0->unk_0C[i] >= 0) {
-            func_80055670_56270(arg0->unk_0C[i]);
+            HuSprKill(arg0->unk_0C[i]);
         }
     }
     
-    func_800525C8_531C8(arg0->unk_0A);
+    HuSprGrpKill(arg0->unk_0A);
     HuMemMemoryFreeTemp(arg0->unk_18);
     HuMemMemoryFreeTemp(arg0->unk_1C);
     HuMemMemoryFreeTemp(arg0->unk_10);

@@ -1,4 +1,10 @@
 #include "game/esprite.h"
+#include "game/data.h"
+#include "game/sprite.h"
+#include "include_asm.h"
+
+// malloc
+void HuMemMemoryFreePerm(void* ptr);
 
 typedef struct {
     /* 0x00 */ s16 unk00;

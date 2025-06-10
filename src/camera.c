@@ -1,4 +1,10 @@
-#include "common.h"
+#include "game/camera.h"
+#include "include_asm.h"
+#include "macros.h"
+#include "types.h"
+
+f32 HuMathCos(f32);
+f32 HuMathSin(f32);
 
 extern HuCamera* gCameraList;
 extern u8 D_800D2008_D2C08;

@@ -11,7 +11,7 @@ void func_8001ACDC_1B8DC(s16);
 void Hu3DModelRotSet(s16, f32, f32, f32);
 void Hu3DModelScaleSet(s16, f32, f32, f32);
 void func_8001C258_1CE58(s16, s32, s32);
-void func_80055670_56270(s16);
+void HuSprKill(s16);
 void func_8010B82C_507A8C_name_78(s32);
 void func_8010B858_507AB8_name_78();
 void func_8010B998_507BF8_name_78();
@@ -442,7 +442,7 @@ s32 func_80113ED4_510134_name_78(UnkStarLift* arg0) {
                     HuPrcVSleep();
                 }
                 func_8000C184_CD84(backgroundEspriteSlot);
-                func_80055670_56270(var_s6);
+                HuSprKill(var_s6);
             }
             temp_v0_4 = DataReadTemp(mainFSArray[curBoardIndex]);
             var_s6 = func_80055810_56410(temp_v0_4);
@@ -504,7 +504,7 @@ s32 func_80113ED4_510134_name_78(UnkStarLift* arg0) {
             func_8001ACDC_1B8DC(sp20[i][12]);
         }
         func_8000C184_CD84(backgroundEspriteSlot);
-        func_80055670_56270(var_s6);
+        HuSprKill(var_s6);
     }
     func_8010DDD8_50A038_name_78(temp_s5);
     return 0;

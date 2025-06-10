@@ -5,12 +5,12 @@
 #include "pad.h"
 #include "process.h"
 #include "game/object.h"
-#include "util.h"
+#include "game/util.h"
 
 extern str800D5298 D_800D5298_D5E98;
 extern void* D_800CCF38_CDB38;
 extern u8 D_800CCF78_CDB78[];
-extern f32 D_800CD288_CDE88[];
+extern f32 CZoomM[];
 extern u16 D_800CD2F4_CDEF4;
 extern s32 D_800CDD50_CE950;
 extern Process* D_800D0448_D1048;
@@ -19,9 +19,9 @@ extern Process* D_800D170C_D230C;
 extern u8 D_800D1710_D2310;
 extern s16 D_800D1F36_D2B36;
 extern u16 D_800D4082_D4C82;
-extern Vec D_800D54F8_D60F8[];
+extern Vec CenterM[];
 extern u16 D_800D6A56_D7656;
-extern Vec D_800D6AE0_D76E0[];
+extern Vec CRotM[];
 extern u16 D_800A190C_A250C;
 extern u16 D_800A190E_A250E;
 
@@ -43,15 +43,15 @@ void func_8000E3C0_EFC0(void) {
     Center.z = CRot.y;
 
     for (i = 0; i < 4; i++) {
-        D_800D6AE0_D76E0[i].x = 325.0f;
-        D_800D6AE0_D76E0[i].y =
-        D_800D6AE0_D76E0[i].z = 0.0f;
+        CRotM[i].x = 325.0f;
+        CRotM[i].y =
+        CRotM[i].z = 0.0f;
 
-        D_800CD288_CDE88[i] = 2250.0f;
+        CZoomM[i] = 2250.0f;
 
-        D_800D54F8_D60F8[i].x =
-        D_800D54F8_D60F8[i].y =
-        D_800D54F8_D60F8[i].z = 0.0f;
+        CenterM[i].x =
+        CenterM[i].y =
+        CenterM[i].z = 0.0f;
     }
 
     D_800D1710_D2310 = 3;

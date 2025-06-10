@@ -1,4 +1,5 @@
 #include "game/sprite.h"
+#include "include_asm.h"
 
 #define offsetof(st, m) ((u32)&(((st*)0)->m))
 
@@ -41,7 +42,7 @@ HuSprGrp* func_80052468_53068(s16 arg0, u16 arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052518_53118);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800525C8_531C8);
+INCLUDE_ASM("asm/nonmatchings/sprman", HuSprGrpKill);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052700_53300);
 
@@ -72,7 +73,7 @@ s16 HuSprGrpCreate(u16 arg0, u16 arg1) {
     for (i = 0; i < arg0; i++) {
         *(var_s2++) = temp_v0_3 = HuMemAlloc(0x210);
         if (temp_v0_3 == NULL) {
-            func_800525C8_531C8(var_s4);
+            HuSprGrpKill(var_s4);
             return -1;
         }
         temp_v0_2->unk_0A++;
@@ -248,7 +249,7 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_800555E8_561E8);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80055628_56228);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055670_56270);
+INCLUDE_ASM("asm/nonmatchings/sprman", HuSprKill);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800557A0_563A0);
 

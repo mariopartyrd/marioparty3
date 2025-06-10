@@ -1,45 +1,46 @@
 #include "overlays/ovl_39.h"
+#include "overlays/ovl_82.h"
+#include "gcc/memory.h"
+#include "game/audio.h"
+#include "game/camera.h"
+#include "game/gamemes.h"
+#include "game/gamework_data.h"
+#include "game/hmflight.h"
+#include "game/sprite.h"
+#include "game/wipe.h"
 #include "mallocblock.h"
 
 #define PLAYERS_TOTAL 2
 #define JUMPS_MAX 99
 
 // C1F0
+void func_8000B5F0_C1F0(u8 arg0);
 s32 func_8000B638_C238(void);
 
 // 14EA0
+void func_800142A0_14EA0(s32);
 s32 func_80017BB8_187B8(s32, s32);
+
+// 20A20
+void Hu3DAnimInit(s32);
+
+// 8EFF0
+f32 HuMathCos(f32);
+
+// 8FB20
+f32 HuMathSin(f32);
 
 // pause
 void func_80045F1C_46B1C(s32, s32, s32);
-
-// 4B120 (audio?)
-void func_8004ABE8_4B7E8(s32, s32);
-void func_8004AC10_4B810(s32, s32);
-void func_8004AC98_4B898(s32, s16);
-void func_8004AD50_4B950(s32);
-void func_8004B25C_4BE5C(s16, s32, s32, s32);
 
 // pad
 extern s8 D_800CBB6E_CC76E[];
 extern u16 D_800CDA7C_CE67C[];
 extern s8 D_800D20A1_D2CA1[];
 
-// ovl_82
-void func_800E18D8_B4458_name_82(void);
-void func_800E19F0_B4570_name_82(s32);
-void func_800E1BA8_B4728_name_82(omObjData*, s32, s32, u16, s32, s32);
-void func_800E4E30_B79B0_name_82(omObjData*);
-void func_800E5690_B8210_name_82(omObjData*, u16);
-void func_800E5A00_B8580_name_82(omObjData*, s32, s32, s32, s32);
-extern s16 D_800EBE28_BE9A8_name_82;
-extern s16 D_800EC1B8_BED38_name_82;
-extern omObjData* D_800EC1C0_BED40_name_82;
-extern u16 D_800EC280_BEE00_name_82;
-extern omObjData* D_800EC598_BF118_name_82[];
-
 // unknown
 extern s32 D_800A178C[][6];
+extern u16 D_800D530C_D5F0C;
 
 // LOCAL
 
@@ -138,7 +139,7 @@ f32 m257_GetRandInRange(s16 min, s16 max);
 void m257_CheckPlayerJumpStart(FuncGroupContext* groupCtx, FuncContext* ctx);
 void m257_UpdatePlayerPosition(FuncGroupContext* groupCtx, FuncContext* ctx);
 void m257_UpdatePlayerRotation(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_UpdatePlayerJump(FuncGroupContext* groupCtx, FuncContext* ctx);
+void m257_ExecPlayerJump(FuncGroupContext* groupCtx, FuncContext* ctx);
 void m257_CheckPlayerCollision(FuncGroupContext* groupCtx, FuncContext* ctx);
 void m257_ExecPlayerIntro(FuncGroupContext* groupCtx, FuncContext* ctx);
 void m257_ExecPlayerWins(FuncGroupContext* groupCtx, FuncContext* ctx);
@@ -444,7 +445,7 @@ void m257_ExecMinigameStart(FuncGroupContext* groupCtx, FuncContext* ctx) {
     ctx->work.s16[0]++;
     switch (ctx->work.s16[0]) {
         case 5:
-            func_80036C4C_3784C(6);
+            GMesCreate(GMES_MES_MG_START);
             HuAudFXPlay(0xE); // plays whistle fx
             m257_bgmStartTimer = 1;
             break;
@@ -452,7 +453,7 @@ void m257_ExecMinigameStart(FuncGroupContext* groupCtx, FuncContext* ctx) {
             D_8010E4A2_2C5912_tick_tock_hop = TRUE;
             break;
         default:
-            if (D_8010E4A2_2C5912_tick_tock_hop && func_80037030_37C30() == 2) {
+            if (D_8010E4A2_2C5912_tick_tock_hop && GMesStatGet() == 2) { // GMES_STAT_TIMEEND?
                 m257_jumpEnabled = TRUE;
                 m257_minigame->clockBaseSpeed[HAND_PLATFORM] = 0.0f;
                 m257_minigame->clockBaseSpeed[HAND_OBSTACLE] = 3.0f;
@@ -468,7 +469,7 @@ void m257_ExecMinigameStart(FuncGroupContext* groupCtx, FuncContext* ctx) {
             }
             break;
     }
-    if (m257_bgmStartTimer != 0 && func_80037030_37C30() != 0) {
+    if (m257_bgmStartTimer != 0 && GMesStatGet() != GMES_STAT_NONE) {
         m257_bgmStartTimer++;
         if (m257_bgmStartTimer >= 45) {
             HuAudSeqPlay(0x2F);
@@ -508,8 +509,8 @@ void m257_CheckMinigameEnd(FuncGroupContext* groupCtx, FuncContext* ctx) {
         m257_MinimizeAngleDiff(&clockObstacleRot, &clockPlatformRot);
         if (ABS(clockObstacleRot - clockPlatformRot) > 90.0f) {
             m257_minigame->clockBaseSpeed[HAND_PLATFORM] = m257_minigame->clockBaseSpeed[HAND_OBSTACLE] = 0.0f;
-            func_8004A994_4B594(0x78); // audio related
-            func_80036C4C_3784C(0x11); // FINISH gamemes
+            HuAudSeqFadeOut(120);
+            GMesCreate(GMES_MES_MG_FINISH);
             m257_SetFunc(FGRP_MINIGAME, 0, NULL, m257_ExecPlayersDraw, 0);
             for (i = 0; i < PLAYERS_TOTAL; i++) {
                 m257_players[i].stat |= PLAYER_STAT_LOST;
@@ -535,8 +536,8 @@ void m257_CheckMinigameEnd(FuncGroupContext* groupCtx, FuncContext* ctx) {
         m257_MinimizeAngleDiff(&clockObstacleRot, &clockPlatformRot);
         if (ABS(clockObstacleRot - clockPlatformRot) > 90.0f) {
             m257_minigame->clockBaseSpeed[HAND_PLATFORM] = m257_minigame->clockBaseSpeed[HAND_OBSTACLE] = 0.0f;
-            func_8004A994_4B594(0x78);
-            func_80036C4C_3784C(0x11);
+            HuAudSeqFadeOut(120);
+            GMesCreate(GMES_MES_MG_FINISH);
             if (loserCount == PLAYERS_TOTAL) {
                 m257_ResetFunc(FGRP_MINIGAME, ctx);
                 m257_SetFunc(FGRP_MINIGAME, 0, NULL, m257_ExecPlayersDraw, 0);
@@ -560,11 +561,11 @@ void m257_ExecBothPlayersWin(FuncGroupContext* groupCtx, FuncContext* ctx) {
         ctx->state = 1;
     }
     if (m257_bothPlayersWinState == 0) {
-        if (func_80037030_37C30() == 0) {
+        if (GMesStatGet() == GMES_STAT_NONE) {
             m257_bothPlayersWinState = 1;
         }
     } else if (m257_bothPlayersWinState >= 2) {
-        if (func_80037030_37C30() == 0) {
+        if (GMesStatGet() == GMES_STAT_NONE) {
             m257_bothPlayersWinState = 3;
         }
         if (m257_bothPlayersWinState == 3) {
@@ -582,11 +583,11 @@ void m257_ExecBothPlayersWin(FuncGroupContext* groupCtx, FuncContext* ctx) {
             m257_SetPlayerState(player2, PLAYER_STATE_WON, TRUE);
             func_8004AC98_4B898(0x290 + GwPlayer[m257_playerId[0]].chr, m257_playerId[0]);
             func_8004AC98_4B898(0x290 + GwPlayer[m257_playerId[1]].chr, m257_playerId[1]);
-            func_80036C4C_3784C(0x1E, player1->chr, player2->chr); // gamemes.
+            GMesCreate(GMES_MES_MG_WINNERS_2, player1->chr, player2->chr);
             GwPlayer[m257_playerId[D_800EC598_BF118_name_82[0]->work[0]]].bonusCoin += 10;
             GwPlayer[m257_playerId[D_800EC598_BF118_name_82[1]->work[0]]].bonusCoin += 10;
         }
-        if (func_80037030_37C30() != 0) {
+        if (GMesStatGet() != GMES_STAT_NONE) {
             ctx->work.s16[0] = 0;
             m257_bothPlayersWinState = 2;
         }
@@ -599,11 +600,11 @@ void m257_ExecPlayersDraw(FuncGroupContext* groupCtx, FuncContext* ctx) {
         ctx->state = 1;
     }
     if (m257_playersDrawState == 0) {
-        if (func_80037030_37C30() == 0) { // seems to check gamemes state.
+        if (GMesStatGet() == GMES_STAT_NONE) {
             m257_playersDrawState = 1;
         }
     } else if (m257_playersDrawState >= 2) {
-        if (func_80037030_37C30() == 0) {
+        if (GMesStatGet() == GMES_STAT_NONE) {
             m257_playersDrawState = 3;
         }
         if (m257_playersDrawState == 3) {
@@ -618,10 +619,10 @@ void m257_ExecPlayersDraw(FuncGroupContext* groupCtx, FuncContext* ctx) {
         if (ctx->work.s16[0] == 15) {
             m257_SetPlayerState(&m257_players[0], PLAYER_STATE_LOST, TRUE);
             m257_SetPlayerState(&m257_players[1], PLAYER_STATE_LOST, TRUE);
-            func_80036C4C_3784C(0x20);
+            GMesCreate(GMES_MES_MG_DRAW);
             HuAudSeqPlay(0x6C);
         }
-        if (func_80037030_37C30() != 0) {
+        if (GMesStatGet() != GMES_STAT_NONE) {
             ctx->work.s16[0] = 0;
             m257_playersDrawState = 2;
         }
@@ -648,7 +649,7 @@ void m257_ExecClockIntro(FuncGroupContext* groupCtx, FuncContext* ctx) {
             ctx->state = 2;
             HuAudFXPlay(0x4BB);
             ctx->work.s16[4] = HuAudFXPlay(0x4BC);
-            func_8004ABE8_4B7E8(ctx->work.s16[4], 0);
+            HuAudFXPitchSet(ctx->work.s16[4], 0);
             break;
     }
     if (ctx->work.s8[0] == 0) {
@@ -657,14 +658,14 @@ void m257_ExecClockIntro(FuncGroupContext* groupCtx, FuncContext* ctx) {
             m257_minigame->clockHandRot[HAND_OBSTACLE] += 360.0f;
         }
         if (m257_minigame->clockHandRot[HAND_OBSTACLE] < 180.0f) {
-            func_8004AD50_4B950(ctx->work.s16[4]);
+            HuAudFXStop(ctx->work.s16[4]);
             ctx->work.s8[4] = 0;
             ctx->work.s8[0] = 1;
         }
     } else if (++ctx->work.s8[0] >= 11) {
         if (ctx->work.s8[1] == 0) {
             ctx->work.s16[4] = HuAudFXPlay(0x4BC);
-            func_8004ABE8_4B7E8(ctx->work.s16[4], 0);
+            HuAudFXPitchSet(ctx->work.s16[4], 0);
             HuAudFXPlay(0x4BB);
             ctx->work.s8[1] = 1;
         }
@@ -678,7 +679,7 @@ void m257_ExecClockIntro(FuncGroupContext* groupCtx, FuncContext* ctx) {
             m257_jumpEnabled = FALSE;
             m257_colliders[m257_minigame->obstacleColliderId].attr &= ~COLLIDER_ATTR_DISABLED;
             m257_colliders[m257_minigame->obstacleColliderId].attr |= COLLIDER_ATTR_ENABLED;
-            func_8004AD50_4B950(ctx->work.s16[4]);
+            HuAudFXStop(ctx->work.s16[4]);
             ctx->work.s8[1] = 0;
             ctx->func = m257_UpdateClockSpeed;
             ctx->state = 0;
@@ -806,12 +807,12 @@ void m257_UpdateClockSpeed(FuncGroupContext* groupCtx, FuncContext* ctx) {
 }
 
 void m257_UpdateClockObstacleRotation(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    s32 var_a0;
-    s16 var_s1;
-    s16 var_a1;
-    s16 var_a1_0;
+    s32 seNo;
+    s16 currSeNo;
+    s16 pitch;
+    s16 basePitch;
 
-    var_s1 = ctx->work.s16[0];
+    currSeNo = ctx->work.s16[0];
     m257_minigame->clockHandRot[HAND_OBSTACLE] += m257_minigame->clockBaseSpeed[HAND_OBSTACLE] * m257_minigame->clockSpeedMultiplier;
     if (m257_minigame->clockHandRot[HAND_OBSTACLE] < 0.0f) {
         m257_minigame->clockHandRot[HAND_OBSTACLE] += 360.0f;
@@ -821,45 +822,47 @@ void m257_UpdateClockObstacleRotation(FuncGroupContext* groupCtx, FuncContext* c
     Hu3DModelRotSet(groupCtx->modelIds[MDL_PLATFORM], 0.0f, m257_minigame->clockHandRot[HAND_OBSTACLE], 0.0f);
     if (m257_minigame->clockBaseSpeed[HAND_OBSTACLE] != 0.0f) {
         if (ctx->work.s8[0] == 0) {
-            var_s1 = ctx->work.s16[0] = HuAudFXPlay(0x4BC);
+            currSeNo = ctx->work.s16[0] = HuAudFXPlay(0x4BC);
             ctx->work.s8[0] = 1;
         }
-        var_a1_0 = m257_minigame->clockSpeedMultiplier * 150.0f;
+        basePitch = m257_minigame->clockSpeedMultiplier * 150.0f;
         switch ((s16) ABS(m257_minigame->clockBaseSpeed[HAND_OBSTACLE])) {
             case 1:
-                var_a0 = var_s1;
-                var_a1 = var_a1_0;
-                func_8004ABE8_4B7E8(var_a0, var_a1);
+                seNo = currSeNo;
+                pitch = basePitch;
+                HuAudFXPitchSet(seNo, pitch);
                 break;
             case 2:
-                var_a0 = var_s1;
-                var_a1 = var_a1_0 + 150;
-                func_8004ABE8_4B7E8(var_a0, var_a1);
+                seNo = currSeNo;
+                pitch = basePitch + 150;
+                HuAudFXPitchSet(seNo, pitch);
                 break;
             case 3:
-                var_a0 = var_s1;
-                var_a1 = var_a1_0 + 300;
-                func_8004ABE8_4B7E8(var_a0, var_a1);
+                seNo = currSeNo;
+                pitch = basePitch + 300;
+                HuAudFXPitchSet(seNo, pitch);
                 break;
             case 4:
-                var_a0 = var_s1;
-                var_a1 = var_a1_0 + 450;
-                func_8004ABE8_4B7E8(var_a0, var_a1);
+                seNo = currSeNo;
+                pitch = basePitch + 450;
+                HuAudFXPitchSet(seNo, pitch);
                 break;
         }
-    } else if (ctx->work.s8[0] != 0) {
-        func_8004AD50_4B950(var_s1);
-        ctx->work.s8[0] = 0;
+    } else {
+        if (ctx->work.s8[0] != 0) {
+            HuAudFXStop(currSeNo);
+            ctx->work.s8[0] = 0;
+        }
     }
 }
 
 void m257_UpdateClockPlatformRotation(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    s32 var_a0;
-    s16 var_s1;
-    s16 var_a1;
-    s16 var_a1_0;
+    s32 seNo;
+    s16 currSeNo;
+    s16 pitch;
+    s16 basePitch;
 
-    var_s1 = ctx->work.s16[0];
+    currSeNo = ctx->work.s16[0];
     m257_minigame->clockHandRot[HAND_PLATFORM] += m257_minigame->clockBaseSpeed[HAND_PLATFORM] * m257_minigame->clockSpeedMultiplier;
     if (m257_minigame->clockHandRot[HAND_PLATFORM] < 0.0f) {
         m257_minigame->clockHandRot[HAND_PLATFORM] += 360.0f;
@@ -869,35 +872,37 @@ void m257_UpdateClockPlatformRotation(FuncGroupContext* groupCtx, FuncContext* c
     Hu3DModelRotSet(groupCtx->modelIds[MDL_OBSTACLE], 0.0f, m257_minigame->clockHandRot[HAND_PLATFORM], 0.0f);
     if (m257_minigame->clockBaseSpeed[HAND_PLATFORM] != 0.0f) {
         if (ctx->work.s8[0] == 0) {
-            var_s1 = ctx->work.s16[0] = HuAudFXPlay(0x4BD);
+            currSeNo = ctx->work.s16[0] = HuAudFXPlay(0x4BD);
             ctx->work.s8[0] = 1;
         }
-        var_a1_0 = m257_minigame->clockSpeedMultiplier * 150.0f;
+        basePitch = m257_minigame->clockSpeedMultiplier * 150.0f;
         switch ((s16) ABS(m257_minigame->clockBaseSpeed[HAND_PLATFORM])) {
             case 1:
-                var_a0 = var_s1;
-                var_a1 = var_a1_0;
-                func_8004ABE8_4B7E8(var_a0, var_a1);
+                seNo = currSeNo;
+                pitch = basePitch;
+                HuAudFXPitchSet(seNo, pitch);
                 break;
             case 2:
-                var_a0 = var_s1;
-                var_a1 = var_a1_0 + 150;
-                func_8004ABE8_4B7E8(var_a0, var_a1);
+                seNo = currSeNo;
+                pitch = basePitch + 150;
+                HuAudFXPitchSet(seNo, pitch);
                 break;
             case 3:
-                var_a0 = var_s1;
-                var_a1 = var_a1_0 + 300;
-                func_8004ABE8_4B7E8(var_a0, var_a1);
+                seNo = currSeNo;
+                pitch = basePitch + 300;
+                HuAudFXPitchSet(seNo, pitch);
                 break;
             case 4:
-                var_a0 = var_s1;
-                var_a1 = var_a1_0 + 450;
-                func_8004ABE8_4B7E8(var_a0, var_a1);
+                seNo = currSeNo;
+                pitch = basePitch + 450;
+                HuAudFXPitchSet(seNo, pitch);
                 break;
         }
-    } else if (ctx->work.s8[0] != 0) {
-        func_8004AD50_4B950(var_s1);
-        ctx->work.s8[0] = 0;
+    } else {
+        if (ctx->work.s8[0] != 0) {
+            HuAudFXStop(currSeNo);
+            ctx->work.s8[0] = 0;
+        }
     }
 }
 
@@ -928,7 +933,7 @@ void m257_CheckPlayerJumpStart(FuncGroupContext* groupCtx, FuncContext* ctx) {
         if (ctx->work.s8[0] == 0 && !(player->stat & PLAYER_STAT_JUMPING) && player->state != PLAYER_STATE_LAND) {
             ctx->work.s8[0] = 1;
             player->stat |= PLAYER_STAT_JUMPING;
-            playerJumpId = m257_SetFunc(object->work[1], 0xEFFF, player, m257_UpdatePlayerJump, 0);
+            playerJumpId = m257_SetFunc(object->work[1], 0xEFFF, player, m257_ExecPlayerJump, 0);
             playerJumpCtx = &m257_funcGroups[object->work[1]].funcCtx[playerJumpId];
             playerJumpCtx->func(groupCtx, playerJumpCtx);
         }
@@ -996,7 +1001,7 @@ void m257_UpdatePlayerRotation(FuncGroupContext* groupCtx, FuncContext* ctx) {
 }
 
 // TODO: doesn't work with -Wa,--vr4300mul-off.
-void m257_UpdatePlayerJump(FuncGroupContext* groupCtx, FuncContext* ctx) {
+void m257_ExecPlayerJump(FuncGroupContext* groupCtx, FuncContext* ctx) {
     PlayerData* player = ctx->data;
     omObjData* object = groupCtx->object;
     f32 var_f2;
@@ -1011,7 +1016,7 @@ void m257_UpdatePlayerJump(FuncGroupContext* groupCtx, FuncContext* ctx) {
         player->accelY = -1.47f;
         m257_SetBillDispOnRef(player->dustBillId, &object->trans.x, NULL, &object->trans.z);
         m257_SetPlayerState(player, PLAYER_STATE_JUMP, TRUE);
-        func_8004AC10_4B810(0x3A, GwPlayer[m257_playerId[object->work[0]]].chr);
+        CharFXPlay(0x3A, GwPlayer[m257_playerId[object->work[0]]].chr);
         ctx->state = 1;
     }
     var_f2 = func_8001C7D0_1D3D0(object->model[0]);
@@ -1039,7 +1044,7 @@ void m257_UpdatePlayerJump(FuncGroupContext* groupCtx, FuncContext* ctx) {
         player->stat &= ~PLAYER_STAT_JUMPING;
         player->stat |= PLAYER_STAT_01;
         m257_SetBillDispOnRef(player->dustBillId, &object->trans.x, NULL, &object->trans.z);
-        func_8004AC10_4B810(0x31, GwPlayer[m257_playerId[object->work[0]]].chr);
+        CharFXPlay(0x31, GwPlayer[m257_playerId[object->work[0]]].chr);
         m257_SetPlayerState(player, PLAYER_STATE_LAND, TRUE);
         m257_SetPlayerNextState(player, PLAYER_STATE_IDLE);
         m257_ResetFunc(object->work[1], ctx);
@@ -1135,11 +1140,11 @@ void m257_ExecPlayerWins(FuncGroupContext* groupCtx, FuncContext* ctx) {
                 break;
             }
             if (m257_playerWinsState == 0) {
-                if (func_80037030_37C30() == 0) {
+                if (GMesStatGet() == GMES_STAT_NONE) {
                     m257_playerWinsState = 1;
                 }
             } else if (m257_playerWinsState >= 2) {
-                if (func_80037030_37C30() == 0) {
+                if (GMesStatGet() == GMES_STAT_NONE) {
                     m257_playerWinsState = 3;
                 }
                 if (m257_playerWinsState == 3) {
@@ -1154,10 +1159,10 @@ void m257_ExecPlayerWins(FuncGroupContext* groupCtx, FuncContext* ctx) {
                 if (ctx->work.s16[0] == 15) {
                     HuAudSeqPlay(0x67);
                     m257_SetPlayerState(player, PLAYER_STATE_WON, TRUE);
-                    func_80036C4C_3784C(0x16, player->chr);
+                    GMesCreate(GMES_MES_MG_WINNER, player->chr);
                     GwPlayer[m257_playerId[object->work[0]]].bonusCoin += 10;
                 }
-                if (func_80037030_37C30() != 0) {
+                if (GMesStatGet() != GMES_STAT_NONE) {
                     ctx->work.s16[0] = 0;
                     m257_playerWinsState = 2;
                 }

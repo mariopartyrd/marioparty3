@@ -8,3 +8,11 @@ omnextidx = 0x800D6B40;
 HuSprGrpLast = 0x800C9934;
 HuSprGrpFirst = 0x800CC0A0;
 HuSprGrpNum = 0x800D520C;
+
+gMesCloseF = 0x800B1A51;
+gMesTimerId = 0x800B1A53;
+gMesData = 0x800CD300;
+
+func_80107CC4_2B1574_silly_screws = 0x80107CC4;
+D_8010BF80_2B5830_silly_screws = 0x8010BF80;
+D_8010BF84_2B5834_silly_screws = 0x8010BF84;

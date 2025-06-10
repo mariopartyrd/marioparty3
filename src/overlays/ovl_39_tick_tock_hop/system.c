@@ -1,5 +1,7 @@
 #include "overlays/ovl_39.h"
 #include "gcc/memory.h"
+#include "game/esprite.h"
+#include "game/sprite.h"
 #include "mallocblock.h"
 
 #define FUNC_GRP_MAX 5
@@ -16,6 +18,12 @@ void func_80017D24_18924(f32*, f32, f32, f32);
 
 // 8EA10
 f32 atan2d(f32, f32);
+
+// 8EFF0
+f32 HuMathCos(f32);
+
+// 8FB20
+f32 HuMathSin(f32);
 
 // unknown
 extern s16 D_800CDD6A_CE96A;

@@ -416,20 +416,20 @@ void func_800F4348_107F68_shared_board(void) {
     s32 i;
     s16* spriteIDs = D_80105588_1191A8_shared_board;
 
-    func_80055670_56270(spriteIDs[0]);
+    HuSprKill(spriteIDs[0]);
     for (i = 0; i < MAX_PLAYERS; i++) {
-        func_80055670_56270(spriteIDs[i + 1]);
+        HuSprKill(spriteIDs[i + 1]);
     }
 
     for (i = 0; i < 2; i++) {
-        func_80055670_56270(spriteIDs[i + 5]);
+        HuSprKill(spriteIDs[i + 5]);
     }
 
-    func_80055670_56270(spriteIDs[8]);
-    func_80055670_56270(spriteIDs[9]);
+    HuSprKill(spriteIDs[8]);
+    HuSprKill(spriteIDs[9]);
 
     for (i = 0; i < ITEMS_END; i++) {
-        func_80055670_56270(spriteIDs[i + 10]);
+        HuSprKill(spriteIDs[i + 10]);
     }
 }
 
@@ -848,7 +848,7 @@ void func_800F641C_10A03C_shared_board(s32 playerIndex) {
     for (i = 0; i < ARRAY_COUNT(temp_s2->unk_40); i++) {
         if (temp_s2->unk_40[i] != -1) {
             func_800F6AA4_10A6C4_shared_board(temp_s2->playerIndex, i + 2);
-            func_80055670_56270(temp_s2->unk_40[i]);
+            HuSprKill(temp_s2->unk_40[i]);
             temp_s2->unk_40[i] = -1;
         }
     }
@@ -868,7 +868,7 @@ void func_800F64E4_10A104_shared_board(s32 arg0, s32 arg1) {
             for (i = 0; i < ARRAY_COUNT(temp_s2->unk_40); i++) {
                 if (temp_s2->unk_40[i] != -1) {
                     HuSprAttrSet(temp_s2->playerIndex, i + 2, 0x8000);
-                    func_80055670_56270(temp_s2->unk_40[i]);
+                    HuSprKill(temp_s2->unk_40[i]);
                     temp_s2->unk_40[i] = -1;
                 }
             }
@@ -885,7 +885,7 @@ void func_800F64E4_10A104_shared_board(s32 arg0, s32 arg1) {
                 func_800550F4_55CF4(temp_s2->playerIndex, i + 2, 0);
             }
 
-            func_80055670_56270(temp_s2->unk_3A);
+            HuSprKill(temp_s2->unk_3A);
             
             for (i = 0; i < 5; i++) {
                 HuSprAttrSet(temp_s2->playerIndex, i + 4, 0x8000);

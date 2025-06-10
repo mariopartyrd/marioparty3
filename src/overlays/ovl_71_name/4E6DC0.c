@@ -26,7 +26,7 @@ void func_801059A0_4E6DC0_name_71(void) {
         Hu3DCamSetPerspective(i, 30.0f, 80.0f, 8000.0f);        
     }
 
-    obj = omAddObj(0x7FDA, 0, 0, -1, func_8004B4D4_4C0D4);
+    obj = omAddObj(0x7FDA, 0, 0, -1, omOutViewMulti);
     omSetStatBit(obj, 0xA0);
     obj->work[0] = 2;
     HmfLightColorSet(1, 0xFF, 0xFF, 0xFF);
