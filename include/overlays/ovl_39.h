@@ -1,0 +1,179 @@
+#ifndef _OVL_39_H
+#define _OVL_39_H
+
+#include "common.h"
+
+#define BSS __attribute__((section(".bss")))
+
+#define ABS(x) ((x) > 0 ? (x) : -(x))
+#define rand16() ((rand8() << 8) | rand8())
+
+// EXTERN
+
+typedef struct {
+    /* 0x00 */ char unk00[2];
+    /* 0x02 */ s16 unk02;
+    /* 0x04 */ char unk04[0x14];
+} D_800CCF58_CDB58_Struct; // Size 0x18
+
+extern D_800CCF58_CDB58_Struct* D_800CCF58_CDB58; // esprite
+
+// LOCAL
+
+typedef struct {
+    /* 0x00 */ omObjData* object;
+    /* 0x04 */ s16* modelIds;
+    /* 0x08 */ s16 maxModels;
+} FuncGroupData; // Size 0xC
+
+typedef struct func_work {
+    /* 0x00 */ s8 set;
+    /* 0x02 */ s16 id;
+    /* 0x04 */ s8 state;
+    /* 0x05 */ s8 tag;
+    /* 0x08 */ s32 prio;
+    /* 0x0C */ s8 work8[16];
+    /* 0x1C */ s16 work16[8];
+    /* 0x2C */ f32 workF[4];
+    /* 0x3C */ void* data;
+    /* 0x40 */ void (*func)(FuncGroupData*, struct func_work*);
+} FuncWork; // Size 0x44
+
+typedef struct {
+    /* 0x00 */ u32 prio;
+    /* 0x04 */ s16 next;
+    /* 0x06 */ s16 prev;
+    /* 0x08 */ s16 workId;
+} FuncOrder; // Size 0xC
+
+typedef struct {
+    /* 0x00 */ FuncGroupData* data;
+    /* 0x04 */ FuncWork* funcWork;
+    /* 0x08 */ s16 maxFuncs;
+    /* 0x0C */ FuncOrder* order;
+    /* 0x10 */ s8 sort;
+} FuncGroup; // Size 0x14
+
+#define SPRITE_STATE_NOTSET 0
+#define SPRITE_STATE_INVISIBLE 1
+#define SPRITE_STATE_VISIBLE 2
+
+typedef struct {
+    /* 0x00 */ s8 state;
+    /* 0x01 */ u8 groupId;
+    /* 0x02 */ u8 unk02;
+    /* 0x04 */ u16 unk04;
+    /* 0x06 */ s16 unk06;
+} SpriteData; // Size 8
+
+#define ANIMMDL_ATTR_DISPON 1
+
+#define ANIMMDL_STATE_INVISIBLE -1
+#define ANIMMDL_STATE_WAIT 0
+#define ANIMMDL_STATE_ANIM 1
+
+typedef struct {
+    /* 0x00 */ s8 set;
+    /* 0x04 */ s32 attr;
+    /* 0x08 */ s8 state;
+    /* 0x0A */ s16 modelId;
+    /* 0x0C */ f32 freq;
+    /* 0x10 */ f32 animTimer;
+    /* 0x14 */ f32 animStart;
+} AnimModelData; // Size 0x18
+
+#define BILL_ATTR_01 1
+#define BILL_ATTR_ANIM 2
+#define BILL_ATTR_LOOP 4
+#define BILL_ATTR_DISPOFF 8
+#define BILL_ATTR_REF 0x10
+
+typedef struct {
+    /* 0x00 */ s8 set;
+    /* 0x04 */ s32 attr;
+    /* 0x08 */ u8 unk08;
+    /* 0x0A */ s16 modelId;
+    /* 0x0C */ s16 duration;
+    /* 0x0E */ s16 timer;
+    /* 0x10 */ f32* posX;
+    /* 0x14 */ f32* posY;
+    /* 0x18 */ f32* posZ;
+} BillboardData; // Size 0x1C
+
+typedef struct {
+    /* 0x00 */ u8 colliding;
+    /* 0x04 */ f32* posX;
+    /* 0x08 */ f32* posY;
+    /* 0x0C */ f32* posZ;
+} ModelTracker; // Size 0x10
+
+typedef struct {
+    /* 0x00 */ Vec vertices[4];
+} Quad; // Size 0x30
+
+#define COLLIDER_ATTR_ENABLED 0
+#define COLLIDER_ATTR_DISABLED 1
+#define COLLIDER_ATTR_HEIGHT_DISABLED 4
+
+typedef struct {
+    /* 0x00 */ s32 attr;
+    /* 0x04 */ s8 set;
+    /* 0x08 */ f32* posX;
+    /* 0x0C */ f32* posY;
+    /* 0x10 */ f32* posZ;
+    /* 0x14 */ f32* rotX;
+    /* 0x18 */ f32* rotY;
+    /* 0x1C */ f32* rotZ;
+    /* 0x20 */ f32 transMtx[16];
+    /* 0x60 */ Quad baseQuad;
+    /* 0x90 */ s16 vertexCount;
+    /* 0x94 */ f32 height;
+    /* 0x98 */ ModelTracker* modelTrackers;
+    /* 0x9C */ s16 maxTrackers;
+    /* 0x9E */ s16 trackerCount;
+} QuadCollider; // Size 0xA0
+
+void o39_CreateSystem(void);
+
+FuncGroup* o39_CreateFuncGroup(omObjData* object, s8 groupId, s16 maxModels, s16 maxFuncs);
+s16 o39_SetFunc(s8 groupId, s32 prio, void* data, void (*func)(FuncGroupData*, FuncWork*), s8 tag);
+void o39_ResetFunc(s8 groupId, FuncWork* work);
+void o39_ResetFuncTag(s8 groupId, s8 tag);
+void o39_ResetFuncGroup(s8 groupId);
+void o39_UpdateFuncGroup(s8 groupId);
+
+s16 o39_SetSprite(u16 prio, s32 dir, s32 file, u16 arg3, s32 attr);
+void o39_SetSpriteDispOn(s16 spriteId, s32 posX, s32 posY);
+void o39_SetSpriteDispOff(s16 spriteId);
+void o39_UpdateSprites(void);
+
+s32 o39_SetAnimModel(s32 dir, s32 file, f32 freq, s32 attr, s32 arg4);
+s32 o39_SetAnimModelDispOn(s16 animModelId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 scale, f32 animStart);
+void o39_UpdateAnimModels(void);
+
+s32 o39_SetBill(s32 dir, s32 file, s32 attr);
+void o39_SetBillDispOn(s16 billId, f32 posX, f32 posY, f32 posZ);
+void o39_SetBillDispOnRef(s16 billId, f32* posX, f32* posY, f32* posZ);
+BillboardData* o39_GetBill(s16 billId);
+HmfModel* o39_GetBillModel(s16 billId);
+void o39_UpdateBills(void);
+
+void o39_CreateColliders(FuncGroupData* groupData, FuncWork* work);
+s32 o39_SetCollider(s16 modelId, Quad* baseQuad, f32 height, s16 maxTrackers, s32 attr);
+ModelTracker* o39_SetModelTracker(s16 colliderId, s16 modelId);
+void o39_SetColliderBaseQuad(s16 colliderId, Quad* baseQuad, f32 height);
+
+s32 o39_CalcLerp(f32* out, u8* timer, f32 start, f32 end, f32 duration);
+f32 o39_CalcQuadraticBezier(f32 t, f32 p0, f32 p1, f32 p2);
+void o39_MakeRandPermutation(s16* out, s16 n);
+void o39_SyncWithModel(omObjData* object);
+void o39_CalcPitchAndYaw(Vec from, Vec to, f32* out);
+void o39_MinimizeAngleDiff(f32* a, f32* b);
+
+extern BillboardData* o39_billboards;
+extern FuncGroup* o39_funcGroups;
+extern SpriteData* o39_sprites;
+extern AnimModelData* o39_animModels;
+extern QuadCollider* o39_colliders;
+
+#endif

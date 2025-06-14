@@ -73,15 +73,24 @@ typedef struct HuSprGrp {
 
 extern HuSprGrp* HuSprGrpData[HUSPR_GRP_MAX];
 
+void func_800525C8_531C8(s16);
 s16 HuSprGrpCreate(u16 arg0, u16 arg1);
 void func_80054904_55504(s16 group, s16 member, s16 arg2, s16 arg3);
 void func_80054FF8_55BF8(s16 group, s16 member, s32 arg2);
+void func_80055024_55C24(s16 group, s16 member, s16 arg2, s32 arg3);
 void func_800550B4_55CB4(s16 group, s16 member, f32 arg2);
+void func_800550F4_55CF4(s16, s16, s32);
+void func_80055140_55D40(s32, s16, u16, s32);
 HuSprite_Unk84_Struct* func_80055194_55D94(s16 arg0);
 void HuSprScaleSet(s16 group, s16 member, f32 x, f32 y);
 void HuSprPriSet(s16 group, s16 member, u16 prio);
+void func_800552DC_55EDC(s16, s16, f32);
 void HuSprAttrReset(s16 group, s16 member, s32 attr);
 void HuSprAttrSet(s16 group, s16 member, s32 attr);
+void func_80055420_56020(s16, s16, u8, u8, u8);
+void func_80055458_56058(s16, s16, u16);
 HuSprite* HuSprGet(s16 group, s16 member);
+void func_80055670_56270(s16);
+s16 func_80055810_56410(void*);
 
 #endif
