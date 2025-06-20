@@ -1433,17 +1433,19 @@ segments:
     vram: 0x801059A0
     dir: overlays/ovl_39_tick_tock_hop
     name: tick_tock_hop
+    subalign: 16
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x30
     subsegments:
-      - [0x2BCE10, c]
-      - [0x2C0E70, c]
-      - [0x2C5910, .data, 2BCE10] #8010E4A0
-      - [0x2C5920, .data, 2C0E70] #8010E4B0
-      - [0x2C5A60, .rodata, 2BCE10] #8010E6A0
-      - [0x2C5B10, .rodata, 2C0E70] #8010E750
-      - {0x2C5B50, type: bss, vram: 0x8010E6E0, name: ovl_39_bss}
+      - [0x2BCE10, c, main]
+      - [0x2C0E70, c, system]
+      - [0x2C5910, .data, main] #8010E4A0
+      - [0x2C5920, .data, system] #8010E4B0
+      - [0x2C5A60, .rodata, main] #8010E6A0
+      - [0x2C5B10, .rodata, system] #8010E750
+      - {0x2C5B50, type: .bss, vram: 0x8010E6E0, name: main}
+      - {0x2C5B60, type: .bss, vram: 0x8010E6F0, name: system}
 
   - type: code
     start: 0x2C5B50
