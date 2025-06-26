@@ -42,7 +42,7 @@ void m257_SortFuncGroup(FuncGroup* group);
 s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1);
 s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1);
 void func_8010CCD4_2C4144_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1, u16 arg2);
-s16 func_8010CED8_2C4348_tick_tock_hop(HuSprite_Unk84_Struct* arg0, HmfModelData_Unk64_Struct* arg1, f32 arg2, u16 arg3, u16 arg4);
+s16 func_8010CED8_2C4348_tick_tock_hop(HuSprite_Unk84_Struct* arg0, HmfData* arg1, f32 arg2, u16 arg3, u16 arg4);
 void m257_UpdateColliders(FuncGroupContext* groupCtx, FuncContext* ctx);
 f32 m257_CalcSideOfEdge(QuadCollider* collider, ModelTracker* model, Vec* a, Vec* b);
 
@@ -345,8 +345,8 @@ s32 m257_SetAnimModel(s32 dir, s32 file, f32 freq, s32 attr, s32 arg4) {
             hmfModel = &HmfModelData[animModel->modelId];
             hmfModel->unk40 = 0.0f;
             hmfModel->unk44 = 0.0f;
-            if (hmfModel->unk64->unk98 != NULL) {
-                hmfModel->unk64->unk98->unk08 = 0;
+            if (hmfModel->hmf->unk98 != NULL) {
+                hmfModel->hmf->unk98->unk08 = 0;
             }
             animModel->attr = attr;
             animModel->freq = freq;
@@ -405,8 +405,8 @@ void m257_UpdateAnimModels(void) {
             default:
                 if (D_800CCF58_CDB58[hmfModel->unk02].unk02 <= hmfModel->unk40) {
                     hmfModel->unk40 = 0.0f;
-                    if (hmfModel->unk64->unk98 != NULL) {
-                        hmfModel->unk64->unk98->unk08 = 0;
+                    if (hmfModel->hmf->unk98 != NULL) {
+                        hmfModel->hmf->unk98->unk08 = 0;
                     }
                     if (!(animModel->attr & ANIMMDL_ATTR_DISPON)) {
                         func_8001C258_1CE58(animModel->modelId, 4, 4);
@@ -528,8 +528,8 @@ void m257_UpdateBills(void) {
         }
         model->rot.x = CRot.x;
         model->rot.y = CRot.y;
-        m257_MakeIdentityMtx(model->unk74);
-        func_80017D24_18924(model->unk74, 0.0f, 0.0f, CRot.z);
+        m257_MakeIdentityMtx(model->mtx);
+        func_80017D24_18924(model->mtx, 0.0f, 0.0f, CRot.z);
         if (bill->attr & BILL_ATTR_01) {
             if (bill->attr & BILL_ATTR_ANIM) {
                 func_8010CCD4_2C4144_tick_tock_hop(bill->modelId, func_80055194_55D94(bill->unk08), bill->timer);
@@ -549,7 +549,7 @@ void m257_UpdateBills(void) {
 }
 
 s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
-    HmfModelData_Unk64_Struct* temp_s6;
+    HmfData* temp_s6;
     Gfx* temp_v0_0;
     Gfx* temp_v0;
     u32 temp_s5;
@@ -560,7 +560,7 @@ s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
 
     temp_v0_0 = temp_v0 = HuMemAlloc(0x10000);
     temp_v0_2 = func_8001A894_1B494(0x4C1, temp_v0_0, 4);
-    temp_s6 = HmfModelData[temp_v0_2].unk64;
+    temp_s6 = HmfModelData[temp_v0_2].hmf;
     temp_s6->unk60->unk50 |= 0x01010000;
     temp_s5 = func_8010CED8_2C4348_tick_tock_hop(arg0, temp_s6, 1.0f, 0, 0x64);
     gSPDisplayList(temp_v0++, osVirtualToPhysical(D_8010E5A0_2C5A10_tick_tock_hop));
@@ -619,7 +619,7 @@ s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
 }
 
 s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
-    HmfModelData_Unk64_Struct* temp_s4;
+    HmfData* temp_s4;
     Gfx* temp_v0_0;
     Gfx* temp_v0;
     s32 temp_s0;
@@ -629,7 +629,7 @@ s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
 
     temp_v0_0 = temp_v0 = HuMemAlloc(0x10000);
     temp_v0_2 = func_8001A894_1B494(0x4C1, temp_v0_0, 4);
-    temp_s4 = HmfModelData[temp_v0_2].unk64;
+    temp_s4 = HmfModelData[temp_v0_2].hmf;
     temp_s4->unk60->unk50 |= 0x01010000;
     HuMemFree(temp_s4->unk3C);
     temp_s4->unk3C = HuMemAllocTag(0x14, D_800CDD6A_CE96A);
@@ -721,7 +721,7 @@ s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
 }
 
 s16 func_8010C0E8_2C3558_tick_tock_hop(HuSprite_Unk84_Struct* arg0, RGBA* arg1) {
-    HmfModelData_Unk64_Struct* temp_s4;
+    HmfData* temp_s4;
     Gfx* temp_v0_0;
     Gfx* temp_v0_2;
     s32 temp_s0;
@@ -731,7 +731,7 @@ s16 func_8010C0E8_2C3558_tick_tock_hop(HuSprite_Unk84_Struct* arg0, RGBA* arg1) 
 
     temp_v0_0 = temp_v0_2 = HuMemAlloc(0x10000);
     temp_v0 = func_8001A894_1B494(0x8C1, temp_v0_0, 4);
-    temp_s4 = HmfModelData[temp_v0].unk64;
+    temp_s4 = HmfModelData[temp_v0].hmf;
     temp_s4->unk60->unk50 |= 0x01010000;
     HuMemFree(temp_s4->unk3C);
     temp_s4->unk3C = HuMemAllocTag(0x18, D_800CDD6A_CE96A);
@@ -828,7 +828,7 @@ s16 func_8010C0E8_2C3558_tick_tock_hop(HuSprite_Unk84_Struct* arg0, RGBA* arg1) 
 
 void func_8010CCD4_2C4144_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1, u16 arg2) {
     HmfModel* model = &HmfModelData[modelId];
-    HmfModelData_Unk64_Struct* temp_s2 = model->unk64;
+    HmfData* temp_s2 = model->hmf;
     Gfx* temp_s0 = temp_s2->unk3C->unk04[D_800D2008_D2C08];
 
     temp_s2->unk3C->unk00 = temp_s0;
@@ -841,7 +841,7 @@ void func_8010CCD4_2C4144_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1
 
 void func_8010CDA4_2C4214_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1, u16 arg2, RGBA* arg3) {
     HmfModel* model = &HmfModelData[modelId];
-    HmfModelData_Unk64_Struct* temp_s3 = model->unk64;
+    HmfData* temp_s3 = model->hmf;
     HmfModelData_Unk64_Unk3C_Struct* temp_v1 = temp_s3->unk3C;
     Gfx* temp_s0 = temp_v1->unk04[D_800D2008_D2C08];
 
@@ -856,7 +856,7 @@ void func_8010CDA4_2C4214_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1
     gSPEndDisplayList(&temp_s0[7]);
 }
 
-s16 func_8010CED8_2C4348_tick_tock_hop(HuSprite_Unk84_Struct* arg0, HmfModelData_Unk64_Struct* arg1, f32 arg2, u16 arg3, u16 arg4) {
+s16 func_8010CED8_2C4348_tick_tock_hop(HuSprite_Unk84_Struct* arg0, HmfData* arg1, f32 arg2, u16 arg3, u16 arg4) {
     Vtx* temp_s7;
     Vtx* var_s1;
     Vtx_t* var_t0;

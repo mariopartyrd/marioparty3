@@ -88,10 +88,10 @@ void func_8000E3C0_EFC0(void) {
         SLCurBoxNoSet(0);
         func_80050800_51400();
         if (temp_s0 != 0) {
-            omOvlCallEx(name_67, 0, 0x82);
+            omOvlCallEx(slerror, 0, 0x82);
         }
         else {
-            omOvlCallEx(name_58, 0, 0x84);
+            omOvlCallEx(ovl_boot, 0, 0x84);
         }
     }
 

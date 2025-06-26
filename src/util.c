@@ -1,3 +1,4 @@
+#include "common.h"
 #include "game/util.h"
 #include "game/camera.h"
 #include "game/data.h"

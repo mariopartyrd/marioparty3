@@ -263,8 +263,8 @@ s32 m255_SetAnimModel(s32 dir, s32 file, f32 freq, s32 attr, s32 arg4) {
             hmfModel = &HmfModelData[animModel->modelId];
             hmfModel->unk40 = 0.0f;
             hmfModel->unk44 = 0.0f;
-            if (hmfModel->unk64->unk98 != NULL) {
-                hmfModel->unk64->unk98->unk08 = 0;
+            if (hmfModel->hmf->unk98 != NULL) {
+                hmfModel->hmf->unk98->unk08 = 0;
             }
             animModel->attr = attr;
             animModel->freq = freq;
@@ -323,8 +323,8 @@ void m255_UpdateAnimModels(void) {
             default:
                 if (D_800CCF58_CDB58[hmfModel->unk02].unk02 <= hmfModel->unk40) {
                     hmfModel->unk40 = 0.0f;
-                    if (hmfModel->unk64->unk98 != NULL) {
-                        hmfModel->unk64->unk98->unk08 = 0;
+                    if (hmfModel->hmf->unk98 != NULL) {
+                        hmfModel->hmf->unk98->unk08 = 0;
                     }
                     if (!(animModel->attr & ANIMMDL_ATTR_DISPON)) {
                         func_8001C258_1CE58(animModel->modelId, 4, 4);

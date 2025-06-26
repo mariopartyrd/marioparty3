@@ -89,7 +89,7 @@ void func_800E1854_C9624_name_81(s32);                 /* extern */
 void func_800F4584_DC354_name_81(UnkBoard4*);
 void func_8001C624_1D224(s16, s16, s16, s16, s32);
 void func_8002D4B8_2E0B8(s16);
-s16 func_8001F1FC_1FDFC(void*, s32);
+s32 func_8001F1FC_1FDFC(void*, s32);
 void func_800FAD04_E2AD4_name_81(s32 arg0);
 void func_800D8F0C_C0CDC_name_81(Object*);
 GW_PLAYER* Duel_GetPlayerStruct(s32 playerIndex);

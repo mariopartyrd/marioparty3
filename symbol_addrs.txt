@@ -6,37 +6,37 @@ D_800A46A0 = 0x800A46A0; //size:0x190 type:f32
 _ovltbl = 0x800962F4; //rom:0x96EF4 size:0x1200
 _modeovltbl = 0x800974F4; //rom:0x980F4 size:0x6C
 
-//ovl_6A
-D_8010FD20_48BCF0_name_6A = 0x8010FD20; //rom:0x48BCF0 type:s32 size:0x18 force_migration:False
+//chancetime
+D_8010FD20_48BCF0_chancetime = 0x8010FD20; //rom:0x48BCF0 type:s32 size:0x18 force_migration:False
 
-//ovl_6B
-D_80114DE4_49B274_name_6B = 0x80114DE4; //rom:0x49B274 type:f32 size:0xC force_migration:True
-D_80114DF0_49B280_name_6B = 0x80114DF0; //rom:0x49B280 type:f32 size:0xC force_migration:True
-D_80114EB8_49B348_name_6B = 0x80114EB8; //rom:0x49B348 type:f32 size:0xC
-D_801151F4_49B684_name_6B = 0x801151F4; //rom:0x49B684 type:f32 size:0xC force_migration:True
-D_80115200_49B690_name_6B = 0x80115200; //rom:0x49B690 type:f32 size:0xC force_migration:True
-D_801152C8_49B758_name_6B = 0x801152C8; //rom:0x49B758 type:f32 size:0xC
-D_80115604_49BA94_name_6B = 0x80115604; //rom:0x49BA94 type:f32 size:0xC force_migration:True
-D_80115610_49BAA0_name_6B = 0x80115610; //rom:0x49BAA0 type:f32 size:0xC force_migration:True
-D_801156D8_49BB68_name_6B = 0x801156D8; //rom:0x49BB68 type:f32 size:0xC
-D_801157C8_49BC58_name_6B = 0x801157C8; //rom:0x49BC58 type:f32 size:0xC force_migration:True
+//mstory1
+D_80114DE4_49B274_mstory1 = 0x80114DE4; //rom:0x49B274 type:f32 size:0xC force_migration:True
+D_80114DF0_49B280_mstory1 = 0x80114DF0; //rom:0x49B280 type:f32 size:0xC force_migration:True
+D_80114EB8_49B348_mstory1 = 0x80114EB8; //rom:0x49B348 type:f32 size:0xC
+D_801151F4_49B684_mstory1 = 0x801151F4; //rom:0x49B684 type:f32 size:0xC force_migration:True
+D_80115200_49B690_mstory1 = 0x80115200; //rom:0x49B690 type:f32 size:0xC force_migration:True
+D_801152C8_49B758_mstory1 = 0x801152C8; //rom:0x49B758 type:f32 size:0xC
+D_80115604_49BA94_mstory1 = 0x80115604; //rom:0x49BA94 type:f32 size:0xC force_migration:True
+D_80115610_49BAA0_mstory1 = 0x80115610; //rom:0x49BAA0 type:f32 size:0xC force_migration:True
+D_801156D8_49BB68_mstory1 = 0x801156D8; //rom:0x49BB68 type:f32 size:0xC
+D_801157C8_49BC58_mstory1 = 0x801157C8; //rom:0x49BC58 type:f32 size:0xC force_migration:True
 
-//ovl_6D
-D_80115AAC_4C2AEC_name_6D = 0x80115AAC; //rom:0x4C2AEC type:f32 size:0x78 force_migration:True
-D_80115B60_4C2BA0_name_6D = 0x80115B60; //rom:0x4C2BA0 type:f32 size:0x10 force_migration:True
+//mstory3
+D_80115AAC_4C2AEC_mstory3 = 0x80115AAC; //rom:0x4C2AEC type:f32 size:0x78 force_migration:True
+D_80115B60_4C2BA0_mstory3 = 0x80115B60; //rom:0x4C2BA0 type:f32 size:0x10 force_migration:True
 
-//ovl_6E
-D_80111D5C_4CEF8C_name_6E = 0x80111D5C; //rom:0x4CEF8C type:f32 size:0x0C force_migration:True
-D_80111D68_4CEF98_name_6E = 0x80111D68; //rom:0x4CEF98 type:f32 size:0x0C force_migration:True
-D_80111E30_4CF060_name_6E = 0x80111E30; //rom:0x4CF060 type:f32 size:0x0C
+//mstory4
+D_80111D5C_4CEF8C_mstory4 = 0x80111D5C; //rom:0x4CEF8C type:f32 size:0x0C force_migration:True
+D_80111D68_4CEF98_mstory4 = 0x80111D68; //rom:0x4CEF98 type:f32 size:0x0C force_migration:True
+D_80111E30_4CF060_mstory4 = 0x80111E30; //rom:0x4CF060 type:f32 size:0x0C
 
-//ovl_6F
-D_80114A24_4DE3D4_name_6F = 0x80114A24; //rom:0x4DE3D4 type:f32 size:0x0C force_migration:True
-D_80114A30_4DE3E0_name_6F = 0x80114A30; //rom:0x4DE3E0 type:f32 size:0x0C force_migration:True
-D_80114AF4_4DE4A4_name_6F = 0x80114AF4; //rom:0x4DE4A4 type:f32 size:0x0C force_migration:True
-D_80114E60_4DE810_name_6F = 0x80114E60; //rom:0x4DE810 type:f32 size:0x0C
-D_80114E6C_4DE81C_name_6F = 0x80114E6C; //rom:0x4DE81C type:f32 size:0x0C
-D_80114F30_4DE8E0_name_6F = 0x80114F30; //rom:0x4DE8E0 type:f32 size:0x0C
+//mstory5
+D_80114A24_4DE3D4_mstory5 = 0x80114A24; //rom:0x4DE3D4 type:f32 size:0x0C force_migration:True
+D_80114A30_4DE3E0_mstory5 = 0x80114A30; //rom:0x4DE3E0 type:f32 size:0x0C force_migration:True
+D_80114AF4_4DE4A4_mstory5 = 0x80114AF4; //rom:0x4DE4A4 type:f32 size:0x0C force_migration:True
+D_80114E60_4DE810_mstory5 = 0x80114E60; //rom:0x4DE810 type:f32 size:0x0C
+D_80114E6C_4DE81C_mstory5 = 0x80114E6C; //rom:0x4DE81C type:f32 size:0x0C
+D_80114F30_4DE8E0_mstory5 = 0x80114F30; //rom:0x4DE8E0 type:f32 size:0x0C
 
 HuMemInit = 0x80019980;
 HuMemAlloc = 0x800199F8;
@@ -756,7 +756,7 @@ Duel_GetPlayerPartnerRef = 0x800F8960; //rom:0xE0730 segment:name_81
 Duel_PartnerObjects = 0x80105450; //rom:0xED220 size:0x10 segment:name_81
 gLanguageIndex = 0x800A2151; //rom:0xA2D51 type:u8
 Duel_ClearPartnerObjects = 0x800F7F90; //rom:0xDFD60 segment:name_81
-D_801142DC_52541C_FileSelect = 0x801142DC; //rom:0x52541C size:0x18C segment:FileSelect
+D_801142DC_52541C_filesel = 0x801142DC; //rom:0x52541C size:0x18C segment:filesel
 
 GWBoardFlagCheck = 0x80035F98;
 GWBoardFlagSet = 0x80035FDC;
@@ -790,7 +790,7 @@ D_800CE208 = 0x800CE208; //type:s16
 MBModelCreate = 0x800D90C8; //rom:0xECCE8 segment:shared_board
 MBModelFileCreate = 0x800D912C; //rom:0xECD4C segment:shared_board
 ovlEventCall = 0x800359E0; //rom:0x365E0
-D_801093A8_3C61C8_BowserEvent = 0x801093A8; //rom:0x3C61C8 size:0x08 segment:BowserEvent
+D_801093A8_3C61C8_koopa = 0x801093A8; //rom:0x3C61C8 size:0x08 segment:koopa
 BoardGetTurnTier = 0x800FB578; //rom:0x10F198 segment:shared_board
 omovlevtno = 0x800A1764; //rom:0xA2364
 omdispinfo = 0x800A1760; //rom:0xA2360 type:u16

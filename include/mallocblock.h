@@ -49,5 +49,6 @@ void func_80019C68_1A868(s16 arg0);
 void HuMemSetDirty(void);
 void HuMemFreeAll(void);
 void HuMemCleanUp(void);
+void HuMemSetTag(void* data, s16 tag);
 
 #endif
