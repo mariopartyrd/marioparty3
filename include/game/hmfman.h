@@ -152,8 +152,10 @@ void func_8001C8A8_1D4A8(s16, s16);
 void func_8001C8E4_1D4E4(s16, u32);
 void func_8001C92C_1D52C(s16, f32);
 s32 func_8001C954_1D554(s32);
+void func_8001EF24_1FB24(s32, s32, s32, s32, s32);
 s32 func_8001F1FC_1FDFC(void*, s32);
 void func_8001F304_1FF04(s16, s16);
+void func_8001F38C_1FF8C(s32, s32, s32);
 void func_8001FDE8_209E8(s16);
 
 extern HmfModel* HmfModelData;

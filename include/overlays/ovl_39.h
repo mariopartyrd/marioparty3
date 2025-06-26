@@ -11,7 +11,6 @@
 #define BSS __attribute__((section(".bss")))
 
 #define ABS(x) ((x) > 0 ? (x) : -(x))
-#define rand16() ((rand8() << 8) | rand8())
 
 // EXTERN
 

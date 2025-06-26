@@ -118,7 +118,8 @@ f32 BSS D_80115558_286028_vine_with_me;
 u8 BSS D_8011555C_28602C_vine_with_me[4]; // unused?
 s16 BSS D_80115560_286030_vine_with_me[17];
 omObjData* BSS D_80115584_286054_vine_with_me[2];
-static s8 BSS D_8011558C_28605C_vine_with_me;
+s8 BSS D_8011558C_28605C_vine_with_me;
+// TODO: 'static' required to avoid 4-byte aligment, but it generates a warning.
 static u8 BSS D_8011558D_28605D_vine_with_me[16];
 omObjData* BSS D_801155A0_286070_vine_with_me;
 s32 BSS D_801155A4_286074_vine_with_me[2];

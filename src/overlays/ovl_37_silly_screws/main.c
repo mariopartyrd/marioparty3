@@ -14,7 +14,6 @@
 #include "include_asm.h"
 
 #define ABS(x) ((x) > 0 ? (x) : -(x))
-#define rand16() ((rand8() << 8) | rand8())
 
 #define FPS 30.0f
 

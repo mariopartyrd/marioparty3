@@ -279,7 +279,7 @@ void m257_InitMinigame(omObjData* object) {
     for (i = 0; i < PLAYERS_TOTAL; i++) {
         D_800EC598_BF118_minigame[i] = omAddObj(300, 9, 39, -1, m257_InitPlayer);
     }
-    D_800EC1C0_BED40_minigame = omAddObj(10, 5, 0, -1, m257_InitClock);
+    D_800EC1C0_BED40_minigame[0] = omAddObj(10, 5, 0, -1, m257_InitClock);
     WipeCreateIn(0xFF, 16);
     object->func = m257_UpdateSystem;
 }

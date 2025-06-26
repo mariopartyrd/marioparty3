@@ -4,6 +4,8 @@
 #include "ultra64.h"
 #include "game/object.h"
 
+#define rand16() ((rand8() << 8) | rand8())
+
 u16 func_8000B108_BD08(s32 arg0, s32 arg1);
 u8 rand8(void);
 void ScissorSet(u8 camIndex, f32 arg1, f32 arg2, f32 arg3, f32 arg4);
