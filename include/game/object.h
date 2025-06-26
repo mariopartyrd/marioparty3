@@ -68,6 +68,9 @@ void omOvlKill(void);
 void omDestroyObjMan(void);
 void omPrcSetDestructor(s32, void*);
 void omPrcResetStatBit(Process* prc, s32 stat);
+void omSetTra(omObjData* obj, f32 x, f32 y, f32 z);
+void omSetRot(omObjData* obj, f32 x, f32 y, f32 z);
+void omSetSca(omObjData* obj, f32 x, f32 y, f32 z);
 void omDelObj(omObjData*);
 
 void omOutView(omObjData* object);

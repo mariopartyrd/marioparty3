@@ -1361,9 +1361,9 @@ segments:
     bss_size: 0x3110
     subsegments:
       - [0x276470, c]
-      - [0x282620, data, 276470] #80111B50
+      - [0x282620, .data, 276470] #80111B50
       - [0x282780, .rodata, 276470] #80111CB0
-      - {0x283060, type: bss, vram: 0x80112590, name: ovl_31_bss}
+      - {0x283060, type: .bss, vram: 0x80112590, name: 276470}
 
   - type: code
     start: 0x283060
