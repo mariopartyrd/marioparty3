@@ -2,7 +2,7 @@
 #ifndef OVERLAY_H
 #define OVERLAY_H
 
-#include "common.h"
+#include "ultra64.h"
 
 typedef struct OverlayTable {
 /* 0x00 */ u8* romStart;

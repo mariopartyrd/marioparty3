@@ -55,8 +55,6 @@ HuMemDebugCheck = 0x80019E84;
 HuPrcSleep = 0x8004F010;
 HuPrcVSleep = 0x8004F074;
 InitEspriteSlot = 0x8000BFEC;
-HuAudSeqPlay = 0x8004A520;
-HuAudFXPlay = 0x8004AA88;
 print8 = 0x8004DD7C;
 WipeCreateIn = 0x80061FE8;
 WipeCreateOut = 0x80062050;
@@ -82,6 +80,23 @@ Hu3DCamSetPerspective = 0x8001247C;
 Hu3DCamUpdateMtx = 0x80012564;
 Hu3DCam3DToScreen = 0x8001291C;
 Hu3DAnimInit = 0x8001FE20;
+
+// hmfman
+Hu3DModelCreate = 0x8001A150; //rom:0x1AD50
+Hu3DModelLink = 0x8001A61C; //rom:0x1B21C
+Hu3DModelPosSet = 0x8001C0C4; //rom:0x1CCC4
+Hu3DModelPosGet = 0x8001C114; //rom:0x1CD14
+Hu3DModelRotSet = 0x8001C150; //rom:0x1CD50
+Hu3DModelScaleSet = 0x8001C1A0; //rom:0x1CDA0
+
+// gamemes
+GMesExec = 0x800367B0; //rom:0x373B0
+GMesCreate = 0x80036C4C; //rom:0x3784C
+GMesStatGet = 0x80037030; //rom:0x37C30
+GMesClose = 0x80037190; //rom:0x37D90
+GMesSprKill = 0x800374E0; //rom:0x380E0
+gMesCloseF = 0x800B1A51; //rom:0xB2651
+gMesData = 0x800CD300; //rom:0xCDF00
 
 // objmain
 omInitObjMan = 0x80047160; //rom:0x47D60
@@ -123,19 +138,33 @@ omovlhis = 0x800D2010; // size:0x60
 omobjfirst = 0x800D5560; //rom:0xD6160 type:s16
 omnextidx = 0x800D6B40; //rom:0xD7740 type:s16
 
+// audio
+HuAudSeqPlay = 0x8004A520; //rom:0x4B120
+HuAudSeqFadeOut = 0x8004A994; //rom:0x4B594
+HuAudFXPlay = 0x8004AA88; //rom:0x4B688
+HuAudFXPitchSet = 0x8004ABE8; //rom:0x4B7E8
+CharFXPlay = 0x8004AC10; //rom:0x4B810
+HuAudFXStop = 0x8004AD50; //rom:0x4B950
+
 // 4BF40
 omOutView = 0x8004B340; //rom:0x4BF40
+omOutViewMulti = 0x8004B4D4; //rom:0x4C0D4
+CZoomM = 0x800CD288; //rom:0xCDE88
 CZoom = 0x800CE1C8; //rom:0xCEDC8
 CRot = 0x800D138C; //rom:0xD1F8C
+CenterM = 0x800D54F8; //rom:0xD60F8
 Center = 0x800D6ABC; //rom:0xD76BC
+CRotM = 0x800D6AE0; //rom:0xD76E0
 
 // sprman
+HuSprGrpKill = 0x800525C8; //rom:0x531C8
 HuSprGrpCreate = 0x8005279C; //rom:0x5339C
 HuSprScaleSet = 0x800551D8; //rom:0x55DD8
 HuSprPriSet = 0x80055294; //rom:0x55E94
 HuSprAttrReset = 0x8005532C; //rom:0x55F2C
 HuSprAttrSet = 0x800553A8; //rom:0x55FA8
 HuSprGet = 0x80055520; //rom:0x56120
+HuSprKill = 0x80055670; //rom:0x56270
 HuSprGrpLast = 0x800C9934; //rom:0xCA534
 HuSprGrpFirst = 0x800CC0A0; //rom:0xCCCA0
 HuSprGrpData = 0x800CDD70; //rom:0xCE970
@@ -602,7 +631,6 @@ PlayerHasEmptyItemSlot = 0x800E49DC; //rom:0xF85FC
 FixUpPlayerItemSlots = 0x800E4A08; //rom:0xF8628
 RNGPercentChance = 0x800ECE9C; //rom:0x100ABC
 RunDecisionTree = 0x800DA190; //rom:0xEDDB0
-Hu3DModelCreate = 0x8001A150; //rom:0x1AD50
 CameraScissorSet = 0x800124BC; //rom:0x130BC
 CameraViewportSet = 0x80012508; //rom:0x13108
 ScissorSet = 0x8000B364; //rom:0xBF64
@@ -765,9 +793,6 @@ ovlEventCall = 0x800359E0; //rom:0x365E0
 D_801093A8_3C61C8_BowserEvent = 0x801093A8; //rom:0x3C61C8 size:0x08 segment:BowserEvent
 BoardGetTurnTier = 0x800FB578; //rom:0x10F198 segment:shared_board
 omovlevtno = 0x800A1764; //rom:0xA2364
-Hu3DModelPosSet = 0x8001C0C4; //rom:0x1CCC4
-Hu3DModelRotSet = 0x8001C150; //rom:0x1CD50
-Hu3DModelScaleSet = 0x8001C1A0; //rom:0x1CDA0
 omdispinfo = 0x800A1760; //rom:0xA2360 type:u16
 D_80101E04_115A24_shared_board = 0x80101E04; //rom:0x115A24 size:0xF type:u8 segment:shared_board
 
@@ -860,3 +885,7 @@ UpdatePlayerBoardStatus = 0x800F2E30; //rom:0x106A50 segment:shared_board
 ItemUseWackyWatch = 0x80115B80; //rom:0x32B6F0 segment:ChillyWaters
 D_80100F94_114BB4_shared_board = 0x80100F94; //rom:0x114BB4 segment:shared_board size:0x14
 ShowMessage = 0x800EC8EC; //rom:0x10050C segment:shared_board
+
+m255_ExecCameraIntro = 0x8010759C; //rom:0x2B0E4C
+m255_SetFunc = 0x8010B418; //rom:0x2B4CC8
+m255_ResetFunc = 0x8010B54C; //rom:0x2B4DFC

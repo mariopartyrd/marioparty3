@@ -1,9 +1,9 @@
 #include "common.h"
+#include "game/camera.h"
 
 extern u8 D_80097660_98260;
 extern u8 D_80097661_98261;
 extern s32 D_800CE178_CED78; //TODO: type correctly
-void func_80012888_13488(s16 camIndex, void (*arg1)(void), void* arg2);
 void func_80020E94_21A94(void); //TODO: get correct signature
 
 typedef struct UnkC1F0 {

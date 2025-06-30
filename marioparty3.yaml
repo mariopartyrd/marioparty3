@@ -88,7 +88,7 @@ segments:
       - [0x12E20, c, camera]
       - [0x13F90, c]
       - [0x14EA0, c]
-      - [0x19C30, c]
+      - [0x19C30, c, hmflight]
       - [0x1A580, c, mallocblock]
       - [0x1AC70, c, hmfman]
       - [0x20A20, c]
@@ -108,7 +108,7 @@ segments:
       - [0x45F50, c, pause]
       - [0x471D0, c]
       - [0x47D60, c, objmain]
-      - [0x4B120, c]
+      - [0x4B120, c, audio]
       - [0x4BF40, c]
       - [0x4E010, c, profiler]
       - [0x4E5A0, c, rom]
@@ -438,6 +438,20 @@ segments:
       - [0x960C0, bin, n_aspMain_code]
       - [0x96EF0, .data, overlay_table]
       - [0x98160, data]
+      - [0xA1EE0, data, gamemes]
+      - [0xA2190, data, pause]
+      - [0xA2260, data, 471D0]
+      - [0xA22B0, data, objmain]
+      - [0xA2500, .data, audio]
+      - [0xA2520, data]
+      - [0xA2970, data, saveEncode]
+      - [0xA2A80, data, saveload]
+      - [0xA2A90, data, sprman]
+      - [0xA2AB0, data, sprput]
+      - [0xA2D50, data, window]
+      - [0xA32D0, data, wipe]
+      - [0xA3380, data, 6B050]
+      - [0xA3480, data]
       - [0xA4C50, .data, 2.0L/libc/xprintf]
       - [0xA4CA0, data]
       - [0xA4F30, .rodata, 8F1A0]
@@ -1407,12 +1421,13 @@ segments:
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x20
     subsegments:
-      - [0x2AF250, c]
-      - [0x2B4B20, c]
-      - [0x2B56D0, data, 2AF250] #8010BE20
-      - [0x2B5700, .rodata, 2AF250] #8010BE50
-      - [0x2B5808, .rodata, 2B4B20] #8010BF58
-      - {0x2B5830, type: bss, vram: 0x8010BF80, name: ovl_37_bss}
+      - [0x2AF250, c, main]
+      - [0x2B4B20, c, system]
+      - [0x2B56D0, .data, main] #8010BE20
+      - [0x2B5700, .rodata, main] #8010BE50
+      - [0x2B5808, .rodata, system] #8010BF58
+      - {0x2B5830, type: .bss, vram: 0x8010BF80, name: main}
+      - {0x2B5840, type: .bss, vram: 0x8010BF90, name: system}
 
   - type: code
     start: 0x2B5830

@@ -1,4 +1,5 @@
-#include "common.h"
+#include "game/wipe.h"
+#include "include_asm.h"
 
 INCLUDE_ASM("asm/nonmatchings/wipe", WipeInit);
 

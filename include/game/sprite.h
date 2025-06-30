@@ -1,9 +1,11 @@
 #ifndef _GAME_SPRITE_H
 #define _GAME_SPRITE_H
 
-#include "common.h"
+#include "ultra64.h"
 
 #define HUSPR_GRP_MAX 256
+
+#define HUSPR_NONE -1
 
 typedef struct {
     /* 0x00 */ void* unk00;
@@ -73,7 +75,7 @@ typedef struct HuSprGrp {
 
 extern HuSprGrp* HuSprGrpData[HUSPR_GRP_MAX];
 
-void func_800525C8_531C8(s16);
+void HuSprGrpKill(s16);
 s16 HuSprGrpCreate(u16 arg0, u16 arg1);
 void func_80054904_55504(s16 group, s16 member, s16 arg2, s16 arg3);
 void func_80054FF8_55BF8(s16 group, s16 member, s32 arg2);
@@ -90,7 +92,7 @@ void HuSprAttrSet(s16 group, s16 member, s32 attr);
 void func_80055420_56020(s16, s16, u8, u8, u8);
 void func_80055458_56058(s16, s16, u16);
 HuSprite* HuSprGet(s16 group, s16 member);
-void func_80055670_56270(s16);
+void HuSprKill(s16);
 s16 func_80055810_56410(void*);
 
 #endif

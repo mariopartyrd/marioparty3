@@ -1,7 +1,12 @@
 #ifndef _OVL_39_H
 #define _OVL_39_H
 
-#include "common.h"
+#include "ultra64.h"
+#include "math.h"
+
+#include "game/hmfman.h"
+#include "game/object.h"
+#include "game/util.h"
 
 #define BSS __attribute__((section(".bss")))
 

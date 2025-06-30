@@ -651,8 +651,8 @@ void ItemUseWackyWatch(void) {
         func_80055458_56058(temp_s4, 0, j);
     }
 
-    func_800525C8_531C8(temp_s4);
-    func_80055670_56270(temp_s7);
+    HuSprGrpKill(temp_s4);
+    HuSprKill(temp_s7);
     HuPrcChildWait();
     
     for (i = 0; i < 3; i++) {
@@ -694,8 +694,8 @@ void ItemUseWackyWatch(void) {
     
     sp40 = 2;
     for (i = 0; i < 4; i++) {
-        func_800525C8_531C8(D_8011FB80_3356F0_ChillyWaters[i]);
-        func_80055670_56270(sp18[i]);
+        HuSprGrpKill(D_8011FB80_3356F0_ChillyWaters[i]);
+        HuSprKill(sp18[i]);
     }
     
     WipeCreateIn(0xB, 0x5A);

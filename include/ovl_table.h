@@ -1,5 +1,3 @@
-#include "common.h"
-
 // no guards—this file is meant to be #included multiple times
 OVL_DEFINE(test_menu1)
 OVL_DEFINE(hand_line_sinker)

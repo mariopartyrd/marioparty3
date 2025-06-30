@@ -22,8 +22,8 @@
                 ]
             },
             "includePath": [
-                "${workspaceFolder}/include/**",
-                "${workspaceFolder}/src/**",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/src",
                 "/usr/include/x86_64-linux-gnu"
             ],
             "defines": [

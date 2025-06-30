@@ -26,7 +26,7 @@ void func_80105FD4_4F0824_name_73(void) {
             return;
         }
         if (WipeStatGet() == 0) {
-            func_8004A994_4B594(30);
+            HuAudSeqFadeOut(30);
             func_8004AB0C_4B70C(30);
             func_80106054_4F08A4_name_73();
             omOvlReturnEx(1);

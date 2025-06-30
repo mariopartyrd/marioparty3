@@ -69,8 +69,8 @@ typedef struct HvqUnk {
     HvqHeader* unk8;
 } HvqUnk;
 
-void func_80012640_13240(s32, Gfx**);
-void func_800127C4_133C4(s32, Gfx**);
+void func_80012640_13240(s16, Gfx**);
+void func_800127C4_133C4(s16, Gfx**);
 void func_80017C10_18810(Mtx*, f32, f32, f32);
 void func_80017CD0_188D0(Mtx*, f32, f32, f32);
 void func_800185A4_191A4(Mtx*, f32);

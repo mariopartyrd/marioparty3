@@ -339,7 +339,6 @@ void func_8000C184_CD84(u16);
 void func_80017954_18554(s16, s32, u8, s16);             /* extern */
 void Hu3DModelRotSet(s16, f32, f32, f32);                /* extern */
 void func_8001C624_1D224(s16, u8, s32, s32, s32);          /* extern */
-void func_8004AC10_4B810(s32, u8);                       /* extern */
 void func_800E4F50_CCD20_name_81(Addr*);                  /* extern */
 void func_800E5040_CCE10_name_81(s32, s32);                /* extern */
 void func_80106C78_4C3EA8_name_6E(void);                   /* extern */
@@ -426,7 +425,7 @@ void func_8010FC98_4CCEC8_name_6E(void) {
         // }
     }
 
-    func_80055670_56270(D_801123A4_4CF5D4_name_6E);
+    HuSprKill(D_801123A4_4CF5D4_name_6E);
     func_8010F12C_4CC35C_name_6E();
     func_8001C5B4_1D1B4(temp_s5->model[1], temp_s5->motion[13]);
     func_8001C814_1D414(temp_s5->model[1], 2, 2);
@@ -461,7 +460,7 @@ void func_8010FC98_4CCEC8_name_6E(void) {
     func_8011196C_4CEB9C_name_6E(0);
     func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[0]].unk02, 0, 0xA, 2);
     HuPrcSleep(20);
-    func_8004AC10_4B810(0x2C6, GwStory.unk1);
+    CharFXPlay(0x2C6, GwStory.unk1);
     func_8001C624_1D224(temp_fp, HmfModelData[temp_s5->motion[2]].unk02, 0, 0xA, 0);
     func_80017954_18554(temp_fp, 2, GwStory.unk1, D_80112330_4CF560_name_6E);
     func_8010E5C4_4CB7F4_name_6E(temp_s7, 0.0f, 400.0f, 2500.0f, 0x14, 0);

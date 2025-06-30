@@ -2,7 +2,7 @@
 #define _GAME_OBJECT_H
 
 #include "ultra64.h"
-#include "common_structs.h"
+#include "math.h"
 #include "process.h"
 
 
@@ -56,20 +56,27 @@ void omSetStatBit(omObjData *obj, u16 stat);
 s32 omOvlReturnEx(s16 level);
 omObjData* omAddObj(s16 prio, u16 mdlcnt, u16 mtncnt, s16 group, omObjFunc func);
 Process* omAddPrcObj(process_func func, u16 priority, s32 stackSize, s32 extDataSize);
+void omDelPrcObj(s32);
 s32 omOvlCallEx(s32 ovlID, s16 event, u16 stat);
 void omMain(void);
+void func_8004A208_4AE08(void);
 void omPrcSetStatBit(Process* prc, s32 stat);
 void omOvlGotoEx(s32 ovlID, s16 event, u16 stat);
 void omOvlHisChg(s16 level, s32 overlay, s16 event, s16 stat);
+void omOvlKill(void);
 void omDestroyObjMan(void);
 void omPrcSetDestructor(s32, void*);
 void omPrcResetStatBit(Process* prc, s32 stat);
 void omDelObj(omObjData*);
 
 void omOutView(omObjData* object);
+void omOutViewMulti(omObjData* object);
 
-extern Vec CRot;
-extern Vec Center;
+extern f32 CZoomM[];
 extern f32 CZoom;
+extern Vec CRot;
+extern Vec CenterM[];
+extern Vec Center;
+extern Vec CRotM[];
 
 #endif //_GAME_OBJECT_H

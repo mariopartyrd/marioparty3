@@ -14,7 +14,6 @@ extern s16 D_800A1776_A2376;
 extern s16 D_800A1778_A2378;
 extern unkProcessStruct* D_800A177C_A237C;
 extern s16 D_800A1780_A2380;
-extern s16 D_800D0A3A_D163A;
 extern s8 D_800D1710_D2310;
 
 void omDestroyPrcObj(void);
@@ -24,7 +23,6 @@ void func_8000BBFC_C7FC(s32, s16);
 void func_800166D0_172D0(void);
 void func_8001AFE4_1BBE4(void);
 void func_80021AF4_226F4(void);
-void func_80037190_37D90(void);
 void omInsertObj(omObjData * obj);
 void func_80045350_45F50();
 void omAddMember(u16 group, omObjData * obj);
@@ -534,7 +532,7 @@ void omOvlHisChg(s16 level, s32 overlay, s16 event, s16 stat) {
 void omOvlKill(void) {
     D_800A1762_A2362 = 4;
     D_800B23C0_B2FC0 = D_800CD050_CDC50;
-    func_80037190_37D90();
+    GMesClose();
     func_8001AFE4_1BBE4();
     func_80021AF4_226F4();
     omDestroyObjMan();

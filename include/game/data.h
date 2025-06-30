@@ -1,7 +1,7 @@
 #ifndef __DATA_H
 #define __DATA_H
 
-#include "libultra.h"
+#include "ultra64.h"
 #include "decode.h"
 
 typedef enum
@@ -67,9 +67,14 @@ extern HuArchive gArchive;
 
 void DataInit(u8* fsRomPtr);
 void DataInfoRead(EArchiveType type, s32 index, HuFileInfo* info);
+void* DataRead(s32 dirAndFile);
+void* DataReadTemp(s32 dirAndFile);
+void* DataReadNum(s32 dirAndFile, s32 tag);
 void* DataDecode(EArchiveType type, s32 index);
 void* DataDecodeTemp(EArchiveType type, s32 index);
 void* DataDecodeNum(EArchiveType type, s32 index, s32 tag);
+void DataClose(void* data);
+void DataCloseTemp(void* data);
 void DataDirInit(EArchiveType type, s32 dir);
 
 #endif
