@@ -14,9 +14,20 @@ typedef struct {
 } HmfModelData_Unk64_Unk3C_Struct; // Size unknown
 
 typedef struct {
-    /* 0x00 */ char unk00[0x50];
+    /* 0x00 */ u8 unk00;
+    /* 0x01 */ char unk01[0x33];
+} HmfModelData_Unk64_Unk60_Unk54_Struct; // Size 0x34
+
+typedef struct {
+    /* 0x00 */ char unk00[0x22];
+    /* 0x22 */ s16 unk22;
+    /* 0x24 */ char unk24[4];
+    /* 0x28 */ s16 unk28;
+    /* 0x2A */ s16 unk2A;
+    /* 0x2C */ char unk2C[0x24];
     /* 0x50 */ s32 unk50;
-    /* 0x54 */ char unk54[0x14];
+    /* 0x54 */ HmfModelData_Unk64_Unk60_Unk54_Struct* unk54;
+    /* 0x58 */ char unk58[0x10];
 } HmfModelData_Unk64_Unk60_Struct; // Size 0x68
 
 typedef struct {
@@ -39,14 +50,20 @@ typedef struct {
     /* 0x0C */ s8 unk0C;
     /* 0x0E */ s16 unk0E;
     /* 0x10 */ s16 unk10;
-    /* 0x12 */ char unk12[0x26];
+    /* 0x12 */ char unk12[2];
+    /* 0x14 */ s16 unk14;
+    /* 0x16 */ char unk16[0x22];
     /* 0x38 */ s32 unk38;
     /* 0x3C */ HmfModelData_Unk64_Unk3C_Struct* unk3C;
     /* 0x40 */ char unk40[4];
     /* 0x44 */ Vtx* unk44[1]; // unknown length
-    /* 0x48 */ char unk48[0x18];
+    /* 0x48 */ char unk48[8];
+    /* 0x50 */ void* unk50;
+    /* 0x54 */ char unk54[0xC];
     /* 0x60 */ HmfModelData_Unk64_Unk60_Struct* unk60;
-    /* 0x64 */ char unk64[0x28];
+    /* 0x64 */ char unk64[0x20];
+    /* 0x84 */ s32 unk84;
+    /* 0x88 */ char unk88[4];
     /* 0x8C */ HmfModelData_Unk64_Unk8C_Struct* unk8C;
     /* 0x90 */ HmfModelData_Unk64_Unk8C_Struct* unk90;
     /* 0x94 */ HmfModelData_Unk64_Unk8C_Struct* unk94;
@@ -62,7 +79,7 @@ typedef struct {
     /* 0xC8 */ s32 unkC8;
     /* 0xCC */ char unkCC[4];
     /* 0xD0 */ s32 unkD0;
-} HmfModelData_Unk64_Struct; // Size unknown
+} HmfData; // Size unknown
 
 typedef struct {
     /* 0x00 */ s16 unk00;
@@ -101,18 +118,18 @@ typedef struct {
     /* 0x58 */ f32 unk58;
     /* 0x5C */ f32 unk5C;
     /* 0x60 */ f32 unk60;
-    /* 0x64 */ HmfModelData_Unk64_Struct* unk64;
+    /* 0x64 */ HmfData* hmf;
     /* 0x68 */ char unk68[8]; // 68 => 60 has size 0x68
     /* 0x70 */ void (*unk70)(Gfx**, s32, s32);
-    /* 0x74 */ f32 unk74[16];
+    /* 0x74 */ f32 mtx[16];
     /* 0xB4 */ s32 unkB4;
     /* 0xB8 */ char unkB8[4];
     /* 0xBC */ HmfModelData_UnkBC_Struct* unkBC;
 } HmfModel; // Size 0xC0
 
 void func_8001A070_1AC70(void* arg0, void* arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5);
-s16 Hu3DModelCreate(void*, s32);
-s16 Hu3DModelLink(s16);
+s16 Hu3DModelCreate(u8*, u32);
+s16 Hu3DModelLink(s16 linkMdlId);
 s32 func_8001A894_1B494(s32, void*, s32); // unsure about second arg. Gfx*?
 void func_8001ACDC_1B8DC(s16);
 void func_8001B0B4_1BCB4(void** arg0, u32 arg1);
@@ -122,11 +139,15 @@ void Hu3DModelRotSet(s16 arg0, f32 x, f32 y, f32 z);
 void Hu3DModelScaleSet(s16 arg0, f32 x, f32 y, f32 z);
 void func_8001C258_1CE58(s16 arg0, s32 arg1, s32 arg2);
 void func_8001C448_1D048(s16);
+s32 func_8001C514_1D114(s32);
+void func_8001C5B4_1D1B4(s16, s16);
 f32 func_8001C7D0_1D3D0(s16 arg0);
 void func_8001C814_1D414(s16, s16, s16);
 void func_8001C8A8_1D4A8(s16, s16);
 void func_8001C8E4_1D4E4(s16, u32);
 void func_8001C92C_1D52C(s16, f32);
+s32 func_8001C954_1D554(s32);
+s32 func_8001F1FC_1FDFC(void*, s32);
 void func_8001F304_1FF04(s16, s16);
 void func_8001FDE8_209E8(s16);
 

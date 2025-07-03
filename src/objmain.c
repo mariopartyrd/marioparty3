@@ -1,5 +1,6 @@
 #include "common.h"
 #include "game/object.h"
+#include "game/pause.h"
 #include "malloc.h"
 
 typedef struct unkProcessStruct {
@@ -24,7 +25,6 @@ void func_800166D0_172D0(void);
 void func_8001AFE4_1BBE4(void);
 void func_80021AF4_226F4(void);
 void omInsertObj(omObjData * obj);
-void func_80045350_45F50();
 void omAddMember(u16 group, omObjData * obj);
 void func_8004A354_4AF54(omObjData*);
 void func_8004A444_4B044(s32);
@@ -461,7 +461,7 @@ void omOvlGotoEx(s32 ovlID, s16 event, u16 stat) {
     u8 var_a0_2;
     u8 var_v1;
 
-    if ((omovl != name_7F) && (omovl != test_menu1)) {
+    if (omovl != selmenu && omovl != selmenu2) {
         omprevovl = omovl;
         D_800A1756_A2356 = D_800CE202_CEE02;
     }

@@ -524,16 +524,30 @@ segments:
   - type: code
     start: 0xA96F0
     vram: 0x800D6B70
-    dir: overlays/ovl_82_name
-    name: name_82
+    dir: overlays/minigame
+    name: minigame
     exclusive_ram_id: board_code
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x820
     subsegments:
       - [0xA96F0, c]
+      - [0xAB1C0, c]
+      - [0xB3CE0, c]
+      - [0xB63A0, c]
+      - [0xB7600, c]
+      - [0xB88C0, c]
+      - [0xB8A20, c]
+      - [0xBA4B0, c]
+      - [0xBC7A0, c]
+      - [0xBD210, c]
       - [0xBE2A0, data, A96F0] #800EB720
       - [0xBE690, .rodata, A96F0] #800EBB10
-      - {0xBE940, type: bss, vram: 0x800EBDC0, name: ovl_82_bss}
+      - [0xBE6B0, .rodata, AB1C0] #800EBB30
+      - [0xBE750, .rodata, B3CE0] #800EBBD0
+      - [0xBE760, .rodata, B63A0] #800EBBE0
+      - [0xBE770, .rodata, B7600] #800EBBF0
+      - [0xBE860, .rodata, B8A20] #800EBCE0
+      - {0xBE940, type: bss, vram: 0x800EBDC0, name: minigame_bss}
 
   - type: code
     start: 0xBE940
@@ -636,8 +650,8 @@ segments:
   - type: code
     start: 0x116320
     vram: 0x801059A0
-    dir: overlays/ovl_00_test_menu1
-    name: test_menu1
+    dir: overlays/selmenu2
+    name: selmenu2
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x220
@@ -645,7 +659,7 @@ segments:
       - [0x116320, c]
       - [0x119560, data, 116320] #80108BE0
       - [0x11A430, .rodata, 116320]
-      - {0x11A480, type: bss, vram: 0x80109B00, name: ovl_00_bss}
+      - {0x11A480, type: bss, vram: 0x80109B00, name: selmenu2_bss}
 
   - type: code
     start: 0x11A480
@@ -1655,8 +1669,8 @@ segments:
   - type: code
     start: 0x31B3B0
     vram: 0x801059A0
-    dir: overlays/ovl_47_name
-    name: name_47
+    dir: overlays/boardcall
+    name: boardcall
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x000
@@ -1664,8 +1678,9 @@ segments:
       - [0x31B3B0, c]
       - [0x31B3E0, c]
       - [0x31B4F0, .data, 31B3B0] #80105AE0
-      - {0x31B510, type: bss, vram: 0x80105B00, name: ovl_47_bss}
+      - {0x31B510, type: bss, vram: 0x80105B00, name: boardcall_bss}
 
+  # Chilly Waters
   - type: code
     start: 0x31B510
     vram: 0x801059A0
@@ -1683,11 +1698,12 @@ segments:
       - [0x3354B0, .rodata, 31B9F0] #8011F940
       - {0x3355E0, type: bss, vram: 0x8011FA70, name: ovl_48_bss}
 
+  # Deep Bloober Sea
   - type: code
     start: 0x3355E0
     vram: 0x801059A0
-    dir: overlays/ovl_49_DeepBlooberSea
-    name: DeepBlooberSea
+    dir: overlays/w02
+    name: w02
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x140
@@ -1697,13 +1713,14 @@ segments:
       - [0x34C270, .data, 3355E0] #8011C630
       - [0x34C2A0, data, 335610] #335610
       - [0x34E7A0, .rodata, 335610] #8011EB60
-      - {0x34E810, type: bss, vram: 0x8011EBD0, name: ovl_49_bss}
+      - {0x34E810, type: bss, vram: 0x8011EBD0, name: w02_bss}
 
+  # Spiny Desert
   - type: code
     start: 0x34E810
     vram: 0x801059A0
-    dir: overlays/ovl_4A_SpinyDesert
-    name: SpinyDesert
+    dir: overlays/w03
+    name: w03
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x150
@@ -1713,13 +1730,14 @@ segments:
       - [0x364F50, .data, 34E810] #8011C0E0
       - [0x364F80, data, 34E840]
       - [0x367780, .rodata, 34E840] #8011E910
-      - {0x367930, type: bss, vram: 0x8011EAC0, name: ovl_4A_bss}
+      - {0x367930, type: bss, vram: 0x8011EAC0, name: w03_bss}
 
+  # Woody Woods
   - type: code
     start: 0x367930
     vram: 0x801059A0
-    dir: overlays/ovl_4B_WoodyWoods
-    name: WoodyWoods
+    dir: overlays/w04
+    name: w04
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x130
@@ -1729,13 +1747,14 @@ segments:
       - [0x37D6A0, .data, 367930] #8011B710
       - [0x37D6D0, data, 367960] #8011B710
       - [0x37FDD0, .rodata, 367960] #8011DE40
-      - {0x37FF80, type: bss, vram: 0x8011DFF0, name: ovl_4B_bss}
+      - {0x37FF80, type: bss, vram: 0x8011DFF0, name: w04_bss}
 
+  # Creepy Cavern
   - type: code
     start: 0x37FF80
     vram: 0x801059A0
-    dir: overlays/ovl_4C_CreepyCavern
-    name: CreepyCavern
+    dir: overlays/w05
+    name: w05
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x160
@@ -1745,13 +1764,14 @@ segments:
       - [0x3975F0, .data, 37FF80] #8011D010
       - [0x397620, data, 37FFB0]
       - [0x39AC70, .rodata, 37FFB0] #80120690
-      - {0x39AD20, type: bss, vram: 0x80120740, name: ovl_4C_bss}
+      - {0x39AD20, type: bss, vram: 0x80120740, name: w05_bss}
 
+  # Waluigi's Island
   - type: code
     start: 0x39AD20
     vram: 0x801059A0
-    dir: overlays/ovl_4D_WaluigisIsland
-    name: WaluigisIsland
+    dir: overlays/w06
+    name: w06
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x140
@@ -1761,13 +1781,13 @@ segments:
       - [0x3B08D0, .data, 39AD20] #8011B550
       - [0x3B0900, data, 39AD50]
       - [0x3B3460, .rodata, 39AD50] #8011E0E0
-      - {0x3B35F0, type: bss, vram: 0x8011E270, name: ovl_4D_bss}
+      - {0x3B35F0, type: bss, vram: 0x8011E270, name: w06_bss}
 
   - type: code
     start: 0x3B35F0
     vram: 0x801059A0
-    dir: overlays/ovl_4E_name
-    name: name_4E
+    dir: overlays/w10
+    name: w10
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x80
@@ -1776,13 +1796,13 @@ segments:
       - [0x3B3620, c]
       - [0x3B9420, data, 3B35F0] #8010B7D0
       - [0x3B9590, .rodata, 3B3620] #8010B940
-      - {0x3B9670, type: bss, vram: 0x8010BA20, name: ovl_4E_bss}
+      - {0x3B9670, type: bss, vram: 0x8010BA20, name: w10_bss}
 
   - type: code
     start: 0x3B9670
     vram: 0x801059A0
-    dir: overlays/ovl_4F_name
-    name: name_4F
+    dir: overlays/boardresult
+    name: boardresult
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0xE0
@@ -1791,13 +1811,13 @@ segments:
       - [0x3BFA00, c]
       - [0x3C20B0, data, 3B9670] #8010E3E0
       - [0x3C26A0, .rodata, 3B9670] #8010E9D0
-      - {0x3C27C0, type: bss, vram: 0x8010EAF0, name: ovl_4F_bss}
+      - {0x3C27C0, type: bss, vram: 0x8010EAF0, name: boardresult_bss}
 
   - type: code
     start: 0x3C27C0
     vram: 0x801059A0
-    dir: overlays/ovl_50_BowserEvent
-    name: BowserEvent
+    dir: overlays/koopa
+    name: koopa
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x80
@@ -1805,13 +1825,13 @@ segments:
       - [0x3C27C0, c]
       - [0x3C6170, .data, 3C27C0] #80109350
       - [0x3C62A0, .rodata, 3C27C0] #80109480
-      - {0x3C6310, type: bss, vram: 0x801094F0, name: ovl_50_bss}
+      - {0x3C6310, type: bss, vram: 0x801094F0, name: koopa_bss}
 
   - type: code
     start: 0x3C6310
     vram: 0x801059A0
-    dir: overlays/ovl_51_name
-    name: name_51
+    dir: overlays/last5
+    name: last5
     subalign: 16
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
@@ -1820,13 +1840,13 @@ segments:
       - [0x3C6310, c]
       - [0x3C7DF0, data, 3C6310] #80107480
       - [0x3C7E80, .rodata, 3C6310]
-      - {0x3C7EC0, type: bss, vram: 0x80107550, name: ovl_51_bss}
+      - {0x3C7EC0, type: bss, vram: 0x80107550, name: last5_bss}
 
   - type: code
     start: 0x3C7EC0
     vram: 0x801059A0
-    dir: overlays/ovl_52_name
-    name: name_52
+    dir: overlays/majinlamp
+    name: majinlamp
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0xF0
@@ -1834,13 +1854,13 @@ segments:
       - [0x3C7EC0, c]
       - [0x3CA5F0, data, 3C7EC0] #801080D0
       - [0x3CA650, .rodata, 3C7EC0] #80108130
-      - {0x3CA800, type: bss, vram: 0x801082E0, name: ovl_52_bss}
+      - {0x3CA800, type: bss, vram: 0x801082E0, name: majinlamp_bss}
 
   - type: code
     start: 0x3CA800
     vram: 0x801059A0
-    dir: overlays/ovl_53_name
-    name: name_53
+    dir: overlays/opboard
+    name: opboard
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x20
@@ -1848,13 +1868,13 @@ segments:
       - [0x3CA800, c]
       - [0x3CDBD0, data, 3CA800] #80108D70
       - [0x3CDDE0, .rodata, 3CA800]
-      - {0x3CDEC0, type: bss, vram: 0x80109060, name: ovl_53_bss}
+      - {0x3CDEC0, type: bss, vram: 0x80109060, name: opboard_bss}
 
   - type: code
     start: 0x3CDEC0
     vram: 0x801059A0
-    dir: overlays/ovl_54_name
-    name: name_54
+    dir: overlays/opboardtutorial
+    name: opboardtutorial
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x40
@@ -1862,13 +1882,13 @@ segments:
       - [0x3CDEC0, c]
       - [0x3CFAE0, data, 3CDEC0] #801075C0
       - [0x3CFC60, .rodata, 3CDEC0] #80107740
-      - {0x3CFC80, type: bss, vram: 0x80107760, name: ovl_54_bss}
+      - {0x3CFC80, type: bss, vram: 0x80107760, name: opboardtutorial_bss}
 
   - type: code
     start: 0x3CFC80
     vram: 0x801059A0
-    dir: overlays/ovl_55_name
-    name: name_55
+    dir: overlays/boardresult2
+    name: boardresult2
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0xB0
@@ -1876,13 +1896,13 @@ segments:
       - [0x3CFC80, c]
       - [0x3D3A90, data, 3CFC80] #801097B0
       - [0x3D3B10, .rodata, 3CFC80] #80109830
-      - {0x3D3C80, type: bss, vram: 0x801099A0, name: ovl_55_bss}
+      - {0x3D3C80, type: bss, vram: 0x801099A0, name: boardresult2_bss}
 
   - type: code
     start: 0x3D3C80
     vram: 0x801059A0
-    dir: overlays/ovl_56_name
-    name: name_56
+    dir: overlays/mchar
+    name: mchar
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x190
@@ -1890,13 +1910,13 @@ segments:
       - [0x3D3C80, c]
       - [0x3D5160, data, 3D3C80] #80106E80
       - [0x3D5440, .rodata, 3D3C80] #80107160
-      - {0x3D5C30, type: bss, vram: 0x80107950, name: ovl_56_bss}
+      - {0x3D5C30, type: bss, vram: 0x80107950, name: mchar_bss}
 
   - type: code
     start: 0x3D5C30
     vram: 0x801059A0
-    dir: overlays/ovl_57_name
-    name: name_57
+    dir: overlays/mchar2
+    name: mchar2
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x1A0
@@ -1904,13 +1924,13 @@ segments:
       - [0x3D5C30, c]
       - [0x3D7040, data, 3D5C30] #80106DB0
       - [0x3D70A0, .rodata, 3D5C30] #80106E10
-      - {0x3D7150, type: bss, vram: 0x80106EC0, name: ovl_57_bss}
+      - {0x3D7150, type: bss, vram: 0x80106EC0, name: mchar2_bss}
 
   - type: code
     start: 0x3D7150
     vram: 0x801059A0
-    dir: overlays/ovl_58_name
-    name: name_58
+    dir: overlays/boot
+    name: ovl_boot
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x10
@@ -1919,13 +1939,13 @@ segments:
       - [0x3D7180, c]
       - [0x3D7690, .data, 3D7150] #80105EE0
       - [0x3D76B0, .data, 3D7180]
-      - {0x3D76C0, type: bss, vram: 0x80105F10, name: ovl_58_bss}
+      - {0x3D76C0, type: bss, vram: 0x80105F10, name: boot_bss}
 
   - type: code
     start: 0x3D76C0
     vram: 0x801059A0
-    dir: overlays/ovl_59_name
-    name: name_59
+    dir: overlays/sldebug
+    name: sldebug
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x30
@@ -1933,13 +1953,13 @@ segments:
       - [0x3D76C0, c]
       - [0x3D8680, data, 3D76C0] #80106960
       - [0x3D86B0, .rodata, 3D76C0] #80106990
-      - {0x3D8930, type: bss, vram: 0x80106C10, name: ovl_59_bss}
+      - {0x3D8930, type: bss, vram: 0x80106C10, name: sldebug_bss}
 
   - type: code
     start: 0x3D8930
     vram: 0x801059A0
-    dir: overlays/ovl_5A_gate_guy_intro1
-    name: gate_guy_intro1
+    dir: overlays/duelcall
+    name: duelcall
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0
@@ -1948,13 +1968,14 @@ segments:
       - [0x3D8960, c]
       - [0x3D8A70, .data, 3D8930] #80105AE0
       - [0x3D8A90, data, 3D8960]
-      - {0x3D8A90, type: bss, vram: 0x80105B00, name: ovl_5A_bss}
+      - {0x3D8A90, type: bss, vram: 0x80105B00, name: duelcall_bss}
 
+  # Gate Guy
   - type: code
     start: 0x3D8A90
     vram: 0x801059A0
-    dir: overlays/ovl_5B_board_gate_guy
-    name: board_gate_guy
+    dir: overlays/duel01
+    name: duel01
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x50
@@ -1964,13 +1985,14 @@ segments:
       - [0x3EB7D0, .data, 3D8A90] #801186E0
       - [0x3EB800, data, 3D8AC0]
       - [0x3EBF50, .rodata, 3D8AC0] #80118E60
-      - {0x3EC560, type: bss, vram: 0x80119470, name: ovl_5B_bss}
+      - {0x3EC560, type: bss, vram: 0x80119470, name: duel01_bss}
 
+  # Arrowhead
   - type: code
     start: 0x3EC560
     vram: 0x801059A0
-    dir: overlays/ovl_5C_board_arrowhead_intro
-    name: board_arrowhead_intro
+    dir: overlays/duel02
+    name: duel02
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x40
@@ -1980,13 +2002,14 @@ segments:
       - [0x3FD130, .data, 3EC560] #80116570
       - [0x3FD160, data, 3EC590]
       - [0x3FDC30, .rodata, 3EC590] #80117070
-      - {0x3FE1C0, type: bss, vram: 0x80117600, name: ovl_5C_bss}
+      - {0x3FE1C0, type: bss, vram: 0x80117600, name: duel02_bss}
 
+  # Pipesqueak
   - type: code
     start: 0x3FE1C0
     vram: 0x801059A0
-    dir: overlays/ovl_5D_board_pipesqueak_intro
-    name: board_pipesqueak_intro
+    dir: overlays/duel03
+    name: duel03
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x50
@@ -1996,13 +2019,14 @@ segments:
       - [0x40FC20, .data, 3FE1C0] #80117400
       - [0x40FC50, data, 3FE1F0]
       - [0x410340, .rodata, 3FE1F0] #80117B20
-      - {0x4108E0, type: bss, vram: 0x801180C0, name: ovl_5D_bss}
+      - {0x4108E0, type: bss, vram: 0x801180C0, name: duel03_bss}
 
+  # Blowhard
   - type: code
     start: 0x4108E0
     vram: 0x801059A0
-    dir: overlays/ovl_5E_board_blowhard_intro
-    name: board_blowhard_intro
+    dir: overlays/duel04
+    name: duel04
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x40
@@ -2012,13 +2036,13 @@ segments:
       - [0x424BB0, .data, 4108E0] #80119C70
       - [0x424BE0, data, 410910]
       - [0x426370, .rodata, 410910] #8011B430
-      - {0x426420, type: bss, vram: 0x8011B4E0, name: ovl_5E_bss}
+      - {0x426420, type: bss, vram: 0x8011B4E0, name: duel04_bss}
 
   - type: code
     start: 0x426420
     vram: 0x801059A0
-    dir: overlays/ovl_5F_name
-    name: name_5F
+    dir: overlays/duel05
+    name: duel05
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x40
@@ -2027,13 +2051,13 @@ segments:
       - [0x426450, c]
       - [0x436100, data, 426420] #80115680
       - [0x4368F0, .rodata, 426450] #80115E70
-      - {0x436E20, type: bss, vram: 0x801163A0, name: ovl_5F_bss}
+      - {0x436E20, type: bss, vram: 0x801163A0, name: duel05_bss}
 
   - type: code
     start: 0x436E20
     vram: 0x801059A0
-    dir: overlays/ovl_60_name
-    name: name_60
+    dir: overlays/duel06
+    name: duel06
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x50
@@ -2042,13 +2066,13 @@ segments:
       - [0x436E50, c]
       - [0x445900, data, 436E20] #80114480
       - [0x445C20, .rodata, 436E50] #801147A0
-      - {0x4461B0, type: bss, vram: 0x80114D30, name: ovl_60_bss}
+      - {0x4461B0, type: bss, vram: 0x80114D30, name: duel06_bss}
 
   - type: code
     start: 0x4461B0
     vram: 0x801059A0
-    dir: overlays/ovl_61_name
-    name: name_61
+    dir: overlays/duel10
+    name: duel10
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x40
@@ -2057,13 +2081,13 @@ segments:
       - [0x4461E0, c]
       - [0x4551C0, data, 4461B0] #801149B0
       - [0x455380, .rodata, 4461E0] #80114B70
-      - {0x4554C0, type: bss, vram: 0x80114CB0, name: ovl_61_bss}
+      - {0x4554C0, type: bss, vram: 0x80114CB0, name: duel10_bss}
 
   - type: code
     start: 0x4554C0
     vram: 0x801059A0
-    dir: overlays/ovl_62_name
-    name: name_62
+    dir: overlays/duelresult
+    name: duelresult
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0xF0
@@ -2072,13 +2096,13 @@ segments:
       - [0x45A700, c]
       - [0x45CDB0, data, 4554C0] #8010D290
       - [0x45D260, .rodata, 4554C0] #8010D740
-      - {0x45D380, type: bss, vram: 0x8010D860, name: ovl_62_bss}
+      - {0x45D380, type: bss, vram: 0x8010D860, name: duelresult_bss}
 
   - type: code
     start: 0x45D380
     vram: 0x801059A0
-    dir: overlays/ovl_63_name
-    name: name_63
+    dir: overlays/duelresult2
+    name: duelresult2
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x90
@@ -2086,13 +2110,13 @@ segments:
       - [0x45D380, c]
       - [0x460610, data, 45D380] #80108C30
       - [0x460680, .rodata, 45D380] #80108CA0
-      - {0x460790, type: bss, vram: 0x80108DB0, name: ovl_63_bss}
+      - {0x460790, type: bss, vram: 0x80108DB0, name: duelresult2_bss}
 
   - type: code
     start: 0x460790
     vram: 0x801059A0
-    dir: overlays/ovl_64_name
-    name: name_64
+    dir: overlays/opduel
+    name: opduel
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x20
@@ -2100,13 +2124,13 @@ segments:
       - [0x460790, c]
       - [0x463FF0, data, 460790] #80109200
       - [0x4642E0, .rodata, 460790] #801094F0
-      - {0x464360, type: bss, vram: 0x80109570, name: ovl_64_bss}
+      - {0x464360, type: bss, vram: 0x80109570, name: opduel_bss}
 
   - type: code
     start: 0x464360
     vram: 0x801059A0
-    dir: overlays/ovl_65_name
-    name: name_65
+    dir: overlays/opdueltutorial
+    name: opdueltutorial
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x40
@@ -2114,13 +2138,13 @@ segments:
       - [0x464360, c]
       - [0x4672F0, data, 464360] #80108930
       - [0x467560, .rodata, 464360] #80108BA0
-      - {0x4675D0, type: bss, vram: 0x80108C10, name: ovl_65_bss}
+      - {0x4675D0, type: bss, vram: 0x80108C10, name: opdueltutorial_bss}
 
   - type: code
     start: 0x4675D0
     vram: 0x801059A0
-    dir: overlays/ovl_66_name
-    name: name_66
+    dir: overlays/storydebug
+    name: storydebug
     subalign: 16
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
@@ -2131,13 +2155,13 @@ segments:
       - [0x468310, .data, 4675D0] #801066E0
       - [0x468320, .data, 467600]
       - [0x468340, .rodata, 467600] #80106710
-      - {0x4684F0, type: bss, vram: 0x801068C0, name: ovl_66_bss}
+      - {0x4684F0, type: bss, vram: 0x801068C0, name: storydebug_bss}
 
   - type: code
     start: 0x4684F0
     vram: 0x801059A0
-    dir: overlays/ovl_67_name
-    name: name_67
+    dir: overlays/slerror
+    name: slerror
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x10
@@ -2145,13 +2169,13 @@ segments:
       - [0x4684F0, c]
       - [0x468520, c]
       - [0x468A70, data, 4684F0] #80105F20
-      - {0x468A90, type: bss, vram: 0x80105F40, name: ovl_67_bss}
+      - {0x468A90, type: bss, vram: 0x80105F40, name: slerror_bss}
 
   - type: code
     start: 0x468A90
     vram: 0x801059A0
-    dir: overlays/ovl_68_name
-    name: name_68
+    dir: overlays/mgenter
+    name: mgenter
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x110
@@ -2162,13 +2186,13 @@ segments:
       - [0x46CB70, data, 468A90] #80109A80
       - [0x46CBB0, .rodata, 468AC0] #80109AC0
       - [0x46CBC8, .rodata, 46BB50] #80109AD8
-      - {0x46CC10, type: bss, vram: 0x80109B20, name: ovl_68_bss}
+      - {0x46CC10, type: bss, vram: 0x80109B20, name: mgenter_bss}
 
   - type: code
     start: 0x46CC10
     vram: 0x801059A0
-    dir: overlays/ovl_69_name
-    name: name_69
+    dir: overlays/mgmode
+    name: mgmode
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x1260
@@ -2183,13 +2207,13 @@ segments:
       - [0x481810, .rodata, 473130] #80120920
       - [0x4818E0, .rodata, 479470] #80126C60
       - [0x481900, .rodata, 47DD90] #8012B580
-      - {0x481970, type: bss, vram: 0x8011A700, name: ovl_69_bss}
+      - {0x481970, type: bss, vram: 0x8011A700, name: mgmode_bss}
 
   - type: code
     start: 0x481970
     vram: 0x801059A0
-    dir: overlays/ovl_6A_name
-    name: name_6A
+    dir: overlays/chancetime
+    name: chancetime
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x280
@@ -2202,13 +2226,13 @@ segments:
       - [0x48BBF0, .rodata, 481970] #8010FC20
       - [0x48BC50, .rodata, 4832D0] #8010FC80
       - [0x48BC68, .rodata, 487F50] #8010FC98
-      - {0x48BE30, type: bss, vram: 0x8010FE60, name: ovl_6A_bss}
+      - {0x48BE30, type: bss, vram: 0x8010FE60, name: chancetime_bss}
 
   - type: code
     start: 0x48BE30
     vram: 0x801059A0
-    dir: overlays/ovl_6B_name
-    name: name_6B
+    dir: overlays/mstory1
+    name: mstory1
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x410
@@ -2222,13 +2246,13 @@ segments:
       - [0x49B0E0, .rodata, 48C120] #80114C50
       - [0x49B550, .rodata, 492250] #801150B0
       - [0x49B960, .rodata, 496990] #801154C0
-      - {0x49BD40, type: bss, vram: 0x801158B0, name: ovl_6B_bss}
+      - {0x49BD40, type: bss, vram: 0x801158B0, name: mstory1_bss}
 
   - type: code
     start: 0x49BD40
     vram: 0x801059A0
-    dir: overlays/ovl_6C_name
-    name: name_6C
+    dir: overlays/mstory2
+    name: mstory2
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x450
@@ -2236,13 +2260,13 @@ segments:
       - [0x49BD40, c] # TODO: split at 49DF30, 4A7540, 4AC200 and 4B0E80? Having issues with rodata.
       - [0x4B1CC0, data, 49BD40] #8011B920
       - [0x4B2180, .rodata, 49BD40] #8011BDE0
-      - {0x4B29E0, type: bss, vram: 0x8011C640, name: ovl_6C_bss}
+      - {0x4B29E0, type: bss, vram: 0x8011C640, name: mstory2_bss}
 
   - type: code
     start: 0x4B29E0
     vram: 0x801059A0
-    dir: overlays/ovl_6D_name
-    name: name_6D
+    dir: overlays/mstory3
+    name: mstory3
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x240
@@ -2250,13 +2274,13 @@ segments:
       - [0x4B29E0, c]
       - [0x4C22A0, data, 4B29E0] #80115260
       - [0x4C28C0, .rodata, 4B29E0] #80115880
-      - {0x4C2BD0, type: bss, vram: 0x80115B90, name: ovl_6D_bss}
+      - {0x4C2BD0, type: bss, vram: 0x80115B90, name: mstory3_bss}
 
   - type: code
     start: 0x4C2BD0
     vram: 0x801059A0
-    dir: overlays/ovl_6E_name
-    name: name_6E
+    dir: overlays/mstory4
+    name: mstory4
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x2A0
@@ -2264,13 +2288,13 @@ segments:
       - [0x4C2BD0, c]
       - [0x4CECF0, data, 4C2BD0] #80111AC0
       - [0x4CEE40, .rodata, 4C2BD0] #80111C10
-      - {0x4CF350, type: bss, vram: 0x80112120, name: ovl_6E_bss}
+      - {0x4CF350, type: bss, vram: 0x80112120, name: mstory4_bss}
 
   - type: code
     start: 0x4CF350
     vram: 0x801059A0
-    dir: overlays/ovl_6F_name
-    name: name_6F
+    dir: overlays/mstory5
+    name: mstory5
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x520
@@ -2278,13 +2302,13 @@ segments:
       - [0x4CF350, c]
       - [0x4DE0E0, data, 4CF350] #80114730
       - [0x4DE250, .rodata, 4CF350] #801148A0
-      - {0x4DEB60, type: bss, vram: 0x801151B0, name: ovl_6F_bss}
+      - {0x4DEB60, type: bss, vram: 0x801151B0, name: mstory5_bss}
 
   - type: code
     start: 0x4DEB60
     vram: 0x801059A0
-    dir: overlays/ovl_70_name
-    name: name_70
+    dir: overlays/inst
+    name: inst
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x1F0
@@ -2292,13 +2316,13 @@ segments:
       - [0x4DEB60, c]
       - [0x4E65C0, data, 4DEB60] #8010D400
       - [0x4E6780, .rodata, 4DEB60] #8010D5C0
-      - {0x4E6DC0, type: bss, vram: 0x8010DC00, name: ovl_70_bss}
+      - {0x4E6DC0, type: bss, vram: 0x8010DC00, name: inst_bss}
 
   - type: code
     start: 0x4E6DC0
     vram: 0x801059A0
-    dir: overlays/ovl_71_name
-    name: name_71
+    dir: overlays/mgresultboard
+    name: mgresultboard
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x2F0
@@ -2306,13 +2330,13 @@ segments:
       - [0x4E6DC0, c]
       - [0x4EBF10, data, 4E6DC0] #8010AAF0
       - [0x4EC0E0, .rodata, 4E6DC0] #8010ACC0
-      - {0x4EC1B0, type: bss, vram: 0x8010AD90, name: ovl_71_bss}
+      - {0x4EC1B0, type: bss, vram: 0x8010AD90, name: mgresultboard_bss}
 
   - type: code
     start: 0x4EC1B0
     vram: 0x801059A0
-    dir: overlays/ovl_72_name
-    name: name_72
+    dir: overlays/mgresultdealer
+    name: mgresultdealer
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x8A0
@@ -2320,13 +2344,13 @@ segments:
       - [0x4EC1B0, c]
       - [0x4F00D0, data, 4EC1B0] #801098C0
       - [0x4F0170, .rodata, 4EC1B0] #80109960
-      - {0x4F01F0, type: bss, vram: 0x801099E0, name: ovl_72_bss}
+      - {0x4F01F0, type: bss, vram: 0x801099E0, name: mgresultdealer_bss}
 
   - type: code
     start: 0x4F01F0
     vram: 0x801059A0
-    dir: overlays/ovl_73_name
-    name: name_73
+    dir: overlays/mgresultduel
+    name: mgresultduel
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x420
@@ -2334,13 +2358,13 @@ segments:
       - [0x4F01F0, c]
       - [0x4F36C0, data, 4F01F0] #80108E70
       - [0x4F36F0, .rodata, 4F01F0] #80108EA0
-      - {0x4F3780, type: bss, vram: 0x80108F30, name: ovl_73_bss}
+      - {0x4F3780, type: bss, vram: 0x80108F30, name: mgresultduel_bss}
 
   - type: code
     start: 0x4F3780
     vram: 0x801059A0
-    dir: overlays/ovl_74_name
-    name: name_74
+    dir: overlays/mgresultbattle
+    name: mgresultbattle
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x570
@@ -2348,26 +2372,26 @@ segments:
       - [0x4F3780, c]
       - [0x4F66B0, data, 4F3780] #801088D0
       - [0x4F66D0, .rodata, 4F3780] #801088F0
-      - {0x4F6810, type: bss, vram: 0x80108A30, name: ovl_74_bss}
+      - {0x4F6810, type: bss, vram: 0x80108A30, name: mgresultbattle_bss}
 
   - type: code
     start: 0x4F6810
     vram: 0x801059A0
-    dir: overlays/ovl_75_name
-    name: name_75
+    dir: overlays/storycall
+    name: storycall
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x000
     subsegments:
       - [0x4F6810, c]
       - [0x4F69B0, .rodata, 4F6810] #80105B40
-      - {0x4F69F0, type: bss, vram: 0x80105B80, name: ovl_75_bss}
+      - {0x4F69F0, type: bss, vram: 0x80105B80, name: storycall_bss}
 
   - type: code
     start: 0x4F69F0
     vram: 0x801059A0
-    dir: overlays/ovl_76_name
-    name: name_76
+    dir: overlays/meschk
+    name: meschk
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x1D0
@@ -2375,13 +2399,13 @@ segments:
       - [0x4F69F0, c]
       - [0x4F7550, data, 4F69F0] #80106500
       - [0x4F7A30, .rodata, 4F69F0] #801069E0
-      - {0x4F7E90, type: bss, vram: 0x80106E40, name: ovl_76_bss}
+      - {0x4F7E90, type: bss, vram: 0x80106E40, name: meschk_bss}
 
   - type: code
     start: 0x4F7E90
     vram: 0x801059A0
-    dir: overlays/ovl_77_name
-    name: name_77
+    dir: overlays/modesel
+    name: modesel
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x16E0
@@ -2389,13 +2413,13 @@ segments:
       - [0x4F7E90, c]
       - [0x501760, data, 4F7E90] #8010F270
       - [0x5018D0, .rodata, 4F7E90] #8010F3E0
-      - {0x501C00, type: bss, vram: 0x8010F710, name: ovl_77_bss}
+      - {0x501C00, type: bss, vram: 0x8010F710, name: modesel_bss}
 
   - type: code
     start: 0x501C00
     vram: 0x801059A0
-    dir: overlays/ovl_78_name
-    name: name_78
+    dir: overlays/msetup
+    name: msetup
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x1D0
@@ -2403,13 +2427,13 @@ segments:
       - [0x501C00, c]
       - [0x515670, data, 501C00] #80119410
       - [0x5167E0, .rodata, 501C00] #8011A580
-      - {0x516AE0, type: bss, vram: 0x8011A880, name: ovl_78_bss}
+      - {0x516AE0, type: bss, vram: 0x8011A880, name: msetup_bss}
 
   - type: code
     start: 0x516AE0
     vram: 0x801059A0
-    dir: overlays/ovl_79_FileSelect
-    name: FileSelect
+    dir: overlays/filesel
+    name: filesel
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x1850
@@ -2417,13 +2441,13 @@ segments:
       - [0x516AE0, c]
       - [0x5238E0, data, 516AE0] #801127A0
       - [0x523B30, .rodata, 516AE0] #801129F0
-      - {0x523FD0, type: bss, vram: 0x80112E90, name: ovl_79_bss}
+      - {0x523FD0, type: bss, vram: 0x80112E90, name: filesel_bss}
 
   - type: code
     start: 0x523FD0
     vram: 0x801059A0
-    dir: overlays/ovl_7A_name
-    name: name_7A
+    dir: overlays/opening
+    name: opening
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x28C0
@@ -2431,13 +2455,13 @@ segments:
       - [0x523FD0, c]
       - [0x533180, data, 523FD0] #80114B50
       - [0x5332A0, .rodata, 523FD0] #80114C70
-      - {0x5334D0, type: bss, vram: 0x80114EA0, name: ovl_7A_bss}
+      - {0x5334D0, type: bss, vram: 0x80114EA0, name: opening_bss}
 
   - type: code
     start: 0x5334D0
     vram: 0x801059A0
-    dir: overlays/ovl_7B_name
-    name: name_7B
+    dir: overlays/option
+    name: option
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x1510
@@ -2445,13 +2469,13 @@ segments:
       - [0x5334D0, c]
       - [0x540FE0, data, 5334D0] #801134B0
       - [0x541550, .rodata, 5334D0] #80113A20
-      - {0x542220, type: bss, vram: 0x801146F0, name: ovl_7B_bss}
+      - {0x542220, type: bss, vram: 0x801146F0, name: option_bss}
 
   - type: code
     start: 0x542220
     vram: 0x801059A0
-    dir: overlays/ovl_7C_name
-    name: name_7C
+    dir: overlays/staff
+    name: staff
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0xE0
@@ -2459,13 +2483,13 @@ segments:
       - [0x542220, c]
       - [0x54CDB0, data, 542220] #80110530
       - [0x54DA70, .rodata, 542220] #801111F0
-      - {0x54DD10, type: bss, vram: 0x80111490, name: ovl_7C_bss}
+      - {0x54DD10, type: bss, vram: 0x80111490, name: staff_bss}
 
   - type: code
     start: 0x54DD10
     vram: 0x801059A0
-    dir: overlays/ovl_7D_name
-    name: name_7D
+    dir: overlays/storyresult
+    name: storyresult
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x60
@@ -2473,7 +2497,7 @@ segments:
       - [0x54DD10, c]
       - [0x552C80, data, 54DD10] #8010A910
       - [0x552F30, .rodata, 54DD10] #8010ABC0
-      - {0x552F50, type: bss, vram: 0x8010ABE0, name: ovl_7D_bss}
+      - {0x552F50, type: bss, vram: 0x8010ABE0, name: storyresult_bss}
 
   #this segment is 0 in size, but we need it to populate _ovltbl correctly
   - type: code
@@ -2492,15 +2516,15 @@ segments:
   - type: code
     start: 0x552F50
     vram: 0x801059A0
-    dir: overlays/ovl_7F_name
-    name: name_7F
+    dir: overlays/selmenu
+    name: selmenu
     exclusive_ram_id: minigame
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x220
     subsegments:
       - [0x552F50, c]
       - [0x556240, data, 552F50] #80108C90
-      - {0x557620, type: bss, vram: 0x8010A070, name: ovl_7F_bss}
+      - {0x557620, type: bss, vram: 0x8010A070, name: selmenu_bss}
 
   - [0x557620, bin, unk_557620]
   - [0x557E20, bin, mainfs]

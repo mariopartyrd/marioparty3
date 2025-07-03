@@ -1,3 +1,4 @@
+#include "common.h"
 #include "game/data.h"
 #include "rom.h"
 #include "malloc.h"

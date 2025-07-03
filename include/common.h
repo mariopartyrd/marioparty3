@@ -24,6 +24,7 @@
 #include "game/object.h"
 #include "game/sprite.h"
 #include "game/util.h"
+#include "game/window.h"
 #include "game/wipe.h"
 
 #include "common_structs.h"
