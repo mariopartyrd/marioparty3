@@ -64,5 +64,12 @@ void GWMgUnlockSet(s16 bitPos);
 void _ClearFlag(s32 flag);
 void func_8000B5F0_C1F0(u8 arg0);
 void _SetFlag(s32 flag);
+void func_8008A430_8B030(f32(*)[], f32);
+void func_8005B63C_5C23C(s16, s32, s32);
+s32 func_8005E1D8_5EDD8(s16, s16, s32);
+void func_8005F698_60298(s16, s16, s16, s16, u8);
+void func_8005F744_60344(s16, s16, s16, s16);
+void func_8005FE54_60A54(s16, u8);
+void func_8006010C_60D0C(s16, s16);
 
 #endif

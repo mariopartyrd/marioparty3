@@ -1,6 +1,8 @@
 #include "common.h"
 #include "ovl_80.h"
 
+extern s16 D_800CD2A2;
+
 typedef struct Unk800D6B48 {
     void* unk_00;
     void* unk_04;
@@ -24,9 +26,8 @@ extern s32 D_80101B40_115760_shared_board[];
 extern s16 D_800D6A48_D7648;
 
 void func_800F8610_10C230_shared_board(s32 id, s16 event, u16 stat) {
-    omOvlHisData* overlay;
+    omOvlHisData* overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18++];
 
-    overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18++];
     if (id != -2) {
         if (id == -1) {
             id = omovlhis[omovlhisidx].overlayID;
@@ -47,11 +48,27 @@ void func_800F8610_10C230_shared_board(s32 id, s16 event, u16 stat) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F86B4_10C2D4_shared_board);
+void func_800F86B4_10C2D4_shared_board(void) {
+    D_800CD2A2 = 1;
+    D_800D6B48_D7748->unk_18 = 0;
+
+    if (GWBoardFlagCheck(1) == 0) {
+        if ((GwSystem.current_board_index != 6) && (func_800F8610_10C230_shared_board(-2, 4, 0x192), (GwSystem.current_board_index != 6))) {
+            func_800F8610_10C230_shared_board(0x53, 0, 0x192);
+        } else {
+            func_800F8610_10C230_shared_board(0x54, 0, 0x192);
+        }
+        
+        func_800F8610_10C230_shared_board(-2, 1, 0x192);
+    }
+    
+    func_800F8D84_10C9A4_shared_board();
+    func_800ECF9C_100BBC_shared_board(GwSystem.message_speed);
+    _ClearFlag(0xC);
+    D_800D6A48_D7648 = 0;
+}
 
 void func_800F8774_10C394_shared_board(void) {
-    s16 temp_v0;
-    s16 temp_v0_2;
     omOvlHisData* overlay;
 
     D_800D4190_D4D90.stat = 1;

@@ -194,7 +194,15 @@ void func_800D9CE8_ED908_shared_board(Object*, s16, u16);
 void func_800E6420_FA040_shared_board(s16, s32);
 f32 func_800D8790_EC3B0_shared_board(Vec*);
 void func_800E644C_FA06C_shared_board(s16, s16, s16, s32);
+void func_800ECF9C_100BBC_shared_board(s16);
+void func_800F8D84_10C9A4_shared_board(void);
+void func_800EDC20_101840_shared_board(s32);
+s32 func_800EDC40_101860_shared_board(void);
 
+extern s16 D_80105702_119322_shared_board;
+extern f32 D_80105650_119270_shared_board;
+extern Object* D_80105628_119248_shared_board;
+extern s32 D_80101490_1150B0_shared_board[];
 extern Object* D_801011FC_114E1C_shared_board;
 extern s16 D_80101480_1150A0_shared_board;
 extern s16 D_80105702_119322_shared_board;

@@ -1,4 +1,5 @@
 #include "common.h"
+#include "ovl_80.h"
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECAD0_1006F0_shared_board);
 
@@ -36,7 +37,9 @@ s16 GetTurnsElapsed(void) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECF18_100B38_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECF9C_100BBC_shared_board);
+void func_800ECF9C_100BBC_shared_board(s16 arg0) {
+    func_800EDC20_101840_shared_board(D_80101490_1150B0_shared_board[arg0]);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECFC8_100BE8_shared_board);
 
