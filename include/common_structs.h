@@ -10,9 +10,6 @@
 #define CUR_TURN -1
 
 #define MAX_PLAYERS 4
-#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
-#define ARRAY_COUNT_2D_ROWS(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
-#define ARRAY_COUNT_2D_COLS(arr) (s32)(sizeof(arr[0]) / sizeof(arr[0][0]))
 
 #define    OS_K0_TO_PHYSICAL(x)    (u32)(((char *)(x)-0x80000000))
 #define    OS_PHYSICAL_TO_K0(x)    (void *)(((u32)(x)+0x80000000))

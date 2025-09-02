@@ -8,6 +8,7 @@
 #include "game/window.h"
 #include "mallocblock.h"
 #include "include_asm.h"
+#include "macros.h"
 
 // EXTERN
 
@@ -54,7 +55,7 @@ extern s16 D_800A159C_A219C[];
 extern u8* D_800A1610_A2210[];
 extern u8 D_800A1630_A2230[];
 extern u8 D_800A1640_A2240[][4];
-extern s16 D_800B2340_B2F40[];
+extern s16 D_800B2340_B2F40[3];
 extern s16 D_800B2344_B2F44;
 extern D_800B2350_B2F50_Struct D_800B2350_B2F50[];
 extern omObjData* D_800B2390_B2F90;
@@ -125,10 +126,10 @@ void func_800453FC_45FFC(void) {
     HuSprAttrSet(D_800D6ADA_D76DA, 0, 0x01001000);
     func_80054904_55504(D_800D6ADA_D76DA, 0, 0xA0, var_s1 - 20);
     HuSprPriSet(D_800D6ADA_D76DA, 0, 1);
-    for (var_s2 = 0; var_s2 < 2; var_s2++) {
+    for (var_s2 = 0; var_s2 < ARRAY_COUNT(D_800B2340_B2F40) - 1; var_s2++) {
         D_800B2340_B2F40[var_s2] = func_80045B24_46724(0x3C, var_s1 + var_s2 * 0x41);
     }
-    for (var_s2 = 0; var_s2 < 2; var_s2++) {
+    for (var_s2 = 0; var_s2 < ARRAY_COUNT(D_800B2340_B2F40) - 1; var_s2++) {
         func_80045964_46564(D_800B2340_B2F40[var_s2], var_s6);
         if (var_s4 <= var_s2 + var_s7 * 2) {
             func_8005FE90_60A90(D_800B2340_B2F40[var_s2]);
@@ -198,16 +199,16 @@ void func_80045964_46564(s16 arg0, s16 arg1) {
 }
 
 void func_80045A90_46690(void) {
-    s16 var_s0;
+    s16 i;
 
     HuSprGrpKill(D_800D6ADA_D76DA);
     HuSprKill(D_800D0A38_D1638);
     if (D_800CE214_CEE14 == 0) {
-        for (var_s0 = 0; var_s0 < 3; var_s0++) {
-            func_8005F364_5FF64(D_800B2340_B2F40[var_s0]);
+        for (i = 0; i < ARRAY_COUNT(D_800B2340_B2F40); i++) {
+            func_8005F364_5FF64(D_800B2340_B2F40[i]);
         }
     }
-    omDelPrcObj((s32) D_800CE298_CEE98); // TODO: pointer?
+    omDelPrcObj(D_800CE298_CEE98);
 }
 
 s16 func_80045B24_46724(s16 arg0, s16 arg1) {
@@ -399,7 +400,7 @@ void func_80046558_47158(s16 arg0) {
     Process* temp_s0 = (void*) HmfModelData[arg0].unkBC; // TODO
 
     HuMemFree(temp_s0->user_data);
-    omDelPrcObj((s32) temp_s0); // TODO: pointer?
+    omDelPrcObj(temp_s0);
 }
 
 void func_800465A8_471A8(s32 arg0, f32 arg1, f32 arg2, f32 arg3) {

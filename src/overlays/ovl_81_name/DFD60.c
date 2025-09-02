@@ -18,9 +18,9 @@ void func_800F7FDC_DFDAC_name_81(void) {
         func_800F82EC_E00BC_name_81(i);
     }
 
-    if (D_8010195C_E972C_name_81 != 0) {
+    if (D_8010195C_E972C_name_81 != NULL) {
         omDelPrcObj(D_8010195C_E972C_name_81);
-        D_8010195C_E972C_name_81 = 0;
+        D_8010195C_E972C_name_81 = NULL;
     }
 }
 

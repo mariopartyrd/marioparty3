@@ -53,12 +53,12 @@ void HuProfInit(s16 arg0, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
     D_800B25E4_B31E4 = 0;
     D_800B25A0_B31A0 = (OSMesg)1;
     D_800B25A4_B31A4 = 2;
-    D_800B25A8_B31A8 = &rspbootTextStart;
+    D_800B25A8_B31A8 = (u8*)&rspbootTextStart;
     D_800B25AC_B31AC = (u32)&D_8008F1C0_8FDC0 - (u32)&rspbootTextStart;
     D_800B25B4_B31B4 = 0x1000;
     D_800B25BC_B31BC = 0x800;
     D_800B25C4_B31C4 = 0x400;
-    D_800B25D0_B31D0 = &D_800B25F0_B31F0;
+    D_800B25D0_B31D0 = (u8*)&D_800B25F0_B31F0;
     D_800B25D4_B31D4 = 0;
     D_800B25DC_B31DC = 0xC00;
     D_800B25B0_B31B0 = gUCodeAddresses[arg0 * 2];

@@ -56,7 +56,7 @@ void omSetStatBit(omObjData *obj, u16 stat);
 s32 omOvlReturnEx(s16 level);
 omObjData* omAddObj(s16 prio, u16 mdlcnt, u16 mtncnt, s16 group, omObjFunc func);
 Process* omAddPrcObj(process_func func, u16 priority, s32 stackSize, s32 extDataSize);
-void omDelPrcObj(s32);
+void omDelPrcObj(Process*);
 s32 omOvlCallEx(s32 ovlID, s16 event, u16 stat);
 void omMain(void);
 u16 func_80049F98_4AB98(void);

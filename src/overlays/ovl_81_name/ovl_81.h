@@ -64,7 +64,7 @@ extern u8* D_80101980_E9750_name_81;
 extern s32 D_80101984_E9754_name_81;
 extern Object* D_80101988_E9758_name_81;
 extern s32* D_801017DC_E95AC_name_81[];
-extern s32 D_8010195C_E972C_name_81;
+extern Process* D_8010195C_E972C_name_81;
 extern s32* D_8010180C_E95DC_name_81[];
 extern s16 D_80101990_E9760_name_81;
 extern s16 D_80105470_ED240_name_81[];
@@ -171,7 +171,6 @@ extern s32 D_80105718_ED4E8_name_81;
 extern s32 D_8010571C_ED4EC_name_81;
 
 
-s16 Duel_GetCurrentPlayerIndex(void);                   /* extern */
 void func_800036E8_42E8(s16, s32);                     /* extern */
 void func_800039A4_45A4(s32, s32);                       /* extern */
 void func_80003A70_4670(s16);                          /* extern */
@@ -200,7 +199,7 @@ void func_800FAFAC_E2D7C_name_81(void);                    /* extern */
 void func_800FC888_E4658_name_81(s32);                   /* extern */
 void func_800FC8C4_E4694_name_81(Vec*);                /* extern */
 Vec* func_800FC8D0_E46A0_name_81(void);                 /* extern */
-void func_800FFAE0_E78B0_name_81(s32, s32);                /* extern */
+void func_800FFAE0_E78B0_name_81(s16, s16);                /* extern */
 extern s8* D_80101968_E9738_name_81;
 extern s8* D_8010196C_E973C_name_81;
 extern s8* D_80101970_E9740_name_81;

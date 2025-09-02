@@ -583,6 +583,8 @@ segments:
       - [0xE78B0, c]
       - [0xE7AE0, c]
       - [0xE8BE0, data] #80100E10
+      - [0xE98E0, .data, E78B0]
+      - [0xE98F0, data] #80101B20
       - [0xE9A00, .rodata, BECB0]
       - [0xE9A18, .rodata, BFB40]
       - [0xE9FD8, .rodata, C1580]
