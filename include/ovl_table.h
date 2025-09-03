@@ -1,4 +1,3 @@
-// no guards—this file is meant to be #included multiple times
 OVL_DEFINE(selmenu2)
 OVL_DEFINE(hand_line_sinker)
 OVL_DEFINE(coconut_conk)

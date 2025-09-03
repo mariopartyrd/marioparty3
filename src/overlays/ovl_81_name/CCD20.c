@@ -1,6 +1,11 @@
 #include "common.h"
 #include "ovl_81.h"
 
+extern f32 D_80104848_EC618_name_81[2];
+extern f32 D_80101000_E8DD0_name_81;
+extern f32 D_801031D0_EAFA0_name_81;
+extern f32 D_80104848_EC618_name_81[2];
+
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E4F50_CCD20_name_81);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E4FF4_CCDC4_name_81);
@@ -105,9 +110,31 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E8648_D0418_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E86B8_D0488_name_81);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E8704_D04D4_name_81);
+void func_800E8704_D04D4_name_81(f32* arg0) {
+    arg0[0] = (f32) -((D_80104848_EC618_name_81[0] / 4.0f) - 160.0f);
+    arg0[1] = (f32) -((D_80104848_EC618_name_81[1] / 4.0f) - 120.0f);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E875C_D052C_name_81);
+void func_800E875C_D052C_name_81(Vec* arg0, f32* arg1) {
+    f32 sp10[4];
+    f32 temp_f0;
+    f32 temp_f2;
+    f32 temp_f6;
+
+    //TODO: sp10 has 4 entries? It should be Vec* so 3 entries
+    Hu3DCam3DToScreen(0, arg0, sp10);
+    temp_f6 = 2.0f * D_801031D0_EAFA0_name_81;
+    temp_f2 = 320.0f / temp_f6;
+    sp10[0] = (temp_f2 - (temp_f2 / D_80101000_E8DD0_name_81)) + sp10[0];
+    temp_f0 = 240.0f / temp_f6;
+    sp10[1] = (temp_f0 - (temp_f0 / D_80101000_E8DD0_name_81)) + sp10[1];
+    sp10[0] = ((sp10[0] - 160.0f) * D_801031D0_EAFA0_name_81) + 160.0f;
+    sp10[1] = ((sp10[1] - 120.0f) * D_801031D0_EAFA0_name_81) + 120.0f;
+    sp10[2] = (D_80104848_EC618_name_81[0] / 4.0f) - 160.0f;
+    sp10[3] = (D_80104848_EC618_name_81[1] / 4.0f) - 120.0f;
+    arg1[0] = sp10[0] + sp10[2];
+    arg1[1] = sp10[1] + sp10[3];
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E8870_D0640_name_81);
 
