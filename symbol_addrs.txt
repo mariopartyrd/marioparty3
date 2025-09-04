@@ -1,6 +1,10 @@
 alCSPGetChlVol = 0x8006CFF0;
 alCSPGetChlFXMix = 0x8006D010;
 
+D_800C9530_CA130 = 0x800C9530; //size:0x400
+D_800CE204 = 0x800CE204; //type:s16
+D_800CE206 = 0x800CE206; //type:s16
+
 D_800A46A0 = 0x800A46A0; //size:0x190 type:f32
 
 _ovltbl = 0x800962F4; //rom:0x96EF4 size:0x1200

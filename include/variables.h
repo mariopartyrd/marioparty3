@@ -23,5 +23,7 @@ extern MinigameTable D_800A6D44_A7944[];
 extern s16 omovlhisidx;
 
 extern omOvlHisData omovlhis[12];
+extern omOvlHisData D_800D20F0_D2CF0[5];
+extern Unk800D6B48 D_800D6B48_D7748[2];
 
 #endif //_VARIABLES_H_

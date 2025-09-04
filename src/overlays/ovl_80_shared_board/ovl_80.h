@@ -1,5 +1,6 @@
 #include "common.h"
 #include "game/object.h"
+#include "game/board.h"
 #include "malloc.h"
 
 typedef struct BoardStatus {

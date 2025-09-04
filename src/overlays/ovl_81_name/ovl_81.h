@@ -1,5 +1,6 @@
 #include "common.h"
 #include "game/object.h"
+#include "game/board.h"
 #include "malloc.h"
 
 typedef void (*PartnerFunc)(s16, s32, Object*, Object*, s32, s32);

@@ -56,7 +56,7 @@ typedef struct SpaceData {
 typedef struct omOvlHisData { //Object Manager History Data
 /* 0x00 */ s32 overlayID;
 /* 0x04 */ s16 event;
-/* 0x06 */ u16 stat;
+/* 0x06 */ s16 stat;
 } omOvlHisData; //sizeof 0x08
 
 typedef struct MinigameTable {
@@ -121,5 +121,15 @@ typedef struct UnkOvl81_1 {
     s32 unk_00;
     char unk_04[0xC];
 } UnkOvl81_1;
+
+typedef struct Unk800D6B48 {
+    void* unk_00;
+    void* unk_04;
+    s32 unk_08;
+    s32 unk_0C;
+    s32 unk_10;
+    s32 unk_14;
+    s16 unk_18;
+} Unk800D6B48; //sizeof 0x18
 
 #endif

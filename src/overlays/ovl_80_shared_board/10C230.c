@@ -1,27 +1,6 @@
 #include "common.h"
 #include "ovl_80.h"
 
-extern s16 D_800CD2A2;
-
-typedef struct Unk800D6B48 {
-    void* unk_00;
-    void* unk_04;
-    s32 unk_08;
-    s32 unk_0C;
-    s32 unk_10;
-    s32 unk_14;
-    s16 unk_18;
-} Unk800D6B48; //sizeof 0x18
-
-typedef struct Unk800CD2A0 {
-    u8 unk_00;
-    s16 unk_02;
-} Unk800CD2A0;
-
-extern omOvlHisData D_800D4190_D4D90;
-extern Unk800D6B48 D_800D6B48_D7748[2];
-extern omOvlHisData D_800D20F0_D2CF0[5];
-extern Unk800CD2A0 D_800CD2A0_CDEA0;
 extern s32 D_80101B40_115760_shared_board[];
 extern s16 D_800D6A48_D7648;
 
@@ -49,7 +28,7 @@ void func_800F8610_10C230_shared_board(s32 id, s16 event, u16 stat) {
 }
 
 void func_800F86B4_10C2D4_shared_board(void) {
-    D_800CD2A2 = 1;
+    D_800CD2A0_CDEA0.unk_02 = 1;
     D_800D6B48_D7748->unk_18 = 0;
 
     if (GWBoardFlagCheck(1) == 0) {
