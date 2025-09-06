@@ -72,7 +72,7 @@ void func_8001C258_1CE58(s16, s32, s32);
 void func_8001C448_1D048(s16);
 void func_8001C8E4_1D4E4(s16, u32);
 void* func_800D8010_BFDE0_name_81(s32, s32);
-void func_800D8944_C0714_name_81(void*);
+void func_800D8944_C0714_name_81(Object*);
 void func_800D8F0C_C0CDC_name_81(Object*);
 void func_80089A20_8A620(Vec*, s32);
 void func_800D8E88_C0C58_name_81(void);

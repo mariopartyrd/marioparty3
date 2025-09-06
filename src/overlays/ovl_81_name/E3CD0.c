@@ -7,7 +7,20 @@ void func_800FC5D8_E43A8_name_81(void);
 void func_8004A950_4B550(void);
 void func_800FC4E4_E42B4_name_81(void);
 void func_800FC108_E3ED8_name_81(void);
+void func_800D7F0C_BFCDC_name_81(void);
+void func_800DBEB0_C3C80_name_81(void);
+void func_800DF210_C6FE0_name_81(void);
+void func_800E0E38_C8C08_name_81(void);
+void func_800E28B0_CA680_name_81(void);
+void func_800E4FF4_CCDC4_name_81(void);
+void func_800E90B4_D0E84_name_81(void);
+void func_800E9564_D1334_name_81(void);
+void func_800E9D9C_D1B6C_name_81(void);
+void func_800F4030_DBE00_name_81(void);
+void func_800F4314_DC0E4_name_81(void);
+void func_800FD55C_E532C_name_81(void);
 
+extern void (*D_80101A8C_E985C_name_81)(void);
 extern s32 D_80101A70_E9840_name_81[];
 extern s32 D_80101A54_E9824_name_81[];
 extern s16 D_800D6A48_D7648;
@@ -148,7 +161,7 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     D_800D1360_D1F60.unk_20 = 0;
     D_80105496_ED266_name_81 = 0;
     func_800F4080_DBE50_name_81();
-    D_80101A8C_E985C_name_81 = 0;
+    D_80101A8C_E985C_name_81 = NULL;
     D_80101A90_E9860_name_81 = 0;
     D_80101A94_E9864_name_81 = 0;
     D_80101A98_E9868_name_81 = 0;
@@ -161,7 +174,29 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FC4E4_E42B4_name_81);
+void func_800FC4E4_E42B4_name_81(void) {
+    func_800DBEB0_C3C80_name_81();
+    func_800F64FC_DE2CC_name_81();
+    func_800E28B0_CA680_name_81();
+    func_800E0E38_C8C08_name_81();
+    func_800DF210_C6FE0_name_81();
+    func_800F4314_DC0E4_name_81();
+    func_8005F524_60124();
+    func_800F4030_DBE00_name_81();
+    func_800D7F0C_BFCDC_name_81();
+    func_800E9D9C_D1B6C_name_81();
+    func_800E9564_D1334_name_81();
+    func_800E52F8_CD0C8_name_81();
+    func_800E5000_CCDD0_name_81();
+    func_800E4FF4_CCDC4_name_81();
+    func_800E90B4_D0E84_name_81();
+    
+    if (D_80101A8C_E985C_name_81 != NULL) {
+        D_80101A8C_E985C_name_81();
+    }
+    
+    func_800FD55C_E532C_name_81();
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FC590_E4360_name_81);
 

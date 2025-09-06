@@ -92,7 +92,7 @@ void func_800F2484_1060A4_shared_board(void) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F248C_1060AC_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F24FC_10611C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F24FC_10611C_shared_board); //create player sprite
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F25B4_1061D4_shared_board);
 

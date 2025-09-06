@@ -55,7 +55,6 @@ extern UnkBoard4* D_80105400_ED1D0_name_81;
 extern u16 D_80105404_ED1D4_name_81;
 extern PartnerBaseAttributes PartnersBaseStats[];
 extern Object* Duel_PartnerObjects[][PARTNEROBJINDEX_MAX];
-extern s32 D_80101A8C_E985C_name_81;
 extern s32 D_80101A90_E9860_name_81;
 extern s32 D_80101A94_E9864_name_81;
 extern s32 D_80101A98_E9868_name_81;

@@ -115,25 +115,31 @@ void func_800E8704_D04D4_name_81(f32* arg0) {
     arg0[1] = (f32) -((D_80104848_EC618_name_81[1] / 4.0f) - 120.0f);
 }
 
+
+
 void func_800E875C_D052C_name_81(Vec* arg0, f32* arg1) {
-    f32 sp10[4];
+    typedef struct UnkData {
+        Vec vec;
+        f32 unk_0C;
+    } UnkData;
+
+    UnkData sp10;
     f32 temp_f0;
     f32 temp_f2;
     f32 temp_f6;
 
-    //TODO: sp10 has 4 entries? It should be Vec* so 3 entries
-    Hu3DCam3DToScreen(0, arg0, sp10);
+    Hu3DCam3DToScreen(0, arg0, &sp10.vec);
     temp_f6 = 2.0f * D_801031D0_EAFA0_name_81;
     temp_f2 = 320.0f / temp_f6;
-    sp10[0] = (temp_f2 - (temp_f2 / D_80101000_E8DD0_name_81)) + sp10[0];
+    sp10.vec.x = (temp_f2 - (temp_f2 / D_80101000_E8DD0_name_81)) + sp10.vec.x;
     temp_f0 = 240.0f / temp_f6;
-    sp10[1] = (temp_f0 - (temp_f0 / D_80101000_E8DD0_name_81)) + sp10[1];
-    sp10[0] = ((sp10[0] - 160.0f) * D_801031D0_EAFA0_name_81) + 160.0f;
-    sp10[1] = ((sp10[1] - 120.0f) * D_801031D0_EAFA0_name_81) + 120.0f;
-    sp10[2] = (D_80104848_EC618_name_81[0] / 4.0f) - 160.0f;
-    sp10[3] = (D_80104848_EC618_name_81[1] / 4.0f) - 120.0f;
-    arg1[0] = sp10[0] + sp10[2];
-    arg1[1] = sp10[1] + sp10[3];
+    sp10.vec.y = (temp_f0 - (temp_f0 / D_80101000_E8DD0_name_81)) + sp10.vec.y;
+    sp10.vec.x = ((sp10.vec.x - 160.0f) * D_801031D0_EAFA0_name_81) + 160.0f;
+    sp10.vec.y = ((sp10.vec.y - 120.0f) * D_801031D0_EAFA0_name_81) + 120.0f;
+    sp10.vec.z = (D_80104848_EC618_name_81[0] / 4.0f) - 160.0f;
+    sp10.unk_0C = (D_80104848_EC618_name_81[1] / 4.0f) - 120.0f;
+    arg1[0] = sp10.vec.x + sp10.vec.z;
+    arg1[1] = sp10.vec.y + sp10.unk_0C;
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E8870_D0640_name_81);
