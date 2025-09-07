@@ -197,14 +197,14 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     func_800F3DFC_DBBCC_name_81(0);
     func_800F3DFC_DBBCC_name_81(1);
     for (i = 0; i < 2; i++) {
-        func_800D8944_C0714_name_81(Duel_GetPlayerStruct(i)->player_obj);
-        playerObj = Duel_GetPlayerStruct(i)->player_obj;
+        func_800D8944_C0714_name_81(MBDGetPlayerStruct(i)->player_obj);
+        playerObj = MBDGetPlayerStruct(i)->player_obj;
         playerObj->unkA |= 2;
-        func_800D8E88_C0C58_name_81(Duel_GetPlayerStruct(i)->player_obj);
+        func_800D8E88_C0C58_name_81(MBDGetPlayerStruct(i)->player_obj);
     }
 
-    func_8001FDE8_209E8(Duel_GetPlayerStruct(0)->player_obj->omObj1->model[0]);
-    func_8001FDE8_209E8(Duel_GetPlayerStruct(1)->player_obj->omObj1->model[0]);
+    func_8001FDE8_209E8(MBDGetPlayerStruct(0)->player_obj->omObj1->model[0]);
+    func_8001FDE8_209E8(MBDGetPlayerStruct(1)->player_obj->omObj1->model[0]);
     func_800F8C68_E0A38_name_81(0);
     func_800F8C68_E0A38_name_81(1);
     func_800F4300_DC0D0_name_81();
@@ -349,7 +349,7 @@ void func_800FC5D8_E43A8_name_81(void) {
             system->total_turns = 20;
         }
         for (i = 0; i < 2; i++) {
-            player = Duel_GetPlayerStruct(i);
+            player = MBDGetPlayerStruct(i);
             player->coin = 0;
             player->gamePrize = 0;
             player->coinPrize = 0;
@@ -641,7 +641,7 @@ void func_800FD620_E53F0_name_81(void) {
     Process* temp_s1;
     GW_PLAYER* temp_s0;
 
-    temp_s0 = Duel_GetPlayerStruct(CUR_PLAYER);
+    temp_s0 = MBDGetPlayerStruct(CUR_PLAYER);
     temp_s1 = HuPrcCurrentGet();
     D_800D037C_D0F7C = 0;
     func_8001FDE8_209E8(temp_s0->player_obj->omObj1->model[0]);
@@ -726,7 +726,7 @@ void func_800FFA28_E77F8_name_81(Vec* arg0) {
     func_800E856C_D033C_name_81(1.0f);
     func_800E5954_CD724_name_81();
     if (var_s0 == NULL) {
-        var_s0 = &Duel_GetPlayerStruct(CUR_PLAYER)->player_obj->coords;
+        var_s0 = &MBDGetPlayerStruct(CUR_PLAYER)->player_obj->coords;
     }
     MBDCameraPos3DSet(var_s0);
     HuPrcVSleep();

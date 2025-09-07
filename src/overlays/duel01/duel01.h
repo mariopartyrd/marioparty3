@@ -77,6 +77,6 @@ void func_800D8F0C_C0CDC_name_81(Object*);
 void func_80089A20_8A620(Vec*, s32);
 void func_800D8E88_C0C58_name_81(void);
 s16 Duel_GetCurrentPlayerIndex(void);
-GW_PLAYER* Duel_GetPlayerStruct(s32);
+GW_PLAYER* MBDGetPlayerStruct(s32);
 void func_800F38DC_DB6AC_name_81(s32, s32, s32);
 void func_80110068_3E3158_duel01(s32);

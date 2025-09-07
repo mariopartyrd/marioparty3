@@ -37,7 +37,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FFB10", func_800EC6C8
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FFB10", func_800EC6EC_10030C_shared_board);
 
-void func_800EC70C_10032C_shared_board(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s16 arg7) {
+void func_800EC70C_10032C_shared_board(s16 arg0, s32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 arg6, s16 arg7) {
     s16 sp10[2];
     s16 temp_v0;
 

@@ -1,6 +1,7 @@
 #include "common.h"
 #include "game/object.h"
 #include "game/board.h"
+#include "game/window.h"
 #include "malloc.h"
 
 typedef void (*PartnerFunc)(s16, s32, Object*, Object*, s32, s32);
@@ -75,13 +76,21 @@ extern u16 D_800C9520_CA120[];
 extern u16 D_800D0590_D1190[];
 extern s32 D_80101998_E9768_name_81[];
 extern s16 D_801019C8_E9798_name_81[];
+extern s16 D_8010555C_ED32C_name_81;
+extern s16 D_801011D0_E8FA0_name_81;
 
+s16 func_800EABBC_D298C_name_81(s16, s16*, s16);
+void func_8005FBA4_607A4(u8*, s32);
+s32 func_80061188_61D88(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 arg5);
+void func_80061A5C_6265C(s16, s32);
+void func_800EED68_D6B38_name_81(s16, s32);
+void func_800EF3B4_D7184_name_81(s16);
 UnkBoard4* func_800F4528_DC2F8_name_81(s16 arg0, s16 arg1);
 void func_8005D294_5DE94(s16);                         /* extern */
 void func_8005FBF8_607F8(s16, s32, s32, s32);                /* extern */
 void func_80060388_60F88(s32);                  /* extern */
 void func_800604A8_610A8(s16*, s32, s32);                  /* extern */
-s32 func_80061188_61D88(s16 arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4, u16 arg5);
+s32 func_80061188_61D88(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 arg5);
 void func_80061934_62534(s16, s16);                    /* extern */
 void func_80061A5C_6265C(s16, s32);                      /* extern */
 s32 func_800E1824_C95F4_name_81(s32, s32, s32);           /* extern */
@@ -92,7 +101,7 @@ void func_8002D4B8_2E0B8(s16);
 s32 func_8001F1FC_1FDFC(void*, s32);
 void func_800FAD04_E2AD4_name_81(s32 arg0);
 void func_800D8F0C_C0CDC_name_81(Object*);
-GW_PLAYER* Duel_GetPlayerStruct(s32 playerIndex);
+GW_PLAYER* MBDGetPlayerStruct(s32 playerIndex);
 Object* Duel_GetPlayerPartnerRef(s32 playerIndex, s32 frontOrBackIndex);
 void func_800ECF1C_D4CEC_name_81(s32, Vec*, Vec*);
 void func_800D7828_BF5F8_name_81(Vec*);
@@ -143,10 +152,10 @@ void func_800FAEFC_E2CCC_name_81(s32);
 void func_800FB038_E2E08_name_81(Object*, s16, u16);
 void func_800EB278_D3048_name_81(void);
 void func_800EB29C_D306C_name_81(void);
-void func_800EB49C_D326C_name_81(s32, s32, s32, s32, s32, s32, s32);
 void func_800EB58C_D335C_name_81(void);
 void func_800FA120_E1EF0_name_81(void);
 void func_800FC8C4_E4694_name_81(Vec*);
+void func_800EAB6C_D293C_name_81(s32, s32);
 
 extern Vec D_80105460_ED230_name_81;
 extern s32 D_801019E0_E97B0_name_81[][2];
@@ -198,6 +207,7 @@ void func_800FC888_E4658_name_81(s32);
 void func_800FC8C4_E4694_name_81(Vec*);
 Vec* func_800FC8D0_E46A0_name_81(void);
 void func_800FFAE0_E78B0_name_81(s16, s16);
+void func_800EB49C_D326C_name_81(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
 
 extern s8* D_80101968_E9738_name_81;
 extern s8* D_8010196C_E973C_name_81;

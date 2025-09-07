@@ -24,8 +24,8 @@ void func_800F7FDC_DFDAC_name_81(void) {
     }
 }
 
-//partnerIndex arg goes unused?
-Object* func_800F8034_DFE04_name_81(s32 partnerIndex) {
+//partnerNo arg goes unused?
+Object* func_800F8034_DFE04_name_81(s32 partnerNo) {
     return func_800F8050_DFE20_name_81(7);
 }
 
@@ -44,46 +44,46 @@ Object* func_800F8050_DFE20_name_81(s32 partnerID) {
 }
 
 void func_800F8108_DFED8_name_81(s32 playerIndex) {
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
     
-    if (Duel_PartnerObjects[playerIndex][0] != NULL) {
-        func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][0]);
-        Duel_PartnerObjects[playerIndex][0] = NULL;
+    if (Duel_PartnerObjects[playerIndex][PARTNER_FRONT] != NULL) {
+        func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][PARTNER_FRONT]);
+        Duel_PartnerObjects[playerIndex][PARTNER_FRONT] = NULL;
     }
 
-    if (player->stats.partners.frontID != -1) {
-        if (player->stats.partners.frontID == 7) {
-            Duel_PartnerObjects[playerIndex][0] = func_800F8034_DFE04_name_81(playerIndex);
+    if (player->stats.partners.frontID != PARTNER_NONE) {
+        if (player->stats.partners.frontID == PARTNER_PIRANHA_PLANT) {
+            Duel_PartnerObjects[playerIndex][PARTNER_FRONT] = func_800F8034_DFE04_name_81(playerIndex);
         } else {
-            Duel_PartnerObjects[playerIndex][0] = func_800F8050_DFE20_name_81(player->stats.partners.frontID);
+            Duel_PartnerObjects[playerIndex][PARTNER_FRONT] = func_800F8050_DFE20_name_81(player->stats.partners.frontID);
         }
     }
 
-    if (Duel_PartnerObjects[playerIndex][1] != 0) {
+    if (Duel_PartnerObjects[playerIndex][1] != NULL) {
         func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][1]);
-        Duel_PartnerObjects[playerIndex][1] = 0;
+        Duel_PartnerObjects[playerIndex][1] = NULL;
     }
 
-    if (player->stats.partners.backID != -1) {
-        if (player->stats.partners.backID == 7) {
-            Duel_PartnerObjects[playerIndex][1] = func_800F8034_DFE04_name_81(playerIndex);
+    if (player->stats.partners.backID != PARTNER_NONE) {
+        if (player->stats.partners.backID == PARTNER_PIRANHA_PLANT) {
+            Duel_PartnerObjects[playerIndex][PARTNER_BACK] = func_800F8034_DFE04_name_81(playerIndex);
         } else {
-            Duel_PartnerObjects[playerIndex][1] = func_800F8050_DFE20_name_81(player->stats.partners.backID);
+            Duel_PartnerObjects[playerIndex][PARTNER_BACK] = func_800F8050_DFE20_name_81(player->stats.partners.backID);
         }
     }
 }
 
-void func_800F821C_DFFEC_name_81(s32 playerIndex, s32 partnerIndex) {
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
-    Object* partnerObj = Duel_PartnerObjects[playerIndex][partnerIndex];
+void func_800F821C_DFFEC_name_81(s32 playerIndex, s32 partnerNo) {
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
+    Object* partnerObj = Duel_PartnerObjects[playerIndex][partnerNo];
     s32 partnerID;
     
     if (partnerObj != NULL) {
         func_800D8F3C_C0D0C_name_81(partnerObj);
-        Duel_PartnerObjects[playerIndex][partnerIndex] = NULL;
+        Duel_PartnerObjects[playerIndex][partnerNo] = NULL;
     }
     
-    if (partnerIndex == 0) {
+    if (partnerNo == PARTNER_KOOPA) {
         partnerID = player->stats.partners.frontID;
     } else {
         partnerID = player->stats.partners.backID;
@@ -91,9 +91,9 @@ void func_800F821C_DFFEC_name_81(s32 playerIndex, s32 partnerIndex) {
     
     if (partnerID != PARTNER_NONE) {
         if (partnerID == PARTNER_PIRANHA_PLANT) {
-            Duel_PartnerObjects[playerIndex][partnerIndex] = func_800F8034_DFE04_name_81(playerIndex);
+            Duel_PartnerObjects[playerIndex][partnerNo] = func_800F8034_DFE04_name_81(playerIndex);
         } else {
-            Duel_PartnerObjects[playerIndex][partnerIndex] = func_800F8050_DFE20_name_81(partnerID);
+            Duel_PartnerObjects[playerIndex][partnerNo] = func_800F8050_DFE20_name_81(partnerID);
         }
     }
 }
@@ -110,27 +110,27 @@ void func_800F82EC_E00BC_name_81(s32 playerIndex) {
 }
 
 void func_800F8358_E0128_name_81(s32 playerIndex) {
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
 
     if (player->stats.partners.frontID == PARTNER_NONE) {
-        if (Duel_PartnerObjects[playerIndex][0] != NULL) {
-            func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][0]);
-            Duel_PartnerObjects[playerIndex][0] = NULL;
-            func_800F85A4_E0374_name_81(playerIndex, 0);
+        if (Duel_PartnerObjects[playerIndex][PARTNER_FRONT] != NULL) {
+            func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][PARTNER_FRONT]);
+            Duel_PartnerObjects[playerIndex][PARTNER_FRONT] = NULL;
+            func_800F85A4_E0374_name_81(playerIndex, PARTNER_FRONT);
         }
     }
     
     if (player->stats.partners.backID == PARTNER_NONE) {
-        if (Duel_PartnerObjects[playerIndex][1] != NULL) {
+        if (Duel_PartnerObjects[playerIndex][PARTNER_BACK] != NULL) {
             func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][1]);
-            Duel_PartnerObjects[playerIndex][1] = 0;
-            func_800F85A4_E0374_name_81(playerIndex, 1);
+            Duel_PartnerObjects[playerIndex][PARTNER_BACK] = NULL;
+            func_800F85A4_E0374_name_81(playerIndex, PARTNER_BACK);
         }
     }
 }
 
 void func_800F8418_E01E8_name_81(s32 playerIndex, s32 partnerID, s32 frontOrBackIndex) {
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
 
     switch (frontOrBackIndex) {
         case PARTNER_FRONT:
@@ -167,7 +167,7 @@ void func_800F8418_E01E8_name_81(s32 playerIndex, s32 partnerID, s32 frontOrBack
 }
 
 void func_800F85A4_E0374_name_81(s32 playerIndex, s32 frontOrBackIndex) {
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
 
     switch (frontOrBackIndex) {
     case PARTNER_FRONT:
@@ -205,7 +205,7 @@ void func_800F85A4_E0374_name_81(s32 playerIndex, s32 frontOrBackIndex) {
 
 //swaps front and back partners for playerIndex player
 void Duel_SwapPartnerPositions(s32 playerIndex) {
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
     s32 frontID = player->stats.partners.frontID;
     s32 frontHP = player->stats.partners.frontHp;
     s32 frontPoweredUp = player->stats.partners.frontPoweredUp;
@@ -235,7 +235,7 @@ void Duel_SwapPartnerPositions(s32 playerIndex) {
 }
 
 void Duel_PowerUpPartners(s32 playerIndex) {
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
 
     if ((player->stats.partners.frontID != PARTNER_NONE)
         && (player->stats.partners.frontPoweredUp == POWERUP_NONE)) {
@@ -254,7 +254,7 @@ void Duel_PowerUpPartners(s32 playerIndex) {
 }
 
 void Duel_PowerDownPartners(s32 playerIndex) {
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
     
     if ((player->stats.partners.frontID != PARTNER_NONE) && (player->stats.partners.frontPoweredUp == POWERUP_ACTIVE)) {
         player->stats.partners.frontPoweredUp = POWERUP_NONE;
@@ -275,7 +275,7 @@ Object* Duel_GetPlayerPartnerRef(s32 playerIndex, s32 frontOrBackIndex) {
 }
 
 s32 func_800F8980_E0750_name_81(s32 playerIndex) {
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
     s32 totalPartnerCost = 0;
     
     if (player->stats.partners.frontID != PARTNER_NONE) {
@@ -289,7 +289,7 @@ s32 func_800F8980_E0750_name_81(s32 playerIndex) {
 
 s32 func_800F89D0_E07A0_name_81(s32 playerIndex, s32 frontOrBackIndex, s16 arg2, s16 arg3) {
     s32 partnerCount = 0;
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
     
     if (playerIndex == CUR_PLAYER) {
         playerIndex = Duel_GetCurrentPlayerIndex();
@@ -297,14 +297,14 @@ s32 func_800F89D0_E07A0_name_81(s32 playerIndex, s32 frontOrBackIndex, s16 arg2,
 
     if (frontOrBackIndex == PARTNER_FRONT) {
         if ((player->stats.partners.frontID != PARTNER_NONE) && (D_801017DC_E95AC_name_81[player->stats.partners.frontID] != NULL)) {
-            func_800D90D0_C0EA0_name_81(Duel_PartnerObjects[playerIndex][0], arg2, arg3);
+            func_800D90D0_C0EA0_name_81(Duel_PartnerObjects[playerIndex][PARTNER_FRONT], arg2, arg3);
             partnerCount++;
         }
     }
 
     if (frontOrBackIndex == PARTNER_BACK) {
         if ((player->stats.partners.backID != PARTNER_NONE) && (D_801017DC_E95AC_name_81[player->stats.partners.backID] != NULL)) {
-            func_800D90D0_C0EA0_name_81(Duel_PartnerObjects[playerIndex][1], arg2, arg3);
+            func_800D90D0_C0EA0_name_81(Duel_PartnerObjects[playerIndex][PARTNER_BACK], arg2, arg3);
             partnerCount++;
         }
     }
@@ -313,7 +313,7 @@ s32 func_800F89D0_E07A0_name_81(s32 playerIndex, s32 frontOrBackIndex, s16 arg2,
 
 s32 func_800F8AEC_E08BC_name_81(s32 playerIndex, s32 arg1, s16 arg2, s16 arg3, u16 arg4, u16 flags) {
     s32 partnerCount = 0;
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
     u16 flagsCopy = flags;
     
     if (playerIndex == CUR_PLAYER) {
@@ -325,7 +325,7 @@ s32 func_800F8AEC_E08BC_name_81(s32 playerIndex, s32 arg1, s16 arg2, s16 arg3, u
             if (player->stats.partners.frontID == PARTNER_THWOMP) {
                 flagsCopy &= ~4;
             }
-            func_800D918C_C0F5C_name_81(Duel_PartnerObjects[playerIndex][0], arg2, arg3, arg4, flagsCopy);
+            func_800D918C_C0F5C_name_81(Duel_PartnerObjects[playerIndex][PARTNER_FRONT], arg2, arg3, arg4, flagsCopy);
             partnerCount++;
         }
     }
@@ -335,7 +335,7 @@ s32 func_800F8AEC_E08BC_name_81(s32 playerIndex, s32 arg1, s16 arg2, s16 arg3, u
             if (player->stats.partners.backID == PARTNER_THWOMP) {
                 flags &= ~4;
             }
-            func_800D918C_C0F5C_name_81(Duel_PartnerObjects[playerIndex][1], arg2, arg3, arg4, flags);
+            func_800D918C_C0F5C_name_81(Duel_PartnerObjects[playerIndex][PARTNER_BACK], arg2, arg3, arg4, flags);
             partnerCount++;
         }
     }
@@ -344,7 +344,7 @@ s32 func_800F8AEC_E08BC_name_81(s32 playerIndex, s32 arg1, s16 arg2, s16 arg3, u
 }
 
 void func_800F8C68_E0A38_name_81(s32 arg0) {
-    Object* frontPartnerObj = Duel_PartnerObjects[arg0][0];
+    Object* frontPartnerObj = Duel_PartnerObjects[arg0][PARTNER_FRONT];
     Object* backPartnerObj;
     
     if (frontPartnerObj != NULL) {
@@ -358,18 +358,18 @@ void func_800F8C68_E0A38_name_81(s32 arg0) {
 }
 
 void func_800F8CD8_E0AA8_name_81(s32 playerIndex, f32 arg1) {
-    GW_PLAYER* player = Duel_GetPlayerStruct(playerIndex);
+    GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
 
     if (playerIndex == PARTNER_NONE) {
         playerIndex = Duel_GetCurrentPlayerIndex();
     }
     
     if (player->stats.partners.frontID != PARTNER_NONE) {
-        func_8001C92C_1D52C(Duel_PartnerObjects[playerIndex][0]->omObj1->model[0], arg1);
+        func_8001C92C_1D52C(Duel_PartnerObjects[playerIndex][PARTNER_FRONT]->omObj1->model[0], arg1);
     }
     
     if (player->stats.partners.backID != PARTNER_NONE) {
-        func_8001C92C_1D52C(Duel_PartnerObjects[playerIndex][1]->omObj1->model[0], arg1);
+        func_8001C92C_1D52C(Duel_PartnerObjects[playerIndex][PARTNER_BACK]->omObj1->model[0], arg1);
     }
 }
 
@@ -380,9 +380,9 @@ void func_800F8D9C_E0B6C_name_81(s32 arg0, s32* arg1, s32* arg2) {
     
     for (i = 0; i < 2; i++) {
         if (i == Duel_GetCurrentPlayerIndex()) {
-            curPlayer = Duel_GetPlayerStruct(i);
+            curPlayer = MBDGetPlayerStruct(i);
         } else {
-            opponent = Duel_GetPlayerStruct(i);
+            opponent = MBDGetPlayerStruct(i);
         }
     }
 
@@ -490,53 +490,44 @@ void func_800F8EB8_E0C88_name_81(u32 partnerID, s32 arg1, s32* damageAmount, s32
     }
 }
 
-
-void func_8005FBA4_607A4(u8*, s32);                     /* extern */
-s32 func_80061188_61D88(s16 arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4, u16 arg5);
-void func_80061A5C_6265C(s16, s32);                      /* extern */
-void func_800EED68_D6B38_name_81(s16, s32);            /* extern */
-void func_800EF3B4_D7184_name_81(s16);                 /* extern */
-
-// void func_800F90BC_E0E8C_name_81(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-//     u8 sp18[64];
-//     u8 spB8[64];
-//     u8 sp98[64];
-//     s16 spD8[2];
-//     s32 temp_v0;
-
-//     if (arg1 != 0) {
-//         func_8005FBA4_607A4(sp98, arg1);
-//         func_8006022C_60E2C(sp98, 0);
-//     }
-//     if (arg2 != 0) {
-//         func_8005FBA4_607A4(spB8, arg2);
-//         func_8006022C_60E2C(spB8, 1);
-//     }
+void func_800F90BC_E0E8C_name_81(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    u8 sp18[128];
+    u8 sp98[32];
+    u16 temp_v0;
+    u8 spB8[32];
+    s16 spD8[2];
     
-//     func_8005FBA4_607A4(sp18, arg0);
-//     func_80060394_60F94(1, spD8, sp18);
-//     temp_v0 = func_80061188_61D88(-1, 0xA0 - spD8[0] / 2, 0x78 - spD8[1] / 2, spD8[0], spD8[0], 0);
+    if (arg1 != 0) {
+        func_8005FBA4_607A4(sp98, arg1);
+        func_8006022C_60E2C((u32)sp98, 0);
+    }
+    if (arg2 != 0) {
+        func_8005FBA4_607A4(spB8, arg2);
+        func_8006022C_60E2C((u32)spB8, 1);
+    }
     
-//     if (arg1 != 0) {
-//         func_8005B6BC_5C2BC(temp_v0, (u32)sp98, 0);
-//     }
-//     if (arg2 != 0) {
-//         func_8005B6BC_5C2BC(temp_v0, (u32)spB8, 1);
-//     }
+    func_8005FBA4_607A4(sp18, arg0);
+    func_80060394_60F94(1, spD8, (u32)sp18);
+    temp_v0 = func_80061188_61D88(-1, 0xA0 - spD8[0] / 2, 0x78 - spD8[1] / 2, spD8[0], spD8[1], 0);
     
-//     func_8005B43C_5C03C(temp_v0, sp18, -1, -1);
-//     func_80061388_61F88(temp_v0);
+    if (arg1 != 0) {
+        func_8005B6BC_5C2BC(temp_v0, (u32)sp98, 0);
+    }
+    if (arg2 != 0) {
+        func_8005B6BC_5C2BC(temp_v0, (u32)spB8, 1);
+    }
     
-//     if (arg3 == -1) {
-//         func_800EF3B4_D7184_name_81(temp_v0);
-//     } else {
-//         func_800EED68_D6B38_name_81(temp_v0, arg3);
-//     }
-//     func_80061A5C_6265C(temp_v0, 0);
-//     func_8005F364_5FF64(temp_v0);
-// }
-
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/DFD60", func_800F90BC_E0E8C_name_81);
+    func_8005B43C_5C03C(temp_v0, (u32)sp18, -1, -1);
+    func_80061388_61F88(temp_v0);
+    
+    if (arg3 == -1) {
+        func_800EF3B4_D7184_name_81(temp_v0);
+    } else {
+        func_800EED68_D6B38_name_81(temp_v0, arg3);
+    }
+    func_80061A5C_6265C(temp_v0, 0);
+    func_8005F364_5FF64(temp_v0);
+}
 
 void func_800F924C_E101C_name_81(s32 arg0) {
     UnkDiceRelated *new_var;
@@ -567,8 +558,8 @@ void func_800F924C_E101C_name_81(s32 arg0) {
     sp2C = 0;
     curPlayerIndex = Duel_GetCurrentPlayerIndex();
     opposingPlayerIndex = curPlayerIndex ^ 1;
-    player = Duel_GetPlayerStruct(curPlayerIndex);
-    opposingPlayer = Duel_GetPlayerStruct(opposingPlayerIndex);
+    player = MBDGetPlayerStruct(curPlayerIndex);
+    opposingPlayer = MBDGetPlayerStruct(opposingPlayerIndex);
     temp_s6 = HuPrcCurrentGet();
     func_800E5964_CD734_name_81();
     func_800FAEE8_E2CB8_name_81();
@@ -1222,20 +1213,20 @@ void func_800FBDD4_E3BA4_name_81(void) {
     s32 *new_var2;
     s32 (*new_var3)[2];
 
-    player = Duel_GetPlayerStruct(-1);
-    if ((player->stats.partners.frontID != -1) && (player->stats.partners.backID != -1)) {
+    player = MBDGetPlayerStruct(CUR_PLAYER);
+    if ((player->stats.partners.frontID != PARTNER_NONE) && (player->stats.partners.backID != PARTNER_NONE)) {
         if (player->stats.partners.frontID < player->stats.partners.backID) {
-            sp20[0][0] = player->stats.partners.frontID;
-            sp20[0][1] = player->stats.partners.backID;
+            sp20[0][PARTNER_FRONT] = player->stats.partners.frontID;
+            sp20[0][PARTNER_BACK] = player->stats.partners.backID;
         } else {
-            sp20[0][0] = player->stats.partners.backID;
-            sp20[0][1] = player->stats.partners.frontID;
+            sp20[0][PARTNER_FRONT] = player->stats.partners.backID;
+            sp20[0][PARTNER_BACK] = player->stats.partners.frontID;
         }
 
         for (i = 0, new_var3 = D_801019E0_E97B0_name_81; i < 5; i++) {
-            if (sp20[0][0] == new_var3[i][0]) {
-                new_var2 = &D_801019E0_E97B0_name_81[i][1];
-                if (sp20[0][1] == new_var2[0]) {
+            if (sp20[0][PARTNER_FRONT] == new_var3[i][PARTNER_FRONT]) {
+                new_var2 = &D_801019E0_E97B0_name_81[i][PARTNER_BACK];
+                if (sp20[0][PARTNER_BACK] == new_var2[PARTNER_FRONT]) {
                     func_800EB49C_D326C_name_81(0x16, D_80101A08_E97D8_name_81[i], D_80101A1C_E97EC_name_81[player->stats.partners.frontID], D_80101A1C_E97EC_name_81[player->stats.partners.backID], 0, 0, 0);
                     func_800EB58C_D335C_name_81();
                     func_800EB58C_D335C_name_81();
@@ -1247,5 +1238,3 @@ void func_800FBDD4_E3BA4_name_81(void) {
         }
     }
 }
-
-// INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_81_name/DFD60", D_801027EC_EA5BC_name_81);

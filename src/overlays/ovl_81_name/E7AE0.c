@@ -211,7 +211,7 @@ void func_80100604_E83D4_name_81(void) {
     Object* temp_a0;
     
     for (i = 0; i < 2; i++) {
-        temp_v0 = Duel_GetPlayerStruct(i);
+        temp_v0 = MBDGetPlayerStruct(i);
         D_80105520_ED2F0_name_81[i] = func_800D8314_C00E4_name_81(D_80101BD8_E99A8_name_81[temp_v0->chr], 9, 1.0f, D_80101B20_E98F0_name_81[temp_v0->chr], 0);
         obj = &D_80105520_ED2F0_name_81[i]; //TODO: this is odd
         Hu3DModelScaleSet(D_80105520_ED2F0_name_81[i]->omObj1->model[0], 0.0f, 0.0f, 0.0f);
@@ -220,7 +220,7 @@ void func_80100604_E83D4_name_81(void) {
     }
 
     for (i = 0; i < 2; i++) {
-        temp_v0 = Duel_GetPlayerStruct(i);
+        temp_v0 = MBDGetPlayerStruct(i);
         temp_a0 = temp_v0->player_obj;
         temp_v0->player_obj = D_80105520_ED2F0_name_81[i];
         D_80105520_ED2F0_name_81[i] = temp_a0;
@@ -243,14 +243,14 @@ void func_801007C4_E8594_name_81(void) {
     s32 i;
 
     for (i = 0; i < 2; i++) {
-        temp_v0 = Duel_GetPlayerStruct(i);
+        temp_v0 = MBDGetPlayerStruct(i);
         temp_a0 = temp_v0->player_obj;
         temp_v0->player_obj = D_80105520_ED2F0_name_81[i];
         D_80105520_ED2F0_name_81[i] = temp_a0;
     }
 
     for (i = 0; i < 2; i++) {
-        temp_v0 = Duel_GetPlayerStruct(i);
+        temp_v0 = MBDGetPlayerStruct(i);
         func_800D8E88_C0C58_name_81(temp_v0->player_obj);
         func_800D8F3C_C0D0C_name_81(D_80105520_ED2F0_name_81[i]);
     }

@@ -274,7 +274,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/duel01/3D8AC0", func_80110068_3E3158_duel
 void func_80110B7C_3E3C6C_duel01(void) {
     GW_PLAYER* temp_s0;
 
-    temp_s0 = Duel_GetPlayerStruct(CUR_PLAYER);
+    temp_s0 = MBDGetPlayerStruct(CUR_PLAYER);
     if (Duel_GetCurrentPlayerIndex() == 0 && !(temp_s0->rev & 4)) {
         func_800F38DC_DB6AC_name_81(-1, -1, 2);
         func_80110068_3E3158_duel01(0);
@@ -284,7 +284,7 @@ void func_80110B7C_3E3C6C_duel01(void) {
 void func_80110BD8_3E3CC8_duel01(void) {
     GW_PLAYER* temp_s0;
 
-    temp_s0 = Duel_GetPlayerStruct(CUR_PLAYER);
+    temp_s0 = MBDGetPlayerStruct(CUR_PLAYER);
     if ((Duel_GetCurrentPlayerIndex() == 1) && !(temp_s0->rev & 4)) {
         func_800F38DC_DB6AC_name_81(-1, -1, 2);
         func_80110068_3E3158_duel01(1);

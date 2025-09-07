@@ -65,7 +65,7 @@ void func_8005F524_60124(void);
 void func_8005FBF8_607F8(s16, s32, s32, s32);
 void func_8005FE90_60A90(s16);
 void func_8005FFA8_60BA8(s16);
-void func_8006022C_60E2C(s32, s32);
+void func_8006022C_60E2C(u32 mesg, s32);
 void func_80060394_60F94(s32, s16*, s32);
 void func_80061388_61F88(s16);
 
