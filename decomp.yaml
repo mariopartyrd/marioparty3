@@ -1,14 +1,35 @@
+# name: Mario Party 3
+# repo: https://github.com/mariopartyrd/marioparty3
+# platform: n64
+# versions:
+# - name: mp3
+#   fullname: MP3
+#   paths:
+#     baserom: "baserom.us.z64"
+#     build: "build/marioparty3.z64"
+#     asm: "asm"
+#     nonmatchings: "asm/nonmatchings"
+#     map: "build/marioparty3.map"
+#     elf: "build/marioparty3.elf"
+# tools:
+
+
 name: Mario Party 3
-github: https://github.com/zestydevy/marioparty3
+repo: https://github.com/mariopartyrd/marioparty3
 platform: n64
 versions:
-- name: mp3
-  fullname: MP3
+- name: us
+  fullname: US
+  sha1: 6BEB80FF822B96BCF85DCDB512E8B2B7969D8259
   paths:
-    baserom: "baserom.us.z64"
-    build: "build/marioparty3.z64"
+    target: "marioparty3.z64"
+
+    build_dir: "build"
+    map: "build/marioparty3.map"
+    compiled_target: "build/marioparty3.z64"
+    elf: "build/marioparty3.elf"
+
+    expected_dir: "expected/"
+
     asm: "asm"
     nonmatchings: "asm/nonmatchings"
-    map: "build/marioparty3.map"
-    elf: "build/marioparty3.elf"
-tools:

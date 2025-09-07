@@ -11,8 +11,14 @@ typedef struct GwCommon_s {
 /* 0x12 */ char unk_12[4];
 /* 0x16 */ u8 mgUnlock[7]; //is this still 7 in length like mp1?
 /* 0x1D */ char unk_1D[0x6E];
-/* 0x8B */ u8 flag[12]; //is this still 12 in length like mp1?
-/* 0x97 */ char unk_9D[0xD];
+/* 0x8B */ u8 flag[0xC];
+/* 0x97 */ char pad97[7];
+/* 0x9E */ s8 unk9E;
+/* 0x9F */ s8 unk9F;
+/* 0xA0 */ s8 unkA0;
+/* 0xA1 */ s8 unkA1;
+/* 0xA2 */ s8 unkA2;
+/* 0xA3 */ char padA3[1];
 } GW_COMMON; //sizeof 0xA4?
 
 typedef struct GW_STORY {

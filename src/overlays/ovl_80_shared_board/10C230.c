@@ -70,15 +70,36 @@ void func_800F8774_10C394_shared_board(void) {
     omOvlReturnEx(1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F884C_10C46C_shared_board);
+void func_800F884C_10C46C_shared_board(void) {
+    D_800CD2A0_CDEA0.unk_02 = 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F8858_10C478_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F8864_10C484_shared_board);
+s16 func_800F8858_10C478_shared_board(void) {
+    return D_800D4190_D4D90.stat;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F88D0_10C4F0_shared_board);
+void func_800F8864_10C484_shared_board(s16 arg0) {
+    s16 temp_v0 = D_800D6B48_D7748->unk_18;
+    
+    D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18].event = arg0;
+    D_800D6B48_D7748->unk_18 = temp_v0 + 1;
+    if (D_800D6B48_D7748->unk_18 >= 5) {
+        D_800D6B48_D7748->unk_18 = 4;
+    }
+    func_800F8610_10C230_shared_board(-2, 3, 0x192);
+    omOvlReturnEx(1);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F88FC_10C51C_shared_board);
+void func_800F88D0_10C4F0_shared_board(void) {
+    if (GWBoardFlagCheck(0x17)) {
+        GWBoardFlagSet(0x10);
+    }
+}
+
+s32 func_800F88FC_10C51C_shared_board(void) {
+    return D_800D1240_D1E40;
+}
 
 void func_800F8908_10C528_shared_board(void) {
     s32* temp_s0 = HuPrcCurrentGet()->user_data;

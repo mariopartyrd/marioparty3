@@ -881,6 +881,16 @@ n_aspMain_data = 0x800A6050; //rom:0xA6C50 size:0x2B0
 //ovl_80
 D_801057E0_119400_shared_board = 0x801057E0; //size:0x1B0 segment:shared_board
 
+//ovl_81
+D_800D123C_D1E3C = 0x800D123C; //type:s32 size:0x4
+D_800D1240_D1E40 = 0x800D1240; //type:s32 size:0x4
+D_800D41B0_D4DB0 = 0x800D41B0; //type:s32 size:0x10
+D_800CE1CE_CEDCE = 0x800CE1CE; //type:s16 size:0x2
+D_800CE1D0_CEDD0 = 0x800CE1D0; //type:s16 size:0x2
+D_800D1244_D1E44 = 0x800D1244; //size:0x8
+D_800C9934_CA534 = 0x800C9934; //type:s32 size:0x4
+D_800C9938_CA538 = 0x800C9938; //rom:0xCA538 type:f32
+
 //weird bug going on with these 2 symbols
 //they must be declared in this order, or D_80105718_119338_shared_board will be used for both symbols
 D_80105718_ED4E8_name_81 = 0x80105718; //size:0x04 segment:name_81

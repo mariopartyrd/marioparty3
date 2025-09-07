@@ -25,5 +25,5 @@ extern s16 omovlhisidx;
 extern omOvlHisData omovlhis[12];
 extern omOvlHisData D_800D20F0_D2CF0[5];
 extern Unk800D6B48 D_800D6B48_D7748[2];
-
+extern s32 D_800D1240_D1E40;
 #endif //_VARIABLES_H_
