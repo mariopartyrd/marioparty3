@@ -163,7 +163,7 @@ INCLUDE_ASM("asm/nonmatchings/audio", func_8004B0D4_4BCD4);
 INCLUDE_ASM("asm/nonmatchings/audio", func_8004B1AC_4BDAC);
 
 // Doesn't seem to be audio related? Maybe part of the next file.
-void func_8004B25C_4BE5C(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
+void omVibrate(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
     if (!(GwPlayer[arg0].stat & PLAYER_IS_CPU)) {
         func_8005A674_5B274(GwPlayer[arg0].pad, arg1, arg2, arg3);
     }

@@ -3,8 +3,8 @@
 
 #include "common.h"
 
-void func_800E52F8_CD0C8_name_81(void);
-void func_800E5000_CCDD0_name_81(void);
+void MBDBackKill(void);
+void MBDBackClose(void);
 void func_800F64FC_DE2CC_name_81(void);
 void func_80106850_4F10A0_mgresultduel(omObjData*, s32);
 void ovlEventCall(OvlEntrypoint*, s16);

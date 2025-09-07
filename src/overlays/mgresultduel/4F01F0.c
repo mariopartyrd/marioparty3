@@ -35,8 +35,8 @@ void func_80105FD4_4F0824_mgresultduel(void) {
 }
 
 void func_80106054_4F08A4_mgresultduel(void) {
-    func_800E52F8_CD0C8_name_81();
-    func_800E5000_CCDD0_name_81();
+    MBDBackKill();
+    MBDBackClose();
     func_800F64FC_DE2CC_name_81();
 }
 

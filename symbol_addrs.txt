@@ -42,6 +42,8 @@ D_80114E60_4DE810_mstory5 = 0x80114E60; //rom:0x4DE810 type:f32 size:0x0C
 D_80114E6C_4DE81C_mstory5 = 0x80114E6C; //rom:0x4DE81C type:f32 size:0x0C
 D_80114F30_4DE8E0_mstory5 = 0x80114F30; //rom:0x4DE8E0 type:f32 size:0x0C
 
+omVibrate = 0x8004B25C; //rom:0x4BE5C
+
 HuMemInit = 0x80019980;
 HuMemAlloc = 0x800199F8;
 HuMemAllocTag = 0x80019A14;
@@ -868,9 +870,9 @@ sPrcSleepLoc = 0x800D20A8;
 D_800D20F0_D2CF0 = 0x800D20F0; //size:0x28
 D_800D6A46_D7646 = 0x800D6A46; //type:u16
 D_800D6A48_D7648 = 0x800D6A48; //type:s16
-D_800CDD54_CE954 = 0x800CDD54; //rom:0xCE954 type:s16
-D_800CDD56_CE956 = 0x800CDD56; //rom:0xCE956 type:s16
-D_800CDD58_CE958 = 0x800CDD58; //rom:0xCE958 type:s16
+D_800CDD54_CE954 = 0x800CDD54; //rom:0xCE954 type:s16 size:0x2
+D_800CDD56_CE956 = 0x800CDD56; //rom:0xCE956 type:s16 size:0x2
+D_800CDD58_CE958 = 0x800CDD58; //rom:0xCE958 type:s16 size:0x2
 D_800D037C_D0F7C = 0x800D037C; //rom:0xD0F7C type:s16
 D_800D51F8_D5DF8 = 0x800D51F8; //rom:0xD5DF8 type:s16
 SetSpaceType = 0x800EB7F0; //rom:0xFF410 segment:shared_board
@@ -882,6 +884,33 @@ n_aspMain_data = 0x800A6050; //rom:0xA6C50 size:0x2B0
 D_801057E0_119400_shared_board = 0x801057E0; //size:0x1B0 segment:shared_board
 
 //ovl_81
+MBDBackClose = 0x800E5000; //rom:0xCCDD0 segment:name_81
+MBDBackCreate = 0x800E5040; //rom:0xCCE10 segment:name_81
+MBDBackLoad = 0x800E52DC; //rom:0xCD0AC segment:name_81
+MBDBackKill = 0x800E52F8; //rom:0xCD0C8 segment:name_81
+MBDBackOffsetSet = 0x800E5360; //rom:0xCD130 segment:name_81
+MBDBackMinXGet = 0x800E5374; //rom:0xCD144 segment:name_81
+MBDBackMaxXGet = 0x800E53B0; //rom:0xCD180 segment:name_81
+MBDBackMinYGet = 0x800E53E8; //rom:0xCD1B8 segment:name_81
+MBDBackMaxYGet = 0x800E5424; //rom:0xCD1F4 segment:name_81
+MBDBackPosClamp = 0x800E545C; //rom:0xCD22C segment:name_81
+MBDBackDispSet = 0x800E55E4; //rom:0xCD3B4 segment:name_81
+MBDBackMdlScaleGet = 0x800E5C70; //rom:0xCDA40 segment:name_81
+MBDCameraZoomGet = 0x800E7C04; //rom:0xCF9D4 segment:name_81
+MBDCameraZoomSet = 0x800E7C10; //rom:0xCF9E0 segment:name_81
+MBDCameraZoomMotStart = 0x800E7D18; //rom:0xCFAE8 segment:name_81
+MBDCameraPos3DSet = 0x800E8584; //rom:0xD0354 segment:name_81
+MBDCameraPos2DSet = 0x800E8648; //rom:0xD0418 segment:name_81
+MBDCameraPos3DGet = 0x800E86B8; //rom:0xD0488 segment:name_81
+MBDCameraPos2DGet = 0x800E8704; //rom:0xD04D4 segment:name_81
+MBDCamera3Dto2D = 0x800E875C; //rom:0xD052C segment:name_81
+MBDBackTPLvlSet = 0x800E8870; //rom:0xD0640 segment:name_81
+MBDBackInvertSet = 0x800E887C; //rom:0xD064C segment:name_81
+MBDBackFlipSet = 0x800E88B0; //rom:0xD0680 segment:name_81
+MBDCameraSpeedSet = 0x800E88E4; //rom:0xD06B4 segment:name_81
+MBDCameraSpeedGet = 0x800E88F0; //rom:0xD06C0 segment:name_81
+MBDCameraBackOffsetSet = 0x800E8A1C; //rom:0xD07EC segment:name_81
+
 D_800D123C_D1E3C = 0x800D123C; //type:s32 size:0x4
 D_800D1240_D1E40 = 0x800D1240; //type:s32 size:0x4
 D_800D41B0_D4DB0 = 0x800D41B0; //type:s32 size:0x10

@@ -71,7 +71,7 @@ void func_8010BCA4_3BF974_boardresult(void) {
     Hu3DCamInit(1);
     HmfLightColorSet(1, 0xFF, 0xFF, 0xFF);
     func_800E4F50_CCD20_name_81(hvq_data_ROM_START);
-    func_800E52DC_CD0AC_name_81(0);
+    MBDBackLoad(0);
     func_800E8180_CFF50_name_81(1000.0f, 10000.0f);
 }
 

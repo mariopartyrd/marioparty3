@@ -48,7 +48,7 @@ void func_80109158_463F48_opduel(void) {
 
     Hu3DCamInit(1);
     func_800E4F50_CCD20_name_81(hvq_data_ROM_START);
-    func_800E52DC_CD0AC_name_81(sp10[GwSystem.current_board_index]);
+    MBDBackLoad(sp10[GwSystem.current_board_index]);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opduel/460790", func_801091DC_463FCC_opduel);

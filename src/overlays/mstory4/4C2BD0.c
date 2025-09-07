@@ -340,7 +340,7 @@ void func_80017954_18554(s16, s32, u8, s16);             /* extern */
 void Hu3DModelRotSet(s16, f32, f32, f32);                /* extern */
 void func_8001C624_1D224(s16, u8, s32, s32, s32);          /* extern */
 void func_800E4F50_CCD20_name_81(Addr*);                  /* extern */
-void func_800E5040_CCE10_name_81(s32, s32);                /* extern */
+void MBDBackCreate(s32, s32);                /* extern */
 void func_80106C78_4C3EA8_mstory4(void);                   /* extern */
 void func_80106CA8_4C3ED8_mstory4(void);                   /* extern */
 void func_80106CCC_4C3EFC_mstory4(s32);                  /* extern */
@@ -412,7 +412,7 @@ void func_8010FC98_4CCEC8_mstory4(void) {
     D_80111AC4_4CECF4_mstory4 = 1;
     var_s3 = 0;
     func_800E4F50_CCD20_name_81(hvq_data_ROM_START);
-    func_800E5040_CCE10_name_81(0x20, 0);
+    MBDBackCreate(0x20, 0);
     func_8010EF28_4CC158_mstory4(7);
     for (i = 0; i < 6; i++) {
         // if (D_80112088_4CF2B8_mstory4[i].unk_00 > 0) {

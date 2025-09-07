@@ -59,7 +59,7 @@ void func_8010822C_55059C_storyresult(void) {
     func_801060D0_54E440_storyresult(&D_8010AB9C_552F0C_storyresult[0]);
     D_8010A912_552C82_storyresult = 1;
     func_800E4F50_CCD20_name_81(hvq_data_ROM_START);
-    func_800E52DC_CD0AC_name_81(0x20);
+    MBDBackLoad(0x20);
     func_800E8180_CFF50_name_81(1000.0f, 10000.0f);
     D_8010AC2A_552F9A_storyresult = 0xB;
     WipeCreateIn(0xB, 0x10);

@@ -19,22 +19,22 @@ void func_800FFAE0_E78B0_name_81(s16 playerNo, s16 arg1) {
     if (playerNo != 4) {
         switch (arg1) {
         case 0:
-            func_8004B25C_4BE5C(playerNo, 5, 0, 5);
+            omVibrate(playerNo, 5, 0, 5);
             break;
         case 1:
-            func_8004B25C_4BE5C(playerNo, 2, 3, 10);
+            omVibrate(playerNo, 2, 3, 10);
             break;
         case 2:
-            func_8004B25C_4BE5C(playerNo, 10, 0, 10);
+            omVibrate(playerNo, 10, 0, 10);
             break;
         case 3:
-            func_8004B25C_4BE5C(playerNo, 2, 2, 20);
+            omVibrate(playerNo, 2, 2, 20);
             break;
         case 4:
-            func_8004B25C_4BE5C(playerNo, 20, 0, 20);
+            omVibrate(playerNo, 20, 0, 20);
             break;
         case 5:
-            func_8004B25C_4BE5C(playerNo, 30, 0, 30);
+            omVibrate(playerNo, 30, 0, 30);
             break;
         }
     }

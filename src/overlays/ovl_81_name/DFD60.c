@@ -596,10 +596,10 @@ void func_800F924C_E101C_name_81(s32 arg0) {
     func_800F8D9C_E0B6C_name_81(arg0, &sp18, &sp1C);
     
     if (sp18 == (-1)) {
-        HuPrcChildLink(temp_s6, func_800E7D18_CFAE8_name_81(1.0f));
+        HuPrcChildLink(temp_s6, MBDCameraZoomMotStart(1.0f));
         HuPrcChildWait();
         func_800EAFC4_D2D94_name_81(0x1E00);
-        HuPrcChildLink(temp_s6, func_800E7D18_CFAE8_name_81(1.7f));
+        HuPrcChildLink(temp_s6, MBDCameraZoomMotStart(1.7f));
         HuPrcChildWait();
     } else {
         sp20 = 0;
@@ -662,7 +662,7 @@ void func_800F924C_E101C_name_81(s32 arg0) {
         sp44 = Duel_GetPlayerPartnerRef(opposingPlayerIndex, var_s5);
         D_800D037C_D0F7C = 0;
         var_s0 = 0x7F;
-        HuPrcChildLink(temp_s6, func_800E7D18_CFAE8_name_81(1.0f));
+        HuPrcChildLink(temp_s6, MBDCameraZoomMotStart(1.0f));
         
         while (HuPrcChildGet(temp_s6) != 0) {
             func_800036E8_42E8(D_800CDBC8_CE7C8->unk_00, var_s0);
@@ -677,7 +677,7 @@ void func_800F924C_E101C_name_81(s32 arg0) {
         func_800FFAE0_E78B0_name_81(1, 2);
         HuPrcChildLink(temp_s6, func_800E415C_CBF2C_name_81());
         HuPrcChildWait();
-        HuPrcChildLink(temp_s6, func_800E7D18_CFAE8_name_81(3.0f));
+        HuPrcChildLink(temp_s6, MBDCameraZoomMotStart(3.0f));
         HuPrcChildWait();
         func_800F74E4_DF2B4_name_81(-1);
         HuVecCopy3F(&D_80105540_ED310_name_81, &player->player_obj->coords);
@@ -787,11 +787,11 @@ void func_800F924C_E101C_name_81(s32 arg0) {
             }
             
             for (i = 255; i > 64; i -= 16) {
-                func_800E8870_D0640_name_81(i);
+                MBDBackTPLvlSet(i);
                 HuPrcVSleep();
             }
 
-            func_800E8870_D0640_name_81(0x40);
+            MBDBackTPLvlSet(0x40);
             HuPrcChildLink(temp_s6, func_800E47B8_CC588_name_81(curPlayerIndex, *D_80101974_E9744_name_81, &player->player_obj->coords, &opposingPlayer->player_obj->coords, 1));
             temp_v0_6 = func_800D8010_BFDE0_name_81(0x36, 0);
             HuVecCopy3F(&temp_v0_6->coords, &sp3C->coords);
@@ -939,11 +939,11 @@ void func_800F924C_E101C_name_81(s32 arg0) {
                 }
                 
                 for (i = 64; i < 255; i += 16) {
-                    func_800E8870_D0640_name_81(i);
+                    MBDBackTPLvlSet(i);
                     HuPrcVSleep();
                 }
 
-                func_800E8870_D0640_name_81(0xFF);
+                MBDBackTPLvlSet(0xFF);
                 func_800F75EC_DF3BC_name_81(-1);
                 HuVecCopy3F(&D_80105540_ED310_name_81, func_800FC8D0_E46A0_name_81());
                 func_800FC8C4_E4694_name_81(&D_80105540_ED310_name_81);

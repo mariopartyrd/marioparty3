@@ -15,15 +15,15 @@ void func_80100604_E83D4_name_81(void);
 void func_800F740C_DF1DC_name_81(void);
 void func_800F89D0_E07A0_name_81(s32, s32, s32, s32);
 void func_801007C4_E8594_name_81(void);
-void func_800E8584_D0354_name_81(Vec*);
+void MBDCameraPos3DSet(Vec*);
 void func_80049FB8_4ABB8(void);
 void func_8004A0E0_4ACE0(void);
 void func_800E5954_CD724_name_81(void);
 void func_800E5964_CD734_name_81(void);
-f32 func_800E7C04_CF9D4_name_81(void);
-Process* func_800E7D18_CFAE8_name_81(f32);
-void func_800E8704_D04D4_name_81(f32*);
-void func_800E875C_D052C_name_81(Vec*, f32*);
+f32 MBDCameraZoomGet(void);
+Process* MBDCameraZoomMotStart(f32);
+void MBDCameraPos2DGet(f32*);
+void MBDCamera3Dto2D(Vec*, f32*);
 void func_801008E8_E86B8_name_81(void);
 void func_80100CA0_E8A70_name_81(void);
 
@@ -132,11 +132,11 @@ void func_80100124_E7EF4_name_81(UnkBoard4* arg0, s32 arg1) {
     f32 sp10[2];
     f32 sp18[2];
 
-    func_800E8704_D04D4_name_81(sp10);
+    MBDCameraPos2DGet(sp10);
     func_80054904_55504(arg0->unk_0A, 2, (D_80101B80_E9950_name_81[2][0] + (sp10[0] / 9.0f)), (D_80101B80_E9950_name_81[2][1] + (sp10[1] / 9.0f)));
-    func_800E875C_D052C_name_81(&GwPlayer[0].player_obj->coords, sp18);
+    MBDCamera3Dto2D(&GwPlayer[0].player_obj->coords, sp18);
     func_80054904_55504(arg0->unk_0A, 3, (D_80101B80_E9950_name_81[3][0] + (sp10[0] / 9.0f) + ((sp18[0] - 160.0f) / 9.0f)), ((D_80101B80_E9950_name_81[3][1] + (sp10[1] / 9.0f) + ((sp18[1] - 120.0f) / 9.0f)) - 4.0f));
-    func_800E875C_D052C_name_81(&GwPlayer[1].player_obj->coords, sp18);
+    MBDCamera3Dto2D(&GwPlayer[1].player_obj->coords, sp18);
     func_80054904_55504(arg0->unk_0A, 4, (D_80101B80_E9950_name_81[4][0] + (sp10[0] / 9.0f) + ((sp18[0] - 160.0f) / 9.0f)), ((D_80101B80_E9950_name_81[4][1] + (sp10[1] / 9.0f) + ((sp18[1] - 120.0f) / 9.0f)) - 4.0f));
     
     if (arg1 == 0) {
@@ -273,30 +273,30 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E7AE0", func_801008E8_E86B8_n
 
 void func_80100CA0_E8A70_name_81(void) {
     while (1) {
-        func_800E8584_D0354_name_81(&GwPlayer[GwSystem.current_player_index].player_obj->coords);
+        MBDCameraPos3DSet(&GwPlayer[GwSystem.current_player_index].player_obj->coords);
         HuPrcVSleep();
     }
 }
 
-void func_80100CEC_E8ABC_name_81(s32 arg0) {
+void func_80100CEC_E8ABC_name_81(s32 padIdx) {
     Process* proc;
     Process* proc2;
     Process* procObj;
 
-    D_80105528_ED2F8_name_81 = func_800E7C04_CF9D4_name_81();
-    func_800E8704_D04D4_name_81(D_8010552C_ED2FC_name_81);
+    D_80105528_ED2F8_name_81 = MBDCameraZoomGet();
+    MBDCameraPos2DGet(D_8010552C_ED2FC_name_81);
     D_800CB99C_CC59C = 1;
     func_80049FB8_4ABB8();
     func_800E5964_CD734_name_81();
     procObj = omAddPrcObj(func_80100CA0_E8A70_name_81, 0x1005U, 0, 0);
     omPrcSetStatBit(procObj, 0x20);
     proc = HuPrcCurrentGet();
-    HuPrcChildLink(proc, func_800E7D18_CFAE8_name_81(1.0f));
+    HuPrcChildLink(proc, MBDCameraZoomMotStart(1.0f));
     HuPrcChildWait();
     omDelPrcObj(procObj);
     proc2 = HuPrcCurrentGet();
     procObj = omAddPrcObj(func_801008E8_E86B8_name_81, 0x1005U, 0, 0);
-    procObj->user_data = arg0;
+    procObj->user_data = (void*)padIdx;
     omPrcSetStatBit(procObj, 0x80);
     HuPrcChildLink(proc2, procObj);
     HuPrcChildWait();

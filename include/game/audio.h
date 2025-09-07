@@ -15,6 +15,6 @@ s32 func_8004AC5C_4B85C(s16 arg0, s16 arg1);
 s16 func_8004AC98_4B898(s16, s16);
 void func_8004ACE0_4B8E0(s32, s16);
 void HuAudFXStop(s32 seNo);
-void func_8004B25C_4BE5C(s16, s32, s32, s32);
+void omVibrate(s16, s32, s32, s32);
 
 #endif

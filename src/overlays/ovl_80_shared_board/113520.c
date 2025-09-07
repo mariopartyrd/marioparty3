@@ -8,22 +8,22 @@ void func_800FF900_113520_shared_board(s16 playerIndex, s16 arg1) {
     if (playerIndex != 4) {
         switch (arg1) {
         case 0:
-            func_8004B25C_4BE5C(playerIndex, 5, 0, 5);
+            omVibrate(playerIndex, 5, 0, 5);
             break;
         case 1:
-            func_8004B25C_4BE5C(playerIndex, 2, 3, 10);
+            omVibrate(playerIndex, 2, 3, 10);
             break;
         case 2:
-            func_8004B25C_4BE5C(playerIndex, 10, 0, 10);
+            omVibrate(playerIndex, 10, 0, 10);
             break;
         case 3:
-            func_8004B25C_4BE5C(playerIndex, 2, 2, 20);
+            omVibrate(playerIndex, 2, 2, 20);
             break;
         case 4:
-            func_8004B25C_4BE5C(playerIndex, 20, 0, 20);
+            omVibrate(playerIndex, 20, 0, 20);
             break;
         case 5:
-            func_8004B25C_4BE5C(playerIndex, 30, 0, 30);
+            omVibrate(playerIndex, 30, 0, 30);
             break;
         }
     }

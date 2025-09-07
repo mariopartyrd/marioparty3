@@ -1063,7 +1063,7 @@ void m257_CheckPlayerCollision(FuncGroupContext* groupCtx, FuncContext* ctx) {
         m257_SetFunc(object->work[1], 0xFF, player, m257_ExecPlayerKnockedOut, 0);
         player->stat |= PLAYER_STAT_LOST;
         if (!(GwPlayer[m257_playerId[object->work[0]]].stat & PLAYER_IS_CPU)) {
-            func_8004B25C_4BE5C(object->work[0], 2, 2, 0x14);
+            omVibrate(object->work[0], 2, 2, 0x14);
         }
     }
 }

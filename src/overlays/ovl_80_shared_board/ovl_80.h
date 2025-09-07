@@ -125,7 +125,7 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0);
 s16 func_800EB184_FEDA4_shared_board(u16 arg0, u16 arg1);
 void func_800FF900_113520_shared_board(s16, s16);
 s16 GetCurrentPlayerIndex(void);
-void func_8004B25C_4BE5C(s16, s32, s32, s32);
+void omVibrate(s16, s32, s32, s32);
 void func_800F7610_10B230_shared_board(void);
 void func_800EC590_1001B0_shared_board(s32, s32);
 void func_800F74E4_10B104_shared_board(void);

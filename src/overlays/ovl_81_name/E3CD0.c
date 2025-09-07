@@ -29,13 +29,20 @@ void func_800FD55C_E532C_name_81(void);
 void func_800DAAB0_C2880_name_81(void);
 void func_800DF154_C6F24_name_81(void);
 s32 func_800F37B8_DB588_name_81(s16 playerIndex);
-void func_800E8584_D0354_name_81(Vec*);
-void func_800E8648_D0418_name_81(f32*);
-void func_800E8704_D04D4_name_81(f32*);
+void MBDCameraPos3DSet(Vec*);
+void MBDCameraPos2DSet(f32*);
+void MBDCameraPos2DGet(f32*);
 s32 func_800E1824_C95F4_name_81(s32, s32, s32);
 void func_800E1854_C9624_name_81(s32);
 Process* func_800E0888_C8658_name_81(void);
 void func_80100CEC_E8ABC_name_81(u8);
+void func_800E5954_CD724_name_81(void);
+void func_800E5BE8_CD9B8_name_81(void);
+void func_800E5C20_CD9F0_name_81(void);
+void func_800E856C_D033C_name_81(f32);
+f32 func_800E8578_D0348_name_81(void);
+void MBDCameraSpeedSet(f32);
+f32 MBDCameraSpeedGet(void);
 
 extern s32 D_80101AF8_E98C8_name_81;
 extern s32 D_80101AFC_E98CC_name_81;
@@ -179,7 +186,7 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     func_800E8D10_D0AE0_name_81();
     func_800E4F50_CCD20_name_81(hvq_data_ROM_START);
     if (arg0 >= 0) {
-        func_800E52DC_CD0AC_name_81(arg0);
+        MBDBackLoad(arg0);
     }
     func_800E94D0_D12A0_name_81();
     if (arg1 >= 0) {
@@ -249,8 +256,8 @@ void func_800FC4E4_E42B4_name_81(void) {
     func_800D7F0C_BFCDC_name_81();
     func_800E9D9C_D1B6C_name_81();
     func_800E9564_D1334_name_81();
-    func_800E52F8_CD0C8_name_81();
-    func_800E5000_CCDD0_name_81();
+    MBDBackKill();
+    MBDBackClose();
     func_800E4FF4_CCDC4_name_81();
     func_800E90B4_D0E84_name_81();
     
@@ -270,7 +277,7 @@ void func_800FC59C_E436C_name_81(s32 arg0) {
     D_80101A94_E9864_name_81 = arg0;
 }
 
-void func_800FC5A8_E4378_name_81(s32 arg0) {
+void func_800FC5A8_E4378_name_81(process_func arg0) {
     D_80101A90_E9860_name_81 = arg0;
 }
 
@@ -424,25 +431,24 @@ void func_800FC8E8_E46B8_name_81(void) {
     Vec sp18;
     
     while (1) {
-        //?
-        switch ((s16)((u16)D_8010549E_ED26E_name_81 - 1)) {
-        case 0:
-            func_800E8584_D0354_name_81(&GwPlayer[GwSystem.current_player_index].player_obj->coords);
-            break;
+        switch (D_8010549E_ED26E_name_81) {
         case 1:
-            func_800E8584_D0354_name_81(&D_801054A0_ED270_name_81);
-            break;
-        case 3:
-            func_800E8584_D0354_name_81(D_801054AC_ED27C_name_81);
-            break;
-        case 4:
-            HuVecCopy3F(&sp18, &D_801054B0_ED280_name_81->unk_0C);
-            sp18.y += D_801054B0_ED280_name_81->unk_30;
-            func_800E8584_D0354_name_81(&sp18);
+            MBDCameraPos3DSet(&GwPlayer[GwSystem.current_player_index].player_obj->coords);
             break;
         case 2:
-            func_800E8704_D04D4_name_81(sp10);
-            func_800E8648_D0418_name_81(sp10);
+            MBDCameraPos3DSet(&D_801054A0_ED270_name_81);
+            break;
+        case 4:
+            MBDCameraPos3DSet(D_801054AC_ED27C_name_81);
+            break;
+        case 5:
+            HuVecCopy3F(&sp18, &D_801054B0_ED280_name_81->unk_0C);
+            sp18.y += D_801054B0_ED280_name_81->unk_30;
+            MBDCameraPos3DSet(&sp18);
+            break;
+        case 3:
+            MBDCameraPos2DGet(sp10);
+            MBDCameraPos2DSet(sp10);
             break;
         }
         HuPrcVSleep();        
@@ -668,18 +674,62 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FF480_E7250_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FF640_E7410_name_81);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FF944_E7714_name_81);
+void func_800FF944_E7714_name_81(s16 arg0) {
+    D_800CD2A0_CDEA0.unk_02 = 1;
+    D_80105494_ED264_name_81 = 0x40;
+    D_800D1360_D1F60.unk_20 = arg0;
+    D_80105496_ED266_name_81 = 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FF970_E7740_name_81);
+void func_800FF970_E7740_name_81(s32 arg0) {
+    D_800A12C8 = arg0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FF97C_E774C_name_81);
+void func_800FF97C_E774C_name_81(s32 arg0, s16 arg1, s16 arg2, s16 arg3) {
+    D_80105498_ED268_name_81 = arg0;
+    D_8010549C_ED26C_name_81 = arg1;
+    D_80105494_ED264_name_81 = 8;
+    D_800D1360_D1F60.unk_20 = arg2;
+    D_80105496_ED266_name_81 = arg3;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FF9AC_E777C_name_81);
+void func_800FF9AC_E777C_name_81(s32 arg0, s16 arg1, s16 arg2) {
+    func_800FF97C_E774C_name_81(arg0, arg1, arg2, 0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FF9D8_E77A8_name_81);
+void func_800FF9D8_E77A8_name_81(void) {
+    D_800D530C_D5F0C = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FF9E8_E77B8_name_81);
+void func_800FF9E8_E77B8_name_81(s16 arg0, s16 arg1) {
+    D_80105494_ED264_name_81 = 0x10;
+    D_800D1360_D1F60.unk_20 = arg0;
+    D_80105496_ED266_name_81 = arg1;
+    func_800FC108_E3ED8_name_81();
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FFA1C_E77EC_name_81);
+s16 func_800FFA1C_E77EC_name_81(void) {
+    return D_80105494_ED264_name_81;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FFA28_E77F8_name_81);
+void func_800FFA28_E77F8_name_81(Vec* arg0) {
+    f32 temp_f20;
+    f32 temp_f22;
+    Vec* var_s0;
+
+    var_s0 = arg0;
+    func_800E5C20_CD9F0_name_81();
+    func_800E5BE8_CD9B8_name_81();
+    temp_f22 = MBDCameraSpeedGet();
+    MBDCameraSpeedSet(-1.0f);
+    temp_f20 = func_800E8578_D0348_name_81();
+    func_800E856C_D033C_name_81(1.0f);
+    func_800E5954_CD724_name_81();
+    if (var_s0 == NULL) {
+        var_s0 = &Duel_GetPlayerStruct(CUR_PLAYER)->player_obj->coords;
+    }
+    MBDCameraPos3DSet(var_s0);
+    HuPrcVSleep();
+    func_800E856C_D033C_name_81(temp_f20);
+    MBDCameraSpeedSet(temp_f22);
+}

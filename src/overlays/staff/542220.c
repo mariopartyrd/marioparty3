@@ -179,7 +179,7 @@ void func_8010D1E8_549A68_staff(void) {
     temp_s2 = HuPrcCurrentGet()->user_data;
     HmfLightDirSet(1, 0.0f, 0.0f, 100.0f);
     func_800E4F50_CCD20_name_81(hvq_data_ROM_START);
-    func_800E52DC_CD0AC_name_81(0x20);
+    MBDBackLoad(0x20);
     func_800E8180_CFF50_name_81(1000.0f, 10000.0f);
     func_800E8110_CFEE0_name_81();
     D_80110538_54CDB8_staff = 1;
@@ -232,8 +232,8 @@ void func_8010D1E8_549A68_staff(void) {
         func_8001ACDC_1B8DC(temp->unk_28);
     }
 
-    func_800E52F8_CD0C8_name_81();
-    func_800E5000_CCDD0_name_81();
+    MBDBackKill();
+    MBDBackClose();
     *temp_s2 = 0;
     while (1) {
         HuPrcVSleep();
