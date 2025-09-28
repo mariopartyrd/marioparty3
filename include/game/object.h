@@ -39,7 +39,7 @@ typedef struct Object_s {
 /* 0x04 */ struct Object_s *next;
 /* 0x08 */ u8 unk8;
 /* 0x09 */ s8 unk9;
-/* 0x0A */ u16 unkA;
+/* 0x0A */ u16 flags;
 /* 0x0C */ Vec coords;
 // Three Vec groups (Scale?, Rotation?, Position?)
 /* 0x18 */ Vec unk18;

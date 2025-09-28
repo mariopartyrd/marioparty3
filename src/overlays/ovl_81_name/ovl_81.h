@@ -208,6 +208,9 @@ void func_800FC8C4_E4694_name_81(Vec*);
 Vec* func_800FC8D0_E46A0_name_81(void);
 void func_800FFAE0_E78B0_name_81(s16, s16);
 void func_800EB49C_D326C_name_81(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
+void func_800D85A8_C0378_name_81(f32);
+void func_800D87DC_C05AC_name_81(f32);
+void func_800EF3EC_D71BC_name_81(s32);
 
 extern s8* D_80101968_E9738_name_81;
 extern s8* D_8010196C_E973C_name_81;

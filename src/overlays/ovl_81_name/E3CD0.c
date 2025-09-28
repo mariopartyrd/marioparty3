@@ -199,7 +199,7 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     for (i = 0; i < 2; i++) {
         func_800D8944_C0714_name_81(MBDGetPlayerStruct(i)->player_obj);
         playerObj = MBDGetPlayerStruct(i)->player_obj;
-        playerObj->unkA |= 2;
+        playerObj->flags |= 2;
         func_800D8E88_C0C58_name_81(MBDGetPlayerStruct(i)->player_obj);
     }
 

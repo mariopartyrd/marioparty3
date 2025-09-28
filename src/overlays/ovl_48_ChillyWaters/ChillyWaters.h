@@ -22,7 +22,7 @@ void func_800EBCFC_FF91C_shared_board(void*);
 void func_800EBD54_FF974_shared_board(void*);
 void func_800EBDAC_FF9CC_shared_board(void);
 void func_800ECB58_100778_shared_board(Vec*, Vec*, Vec*);
-void func_800F89D0_10C5F0_shared_board(s32, s32, s32, s32);
+void func_800F89D0_10C5F0_shared_board(s32 arg0, s16 arg1, s32 arg2, s32 unused);
 void func_80105FB0_31BB20_ChillyWaters(void);
 void func_8010603C_31BBAC_ChillyWaters(void);
 void func_80108250_31DDC0_ChillyWaters(void);

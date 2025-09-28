@@ -70,6 +70,28 @@ typedef struct HvqUnk {
     HvqHeader* unk8;
 } HvqUnk;
 
+typedef struct UnkBoard7 {
+    s8 unk_00;
+    char unk_01[0x1F];
+} UnkBoard7;
+
+void func_800D7714_EB334_shared_board(void); 
+void func_800D8FC4_ECBE4_shared_board(void); 
+void func_800DCB8C_F07AC_shared_board(void); 
+void func_800DF8B4_F34D4_shared_board(void); 
+void func_800E18FC_F551C_shared_board(void); 
+void func_800E4BA0_F87C0_shared_board(void); 
+void func_800E6404_FA024_shared_board(void); 
+void func_800E66D4_FA2F4_shared_board(void); 
+void func_800E66E0_FA300_shared_board(void); 
+void func_800E69D8_FA5F8_shared_board(void); 
+void func_800EA284_FDEA4_shared_board(void); 
+void func_800EA694_FE2B4_shared_board(void); 
+void func_800EB09C_FECBC_shared_board(void); 
+void func_800F27C4_1063E4_shared_board(void);
+void func_800F2A34_106654_shared_board(void);
+void func_800F4730_108350_shared_board(void);
+void func_800FC8A4_1104C4_shared_board(void);
 void func_80012640_13240(s16, Gfx**);
 void func_800127C4_133C4(s16, Gfx**);
 void func_80017C10_18810(Mtx*, f32, f32, f32);
@@ -163,7 +185,7 @@ u32 func_800EE884_1024A4_shared_board(Object* arg0, s16 arg1, s16 arg2);
 void func_800E69BC_FA5DC_shared_board(s32);
 s32 func_800E9344_FCF64_shared_board(f32, f32);
 void func_800E6630_FA250_shared_board(Addr);
-f32 func_800D76D0_EB2F0_shared_board(void*);
+f32 func_800D76D0_EB2F0_shared_board(s32);
 void func_800D8F80_ECBA0_shared_board(void);
 void func_800D9AA4_ED6C4_shared_board(Object*);
 void func_800D9B24_ED744_shared_board(Object*);
@@ -200,6 +222,10 @@ void func_800F8D84_10C9A4_shared_board(void);
 void func_800EDC20_101840_shared_board(s32);
 s32 func_800EDC40_101860_shared_board(void);
 
+extern UnkBoard7 D_80104A00_118620_shared_board[];
+extern s32 D_80105200_118E20_shared_board;
+extern s32 D_80101B40_115760_shared_board[];
+extern s16 D_800D6A48_D7648;
 extern s16 D_80105702_119322_shared_board;
 extern f32 D_80105650_119270_shared_board;
 extern Object* D_80105628_119248_shared_board;
@@ -208,8 +234,8 @@ extern Object* D_801011FC_114E1C_shared_board;
 extern s16 D_80101480_1150A0_shared_board;
 extern s16 D_80105702_119322_shared_board;
 extern s16 D_8010570C_11932C_shared_board;
-extern s32 D_80101B64_115784_shared_board;
-extern s32 D_80101B68_115788_shared_board;
+extern void (*D_80101B64_115784_shared_board)(void);
+extern void (*D_80101B68_115788_shared_board)(void);
 extern s32 D_80101B6C_11578C_shared_board;
 extern s16 D_80105664_119284_shared_board;
 extern s16 D_80105666_119286_shared_board;
@@ -237,7 +263,7 @@ extern s32 D_800D41B0_D4DB0[];
 extern s32 D_801014A0_1150C0_shared_board[];
 extern void (*D_80102C58_116878_shared_board[22])(void); //size based on func_80107CC4_31D834_ChillyWaters (calls to func_800E2960_F6580_shared_board)
 extern s32 D_80105654_119274_shared_board;
-extern s32 D_80105630_119250_shared_board[];
+extern s32 D_80105630_119250_shared_board[3];
 extern s32 D_80105634_119254_shared_board;
 extern s32 D_80105638_119258_shared_board;
 extern LinkData* D_80105218_118E38_shared_board;

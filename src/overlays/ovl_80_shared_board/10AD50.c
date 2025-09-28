@@ -4,6 +4,9 @@
 extern Object* D_80105620_119240_shared_board;
 extern Object* D_80105624_119244_shared_board;
 
+extern s32 D_80101A20_115640_shared_board[];
+extern s32 D_80105630_119250_shared_board[];
+
 void func_800F7130_10AD50_shared_board(omObjData* arg0) {
     D_80105620_119240_shared_board->coords.y = -HuMathSin(arg0->rot.x) * 3.0f;
     D_80105624_119244_shared_board->coords.y = -HuMathSin(arg0->rot.x) * 3.0f;
@@ -80,22 +83,40 @@ s32 func_800F7240_10AE60_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     } 
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10AD50", func_800F74E4_10B104_shared_board);
+//All items you can carry from item space
+void func_800F74E4_10B104_shared_board(void) {
+    s32 prev;
+    s32 i;
+    s32* boardItemIds;
+
+    prev = -1;
+    for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
+        boardItemIds = &D_80105630_119250_shared_board[i];
+        while (1) {
+            *boardItemIds = D_80101A20_115640_shared_board[func_800EEF80_102BA0_shared_board(8.0f)];
+            if (*boardItemIds != prev) {
+                prev = *boardItemIds;
+                break;
+            }            
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10AD50", func_800F7578_10B198_shared_board);
 
 //All items you can carry from item space
 void func_800F7610_10B230_shared_board(void) {
-    s32 itemsEnd = -1;
-    s32 i = 0;
-    s32* boardItemIds = D_80105630_119250_shared_board;
-    
-    for (; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
+    s32 prev;
+    s32 i;
+    s32* boardItemIds;
+
+    prev = -1;
+    for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
         boardItemIds = &D_80105630_119250_shared_board[i];
         while (1) {
             *boardItemIds = D_80101A50_115670_shared_board[func_800EEF80_102BA0_shared_board(9.0f)];
-            if (*boardItemIds != itemsEnd) {
-                itemsEnd = *boardItemIds;
+            if (*boardItemIds != prev) {
+                prev = *boardItemIds;
                 break;
             }
         }
