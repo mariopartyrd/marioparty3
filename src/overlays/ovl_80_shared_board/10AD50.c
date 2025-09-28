@@ -4,8 +4,76 @@
 extern Object* D_80105620_119240_shared_board;
 extern Object* D_80105624_119244_shared_board;
 
-extern s32 D_80101A20_115640_shared_board[];
-extern s32 D_80105630_119250_shared_board[];
+//item ids
+s32 D_80101A20_115640_shared_board[] = {
+    ITEM_MUSHROOM,      ITEM_SKELETON_KEY,      ITEM_BOO_REPELLENT,
+    ITEM_DUEL_GLOVE,    ITEM_WARP_BLOCK,        ITEM_GOLDEN_MUSHROOM,
+    ITEM_MAGIC_LAMP,    ITEM_CELLULAR_SHOPPER
+};
+
+//rare item ids?
+s32 D_80101A40_115660_shared_board[] = {
+    ITEM_KOOPA_KARD, ITEM_BARTER_BOX, ITEM_LUCKY_CHARM,
+    ITEM_WACKY_WATCH
+};
+
+s32 D_80101A50_115670_shared_board[] = {
+    ITEM_SKELETON_KEY,      ITEM_PLUNDER_CHEST,     ITEM_BOWSER_PHONE,
+    ITEM_WARP_BLOCK,        ITEM_BOO_BELL,          ITEM_BOWSER_SUIT,
+    ITEM_POISON_MUSHROOM,   ITEM_REVERSE_MUSHROOM,  ITEM_LUCKY_LAMP
+};
+
+f32 D_80101A74_115694_shared_board = 88.0f;
+
+f32 D_80101A78_115698_shared_board[] = {
+    44.0f, 245.0f, 44.0f, 88.0f, 220.f, 245.0f, 220.0f
+};
+
+s32 D_80101A94_1156B4_shared_board[] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0x00003C0E, 0x00003C10, 0x00003C11, 0x00003C0F
+};
+
+void func_800F7CF0_10B910_shared_board(void);
+void func_800F7D10_10B930_shared_board(void);
+void func_800F7D4C_10B96C_shared_board(void);
+void func_800F7D98_10B9B8_shared_board(void);
+void func_800F7DD4_10B9F4_shared_board(void);
+void func_800F7E1C_10BA3C_shared_board(void);
+
+void (*D_80101AE0_115700_shared_board[])(void) = {
+    func_800F7CF0_10B910_shared_board,
+    func_800F7D10_10B930_shared_board,
+    func_800F7D4C_10B96C_shared_board,
+    func_800F7D98_10B9B8_shared_board,
+    func_800F7DD4_10B9F4_shared_board,
+    func_800F7E1C_10BA3C_shared_board
+};
+
+void func_800F7E64_10BA84_shared_board(void);
+void func_800F7EAC_10BACC_shared_board(void);
+void func_800F7EF4_10BB14_shared_board(void);
+void func_800F7F30_10BB50_shared_board(void);
+void func_800F7F7C_10BB9C_shared_board(void);
+void func_800F7FC8_10BBE8_shared_board(void);
+
+void (*D_80101AF8_115718_shared_board[])(void) = {
+    func_800F7E64_10BA84_shared_board,
+    func_800F7EAC_10BACC_shared_board,
+    func_800F7EF4_10BB14_shared_board,
+    func_800F7F30_10BB50_shared_board,
+    func_800F7F7C_10BB9C_shared_board,
+    func_800F7FC8_10BBE8_shared_board
+};
+
+s32 D_80101B10_115730_shared_board[] = {
+    0x00003C03, 0x00003C04, 0x00003C05, 0x00003C06, 0x00003C07
+};
+
+s32 D_80101B24_115744_shared_board[] = {
+    0x00003C15, 0x00003C16, 0x00003C17,
+    0x00003C18, 0x00003C19, 0x00003C1A
+};
 
 void func_800F7130_10AD50_shared_board(omObjData* arg0) {
     D_80105620_119240_shared_board->coords.y = -HuMathSin(arg0->rot.x) * 3.0f;
@@ -23,13 +91,13 @@ void func_800F71A8_10ADC8_shared_board(void) {
 }
 
 s32 func_800F7240_10AE60_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s16 sp18[4];
-    u8 sp20[4] = {1, 2, 4, 8};
+    s16 sp18[MAX_PLAYERS];
+    u8 sp20[MAX_PLAYERS] = {1, 2, 4, 8};
     s32 var_v0;
     s32 i;
     s32 j;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MAX_PLAYERS; i++) {
         if (i == GwSystem.current_player_index) {
             if (GwPlayer[i].stat & 1) {
                 sp18[GwPlayer[i].pad] = 0x400;
