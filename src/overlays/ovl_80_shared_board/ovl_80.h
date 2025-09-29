@@ -75,6 +75,33 @@ typedef struct UnkBoard7 {
     char unk_01[0x1F];
 } UnkBoard7;
 
+//very closely resembles UnkBoard5, but member at offset 0x08 must be s16 here instead of s32?
+typedef struct UnkBoard8 {
+    struct UnkBoard8* unk_00; //?
+    struct UnkBoard8* unk_04; //?
+    s16 unk_08;
+    s16 unk_0A;
+    s16* unk_0C;
+    f32* unk_10;
+    f32* unk_14;
+    s16* unk_18;
+    s16* unk_1C;
+} UnkBoard8; //sizeof 0x20
+
+void func_800F641C_10A03C_shared_board(s32 playerIndex);
+void func_800E9940_FD560_shared_board(Vec*, f32*);
+UnkBoard8* func_800F2C48_106868_shared_board(s16 arg0, s16 arg1);
+void func_800F2CA4_1068C4_shared_board(UnkBoard8*);
+void func_800F66DC_10A2FC_shared_board(s32);
+void func_800F6BC4_10A7E4_shared_board(s32);
+void func_800F6ECC_10AAEC_shared_board(s32);
+Object* MBModelFileCreate(s32, s32, f32, s32, s32);
+s32 PlayerHasEmptyItemSlot(s32 arg0);
+Object* func_800D912C_ECD4C_shared_board(s32, s32, f32, s32, s32);
+void func_800D9B54_ED774_shared_board(Object*);
+void func_800EC628_100248_shared_board(s32, s32);
+void func_800EC6C8_1002E8_shared_board(void);
+void func_800EC6EC_10030C_shared_board(void);
 void func_800D7714_EB334_shared_board(void); 
 void func_800D8FC4_ECBE4_shared_board(void); 
 void func_800DCB8C_F07AC_shared_board(void); 
@@ -141,7 +168,6 @@ void func_800DC128_EFD48_shared_board(s32);
 void func_800DCA64_F0684_shared_board(s32);
 void func_800F696C_10A58C_shared_board(s32, s32, f32, f32);
 s32 func_800DEB2C_F274C_shared_board(s32);
-void func_800EC590_1001B0_shared_board(s32, s32);
 void func_800DE9AC_F25CC_shared_board(s32, s32);
 void func_800F76A4_10B2C4_shared_board(s32 arg0);
 s16 func_800EB184_FEDA4_shared_board(u16 arg0, u16 arg1);

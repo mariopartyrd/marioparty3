@@ -882,6 +882,8 @@ n_aspMain_data = 0x800A6050; //rom:0xA6C50 size:0x2B0
 
 //ovl_80
 D_801057E0_119400_shared_board = 0x801057E0; //size:0x1B0 segment:shared_board
+D_80101A74_115694_shared_board = 0x80101A74; //rom:0x115694 size:0x20 segment:shared_board
+D_80105658_119278_shared_board = 0x80105658; //size:0x04 type:s32 segment:shared_board
 
 //ovl_81
 MBDBackClose = 0x800E5000; //rom:0xCCDD0 segment:name_81
