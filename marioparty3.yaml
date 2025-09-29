@@ -636,7 +636,7 @@ segments:
       - [0x1143C0, data, EA790] #801007A0
 
       - [0x115390, .data, 1063F0] #80101770
-      - [0x1153A0, data, 106A50] #80101780
+      - [0x1153A0, .data, 106A50] #80101780
       - [0x115640, .data, 10AD50] #80101A20
       - [0x115760, data, 10C230] #80101B40
 
@@ -655,6 +655,10 @@ segments:
       - [0x116300, .rodata, 113520]
       # - [0x115BF0, rodata]
       - {0x116320, type: bss, vram: 0x80102700, name: ovl_80_bss}
+      # - {0x116320, type: bss, vram: 0x80105620, name: 10AD50}
+      # - {0x116320, type: bss, vram: 0x80105660, name: 10C230}
+      # - {0x116320, type: bss, vram: 0x801056C0, name: 113750}
+      # - {0x116320, type: bss, vram: 0x80105700, name: ovl_80_bss_2}
 
   - type: code
     start: 0x116320

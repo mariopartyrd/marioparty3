@@ -178,26 +178,44 @@ void func_800F74E4_10B104_shared_board(void) {
     }
 }
 
-//TODO: cleanup this jank function
+#ifdef NON_MATCHING
+//more readable version of the function as the matching version is very jank
 void func_800F7578_10B198_shared_board(void) {
-    s32 new_var;
-    s32 new_var2;
-    s32 temp_v0;
     s32 *temp2 = D_80101A40_115660_shared_board;
+    s32 temp_v0;
     
     while (1) {
         temp_v0 = temp2[func_800EEF80_102BA0_shared_board(4.0f)];
         D_80105630_119250_shared_board[0] = temp_v0;
-        //?
-        new_var = temp_v0;
-        if (temp_v0 == 0x12) {
-            new_var = temp_v0;
+        
+        if (temp_v0 == 0x12 && GwSystem.unk_52 == 0) {
+            GwSystem.unk_52 = 1;
+            break;
+        }
+        
+        if (temp_v0 != 0x12) {
+            break;
+        }
+    }
+
+    D_80105634_119254_shared_board = -1;
+    D_8010565C_11927C_shared_board = temp_v0;
+}
+#else
+//TODO: cleanup this jank function
+void func_800F7578_10B198_shared_board(void) {
+    s32 new_var;
+    
+    while (1) {
+        new_var = D_80105630_119250_shared_board[0] =
+        D_80101A40_115660_shared_board[func_800EEF80_102BA0_shared_board(4.0f)];
+        
+        if (new_var == 0x12) {
             if (GwSystem.unk_52 == 0) {
                 if (new_var == 0x12) {
                     GwSystem.unk_52 = 1;
                     break;                    
                 }
-
             } else {
                 do { } while (0);
                 continue;
@@ -210,6 +228,7 @@ void func_800F7578_10B198_shared_board(void) {
     D_80105634_119254_shared_board = -1;
     D_8010565C_11927C_shared_board = new_var;
 }
+#endif
 
 //All items you can carry from item space
 void func_800F7610_10B230_shared_board(void) {

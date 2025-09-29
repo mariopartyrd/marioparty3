@@ -258,7 +258,6 @@ extern Object* D_80105628_119248_shared_board;
 extern s32 D_80101490_1150B0_shared_board[];
 extern Object* D_801011FC_114E1C_shared_board;
 extern s16 D_80101480_1150A0_shared_board;
-extern s16 D_80105702_119322_shared_board;
 extern s16 D_8010570C_11932C_shared_board;
 extern void (*D_80101B64_115784_shared_board)(void);
 extern void (*D_80101B68_115788_shared_board)(void);
@@ -300,7 +299,7 @@ extern s32 D_80101A50_115670_shared_board[]; //randomly generated items
 extern s32 D_80100F90_114BB0_shared_board;
 void (*D_80102C70_116890_shared_board)(void);
 extern s16 D_800C9520_CA120[];
-extern s32 D_8010197C_11559C_shared_board[22]; //item mainFS ID array
+extern s32 D_8010197C_11559C_shared_board[]; //item mainFS ID array
 // s32 D_8010197C_11559C_shared_board[] = {
 //     0x0013018E,
 //     0x0013018F,
