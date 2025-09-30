@@ -79,7 +79,8 @@ typedef struct {
     /* 0xC8 */ s32 unkC8;
     /* 0xCC */ char unkCC[4];
     /* 0xD0 */ s32 unkD0;
-} HmfData; // Size unknown
+    /* 0xD4 */ char unk_D4[8];
+} HmfData; // sizeof 0xDC
 
 typedef struct {
     /* 0x00 */ s16 unk00;

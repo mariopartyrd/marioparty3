@@ -9,6 +9,7 @@ D_800A46A0 = 0x800A46A0; //size:0x190 type:f32
 
 _ovltbl = 0x800962F4; //rom:0x96EF4 size:0x1200
 _modeovltbl = 0x800974F4; //rom:0x980F4 size:0x6C
+Hmfload = 0x8000F0A0; //rom:0xFCA0
 
 //chancetime
 D_8010FD20_48BCF0_chancetime = 0x8010FD20; //rom:0x48BCF0 type:s32 size:0x18 force_migration:False

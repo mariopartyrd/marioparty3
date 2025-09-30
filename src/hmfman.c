@@ -42,7 +42,7 @@ void func_8000D3AC_DFAC(void);
 
 extern Gfx* gMainGfxPos;
 
-void func_8000F0A0_FCA0(HmfData*, void*, s32);
+void Hmfload(HmfData*, void*, s32);
 void* func_80010AC8_116C8(void*);
 void func_8001EF60_1FB60(void);
 s32 func_8001FF04_20B04(s32);
@@ -75,8 +75,8 @@ extern s8 D_800D20B1_D2CB1;
 extern s16 D_800D20EE_D2CEE;
 extern u16 D_800D5204_D5E04;
 
-// "Model Entry Over!\n"
-extern const char D_800A6BBC_A77BC[];
+const char D_800A6BB8_A77B8[] = "%x\n";
+const char D_800A6BBC_A77BC[] = "Model Entry Over!\n";
 
 void func_8001A070_1AC70(void* arg0, void* arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5) {
     s16 modelId;
@@ -118,21 +118,21 @@ s16 Hu3DModelCreate(u8* data, u32 arg1) {
     D_800CDD6A_CE96A = 10001 + modelId * 2;
     modelP = &HmfModelData[modelId];
     modelP->unk08 = 0xFF;
-    hmf = modelP->hmf = HuMemAlloc(0xDC);
+    hmf = modelP->hmf = HuMemAlloc(sizeof(HmfData));
     hmf->unk0E = D_800D5204_D5E04;
-    if (data[0] == 0x4D && data[1] == 0x54) {
+    if (data[0] == 'M' && data[1] == 'T') {
         hmf->unk14 = 0;
         hmf->unk84 = 0;
         hmf->unk38 = 0;
         hmf->unkC8 = 0;
         hmf->unk98 = NULL;
-        if (data[2] == 0x4E && data[3] == 0x58) {
+        if (data[2] == 'N' && data[3] == 'X') {
             modelP->unk02 = func_8002D3AC_2DFAC(data);
-            arg1 &= ~0x11;
+            arg1 &= ~(0x10 | 0x1);
         } else {
             var_a1 = data + 8;
-            if (data[8] == 0x4D) {
-                if (data[9] == 0x54 && data[10] == 0x4E && data[11] == 0x58) {
+            if (data[8] == 'M') {
+                if (data[9] == 'T' && data[10] == 'N' && data[11] == 'X') {
                     modelP->unk02 = func_8002D3AC_2DFAC(var_a1);
                     arg1 &= ~0x11;
                     var_a1 = func_80010AC8_116C8(data + 12);
@@ -145,7 +145,7 @@ s16 Hu3DModelCreate(u8* data, u32 arg1) {
             modelP->unk08 = func_800300A4_30CA4(data, var_a1);
         }
     } else {
-        func_8000F0A0_FCA0(hmf, data, arg1);
+        Hmfload(hmf, data, arg1);
         if (hmf->unk38 != 0) {
             HuMemSetTag(hmf->unk50, D_800CDD6A_CE96A);
             modelP->unk10 = func_8001FF04_20B04(modelId);
@@ -261,33 +261,33 @@ s16 Hu3DModelLink(s16 linkMdlId) {
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001A894_1B494);
 
 s16 func_8001ABD4_1B7D4(s16 arg0, s8 arg1) {
-    s16 temp_v0 = Hu3DModelLink(arg0);
+    s16 idx = Hu3DModelLink(arg0);
 
-    if (temp_v0 < 0) {
+    if (idx < 0) {
         return -1;
     }
-    HmfModelData[temp_v0].unk00 = arg1;
-    return temp_v0;
+    HmfModelData[idx].unk00 = arg1;
+    return idx;
 }
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001AC34_1B834);
 
 s16 func_8001AC8C_1B88C(s32 arg0, void (*arg1)(Gfx**, s32, s32), u8 arg2) {
-    s16 var_v0 = func_8001A894_1B494(arg0, NULL, arg2);
-    HmfModel* var_v1 = &HmfModelData[var_v0];
+    s16 idx = func_8001A894_1B494(arg0, NULL, arg2);
+    HmfModel* var_v1 = &HmfModelData[idx];
 
     var_v1->unk70 = arg1;
-    return var_v0;
+    return idx;
 }
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001ACDC_1B8DC);
 
 void func_8001AFE4_1BBE4(void) {
-    s16 var_s0;
+    s16 i;
 
-    for (var_s0 = 0; var_s0 < 0x80; var_s0++) {
-        if (HmfModelData[var_s0].hmf != NULL) {
-            func_8001ACDC_1B8DC(var_s0);
+    for (i = 0; i < HU3D_MODEL_MAX; i++) {
+        if (HmfModelData[i].hmf != NULL) {
+            func_8001ACDC_1B8DC(i);
         }
     }
     func_80033510_34110();
@@ -305,15 +305,15 @@ void func_8001AFE4_1BBE4(void) {
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001B0B4_1BCB4);
 
 Gfx* func_8001BD24_1C924(Gfx* arg0, s16 arg1, u16 arg2) {
-    s16 var_s1;
+    s16 i;
 
-    for (var_s1 = 0; var_s1 < D_800CBB72_CC772[arg1]; var_s1++) {
-        HmfModel* temp_s0 = &HmfModelData[D_800D05A0_D11A0[arg1][var_s1]];
+    for (i = 0; i < D_800CBB72_CC772[arg1]; i++) {
+        HmfModel* temp_s0 = &HmfModelData[D_800D05A0_D11A0[arg1][i]];
 
         if (!(temp_s0->unk01 & arg2) && arg2 != 0) {
             continue;
         }
-        D_800CD2F6_CDEF6 = D_800D05A0_D11A0[arg1][var_s1];
+        D_800CD2F6_CDEF6 = D_800D05A0_D11A0[arg1][i];
         if (temp_s0->hmf->unk00 != D_800CE19A_CED9A) {
             gDPFullSync(gMainGfxPos++);
             gSPEndDisplayList(gMainGfxPos++);
@@ -331,11 +331,11 @@ Gfx* func_8001BD24_1C924(Gfx* arg0, s16 arg1, u16 arg2) {
 }
 
 void func_8001BF14_1CB14(void) {
-    s16 var_a0;
+    s16 i;
 
     HuMemSetDirty();
-    for (var_a0 = 0; var_a0 < HU3D_MODEL_MAX; var_a0++) {
-        HmfModelData[var_a0].hmf = NULL;
+    for (i = 0; i < HU3D_MODEL_MAX; i++) {
+        HmfModelData[i].hmf = NULL;
     }
     gCameraList = NULL;
     D_800C9932_CA532 = 0;
@@ -347,70 +347,70 @@ void func_8001BF90_1CB90(u32 arg0, u32 arg1) {
     gSPSegment(gMainGfxPos++, 0x00, 0x00000000);
     gSPDisplayList(gMainGfxPos++, D_800A09B0_A15B0);
     gDPSetDepthImage(gMainGfxPos++, arg1);
-    gDPSetColorImage(gMainGfxPos++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, arg1);
+    gDPSetColorImage(gMainGfxPos++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, arg1);
     gSPDisplayList(gMainGfxPos++, D_800A0A08_A1608);
-    gDPSetColorImage(gMainGfxPos++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 320, arg0);
+    gDPSetColorImage(gMainGfxPos++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, arg0);
     if (D_800CD280_CDE80 != 0) {
         gDPSetFillColor(gMainGfxPos++, PACK_FILL_COLOR(D_800A0540_A1140, D_800A0541_A1141, D_800A0542_A1142, 1));
         gSPDisplayList(gMainGfxPos++, D_800A0A38_A1638);
     }
 }
 
-void Hu3DModelPosSet(s16 arg0, f32 x, f32 y, f32 z) {
-    if (arg0 >= 0 && HmfModelData[arg0].hmf != NULL) {
-        HmfModelData[arg0].pos.x = x;
-        HmfModelData[arg0].pos.y = y;
-        HmfModelData[arg0].pos.z = z;
+void Hu3DModelPosSet(s16 idx, f32 x, f32 y, f32 z) {
+    if (idx >= 0 && HmfModelData[idx].hmf != NULL) {
+        HmfModelData[idx].pos.x = x;
+        HmfModelData[idx].pos.y = y;
+        HmfModelData[idx].pos.z = z;
     }
 }
 
-void Hu3DModelPosGet(s16 arg0, Vec* arg1) {
-    arg1->x = HmfModelData[arg0].pos.x;
-    arg1->y = HmfModelData[arg0].pos.y;
-    arg1->z = HmfModelData[arg0].pos.z;
+void Hu3DModelPosGet(s16 idx, Vec* arg1) {
+    arg1->x = HmfModelData[idx].pos.x;
+    arg1->y = HmfModelData[idx].pos.y;
+    arg1->z = HmfModelData[idx].pos.z;
 }
 
-void Hu3DModelRotSet(s16 arg0, f32 x, f32 y, f32 z) {
-    if (arg0 >= 0 && HmfModelData[arg0].hmf != NULL) {
-        HmfModelData[arg0].rot.x = x;
-        HmfModelData[arg0].rot.y = y;
-        HmfModelData[arg0].rot.z = z;
+void Hu3DModelRotSet(s16 idx, f32 x, f32 y, f32 z) {
+    if (idx >= 0 && HmfModelData[idx].hmf != NULL) {
+        HmfModelData[idx].rot.x = x;
+        HmfModelData[idx].rot.y = y;
+        HmfModelData[idx].rot.z = z;
     }
 }
 
-void Hu3DModelScaleSet(s16 arg0, f32 x, f32 y, f32 z) {
-    if (arg0 >= 0 && HmfModelData[arg0].hmf != NULL) {
-        HmfModelData[arg0].scale.x = x;
-        HmfModelData[arg0].scale.y = y;
-        HmfModelData[arg0].scale.z = z;
+void Hu3DModelScaleSet(s16 idx, f32 x, f32 y, f32 z) {
+    if (idx >= 0 && HmfModelData[idx].hmf != NULL) {
+        HmfModelData[idx].scale.x = x;
+        HmfModelData[idx].scale.y = y;
+        HmfModelData[idx].scale.z = z;
     }
 }
 
 void func_8001C1F0_1CDF0(s16 arg0, s32 arg1) {
-    s16 var_s0;
+    s16 i;
 
-    for (var_s0 = 0; var_s0 < HU3D_MODEL_MAX; var_s0++) {
-        func_8001C258_1CE58(var_s0, arg0, arg1);
+    for (i = 0; i < HU3D_MODEL_MAX; i++) {
+        func_8001C258_1CE58(i, arg0, arg1);
     }
 }
 
-void func_8001C258_1CE58(s16 arg0, s32 arg1, s32 arg2) {
-    HmfModel* model = &HmfModelData[arg0];
+void func_8001C258_1CE58(s16 idx, s32 arg1, s32 arg2) {
+    HmfModel* model = &HmfModelData[idx];
 
     if (model->hmf != NULL) {
         if (arg1 & 0xB3F82) {
             arg2 |= 0x800000;
         }
         if (arg1 & 0x1C00) {
-            func_8001C8E4_1D4E4(arg0, arg2 & 0x1C00);
+            func_8001C8E4_1D4E4(idx, arg2 & 0x1C00);
         }
         model->unk18 &= ~arg1;
         model->unk18 |= arg2;
     }
 }
 
-void func_8001C2FC_1CEFC(s16 arg0, s32 arg1, s32 arg2) {
-    HmfData* temp_a3 = HmfModelData[arg0].hmf;
+void func_8001C2FC_1CEFC(s16 idx, s32 arg1, s32 arg2) {
+    HmfData* temp_a3 = HmfModelData[idx].hmf;
     s16 var_t0;
 
     for (var_t0 = 0; var_t0 < temp_a3->unk10; var_t0++) {
@@ -419,8 +419,8 @@ void func_8001C2FC_1CEFC(s16 arg0, s32 arg1, s32 arg2) {
     }
 }
 
-void func_8001C39C_1CF9C(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    HmfData* temp_s0 = HmfModelData[arg0].hmf;
+void func_8001C39C_1CF9C(s16 idx, s32 arg1, s32 arg2, s32 arg3) {
+    HmfData* temp_s0 = HmfModelData[idx].hmf;
     s16 temp_v0 = func_8002C834_2D434(temp_s0, arg1);
 
     if (temp_v0 >= 0) {
@@ -428,10 +428,6 @@ void func_8001C39C_1CF9C(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
         temp_s0->unk60[temp_v0].unk50 |= arg3;
     }
 }
-
-INCLUDE_RODATA("asm/nonmatchings/hmfman", D_800A6BB8_A77B8);
-
-INCLUDE_RODATA("asm/nonmatchings/hmfman", D_800A6BBC_A77BC);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C448_1D048);
 
@@ -447,15 +443,15 @@ INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C718_1D318);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C760_1D360);
 
-f32 func_8001C7D0_1D3D0(s16 arg0) {
-    if (HmfModelData[arg0].unk04 == 0xFF) {
+f32 func_8001C7D0_1D3D0(s16 idx) {
+    if (HmfModelData[idx].unk04 == 0xFF) {
         return -1.0f;
     }
-    return HmfModelData[arg0].unk4C;
+    return HmfModelData[idx].unk4C;
 }
 
-void func_8001C814_1D414(s16 arg0, s16 arg1, s16 arg2) {
-    HmfModel* temp_a3 = &HmfModelData[arg0];
+void func_8001C814_1D414(s16 idx, s16 arg1, s16 arg2) {
+    HmfModel* temp_a3 = &HmfModelData[idx];
 
     temp_a3->unk03 &= ~arg1;
     temp_a3->unk03 |= arg2;
@@ -469,16 +465,16 @@ void func_8001C814_1D414(s16 arg0, s16 arg1, s16 arg2) {
     }
 }
 
-void func_8001C8A8_1D4A8(s16 arg0, s16 arg1) {
-    if (arg0 >= 0 && HmfModelData[arg0].hmf != NULL) {
-        HmfModelData[arg0].unk01 = arg1;
+void func_8001C8A8_1D4A8(s16 idx, s16 arg1) {
+    if (idx >= 0 && HmfModelData[idx].hmf != NULL) {
+        HmfModelData[idx].unk01 = arg1;
     }
 }
 
-void func_8001C8E4_1D4E4(s16 arg0, u32 arg1) {
-    HmfModelData[arg0].unk18 &= ~0x1C00;
-    HmfModelData[arg0].unk18 |= arg1;
-    HmfModelData[arg0].hmf->unk00 = (arg1 >> 10) & 7;
+void func_8001C8E4_1D4E4(s16 idx, u32 arg1) {
+    HmfModelData[idx].unk18 &= ~0x1C00;
+    HmfModelData[idx].unk18 |= arg1;
+    HmfModelData[idx].hmf->unk00 = (arg1 >> 10) & 7;
 }
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C92C_1D52C);

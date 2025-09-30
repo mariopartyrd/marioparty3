@@ -1,6 +1,6 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/hmfload", func_8000F0A0_FCA0);
+INCLUDE_ASM("asm/nonmatchings/hmfload", Hmfload);
 
 INCLUDE_ASM("asm/nonmatchings/hmfload", func_8000F978_10578);
 
