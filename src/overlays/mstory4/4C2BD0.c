@@ -338,7 +338,7 @@ void func_8000BDDC_C9DC(u16, s32);                       /* extern */
 void func_8000C184_CD84(u16);
 void func_80017954_18554(s16, s32, u8, s16);             /* extern */
 void Hu3DModelRotSet(s16, f32, f32, f32);                /* extern */
-void func_8001C624_1D224(s16, u8, s32, s32, s32);          /* extern */
+//void func_8001C624_1D224(s16, u8, s32, s32, s32);          /* extern */
 void func_800E4F50_CCD20_name_81(Addr*);                  /* extern */
 void MBDBackCreate(s32, s32);                /* extern */
 void func_80106C78_4C3EA8_mstory4(void);                   /* extern */

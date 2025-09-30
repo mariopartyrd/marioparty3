@@ -14,7 +14,7 @@ s32 HmfAnimCreate(s32, void*, s32, s32);
 void pfClsScr(void);
 s32 GWBoardFlagCheck(s32);
 GW_PLAYER* GetPlayerStruct(s32 playerIndex);
-s16 func_80017790_18390(s16 model, s32 arg1, s32 arg2, s32 arg3);
+s16 func_80017790_18390(s16 model, s32 arg1, s16 arg2, s32 arg3);
 void AdjustPlayerCoins(s32 arg0, s32 arg1);
 s32 func_800EEF80_102BA0_shared_board(f32);
 void FixUpPlayerItemSlots(s32 arg0);

@@ -19,7 +19,6 @@ extern s8 D_800D1710_D2310;
 
 void omDestroyPrcObj(void);
 void func_8000BA00_C600(void);
-void func_8000BB94_C794(s32);
 void func_8000BBFC_C7FC(s32, s16);
 void func_800166D0_172D0(void);
 void func_8001AFE4_1BBE4(void);
@@ -334,19 +333,19 @@ void omPrcResetStatBit(Process* prc, s32 stat) {
     D_800A177C_A237C[prc->dtor_idx].stat &= ~stat;
 }
 
-void omSetTra(omObjData* obj, float x, float y, float z) {
+void omSetTra(omObjData* obj, f32 x, f32 y, f32 z) {
     obj->trans.x = x;
     obj->trans.y = y;
     obj->trans.z = z;
 }
 
-void omSetRot(omObjData* obj, float x, float y, float z) {
+void omSetRot(omObjData* obj, f32 x, f32 y, f32 z) {
     obj->rot.x = x;
     obj->rot.y = y;
     obj->rot.z = z;
 }
 
-void omSetSca(omObjData* obj, float x, float y, float z) {
+void omSetSca(omObjData* obj, f32 x, f32 y, f32 z) {
     obj->scale.x = x;
     obj->scale.y = y;
     obj->scale.z = z;

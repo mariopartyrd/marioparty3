@@ -131,6 +131,7 @@ void func_8001A070_1AC70(void* arg0, void* arg1, u16 arg2, u16 arg3, u16 arg4, u
 s16 Hu3DModelCreate(u8*, u32);
 s16 Hu3DModelLink(s16 linkMdlId);
 s32 func_8001A894_1B494(s32, void*, s32); // unsure about second arg. Gfx*?
+s16 func_8001AC8C_1B88C(s32 arg0, void (*arg1)(Gfx**, s32, s32), u8 arg2);
 void func_8001ACDC_1B8DC(s16);
 void func_8001B0B4_1BCB4(void** arg0, u32 arg1);
 void func_8001BF90_1CB90(u32 arg0, u32 arg1);
@@ -138,9 +139,12 @@ void Hu3DModelPosSet(s16 arg0, f32 x, f32 y, f32 z);
 void Hu3DModelRotSet(s16 arg0, f32 x, f32 y, f32 z);
 void Hu3DModelScaleSet(s16 arg0, f32 x, f32 y, f32 z);
 void func_8001C258_1CE58(s16 arg0, s32 arg1, s32 arg2);
+void func_8001C2FC_1CEFC(s16 arg0, s32 arg1, s32 arg2);
 void func_8001C448_1D048(s16);
 s32 func_8001C514_1D114(s32);
 void func_8001C5B4_1D1B4(s16, s16);
+void func_8001C624_1D224(s16, s16, s16, s16, s32);
+void func_8001C6A8_1D2A8(s32, f32);
 f32 func_8001C7D0_1D3D0(s16 arg0);
 void func_8001C814_1D414(s16, s16, s16);
 void func_8001C8A8_1D4A8(s16, s16);

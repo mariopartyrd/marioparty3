@@ -13,6 +13,14 @@ gMesCloseF = 0x800B1A51;
 gMesTimerId = 0x800B1A53;
 gMesData = 0x800CD300;
 
+D_801155E0_2860B0_vine_with_me = 0x801155E0;
+D_801155E4_2860B4_vine_with_me = 0x801155E4;
+D_8011564A_28611A_vine_with_me = 0x8011564A;
+D_8011564C_28611C_vine_with_me = 0x8011564C;
+D_8011565C_28612C_vine_with_me = 0x8011565C;
+D_8011565E_28612E_vine_with_me = 0x8011565E;
+D_80115660_286130_vine_with_me = 0x80115660;
+
 func_80107CC4_2B1574_silly_screws = 0x80107CC4;
 D_8010BF80_2B5830_silly_screws = 0x8010BF80;
 D_8010BF84_2B5834_silly_screws = 0x8010BF84;
