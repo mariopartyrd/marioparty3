@@ -1432,12 +1432,13 @@ segments:
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x30
     subsegments:
-      - [0x2A1430, c]
-      - [0x2A9850, c]
-      - [0x2ACFE0, data, 2A1430] #80111550
-      - [0x2AF140, .rodata, 2A1430] #801136B0
-      - [0x2AF210, .rodata, 2A9850] #8011BAD0
-      - {0x2AF250, type: bss, vram: 0x801137C0, name: ovl_36_bss}
+      - [0x2A1430, c, main]
+      - [0x2A9850, c, system]
+      - [0x2ACFE0, data, main] #80111550
+      - [0x2AF140, .rodata, main] #801136B0
+      - [0x2AF210, .rodata, system] #8011BAD0
+      - {0x2AF250, type: bss, vram: 0x801137C0, name: main}
+      #- {0x2AF270, type: .bss, vram: 0x801137E0, name: system}
 
   - type: code
     start: 0x2AF250

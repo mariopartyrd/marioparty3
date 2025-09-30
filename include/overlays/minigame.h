@@ -86,7 +86,7 @@ void func_800E6F40_B9AC0_minigame(void);
 
 extern s16 D_800EBE28_BE9A8_minigame;
 extern s16 D_800EC1B8_BED38_minigame;
-extern omObjData* D_800EC1C0_BED40_minigame;
+extern omObjData* D_800EC1C0_BED40_minigame[];
 extern u16 D_800EC280_BEE00_minigame;
 extern omObjData* D_800EC598_BF118_minigame[];
 

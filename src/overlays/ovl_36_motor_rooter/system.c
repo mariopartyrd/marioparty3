@@ -1,20 +1,27 @@
-#include "overlays/ovl_39.h"
+#include "overlays/ovl_36.h"
 #include "gcc/memory.h"
 #include "game/esprite.h"
+#include "game/hmfman.h"
 #include "game/sprite.h"
 #include "mallocblock.h"
 
-#define FUNC_GRP_MAX 5
-#define SPRITES_MAX 8
-#define ANIMMDL_MAX 8
-#define BILLS_MAX 2
-#define COLLIDERS_MAX 2
+#define FUNC_GRP_MAX 6
+#define FUNC_PRIO_MAX 10
+#define SPRITES_MAX 52
+#define ANIMMDL_MAX 0
 
 #define VECMagXZ(a) sqrtf(((a)->x*(a)->x)+((a)->z*(a)->z))
 #define M_ID(m, i, j) ((m)[(i) * 4 + (j)])
 
-// 14EA0
-void func_80017D24_18924(f32*, f32, f32, f32);
+// EXTERN
+
+typedef struct {
+    /* 0x00 */ char unk00[2];
+    /* 0x02 */ s16 unk02;
+    /* 0x04 */ char unk04[0x14];
+} D_800CCF58_CDB58_Struct; // Size 0x18
+
+extern D_800CCF58_CDB58_Struct* D_800CCF58_CDB58; // esprite
 
 // 8EA10
 f32 atan2d(f32, f32);
@@ -38,137 +45,91 @@ typedef struct {
     u8 a;
 } RGBA;
 
-void m257_SortFuncGroup(FuncGroup* group);
-s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1);
-s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1);
-void func_8010CCD4_2C4144_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1, u16 arg2);
-s16 func_8010CED8_2C4348_tick_tock_hop(HuSprite_Unk84_Struct* arg0, HmfData* arg1, f32 arg2, u16 arg3, u16 arg4);
-void m257_UpdateColliders(FuncGroupContext* groupCtx, FuncContext* ctx);
-f32 m257_CalcSideOfEdge(QuadCollider* collider, ModelTracker* model, Vec* a, Vec* b);
+typedef struct {
+    /* 0x00 */ FuncContext* funcCtx;
+    /* 0x04 */ s8 maxFuncs;
+    /* 0x05 */ u8 sort;
+    /* 0x06 */ s8 order[FUNC_PRIO_MAX];
+} FuncGroup; // Size 0x10
 
-BillboardData* BSS m257_billboards;
-FuncGroup* BSS m257_funcGroups;
-SpriteData* BSS m257_sprites;
-AnimModelData* BSS m257_animModels;
-QuadCollider* BSS m257_colliders;
+#define SPRITE_STATE_NOTSET 0
+#define SPRITE_STATE_INVISIBLE 1
+#define SPRITE_STATE_VISIBLE 2
 
-// TODO: the following arrays work but trigger multiple warnings: "missing braces around initializer"
-// Ideally we should use these and remove the u32 arrays below.
-/*
-Gfx D_8010E4B0_2C5920_tick_tock_hop[] = {
-    gsSPSegment(0x00, 0x00000000),
-    gsDPPipeSync(),
-    gsDPSetCycleType(G_CYC_1CYCLE),
-    gsDPPipelineMode(G_PM_1PRIMITIVE),
-    gsDPSetTextureLOD(G_TL_TILE),
-    gsDPSetTextureLUT(G_TT_NONE),
-    gsDPSetTextureDetail(G_TD_CLAMP),
-    gsDPSetTexturePersp(G_TP_NONE),
-    gsDPSetTileSize(G_TX_RENDERTILE, 0, 0, 0, 0),
-    gsDPSetTileSize(1, 0, 0, 0, 0),
-    gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0000, G_TX_RENDERTILE, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD),
-    gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_4b, 0, 0x0000, 1, 0, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOLOD),
-    gsDPSetTextureFilter(G_TF_BILERP),
-    gsDPSetTextureConvert(G_TC_FILT),
-    gsDPSetCombineMode(G_CC_SHADE, G_CC_SHADE),
-    gsDPSetCombineKey(G_CK_NONE),
-    gsDPSetAlphaCompare(G_AC_NONE),
-    gsDPSetDepthSource(G_ZS_PIXEL),
-    gsDPSetRenderMode(G_RM_OPA_SURF, G_RM_OPA_SURF2),
-    gsDPNoOp(),
-    gsDPSetColorDither(G_CD_DISABLE),
-    gsDPPipeSync(),
-    gsSPEndDisplayList()
-};
+typedef struct {
+    /* 0x00 */ s8 state;
+    /* 0x01 */ u8 groupId;
+    /* 0x02 */ u8 unk02;
+    /* 0x04 */ u16 unk04;
+    /* 0x06 */ s16 unk06;
+} SpriteData; // Size 8
 
-Gfx D_8010E568_2C59D8_tick_tock_hop[] = {
-    gsSPClearGeometryMode(G_ZBUFFER | G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN | G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH | G_CLIPPING | 0x0040F9FA),
-    gsSPTexture(0, 0, 0, G_TX_RENDERTILE, G_OFF),
-    gsSPSetGeometryMode(G_SHADE | G_SHADING_SMOOTH),
-    gsSPEndDisplayList()
-};
+#define ANIMMDL_ATTR_DISPON 1
 
-Gfx D_8010E588_2C59F8_tick_tock_hop[] = {
-    gsSPDisplayList(D_8010E568_2C59D8_tick_tock_hop),
-    gsSPDisplayList(D_8010E4B0_2C5920_tick_tock_hop),
-    gsSPEndDisplayList()
-};
+#define ANIMMDL_STATE_INVISIBLE -1
+#define ANIMMDL_STATE_WAIT 0
+#define ANIMMDL_STATE_ANIM 1
 
-Gfx D_8010E5A0_2C5A10_tick_tock_hop[] = {
-    gsDPPipeSync(),
-    gsSPDisplayList(D_8010E588_2C59F8_tick_tock_hop),
-    gsDPSetCycleType(G_CYC_1CYCLE),
-    gsSPSetGeometryMode(G_ZBUFFER | G_CULL_BACK | G_LIGHTING | G_SHADING_SMOOTH),
-    gsDPSetBlendColor(0x00, 0x00, 0x00, 0x00),
-    gsDPSetPrimColor(0, 0, 0x00, 0x00, 0x00, 0xFF),
-    gsSPTexture(0xFFFF, 0xFFFF, 0, G_TX_RENDERTILE, G_ON),
-    gsSPEndDisplayList()
-};
-*/
+typedef struct {
+    /* 0x00 */ s8 set;
+    /* 0x04 */ s32 attr;
+    /* 0x08 */ s8 state;
+    /* 0x0A */ s16 modelId;
+    /* 0x0C */ f32 freq;
+    /* 0x10 */ f32 animTimer;
+    /* 0x14 */ f32 animStart;
+} AnimModelData; // Size 0x18
 
-u32 D_8010E4B0_2C5920_tick_tock_hop[] = {
-    0xDB060000, 0x00000000, 0xE7000000, 0x00000000, 0xE3000A01, 0x00000000, 0xE3000800, 0x00800000,
-    0xE3000F00, 0x00000000, 0xE3001001, 0x00000000, 0xE3000D01, 0x00000000, 0xE3000C00, 0x00000000,
-    0xF2000000, 0x00000000, 0xF2000000, 0x01000000, 0xF5000000, 0x00000000, 0xF5000000, 0x01000000,
-    0xE3001201, 0x00002000, 0xE3001402, 0x00000C00, 0xFCFFFFFF, 0xFFFE793C, 0xE3001700, 0x00000000,
-    0xE2001E01, 0x00000000, 0xE2001D00, 0x00000000, 0xE200001C, 0x0F0A4000, 0x00000000, 0x00000000,
-    0xE3001801, 0x000000C0, 0xE7000000, 0x00000000, 0xDF000000, 0x00000000, 0xD9000000, 0x00000000,
-    0xD7000000, 0x00000000, 0xD9FFFFFF, 0x00200004, 0xDF000000, 0x00000000, 0xDE000000, 0x8010E568,
-    0xDE000000, 0x8010E4B0, 0xDF000000, 0x00000000
-};
+void m254_InitFuncGroup(FuncGroup* group, s16 maxFuncs);
+void m254_SortFuncGroup(FuncGroup* group);
+s16 func_80110A00_2AC490_motor_rooter(HuSprite_Unk84_Struct* arg0, HmfData* arg1, f32 arg2, u16 arg3, u16 arg4);
 
-u32 D_8010E5A0_2C5A10_tick_tock_hop[] = {
-    0xE7000000, 0x00000000, 0xDE000000, 0x8010E588, 0xE3000A01, 0x00000000, 0xD9FFFFFF, 0x00220401,
-    0xF9000000, 0x00000000, 0xFA000000, 0x000000FF, 0xD7000002, 0xFFFFFFFF, 0xDF000000, 0x00000000
-};
+extern SpriteData* m254_sprites;
+extern AnimModelData* m254_animModels;
+extern FuncGroup* m254_funcGroups;
 
-u8 m257_quadEdges[][3] = { { 0, 1 }, { 1, 2 }, { 2, 3 }, { 3, 0 } };
+extern Gfx D_801135A0_2AF030_motor_rooter[];
 
-void m257_CreateSystem(void) {
-    m257_sprites = HuMemAllocTag(SPRITES_MAX * sizeof(SpriteData), 31000);
-    memset(m257_sprites, 0, SPRITES_MAX * sizeof(SpriteData));
-    m257_animModels = HuMemAllocTag(ANIMMDL_MAX * sizeof(AnimModelData), 31000);
-    memset(m257_animModels, 0, ANIMMDL_MAX * sizeof(AnimModelData));
-    m257_billboards = HuMemAllocTag(BILLS_MAX * sizeof(BillboardData), 31000);
-    memset(m257_billboards, 0, BILLS_MAX * sizeof(BillboardData));
-    m257_funcGroups = HuMemAllocTag(5 * sizeof(FuncGroup), 31000);
-}
-
-FuncGroup* m257_CreateFuncGroup(omObjData* object, s8 groupId, s16 maxModels, s16 maxFuncs) {
-    FuncGroup* group;
-
-    if (groupId >= FUNC_GRP_MAX) {
-        return NULL;
-    }
-    group = &m257_funcGroups[groupId];
-    if (maxFuncs != 0) {
-        group->funcCtx = HuMemAllocTag(maxFuncs * sizeof(FuncContext), 31000);
-        memset(group->funcCtx, 0, maxFuncs * sizeof(FuncContext));
-        group->order = HuMemAllocTag((maxFuncs + 1) * sizeof(FuncOrder), 31000);
-    }
-    group->maxFuncs = maxFuncs;
-    group->groupCtx = HuMemAllocTag(sizeof(FuncGroupContext), 31000);
-    if (maxModels != 0) {
-        group->groupCtx->modelIds = HuMemAllocTag(maxModels * sizeof(s16), 31000);
-        memset(group->groupCtx->modelIds, 0, maxModels * sizeof(s16));
-    }
-    group->groupCtx->maxModels = maxModels;
-    group->sort = TRUE;
-    group->groupCtx->object = object;
-    return group;
-}
-
-s16 m257_SetFunc(s8 groupId, s32 prio, void* data, void (*func)(FuncGroupContext*, FuncContext*), s8 tag) {
-    FuncGroup* group = &m257_funcGroups[groupId];
-    FuncContext* ctx = group->funcCtx;
-    s16 maxFuncs = group->maxFuncs;
+void m254_CreateSystem(void) {
+    s8 maxFuncs[FUNC_GRP_MAX] = { 4, 4, 4, 2, 8, 8 };
     s16 i;
+
+    m254_sprites = HuMemAllocTag(SPRITES_MAX * sizeof(SpriteData), 31000);
+    memset(m254_sprites, 0, SPRITES_MAX * sizeof(SpriteData));
+    m254_funcGroups = HuMemAllocTag(FUNC_GRP_MAX * sizeof(FuncGroup), 31000);
+    for (i = 0; i < FUNC_GRP_MAX; i++) {
+        m254_InitFuncGroup(&m254_funcGroups[i], maxFuncs[i]);
+    }
+}
+
+void m254_InitFuncGroup(FuncGroup* group, s16 maxFuncs) {
+    s16 i;
+
+    group->funcCtx = HuMemAllocTag(maxFuncs * sizeof(FuncContext), 31000);
+    memset(group->funcCtx, 0, maxFuncs * sizeof(FuncContext));
+    memset(group->order, -1, sizeof(group->order));
+    for (i = 0; i < maxFuncs; i++) {
+        group->funcCtx[i].next = -1;
+    }
+    group->sort = FALSE;
+    group->maxFuncs = maxFuncs;
+}
+
+FuncContext* m254_SetFunc(s8 groupId, s8 prio, s16 param, void* data, void (*func)(FuncContext*), s8 tag, s8 execFunc) {
+    FuncGroup* group = &m254_funcGroups[groupId];
+    FuncContext* ctx = group->funcCtx;
+    s16 i = 0;
+    s16 maxFuncs = group->maxFuncs;
 
     for (i = 0; i < maxFuncs; i++, ctx++) {
         if (!ctx->set) {
             ctx->set = TRUE;
+            if (prio > FUNC_PRIO_MAX - 1) {
+                prio = FUNC_PRIO_MAX - 1;
+            }
             ctx->prio = prio;
             ctx->id = i;
+            ctx->param = param;
             ctx->tag = tag;
             ctx->state = 0;
             ctx->data = data;
@@ -178,98 +139,92 @@ s16 m257_SetFunc(s8 groupId, s32 prio, void* data, void (*func)(FuncGroupContext
     }
     if (i == maxFuncs) {
         osSyncPrintf("SetFunc Error %d!\n", groupId);
-        return -1;
+    }
+    if (execFunc) {
+        ctx->func(ctx);
     }
     group->sort = TRUE;
-    return i;
+    return ctx;
 }
 
-void m257_ResetFunc(s8 groupId, FuncContext* ctx) {
+void m254_ResetFunc(s8 groupId, FuncContext* ctx) {
+    s8 next = ctx->next;
+
     memset(ctx, 0, sizeof(FuncContext));
-    m257_funcGroups[groupId].sort = TRUE;
+    ctx->next = next;
+    m254_funcGroups[groupId].sort = TRUE;
 }
 
-void m257_ResetFuncTag(s8 groupId, s8 tag) {
-    FuncGroup* group = &m257_funcGroups[groupId];
+void m254_ResetFuncTag(s8 groupId, s8 tag) {
+    FuncGroup* group = &m254_funcGroups[groupId];
     FuncContext* ctx;
     s16 i;
 
     ctx = group->funcCtx;
     for (i = 0; i < group->maxFuncs; i++, ctx++) {
         if (ctx->tag == tag) {
-            m257_ResetFunc(groupId, ctx);
+            m254_ResetFunc(groupId, ctx);
         }
     }
 }
 
-void m257_ResetFuncGroup(s8 groupId) {
-    FuncGroup* group = &m257_funcGroups[groupId];
+void m254_ResetFuncGroup(s8 groupId) {
+    FuncGroup* group = &m254_funcGroups[groupId];
+    s8 i = 0;
 
     memset(group->funcCtx, 0, group->maxFuncs * sizeof(FuncContext));
-    group->sort = TRUE;
+    memset(group->order, -1, sizeof(group->order));
+    for (i = 0; i < group->maxFuncs; i++) {
+        group->funcCtx[i].next = -1;
+    }
 }
 
-void m257_UpdateFuncGroup(s8 groupId) {
-    FuncGroup* group = &m257_funcGroups[groupId];
-    FuncContext* ctx;
-    s8 orderId;
+void m254_UpdateFuncGroup(s8 groupId) {
+    FuncGroup* group = &m254_funcGroups[groupId];
+    FuncContext* ctx = group->funcCtx;
+    s8 i;
 
     if (group->sort) {
-        m257_SortFuncGroup(group);
+        m254_SortFuncGroup(group);
     }
-    orderId = 0;
-    while (group->order[orderId].next != -1) {
-        orderId = group->order[orderId].next;
-        ctx = &group->funcCtx[group->order[orderId].id];
-        if (ctx->set) {
-            ctx->func(group->groupCtx, ctx);
+    for (i = 0; i < FUNC_PRIO_MAX; i++) {
+        s8 funcId = group->order[i];
+
+        while (funcId != -1) {
+            group->funcCtx[funcId].func(&ctx[funcId]);
+            funcId = group->funcCtx[funcId].next;
         }
     }
 }
 
-void m257_SortFuncGroup(FuncGroup* group) {
-    FuncOrder* order = group->order;
+void m254_SortFuncGroup(FuncGroup* group) {
     FuncContext* currCtx = group->funcCtx;
-    s16 orderId;
-    s16 prevId;
-    s16 i, j;
+    s8 prio;
+    s8 i;
 
-    order[0].next = -1;
-    orderId = 1;
+    for (i = 0; i < FUNC_PRIO_MAX; i++) {
+        group->order[i] = -1;
+    }
     for (i = 0; i < group->maxFuncs; i++, currCtx++) {
         if (!currCtx->set) {
             continue;
         }
-        prevId = j = 0;
-        while (order[j].next != -1) {
-            j = order[j].next;
-            if (order[j].prio < currCtx->prio) {
-                prevId = j;
-                break;
-            }
-        }
-        order[orderId].id = i;
-        order[orderId].prio = currCtx->prio;
-        order[orderId].next = order[prevId].next;
-        order[orderId].prev = prevId;
-        order[prevId].next = orderId;
-        if (order[orderId].next != -1) {
-            order[order[orderId].next].prev = orderId;
-        }
-        orderId++;
+        prio = currCtx->prio;
+        currCtx->next = group->order[prio];
+        group->order[prio] = i;
     }
     group->sort = FALSE;
 }
 
-s16 m257_SetSprite(u16 prio, s32 dir, s32 file, u16 arg3, s32 attr) {
+s16 m254_SetSprite(u16 prio, s32 dir, s32 file, u16 arg3, s32 attr) {
     SpriteData* sprite;
     HuSprite* temp_v0_2;
     s16 i;
 
-    sprite = m257_sprites;
+    sprite = m254_sprites;
     for (i = 0; i < SPRITES_MAX; i++, sprite++) {
         if (sprite->state == SPRITE_STATE_NOTSET) {
-            sprite->unk02 = func_8000B838_C438((dir << 16) | file); // esprite.
+            sprite->unk02 = func_8000B838_C438((dir << 16) | file);
             sprite->groupId = HuSprGrpCreate(1, 0);
             sprite->unk06 = 0xFF;
             HuSprAttrReset(sprite->groupId, 0, -1);
@@ -288,15 +243,15 @@ s16 m257_SetSprite(u16 prio, s32 dir, s32 file, u16 arg3, s32 attr) {
                 sprite->unk04 = temp_v0_2->unk_84->unk10;
             }
             sprite->state = SPRITE_STATE_VISIBLE;
-            m257_SetSpriteDispOff(i);
+            m254_SetSpriteDispOff(i);
             break;
         }
     }
     return i;
 }
 
-void m257_SetSpriteDispOn(s16 spriteId, s32 posX, s32 posY) {
-    SpriteData* sprite = &m257_sprites[spriteId];
+void m254_SetSpriteDispOn(s16 spriteId, s32 posX, s32 posY) {
+    SpriteData* sprite = &m254_sprites[spriteId];
 
     if (sprite->state != SPRITE_STATE_NOTSET) {
         func_80054FF8_55BF8(sprite->groupId, 0, 0);
@@ -306,8 +261,8 @@ void m257_SetSpriteDispOn(s16 spriteId, s32 posX, s32 posY) {
     }
 }
 
-void m257_SetSpriteDispOff(s16 spriteId) {
-    SpriteData* sprite = &m257_sprites[spriteId];
+void m254_SetSpriteDispOff(s16 spriteId) {
+    SpriteData* sprite = &m254_sprites[spriteId];
 
     if (sprite->state != SPRITE_STATE_NOTSET) {
         HuSprAttrSet(sprite->groupId, 0, 0x8000);
@@ -315,11 +270,11 @@ void m257_SetSpriteDispOff(s16 spriteId) {
     }
 }
 
-void m257_UpdateSprites(void) {
+void m254_UpdateSprites(void) {
     SpriteData* sprite;
     s16 i;
 
-    sprite = m257_sprites;
+    sprite = m254_sprites;
     for (i = 0; i < SPRITES_MAX; i++, sprite++) {
         switch (sprite->state) {
             case SPRITE_STATE_VISIBLE:
@@ -332,12 +287,12 @@ void m257_UpdateSprites(void) {
     }
 }
 
-s32 m257_SetAnimModel(s32 dir, s32 file, f32 freq, s32 attr, s32 arg4) {
+s32 m254_SetAnimModel(s32 dir, s32 file, f32 freq, s32 attr, s32 arg4) {
     AnimModelData* animModel;
     HmfModel* hmfModel;
     s16 i;
 
-    animModel = m257_animModels;
+    animModel = m254_animModels;
     for (i = 0; i < ANIMMDL_MAX; i++, animModel++) {
         if (!animModel->set) {
             animModel->modelId = func_8000B108_BD08((dir << 16) | file, arg4);
@@ -358,19 +313,19 @@ s32 m257_SetAnimModel(s32 dir, s32 file, f32 freq, s32 attr, s32 arg4) {
     return i;
 }
 
-s32 m257_SetAnimModelDispOn(s16 animModelId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 scale, f32 animStart) {
+s32 m254_SetAnimModelDispOn(s16 animModelId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 scale, f32 animStart) {
     AnimModelData* animModel;
-    HmfModel* hmfModel;
+    HmfModel* HmfModel;
 
     if (animModelId >= ANIMMDL_MAX) {
         return FALSE;
     }
-    if (!m257_animModels[animModelId].set) {
+    if (!m254_animModels[animModelId].set) {
         return FALSE;
     }
-    animModel = &m257_animModels[animModelId];
-    hmfModel = &HmfModelData[animModel->modelId];
-    if ((hmfModel->unk18 & 4) && animModel->state == ANIMMDL_STATE_INVISIBLE) {
+    animModel = &m254_animModels[animModelId];
+    HmfModel = &HmfModelData[animModel->modelId];
+    if ((HmfModel->unk18 & 4) && animModel->state == ANIMMDL_STATE_INVISIBLE) {
         Hu3DModelPosSet(animModel->modelId, posX, posY, posZ);
         Hu3DModelRotSet(animModel->modelId, rotX, rotY, rotZ);
         Hu3DModelScaleSet(animModel->modelId, scale, scale, scale);
@@ -379,7 +334,7 @@ s32 m257_SetAnimModelDispOn(s16 animModelId, f32 posX, f32 posY, f32 posZ, f32 r
             animModel->state = ANIMMDL_STATE_ANIM;
             animModel->animStart = 0.0f;
             animModel->animTimer = 0.0f;
-            hmfModel->unk44 = animModel->freq;
+            HmfModel->unk44 = animModel->freq;
         } else {
             animModel->state = ANIMMDL_STATE_WAIT;
             animModel->animStart = animStart;
@@ -390,12 +345,12 @@ s32 m257_SetAnimModelDispOn(s16 animModelId, f32 posX, f32 posY, f32 posZ, f32 r
     return FALSE;
 }
 
-void m257_UpdateAnimModels(void) {
+void m254_UpdateAnimModels(void) {
     AnimModelData* animModel;
     HmfModel* hmfModel;
     s16 i;
 
-    animModel = m257_animModels;
+    animModel = m254_animModels;
     for (i = 0; i < ANIMMDL_MAX; i++, animModel++) {
         if (!animModel->set || animModel->state == ANIMMDL_STATE_INVISIBLE) {
             continue;
@@ -426,130 +381,8 @@ void m257_UpdateAnimModels(void) {
     }
 }
 
-s32 m257_SetBill(s32 dir, s32 file, s32 attr) {
-    BillboardData* bill;
-    s16 temp_v0_2;
-    s16 i;
-
-    bill = m257_billboards;
-    for (i = 0; i < BILLS_MAX; i++, bill++) {
-        if (!bill->set) {
-            bill->unk08 = temp_v0_2 = func_8000B838_C438((dir << 16) | file);
-            if (attr & BILL_ATTR_01) {
-                bill->modelId = func_8010B4D0_2C2940_tick_tock_hop(func_80055194_55D94(temp_v0_2), 1.0f);
-            } else {
-                bill->modelId = func_8010AD60_2C21D0_tick_tock_hop(func_80055194_55D94(temp_v0_2), 1.0f);
-            }
-            if (attr & BILL_ATTR_DISPOFF) {
-                func_8001C258_1CE58(bill->modelId, 4, 4);
-            }
-            bill->posX = &HmfModelData[bill->modelId].pos.x;
-            bill->posY = &HmfModelData[bill->modelId].pos.y;
-            bill->posZ = &HmfModelData[bill->modelId].pos.z;
-            bill->attr = attr;
-            bill->duration = func_80055194_55D94(temp_v0_2)->unk10;
-            bill->timer = 0;
-            bill->set = TRUE;
-            break;
-        }
-    }
-    if (i == BILLS_MAX) {
-        osSyncPrintf("SetBill Error! \n");
-    }
-    return i;
-}
-
-void m257_SetBillDispOn(s16 billId, f32 posX, f32 posY, f32 posZ) {
-    if (billId < BILLS_MAX) {
-        HmfModel* model = &HmfModelData[m257_billboards[billId].modelId];
-
-        model->pos.x = posX;
-        model->pos.y = posY;
-        model->pos.z = posZ;
-        func_8001C258_1CE58(m257_billboards[billId].modelId, 4, 0);
-        m257_billboards[billId].attr &= ~(BILL_ATTR_DISPOFF | BILL_ATTR_REF);
-    }
-}
-
-void m257_SetBillDispOnRef(s16 billId, f32* posX, f32* posY, f32* posZ) {
-    if (billId < BILLS_MAX) {
-        HmfModel* model = &HmfModelData[m257_billboards[billId].modelId];
-
-        if (posX != NULL) {
-            m257_billboards[billId].posX = posX;
-        } else {
-            m257_billboards[billId].posX = &model->pos.x;
-        }
-        if (posY != NULL) {
-            m257_billboards[billId].posY = posY;
-        } else {
-            m257_billboards[billId].posY = &model->pos.y;
-        }
-        if (posZ != NULL) {
-            m257_billboards[billId].posZ = posZ;
-        } else {
-            m257_billboards[billId].posZ = &model->pos.z;
-        }
-        func_8001C258_1CE58(m257_billboards[billId].modelId, 4, 0);
-        m257_billboards[billId].attr &= ~(BILL_ATTR_DISPOFF | BILL_ATTR_REF);
-        m257_billboards[billId].attr |= BILL_ATTR_REF;
-    }
-}
-
-BillboardData* m257_GetBill(s16 billId) {
-    if (billId >= BILLS_MAX) {
-        return NULL;
-    }
-    return &m257_billboards[billId];
-}
-
-HmfModel* m257_GetBillModel(s16 billId) {
-    if (billId >= BILLS_MAX) {
-        return NULL;
-    }
-    return &HmfModelData[m257_billboards[billId].modelId];
-}
-
-void m257_UpdateBills(void) {
-    BillboardData* bill;
-    HmfModel* model;
-    s16 i;
-
-    bill = m257_billboards;
-    for (i = 0; i < BILLS_MAX; i++, bill++) {
-        if (!bill->set || (bill->attr & BILL_ATTR_DISPOFF)) {
-            continue;
-        }
-        model = &HmfModelData[bill->modelId];
-        if (bill->attr & BILL_ATTR_REF) {
-            model->pos.x = *bill->posX;
-            model->pos.y = *bill->posY;
-            model->pos.z = *bill->posZ;
-        }
-        model->rot.x = CRot.x;
-        model->rot.y = CRot.y;
-        m257_MakeIdentityMtx(model->mtx);
-        func_80017D24_18924(model->mtx, 0.0f, 0.0f, CRot.z);
-        if (bill->attr & BILL_ATTR_01) {
-            if (bill->attr & BILL_ATTR_ANIM) {
-                func_8010CCD4_2C4144_tick_tock_hop(bill->modelId, func_80055194_55D94(bill->unk08), bill->timer);
-                bill->timer++;
-                if (bill->timer >= bill->duration) {
-                    if (bill->attr & BILL_ATTR_LOOP) {
-                        bill->timer = 0;
-                    } else {
-                        bill->timer = 0;
-                        bill->attr |= BILL_ATTR_DISPOFF;
-                        func_8001C258_1CE58(bill->modelId, 4, 4);
-                    }
-                }
-            }
-        }
-    }
-}
-
-// Similar to func_8010E888_2AA318_motor_rooter (ovl_36/M254)
-s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
+// Similar to func_8010AD60_2C21D0_tick_tock_hop (ovl_39/M257)
+s16 func_8010E888_2AA318_motor_rooter(HuSprite_Unk84_Struct* arg0, f32 arg1) {
     HmfData* temp_s6;
     Gfx* temp_v0_0;
     Gfx* temp_v0;
@@ -563,8 +396,8 @@ s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
     temp_v0_2 = func_8001A894_1B494(0x4C1, temp_v0_0, 4);
     temp_s6 = HmfModelData[temp_v0_2].hmf;
     temp_s6->unk60->unk50 |= 0x01010000;
-    temp_s5 = func_8010CED8_2C4348_tick_tock_hop(arg0, temp_s6, 1.0f, 0, 0x64);
-    gSPDisplayList(temp_v0++, osVirtualToPhysical(D_8010E5A0_2C5A10_tick_tock_hop));
+    temp_s5 = func_80110A00_2AC490_motor_rooter(arg0, temp_s6, 1.0f, 0, 0x14);
+    gSPDisplayList(temp_v0++, osVirtualToPhysical(D_801135A0_2AF030_motor_rooter));
     gDPPipeSync(temp_v0++);
     gDPSetCycleType(temp_v0++, G_CYC_1CYCLE);
     gDPPipeSync(temp_v0++);
@@ -619,8 +452,8 @@ s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
     return temp_v0_2;
 }
 
-// Similar to func_8010EFF8_2AAA88_motor_rooter (ovl_36/M254)
-s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
+// Similar to func_8010B4D0_2C2940_tick_tock_hop (ovl_39/M257)
+s16 func_8010EFF8_2AAA88_motor_rooter(HuSprite_Unk84_Struct* arg0, f32 arg1) {
     HmfData* temp_s4;
     Gfx* temp_v0_0;
     Gfx* temp_v0;
@@ -635,8 +468,8 @@ s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
     temp_s4->unk60->unk50 |= 0x01010000;
     HuMemFree(temp_s4->unk3C);
     temp_s4->unk3C = HuMemAllocTag(0x14, D_800CDD6A_CE96A);
-    func_8010CED8_2C4348_tick_tock_hop(arg0, temp_s4, 1.0f, 0, 0x1E);
-    gSPDisplayList(temp_v0++, osVirtualToPhysical(D_8010E5A0_2C5A10_tick_tock_hop));
+    func_80110A00_2AC490_motor_rooter(arg0, temp_s4, 1.0f, 0, 6);
+    gSPDisplayList(temp_v0++, osVirtualToPhysical(D_801135A0_2AF030_motor_rooter));
     gDPPipeSync(temp_v0++);
     gDPSetCycleType(temp_v0++, G_CYC_1CYCLE);
     gDPPipeSync(temp_v0++);
@@ -722,8 +555,8 @@ s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
     return temp_v0_2;
 }
 
-// Identical to func_8010FC10_2AB6A0_motor_rooter (ovl_36/M254)
-s16 func_8010C0E8_2C3558_tick_tock_hop(HuSprite_Unk84_Struct* arg0, RGBA* arg1) {
+// Identical to func_8010C0E8_2C3558_tick_tock_hop (ovl_39/M257)
+s16 func_8010FC10_2AB6A0_motor_rooter(HuSprite_Unk84_Struct* arg0, RGBA* arg1) {
     HmfData* temp_s4;
     Gfx* temp_v0_0;
     Gfx* temp_v0_2;
@@ -738,8 +571,8 @@ s16 func_8010C0E8_2C3558_tick_tock_hop(HuSprite_Unk84_Struct* arg0, RGBA* arg1) 
     temp_s4->unk60->unk50 |= 0x01010000;
     HuMemFree(temp_s4->unk3C);
     temp_s4->unk3C = HuMemAllocTag(0x18, D_800CDD6A_CE96A);
-    func_8010CED8_2C4348_tick_tock_hop(arg0, temp_s4, 1.0f, 0, 0);
-    gSPDisplayList(temp_v0_2++, osVirtualToPhysical(D_8010E5A0_2C5A10_tick_tock_hop));
+    func_80110A00_2AC490_motor_rooter(arg0, temp_s4, 1.0f, 0, 0);
+    gSPDisplayList(temp_v0_2++, osVirtualToPhysical(D_801135A0_2AF030_motor_rooter));
     gDPPipeSync(temp_v0_2++);
     gDPSetCycleType(temp_v0_2++, G_CYC_1CYCLE);
     gDPPipeSync(temp_v0_2++);
@@ -829,8 +662,8 @@ s16 func_8010C0E8_2C3558_tick_tock_hop(HuSprite_Unk84_Struct* arg0, RGBA* arg1) 
     return temp_v0;
 }
 
-// Identical to func_801107FC_2AC28C_motor_rooter (ovl_36/M254)
-void func_8010CCD4_2C4144_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1, u16 arg2) {
+// Identical to func_8010CCD4_2C4144_tick_tock_hop (ovl_39/M257)
+void func_801107FC_2AC28C_motor_rooter(u16 modelId, HuSprite_Unk84_Struct* arg1, u16 arg2) {
     HmfModel* model = &HmfModelData[modelId];
     HmfData* temp_s2 = model->hmf;
     Gfx* temp_s0 = temp_s2->unk3C->unk04[D_800D2008_D2C08];
@@ -843,8 +676,8 @@ void func_8010CCD4_2C4144_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1
     gSPEndDisplayList(&temp_s0[4]);
 }
 
-// Identical to func_801108CC_2AC35C_motor_rooter (ovl_36/M254)
-void func_8010CDA4_2C4214_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1, u16 arg2, RGBA* arg3) {
+// Identical to func_801108CC_2AC35C_motor_rooter (ovl_39/M257)
+void func_801108CC_2AC35C_motor_rooter(u16 modelId, HuSprite_Unk84_Struct* arg1, u16 arg2, RGBA* arg3) {
     HmfModel* model = &HmfModelData[modelId];
     HmfData* temp_s3 = model->hmf;
     HmfModelData_Unk64_Unk3C_Struct* temp_v1 = temp_s3->unk3C;
@@ -861,8 +694,8 @@ void func_8010CDA4_2C4214_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1
     gSPEndDisplayList(&temp_s0[7]);
 }
 
-// Similar to func_80110A00_2AC490_motor_rooter (ovl_36/M254)
-s16 func_8010CED8_2C4348_tick_tock_hop(HuSprite_Unk84_Struct* arg0, HmfData* arg1, f32 arg2, u16 arg3, u16 arg4) {
+// Similar to func_8010CED8_2C4348_tick_tock_hop (ovl_39/M257)
+s16 func_80110A00_2AC490_motor_rooter(HuSprite_Unk84_Struct* arg0, HmfData* arg1, f32 arg2, u16 arg3, u16 arg4) {
     Vtx* temp_s7;
     Vtx* var_s1;
     Vtx_t* var_t0;
@@ -887,8 +720,8 @@ s16 func_8010CED8_2C4348_tick_tock_hop(HuSprite_Unk84_Struct* arg0, HmfData* arg
     }
     temp_s4 = arg0->unk00->unk04;
     temp_a1 = arg0->unk00->unk06;
-    sp24 = (f64) (temp_s4 * 0x64) * arg2 / 32.0;
-    temp_f2 = (f64) (temp_a1 * 0x64) * arg2 / 32.0;
+    sp24 = temp_s4 * 20.0 * arg2 / 32.0;
+    temp_f2 = temp_a1 * 20.0 * arg2 / 32.0;
     if ((arg0->unk18 & 0xFFF) == 4) {
         var_s0 = ((temp_s4 + 1) & 0xFFFE) * temp_a1 * 4;
     } else {
@@ -944,156 +777,7 @@ s16 func_8010CED8_2C4348_tick_tock_hop(HuSprite_Unk84_Struct* arg0, HmfData* arg
     return var_s2;
 }
 
-void m257_CreateColliders(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    m257_colliders = HuMemAllocTag(COLLIDERS_MAX * sizeof(QuadCollider), 31000);
-    memset(m257_colliders, 0, COLLIDERS_MAX * sizeof(QuadCollider));
-    ctx->func = m257_UpdateColliders;
-}
-
-s32 m257_SetCollider(s16 modelId, Quad* baseQuad, f32 height, s16 maxTrackers, s32 attr) {
-    HmfModel* model = &HmfModelData[modelId];
-    QuadCollider* collider;
-    s16 i;
-
-    collider = m257_colliders;
-    for (i = 0; i < COLLIDERS_MAX; i++, collider++) {
-        if (!collider->set) {
-            collider->posX = &model->pos.x;
-            collider->posY = &model->pos.y;
-            collider->posZ = &model->pos.z;
-            collider->rotX = &model->rot.x;
-            collider->rotY = &model->rot.y;
-            collider->rotZ = &model->rot.z;
-            collider->baseQuad = *baseQuad;
-            collider->height = height;
-            collider->vertexCount = 4;
-            if (maxTrackers != 0) {
-                collider->modelTrackers = HuMemAllocTag(maxTrackers * sizeof(ModelTracker), 31000);
-            }
-            collider->maxTrackers = maxTrackers;
-            collider->trackerCount = 0;
-            collider->attr = attr;
-            collider->set = TRUE;
-            break;
-        }
-    }
-    if (i == COLLIDERS_MAX) {
-        return -1;
-    }
-    return i;
-}
-
-ModelTracker* m257_SetModelTracker(s16 colliderId, s16 modelId) {
-    ModelTracker* tracker;
-    HmfModel* model;
-
-    if (colliderId >= COLLIDERS_MAX) {
-        return NULL;
-    }
-    if (!m257_colliders[colliderId].set) {
-        return NULL;
-    }
-    if (m257_colliders[colliderId].trackerCount >= m257_colliders[colliderId].maxTrackers) {
-        return NULL;
-    }
-    tracker = &m257_colliders[colliderId].modelTrackers[m257_colliders[colliderId].trackerCount];
-    model = &HmfModelData[modelId];
-    tracker->posX = &model->pos.x;
-    tracker->posY = &model->pos.y;
-    tracker->posZ = &model->pos.z;
-    m257_colliders[colliderId].trackerCount++;
-    return tracker;
-}
-
-void m257_SetColliderBaseQuad(s16 colliderId, Quad* baseQuad, f32 height) {
-    if (colliderId < COLLIDERS_MAX && m257_colliders[colliderId].set) {
-        QuadCollider* collider = &m257_colliders[colliderId];
-
-        memcpy(&collider->baseQuad, baseQuad, collider->vertexCount * sizeof(Vec));
-        collider->height = height;
-    }
-}
-
-void m257_UpdateColliders(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    QuadCollider* collider;
-    Vec currQuad[4];
-    f32 side;
-    s16 i, j, k;
-
-    collider = m257_colliders;
-    for (i = 0; i < COLLIDERS_MAX; i++, collider++) {
-        if (!collider->set) {
-            continue;
-        }
-        if (collider->attr & COLLIDER_ATTR_DISABLED) {
-            for (j = 0; j < collider->trackerCount; j++) {
-                collider->modelTrackers[j].colliding = FALSE;
-            }
-            continue;
-        }
-        m257_MakeTransformMtx(*collider->posX, *collider->posY, *collider->posZ, *collider->rotX, *collider->rotY, *collider->rotZ, collider->transMtx);
-        m257_ApplyTransformMtx(collider->baseQuad.vertices, 4, collider->transMtx, currQuad);
-        for (j = 0; j < collider->trackerCount; j++) {
-            ModelTracker* model = &collider->modelTrackers[j];
-
-            if (!(collider->attr & COLLIDER_ATTR_HEIGHT_DISABLED)) {
-                if (*model->posY > collider->height) {
-                    model->colliding = FALSE;
-                    continue;
-                }
-            }
-            side = m257_CalcSideOfEdge(collider, model, &currQuad[m257_quadEdges[0][0]], &currQuad[m257_quadEdges[0][1]]);
-            if (side == 0.0f) {
-                model->colliding = FALSE;
-                continue;
-            }
-            if (side > 0.0f) {
-                model->colliding = TRUE;
-                for (k = 1; k < 4; k++) {
-                    side = m257_CalcSideOfEdge(collider, model, &currQuad[m257_quadEdges[k][0]], &currQuad[m257_quadEdges[k][1]]);
-                    if (side == 0.0f) {
-                        model->colliding = TRUE;
-                        break;
-                    }
-                    if (side < 0.0f) {
-                        model->colliding = FALSE;
-                        break;
-                    }
-                }
-            } else {
-                model->colliding = TRUE;
-                for (k = 1; k < 4; k++) {
-                    side = m257_CalcSideOfEdge(collider, model, &currQuad[m257_quadEdges[k][0]], &currQuad[m257_quadEdges[k][1]]);
-                    if (side == 0.0f) {
-                        model->colliding = TRUE;
-                        break;
-                    }
-                    if (side > 0.0f) {
-                        model->colliding = FALSE;
-                        break;
-                    }
-                }
-            }
-        }
-    }
-}
-
-// TODO: doesn't work with -Wa,--vr4300mul-off.
-f32 m257_CalcSideOfEdge(QuadCollider* collider, ModelTracker* model, Vec* a, Vec* b) {
-    Vec modelPos;
-    Vec ma;
-    Vec mb;
-
-    modelPos.x = *model->posX;
-    modelPos.z = *model->posZ;
-    ma.x = a->x - modelPos.x;
-    ma.z = a->z - modelPos.z;
-    mb.x = b->x - modelPos.x;
-    mb.z = b->z - modelPos.z;
-    return ma.z * mb.x - ma.x * mb.z;
-}
-
-u8 m257_CalcLerp(f32* out, u8* timer, f32 start, f32 end, f32 duration) {
+u8 m254_CalcLerp(f32* out, u8* timer, f32 start, f32 end, f32 duration) {
     f32 t = *timer / duration;
 
     *out = start + (end - start) * t;
@@ -1105,7 +789,8 @@ u8 m257_CalcLerp(f32* out, u8* timer, f32 start, f32 end, f32 duration) {
     return FALSE;
 }
 
-f32 m257_CalcQuadraticBezier(f32 t, f32 p0, f32 p1, f32 p2) {
+// TODO: doesn't work with -Wa,--vr4300mul-off.
+f32 m254_CalcQuadraticBezier(f32 t, f32 p0, f32 p1, f32 p2) {
     if (t > 1.0f) {
         t = 1.0f;
     }
@@ -1113,7 +798,7 @@ f32 m257_CalcQuadraticBezier(f32 t, f32 p0, f32 p1, f32 p2) {
 }
 
 // Fisher-Yates shuffle on [0, n-1].
-void m257_MakeRandPermutation(s16* out, s16 n) {
+void m254_MakeRandPermutation(s16* out, s16 n) {
     s16 temp;
     s16 i;
 
@@ -1129,7 +814,7 @@ void m257_MakeRandPermutation(s16* out, s16 n) {
     }
 }
 
-void m257_SyncWithModel(omObjData* object) {
+void m254_SyncWithModel(omObjData* object) {
     HmfModel* model = &HmfModelData[object->model[0]];
 
     object->scale.x = model->scale.x;
@@ -1161,8 +846,7 @@ void m257_SyncWithModel(omObjData* object) {
     object->rot.z = model->rot.z;
 }
 
-// TODO: doesn't work with -Wa,--vr4300mul-off.
-void m257_CalcPitchAndYaw(Vec from, Vec to, f32* out) {
+void m254_CalcPitchAndYaw(Vec from, Vec to, f32* out) {
     Vec direction;
     f32 fullRot = 360.0f;
     f32 pitch;
@@ -1187,32 +871,7 @@ void m257_CalcPitchAndYaw(Vec from, Vec to, f32* out) {
     *(out++) = yaw;
 }
 
-void m257_MinimizeAngleDiff(f32* a, f32* b) {
-    f32 diff;
-
-    while (*b < 0.0f) {
-        *b += 360.0f;
-    }
-    while (*b >= 360.0f) {
-        *b -= 360.0f;
-    }
-    while (*a < 0.0f) {
-        *a += 360.0f;
-    }
-    while (*a >= 360.0f) {
-        *a -= 360.0f;
-    }
-    diff = ABS(*b - *a);
-    if (diff > 180.0f) {
-        if (*a < *b) {
-            *b -= 360.0f;
-        } else {
-            *a -= 360.0f;
-        }
-    }
-}
-
-void m257_MakeIdentityMtx(f32* out) {
+void m254_MakeIdentityMtx(f32* out) {
     s16 i, j;
 
     for (i = 0; i < 4; i++) {
@@ -1223,30 +882,23 @@ void m257_MakeIdentityMtx(f32* out) {
     }
 }
 
-void m257_MakeTranslationMtx(f32* out, f32 x, f32 y, f32 z) {
-    m257_MakeIdentityMtx(out);
-    M_ID(out, 3, 0) = x;
-    M_ID(out, 3, 1) = y;
-    M_ID(out, 3, 2) = z;
-}
-
-void m257_MakeRotXMtx(f32* out, f32 angle) {
-    m257_MakeIdentityMtx(out);
+void m254_MakeRotXMtx(f32* out, f32 angle) {
+    m254_MakeIdentityMtx(out);
     M_ID(out, 1, 1) = HuMathCos(angle);
     M_ID(out, 1, 2) = HuMathSin(angle);
     M_ID(out, 2, 1) = -HuMathSin(angle);
     M_ID(out, 2, 2) = HuMathCos(angle);
 }
 
-void m257_MakeRotYMtx(f32* out, f32 angle) {
-    m257_MakeIdentityMtx(out);
+void m254_MakeRotYMtx(f32* out, f32 angle) {
+    m254_MakeIdentityMtx(out);
     M_ID(out, 0, 0) = HuMathCos(angle);
     M_ID(out, 0, 2) = -HuMathSin(angle);
     M_ID(out, 2, 0) = HuMathSin(angle);
     M_ID(out, 2, 2) = HuMathCos(angle);
 }
 
-void m257_MultiplyMtx(f32* a, f32* b, f32* out) {
+void m254_MultiplyMtx(f32* a, f32* b, f32* out) {
     s16 i, j;
 
     for (i = 0; i < 4; i++) {
@@ -1256,31 +908,8 @@ void m257_MultiplyMtx(f32* a, f32* b, f32* out) {
     }
 }
 
-void func_8010E214_2C5684_tick_tock_hop(f32* arg0, f32* out) {
-    *(out++) = M_ID(arg0, 3, 0) * M_ID(arg0, 0, 0) + M_ID(arg0, 3, 1) * M_ID(arg0, 1, 0) + M_ID(arg0, 3, 2) * M_ID(arg0, 2, 0);
-    *(out++) = M_ID(arg0, 3, 0) * M_ID(arg0, 0, 1) + M_ID(arg0, 3, 1) * M_ID(arg0, 1, 1) + M_ID(arg0, 3, 2) * M_ID(arg0, 2, 1);
-    *(out++) = M_ID(arg0, 3, 0) * M_ID(arg0, 0, 2) + M_ID(arg0, 3, 1) * M_ID(arg0, 1, 2) + M_ID(arg0, 3, 2) * M_ID(arg0, 2, 2);
-}
-
-void m257_MakeTransformMtx(f32 transX, f32 transY, f32 transZ, f32 rotX, f32 rotY, f32 rotZ, f32* out) {
-    f32 translationMtx[16];
-    f32 rotXMtx[16];
-    f32 rotYMtx[16];
-    f32 rotMtx[16];
-
-    m257_MakeTranslationMtx(translationMtx, transX, transY, transZ);
-    m257_MakeRotXMtx(rotXMtx, rotX);
-    m257_MakeRotYMtx(rotYMtx, rotY);
-    m257_MultiplyMtx(rotXMtx, rotYMtx, rotMtx);
-    m257_MultiplyMtx(rotMtx, translationMtx, out);
-}
-
-void m257_ApplyTransformMtx(Vec* in, s16 n, f32* mtx, Vec* out) {
-    s16 i;
-
-    for (i = 0; i < n; i++) {
-        out[i].x = (M_ID(mtx, 3, 0) + in[i].x) * M_ID(mtx, 0, 0) + (M_ID(mtx, 3, 1) + in[i].y) * M_ID(mtx, 1, 0) + (M_ID(mtx, 3, 2) + in[i].z) * M_ID(mtx, 2, 0);
-        out[i].y = (M_ID(mtx, 3, 0) + in[i].x) * M_ID(mtx, 0, 1) + (M_ID(mtx, 3, 1) + in[i].y) * M_ID(mtx, 1, 1) + (M_ID(mtx, 3, 2) + in[i].z) * M_ID(mtx, 2, 1);
-        out[i].z = (M_ID(mtx, 3, 0) + in[i].x) * M_ID(mtx, 0, 2) + (M_ID(mtx, 3, 1) + in[i].y) * M_ID(mtx, 1, 2) + (M_ID(mtx, 3, 2) + in[i].z) * M_ID(mtx, 2, 2);
-    }
+void func_801114B0_2ACF40_motor_rooter(f32* arg0, Vec* arg1, f32* out) {
+    *(out++) = arg1->x * M_ID(arg0, 0, 0) + arg1->y * M_ID(arg0, 1, 0) + arg1->z * M_ID(arg0, 2, 0);
+    *(out++) = arg1->x * M_ID(arg0, 0, 1) + arg1->y * M_ID(arg0, 1, 1) + arg1->z * M_ID(arg0, 2, 1);
+    *(out++) = arg1->x * M_ID(arg0, 0, 2) + arg1->y * M_ID(arg0, 1, 2) + arg1->z * M_ID(arg0, 2, 2);
 }

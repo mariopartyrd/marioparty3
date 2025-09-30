@@ -935,6 +935,22 @@ ItemUseWackyWatch = 0x80115B80; //rom:0x32B6F0 segment:ChillyWaters
 D_80100F94_114BB4_shared_board = 0x80100F94; //rom:0x114BB4 segment:shared_board size:0x14
 ShowMessage = 0x800EC8EC; //rom:0x10050C segment:shared_board
 
+m254_CreateSystem = 0x8010DDC0; //rom:0x2A9850
+m254_SetFunc = 0x8010DF68; //rom:0x2A99F8
+m254_ResetFunc = 0x8010E084; //rom:0x2A9B14
+m254_UpdateFuncGroup = 0x8010E248; //rom:0x2A9CD8
+m254_SetSprite = 0x8010E3CC; //rom:0x2A9E5C
+m254_SetSpriteDispOn = 0x8010E56C; //rom:0x2A9FFC
+m254_UpdateSprites = 0x8010E650; //rom:0x2AA0E0
+m254_CalcQuadraticBezier = 0x80110E88; //rom:0x2AC918
+m254_MakeRandPermutation = 0x80110EF4; //rom:0x2AC984
+m254_SyncWithModel = 0x80111000; //rom:0x2ACA90
+m254_CalcPitchAndYaw = 0x80111174; //rom:0x2ACC04
+m254_MakeIdentityMtx = 0x801112A4; //rom:0x2ACD34
+m254_MakeRotXMtx = 0x8011132C; //rom:0x2ACDBC
+m254_MakeRotYMtx = 0x80111394; //rom:0x2ACE24
+m254_MultiplyMtx = 0x801113FC; //rom:0x2ACE8C
+
 m255_ExecCameraIntro = 0x8010759C; //rom:0x2B0E4C
 m255_SetFunc = 0x8010B418; //rom:0x2B4CC8
 m255_ResetFunc = 0x8010B54C; //rom:0x2B4DFC

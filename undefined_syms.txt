@@ -21,6 +21,12 @@ D_8011565C_28612C_vine_with_me = 0x8011565C;
 D_8011565E_28612E_vine_with_me = 0x8011565E;
 D_80115660_286130_vine_with_me = 0x80115660;
 
+m254_minigame = 0x801137C4;
+m254_playerId = 0x801137D4;
+m254_sprites = 0x801137E0;
+m254_animModels = 0x801137E4;
+m254_funcGroups = 0x801137E8;
+
 func_80107CC4_2B1574_silly_screws = 0x80107CC4;
 D_8010BF80_2B5830_silly_screws = 0x8010BF80;
 D_8010BF84_2B5834_silly_screws = 0x8010BF84;
