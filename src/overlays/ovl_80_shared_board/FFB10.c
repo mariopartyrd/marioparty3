@@ -29,7 +29,16 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FFB10", func_800EC5B4
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FFB10", func_800EC5EC_10020C_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FFB10", func_800EC628_100248_shared_board);
+void func_800EC628_100248_shared_board(s32 arg0, s32 arg1) {
+    s16 sp10[4];
+    s16 temp_v0;
+
+    func_80060394_60F94(1, sp10, arg1);
+    temp_v0 = func_800EBFE8_FFC08_shared_board(arg0, sp10, -1);
+    D_80105702_119322_shared_board = temp_v0;
+    func_8005B43C_5C03C(temp_v0, arg1, -1, -1);
+    func_80061388_61F88(temp_v0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FFB10", func_800EC6A8_1002C8_shared_board);
 
@@ -38,7 +47,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FFB10", func_800EC6C8
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FFB10", func_800EC6EC_10030C_shared_board);
 
 void func_800EC70C_10032C_shared_board(s16 arg0, s32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 arg6, s16 arg7) {
-    s16 sp10[2];
+    s16 sp10[4];
     s16 temp_v0;
 
     if (arg2 != 0) {
@@ -56,9 +65,11 @@ void func_800EC70C_10032C_shared_board(s16 arg0, s32 arg1, u32 arg2, u32 arg3, u
     if (arg6 != 0) {
         func_8006022C_60E2C(arg6, 4);
     }
+
     func_80060394_60F94(1, sp10, arg1);
     temp_v0 = func_800EBFE8_FFC08_shared_board(arg0, sp10, arg7);
     D_80105702_119322_shared_board = temp_v0;
+    
     if (arg2 != 0) {
         func_8005B6BC_5C2BC(temp_v0, arg2, 0);
     }

@@ -169,7 +169,7 @@ void func_800F74E4_10B104_shared_board(void) {
     for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
         boardItemIds = &D_80105630_119250_shared_board[i];
         while (1) {
-            *boardItemIds = D_80101A20_115640_shared_board[func_800EEF80_102BA0_shared_board(8.0f)];
+            *boardItemIds = D_80101A20_115640_shared_board[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101A20_115640_shared_board))];
             if (*boardItemIds != prev) {
                 prev = *boardItemIds;
                 break;
@@ -185,7 +185,7 @@ void func_800F7578_10B198_shared_board(void) {
     s32 temp_v0;
     
     while (1) {
-        temp_v0 = temp2[func_800EEF80_102BA0_shared_board(4.0f)];
+        temp_v0 = temp2[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101A40_115660_shared_board))];
         D_80105630_119250_shared_board[0] = temp_v0;
         
         if (temp_v0 == 0x12 && GwSystem.unk_52 == 0) {
@@ -208,7 +208,7 @@ void func_800F7578_10B198_shared_board(void) {
     
     while (1) {
         new_var = D_80105630_119250_shared_board[0] =
-        D_80101A40_115660_shared_board[func_800EEF80_102BA0_shared_board(4.0f)];
+        D_80101A40_115660_shared_board[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101A40_115660_shared_board))];
         
         if (new_var == 0x12) {
             if (GwSystem.unk_52 == 0) {
@@ -240,7 +240,7 @@ void func_800F7610_10B230_shared_board(void) {
     for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
         boardItemIds = &D_80105630_119250_shared_board[i];
         while (1) {
-            *boardItemIds = D_80101A50_115670_shared_board[func_800EEF80_102BA0_shared_board(9.0f)];
+            *boardItemIds = D_80101A50_115670_shared_board[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101A50_115670_shared_board))];
             if (*boardItemIds != prev) {
                 prev = *boardItemIds;
                 break;
@@ -348,6 +348,7 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
     func_800F6ECC_10AAEC_shared_board(-1);
 }
 
+//probably a file split here
 void func_800F7CF0_10B910_shared_board(void) {
     func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C08);
 }
@@ -493,16 +494,16 @@ void func_800F7FE8_10BC08_shared_board(void) {
     
     if (D_80105654_119274_shared_board != 0) {
         HuAudFXPlay(0x298);
-        func_800EC590_1001B0_shared_board(3, 0x3C02);
-        func_800EC628_100248_shared_board(3, D_80101B10_115730_shared_board[func_800EEF80_102BA0_shared_board(5.0f)]);
+        func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C02);
+        func_800EC628_100248_shared_board(CHAR_TOAD, D_80101B10_115730_shared_board[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101B10_115730_shared_board))]);
         if (temp_s1->stat & 1) {
             var_f12 = 3.0f;
             var_s0 = func_800EEF80_102BA0_shared_board(var_f12) + 1;
         }
     } else {
         HuAudFXPlay(0x2A0);
-        func_800EC590_1001B0_shared_board(5, 0x3C14);
-        func_800EC628_100248_shared_board(5, D_80101B24_115744_shared_board[func_800EEF80_102BA0_shared_board(6.0f)]);
+        func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C14);
+        func_800EC628_100248_shared_board(CHAR_BABY_BOWSER, D_80101B24_115744_shared_board[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101B24_115744_shared_board))]);
         if (temp_s1->stat & 1) {
             var_f12 = 2.0f;
             var_s0 = func_800EEF80_102BA0_shared_board(var_f12) + 1;
@@ -540,7 +541,7 @@ void func_800F7FE8_10BC08_shared_board(void) {
             break;
 
         case 2:
-            default:
+        default:
             if (temp_v1 < 3) {
                 var_a0_2 = 3;
             } else if (temp_v1 < 7) {
