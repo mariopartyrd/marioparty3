@@ -3,62 +3,18 @@
 
 #define UNK_ARR_SIZE 4
 
-UnkBoard4* func_800F4528_DC2F8_name_81(s16, s16);
-void func_800F4584_DC354_name_81(UnkBoard4*);
-void func_80100124_E7EF4_name_81(UnkBoard4*, s32);
-Object* func_800D8314_C00E4_name_81(s32, s32, f32, s32, s32);
-void func_800FCF50_E4D20_name_81(s32, s32);
-void func_800D8E88_C0C58_name_81(Object*);
-void func_800D8F3C_C0D0C_name_81(Object*);
-void func_800F8C68_E0A38_name_81(s32);
-void func_80100604_E83D4_name_81(void);
-void func_800F740C_DF1DC_name_81(void);
-void func_800F89D0_E07A0_name_81(s32, s32, s32, s32);
-void func_801007C4_E8594_name_81(void);
-void MBDCameraPos3DSet(Vec*);
-void func_80049FB8_4ABB8(void);
-void func_8004A0E0_4ACE0(void);
-void func_800E5954_CD724_name_81(void);
-void func_800E5964_CD734_name_81(void);
-f32 MBDCameraZoomGet(void);
-Process* MBDCameraZoomMotStart(f32);
-void MBDCameraPos2DGet(f32*);
-void MBDCamera3Dto2D(Vec*, f32*);
-void func_801008E8_E86B8_name_81(void);
-void func_80100CA0_E8A70_name_81(void);
-
-
-void func_8004A9DC_4B5DC(s32);                           /* extern */
-void func_8005F904_60504(void);                            /* extern */
-void func_800DADA0_C2B70_name_81(s8);                  /* extern */
-s32 func_800DB3E0_C31B0_name_81(s8);                /* extern */
-void func_800DB544_C3314_name_81(s8);                  /* extern */
-void func_800DB5AC_C337C_name_81(s8);                  /* extern */
-s32 func_800E1824_C95F4_name_81(s32, s32, s32);           /* extern */
-void func_800E1854_C9624_name_81(s32);                 /* extern */
-void func_800E5954_CD724_name_81(void);                    /* extern */
-void func_800E5BE8_CD9B8_name_81(void);                    /* extern */
-void func_800E5C20_CD9F0_name_81(void);                    /* extern */
-void MBDCameraZoomSet(f32);                 /* extern */
-void func_800E856C_D033C_name_81(f32);                 /* extern */
-f32 func_800E8578_D0348_name_81(void);                  /* extern */
-s32 MBDCameraPos2DSet(f32*);              /* extern */
-void MBDCameraPos2DGet(f32*);                /* extern */
-f32 MBDCameraSpeedGet(void);                  /* extern */
-void func_800F73C0_DF190_name_81(void);                    /* extern */
-void func_800F740C_DF1DC_name_81(void);                    /* extern */
-s16 func_800FC114_E3EE4_name_81(void);                  /* extern */
-void func_80100864_E8634_name_81(void);                    /* extern */
-void func_80100890_E8660_name_81(void);                    /* extern */
-UnkBoard4* func_800FFEEC_E7CBC_name_81(void);
-void func_801000A4_E7E74_name_81(UnkBoard4* arg0, u16 arg1);
-void MBDCameraSpeedSet(f32);
 extern u16 D_800C9520_CA120[];
 extern s32 D_800D41B0_D4DB0[];
 extern u16 D_800D5546_D6146[];
-extern f32 D_80105528_ED2F8_name_81;
-
 extern s8 D_800CB99C_CC59C;
+
+
+void func_80049FB8_4ABB8(void);
+void func_8004A0E0_4ACE0(void);
+void func_8004A9DC_4B5DC(s32);
+void func_8005F904_60504(void);
+
+extern f32 D_80105528_ED2F8_name_81;
 extern f32 D_80105528_ED2F8_name_81;
 extern f32 D_8010552C_ED2FC_name_81[5]; //unknown type, maybe right size
 extern s16 D_80101B40_E9910_name_81[UNK_ARR_SIZE][2];

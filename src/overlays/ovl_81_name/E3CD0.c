@@ -9,40 +9,8 @@ typedef struct UnkE3CD0 {
     f32 unk_30;
 } UnkE3CD0;
 
-void func_800EBAD4_D38A4_name_81(s32);
-void func_800FC5D8_E43A8_name_81(void);
+
 void func_8004A950_4B550(void);
-void func_800FC4E4_E42B4_name_81(void);
-void func_800FC108_E3ED8_name_81(void);
-void func_800D7F0C_BFCDC_name_81(void);
-void func_800DBEB0_C3C80_name_81(void);
-void func_800DF210_C6FE0_name_81(void);
-void func_800E0E38_C8C08_name_81(void);
-void func_800E28B0_CA680_name_81(void);
-void func_800E4FF4_CCDC4_name_81(void);
-void func_800E90B4_D0E84_name_81(void);
-void func_800E9564_D1334_name_81(void);
-void func_800E9D9C_D1B6C_name_81(void);
-void func_800F4030_DBE00_name_81(void);
-void func_800F4314_DC0E4_name_81(void);
-void func_800FD55C_E532C_name_81(void);
-void func_800DAAB0_C2880_name_81(void);
-void func_800DF154_C6F24_name_81(void);
-s32 func_800F37B8_DB588_name_81(s16 playerIndex);
-void MBDCameraPos3DSet(Vec*);
-void MBDCameraPos2DSet(f32*);
-void MBDCameraPos2DGet(f32*);
-s32 func_800E1824_C95F4_name_81(s32, s32, s32);
-void func_800E1854_C9624_name_81(s32);
-Process* func_800E0888_C8658_name_81(void);
-void func_80100CEC_E8ABC_name_81(u8);
-void func_800E5954_CD724_name_81(void);
-void func_800E5BE8_CD9B8_name_81(void);
-void func_800E5C20_CD9F0_name_81(void);
-void func_800E856C_D033C_name_81(f32);
-f32 func_800E8578_D0348_name_81(void);
-void MBDCameraSpeedSet(f32);
-f32 MBDCameraSpeedGet(void);
 
 extern s32 D_80101AF8_E98C8_name_81;
 extern s32 D_80101AFC_E98CC_name_81;
@@ -138,7 +106,7 @@ void func_800FC108_E3ED8_name_81(void) {
     D_800CD2A0_CDEA0.unk_02 = 0;
 }
 
-s32 func_800FC114_E3EE4_name_81(void) {
+s16 func_800FC114_E3EE4_name_81(void) {
     return D_800D4190_D4D90.stat;
 }
 
