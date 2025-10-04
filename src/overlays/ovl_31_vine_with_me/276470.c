@@ -39,7 +39,7 @@ s16 func_80017AD8_186D8(s32);
 s32 func_80017BB8_187B8(s16, s16);
 
 // 8EA10
-f32 atan2d(f32, f32);
+f32 _atan2d(f32, f32);
 
 // 8EFF0
 f32 HuMathCos(f32);
@@ -1436,7 +1436,7 @@ block_213c:
                 if (D_80111C68_282738_vine_with_me[arg1] > D_80111C38_282708_vine_with_me[arg1] * 450.0 + 800.0) {
                     D_801125B8_283088_vine_with_me[arg1] = D_80111C38_282708_vine_with_me[arg1] * 450.0 + 800.0;
                 }
-                D_80112590_283060_vine_with_me[arg1] = atan2d(-D_801125A0_283070_vine_with_me[arg1] * 0.5, -(D_801125B8_283088_vine_with_me[arg1] * 0.96 + D_80111C38_282708_vine_with_me[arg1] * 450.0 * 0.04 - D_801125B8_283088_vine_with_me[arg1]) * 0.5);
+                D_80112590_283060_vine_with_me[arg1] = _atan2d(-D_801125A0_283070_vine_with_me[arg1] * 0.5, -(D_801125B8_283088_vine_with_me[arg1] * 0.96 + D_80111C38_282708_vine_with_me[arg1] * 450.0 * 0.04 - D_801125B8_283088_vine_with_me[arg1]) * 0.5);
                 func_8001C5B4_1D1B4(arg0->model[0], arg0->motion[3]);
                 func_8001C6A8_1D2A8(arg0->model[0], 0.0f);
                 func_8001C814_1D414(arg0->model[0], 1, 1);

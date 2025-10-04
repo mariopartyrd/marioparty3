@@ -8,7 +8,21 @@ void func_800E98E8_FD508_shared_board(f32*);
 void func_800E9748_FD368_shared_board(Vec*);
 void func_800ED35C_100F7C_shared_board(Vec*, Vec*, Vec*, s32);
 void func_800035E8_41E8(s16);
+void func_800DB56C_EF18C_shared_board(void);
+void func_800DF7F4_F3414_shared_board(void);
+void func_800F2484_1060A4_shared_board(s32);
+void func_8004A950_4B550(void);
+void func_800F92A0_10CEC0_shared_board(void);
+s32 func_800F933C_10CF5C_shared_board(void);
+s16 func_800EBCD4_FF8F4_shared_board(u8);
 
+extern Vec2f D_80101D5C_11597C_shared_board[];
+extern Vec2f D_80101D84_1159A4_shared_board[];
+extern s16 D_800C9930_CA530;
+extern u8 D_800CB8B1_CC4B1[];
+extern s16 D_800CE206;
+extern s32 D_80105668_119288_shared_board;
+extern s16 D_8010566C_11928C_shared_board;
 extern s16 D_800D037E_D0F7E;
 extern s32 D_800A12DC;
 extern s16 D_8010566E_11928E_shared_board;
@@ -23,6 +37,23 @@ extern f32 D_80101BF0_115810_shared_board[][2];
 extern Vec D_80105680_1192A0_shared_board[];
 extern Object* D_801056B0_1192D0_shared_board;
 extern Object* D_801056B4_1192D4_shared_board;
+extern s16 D_800A12C8;
+extern s16 D_800C9930_CA530;
+extern f32 D_800C9938_CA538;
+extern s16 D_800CE206;
+extern s16 D_800D2130;
+extern s32 D_800D41C0_D4DC0;
+extern s16 D_800D1708_D2308;
+extern s16 D_800D4080_D4C80;
+extern s16 D_800D1F7A_D2B7A;
+extern s16 D_800D6A44_D7644;
+extern s16 D_800D1FEC_D2BEC;
+extern u16 D_800D03FC;
+extern u16 D_800CE208;
+extern u16 D_800CDD68;
+extern s16 gPrevItemBlockSpaceIndexes[10];
+extern s16 gPrevCoinBlockSpaceIndexes[10];
+extern s16 gPrevStarBlockSpaceIndexes[10];
 
 void func_800F8610_10C230_shared_board(s32 id, s16 event, u16 stat) {
     omOvlHisData* overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18++];
@@ -257,29 +288,6 @@ s16 func_800F8D78_10C998_shared_board(void) {
     return D_800CC0B8_CCCB8;
 }
 
-void func_800DB56C_EF18C_shared_board(void);
-void func_800DF7F4_F3414_shared_board(void);
-void func_800F2484_1060A4_shared_board(s32);
-extern s16 D_800A12C8;
-extern s16 D_800C9930_CA530;
-extern f32 D_800C9938_CA538;
-extern s16 D_800CE206;
-extern s16 D_800D2130;
-extern s32 D_800D41C0_D4DC0;
-
-extern s16 D_800D1708_D2308;
-extern s16 D_800D4080_D4C80;
-extern s16 D_800D1F7A_D2B7A;
-extern s16 D_800D6A44_D7644;
-extern s16 D_800D1FEC_D2BEC;
-
-extern u16 D_800D03FC;
-extern u16 D_800CE208;
-extern u16 D_800CDD68;
-extern s16 gPrevItemBlockSpaceIndexes[10];
-extern s16 gPrevCoinBlockSpaceIndexes[10];
-extern s16 gPrevStarBlockSpaceIndexes[10];
-
 void func_800F8D84_10C9A4_shared_board(void) {
     GW_PLAYER* player;
     s32 i, j;
@@ -308,13 +316,16 @@ void func_800F8D84_10C9A4_shared_board(void) {
     D_800D6A44_D7644 = 0;
     D_800D1FEC_D2BEC = 0;
     D_800C9938_CA538 = 1.0f;
+
     func_800DF7F4_F3414_shared_board();
     func_800DB56C_EF18C_shared_board();
+
     D_800A12C8 = -1;
     D_800C9930_CA530 = -1;
     D_800CE206 = 0;
     D_800A12D4 = 1;
     D_800A12D8 = 0;
+
     func_800F2484_1060A4_shared_board(0);
     func_800F2484_1060A4_shared_board(1);
     func_800F2484_1060A4_shared_board(2);
@@ -347,6 +358,7 @@ void func_800F8D84_10C9A4_shared_board(void) {
         system->current_turn = 1;
         system->current_player_index = 0;
         system->minigame_index = 0;
+
         #ifdef BUG_FIX
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
         #else
@@ -371,6 +383,7 @@ void func_800F8D84_10C9A4_shared_board(void) {
             }
             player->itemTurn = 0;
         }
+
         //TODO: 16?
         for (i = 0; i < 16; i++) {
             GwSystem.boardData.halfWordBytes[i] = 0;
@@ -380,23 +393,23 @@ void func_800F8D84_10C9A4_shared_board(void) {
         GWBoardFlagClear(7);
         GWBoardFlagClear(8);
         GWBoardFlagClear(9);
-        GWBoardFlagClear(0xA);
-        GWBoardFlagClear(0xB);
-        GWBoardFlagClear(0xC);
-        GWBoardFlagClear(0xD);
-        GWBoardFlagClear(0x12);
-        GWBoardFlagClear(0x13);
-        GWBoardFlagClear(0x14);
-        GWBoardFlagClear(0x15);
-        GWBoardFlagClear(0x16);
-        GWBoardFlagClear(0x17);
+        GWBoardFlagClear(10);
+        GWBoardFlagClear(11);
+        GWBoardFlagClear(12);
+        GWBoardFlagClear(13);
+        GWBoardFlagClear(18);
+        GWBoardFlagClear(19);
+        GWBoardFlagClear(20);
+        GWBoardFlagClear(21);
+        GWBoardFlagClear(22);
+        GWBoardFlagClear(23);
         GWBoardFlagClear(2);
         GWBoardFlagClear(3);
         GWBoardFlagClear(4);
-        GWBoardFlagClear(0xE);
+        GWBoardFlagClear(14);
         GWBoardFlagClear(1);
-        GWBoardFlagClear(0x11);
-        GWBoardFlagClear(0x10);
+        GWBoardFlagClear(17);
+        GWBoardFlagClear(16);
 
         if (_CheckFlag(0x1B) != 0) {
             GWBoardFlagSet(0xF);
@@ -470,7 +483,7 @@ void func_800F92A0_10CEC0_shared_board(void) {
         system->current_player_index = 0;
         if (D_800A12DC == 0) {
             if (GwSystem.unk_52 != 2) {
-                system->current_turn += 1;
+                system->current_turn++;
             } else {
                 GwSystem.unk_52 = 3;
                 system->current_turn = system->total_turns - 4;
@@ -500,15 +513,6 @@ s32 func_800F933C_10CF5C_shared_board(void) {
     
     return 0;
 }
-
-void func_8004A950_4B550(void);
-void func_800F92A0_10CEC0_shared_board(void);
-s32 func_800F933C_10CF5C_shared_board(void);
-extern s16 D_800C9930_CA530;
-extern u8 D_800CB8B1_CC4B1[];
-extern s16 D_800CE206;
-extern s32 D_80105668_119288_shared_board;
-extern s16 D_8010566C_11928C_shared_board;
 
 void func_800F93A4_10CFC4_shared_board(void) {
     s32 i;
@@ -696,10 +700,6 @@ void func_800F96E0_10D300_shared_board(s32 playerNo, s32 arg1) {
     }
     func_800ED35C_100F7C_shared_board(&player->player_obj->coords, &D_80105680_1192A0_shared_board[playerNo], &player->player_obj->coords, arg1);
 }
-
-
-extern Vec2f D_80101D5C_11597C_shared_board[];
-extern Vec2f D_80101D84_1159A4_shared_board[];
 
 //if player should jump to next space
 s32 func_800F9A68_10D688_shared_board(s32 arg0) {
@@ -920,14 +920,6 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FB62
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FC3D0_10FFF0_shared_board);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FC4E0_110100_shared_board);
-
-extern u16 D_800D03FC;
-extern u16 D_800CE208;
-extern u16 D_800CDD68;
-extern s16 gPrevItemBlockSpaceIndexes[10];
-extern s16 gPrevCoinBlockSpaceIndexes[10];
-extern s16 gPrevStarBlockSpaceIndexes[10];
-s16 func_800EBCD4_FF8F4_shared_board(u8);
 
 void func_800FC594_1101B4_shared_board(void) {
     s32 i;

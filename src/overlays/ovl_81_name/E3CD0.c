@@ -150,17 +150,22 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
 
     func_800E8D10_D0AE0_name_81();
     func_800E4F50_CCD20_name_81(hvq_data_ROM_START);
+
     if (arg0 >= 0) {
         MBDBackLoad(arg0);
     }
+
     func_800E94D0_D12A0_name_81();
+
     if (arg1 >= 0) {
         func_800E9B10_D18E0_name_81(0x13, arg1);
     }
+
     func_800D7EB8_BFC88_name_81();
     func_800F3F4C_DBD1C_name_81();
     func_800F3DFC_DBBCC_name_81(0);
     func_800F3DFC_DBBCC_name_81(1);
+
     for (i = 0; i < MBD_MAX_PLAYERS; i++) {
         func_800D8944_C0714_name_81(MBDGetPlayerStruct(i)->player_obj);
         playerObj = MBDGetPlayerStruct(i)->player_obj;
@@ -177,6 +182,7 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     func_800E0CEC_C8ABC_name_81();
     func_800E2870_CA640_name_81();
     func_800F6390_DE160_name_81();
+
     for (i = 0; i < MBD_MAX_PLAYERS; i++) {
         frontPartnerID = GwPlayer[i].stats.partners.frontID;
         backPartnerID = GwPlayer[i].stats.partners.backID;
@@ -189,9 +195,11 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
         func_800F5BB4_DD984_name_81(i);
         func_800F5EB0_DDC80_name_81(i);
     }
+
     func_800DAB1C_C28EC_name_81();
     func_8005A6B0_5B2B0();
     func_800EB664_D3434_name_81();
+
     D_80105494_ED264_name_81 = -1;
     D_800D1360_D1F60.unk_20 = 0;
     D_80105496_ED266_name_81 = 0;
@@ -308,11 +316,13 @@ void func_800FC5D8_E43A8_name_81(void) {
         system->current_turn = 1;
         system->current_player_index = 0;
         system->minigame_index = 0;
+        
         if (system->total_turns == -1U) { //?
             system->total_turns = 50;
         } else {
             system->total_turns = 20;
         }
+
         for (i = 0; i < MBD_MAX_PLAYERS; i++) {
             player = MBDGetPlayerStruct(i);
             player->coin = 0;
@@ -334,10 +344,8 @@ void func_800FC5D8_E43A8_name_81(void) {
             }
             
             player->itemTurn = 0;
-            player->rev = 0;
-                      
+            player->rev = 0;   
         }
-
         
         #ifdef BUG_FIX
         for (i = 0; i < ARRAY_COUNT(GwSystem.boardData.halfWordBytes); i++) {

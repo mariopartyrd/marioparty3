@@ -187,8 +187,8 @@ HuSprGrpData = 0x800CDD70; //rom:0xCE970
 HuSprGrpNum = 0x800D520C; //rom:0xD5E0C
 
 // 8EA10
-atan2 = 0x8008DE10; //rom:0x8EA10
-atan2d = 0x8008E108; //rom:0x8ED08
+_atan2 = 0x8008DE10; //rom:0x8EA10
+_atan2d = 0x8008E108; //rom:0x8ED08
 
 HuMemHeapInit = 0x800360D0;
 HuMemMemoryAlloc = 0x800360F0;

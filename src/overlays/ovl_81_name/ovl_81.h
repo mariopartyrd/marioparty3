@@ -104,7 +104,6 @@ void func_800E5954_CD724_name_81(void);
 void func_800E5BE8_CD9B8_name_81(void);
 void func_800E5C20_CD9F0_name_81(void);
 void func_800E856C_D033C_name_81(f32);
-f32 func_800E8578_D0348_name_81(void);
 void MBDCameraSpeedSet(f32);
 f32 MBDCameraSpeedGet(void);
 void MBDCameraZoomSet(f32);

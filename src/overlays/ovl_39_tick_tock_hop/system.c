@@ -17,7 +17,7 @@
 void func_80017D24_18924(f32*, f32, f32, f32);
 
 // 8EA10
-f32 atan2d(f32, f32);
+f32 _atan2d(f32, f32);
 
 // 8EFF0
 f32 HuMathCos(f32);
@@ -1171,14 +1171,14 @@ void m257_CalcPitchAndYaw(Vec from, Vec to, f32* out) {
     direction.x = to.x - from.x;
     direction.y = to.y - from.y;
     direction.z = to.z - from.z;
-    pitch = atan2d(direction.y, VECMagXZ(&direction));
+    pitch = _atan2d(direction.y, VECMagXZ(&direction));
     if (pitch < 0.0f) {
         pitch += fullRot;
     } else if (pitch >= fullRot) {
         pitch -= fullRot;
     }
     *(out++) = pitch;
-    yaw = atan2d(direction.x, direction.z);
+    yaw = _atan2d(direction.x, direction.z);
     if (yaw < 0.0f) {
         yaw += fullRot;
     } else if (yaw >= fullRot) {
