@@ -257,7 +257,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F93A
 void func_800F95FC_10D21C_shared_board(s16 arg0) {
     switch (--arg0) {
     case 13:
-        if (GwSystem.current_player_index != 4) {
+        if (GwSystem.current_player_index != MB_MAX_PLAYERS) {
             HuAudFXPlay(0x123);
             return;
         }
@@ -299,7 +299,7 @@ s32 func_800F9A68_10D688_shared_board(s32 arg0) {
     var_s2 = 0;
     var_s4 = 0;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (i == arg0) {
             continue;
         }
@@ -384,7 +384,7 @@ s32 func_800F9D1C_10D93C_shared_board(void) {
     }
     i = sp10[func_800EEF80_102BA0_shared_board(var_s1)];
     if (GwPlayer[i].coin == 0) {
-        i = 4;
+        i = MB_MAX_PLAYERS;
     }
     return i;
 }

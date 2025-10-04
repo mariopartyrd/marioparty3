@@ -218,45 +218,45 @@ void HuMemSetTag(void* data, s16 tag)
     block->tag = tag;
 }
 
-INCLUDE_ASM("asm/nonmatchings/mallocblock", HuMemDebugCheck);
+//there's a messed up file split somewhere...the next string is in hmfman.c
+extern const char D_800A6BB8_A77B8[];
 
-//TODO: unknown why this causes issues when linked
-// s32 HuMemDebugCheck(void)
-// {
-//     HuMallocHeader* block;
-//     s16 i;
-//     s16 count;
-//     s16 var_v1;
-//     s32 size;
+s32 HuMemDebugCheck(void)
+{
+    HuMallocHeader* block;
+    s16 i;
+    s16 count;
+    s16 var_v1;
+    s32 size;
 
-//     block = gFirstMallocBlock->next;
-//     size = 0;
-//     count = 0;
-//     while (block != gLastMallocBlock)
-//     {
-//         D_800C9950_CA550[count] = block->data;
-//         size += block->size;
-//         block = block->next;
-//         count++;
-//     }
+    block = gFirstMallocBlock->next;
+    size = 0;
+    count = 0;
+    while (block != gLastMallocBlock)
+    {
+        D_800C9950_CA550[count] = block->data;
+        size += block->size;
+        block = block->next;
+        count++;
+    }
 
-//     if ((D_800A08A2_A14A2 != 0) && (D_800A08A2_A14A2 != count)) {
-//         for (i = 0; i < count; i++) 
-//         {
-//             for (var_v1 = 0; var_v1 < D_800A08A2_A14A2; var_v1++) 
-//             {
-//                 if (D_800D2140_D2D40[var_v1] == D_800C9950_CA550[i]) 
-//                     break;
-//             }
-//             if (var_v1 == D_800A08A2_A14A2) {
-//                 osSyncPrintf("%x\n", D_800C9950_CA550[i]);
-//             }
-//         }
-//     }
+    if ((D_800A08A2_A14A2 != 0) && (D_800A08A2_A14A2 != count)) {
+        for (i = 0; i < count; i++) 
+        {
+            for (var_v1 = 0; var_v1 < D_800A08A2_A14A2; var_v1++) 
+            {
+                if (D_800D2140_D2D40[var_v1] == D_800C9950_CA550[i]) 
+                    break;
+            }
+            if (var_v1 == D_800A08A2_A14A2) {
+                osSyncPrintf(D_800A6BB8_A77B8, D_800C9950_CA550[i]);
+            }
+        }
+    }
 
-//     D_800A08A2_A14A2 = count;
-//     for (i = 0; i < count; i++) {
-//         D_800D2140_D2D40[i] = D_800C9950_CA550[i];
-//     }
-//     return size;
-// }
+    D_800A08A2_A14A2 = count;
+    for (i = 0; i < count; i++) {
+        D_800D2140_D2D40[i] = D_800C9950_CA550[i];
+    }
+    return size;
+}
