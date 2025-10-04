@@ -262,7 +262,7 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
     void* temp_v0;
     s32 i;
     
-    player = GetPlayerStruct(CUR_PLAYER);
+    player = MBGetPlayerStruct(CUR_PLAYER);
     playerNo = GetCurrentPlayerIndex();
     func_800F6BC4_10A7E4_shared_board(-1);
     func_800F66DC_10A2FC_shared_board(1);
@@ -455,7 +455,7 @@ void func_800F7FE8_10BC08_shared_board(void) {
     s32 var_v0_2;
     void (*dispatch_func)();
 
-    temp_s1 = GetPlayerStruct(CUR_PLAYER);
+    temp_s1 = MBGetPlayerStruct(CUR_PLAYER);
     
     if (D_80105654_119274_shared_board != 0) {
         D_80105620_119240_shared_board = MBModelCreate(9U, 0);

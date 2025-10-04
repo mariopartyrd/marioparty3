@@ -13,7 +13,7 @@ s32 HmfSprModelCreate(void*, s32, u8);
 s32 HmfAnimCreate(s32, void*, s32, s32);
 void pfClsScr(void);
 s32 GWBoardFlagCheck(s32);
-GW_PLAYER* GetPlayerStruct(s32 playerIndex);
+GW_PLAYER* MBGetPlayerStruct(s32 playerIndex);
 s16 func_80017790_18390(s16 model, s32 arg1, s16 arg2, s32 arg3);
 void AdjustPlayerCoins(s32 arg0, s32 arg1);
 s32 func_800EEF80_102BA0_shared_board(f32);
@@ -73,5 +73,6 @@ void func_8005FE54_60A54(s16, u8);
 void func_8006010C_60D0C(s16, s16);
 void Hu3DCam3DToScreen(s16 camIndex, Vec * worldPos, Vec * outPos);
 s32 func_80017BB8_187B8(s16, s16);
+void func_800039A4_45A4(s16, s16);
 
 #endif

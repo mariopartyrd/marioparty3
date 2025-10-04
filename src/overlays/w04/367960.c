@@ -350,7 +350,7 @@ void func_8011A858_37C7E8_w04(void) {
     GW_PLAYER* curPlayer;
     s16 curPlayerSpace;
 
-    curPlayer = GetPlayerStruct(CUR_PLAYER);
+    curPlayer = MBGetPlayerStruct(CUR_PLAYER);
     curPlayerSpace = MBMasuLinkMasuIdGet(curPlayer->clink, curPlayer->cidx);
     HuPrcSleep(8);
     switch (curPlayerSpace) {

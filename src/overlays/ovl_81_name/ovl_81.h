@@ -244,7 +244,6 @@ extern s32 D_80105718_ED4E8_name_81;
 extern s32 D_8010571C_ED4EC_name_81;
 
 void func_800036E8_42E8(s16, s32);
-void func_800039A4_45A4(s32, s32);
 void func_80003A70_4670(s16);
 void func_80003B70_4770(s16, s32);
 s16 func_8004A5C4_4B1C4(s32);

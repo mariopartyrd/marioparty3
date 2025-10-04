@@ -338,10 +338,17 @@ void func_800FC5D8_E43A8_name_81(void) {
                       
         }
 
-        //? halfWordBytes is only 9 in length
+        
+        #ifdef BUG_FIX
+        for (i = 0; i < ARRAY_COUNT(GwSystem.boardData.halfWordBytes); i++) {
+            GwSystem.boardData.halfWordBytes[i] = 0;
+        }        
+        #else
+        //potentially this used to be 16 in length, then was shortened?
         for (i = 0; i < 16; i++) {
             GwSystem.boardData.halfWordBytes[i] = 0;
         }
+        #endif
 
         GWBoardFlagClear(0x12);
         GWBoardFlagClear(0x13);
@@ -351,6 +358,7 @@ void func_800FC5D8_E43A8_name_81(void) {
         GWBoardFlagClear(0x17);
         GWBoardFlagClear(1);
         GWBoardFlagClear(0x11);
+
         if (GwSystem.playMode & 4) {
             if (_CheckFlag(0x28) != 0) {
                 GWBoardFlagSet(0);
@@ -359,10 +367,12 @@ void func_800FC5D8_E43A8_name_81(void) {
             GWBoardFlagClear(0);
             return;
         }
+
         if (_CheckFlag(0x17) != 0) {
             GWBoardFlagSet(0);
             return;
         }
+
         GWBoardFlagClear(0);
     }
 }

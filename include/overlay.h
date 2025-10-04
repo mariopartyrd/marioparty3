@@ -16,7 +16,6 @@ typedef struct OverlayTable {
 /* 0x20 */ u8* bssVramEnd;
 } OverlayTable; //sizeof 0x24
 
-// the enum of all your overlay IDs:
 typedef enum {
   #define OVL_DEFINE(name)  name,
     #include "ovl_table.h"

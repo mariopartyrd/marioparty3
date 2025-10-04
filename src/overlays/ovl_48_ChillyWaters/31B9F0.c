@@ -264,7 +264,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108D9
 void func_80108DD0_31E940_ChillyWaters(void) {
     GW_PLAYER* player;
 
-    player = GetPlayerStruct(CUR_PLAYER);
+    player = MBGetPlayerStruct(CUR_PLAYER);
     if ((MBMasuLinkMasuIdGet(player->blink, player->bidx) == 0x4B) && !(player->rev & FLAG_UNK_80)) {
         func_800ED998_1015B8_shared_board(-1, 0xA, 0);
         player->rev &= ~FLAG_REV;
@@ -589,7 +589,7 @@ void ItemUseWackyWatch(void) {
     func_8001C8E4_1D4E4(temp_v0_3->omObj1->model[0], 0x1800);
     func_8001C448_1D048(temp_v0_3->omObj1->model[0]);
     Hu3DModelScaleSet(temp_v0_3->omObj1->model[0], 0.0f, 0.0f, 0.0f);
-    HuVecCopy3F(&temp_v0_3->coords, &GetPlayerStruct(CUR_PLAYER)->player_obj->coords);
+    HuVecCopy3F(&temp_v0_3->coords, &MBGetPlayerStruct(CUR_PLAYER)->player_obj->coords);
     func_800D9714_ED334_shared_board(temp_v0_3);
     func_800D9B24_ED744_shared_board(temp_v0_3);
     HuSprAttrSet(D_8010570C_11932C_shared_board, 0, 0x8000U);

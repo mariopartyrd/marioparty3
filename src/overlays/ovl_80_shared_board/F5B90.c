@@ -35,7 +35,7 @@ s32 func_800E29E8_F6608_shared_board(void) {
     GW_PLAYER* player;
     GW_SYSTEM* system = &GwSystem;
 
-    player = GetPlayerStruct(CUR_PLAYER);
+    player = MBGetPlayerStruct(CUR_PLAYER);
     if (func_800DEB2C_F274C_shared_board(system->current_player_index) == 3 && player->rev & 0x80) {
         player->rev &= ~0x80;
         func_800EC590_1001B0_shared_board(-1, 0x3A2B);
@@ -183,7 +183,7 @@ void func_800E455C_F817C_shared_board(void) {
 
 
     curPlayerIndex = GwSystem.current_player_index;
-    curPlayer = GetPlayerStruct(CUR_PLAYER);
+    curPlayer = MBGetPlayerStruct(CUR_PLAYER);
     if (GwPlayer[curPlayerIndex].itemTurn != 0) {
         for (playerPassed = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
             if (i == curPlayerIndex) {

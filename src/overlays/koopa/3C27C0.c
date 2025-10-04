@@ -351,7 +351,7 @@ s32 func_80107090_3C3EB0_koopa(void) {
 
     if (GwSystem.current_board_index == 0) {
         for (var_s3 = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
-            temp_s1 = GetPlayerStruct(i);
+            temp_s1 = MBGetPlayerStruct(i);
             for (j = 0; D_80109418_3C6238_koopa[j] != -1; j++) {
                 if (MBMasuLinkMasuIdGet(temp_s1->clink, temp_s1->cidx) == D_80109418_3C6238_koopa[j]) {
                     var_s3++;

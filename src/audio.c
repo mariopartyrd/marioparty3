@@ -11,7 +11,6 @@ typedef struct {
 void func_8000086C_146C(str800D5298*);
 s16 func_80003310_3F10(s16);
 void func_800035E8_41E8(s16);
-void func_800039A4_45A4(s16, s16);
 s32 func_80007064_7C64(s32);
 s32 func_80007080_7C80(s16, UnkAudStruct*);
 void func_80007BD4_87D4(s16, s16);
