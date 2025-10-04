@@ -1,9 +1,6 @@
 #include "common.h"
 #include "ovl_81.h"
 
-extern u16 D_800C9520_CA120[];
-extern u16 D_800D0590_D1190[];
-
 void Duel_ClearPartnerObjects(void) {
     s32 i, j;
 

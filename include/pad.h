@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "siman.h"
+#include "input.h"
 
 #define PAD_NOT_INSERTED 0
 
@@ -16,7 +17,6 @@ extern s16 D_800ABF82_ACB82;
 extern s16 D_800ABF84_ACB84;
 extern u8 D_800ABF8A_ACB8A[];
 extern u16 D_800CBB66_CC766[];
-extern s8 D_800CBB6E_CC76E[];
 extern s16 D_800CDA7C_CE67C[];
 extern s16 D_800D056A_D116A[];
 extern s16 D_800D1244_D1E44[];

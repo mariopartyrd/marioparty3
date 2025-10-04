@@ -298,7 +298,6 @@ extern s32 D_801055F8_119218_shared_board;
 extern s32 D_80101A50_115670_shared_board[]; //randomly generated items
 extern s32 D_80100F90_114BB0_shared_board;
 void (*D_80102C70_116890_shared_board)(void);
-extern s16 D_800C9520_CA120[];
 extern s32 D_8010197C_11559C_shared_board[]; //item mainFS ID array
 // s32 D_8010197C_11559C_shared_board[] = {
 //     0x0013018E,

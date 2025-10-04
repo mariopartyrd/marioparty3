@@ -9,18 +9,8 @@
 #include "mallocblock.h"
 #include "include_asm.h"
 #include "macros.h"
+#include "input.h"
 
-// EXTERN
-
-typedef struct MinigameTable {
-    /* 0x00 */ u8 minigameType;
-    /* 0x01 */ char unk_01[5];
-    /* 0x06 */ s16 unk_06;
-    /* 0x08 */ s16 unk_08;
-    /* 0x0A */ s16 unk_0A;
-    /* 0x0C */ s16 unk_0C;
-    /* 0x0E */ char unk_0E[6];
-} MinigameTable;
 
 // 22EB0
 s16 func_8002C834_2D434(HmfData*, const char*);
@@ -62,7 +52,6 @@ extern omObjData* D_800B2390_B2F90;
 extern f32 D_800B23A0_B2FA0;
 extern f32 D_800B23A4_B2FA4;
 extern f32 D_800B23A8_B2FA8;
-extern u16 D_800C9520_CA120;
 extern s8 D_800CB99C_CC59C;
 extern u16 D_800CE214_CEE14;
 extern Process* D_800CE298_CEE98;
@@ -156,7 +145,7 @@ void func_800453FC_45FFC(void) {
     HuAudFXPlay(6);
     D_800D2132_D2D32 = 1;
     while (func_80049F98_4AB98() != 0) {
-        if (var_s4 >= 3 && (D_800C9520_CA120 & 0x300)) {
+        if (var_s4 >= 3 && (D_800C9520_CA120[0] & 0x300)) {
             var_s7 ^= 1;
             for (var_s2 = 0; var_s2 < 2; var_s2++) {
                 func_80045964_46564(D_800B2340_B2F40[var_s2], var_s6);

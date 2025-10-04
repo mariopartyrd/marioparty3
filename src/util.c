@@ -5,6 +5,7 @@
 #include "game/hmfman.h"
 #include "overlay.h"
 #include "rom.h"
+#include "pad.h"
 
 #define HAS_TEXT_SECTION 1
 #define HAS_DATA_SECTION 2
@@ -24,7 +25,6 @@ extern u32 rnd_seed;
 extern RectF D_800975F0_981F0[];
 extern Vec D_80097560_98160[];
 extern Vec D_800975A8_981A8[];
-extern s16 gNumOfControllers;
 
 u16 func_8000B0A0_BCA0(s32 arg0, s32 arg1) {
     return Hu3DModelCreate(DataRead(arg0), arg1);

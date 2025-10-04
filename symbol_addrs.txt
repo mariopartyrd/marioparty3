@@ -898,6 +898,10 @@ D_80105658_119278_shared_board = 0x80105658; //size:0x04 type:s32 segment:shared
 MBMasuLinkMasuIdGet  = 0x800EB184; //rom:0xFEDA4 segment:shared_board
 
 //ovl_81
+D_80101BF8_E99C8_name_81 = 0x80101BF8; //rom:0xE99C8 type:f32 segment:name_81
+D_80101B20_E98F0_name_81 = 0x80101B20; //rom:0xE98F0 type:f32 segment:name_81
+D_80101B70_E9940_name_81 = 0x80101B70; //rom:0xE9940 type:f32 segment:name_81
+
 MBDBackClose = 0x800E5000; //rom:0xCCDD0 segment:name_81
 MBDBackCreate = 0x800E5040; //rom:0xCCE10 segment:name_81
 MBDBackLoad = 0x800E52DC; //rom:0xCD0AC segment:name_81

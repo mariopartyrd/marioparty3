@@ -3,37 +3,75 @@
 
 #define UNK_ARR_SIZE 4
 
-extern u16 D_800C9520_CA120[];
 extern s32 D_800D41B0_D4DB0[];
 extern u16 D_800D5546_D6146[];
 extern s8 D_800CB99C_CC59C;
-
 
 void func_80049FB8_4ABB8(void);
 void func_8004A0E0_4ACE0(void);
 void func_8004A9DC_4B5DC(s32);
 void func_8005F904_60504(void);
 
-extern f32 D_80105528_ED2F8_name_81;
-extern f32 D_80105528_ED2F8_name_81;
-extern f32 D_8010552C_ED2FC_name_81[5]; //unknown type, maybe right size
-extern s16 D_80101B40_E9910_name_81[UNK_ARR_SIZE][2];
-extern s16 D_80101B60_E9930_name_81[UNK_ARR_SIZE][2];
+extern omObjData* D_80105500_ED2D0_name_81;
 extern UnkBoard4* D_80105504_ED2D4_name_81;
 extern s16 D_80105508_ED2D8_name_81[UNK_ARR_SIZE][2];
-extern s16 D_80101B50_E9920_name_81[UNK_ARR_SIZE][2];
-extern f32 D_80101B70_E9940_name_81[UNK_ARR_SIZE];
-extern omObjData* D_80105500_ED2D0_name_81;
 extern UnkBoard4* D_80105518_ED2E8_name_81;
-extern s16 D_80101B80_E9950_name_81[5][2];
-extern s32 D_80101B94_E9964_name_81[];
-extern s32 D_80101BA8_E9978_name_81[];
-extern s32 D_80101BC0_E9990_name_81[];
 extern Process* D_8010551C_ED2EC_name_81;
-extern s32 D_80101B20_E98F0_name_81[];
-extern s32 D_80101BD8_E99A8_name_81[];
-extern f32 D_80101BF8_E99C8_name_81[];
-extern Object* D_80105520_ED2F0_name_81[];
+extern Object* D_80105520_ED2F0_name_81[MBD_MAX_PLAYERS];
+extern f32 D_80105528_ED2F8_name_81;
+extern f32 D_8010552C_ED2FC_name_81[5]; //unknown type, maybe right size
+
+f32 D_80101B20_E98F0_name_81[] = {
+    0.8999999762f, 0.8999999762f, 1.200000048f,
+    1.100000024f, 1.100000024f,
+    1.5f, 0.8999999762f, 1.200000048f
+};
+
+s16 D_80101B40_E9910_name_81[UNK_ARR_SIZE][2] = {
+    {0x22, 0x80}, {0x11E, 0x80},
+    {0xA0, 0x18}, {0xA0, 0xD8}
+};
+
+s16 D_80101B50_E9920_name_81[UNK_ARR_SIZE][2] = {
+    {0x0092, 0x0080}, {0x00AE, 0x0080},
+    {0x00A0, 0x006C}, {0x00A0, 0x0084}
+};
+
+s16 D_80101B60_E9930_name_81[UNK_ARR_SIZE][2] = {
+    {0xFFF0, 0x0000}, {0x0010, 0x0000},
+    {0x0000, 0xFFF4}, {0x0000, 0x000C}
+};
+
+f32 D_80101B70_E9940_name_81[UNK_ARR_SIZE] = {
+    90.0f, -90.0f, 0.0f, 180.0f
+};
+
+s16 D_80101B80_E9950_name_81[][2] = {
+    {0x00F0, 0x0034}, {0x00F0, 0x0034},
+    {0x00F0, 0x0034}, {0x00F0, 0x0034},
+    {0x00F0, 0x0034}
+};
+
+s32 D_80101B94_E9964_name_81[] = {
+    0x00130117, 0x00130118, 0x00130119, 0x0013011A, 0x0013011B
+};
+
+s32 D_80101BA8_E9978_name_81[] = {
+    0x00130117, 0x00130136, 0x00130138, 0x0013013B, 0x0013013D, 0x0013013F
+};
+
+s32 D_80101BC0_E9990_name_81[] = {
+    0x00130118, 0x00130137, 0x00130139, 0x0013013C, 0x0013013E, 0x00130140
+};
+
+s32 D_80101BD8_E99A8_name_81[] = {
+    0x001300B3, 0x001300B4, 0x001300B5, 0x001300B6, 0x001300B7, 0x001300B8, 0x001300B9, 0x001300BA
+};
+
+f32 D_80101BF8_E99C8_name_81[] = {
+    0.6499999762f, 0.6499999762f, 0.6499999762f, 0.6499999762f,
+    0.6499999762f, 0.5849999785f, 0.6499999762f, 0.6499999762f, 
+};
 
 void func_800FFD10_E7AE0_name_81(omObjData* obj) {
     s32 i;
@@ -78,7 +116,7 @@ UnkBoard4* func_800FFEEC_E7CBC_name_81(void) {
     D_80105504_ED2D4_name_81 = temp_v0;
     temp_s4 = DataRead(0x001301D4);
     
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < UNK_ARR_SIZE; i++) {
         temp_v0->unk_0C[i] = func_80055810_56410(temp_s4);
         func_80055024_55C24(temp_v0->unk_0A, i, temp_v0->unk_0C[i], 0);
         HuSprPriSet(temp_v0->unk_0A, i, 0);

@@ -35,5 +35,6 @@
 #include "enums.h"
 #include "ld_addrs.h"
 #include "overlay.h"
+#include "input.h"
 
 #endif

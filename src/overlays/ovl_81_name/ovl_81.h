@@ -116,7 +116,7 @@ u16 MBDCameraPos2DSet(f32*);
 void MBDCameraPos2DGet(f32*);
 f32 MBDCameraSpeedGet(void);
 void func_80100124_E7EF4_name_81(UnkBoard4*, s32);
-Object* func_800D8314_C00E4_name_81(s32, s32, f32, s32, s32);
+Object* func_800D8314_C00E4_name_81(s32, s32, f32, f32, s32);
 void func_800FCF50_E4D20_name_81(s32, s32);
 void func_800D8E88_C0C58_name_81(Object*);
 void func_800D8F3C_C0D0C_name_81(Object*);

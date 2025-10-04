@@ -9,9 +9,6 @@ typedef struct UnkE3CD0 {
     f32 unk_30;
 } UnkE3CD0;
 
-extern u16 D_800C9520_CA120[];
-extern u16 D_800D0590_D1190[];
-
 void func_8004A950_4B550(void);
 extern s32 D_80101AF8_E98C8_name_81;
 extern s32 D_80101AFC_E98CC_name_81;

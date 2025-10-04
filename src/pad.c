@@ -9,10 +9,8 @@ s32 _InitController(u16* channel)
     s16 i;
 
     osContInit(&D_800CE1A0_CEDA0, &pattern, contStat);
-    
-    D_800ABF84_ACB84 = 0;
-    D_800ABF82_ACB82 = 0;
-    D_800ABF80_ACB80 = 0;
+
+    D_800ABF80_ACB80 = D_800ABF82_ACB82 = D_800ABF84_ACB84 = 0;
     gNumOfControllers = 0;
 
     for (i = 0; i < MAXCONTROLLERS; ++i)
@@ -95,13 +93,17 @@ void SetStickValueLimit(s8 arg0, s8 arg1) {
     D_800ABF8F_ACB8F = arg1;
 }
 
+
+#define MAX_CONTROLLERS 4
+
 s16 UpdateController(void)
 {
     s16 i;
     s16 temp_s0;
     u16 temp_v0_3;
     OSContPad* pads;
-
+    u8 temp;
+    
     osRecvMesg(&D_800ABFA0_ACBA0, 0, 1);
     temp_s0 = D_800ABF80_ACB80;
 
@@ -115,14 +117,13 @@ s16 UpdateController(void)
             D_800ABF82_ACB82 = 0;
         }
 
-        for (i = 0; i < 4; ++i)
-        {
+        for (i = 0; i < MAX_CONTROLLERS; i++) {
             D_800ABF8A_ACB8A[i] = pads[i].errno != 8;
             temp_v0_3 = 
             D_800CDA7C_CE67C[i] = pads[i].button;
-            D_800D056A_D116A[i] =
             D_800CBB6E_CC76E[i] = pads[i].stick_x;
-            D_800D1382_D1F82[i] =
+            D_800D056A_D116A[i] = D_800CBB6E_CC76E[i];
+            D_800D1382_D1F82[i] = 
             D_800D20A1_D2CA1[i] = pads[i].stick_y;
             D_800D5558_D6158[i] = temp_v0_3 & (temp_v0_3 ^ D_800CBB66_CC766[i]);
             if (D_800CBB66_CC766[i] == temp_v0_3) {
@@ -138,14 +139,20 @@ s16 UpdateController(void)
                 D_800ABF86_ACB86[i] = 0x1E;
             }
 
-            if ((((u8)D_800CBB6E_CC76E[i] + 9) & 0xFF) < 0x13U) {
+            temp = D_800CBB6E_CC76E[i] + 9;
+
+            if (temp < 0x13) {
                 D_800CBB6E_CC76E[i] = 0;
             } else if (D_800CBB6E_CC76E[i] > D_800ABF8E_ACB8E) {
                 D_800CBB6E_CC76E[i] = D_800ABF8E_ACB8E;
             } else if (D_800CBB6E_CC76E[i] < -D_800ABF8E_ACB8E) {
                 D_800CBB6E_CC76E[i] = -D_800ABF8E_ACB8E;
             }
-            if ((((u8) D_800D20A1_D2CA1[i] + 9) & 0xFF) < 0x13U) {
+
+             temp = D_800D20A1_D2CA1[i] + 9;
+
+            
+            if (temp < 0x13) {
                 D_800D20A1_D2CA1[i] = 0;
             } else if (D_800D20A1_D2CA1[i] > D_800ABF8F_ACB8F) {
                 D_800D20A1_D2CA1[i] = D_800ABF8F_ACB8F;
