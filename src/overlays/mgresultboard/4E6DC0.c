@@ -34,7 +34,7 @@ void func_801059A0_4E6DC0_mgresultboard(void) {
 
     if (minigameType < MINIGAME_ITEM) {
         if (minigameType >= MINIGAME_4P) {
-            for (i = 0; i < MAX_PLAYERS; i++) {
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
                 u16 newMgStarCoins = GwPlayer[i].gameCoin + GwPlayer[i].bonusCoin + GwPlayer[i].gamePrize;
                 GwPlayer[i].gamePrize = newMgStarCoins;
             }

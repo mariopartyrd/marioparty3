@@ -70,7 +70,7 @@ void func_800EE94C_10256C_shared_board(Object* arg0, s16 arg1, s32 arg2) {
     func_800D9D84_ED9A4_shared_board(arg0, arg1, 0, 0xA, arg2);
 }
 
-void func_800EE97C_10259C_shared_board(s32 arg0) {
+void func_800EE97C_10259C_shared_board(Object* arg0) {
     while (!(func_800D9E0C_EDA2C_shared_board(arg0) & 1)) {
         HuPrcVSleep();
     }
@@ -81,11 +81,11 @@ s32 BoardPlayerRankCalc(s32 player) {
     s32 i;
     s32 score[4];
 
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         score[i] = func_800EECB0_1028D0_shared_board(i);
     }
 
-    for (rank = 0, i = 0; i < MAX_PLAYERS; i++) {
+    for (rank = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
         if ((i != player) && (score[player] < score[i])) {
             rank++;
         }
@@ -97,59 +97,59 @@ s32 func_800EEA58_102678_shared_board(s32 arg0) {
     s32 var_a0_2;
     s32 var_a0;
     s32 i;
-    s32 score[MAX_PLAYERS];
+    s32 score[MB_MAX_PLAYERS];
 
     if (GWBoardFlagCheck(0xF) == 0) {
         return BoardPlayerRankCalc(arg0);
     }
     
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         score[i] = func_800EECB0_1028D0_shared_board(i);
     }
 
     //calc what the highest mg coin total is
-    for (i = 0, var_a0_2 = -100000; i < MAX_PLAYERS; i++) {
+    for (i = 0, var_a0_2 = -100000; i < MB_MAX_PLAYERS; i++) {
         if (var_a0_2 < GwPlayer[i].gamePrize) {
             var_a0_2 = GwPlayer[i].gamePrize;
         }
     }
 
     //award players 1000 points (a star) for having the highest mg coin total
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (GwPlayer[i].gamePrize == var_a0_2) {
             score[i] += 1000;
         }
     }
 
     //calc what the highest amount of coins collected was
-    for (i = 0, var_a0_2 = -100000; i < MAX_PLAYERS; i++) {
+    for (i = 0, var_a0_2 = -100000; i < MB_MAX_PLAYERS; i++) {
         if (var_a0_2 < GwPlayer[i].coinPrize) {
             var_a0_2 = GwPlayer[i].coinPrize;
         }
     }
 
     //award players 1000 points (a star) for having the highest amount of coins
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (GwPlayer[i].coinPrize == var_a0_2) {
             score[i] += 1000;
         }
     }
 
     //calc what the highest amount of happening spaces landed on was
-    for (i = 0, var_a0_2 = -100000; i < MAX_PLAYERS; i++) {
+    for (i = 0, var_a0_2 = -100000; i < MB_MAX_PLAYERS; i++) {
         if (var_a0_2 < GwPlayer[i].stats.prize.hatenaPrize) {
             var_a0_2 =  GwPlayer[i].stats.prize.hatenaPrize;
         }
     }
 
     //award players 1000 points (a star) for landing on the most happening spaces
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (GwPlayer[i].stats.prize.hatenaPrize == var_a0_2) {
             score[i] += 1000;
         }
     }
 
-    for (i = 0, var_a0 = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0, var_a0 = 0; i < MB_MAX_PLAYERS; i++) {
         if (i != arg0) {
             var_a0 += score[arg0] < score[i];
         }
@@ -171,7 +171,7 @@ s32 func_800EECF0_102910_shared_board(s32 arg0) {
 
     if (GWBoardFlagCheck(0xF) != 0) {
         //calc what the highest mg coin total is
-        for (i = 0, var_a0_2 = -100000; i < MAX_PLAYERS; i++) {
+        for (i = 0, var_a0_2 = -100000; i < MB_MAX_PLAYERS; i++) {
             if (var_a0_2 < GwPlayer[i].gamePrize) {
                 var_a0_2 = GwPlayer[i].gamePrize;
             }
@@ -182,7 +182,7 @@ s32 func_800EECF0_102910_shared_board(s32 arg0) {
         }
 
         //calc what the highest amount of coins collected was
-        for (i = 0, var_a0_2 = -100000; i < MAX_PLAYERS; i++) {
+        for (i = 0, var_a0_2 = -100000; i < MB_MAX_PLAYERS; i++) {
             if (var_a0_2 < GwPlayer[i].coinPrize) {
                 var_a0_2 = GwPlayer[i].coinPrize;
             }
@@ -192,7 +192,7 @@ s32 func_800EECF0_102910_shared_board(s32 arg0) {
             playerBaseScore += 1000;
         }
 
-        for (i = 0, var_a0_2 = -100000; i < MAX_PLAYERS; i++) {
+        for (i = 0, var_a0_2 = -100000; i < MB_MAX_PLAYERS; i++) {
             if (var_a0_2 < GwPlayer[i].stats.prize.hatenaPrize) {
                 var_a0_2 = GwPlayer[i].stats.prize.hatenaPrize;
             }
@@ -269,7 +269,7 @@ s32 func_800EF0D8_102CF8_shared_board(s32 arg0) {
     s32 curPlayerScore;
     s32 i, j;
 
-    for (i = 0, scoreIndex = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0, scoreIndex = 0; i < MB_MAX_PLAYERS; i++) {
         for (j = 0; j < 4; j++) {
             if (BoardPlayerRankCalc(j) == i) {
                 score[scoreIndex++] = j;
@@ -279,7 +279,7 @@ s32 func_800EF0D8_102CF8_shared_board(s32 arg0) {
 
     while (1) {
         randVal = func_800EEF80_102BA0_shared_board(100.0f);
-        for (i = 0; i < MAX_PLAYERS; i++) {
+        for (i = 0; i < MB_MAX_PLAYERS; i++) {
             if (D_801014C0_1150E0_shared_board[i] < randVal) {
                 continue;
             } else {

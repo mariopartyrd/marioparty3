@@ -291,7 +291,7 @@ void UpdatePlayerBoardStatus(s32 playerIndex) {
 void func_800F3370_106F90_shared_board(void) {
     s32 i, j;
 
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         BoardStatus* boardStatus = &D_801057E0_119400_shared_board[i];
         for (j = 0; j < 14; j++) {
             HuSprAttrSet(boardStatus->playerIndex, j, 0x8000);
@@ -306,7 +306,7 @@ void func_800F3400_107020_shared_board(omObjData* arg0) {
 
     while (1) {
         if (D_800D20B1_D2CB1 == 0) {
-            for (i = 0; i < MAX_PLAYERS; i++) {
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
                 if (D_80101780_1153A0_shared_board != -1 &&
                     D_80101784_1153A4_shared_board != -1 &&
                     i != D_80101780_1153A0_shared_board &&
@@ -564,7 +564,7 @@ void func_800F4190_107DB0_shared_board(void) {
     DataClose(temp_v0);
     
     //create player sprite ids
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         temp_v0 = DataRead(D_80101944_115564_shared_board[GwPlayer[i].chr]);
         spriteIDs[i + 1] = func_80055810_56410(temp_v0);
         DataClose(temp_v0);
@@ -600,7 +600,7 @@ void func_800F4348_107F68_shared_board(void) {
     s16* spriteIDs = D_80105588_1191A8_shared_board;
 
     HuSprKill(spriteIDs[0]);
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         HuSprKill(spriteIDs[i + 1]);
     }
 
@@ -653,7 +653,7 @@ void func_800F453C_10815C_shared_board(void) {
 
     func_800F4190_107DB0_shared_board();
     
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         func_800F43FC_10801C_shared_board(i);
     }
     
@@ -678,7 +678,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/106A50", func_800F462
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/106A50", func_800F4730_108350_shared_board);
 
 void func_800F4798_1083B8_shared_board(u32 playerIndex, s32 turnStatus) {
-    if (playerIndex < MAX_PLAYERS) {
+    if (playerIndex < MB_MAX_PLAYERS) {
         func_80055420_56020(D_801057E0_119400_shared_board[playerIndex].playerIndex, 0, D_8010188C_1154AC_shared_board[turnStatus].r, D_8010188C_1154AC_shared_board[turnStatus].g, D_8010188C_1154AC_shared_board[turnStatus].b);
         D_801057E0_119400_shared_board[playerIndex].spaceType = turnStatus;
     }
@@ -725,7 +725,7 @@ s32 func_800F5278_108E98_shared_board(void) {
     s32 i;
 
     var_a0 = 0;
-    for (i = 0; i < MAX_PLAYERS; i++) { //TODO: should this be MAX_PLAYERS?
+    for (i = 0; i < MB_MAX_PLAYERS; i++) { //TODO: should this be MB_MAX_PLAYERS?
         if (D_801057E0_119400_shared_board[i].unkE != -2) {
             var_a0 = 1;
         }
@@ -742,7 +742,7 @@ s32 func_800F52C4_108EE4_shared_board(void) {
     u8 type1Count = 0;
     s32 i;
 
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         switch (D_801057E0_119400_shared_board[i].spaceType) {
         case 1:
             type1Indices[type1Count++] = i;
@@ -877,7 +877,7 @@ s32 func_800F5D78_109998_shared_board(void) {
 void func_800F5D8C_1099AC_shared_board(void) {
     s32 i;
 
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         D_801057E0_119400_shared_board[i].uiVisible |= 1;
     }
 }
@@ -886,7 +886,7 @@ void func_800F5D8C_1099AC_shared_board(void) {
 void func_800F5DD8_1099F8_shared_board(void) {
     s32 i;
 
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         D_801057E0_119400_shared_board[i].uiVisible &= ~1;
     }
 }
@@ -899,7 +899,7 @@ void func_800F5E30_109A50_shared_board(void) {
     s32 i;
 
     func_800F4190_107DB0_shared_board();
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         func_800F43FC_10801C_shared_board(i);
         func_800F4874_108494_shared_board(i, PlayerBoardStatusRootPosition[i + 4][0], PlayerBoardStatusRootPosition[i + 4][1]);
         func_800F4798_1083B8_shared_board(i, GwPlayer[i].color);
@@ -1091,7 +1091,7 @@ void func_800F64E4_10A104_shared_board(s32 arg0, s32 arg1) {
 
 void func_800F66DC_10A2FC_shared_board(s32 arg0) {
     s32 i;
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         func_800F64E4_10A104_shared_board(i, arg0);
     }
 }
@@ -1184,7 +1184,7 @@ void func_800F6BC4_10A7E4_shared_board(s32 arg0) {
     f32 var_f20;
     s32 i, j;
 
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (arg0 == CUR_PLAYER || arg0 == i) {
             temp_s2 = &D_801057E0_119400_shared_board[i];
             if (temp_s2->uiUpdatePaused == TRUE) {
@@ -1213,14 +1213,14 @@ void func_800F6BC4_10A7E4_shared_board(s32 arg0) {
     }
     
     for (var_f20 = 0.0f; var_f20 <= 90.0f; var_f20 += 15.0f) {
-        for (i = 0; i < MAX_PLAYERS; i++) {
+        for (i = 0; i < MB_MAX_PLAYERS; i++) {
             if (arg0 == CUR_PLAYER || arg0 == i) {
                 func_800F6AD0_10A6F0_shared_board(i, HuMathCos(var_f20), 1.0f);
             }            
         }
         HuPrcVSleep();
     }
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (arg0 == CUR_PLAYER || arg0 == i) {
             func_800F6AD0_10A6F0_shared_board(i, 0.0f, 0);
         }
@@ -1258,7 +1258,7 @@ void func_800F6ECC_10AAEC_shared_board(s32 arg0) {
     s32 i, j;
     
     for (var_f20 = 90.0f; var_f20 >= 0.0f; var_f20 -= 15.0f) {
-        for (i = 0; i < MAX_PLAYERS; i++) {
+        for (i = 0; i < MB_MAX_PLAYERS; i++) {
             if (arg0 == CUR_PLAYER || arg0 == i) {
                 func_800F6AD0_10A6F0_shared_board(i, HuMathCos(var_f20), 1.0f);
             }            
@@ -1266,7 +1266,7 @@ void func_800F6ECC_10AAEC_shared_board(s32 arg0) {
         HuPrcVSleep();
     }
 
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (arg0 == CUR_PLAYER || arg0 == i) {
             func_800F6AD0_10A6F0_shared_board(i, 1.0f, 1.0f);
             temp_s2 = &D_801057E0_119400_shared_board[i];

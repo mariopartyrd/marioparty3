@@ -129,14 +129,14 @@ void func_80107CC4_31D834_ChillyWaters(void) {
     func_800F89D0_10C5F0_shared_board(3, 0x23A, 5, 0);
     func_800EBCFC_FF91C_shared_board(&D_8011D31C_332E8C_ChillyWaters);
     func_800EBD54_FF974_shared_board(&D_8011D320_332E90_ChillyWaters);
-    space = GetSpaceData(0x77);
-    func_800ECB58_100778_shared_board(&space->coords, &GetSpaceData(0x73)->coords, &sp10);
+    space = MBMasuGet(0x77);
+    func_800ECB58_100778_shared_board(&space->coords, &MBMasuGet(0x73)->coords, &sp10);
     func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
-    space = GetSpaceData(0x7C);
-    func_800ECB58_100778_shared_board(&space->coords, &GetSpaceData(0x6E)->coords, &sp10);
+    space = MBMasuGet(0x7C);
+    func_800ECB58_100778_shared_board(&space->coords, &MBMasuGet(0x6E)->coords, &sp10);
     func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
-    space = GetSpaceData(0x8F);
-    func_800ECB58_100778_shared_board(&space->coords, &GetSpaceData(0x80)->coords, &sp10);
+    space = MBMasuGet(0x8F);
+    func_800ECB58_100778_shared_board(&space->coords, &MBMasuGet(0x80)->coords, &sp10);
     func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
     func_800E2960_F6580_shared_board(0, &func_8010DE7C_3239EC_ChillyWaters); //boo event
     func_800E2960_F6580_shared_board(1, &func_8010F2FC_324E6C_ChillyWaters); //magic lamp
@@ -265,7 +265,7 @@ void func_80108DD0_31E940_ChillyWaters(void) {
     GW_PLAYER* player;
 
     player = GetPlayerStruct(CUR_PLAYER);
-    if ((func_800EB184_FEDA4_shared_board(player->blink, player->bidx) == 0x4B) && !(player->rev & FLAG_UNK_80)) {
+    if ((MBMasuLinkMasuIdGet(player->blink, player->bidx) == 0x4B) && !(player->rev & FLAG_UNK_80)) {
         func_800ED998_1015B8_shared_board(-1, 0xA, 0);
         player->rev &= ~FLAG_REV;
     } else {

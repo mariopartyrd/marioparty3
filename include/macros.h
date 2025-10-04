@@ -17,4 +17,7 @@
 
 #define PACK_FILL_COLOR(r, g, b, a) (GPACK_RGBA5551(r, g, b, a) << 0x10) | GPACK_RGBA5551(r, g, b, a)
 
+#define GET_SPACE_FROM_CHAIN(link, idx) MBMasuGet(MBMasuLinkMasuIdGet(link, idx))
+
+
 #endif

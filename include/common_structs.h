@@ -9,7 +9,8 @@
 #define CUR_PLAYER -1
 #define CUR_TURN -1
 
-#define MAX_PLAYERS 4
+#define MBD_MAX_PLAYERS 2
+#define MB_MAX_PLAYERS 4
 
 #define    OS_K0_TO_PHYSICAL(x)    (u32)(((char *)(x)-0x80000000))
 #define    OS_PHYSICAL_TO_K0(x)    (void *)(((u32)(x)+0x80000000))

@@ -56,7 +56,7 @@ typedef struct GW_SYSTEM {
         /* 0x3E - 800CD096 */ s16 halfWordBytes[9]; //bytes related to storing information for each board
         /* 0x3E - 800CD096 */ s8 bytes[18]; //bytes related to storing information for each board
     } boardData;
-    /* 0x50 - 800CD0A8 */ char unk_50[1];
+    /* 0x50 - 800CD0A8 */ s8 unk50;
     /* 0x51 - 800CD0A9 */ u8 cur_player_used_item; //1 if player already used an item this turn
     /* 0x52 - 800CD0AA */ s16 unk_52;
     /* 0x54 - 800CD0AC */ s16 forceShopHost; //0 is toad, baby bowser is 1

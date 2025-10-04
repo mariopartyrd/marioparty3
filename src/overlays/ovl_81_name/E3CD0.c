@@ -61,7 +61,6 @@ extern s32 D_800D1240_D1E40;
 extern s16 D_800D124C_D1E4C;
 extern s32 D_800D41C0_D4DC0;
 extern s16 D_80101A50_E9820_name_81;
-extern s16 D_800CC0B8;
 extern s32 D_80101A98_E9868_name_81;
 extern void (*D_80101A8C_E985C_name_81)(void);
 extern s32 D_80101A70_E9840_name_81[];
@@ -196,7 +195,7 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     func_800F3F4C_DBD1C_name_81();
     func_800F3DFC_DBBCC_name_81(0);
     func_800F3DFC_DBBCC_name_81(1);
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < MBD_MAX_PLAYERS; i++) {
         func_800D8944_C0714_name_81(MBDGetPlayerStruct(i)->player_obj);
         playerObj = MBDGetPlayerStruct(i)->player_obj;
         playerObj->flags |= 2;
@@ -212,7 +211,7 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     func_800E0CEC_C8ABC_name_81();
     func_800E2870_CA640_name_81();
     func_800F6390_DE160_name_81();
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < MBD_MAX_PLAYERS; i++) {
         frontPartnerID = GwPlayer[i].stats.partners.frontID;
         backPartnerID = GwPlayer[i].stats.partners.backID;
         GwPlayer[i].stats.partners.frontID = PARTNER_KOOPA; //?
@@ -286,11 +285,11 @@ void func_800FC5B4_E4384_name_81(void (*arg0)(void)) {
 }
 
 void func_800FC5C0_E4390_name_81(s32 arg0) {
-    D_800CC0B8 = arg0;
+    D_800CC0B8_CCCB8 = arg0;
 }
 
 s16 func_800FC5CC_E439C_name_81(void) {
-    return D_800CC0B8;
+    return D_800CC0B8_CCCB8;
 }
 
 void func_800FC5D8_E43A8_name_81(void) {
@@ -348,7 +347,7 @@ void func_800FC5D8_E43A8_name_81(void) {
         } else {
             system->total_turns = 20;
         }
-        for (i = 0; i < 2; i++) {
+        for (i = 0; i < MBD_MAX_PLAYERS; i++) {
             player = MBDGetPlayerStruct(i);
             player->coin = 0;
             player->gamePrize = 0;

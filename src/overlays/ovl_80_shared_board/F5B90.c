@@ -185,12 +185,12 @@ void func_800E455C_F817C_shared_board(void) {
     curPlayerIndex = GwSystem.current_player_index;
     curPlayer = GetPlayerStruct(CUR_PLAYER);
     if (GwPlayer[curPlayerIndex].itemTurn != 0) {
-        for (playerPassed = 0, i = 0; i < MAX_PLAYERS; i++) {
+        for (playerPassed = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
             if (i == curPlayerIndex) {
                 continue;
             }
-            absSpace = func_800EB184_FEDA4_shared_board(GwPlayer[curPlayerIndex].clink, GwPlayer[curPlayerIndex].cidx);
-            if (absSpace == func_800EB184_FEDA4_shared_board(GwPlayer[i].clink, GwPlayer[i].cidx)) {
+            absSpace = MBMasuLinkMasuIdGet(GwPlayer[curPlayerIndex].clink, GwPlayer[curPlayerIndex].cidx);
+            if (absSpace == MBMasuLinkMasuIdGet(GwPlayer[i].clink, GwPlayer[i].cidx)) {
                 sp20[playerPassed++] = i;
             }
         }
@@ -743,7 +743,7 @@ void DrawSpaces(Gfx** arg0, Mtx* arg1, s32 arg2) {
                     if (spaceId == 0xff) {
                         break;
                     }
-                    temp_s0 = GetSpaceData(spaceId);
+                    temp_s0 = MBMasuGet(spaceId);
                     func_80089980_8A580(&sp10, &sp5C[1]);
                     func_80017C10_18810(&sp10, temp_s0->coords.x, temp_s0->coords.y, temp_s0->coords.z);
                     if ((i == 0xD) && (var_s5 < D_801052B0_118ED0_shared_board)) {
@@ -765,19 +765,19 @@ void DrawSpaces(Gfx** arg0, Mtx* arg1, s32 arg2) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EAE00_FEA20_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EAE10_FEA30_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", MBMasuCreate);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EB09C_FECBC_shared_board);
 
-SpaceData* GetSpaceData(s16 arg0) {
+SpaceData* MBMasuGet(s16 arg0) {
     return &D_80105214_118E34_shared_board[arg0];
 }
 
-s16 func_800EB184_FEDA4_shared_board(u16 arg0, u16 arg1) {
-    return D_80105218_118E38_shared_board[arg0].spaces[arg1];
+s16 MBMasuLinkMasuIdGet(u16 linkIdx, u16 spaceIdx) {
+    return D_80105218_118E38_shared_board[linkIdx].spaces[spaceIdx];
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EB1B0_FEDD0_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", MBMasuLinkNumGet);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EB1CC_FEDEC_shared_board);
 
@@ -802,8 +802,8 @@ s16 func_800EB5DC_FF1FC_shared_board(u16 arg0, u8 arg1) {
     var_s1 = 0;
 
     for (i = 0; i < gTotalSpaces; i++) {
-        space = GetSpaceData(i);
-        if (D_80101468_115088_shared_board[space->space_type & 0xF] & arg0){
+        space = MBMasuGet(i);
+        if (D_80101468_115088_shared_board[space->space_type & 0xF] & arg0) {
             var_s1++;
         }
     }
@@ -816,7 +816,7 @@ s16 func_800EB5DC_FF1FC_shared_board(u16 arg0, u8 arg1) {
     var_s1 = func_800EEF80_102BA0_shared_board(var_s1);
 
     for (i = 0;; i = (++i < gTotalSpaces) ? i : 0) {
-        space = GetSpaceData(i);
+        space = MBMasuGet(i);
         for (j = 0; j < D_801054F8_119118_shared_board; j++) {
             if (D_801054B8_1190D8_shared_board[j] == i) {
                 break;
@@ -872,9 +872,8 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EBCBC
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EBCC8_FF8E8_shared_board);
 
-
 s16 func_800EBCD4_FF8F4_shared_board(u8 arg0) {
-    return func_800EB5DC_FF1FC_shared_board(2, arg0);
+    return func_800EB5DC_FF1FC_shared_board((1 << SPACE_BLUE), arg0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800EBCFC_FF91C_shared_board);
@@ -893,7 +892,7 @@ void func_800EBDAC_FF9CC_shared_board(void) {
         var_s0 = 0;
 
         for (j = 0; j < gTotalSpaces; j++) {
-            if (GetSpaceData(j)->space_type == i) {
+            if (MBMasuGet(j)->space_type == i) {
                 D_801012C4_114EE4_shared_board[i][var_s0] = j;
                 var_s0++;
             }                

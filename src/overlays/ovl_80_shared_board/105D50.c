@@ -59,7 +59,16 @@ void func_800F2260_105E80_shared_board(s32 playerIndex, f32 arg1) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F22C0_105EE0_shared_board);
+void func_800F22C0_105EE0_shared_board(s32 playerNo) {
+    GW_PLAYER* player;
+
+    player = GetPlayerStruct(playerNo);
+    if (player->itemTurn != 0) {
+        func_800EE97C_10259C_shared_board(D_801011FC_114E1C_shared_board);
+    } else {
+        func_800EE97C_10259C_shared_board(player->player_obj);
+    }
+}
 
 void func_800F2304_105F24_shared_board(s32 playerIndex, s16 arg1, u16 arg2) {
     GW_PLAYER* player;

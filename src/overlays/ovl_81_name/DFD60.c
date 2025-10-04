@@ -4,6 +4,7 @@
 void Duel_ClearPartnerObjects(void) {
     s32 i, j;
 
+    //TODO: unhardcode loop conditions
     for (i = 0; i < 2; i++) {
         for (j = 0; j < 2; j++){
             Duel_PartnerObjects[i][j] = NULL;
@@ -14,7 +15,7 @@ void Duel_ClearPartnerObjects(void) {
 void func_800F7FDC_DFDAC_name_81(void) {
     s32 i;
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < MBD_MAX_PLAYERS; i++) {
         func_800F82EC_E00BC_name_81(i);
     }
 
@@ -101,7 +102,7 @@ void func_800F821C_DFFEC_name_81(s32 playerIndex, s32 partnerNo) {
 void func_800F82EC_E00BC_name_81(s32 playerIndex) {
     s32 i;
     
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < MBD_MAX_PLAYERS; i++) {
         if (Duel_PartnerObjects[playerIndex][i] != NULL) {
             func_800D8F3C_C0D0C_name_81(Duel_PartnerObjects[playerIndex][i]);
             Duel_PartnerObjects[playerIndex][i] = NULL;
@@ -378,7 +379,7 @@ void func_800F8D9C_E0B6C_name_81(s32 arg0, s32* arg1, s32* arg2) {
     GW_PLAYER* opponent = NULL;
     s32 i;
     
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < MBD_MAX_PLAYERS; i++) {
         if (i == Duel_GetCurrentPlayerIndex()) {
             curPlayer = MBDGetPlayerStruct(i);
         } else {

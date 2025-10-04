@@ -6,6 +6,10 @@
 #define SPACE_TYPES_TOTAL 16
 #define SPACES_MAX 128
 
+enum SPACE_TYPE {
+    SPACE_BLUE = 1,
+};
+
 enum LANGUAGE {
     LANGUAGE_NONE = 0,
     LANGUAGE_JAPANESE = 1,

@@ -34,7 +34,7 @@ void func_801059A0_4DEB60_inst(void) {
     s16 j;
     
     for (i = 0; i < 4; i++) {
-        for (j = 0; j < MAX_PLAYERS; j++) {
+        for (j = 0; j < MB_MAX_PLAYERS; j++) {
             if (i != GwPlayer[j].group) {
                 continue;
             }

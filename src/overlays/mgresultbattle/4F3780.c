@@ -29,7 +29,7 @@ void func_801059A0_4F3780_mgresultbattle(void) {
     var_a1 = 0;
     
     for (i = 0; i < 4; i++) {
-        for (j = 0; j < MAX_PLAYERS; j++) {
+        for (j = 0; j < MB_MAX_PLAYERS; j++) {
             if (i != GwPlayer[j].group) {
                 continue;
             }
@@ -53,7 +53,7 @@ void func_801059A0_4F3780_mgresultbattle(void) {
     omSetStatBit(omAddObj(0x7FDA, 0U, 0U, -1, omOutView), 0xA0);
     HmfLightColorSet(1, 0xFF, 0xFF, 0xFF);
     
-    for (var_a0_2 = 0, i = 0; i < MAX_PLAYERS; i++) {
+    for (var_a0_2 = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
         if (GwPlayer[i].bonusCoin == 3) {
             var_a0_2++;
         }

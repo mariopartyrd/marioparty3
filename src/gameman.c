@@ -157,7 +157,7 @@ void func_8000E7B8_F3B8(void) {
 void func_8000E804_F404(void) {
     s32 i;
 
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         memset(&GwPlayer[i], 0, sizeof(GW_PLAYER));
         if (CheckControllerRead(i) != PAD_NOT_INSERTED) {
             D_800CCF78_CDB78[i] = 0;

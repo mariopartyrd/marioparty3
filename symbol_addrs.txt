@@ -11,6 +11,15 @@ _ovltbl = 0x800962F4; //rom:0x96EF4 size:0x1200
 _modeovltbl = 0x800974F4; //rom:0x980F4 size:0x6C
 Hmfload = 0x8000F0A0; //rom:0xFCA0
 
+gspF3DEX2_fifoTextStart = 0x8008F1C0; //rom:0x8FDC0
+gspF3DEX2_NoN_fifoTextStart = 0x80090550; //rom:0x91150
+gspF3DLX2_Rej_fifoTextStart = 0x800916D0; //rom:0x922D0
+gspS2DEX2_fifoTextStart = 0x80092F90; //rom:0x93B90
+gspL3DEX2_fifoTextStart = 0x80094120; //rom:0x94D20
+D_800CC0B6_CCCB6 = 0x800CC0B6; //type:s16
+D_800CC0B8_CCCB8 = 0x800CC0B8; //type:s16
+D_800CC0BA_CCCBA = 0x800CC0BA; //type:s16
+
 //chancetime
 D_8010FD20_48BCF0_chancetime = 0x8010FD20; //rom:0x48BCF0 type:s32 size:0x18 force_migration:False
 
@@ -661,7 +670,9 @@ OvlLoad = 0x8000B2C4; //rom:0xBEC4
 rnd_seed = 0x80097650; //rom:0x98250 type:u32
 
 SavePlayerStruct = 0x8004F544; //rom:0x50144
-GetSpaceData = 0x800EB160; //rom:0xFED80
+MBMasuGet = 0x800EB160; //rom:0xFED80
+MBMasuLinkNumGet = 0x800EB1B0; //rom:0xFEDD0
+MBMasuCreate = 0x800EAE10; //rom:0xFEA30
 SaveFileEncode = 0x8004F5A4; //rom:0x501A4
 gEncodedSaveBuffer = 0x800CD0C0;
 gTotalSpaces = 0x80105210; // type:u16
@@ -871,9 +882,8 @@ sPrcSleepLoc = 0x800D20A8;
 D_800D20F0_D2CF0 = 0x800D20F0; //size:0x28
 D_800D6A46_D7646 = 0x800D6A46; //type:u16
 D_800D6A48_D7648 = 0x800D6A48; //type:s16
-D_800CDD54_CE954 = 0x800CDD54; //rom:0xCE954 type:s16 size:0x2
-D_800CDD56_CE956 = 0x800CDD56; //rom:0xCE956 type:s16 size:0x2
-D_800CDD58_CE958 = 0x800CDD58; //rom:0xCE958 type:s16 size:0x2
+D_800CDD54_CE954 = 0x800CDD54; //type:s32 size:0x4
+D_800CDD58_CE958 = 0x800CDD58; //type:s16 size:0x2
 D_800D037C_D0F7C = 0x800D037C; //rom:0xD0F7C type:s16
 D_800D51F8_D5DF8 = 0x800D51F8; //rom:0xD5DF8 type:s16
 SetSpaceType = 0x800EB7F0; //rom:0xFF410 segment:shared_board
@@ -885,6 +895,7 @@ n_aspMain_data = 0x800A6050; //rom:0xA6C50 size:0x2B0
 D_801057E0_119400_shared_board = 0x801057E0; //size:0x1B0 segment:shared_board
 D_80101A74_115694_shared_board = 0x80101A74; //rom:0x115694 size:0x20 segment:shared_board
 D_80105658_119278_shared_board = 0x80105658; //size:0x04 type:s32 segment:shared_board
+MBMasuLinkMasuIdGet  = 0x800EB184; //rom:0xFEDA4 segment:shared_board
 
 //ovl_81
 MBDBackClose = 0x800E5000; //rom:0xCCDD0 segment:name_81

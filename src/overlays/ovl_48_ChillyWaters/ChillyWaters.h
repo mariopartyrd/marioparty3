@@ -65,7 +65,6 @@ void func_8011A8D8_330448_ChillyWaters(void);
 void func_80108478_31DFE8_ChillyWaters(void);
 void func_80108574_31E0E4_ChillyWaters(s16);
 void func_80116484_32BFF4_ChillyWaters(void*, void*, void*);
-s16 func_800EB184_FEDA4_shared_board(u16 arg0, u16 arg1);
 void func_800ED998_1015B8_shared_board(s32, s32, s32);
 void func_801155C4_32B134_ChillyWaters(omObjData*);
 void func_80115734_32B2A4_ChillyWaters(omObjData*);

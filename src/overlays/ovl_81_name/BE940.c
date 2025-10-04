@@ -25,7 +25,7 @@ typedef struct UnkBE940_3 {
 } UnkBE940_3; //sizeof 0x0C
 
 void* func_800D6B70_BE940_name_81(s32 arg0) {
-    s32 sp10[3] = {0x17, 0x18, 0x19};
+    s32 sp10[3] = {0x00000017, 0x00000018, 0x00000019};
     UnkBE940* temp_v0;
     Object* temp_v0_2;
 

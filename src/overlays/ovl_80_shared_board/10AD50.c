@@ -99,13 +99,13 @@ void func_800F71A8_10ADC8_shared_board(omObjData* obj) {
 }
 
 s32 func_800F7240_10AE60_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s16 sp18[MAX_PLAYERS];
-    u8 sp20[MAX_PLAYERS] = {1, 2, 4, 8};
+    s16 sp18[MB_MAX_PLAYERS];
+    u8 sp20[MB_MAX_PLAYERS] = {1, 2, 4, 8};
     s32 var_v0;
     s32 i;
     s32 j;
 
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (i == GwSystem.current_player_index) {
             if (GwPlayer[i].stat & 1) {
                 sp18[GwPlayer[i].pad] = 0x400;

@@ -9,7 +9,7 @@ typedef void (*PartnerFunc)(s16, s32, Object*, Object*, s32, s32);
 typedef enum PartnerObjIndex {
     /* 0 */ PARTNEROBJINDEX_FRONT,
     /* 1 */ PARTNEROBJINDEX_BACK,
-    /* 2 */ PARTNEROBJINDEX_MAX,
+    /* 2 */ PARTNEROBJINDEX_MAX = MBD_MAX_PLAYERS,
 } PartnerObjIndex;
 
 #define POWERUP_NONE 1

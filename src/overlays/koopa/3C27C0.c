@@ -149,13 +149,13 @@ void func_801059A0_3C27C0_koopa(void) {
     func_800D95C4_ED1E4_shared_board(1000.0f);
     func_8005A6B0_5B2B0();
     func_800F453C_10815C_shared_board();
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         func_800F4874_108494_shared_board(i, 0x1E, -0x32);
     }
     omAddPrcObj(func_80108D2C_3C5B4C_koopa, 0x300, 0x2000, 0);
     omAddObj(0x1000, 0, 0, -1, func_80109220_3C6040_koopa);
     func_800EA60C_FE22C_shared_board();
-    func_800EAE10_FEA30_shared_board(0x13, 0x23A);
+    MBMasuCreate(0x13, 0x23A);
     func_8004A208_4AE08();
 }
 
@@ -350,10 +350,10 @@ s32 func_80107090_3C3EB0_koopa(void) {
     s32 i, j;
 
     if (GwSystem.current_board_index == 0) {
-        for (var_s3 = 0, i = 0; i < MAX_PLAYERS; i++) {
+        for (var_s3 = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
             temp_s1 = GetPlayerStruct(i);
             for (j = 0; D_80109418_3C6238_koopa[j] != -1; j++) {
-                if (func_800EB184_FEDA4_shared_board(temp_s1->clink, temp_s1->cidx) == D_80109418_3C6238_koopa[j]) {
+                if (MBMasuLinkMasuIdGet(temp_s1->clink, temp_s1->cidx) == D_80109418_3C6238_koopa[j]) {
                     var_s3++;
                     break;
                 }
@@ -446,7 +446,7 @@ s32 func_801078CC_3C46EC_koopa(void) {
 
     temp_v0 = func_80107658_3C4478_koopa(1, D_801094F4_3C6314_koopa);
     sprintf(D_80109508_3C6328_koopa, D_801094C0_3C62E0_koopa, temp_v0);
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (GwPlayer[i].coin < temp_v0) {
             break;
         }
@@ -468,7 +468,7 @@ s32 func_801078CC_3C46EC_koopa(void) {
     HuAudFXPlay(0x29F);
     var_a0_2 = -10000;
     var_s1 = 0;
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         temp_v1 = GwPlayer[i].coin - temp_v0;
         if (var_a0_2 < temp_v1) {
             var_a0_2 = temp_v1;

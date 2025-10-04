@@ -40,7 +40,7 @@ void func_80050ABC_516BC(void);
 void GWBoardFlagClear(s32 flag);
 void GWBoardFlagSet(s32 flag);
 void SetSpaceType(s16, s32);
-SpaceData* GetSpaceData(s16 arg0);
+SpaceData* MBMasuGet(s16 arg0);
 void func_800698E8_6A4E8(u8**, u8*, s32, s32);
 void func_80069E68_6AA68(s32);
 void func_8006A370_6AF70(s32);

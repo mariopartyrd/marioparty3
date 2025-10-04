@@ -1,5 +1,7 @@
 #include "common.h"
 #include "ovl_80.h"
+#include "game/object.h"
+#include "game/board.h"
 
 void func_800F8610_10C230_shared_board(s32 id, s16 event, u16 stat) {
     omOvlHisData* overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18++];
@@ -131,7 +133,7 @@ void func_800F89D0_10C5F0_shared_board(s32 arg0, s16 arg1, s32 arg2, s32 unused)
     
     func_800EA60C_FE22C_shared_board();
     if (arg1 >= 0) {
-        func_800EAE10_FEA30_shared_board(0x13, (s32) arg1);
+        MBMasuCreate(0x13, (s32) arg1);
     }
     
     func_800D76D0_EB2F0_shared_board(arg2);
@@ -143,7 +145,7 @@ void func_800F89D0_10C5F0_shared_board(s32 arg0, s16 arg1, s32 arg2, s32 unused)
     func_800F25D8_1061F8_shared_board(2);
     func_800F25D8_1061F8_shared_board(3);
     
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         func_800D9714_ED334_shared_board(GetPlayerStruct(i)->player_obj);
         temp_v0 = GetPlayerStruct(i)->player_obj;
         temp_v0->flags |= 2;
@@ -173,12 +175,12 @@ void func_800F89D0_10C5F0_shared_board(s32 arg0, s16 arg1, s32 arg2, s32 unused)
     D_800D1360_D1F60.unk_20 = 0;
     D_80105666_119286_shared_board = 0;
     func_800F27D0_1063F0_shared_board();
-    D_80101B64_115784_shared_board = 0;
-    D_80101B68_115788_shared_board = 0;
-    D_80101B6C_11578C_shared_board = 0;
+    D_80101B64_115784_shared_board = NULL;
+    D_80101B68_115788_shared_board = NULL;
+    D_80101B6C_11578C_shared_board = NULL;
     func_8004CF30_4DB30();
     
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         temp_v0_2 = omAddPrcObj(func_800F8908_10C528_shared_board, 0, 0, 0x40);
         temp_v0_3 = HuMemMemoryAlloc(temp_v0_2->heap, sizeof(UnkOvl81_1));
         temp_v0_2->user_data = temp_v0_3;
@@ -214,15 +216,25 @@ void func_800F8C74_10C894_shared_board(void) {
     func_800FC8A4_1104C4_shared_board();
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F8D48_10C968_shared_board);
+//unknown type
+void func_800F8D48_10C968_shared_board(void (*arg0)(void)) {
+    D_80101B6C_11578C_shared_board = arg0;
+}
+void func_800F8D54_10C974_shared_board(void (*arg0)(void)) {
+    D_80101B64_115784_shared_board = arg0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F8D54_10C974_shared_board);
+void func_800F8D60_10C980_shared_board(void (*arg0)()) {
+    D_80101B68_115788_shared_board = arg0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F8D60_10C980_shared_board);
+void func_800F8D6C_10C98C_shared_board(s32 arg0) {
+    D_800CC0B8_CCCB8 = arg0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F8D6C_10C98C_shared_board);
-
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F8D78_10C998_shared_board);
+s16 func_800F8D78_10C998_shared_board(void) {
+    return D_800CC0B8_CCCB8;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F8D84_10C9A4_shared_board);
 
@@ -300,8 +312,8 @@ s32 func_800F9A68_10D688_shared_board(s32 arg0) {
         }        
     }
     
-    space = GetSpaceData(func_800EB184_FEDA4_shared_board(curPlayer->clink, curPlayer->cidx));
-    HuVecSubtract(&sp10, &GetSpaceData(func_800EB184_FEDA4_shared_board(curPlayer->nlink, curPlayer->nidx))->coords, &space->coords);
+    space = GET_SPACE_FROM_CHAIN(curPlayer->clink, curPlayer->cidx);
+    HuVecSubtract(&sp10, &GET_SPACE_FROM_CHAIN(curPlayer->nlink, curPlayer->nidx)->coords, &space->coords);
     var_f4 = func_800D8790_EC3B0_shared_board(&sp10);
     if ((var_s4 == 0) || (!(D_80101D5C_11597C_shared_board[var_s4].x < var_f4)) || (!(var_f4 <= D_80101D5C_11597C_shared_board[var_s4].y))) {
         if (var_s2 != 0) {
@@ -331,10 +343,10 @@ s32 func_800F9D1C_10D93C_shared_board(void) {
     s32 var_s1;
     s32 var_s2;
     s32 var_s3;
-    s32 sp10[MAX_PLAYERS];
+    s32 sp10[MB_MAX_PLAYERS];
     GW_SYSTEM* system = &GwSystem;
 
-    for (i = 0, var_s2 = 99; i < MAX_PLAYERS; i++) {
+    for (i = 0, var_s2 = 99; i < MB_MAX_PLAYERS; i++) {
         if ((i != system->current_player_index) && ((GwSystem.unk_58 >> i) & 1) && (BoardPlayerRankCalc(i) < var_s2) && GwPlayer[i].coin != 0) {
             var_s2 = BoardPlayerRankCalc(i);
         }
@@ -342,7 +354,7 @@ s32 func_800F9D1C_10D93C_shared_board(void) {
     
     var_s1 = 0;
     
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if ((i != system->current_player_index) && ((GwSystem.unk_58 >> i) & 1) && (BoardPlayerRankCalc(i) == var_s2)) {
             sp10[var_s1] = i;
             var_s1 += 1;
@@ -351,7 +363,7 @@ s32 func_800F9D1C_10D93C_shared_board(void) {
     
     if (GetPlayerStruct(CUR_PLAYER)->coin >= 20) {
         if (GetPlayerStruct(sp10[0])->coin < 20) {
-            for (i = 0, var_s2 = 99, var_s3 = 0; i < MAX_PLAYERS; i++) {
+            for (i = 0, var_s2 = 99, var_s3 = 0; i < MB_MAX_PLAYERS; i++) {
                 if ((i != system->current_player_index) && (GetPlayerStruct(i)->coin >= 20)) {
                     var_s3 = 1;
                     if (BoardPlayerRankCalc(i) < var_s2) {
@@ -361,7 +373,7 @@ s32 func_800F9D1C_10D93C_shared_board(void) {
             }
             
             if (var_s3 != 0) {
-                for (i = 0, var_s1 = 0; i < MAX_PLAYERS; i++) {
+                for (i = 0, var_s1 = 0; i < MB_MAX_PLAYERS; i++) {
                     if ((i != system->current_player_index) && ((GwSystem.unk_58 >> i) & 1) && (BoardPlayerRankCalc(i) == var_s2) && GwPlayer[i].coin != 0) {
                         sp10[var_s1] = i;
                         var_s1++;
@@ -399,11 +411,11 @@ s16 func_800FA818_10E438_shared_board(s32 arg0) {
         return 0;
     }
 
-    temp_s3 = func_800EB184_FEDA4_shared_board(GetPlayerStruct(CUR_PLAYER)->clink, GetPlayerStruct(CUR_PLAYER)->cidx);
+    temp_s3 = MBMasuLinkMasuIdGet(GetPlayerStruct(CUR_PLAYER)->clink, GetPlayerStruct(CUR_PLAYER)->cidx);
     
-    for (i = 0; i < MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (i != GetPlayerStruct(CUR_PLAYER)->turn) {
-            if (temp_s3 == func_800EB184_FEDA4_shared_board(GetPlayerStruct(i)->clink, GetPlayerStruct(i)->cidx)) {
+            if (temp_s3 == MBMasuLinkMasuIdGet(GetPlayerStruct(i)->clink, GetPlayerStruct(i)->cidx)) {
                 var_s2 |= 1 << i;
                 if (arg0 != 0) {
                     func_800FF900_113520_shared_board(i, 3);
