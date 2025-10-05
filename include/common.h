@@ -33,8 +33,11 @@
 #include "variables.h"
 #include "macros.h"
 #include "enums.h"
-#include "ld_addrs.h"
 #include "overlay.h"
 #include "input.h"
+
+#ifndef RECOMP
+#include "ld_addrs.h"
+#endif
 
 #endif
