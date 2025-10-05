@@ -29,7 +29,7 @@
 
 #include "common_structs.h"
 #include "functions.us.h"
-#include "include_asm.h"
+
 #include "variables.h"
 #include "macros.h"
 #include "enums.h"
@@ -37,6 +37,7 @@
 #include "input.h"
 
 #ifndef RECOMP
+#include "include_asm.h"
 #include "ld_addrs.h"
 #endif
 
