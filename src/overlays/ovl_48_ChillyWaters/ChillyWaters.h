@@ -75,7 +75,12 @@ extern RGB D_8011E4B8_334028_ChillyWaters[2];
 extern s32 D_8011FB80_3356F0_ChillyWaters[4];
 extern void* D_8011FB90_335700_ChillyWaters;
 extern s16 D_8011FB8E_3356FE_ChillyWaters;
-extern void (*D_80102C58_116878_shared_board[22])(void); //size based on func_80107CC4_31D834_ChillyWaters (calls to func_800E2960_F6580_shared_board)
+
+//size based on func_80107CC4_31D834_ChillyWaters (calls to func_800E2960_F6580_shared_board)
+//not really sure what to call this, it includes the boo event at index 0 for instance
+extern void (*MBItemSubFunctions[22])(void);
+
+
 extern char D_8011D77C_3332EC_ChillyWaters[];
 extern char D_8011DB5C_3336CC_ChillyWaters[];
 extern char D_8011DB70_3336E0_ChillyWaters[];

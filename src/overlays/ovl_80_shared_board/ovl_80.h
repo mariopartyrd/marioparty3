@@ -131,7 +131,7 @@ void func_800898F0_8A4F0(Mtx*, Mtx*);
 void func_80089980_8A580(Mtx*, Mtx*);
 void func_800E989C_FD4BC_shared_board(void*);
 s16 func_800EB5DC_FF1FC_shared_board(u16, u8);
-void func_800DA790_EE3B0_shared_board(s32, u16, char*, s32, s32);
+void func_800DA790_EE3B0_shared_board(u16 arg0, u16 arg1, char* arg2, u8 arg3, u8 arg4);
 Object* MBModelCreate(u8, s32);
 void func_800D9714_ED334_shared_board(Object*);
 void func_800F3400_107020_shared_board(omObjData*);
@@ -228,7 +228,7 @@ void func_800F26E8_106308_shared_board(void);
 void func_800F27D0_1063F0_shared_board(void);
 void func_800F2A20_106640_shared_board(void);
 void func_800F8908_10C528_shared_board(void);
-void func_800F68E0_10A500_shared_board(s32 arg0, s32 arg1, s32 arg2);
+void func_800F68E0_10A500_shared_board(s32 arg0, s32 arg1, s16 arg2);
 void func_800F6BC4_10A7E4_shared_board(s32 arg0);
 void func_800F66DC_10A2FC_shared_board(s32 arg0);
 void func_800F6ECC_10AAEC_shared_board(s32 arg0);
@@ -252,7 +252,26 @@ void func_800EDC58_101878_shared_board(s16, s32);
 void func_800EE2A4_101EC4_shared_board(s16);
 void func_800EDC74_101894_shared_board(s16, s32);
 void func_800EE2C0_101EE0_shared_board(s16);
+void func_800F2304_105F24_shared_board(s32, s16, u16);
+void func_800F6780_10A3A0_shared_board(s32, s32, f32, f32);
+Process* func_8010FB54_3256C4_ChillyWaters(s16, s16, s16, s16, s16, s16);
+void func_800D86F0_EC310_shared_board(s32);
+void func_800E34E0_F7100_shared_board(void);
+void func_800E3584_F71A4_shared_board(void);
+void func_800E35F8_F7218_shared_board(void);
+void func_800E3734_F7354_shared_board(void);
+void func_800E44E4_F8104_shared_board(s32);
+s32 func_800F6724_10A344_shared_board(s32);
+void func_800F6848_10A468_shared_board(s32, s32, f32*, f32*);
+void func_800F69B0_10A5D0_shared_board(s32, s32, u16);
+void func_8010067C_11429C_shared_board(s32);
 
+extern s32 D_80102CB0_1168D0_shared_board;
+extern s32 D_80102CB4_1168D4_shared_board;
+extern s32 D_80101040_114C60_shared_board[];
+extern s16 D_801010E8_114D08_shared_board[][2];
+extern s32 (*MBItemFunctions[])(void);
+extern s16 D_8010570C_11932C_shared_board;
 extern s16 D_80105714_119334_shared_board;
 extern UnkBoard7 D_80104A00_118620_shared_board[];
 extern s32 D_80105200_118E20_shared_board;
@@ -293,7 +312,7 @@ extern OSMesgQueue D_80104928_118548_shared_board;
 extern OSMesgQueue D_801049D0_1185F0_shared_board;
 extern s32 D_800D41B0_D4DB0[];
 extern s32 D_801014A0_1150C0_shared_board[];
-extern void (*D_80102C58_116878_shared_board[22])(void); //size based on func_80107CC4_31D834_ChillyWaters (calls to func_800E2960_F6580_shared_board)
+extern void (*MBItemSubFunctions[22])(void); //size based on func_80107CC4_31D834_ChillyWaters (calls to func_800E2960_F6580_shared_board)
 extern s32 D_80105654_119274_shared_board;
 extern s32 D_80105630_119250_shared_board[3];
 extern s32 D_80105634_119254_shared_board;
@@ -304,7 +323,6 @@ extern u8 D_80105268_118E88_shared_board[];
 extern s32 D_801055F8_119218_shared_board;
 extern s32 D_80101A50_115670_shared_board[]; //randomly generated items
 extern s32 D_80100F90_114BB0_shared_board;
-void (*D_80102C70_116890_shared_board)(void);
 extern s32 D_8010197C_11559C_shared_board[]; //item mainFS ID array
 // s32 D_8010197C_11559C_shared_board[] = {
 //     0x0013018E,

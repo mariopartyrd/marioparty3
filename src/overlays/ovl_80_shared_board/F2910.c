@@ -1,6 +1,14 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F2910", func_800DECF0_F2910_shared_board);
+extern u32 D_800D2094_D2C94;
+extern u32 D_80100EE8_114B08_shared_board;
+
+void func_800DECF0_F2910_shared_board(void) {
+    if (D_800D2094_D2C94 >= (D_80100EE8_114B08_shared_board + 4)) {
+        HuAudFXPlay(0x104);
+        D_80100EE8_114B08_shared_board = D_800D2094_D2C94;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F2910", func_800DED3C_F295C_shared_board);
 

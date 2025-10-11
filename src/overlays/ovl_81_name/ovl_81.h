@@ -258,18 +258,3 @@ void func_800EB49C_D326C_name_81(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg
 void func_800D85A8_C0378_name_81(f32);
 void func_800D87DC_C05AC_name_81(f32);
 void func_800EF3EC_D71BC_name_81(s32);
-
-extern s8* D_80101968_E9738_name_81;
-extern s8* D_8010196C_E973C_name_81;
-extern s8* D_80101970_E9740_name_81;
-extern s8* D_80101974_E9744_name_81;
-extern s8* D_80101978_E9748_name_81;
-extern s8* D_8010197C_E974C_name_81;
-extern Vec D_80105540_ED310_name_81;
-extern s32 D_8010554C_ED31C_name_81;
-extern s32 D_80105550_ED320_name_81;
-extern s32 D_80105558_ED328_name_81;
-extern s32 D_80105620_ED3F0_name_81;
-extern s32 D_8010570C_ED4DC_name_81;
-extern s32 D_80105718_ED4E8_name_81;
-extern s32 D_8010571C_ED4EC_name_81;

@@ -1127,7 +1127,7 @@ void func_800F688C_10A4AC_shared_board(s32 arg0, s32 arg1, s16 arg2, s16 arg3) {
     func_80054904_55504(D_801057E0_119400_shared_board[arg0].playerIndex, (arg1 + 2), arg2, arg3);
 }
 
-void func_800F68E0_10A500_shared_board(s32 arg0, s32 arg1, s32 arg2) {
+void func_800F68E0_10A500_shared_board(s32 arg0, s32 arg1, s16 arg2) {
     func_80055458_56058(D_801057E0_119400_shared_board[arg0].playerIndex, (arg1 + 2), arg2);
 }
 
@@ -1139,7 +1139,7 @@ void func_800F696C_10A58C_shared_board(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
     HuSprScaleSet(D_801057E0_119400_shared_board[arg0].playerIndex, arg1 + 2, arg2, arg3);
 }
 
-void func_800F69B0_10A5D0_shared_board(s32 arg0, s32 arg1, s32 arg2) {
+void func_800F69B0_10A5D0_shared_board(s32 arg0, s32 arg1, u16 arg2) {
     HuSprPriSet(D_801057E0_119400_shared_board[arg0].playerIndex, arg1 + 2, arg2);
 }
 

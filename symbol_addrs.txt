@@ -97,6 +97,9 @@ Hu3DCamUpdateMtx = 0x80012564;
 Hu3DCam3DToScreen = 0x8001291C;
 Hu3DAnimInit = 0x8001FE20;
 
+MBItemFunctions = 0x80101080; //rom:0x114CA0 size:0x50 segment:shared_board
+MBItemSubFunctions = 0x80102C58; //size:0x58 segment:shared_board
+
 // hmfman
 Hu3DModelCreate = 0x8001A150; //rom:0x1AD50
 Hu3DModelLink = 0x8001A61C; //rom:0x1B21C
@@ -895,12 +898,18 @@ n_aspMain_data = 0x800A6050; //rom:0xA6C50 size:0x2B0
 D_801057E0_119400_shared_board = 0x801057E0; //size:0x1B0 segment:shared_board
 D_80101A74_115694_shared_board = 0x80101A74; //rom:0x115694 size:0x20 segment:shared_board
 D_80105658_119278_shared_board = 0x80105658; //size:0x04 type:s32 segment:shared_board
+
+D_801019D0_1155F0_shared_board = 0x801019D0; //rom:0x1155F0 size:0x4C segment:shared_board
 MBMasuLinkMasuIdGet  = 0x800EB184; //rom:0xFEDA4 segment:shared_board
 
 //ovl_81
 D_80101BF8_E99C8_name_81 = 0x80101BF8; //rom:0xE99C8 type:f32 segment:name_81
 D_80101B20_E98F0_name_81 = 0x80101B20; //rom:0xE98F0 type:f32 segment:name_81
 D_80101B70_E9940_name_81 = 0x80101B70; //rom:0xE9940 type:f32 segment:name_81
+D_8010197C_E974C_name_81 = 0x8010197C; //rom:0xE974C type:char* segment:name_81
+
+//this must be defined after D_8010197C_E974C_name_81
+D_8010197C_11559C_shared_board = 0x8010197C; //rom:0x11559C size:0x54 segment:shared_board
 
 MBDBackClose = 0x800E5000; //rom:0xCCDD0 segment:name_81
 MBDBackCreate = 0x800E5040; //rom:0xCCE10 segment:name_81

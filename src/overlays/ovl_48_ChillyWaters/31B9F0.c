@@ -416,7 +416,40 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010F8F
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010FB54_3256C4_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010FC24_325794_ChillyWaters);
+extern f32 D_8011E354_333EC4_ChillyWaters[4][2];
+
+//ItemFunctions[IFUNC_MUSHROOM]
+void func_8010FC24_325794_ChillyWaters(void) {
+    f32 sp18[2];
+    Process* process;
+    s32 i;
+    GW_SYSTEM* system = &GwSystem;
+
+    func_80055140_55D40(D_8010570C_11932C_shared_board, 0, 1, 0);
+    func_800550F4_55CF4(D_8010570C_11932C_shared_board, 0, 1);
+    HuPrcSleep(20);
+    HuAudFXPlay(0x145);
+    func_800F6748_10A368_shared_board(D_8010570C_11932C_shared_board, 0, &sp18[0], &sp18[1]);
+    process = HuPrcCurrentGet();
+    HuPrcChildLink(process, func_8010FB54_3256C4_ChillyWaters(D_8010570C_11932C_shared_board, sp18[0], sp18[1], D_8011E354_333EC4_ChillyWaters[system->current_player_index][0], D_8011E354_333EC4_ChillyWaters[GwSystem.current_player_index][1], -1));
+    HuPrcChildWait();
+    HuPrcSleep(0xA);
+    func_80055140_55D40(D_8010570C_11932C_shared_board, 0, 0, 0);
+    func_800550F4_55CF4(D_8010570C_11932C_shared_board, 0, 1);
+
+    for (i = 1; i < 10; i++) {
+        func_800F68E0_10A500_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), (255 - (i * 25)));
+        func_800F6780_10A3A0_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), 0, 2.0f);
+        HuPrcVSleep();        
+    }
+
+    func_800F68E0_10A500_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), 0);
+    func_800F2304_105F24_shared_board(-1, 5, 0);
+    func_8004ACE0_4B8E0(0x274, system->current_player_index);
+    HuPrcSleep(50);
+    func_800F2304_105F24_shared_board(-1, -1, 2);
+    HuSprAttrSet(D_8010570C_11932C_shared_board, 0, 0x8000);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010FE54_3259C4_ChillyWaters);
 
