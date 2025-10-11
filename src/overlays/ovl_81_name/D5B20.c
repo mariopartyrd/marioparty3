@@ -190,13 +190,13 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/D5B20", func_800F336C_DB13C_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/D5B20", func_800F3500_DB2D0_name_81);
 
-s16 Duel_GetCurrentPlayerIndex(void){
+s16 MBDGetCurrentPlayerIndex(void){
     return GwSystem.current_player_index;
 }
 
 GW_PLAYER* MBDGetPlayerStruct(s32 player) {
     if (player < 0) {
-        player = Duel_GetCurrentPlayerIndex();
+        player = MBDGetCurrentPlayerIndex();
     }
     return &GwPlayer[player];
 }

@@ -91,7 +91,7 @@ void func_800ED214_D4FE4_name_81(s32 playerIndex) {
     func_800ECF1C_D4CEC_name_81(playerIndex, &sp10, &sp20);
     
     if (player->stats.partners.frontID != PARTNER_NONE) {
-        partner = Duel_GetPlayerPartnerRef(playerIndex, PARTNER_FRONT);
+        partner = MBDGetPlayerPartnerRef(playerIndex, PARTNER_FRONT);
         HuVecCopy3F(&partner->coords, &player->player_obj->coords);
         HuVecAdd(&partner->coords, &partner->coords, &sp10);
         func_800D7828_BF5F8_name_81(&sp10);
@@ -99,7 +99,7 @@ void func_800ED214_D4FE4_name_81(s32 playerIndex) {
     }
 
     if (player->stats.partners.backID != PARTNER_NONE) {
-        partner = Duel_GetPlayerPartnerRef(playerIndex, PARTNER_BACK);
+        partner = MBDGetPlayerPartnerRef(playerIndex, PARTNER_BACK);
         HuVecCopy3F(&partner->coords, &player->player_obj->coords);
         HuVecAdd(&partner->coords, &partner->coords, &sp20);
         func_800D7828_BF5F8_name_81(&sp20);

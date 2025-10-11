@@ -74,5 +74,19 @@ void func_8006010C_60D0C(s16, s16);
 void Hu3DCam3DToScreen(s16 camIndex, Vec * worldPos, Vec * outPos);
 s32 func_80017BB8_187B8(s16, s16);
 void func_800039A4_45A4(s16, s16);
-
+void func_8005FBA4_607A4(u8*, s32);
+s32 func_80061188_61D88(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 arg5);
+void func_8005D294_5DE94(s16);
+void func_8005FBF8_607F8(s16, s32, s32, s32);
+void func_80060388_60F88(s32);
+void func_800604A8_610A8(s16*, s16, s16);
+void func_80061934_62534(s16, s16);
+void func_80061A5C_6265C(s16, s32);
+void func_8001C624_1D224(s16, s16, s16, s16, s32);
+void func_8002D4B8_2E0B8(s16);
+s32 func_8001F1FC_1FDFC(void*, s32);
+void func_8001F9E4_205E4(s16, u8);
+void func_8001FA68_20668(s16);
+void func_8004A7C4_4B3C4(s32);
+void func_8004A72C_4B32C(s32);
 #endif

@@ -5,7 +5,6 @@
 
 extern s32 D_800D41B0_D4DB0[];
 extern u16 D_800D5546_D6146[];
-extern s8 D_800CB99C_CC59C;
 
 void func_80049FB8_4ABB8(void);
 void func_8004A0E0_4ACE0(void);

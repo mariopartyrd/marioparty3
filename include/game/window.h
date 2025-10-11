@@ -15,22 +15,25 @@ typedef struct TextWindow {
     /* 0x011 */ char pad11[7];                      /* maybe part of unk_10[8]? */
     /* 0x018 */ s16 unk_18;
     /* 0x01A */ s16 unk_1A;
-    /* 0x01C */ char pad1C[0xD];                    /* maybe part of unk_1A[9]? */
+    /* 0x01C */ char pad1C[4];                      /* maybe part of unk_1A[3]? */
+    /* 0x020 */ s8 unk20;                           /* inferred */
+    /* 0x021 */ char pad21[8];                      /* maybe part of unk20[9]? */
     /* 0x029 */ s8 unk_29;
     /* 0x02A */ s8 unk_2A;
+    /* 0x02B */ char pad2B[1];
     /* 0x02C */ s16 unk_2C;
     /* 0x02E */ s16 unk_2E;
     /* 0x030 */ char pad30[4];                      /* maybe part of unk_2E[3]? */
     /* 0x034 */ s16 unk_34;
     /* 0x036 */ char pad36[6];                      /* maybe part of unk_34[4]? */
-    /* 0x03C */ u16 unk3C;                          /* inferred */
-    /* 0x03E */ u16 unk3E;                          /* inferred */
+    /* 0x03C */ u16 unk3C;
+    /* 0x03E */ u16 unk3E;
     /* 0x040 */ char pad40[8];                      /* maybe part of unk3E[5]? */
-    /* 0x048 */ u16 unk48;                          /* inferred */
-    /* 0x04A */ u16 unk4A;                          /* inferred */
-    /* 0x04C */ s16 unk4C;                          /* inferred */
+    /* 0x048 */ u16 unk48;
+    /* 0x04A */ u16 unk4A;
+    /* 0x04C */ s16 unk4C;
     /* 0x04E */ char pad4E[6];                      /* maybe part of unk4C[4]? */
-    /* 0x054 */ s16 unk54;                          /* inferred */
+    /* 0x054 */ s16 unk54;
     /* 0x056 */ char pad56[8];                      /* maybe part of unk54[5]? */
     /* 0x05E */ s16 unk5E;
     /* 0x060 */ char pad60[2];
@@ -44,8 +47,8 @@ typedef struct TextWindow {
     /* 0x0B2 */ s8 unk_B2[6];
     /* 0x0B8 */ s32 unk_B8[4];
     /* 0x0C8 */ char padC8[0x1AC];                  /* maybe part of unk_B8[0x1B]? */
-    /* 0x274 */ s16 unk274;                         /* inferred */
-    /* 0x276 */ s16 unk276;                         /* inferred */
+    /* 0x274 */ s16 unk274;
+    /* 0x276 */ s16 unk276;
     /* 0x278 */ char pad278[4];                     /* maybe part of unk276[3]? */
 } TextWindow;                                       /* size = 0x27C */
 

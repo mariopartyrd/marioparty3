@@ -52,7 +52,6 @@ extern omObjData* D_800B2390_B2F90;
 extern f32 D_800B23A0_B2FA0;
 extern f32 D_800B23A4_B2FA4;
 extern f32 D_800B23A8_B2FA8;
-extern s8 D_800CB99C_CC59C;
 extern u16 D_800CE214_CEE14;
 extern Process* D_800CE298_CEE98;
 extern s16 D_800D0A38_D1638;

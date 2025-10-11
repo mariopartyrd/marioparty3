@@ -12,7 +12,7 @@ void func_800FFAE0_E78B0_name_81(s16, s16);
 
 void func_800FFAE0_E78B0_name_81(s16 playerNo, s16 arg1) {
     if (playerNo == CUR_PLAYER) {
-        playerNo = Duel_GetCurrentPlayerIndex();
+        playerNo = MBDGetCurrentPlayerIndex();
     }
     
     //??

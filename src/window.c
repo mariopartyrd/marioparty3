@@ -10,7 +10,6 @@ extern u8 D_800A232C_A2F2C[];
 extern u8* D_800A2344_A2F44[];
 extern s16 D_800BDA50_BE650[12];
 extern s16 D_800BDA68_BE668;
-extern s8 D_800CB99C_CC59C;
 extern s8 D_800CD2A4_CDEA4;
 extern void* D_800CE2C4_CEEC4;
 extern Process* D_800D040C_D100C;

@@ -15,9 +15,7 @@ void func_8004A950_4B550(void);
 void func_800F92A0_10CEC0_shared_board(void);
 s32 func_800F933C_10CF5C_shared_board(void);
 s16 func_800EBCD4_FF8F4_shared_board(u8);
-void func_800EC4E4_100104_shared_board(s32, s32, s32);
-void func_8004A7C4_4B3C4(s32);
-void func_8004A72C_4B32C(s32);
+void func_800EC5EC_10020C_shared_board(s16 arg0, s32 arg1, s16 arg2);
 
 extern const char D_801025D0_1161F0_shared_board[];
 extern Vec2f D_80101D5C_11597C_shared_board[];

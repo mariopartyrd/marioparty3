@@ -271,7 +271,7 @@ void Duel_PowerDownPartners(s32 playerIndex) {
     }
 }
 
-Object* Duel_GetPlayerPartnerRef(s32 playerIndex, s32 frontOrBackIndex) {
+Object* MBDGetPlayerPartnerRef(s32 playerIndex, s32 frontOrBackIndex) {
     return Duel_PartnerObjects[playerIndex][frontOrBackIndex];
 }
 
@@ -293,7 +293,7 @@ s32 func_800F89D0_E07A0_name_81(s32 playerIndex, s32 frontOrBackIndex, s16 arg2,
     GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
     
     if (playerIndex == CUR_PLAYER) {
-        playerIndex = Duel_GetCurrentPlayerIndex();
+        playerIndex = MBDGetCurrentPlayerIndex();
     }
 
     if (frontOrBackIndex == PARTNER_FRONT) {
@@ -318,7 +318,7 @@ s32 func_800F8AEC_E08BC_name_81(s32 playerIndex, s32 arg1, s16 arg2, s16 arg3, u
     u16 flagsCopy = flags;
     
     if (playerIndex == CUR_PLAYER) {
-        playerIndex = Duel_GetCurrentPlayerIndex();
+        playerIndex = MBDGetCurrentPlayerIndex();
     }
     
     if (arg1 == 0) {
@@ -362,7 +362,7 @@ void func_800F8CD8_E0AA8_name_81(s32 playerIndex, f32 arg1) {
     GW_PLAYER* player = MBDGetPlayerStruct(playerIndex);
 
     if (playerIndex == PARTNER_NONE) {
-        playerIndex = Duel_GetCurrentPlayerIndex();
+        playerIndex = MBDGetCurrentPlayerIndex();
     }
     
     if (player->stats.partners.frontID != PARTNER_NONE) {
@@ -380,7 +380,7 @@ void func_800F8D9C_E0B6C_name_81(s32 arg0, s32* arg1, s32* arg2) {
     s32 i;
     
     for (i = 0; i < MBD_MAX_PLAYERS; i++) {
-        if (i == Duel_GetCurrentPlayerIndex()) {
+        if (i == MBDGetCurrentPlayerIndex()) {
             curPlayer = MBDGetPlayerStruct(i);
         } else {
             opponent = MBDGetPlayerStruct(i);
@@ -557,7 +557,7 @@ void func_800F924C_E101C_name_81(s32 arg0) {
     s32 i;
     
     sp2C = 0;
-    curPlayerIndex = Duel_GetCurrentPlayerIndex();
+    curPlayerIndex = MBDGetCurrentPlayerIndex();
     opposingPlayerIndex = curPlayerIndex ^ 1;
     player = MBDGetPlayerStruct(curPlayerIndex);
     opposingPlayer = MBDGetPlayerStruct(opposingPlayerIndex);
@@ -650,8 +650,8 @@ void func_800F924C_E101C_name_81(s32 arg0) {
             break;
         }
 
-        sp3C = Duel_GetPlayerPartnerRef(curPlayerIndex, sp34);
-        sp44 = Duel_GetPlayerPartnerRef(opposingPlayerIndex, var_s5);
+        sp3C = MBDGetPlayerPartnerRef(curPlayerIndex, sp34);
+        sp44 = MBDGetPlayerPartnerRef(opposingPlayerIndex, var_s5);
         D_800D037C_D0F7C = 0;
         var_s0 = 0x7F;
         HuPrcChildLink(temp_s6, MBDCameraZoomMotStart(1.0f));
