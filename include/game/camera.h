@@ -33,7 +33,7 @@ typedef struct HuCamera {
     /* 0x0A8 */ s32 unkA8;
     /* 0x0AC */ s32 unkAC;
     /* 0x0B0 */ HuCamMtxs mtxs[3];
-} HuCamera;
+} HuCamera; //0x230 in size?
 
 typedef struct RectF {
 /* 0x00 */ f32 x1;

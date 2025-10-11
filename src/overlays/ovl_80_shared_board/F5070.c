@@ -5,11 +5,14 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1);
 void func_800E1828_F5448_shared_board(s32);
 void func_800E1828_F5448_shared_board(s32);
 
-extern f32 D_80100F00_114B20_shared_board[][2];
-extern s16 D_80102C20_116840_shared_board[];
+#define UNK_SIZE 4
+#define UNK_SIZE2 2
+
+extern f32 D_80100F00_114B20_shared_board[UNK_SIZE][UNK_SIZE2];
+extern s16 D_80102C20_116840_shared_board[UNK_SIZE];
 extern u8 D_80102C48_116868_shared_board;
-extern s16 D_80102C28_116848_shared_board[][2];
-extern omObjData* D_80102C38_116858_shared_board[];
+extern s16 D_80102C28_116848_shared_board[UNK_SIZE][UNK_SIZE2];
+extern omObjData* D_80102C38_116858_shared_board[UNK_SIZE];
 
 void func_800E1450_F5070_shared_board(omObjData* arg0) {
     Vec sp10;
@@ -70,10 +73,10 @@ void func_800E1450_F5070_shared_board(omObjData* arg0) {
 void func_800E17B0_F53D0_shared_board(void) {
     s32 i, j;
 
-    for (i = 0; i < MB_MAX_PLAYERS; i++) {
+    for (i = 0; i < UNK_SIZE; i++) {
         D_80102C20_116840_shared_board[i] = -1;
         D_80102C38_116858_shared_board[i] = 0;
-        for (j = 0; j < 2; j++) {
+        for (j = 0; j < UNK_SIZE2; j++) {
             D_80102C28_116848_shared_board[i][j] = -1;
         }
     }
@@ -91,7 +94,7 @@ void func_800E1828_F5448_shared_board(s32 arg0) {
         D_80102C38_116858_shared_board[arg0] = 0;
     }
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < UNK_SIZE2; i++) {
         if (D_80102C28_116848_shared_board[arg0][i] != -1) {
             HuSprKill(D_80102C28_116848_shared_board[arg0][i]);
             D_80102C28_116848_shared_board[arg0][i] = -1;
@@ -102,7 +105,7 @@ void func_800E1828_F5448_shared_board(s32 arg0) {
 void func_800E18FC_F551C_shared_board(void) {
     s32 i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < UNK_SIZE; i++) {
         func_800E1828_F5448_shared_board(i);
     }
 }
@@ -121,13 +124,13 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
 
     var_s3 = arg1;
     if (D_80102C20_116840_shared_board[arg0] == -1) {
-        if (var_s3 < -0x3E7) {
-            var_s3 = -0x3E7;
+        if (var_s3 < -999) {
+            var_s3 = -999;
         }
-        if (var_s3 >= 0x3E8) {
-            var_s3 = 0x3E7;
+        if (var_s3 > 999) {
+            var_s3 = 999;
         }
-        D_80102C38_116858_shared_board[arg0] = omAddObj(-0x8000, 0U, 0U, -1, func_800E1450_F5070_shared_board);
+        D_80102C38_116858_shared_board[arg0] = omAddObj(-0x8000, 0, 0, -1, func_800E1450_F5070_shared_board);
         D_80102C38_116858_shared_board[arg0]->work[0] = 0;
         D_80102C38_116858_shared_board[arg0]->rot.x = var_s3;
         D_80102C38_116858_shared_board[arg0]->trans.y = 0.0f;
@@ -135,10 +138,11 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
         D_80102C38_116858_shared_board[arg0]->scale.y = 2.0f;
         D_80102C38_116858_shared_board[arg0]->work[3] = arg0;
         D_80102C38_116858_shared_board[arg0]->work[1] = 6;
-        D_80102C20_116840_shared_board[arg0] = temp_v0_2 = HuSprGrpCreate(6U, 5U);
+        D_80102C20_116840_shared_board[arg0] = temp_v0_2 = HuSprGrpCreate(6, 5);
         temp_v0_3 = DataRead(0x00130112);
         D_80102C28_116848_shared_board[arg0][0] = func_80055810_56410(temp_v0_3);
         DataClose(temp_v0_3);
+
         if (var_s3 > 0) {
             temp_v0_3 = DataRead(0x00130213);
         } else {
@@ -150,42 +154,50 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
         func_80055024_55C24(temp_v0_2, 1, D_80102C28_116848_shared_board[arg0][0], 0);
         HuSprPriSet(temp_v0_2, 1, 0x2010U);
         HuSprAttrSet(temp_v0_2, 1, 0x1000);
+
         var_s2 = 2;
         func_80055024_55C24(temp_v0_2, 2, D_80102C28_116848_shared_board[arg0][1], 0);
         func_800550F4_55CF4(temp_v0_2, 2, 1);
+
         if (var_s3 > 0) {
             func_80055140_55D40(temp_v0_2, var_s2, 0xA, 0);
         } else {
             func_80055140_55D40(temp_v0_2, var_s2, 0xB, 0);
         }
         
-        HuSprPriSet(temp_v0_2, var_s2, 0x2010U);
+        HuSprPriSet(temp_v0_2, var_s2, 0x2010);
         HuSprAttrSet(temp_v0_2, var_s2, 0x1000);
+
         var_s2++;
         var_s3 = (var_s3 < 0) ? -var_s3 : var_s3;
+        
         if (var_s3 >= 100) {
             func_80055024_55C24(temp_v0_2, var_s2, D_80102C28_116848_shared_board[arg0][1], 0);
             func_800550F4_55CF4(temp_v0_2, var_s2, 1);
-            func_80055140_55D40((s32) temp_v0_2, var_s2, (var_s3 / 100), 0);
-            HuSprPriSet(temp_v0_2, var_s2, 0x2010U);
+            func_80055140_55D40(temp_v0_2, var_s2, (var_s3 / 100), 0);
+            HuSprPriSet(temp_v0_2, var_s2, 0x2010);
             HuSprAttrSet(temp_v0_2, var_s2, 0x1000);
             var_s2++;
         }
+
         if (var_s3 >= 10) {
             func_80055024_55C24(temp_v0_2, var_s2, D_80102C28_116848_shared_board[arg0][1], 0);
             func_800550F4_55CF4(temp_v0_2, var_s2, 1);
-            func_80055140_55D40((s32) temp_v0_2, var_s2, ((var_s3 / 10) % 10), 0);
+            func_80055140_55D40(temp_v0_2, var_s2, ((var_s3 / 10) % 10), 0);
             HuSprPriSet(temp_v0_2, var_s2, 0x2010U);
             HuSprAttrSet(temp_v0_2, var_s2, 0x1000);
             var_s2 += 1;
         }
+
         var_s3 = var_s3 % 10;
+
         func_80055024_55C24(temp_v0_2, var_s2, D_80102C28_116848_shared_board[arg0][1], 0);
         func_800550F4_55CF4(temp_v0_2, var_s2, 1);
         func_80055140_55D40(temp_v0_2, var_s2, var_s3, 0);
         HuSprPriSet(temp_v0_2, var_s2, 0x2010U);
         HuSprAttrSet(temp_v0_2, var_s2, 0x1000);
         var_s2++;
+        
         if (D_80102C48_116868_shared_board != 0) {
             sp18.x = GwPlayer[arg0].player_obj->coords.x;
             sp18.y = GwPlayer[arg0].player_obj->coords.y + 30.0f;

@@ -246,8 +246,8 @@ void func_800E455C_F817C_shared_board(void) {
 
 void func_800E48F4_F8514_shared_board(void) {
     s32 curPlayerIndex = GwSystem.current_player_index;
-    if (GwPlayer[curPlayerIndex].itemTurn != 0) {
-        D_80102C58_116878_shared_board[5]();
+    if (GwPlayer[curPlayerIndex].itemTurn) {
+        D_80102C58_116878_shared_board[IFUNC_BOWSER_SUIT_END]();
         GwPlayer[curPlayerIndex].itemTurn = 0;
     }
 }
@@ -287,16 +287,16 @@ void FixUpPlayerItemSlots(s32 arg0) {
     s32 i;
 
 
-    if (arg0 == -1) {
+    if (arg0 == CUR_PLAYER) {
         arg0 = GwSystem.current_player_index;
     }
 
     playerItems = GwPlayer[arg0].itemNo;
 
     for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo) - 1; i++) {
-        if (playerItems[i] == -1) {
+        if (playerItems[i] == ITEM_NONE) {
             playerItems[i] = playerItems[i+1];
-            playerItems[i+1] = -1;
+            playerItems[i+1] = ITEM_NONE;
         }
     }
 }
@@ -701,7 +701,7 @@ void DrawSpaces(Gfx** arg0, Mtx* arg1, s32 arg2) {
         gSPDisplayList((*gfxPos)++, D_801013D8_114FF8_shared_board);
         func_80012640_13240(0, gfxPos);
         func_800127C4_133C4(0, gfxPos);
-        func_800E989C_FD4BC_shared_board(&sp50);
+        func_800E989C_FD4BC_shared_board(sp50);
         
         if ((D_80105260_118E80_shared_board == 0) || (var_v0 = 8, (D_80105260_118E80_shared_board != 1))) {
             var_v0 = 0x10;

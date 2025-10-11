@@ -15,7 +15,11 @@ void func_8004A950_4B550(void);
 void func_800F92A0_10CEC0_shared_board(void);
 s32 func_800F933C_10CF5C_shared_board(void);
 s16 func_800EBCD4_FF8F4_shared_board(u8);
+void func_800EC4E4_100104_shared_board(s32, s32, s32);
+void func_8004A7C4_4B3C4(s32);
+void func_8004A72C_4B32C(s32);
 
+extern const char D_801025D0_1161F0_shared_board[];
 extern Vec2f D_80101D5C_11597C_shared_board[];
 extern Vec2f D_80101D84_1159A4_shared_board[];
 extern s16 D_800C9930_CA530;
@@ -37,6 +41,7 @@ extern f32 D_80101BF0_115810_shared_board[][2];
 extern Vec D_80105680_1192A0_shared_board[];
 extern Object* D_801056B0_1192D0_shared_board;
 extern Object* D_801056B4_1192D4_shared_board;
+extern omObjData* D_801056B8_1192D8_shared_board;
 extern s16 D_800A12C8;
 extern s16 D_800C9930_CA530;
 extern f32 D_800C9938_CA538;
@@ -54,6 +59,41 @@ extern u16 D_800CDD68;
 extern s16 gPrevItemBlockSpaceIndexes[10];
 extern s16 gPrevCoinBlockSpaceIndexes[10];
 extern s16 gPrevStarBlockSpaceIndexes[10];
+extern s8 D_80101DAC_1159CC_shared_board[][4][2];
+extern s16 D_80101DCC_1159EC_shared_board[][3];
+
+// s8 D_80101DAC_1159CC_shared_board[4][4][2] = {
+//     {
+//         { 0xFF, 0x01 },
+//         { 0x03, 0x02 },
+//         { 0x03, 0x03 },
+//         { 0x03, 0x03 },
+//     },
+//     {
+//         { 0x00, 0x01 },
+//         { 0xFF, 0x01 },
+//         { 0x01, 0x02 },
+//         { 0x01, 0x02 },
+//     },
+//     {
+//         { 0x00, 0x01 },
+//         { 0x00, 0x01 },
+//         { 0xFF, 0x01 },
+//         { 0x01, 0x02 },
+//     },
+//     {
+//         { 0x00, 0x00 },
+//         { 0x00, 0x01 },
+//         { 0x00, 0x01 },
+//         { 0xFF, 0xFF },
+//     },
+// };
+
+// s16 D_80101DCC_1159EC_shared_board[][3] = {
+//     {0x2D, 0x5A, 100},
+//     {0x46, 0x5F, 100},
+//     {0x55, 0x5F, 0x64}
+// };
 
 void func_800F8610_10C230_shared_board(s32 id, s16 event, u16 stat) {
     omOvlHisData* overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18++];
@@ -817,15 +857,172 @@ s32 func_800F9D1C_10D93C_shared_board(void) {
     return i;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800F9F84_10DBA4_shared_board);
+s32 func_800F9F84_10DBA4_shared_board(s32 playerNo) {
+    s32 randRange;
+    s32 minCoinAmount;
+    s32 starDifference;
+    s32 rank;
+    GW_SYSTEM* system = &GwSystem;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FA104_10DD24_shared_board);
+    starDifference = GwPlayer[system->current_player_index].star - GwPlayer[playerNo].star;
+    
+    if ((GwPlayer[system->current_player_index].star - GwPlayer[playerNo].star) < 0) {
+        starDifference = GwPlayer[playerNo].star - GwPlayer[system->current_player_index].star;
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FA388_10DFA8_shared_board);
+    //@bug this should've been  if (starDifference >= 1) {
+    if (starDifference <= 1) {
+        starDifference = 1;
+    }
+    
+    rank = BoardPlayerRankCalc(system->current_player_index);
+    switch (D_80101DAC_1159CC_shared_board[rank][playerNo][starDifference]) {
+    case 0:
+        randRange = 10; 
+        minCoinAmount = 90;
+        break;
+    case 1:
+        randRange = 20;
+        minCoinAmount = 60;
+        break;
+    case 2:
+        randRange = 20;
+        minCoinAmount = 20;
+        break;
+    default:
+        randRange = 9;
+        minCoinAmount = 1;
+        break;
+    }
+    randRange = (minCoinAmount + func_800EEF80_102BA0_shared_board(randRange)) + 1;
+    return GwPlayer[system->current_player_index].coin * (randRange / 100.0f);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FA448_10E068_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FA640_10E260_shared_board);
+s32 func_800FA104_10DD24_shared_board(u8* arg0) {
+    s32 var_s2 = 0;
+    s16 sp18[4];
+    u8 sp20[4] = {1, 2, 4, 8};
+    s32 j;
+    s32 i;
+    GW_SYSTEM* system = &GwSystem;
+    
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
+        if (i == system->current_player_index) {
+            if (GwPlayer[i].stat & 1) {
+                var_s2 = 1; //why does this change codegen
+                var_s2 = func_800F9D1C_10D93C_shared_board() + 1;
+                sp18[GwPlayer[i].pad] = 0x400;
+            } else {
+                func_8005FE54_60A54(D_80105702_119322_shared_board, sp20[GwPlayer[i].pad]);
+                sp18[GwPlayer[i].pad] = -1;
+            }
+        } else {
+            sp18[GwPlayer[i].pad] = 0;
+        }
+    }
+
+    if (var_s2 != 0) {
+        func_8005B63C_5C23C(D_80105702_119322_shared_board, 2, 2);
+        for (j = 0; var_s2 != 0; j++) {
+            var_s2--;
+            if (var_s2 == 0) {
+                sp18[GwPlayer[system->current_player_index].pad] = -0x8000;
+            }
+            if (j == 0) {
+                func_8005F698_60298(sp18[0], sp18[1], sp18[2], sp18[3], func_800EDC40_101860_shared_board());
+            } else {
+                func_8005F698_60298(sp18[0], sp18[1], sp18[2], sp18[3], 5);
+            }            
+        }
+    } else {
+        func_8005F744_60344(sp18[0], sp18[1], sp18[2], sp18[3]);
+    }
+
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
+        if (arg0[i] == 0) {
+            func_8006010C_60D0C(D_80105702_119322_shared_board, i);
+        }
+    }
+    
+    i = 0;
+    do {
+        i = func_8005E1D8_5EDD8(D_80105702_119322_shared_board, i, 1);
+    } while (arg0[i] == 0);
+    return i;
+}
+
+void func_800FA388_10DFA8_shared_board(void) {
+    omDelObj(D_801056B8_1192D8_shared_board);
+    
+    while (D_801056B0_1192D0_shared_board->unk30.x <= 120.0f) {
+        HuPrcVSleep();
+        D_801056B0_1192D0_shared_board->unk30.x += 3.0f;
+        D_801056B4_1192D4_shared_board->unk30.x += 3.0f;
+    }
+    
+    func_800D9B54_ED774_shared_board(D_801056B0_1192D0_shared_board);
+    func_800D9B54_ED774_shared_board(D_801056B4_1192D4_shared_board);
+}
+
+
+void func_800FA448_10E068_shared_board(void) {
+    char sp20[4];
+    s32 temp_s1;
+    s32 var_s0;
+    GW_SYSTEM* system = &GwSystem;
+
+    if ((GwPlayer[system->current_player_index].bonusCoin == 0) && (GwPlayer[GwSystem.unk_58].bonusCoin == 0)) {
+        func_800EC4E4_100104_shared_board(6, 0x4006, 0x88);
+        func_800E1F28_F5B48_shared_board(system->current_player_index, GwSystem.playerIndexVisitingBowser);
+        func_800F5BF4_109814_shared_board(system->current_player_index, GwSystem.playerIndexVisitingBowser, 0);
+        func_800E1F28_F5B48_shared_board(GwSystem.unk_58, GwSystem.playerIndexVisitingBowser);
+        func_800F5BF4_109814_shared_board(GwSystem.unk_58, GwSystem.playerIndexVisitingBowser, 1);
+    } else {
+        var_s0 = (GwPlayer[system->current_player_index].bonusCoin != 0) ? system->current_player_index : GwSystem.unk_58;
+        temp_s1 = GwSystem.playerIndexVisitingBowser * 2;
+        sprintf(sp20, D_801025D0_1161F0_shared_board, temp_s1);
+        func_800EC70C_10032C_shared_board(6, 0x4005, D_801014A0_1150C0_shared_board[GwPlayer[var_s0].chr], (u32)sp20, 0, 0, 0, 0x88);
+        func_800EC6C8_1002E8_shared_board();
+        func_800EC6EC_10030C_shared_board();
+        if (GwPlayer[system->current_player_index].bonusCoin != 0) {
+            func_800E1F28_F5B48_shared_board(system->current_player_index, temp_s1);
+            func_800F5BF4_109814_shared_board(system->current_player_index, temp_s1, 1);
+        }
+        if (GwPlayer[GwSystem.unk_58].bonusCoin != 0) {
+            func_800E1F28_F5B48_shared_board(GwSystem.unk_58, temp_s1);
+            func_800F5BF4_109814_shared_board(GwSystem.unk_58, temp_s1, 1);
+        }        
+    }
+    
+    func_800FA388_10DFA8_shared_board();
+}
+
+void func_800FA640_10E260_shared_board(GW_PLAYER* arg0, s32 arg1) {
+    D_801056B0_1192D0_shared_board = MBModelCreate(0xCU, 0);
+    Hu3DModelScaleSet(D_801056B0_1192D0_shared_board->omObj1->model[0], 0.0f, 0.0f, 0.0f);
+    func_8001FDE8_209E8(D_801056B0_1192D0_shared_board->omObj1->model[0]);
+    
+    D_801056B0_1192D0_shared_board->flags |= 1;
+    D_801056B4_1192D4_shared_board = MBModelCreate(0x1F, 0);
+    
+    Hu3DModelScaleSet(D_801056B4_1192D4_shared_board->omObj1->model[0], 0.0f, 0.0f, 0.0f);
+    HuVecCopy3F(&D_801056B0_1192D0_shared_board->coords, &arg0->player_obj->coords);
+    HuVecCopy3F(&D_801056B4_1192D4_shared_board->coords, &arg0->player_obj->coords);
+    
+    D_801056B0_1192D0_shared_board->unk30.x = 120.0f;
+    D_801056B4_1192D4_shared_board->unk30.x = 122.0f;
+    
+    while (D_801056B0_1192D0_shared_board->unk30.x > 30.0f) {
+        if (arg1 == 0) {
+            HuPrcVSleep();
+        }
+        D_801056B0_1192D0_shared_board->unk30.x -= 1.0f;
+        D_801056B4_1192D4_shared_board->unk30.x -= 1.0f;
+    }
+    D_801056B8_1192D8_shared_board = omAddObj(0x1F4, 0, 0, -1, func_800F9CA0_10D8C0_shared_board);
+    D_801056B8_1192D8_shared_board->rot.x = 180.0f;
+}
 
 s16 func_800FA818_10E438_shared_board(s32 arg0) {
     GW_SYSTEM* system =  &GwSystem;
@@ -854,7 +1051,70 @@ s16 func_800FA818_10E438_shared_board(s32 arg0) {
     return var_s2;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FA95C_10E57C_shared_board);
+void func_800FA95C_10E57C_shared_board(void) {
+    s32 var_s0;
+    s32 temp_a0_2;
+    s32 var_a0;
+    s32 var_a1;
+    s32 temp_a3;
+    s32 i;
+    GW_SYSTEM* system = &GwSystem;
+    s32 var_s1;
+
+    WipeCreateOut(8, 0x10);
+    HuPrcSleep(17);
+    HuPrcSleep(5);
+    var_s1 = GwSystem.unk_58;
+    var_s0 = GwPlayer[system->current_player_index].cpu_difficulty - GwPlayer[var_s1].cpu_difficulty;
+    
+    if ((GwPlayer[system->current_player_index].cpu_difficulty - GwPlayer[var_s1].cpu_difficulty) < 0) {
+        var_s0 = GwPlayer[GwSystem.unk_58].cpu_difficulty - GwPlayer[system->current_player_index].cpu_difficulty;
+    }
+    
+    if (var_s0 > 2) {
+        var_s0 = 2;
+    }
+    
+    temp_a0_2 = func_800EEF80_102BA0_shared_board(100.0f);
+    for (i = 0; i < 3; i++) {
+        if (!(D_80101DCC_1159EC_shared_board[var_s0][i] < temp_a0_2)) {
+            break;
+        }
+    }
+
+    //this whole block just sets both players to zero coins with pointless extra logic to do so
+    var_a0 = system->current_player_index;
+    var_a1 = var_s1;
+    temp_a3 = var_a0;
+    
+    if (GwPlayer[var_a0].cpu_difficulty < GwPlayer[var_a1].cpu_difficulty) {
+        var_a0 = var_a1;
+        var_a1 = temp_a3;
+    }
+    GwPlayer[var_a0].bonusCoin = 0;
+    GwPlayer[var_a1].bonusCoin = 0;
+    //end of block
+
+    switch(i) {
+    case 0:
+        GwPlayer[var_a0].bonusCoin = 10;
+        break;
+    case 1:
+        GwPlayer[var_a1].bonusCoin = 10;
+        break;
+    }
+
+    D_800D037C_D0F7C = 0;
+    func_8004A7C4_4B3C4(0x1E);
+    HuPrcSleep(0xF);
+    func_8004A72C_4B32C(0x1E);
+    D_800D037C_D0F7C = 1;
+    D_800C9930_CA530 = -1;
+    D_800CE206 = 0;
+    omPrcSetStatBit(omAddPrcObj(func_800F9C68_10D888_shared_board, 0, 0, 0), 0xA0);
+    WipeCreateIn(8, 0x10);
+    HuPrcSleep(17);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FAB98_10E7B8_shared_board);
 
@@ -981,9 +1241,11 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FCA1
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FCA4C_11066C_shared_board);
 
-INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", D_801025CC_1161EC_shared_board);
+// INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", D_801025CC_1161EC_shared_board);
 
-INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", D_801025D0_1161F0_shared_board);
+const char D_801025D0_1161F0_shared_board[] = "%d";
+
+// INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", D_801025D0_1161F0_shared_board);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FCA7C_11069C_shared_board);
 
