@@ -324,39 +324,12 @@ extern s32 D_801055F8_119218_shared_board;
 extern s32 D_80101A50_115670_shared_board[]; //randomly generated items
 extern s32 D_80100F90_114BB0_shared_board;
 extern s32 D_8010197C_11559C_shared_board[]; //item mainFS ID array
-// s32 D_8010197C_11559C_shared_board[] = {
-//     0x0013018E,
-//     0x0013018F,
-//     0x00130190,
-//     0x00130191,
-//     0x00130192,
-//     0x00130193,
-//     0x00130194,
-//     0x00130195,
-//     0x00130196,
-//     0x00130197,
-//     0x00130198,
-//     0x00130199,
-//     0x0013019A,
-//     0x0013019B,
-//     0x0013019C,
-//     0x0013019D,
-//     0x0013019E,
-//     0x0013019F,
-//     0x001301A0,
-//     0x001301A1,
-//     0x0013019D, //toad item bag
-//     0x001301B6, //baby bowser item bag
-// };
 
 extern u8 D_801014C0_1150E0_shared_board[];
-extern s16 D_80105592_1191B2_shared_board[];
 #define SHARED_BOARD_UNK_SIZE_0 4
 extern s16 D_801055FC_11921C_shared_board[SHARED_BOARD_UNK_SIZE_0];
 extern s16 D_80105608_119228_shared_board[SHARED_BOARD_UNK_SIZE_0][3];
 extern s16 D_80101908_115528_shared_board[];
-extern s16 D_80105598_1191B8_shared_board;
-extern s16 D_8010559A_1191BA_shared_board;
 extern s32 D_80101788_1153A8_shared_board;
 extern s32 D_8010178C_1153AC_shared_board;
 extern char D_800D5218_D5E18[];
@@ -367,7 +340,6 @@ extern s16 D_80105588_1191A8_shared_board[];
 extern RGB D_8010188C_1154AC_shared_board[];
 extern s8 D_800D20B1_D2CB1;
 extern s32 D_80101780_1153A0_shared_board;
-extern s16 D_8010559C_1191BC_shared_board[];
 extern s16 D_801018E4_115504_shared_board[17][2];
 extern s32 D_80101790_1153B0_shared_board;
 extern f32 D_801055C8_1191E8_shared_board;

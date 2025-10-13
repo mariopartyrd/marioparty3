@@ -338,7 +338,7 @@ void func_800F3400_107020_shared_board(omObjData* arg0) {
                                 continue;
                             }
 
-                            func_80055024_55C24(temp_s2->playerIndex, j, D_8010559C_1191BC_shared_board[GwPlayer[i].itemNo[j - 11]], 0);
+                            func_80055024_55C24(temp_s2->playerIndex, j, D_80105588_1191A8_shared_board[GwPlayer[i].itemNo[j - 11] + 10], 0);
                             func_800550F4_55CF4(temp_s2->playerIndex, j, 0);
                             HuSprPriSet(temp_s2->playerIndex, j, (i * 5) + 0x478E);
                             HuSprAttrSet(temp_s2->playerIndex, j, 0);
@@ -444,7 +444,7 @@ void func_800F3A80_1076A0_shared_board(s32 arg0) {
     temp_s2 = D_801057E0_119400_shared_board[arg0].playerIndex;
 
     for (i = 0; i < 2; i++) {
-        func_80055024_55C24(temp_s2, i + 2, D_80105592_1191B2_shared_board[i], 0);
+        func_80055024_55C24(temp_s2, i + 2, D_80105588_1191A8_shared_board[i+5], 0);
         HuSprPriSet(temp_s2, i + 2, ((arg0 * 5) + 0x4790));
         HuSprAttrReset(temp_s2, i + 2, 0xFFFF);
         HuSprAttrSet(temp_s2, i + 2, 0x1000);
@@ -502,7 +502,7 @@ void func_800F3E34_107A54_shared_board(s32 arg0) {
     temp_v0 = &D_801057E0_119400_shared_board[arg0];
     temp_v0->prevRank = -1;
     temp_s0 = temp_v0->playerIndex;
-    func_80055024_55C24(temp_s0, 0xA, D_80105598_1191B8_shared_board, 0);
+    func_80055024_55C24(temp_s0, 0xA, D_80105588_1191A8_shared_board[8], 0);
     func_800550F4_55CF4(temp_s0, 0xA, 1);
     func_80055140_55D40(temp_s0, 0xA, 0, 0);
     HuSprPriSet(temp_s0, 0xA, ((arg0 * 5) + 0x478F) & 0xFFFF);
@@ -514,7 +514,7 @@ void func_800F3F0C_107B2C_shared_board(s32 playerIndex) {
     s16 temp_s2;
 
     temp_s2 = D_801057E0_119400_shared_board[playerIndex].playerIndex;
-    func_80055024_55C24(temp_s2, 9, D_8010559A_1191BA_shared_board, 0);
+    func_80055024_55C24(temp_s2, 9, D_80105588_1191A8_shared_board[9], 0);
     func_800550F4_55CF4(temp_s2, 9, 0);
     HuSprPriSet(temp_s2, 9, ((playerIndex * 5) + 0x478E) & 0xFFFF);
     HuSprAttrSet(temp_s2, 9, 0);
@@ -534,7 +534,7 @@ void func_800F3FF4_107C14_shared_board(s32 arg0) {
     for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
         curItem = GwPlayer[arg0].itemNo[i];
         curItem = (curItem == -1) ? 0 : curItem;
-        func_80055024_55C24(temp_s3, i + 0xB, D_8010559C_1191BC_shared_board[curItem], 0);
+        func_80055024_55C24(temp_s3, i + 0xB, D_80105588_1191A8_shared_board[curItem + 10], 0);
         func_800550F4_55CF4(temp_s3, i + 0xB, 0);
         HuSprPriSet(temp_s3, i + 0xB, ((arg0 * 5) + 0x478E));
         HuSprAttrSet(temp_s3, i + 0xB, 0);

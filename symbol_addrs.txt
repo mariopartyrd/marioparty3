@@ -911,6 +911,8 @@ D_8010197C_E974C_name_81 = 0x8010197C; //rom:0xE974C type:char* segment:name_81
 //this must be defined after D_8010197C_E974C_name_81
 D_8010197C_11559C_shared_board = 0x8010197C; //rom:0x11559C size:0x54 segment:shared_board
 
+D_80105588_1191A8_shared_board = 0x80105588; //size:0x3A segment:shared_board
+
 MBDBackClose = 0x800E5000; //rom:0xCCDD0 segment:name_81
 MBDBackCreate = 0x800E5040; //rom:0xCCE10 segment:name_81
 MBDBackLoad = 0x800E52DC; //rom:0xCD0AC segment:name_81
