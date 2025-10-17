@@ -15,7 +15,7 @@ void func_800ED91C_10153C_shared_board(s32, s32, s32);
 void func_80105EA8_31BA18_ChillyWaters(void);
 f32 func_800D8790_EC3B0_shared_board(Vec*);
 void func_800DA748_EE368_shared_board(void*);
-void func_800E2960_F6580_shared_board(s32, void*);
+void MBSetItemSubFunction(s32, void*);
 void func_800EA660_FE280_shared_board(f32);
 void func_800EA6E0_FE300_shared_board(s32, s16);
 void func_800EBCFC_FF91C_shared_board(void*);
@@ -76,7 +76,7 @@ extern s32 D_8011FB80_3356F0_ChillyWaters[4];
 extern void* D_8011FB90_335700_ChillyWaters;
 extern s16 D_8011FB8E_3356FE_ChillyWaters;
 
-//size based on func_80107CC4_31D834_ChillyWaters (calls to func_800E2960_F6580_shared_board)
+//size based on func_80107CC4_31D834_ChillyWaters (calls to MBSetItemSubFunction)
 //not really sure what to call this, it includes the boo event at index 0 for instance
 extern void (*MBItemSubFunctions[22])(void);
 

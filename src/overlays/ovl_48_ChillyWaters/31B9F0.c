@@ -138,28 +138,28 @@ void func_80107CC4_31D834_ChillyWaters(void) {
     space = MBMasuGet(0x8F);
     func_800ECB58_100778_shared_board(&space->coords, &MBMasuGet(0x80)->coords, &sp10);
     func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
-    func_800E2960_F6580_shared_board(0, &func_8010DE7C_3239EC_ChillyWaters); //boo event
-    func_800E2960_F6580_shared_board(1, &func_8010F2FC_324E6C_ChillyWaters); //magic lamp
-    func_800E2960_F6580_shared_board(9, &func_8010F6C4_325234_ChillyWaters);
-    func_800E2960_F6580_shared_board(2, &func_8010F730_3252A0_ChillyWaters); //warp block
-    func_800E2960_F6580_shared_board(3, &func_80117C60_32D7D0_ChillyWaters); //plunder chest
-    func_800E2960_F6580_shared_board(4, &func_8011093C_3264AC_ChillyWaters); //activate bowser suit
-    func_800E2960_F6580_shared_board(5, &func_80110BC8_326738_ChillyWaters); //when landing on a space as bowser suit
-    func_800E2960_F6580_shared_board(6, &func_8010FC24_325794_ChillyWaters); //mushroom/golden mushroom/bowser suit
-    func_800E2960_F6580_shared_board(7, &func_80110194_325D04_ChillyWaters); //dueling glove/boo bell (?)
-    func_800E2960_F6580_shared_board(8, &func_801104E0_326050_ChillyWaters);
-    func_800E2960_F6580_shared_board(0xA, &func_80116F5C_32CACC_ChillyWaters); //poison mushroom
-    func_800E2960_F6580_shared_board(0xB, &func_801177DC_32D34C_ChillyWaters); //reverse mushroom
-    func_800E2960_F6580_shared_board(0xE, &func_80111018_326B88_ChillyWaters);
-    func_800E2960_F6580_shared_board(0xF, &func_801112D8_326E48_ChillyWaters); //bowser phone
-    func_800E2960_F6580_shared_board(0x10, &func_80111678_3271E8_ChillyWaters); //lucky lamp
-    func_800E2960_F6580_shared_board(0x11, &func_80112074_327BE4_ChillyWaters); //skeleton key throw away event
-    func_800E2960_F6580_shared_board(0x12, &func_80112BCC_32873C_ChillyWaters); //boo repellant/koopa kard thrown away
-    func_800E2960_F6580_shared_board(0x13, &func_801138E4_329454_ChillyWaters); //barter box
-    func_800E2960_F6580_shared_board(0x14, &func_80114B80_32A6F0_ChillyWaters); //game guy coin
-    func_800E2960_F6580_shared_board(0x15, &ItemUseWackyWatch); //wacky watch
-    func_800E2960_F6580_shared_board(0xC, &func_80116DAC_32C91C_ChillyWaters);
-    func_800E2960_F6580_shared_board(0xD, &func_801176A4_32D214_ChillyWaters);
+    MBSetItemSubFunction(0, &func_8010DE7C_3239EC_ChillyWaters); //boo event
+    MBSetItemSubFunction(1, &func_8010F2FC_324E6C_ChillyWaters); //magic lamp
+    MBSetItemSubFunction(9, &func_8010F6C4_325234_ChillyWaters);
+    MBSetItemSubFunction(2, &func_8010F730_3252A0_ChillyWaters); //warp block
+    MBSetItemSubFunction(3, &func_80117C60_32D7D0_ChillyWaters); //plunder chest
+    MBSetItemSubFunction(4, &func_8011093C_3264AC_ChillyWaters); //activate bowser suit
+    MBSetItemSubFunction(5, &func_80110BC8_326738_ChillyWaters); //when landing on a space as bowser suit
+    MBSetItemSubFunction(6, &func_8010FC24_325794_ChillyWaters); //mushroom/golden mushroom/bowser suit
+    MBSetItemSubFunction(7, &func_80110194_325D04_ChillyWaters); //dueling glove/boo bell (?)
+    MBSetItemSubFunction(8, &func_801104E0_326050_ChillyWaters);
+    MBSetItemSubFunction(0xA, &func_80116F5C_32CACC_ChillyWaters); //poison mushroom
+    MBSetItemSubFunction(0xB, &func_801177DC_32D34C_ChillyWaters); //reverse mushroom
+    MBSetItemSubFunction(0xE, &func_80111018_326B88_ChillyWaters);
+    MBSetItemSubFunction(0xF, &func_801112D8_326E48_ChillyWaters); //bowser phone
+    MBSetItemSubFunction(0x10, &func_80111678_3271E8_ChillyWaters); //lucky lamp
+    MBSetItemSubFunction(0x11, &func_80112074_327BE4_ChillyWaters); //skeleton key throw away event
+    MBSetItemSubFunction(0x12, &func_80112BCC_32873C_ChillyWaters); //boo repellant/koopa kard thrown away
+    MBSetItemSubFunction(0x13, &func_801138E4_329454_ChillyWaters); //barter box
+    MBSetItemSubFunction(0x14, &func_80114B80_32A6F0_ChillyWaters); //game guy coin
+    MBSetItemSubFunction(0x15, &ItemUseWackyWatch); //wacky watch
+    MBSetItemSubFunction(0xC, &func_80116DAC_32C91C_ChillyWaters);
+    MBSetItemSubFunction(0xD, &func_801176A4_32D214_ChillyWaters);
     func_800DA748_EE368_shared_board(&func_8011C88C_3323FC_ChillyWaters);
 
     for (i = 0; i < ARRAY_COUNT(D_8011D2C0_332E30_ChillyWaters); i++) {

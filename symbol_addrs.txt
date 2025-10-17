@@ -903,7 +903,7 @@ D_80101A74_115694_shared_board = 0x80101A74; //rom:0x115694 size:0x20 segment:sh
 D_80105658_119278_shared_board = 0x80105658; //size:0x04 type:s32 segment:shared_board
 D_800CC0BC_CCCBC = 0x800CC0BC; //size:0x04 type:s32
 D_800CC0C0_CCCC0 = 0x800CC0C0; //size:0x01 type:u8
-
+MBSetItemSubFunction = 0x800E2960; //rom:0xF6580 segment:shared_board
 D_801019D0_1155F0_shared_board = 0x801019D0; //rom:0x1155F0 size:0x4C segment:shared_board
 MBMasuLinkMasuIdGet  = 0x800EB184; //rom:0xFEDA4 segment:shared_board
 

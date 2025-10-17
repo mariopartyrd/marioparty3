@@ -312,7 +312,7 @@ extern OSMesgQueue D_80104928_118548_shared_board;
 extern OSMesgQueue D_801049D0_1185F0_shared_board;
 extern s32 D_800D41B0_D4DB0[];
 extern s32 D_801014A0_1150C0_shared_board[];
-extern void (*MBItemSubFunctions[22])(void); //size based on func_80107CC4_31D834_ChillyWaters (calls to func_800E2960_F6580_shared_board)
+extern void (*MBItemSubFunctions[22])(void); //size based on func_80107CC4_31D834_ChillyWaters (calls to MBSetItemSubFunction)
 extern s32 D_80105654_119274_shared_board;
 extern s32 D_80105630_119250_shared_board[3];
 extern s32 D_80105634_119254_shared_board;
