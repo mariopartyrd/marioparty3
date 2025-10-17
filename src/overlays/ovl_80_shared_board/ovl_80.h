@@ -252,7 +252,7 @@ void func_800EDC58_101878_shared_board(s16, s32);
 void func_800EE2A4_101EC4_shared_board(s16);
 void func_800EDC74_101894_shared_board(s16, s32);
 void func_800EE2C0_101EE0_shared_board(s16);
-void func_800F2304_105F24_shared_board(s32, s16, u16);
+void func_800F2304_105F24_shared_board(s32 playerIndex, s16 arg1, u16 arg2);
 void func_800F6780_10A3A0_shared_board(s32, s32, f32, f32);
 Process* func_8010FB54_3256C4_ChillyWaters(s16, s16, s16, s16, s16, s16);
 void func_800D86F0_EC310_shared_board(s32);

@@ -52,7 +52,7 @@ enum ITEM_FUNCTIONS {
     IFUNC_PLUNDER_CHEST = 3,
     IFUNC_BOWSER_SUIT_BEGIN = 4,
     IFUNC_BOWSER_SUIT_END = 5,
-    IFUNC_MUSHROOM = 6,
+    IFUNC_MUSHROOM = 6, //hand drag event when an item is selected and dragged to a player
 };
 
 enum PARTNERS {

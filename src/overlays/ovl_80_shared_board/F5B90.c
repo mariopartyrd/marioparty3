@@ -63,13 +63,22 @@ s32 func_800E29E8_F6608_shared_board(void) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800E2B24_F6744_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800E2B4C_F676C_shared_board);
+s32 func_800E2B4C_F676C_shared_board(void) {
+    MBItemSubFunctions[8]();
+    GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_114BB0_shared_board] = -1;
+    FixUpPlayerItemSlots(GwSystem.current_player_index);
+    MBItemSubFunctions[10]();
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800E2BCC_F67EC_shared_board);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800E2C4C_F686C_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800E2C74_F6894_shared_board);
+s32 func_800E2C74_F6894_shared_board(void) {
+    MBItemSubFunctions[15]();
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5B90", func_800E2C9C_F68BC_shared_board);
 

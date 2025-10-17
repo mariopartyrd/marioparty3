@@ -356,7 +356,7 @@ void func_800F8D84_10C9A4_shared_board(void) {
     D_800C9938_CA538 = 1.0f;
 
     func_800DF7F4_F3414_shared_board();
-    func_800DB56C_EF18C_shared_board();
+    func_800DB56C_EF18C_shared_board(); //clear lucky 7 flag for buffing golden mushrooms
 
     D_800A12C8 = -1;
     D_800C9930_CA530 = -1;
