@@ -147,4 +147,14 @@ typedef struct Unk800D6B48 {
     s16 unk_18;
 } Unk800D6B48; //sizeof 0x18
 
+typedef struct Unk3 {
+    u8 unk_00;
+    u8 unk_01;
+    s16 unk_02;
+    omObjData* unk_04;
+    s16 winID;
+    char unk_0A[2];
+    void* unk_0C;
+} Unk3; //sizeof 0x10
+
 #endif

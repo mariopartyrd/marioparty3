@@ -202,7 +202,7 @@ void func_800F453C_10815C_shared_board(void);
 void func_800F4874_108494_shared_board(s32, s16, s16);
 void func_800E69D8_FA5F8_shared_board(void);
 void func_800E66E0_FA300_shared_board(void);
-void func_800E21F4_F5E14_shared_board(void*);
+void func_800E21F4_F5E14_shared_board(Unk3*);
 void func_800EC134_FFD54_shared_board(s32);
 void func_800EC1E8_FFE08_shared_board(s32 arg0, char* arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5);
 void func_800EC3C0_FFFE0_shared_board(s32);
