@@ -5,7 +5,7 @@ void func_801061F0_524820_opening(void);
 void func_80110B90_52F1C0_opening(void);
 void func_80110F48_52F578_opening(void);
 void func_80112944_530F74_opening(void);
-void func_80114A2C_53305C_opening(void);
+void opContErrorCreate(void);
 
 extern Vec D_80114BB8_5331E8_opening;
 extern Vec D_80114BC4_5331F4_opening;
@@ -13,79 +13,79 @@ extern RectF D_80114BD0_533200_opening;
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801059A0_523FD0_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801059D0_524000_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opObjectInit);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80105C08_524238_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opTitleObjectSetup);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80105C2C_52425C_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80105C50_524280_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoObjectSetup);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80105C80_5242B0_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opEventInit);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80105C9C_5242CC_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opTitleCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80105CD8_524308_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80105D14_524344_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoEventCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80105D6C_52439C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoMain);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80105F68_524598_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80105FC0_5245F0_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opTitleMain);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106188_5247B8_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opBtnStartCheck);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801061C0_5247F0_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoEndReset);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801061CC_5247FC_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoEndSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801061D8_524808_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoEndGet);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801061F0_524820_opening);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_8010621C_52484C_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801062B0_5248E0_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opAnimIdGet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801062C4_5248F4_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opEspIdGet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801062E0_524910_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opAnimCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106318_524948_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opAnimKill);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106370_5249A0_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opEspCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801063D8_524A08_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opEspKill);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106448_524A78_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_8010647C_524AAC_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprBGCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801064C0_524AF0_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprKill);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801064EC_524B1C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprKillAll);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106524_524B54_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprDispOn);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106554_524B84_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprDispOff);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106584_524BB4_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprBGDispOn);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801065A0_524BD0_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprBGDispOff);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801065BC_524BEC_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprPosSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106614_524C44_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprPosGet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106644_524C74_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprScaleSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106694_524CC4_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprAlphaSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801066CC_524CFC_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprAttrSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106700_524D30_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSprAttrReset);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106734_524D64_opening);
 
@@ -93,49 +93,49 @@ INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106768_524D98_ope
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801067D4_524E04_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106820_524E50_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801068BC_524EEC_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opMotionCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106944_524F74_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelKill);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801069F4_525024_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelKillAll);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106A2C_52505C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelIdGet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106A50_525080_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opMotionIdGet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106A74_5250A4_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelRotSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106ADC_52510C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelPosSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106B50_525180_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelScaleSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106BB8_5251E8_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelPosGet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106C0C_52523C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelRotGet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106C54_525284_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelScaleGet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106C9C_5252CC_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelDispOff);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106CDC_52530C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opModelDispOn);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106D1C_52534C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opMotionFlagSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106D60_525390_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opMotionShiftSet);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106DD0_525400_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106E14_525444_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opMotionSpeedSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106E4C_52547C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opMotionTimeSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106EB0_5254E0_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opMotionEndWait);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106F50_525580_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opMotionEndCheck);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80106FD8_525608_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opMotionSet);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80107048_525678_opening);
 
@@ -187,7 +187,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80107EBC_5264EC_ope
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80107EF4_526524_opening);
 
-void func_801080A8_5266D8_opening(void) {
+void opDemoEventSetup(void) {
     func_801061F0_524820_opening();
     func_80110F48_52F578_opening();
     CameraViewportSet(0, &D_80114BB8_5331E8_opening, &D_80114BC4_5331F4_opening);
@@ -195,7 +195,7 @@ void func_801080A8_5266D8_opening(void) {
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
     func_80112944_530F74_opening();
     func_80110B90_52F1C0_opening();
-    func_80114A2C_53305C_opening();
+    opContErrorCreate();
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80108118_526748_opening);
@@ -210,9 +210,9 @@ INCLUDE_RODATA("asm/nonmatchings/overlays/opening/523FD0", D_80114D9C_5333CC_ope
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/opening/523FD0", D_80114DA8_5333D8_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80108148_526778_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoEvent);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80110B3C_52F16C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoEventKill);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80110B90_52F1C0_opening);
 
@@ -222,13 +222,13 @@ INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80110C04_52F234_ope
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80110D8C_52F3BC_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80110DE8_52F418_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoCharCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80110E80_52F4B0_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoShadowCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80110F10_52F540_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoModelKill);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80110F2C_52F55C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoSprKill);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80110F48_52F578_opening);
 
@@ -272,19 +272,19 @@ INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80111F58_530588_ope
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80112120_530750_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_8011225C_53088C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opTitleSetup);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801124B4_530AE4_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opTitleSprMain);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801128E0_530F10_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opTitleKill);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80112944_530F74_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80112978_530FA8_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoObjKillAll);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801129B0_530FE0_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoObjKill);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80112A10_531040_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoObjCreate);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80112A74_5310A4_opening);
 
@@ -294,17 +294,17 @@ INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80112C8C_5312BC_ope
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80112D30_531360_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80112DD8_531408_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoOutEffMain);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80112FE4_531614_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoOutEffCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801130B8_5316E8_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoGuideInEffMain);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80113240_531870_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoGuideInEffCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80113314_531944_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoStarWaitMain);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80113418_531A48_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opDemoStarWaitCreate);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801134FC_531B2C_opening);
 
@@ -322,32 +322,32 @@ INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114150_532780_ope
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114250_532880_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114384_5329B4_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opWipeDraw);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114464_532A94_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opWipeColorSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801144A8_532AD8_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opWipeInMain);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114628_532C58_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opWipeOutMain);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_8011477C_532DAC_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opWipeKill);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801147D4_532E04_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opWipeInCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_8011487C_532EAC_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opWipeOutCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114924_532F54_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opWipeWhiteInCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114964_532F94_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opWipeWhiteOutCreate);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_801149A4_532FD4_opening);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114A10_533040_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opSleep);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114A2C_53305C_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opContErrorCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114AA8_5330D8_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opContErrorDispOn);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114AD8_533108_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opContErrorDispOff);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", func_80114B08_533138_opening);
+INCLUDE_ASM("asm/nonmatchings/overlays/opening/523FD0", opContErrorKill);

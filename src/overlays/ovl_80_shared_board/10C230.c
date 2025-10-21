@@ -14,7 +14,7 @@ void func_800F2484_1060A4_shared_board(s32);
 void func_8004A950_4B550(void);
 void func_800F92A0_10CEC0_shared_board(void);
 s32 func_800F933C_10CF5C_shared_board(void);
-s16 func_800EBCD4_FF8F4_shared_board(u8);
+s16 MBMasuKakusiBlockGet(u8);
 void func_800EC5EC_10020C_shared_board(s16 arg0, s32 arg1, s16 arg2);
 
 extern const char D_801025D0_1161F0_shared_board[];
@@ -239,7 +239,7 @@ void func_800F89D0_10C5F0_shared_board(s32 arg0, s16 arg1, s32 arg2, s32 unused)
         func_800D9714_ED334_shared_board(MBGetPlayerStruct(i)->player_obj);
         temp_v0 = MBGetPlayerStruct(i)->player_obj;
         temp_v0->flags |= 2;
-        func_800D9AA4_ED6C4_shared_board(MBGetPlayerStruct(i)->player_obj);
+        MBModelDispOff(MBGetPlayerStruct(i)->player_obj);
     }
     
     system = &GwSystem;
@@ -1184,7 +1184,7 @@ void func_800FC594_1101B4_shared_board(void) {
 
     if (GWBoardFlagCheck(0xF) != 0) {
         while (gCoinBlockSpaceIndex == -1 || gCoinBlockSpaceIndex == gStarBlockSpaceIndex || gCoinBlockSpaceIndex == gItemBlockSpaceIndex) {
-            gCoinBlockSpaceIndex = func_800EBCD4_FF8F4_shared_board(D_800D03FC);
+            gCoinBlockSpaceIndex = MBMasuKakusiBlockGet(D_800D03FC);
             D_800D03FC++;
             for (i = 0; i < 10; i++) {
                 if (gCoinBlockSpaceIndex == gPrevCoinBlockSpaceIndexes[i]) {
@@ -1196,7 +1196,7 @@ void func_800FC594_1101B4_shared_board(void) {
             }
         }
         while (gStarBlockSpaceIndex == -1 || gCoinBlockSpaceIndex == gStarBlockSpaceIndex || gItemBlockSpaceIndex == gStarBlockSpaceIndex) {
-            gStarBlockSpaceIndex = func_800EBCD4_FF8F4_shared_board(D_800CE208);
+            gStarBlockSpaceIndex = MBMasuKakusiBlockGet(D_800CE208);
             D_800CE208++;
             for (i = 0; i < 10; i++) {
                 if (gStarBlockSpaceIndex == gPrevStarBlockSpaceIndexes[i]) {
@@ -1209,7 +1209,7 @@ void func_800FC594_1101B4_shared_board(void) {
         }
         
         while (gItemBlockSpaceIndex == -1 || gCoinBlockSpaceIndex == gItemBlockSpaceIndex || gStarBlockSpaceIndex == gItemBlockSpaceIndex) {
-            gItemBlockSpaceIndex = func_800EBCD4_FF8F4_shared_board(D_800CDD68);
+            gItemBlockSpaceIndex = MBMasuKakusiBlockGet(D_800CDD68);
             D_800CDD68++;
             for (i = 0; i < 10; i++) {
                 if (gItemBlockSpaceIndex == gPrevItemBlockSpaceIndexes[i]) {

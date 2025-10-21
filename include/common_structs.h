@@ -34,12 +34,16 @@ typedef struct UnkDiceRelatedInner {
     /* 0x00 */ char pad0[2];
     /* 0x02 */ s8 unk2;
     /* 0x03 */ s8 unk3;
-    /* 0x04 */  s8 unk4;
+    /* 0x04 */ s8 unk4;
     /* 0x05 */ s8 unk5;
     /* 0x06 */ s8 unk6;
     /* 0x07 */ s8 unk7;
     /* 0x08 */ s8 unk8;
-    /* 0x09 */ char unk_09[5];
+    /* 0x08 */ s8 unk9;
+    /* 0x08 */ s8 unkA;
+    /* 0x08 */ s8 unkB;
+    /* 0x08 */ s8 unkC;
+    /* 0x08 */ s8 unkD;
     /* 0x0E */ s16 unk_0E;
     /* 0x10 */ s16 unk_10;
     /* 0x12 */ s16 unk_12;
@@ -61,7 +65,7 @@ typedef struct UnkDiceRelated {
 typedef struct SpaceData {
 /* 0x00 */ s8 unk_00;
 /* 0x01 */ u8 space_type; // enum board_space_type
-/* 0x02 */ s16 unk_02;
+/* 0x02 */ u16 unk_02;
 /* 0x04 */ s32 unk_04;
 /* 0x08 */ Vec coords;
 /* 0x14 */ Vec rot;

@@ -83,7 +83,7 @@ extern u16 D_800D530C_D5F0C;
 extern s16 omobjfirst;
 extern s32 D_800D6A40_D7640;
 extern u16 D_800D6A56_D7656;
-extern s8 D_800D6A90_D7690;
+extern u8 D_800D6A90_D7690;
 extern s16 omnextidx;
 
 

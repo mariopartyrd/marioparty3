@@ -15,4 +15,3 @@
     .type \label, @function
     \label:
 .endm
-

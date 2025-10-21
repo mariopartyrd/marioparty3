@@ -123,7 +123,7 @@ void func_800E2390_F5FB0_shared_board(void) {
     HuPrcSleep(0x10);
     HuAudFXPlay(0x107);
     playerObj->flags |= 2;
-    func_800D9AA4_ED6C4_shared_board(playerObj);
+    MBModelDispOff(playerObj);
     model = MBModelCreate(0x1C, 0);
     func_800D9CE8_ED908_shared_board(model, -1, 0);
     HuVecCopy3F(&model->coords, &playerObj->coords);
@@ -1251,7 +1251,7 @@ extern s16 D_801054B6_1190D6_shared_board;
 extern s16 D_801054B8_1190D8_shared_board[];
 extern s16 D_801052B8_118ED8_shared_board[];
 
-s16 func_800EB5DC_FF1FC_shared_board(u16 arg0, u8 arg1) {
+s16 MBMasuBlockGet(u16 arg0, u8 arg1) {
     u8 var_s1;
     SpaceData* space;
     s32 i, j;
@@ -1308,9 +1308,25 @@ s16 func_800EB5DC_FF1FC_shared_board(u16 arg0, u8 arg1) {
     return i;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", SetSpaceType);
+void MBMasuTypeSet(s16 spaceIdx, s32 newSpaceType) {
+    MBMasuGet(spaceIdx)->space_type = newSpaceType;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EB820_FF440_shared_board);
+//unused, sets all space types in a link to a new type
+void func_800EB820_FF440_shared_board(u16 linkNo, u16 curSpaceType, u8 newSpaceType) {
+    s32 linkSpaceCount;
+    SpaceData* space;
+    s32 i;
+
+    linkSpaceCount = MBMasuLinkNumGet(linkNo);
+    
+    for (i = 0; i < linkSpaceCount; i++) {
+        space = MBMasuGet(MBMasuLinkMasuIdGet(linkNo, i));
+        if (space->space_type == curSpaceType) {
+            space->space_type = newSpaceType;
+        }        
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EB8BC_FF4DC_shared_board);
 
@@ -1328,13 +1344,13 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EBCBC
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EBCC8_FF8E8_shared_board);
 
-s16 func_800EBCD4_FF8F4_shared_board(u8 arg0) {
-    return func_800EB5DC_FF1FC_shared_board((1 << SPACE_BLUE), arg0);
+s16 MBMasuKakusiBlockGet(u8 arg0) {
+    return MBMasuBlockGet((1 << SPACE_BLUE), arg0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EBCFC_FF91C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EBCFC_FF91C_shared_board); //MBMasuBlockTblExtSet
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EBD54_FF974_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBMasuBlockTblSet);
 
 void func_800EBDAC_FF9CC_shared_board(void) {
     s32 var_s0;
@@ -1343,7 +1359,9 @@ void func_800EBDAC_FF9CC_shared_board(void) {
     if (D_801012C4_114EE4_shared_board != NULL) {
         HuMemMemoryFreeTemp(D_801012C4_114EE4_shared_board);
     }
+
     D_801012C4_114EE4_shared_board = HuMemMemoryAllocTemp(SPACE_TYPES_TOTAL * SPACES_MAX);
+
     for (i = 0; i < SPACE_TYPES_TOTAL; i++) {
         var_s0 = 0;
 

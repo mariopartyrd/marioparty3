@@ -17,7 +17,7 @@ void func_8010603C_31BBAC_ChillyWaters(void) {
         GWBoardFlagSet(D_8011D2A0_332E10_ChillyWaters[i]);
     }
 
-    SetSpaceType(D_8011D2B0_332E20_ChillyWaters[system->star_spawn_indices[system->current_star_spawn]], 0xE);
+    MBMasuTypeSet(D_8011D2B0_332E20_ChillyWaters[system->star_spawn_indices[system->current_star_spawn]], 0xE);
     GWBoardFlagClear(D_8011D2A0_332E10_ChillyWaters[system->star_spawn_indices[system->current_star_spawn]]);
 }
 
@@ -128,7 +128,7 @@ void func_80107CC4_31D834_ChillyWaters(void) {
     HmfLightColorSet(2, 0xC8, 0xC8, 0xC8);
     func_800F89D0_10C5F0_shared_board(3, 0x23A, 5, 0);
     func_800EBCFC_FF91C_shared_board(&D_8011D31C_332E8C_ChillyWaters);
-    func_800EBD54_FF974_shared_board(&D_8011D320_332E90_ChillyWaters);
+    MBMasuBlockTblSet(&D_8011D320_332E90_ChillyWaters);
     space = MBMasuGet(0x77);
     func_800ECB58_100778_shared_board(&space->coords, &MBMasuGet(0x73)->coords, &sp10);
     func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
