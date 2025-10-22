@@ -1171,7 +1171,7 @@ void DrawSpaces(Gfx** arg0, Mtx* arg1, s32 arg2) {
             sp74 = 1;
         }
         //iterate over all space types
-        for (i = 0; i < 16; i++) {
+        for (i = 0; i < SPACE_TYPES_TOTAL; i++) {
             if (D_80105220_118E40_shared_board[i] != 0) {
                 if (sp74 == 0) {
                     switch (sp6C[i]) {

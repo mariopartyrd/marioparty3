@@ -130,13 +130,13 @@ void func_80107CC4_31D834_ChillyWaters(void) {
     func_800EBCFC_FF91C_shared_board(&D_8011D31C_332E8C_ChillyWaters);
     MBMasuBlockTblSet(&D_8011D320_332E90_ChillyWaters);
     space = MBMasuGet(0x77);
-    func_800ECB58_100778_shared_board(&space->coords, &MBMasuGet(0x73)->coords, &sp10);
+    HuVecDirectionSafe3F(&space->coords, &MBMasuGet(0x73)->coords, &sp10);
     func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
     space = MBMasuGet(0x7C);
-    func_800ECB58_100778_shared_board(&space->coords, &MBMasuGet(0x6E)->coords, &sp10);
+    HuVecDirectionSafe3F(&space->coords, &MBMasuGet(0x6E)->coords, &sp10);
     func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
     space = MBMasuGet(0x8F);
-    func_800ECB58_100778_shared_board(&space->coords, &MBMasuGet(0x80)->coords, &sp10);
+    HuVecDirectionSafe3F(&space->coords, &MBMasuGet(0x80)->coords, &sp10);
     func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
     MBSetItemSubFunction(0, &func_8010DE7C_3239EC_ChillyWaters); //boo event
     MBSetItemSubFunction(1, &func_8010F2FC_324E6C_ChillyWaters); //magic lamp

@@ -40,7 +40,7 @@ extern s16 D_8010549C_ED26C_name_81;
 extern u8 D_80101AF4_E98C4_name_81[];
 
 void func_800FBF00_E3CD0_name_81(s32 id, s16 event, u16 stat) {
-    omOvlHisData* overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18++];
+    omOvlHisData* overlay = &D_800D20F0_D2CF0[mb_ovlhisidx++];
 
     if (id != -2) {
         if (id == -1) {
@@ -57,14 +57,14 @@ void func_800FBF00_E3CD0_name_81(s32 id, s16 event, u16 stat) {
     overlay->event = event;
     overlay->stat = stat;
     
-    if (D_800D6B48_D7748->unk_18 >= ARRAY_COUNT(D_800D20F0_D2CF0)) {
-        D_800D6B48_D7748->unk_18 = ARRAY_COUNT(D_800D20F0_D2CF0) - 1;
+    if (mb_ovlhisidx >= ARRAY_COUNT(D_800D20F0_D2CF0)) {
+        mb_ovlhisidx = ARRAY_COUNT(D_800D20F0_D2CF0) - 1;
     }
 }
 
 void func_800FBFA4_E3D74_name_81(void) {
     D_800CD2A0_CDEA0.unk_02 = 1;
-    D_800D6B48_D7748->unk_18 = 0;
+    mb_ovlhisidx = 0;
     
     if (GWBoardFlagCheck(1) == 0) {
         func_800FBF00_E3CD0_name_81(-2, 1, 0x4190);
@@ -80,9 +80,9 @@ void func_800FC030_E3E00_name_81(void) {
     omOvlHisData* overlay;
 
     D_800D4190_D4D90.stat = 1;
-    if (D_800D6B48_D7748->unk_18 != 0) {
-        D_800D6B48_D7748->unk_18--;
-        overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18];
+    if (mb_ovlhisidx != 0) {
+        mb_ovlhisidx--;
+        overlay = &D_800D20F0_D2CF0[mb_ovlhisidx];
         omOvlCallEx(overlay->overlayID, overlay->event, overlay->stat);
         return;
     }
@@ -108,12 +108,12 @@ s16 func_800FC114_E3EE4_name_81(void) {
 }
 
 void func_800FC120_E3EF0_name_81(s16 arg0) {
-    s16 temp_v0 = D_800D6B48_D7748->unk_18;
+    s16 temp_v0 = mb_ovlhisidx;
     
-    D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18].event = arg0;
-    D_800D6B48_D7748->unk_18 = temp_v0 + 1;
-    if (D_800D6B48_D7748->unk_18 >= 5) {
-        D_800D6B48_D7748->unk_18 = 4;
+    D_800D20F0_D2CF0[mb_ovlhisidx].event = arg0;
+    mb_ovlhisidx = temp_v0 + 1;
+    if (mb_ovlhisidx >= 5) {
+        mb_ovlhisidx = 4;
     }
     func_800FBF00_E3CD0_name_81(-2, 3, 0x4190);
     omOvlReturnEx(1);

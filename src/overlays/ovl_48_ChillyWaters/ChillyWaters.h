@@ -21,7 +21,6 @@ void func_800EA6E0_FE300_shared_board(s32, s16);
 void MBMasuBlockTblExtSet(void*);
 void MBMasuBlockTblSet(void*);
 void func_800EBDAC_FF9CC_shared_board(void);
-void func_800ECB58_100778_shared_board(Vec*, Vec*, Vec*);
 void func_800F89D0_10C5F0_shared_board(s32 arg0, s16 arg1, s32 arg2, s32 unused);
 void func_80105FB0_31BB20_ChillyWaters(void);
 void func_8010603C_31BBAC_ChillyWaters(void);

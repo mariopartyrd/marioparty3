@@ -89,4 +89,6 @@ void func_8001F9E4_205E4(s16, u8);
 void func_8001FA68_20668(s16);
 void func_8004A7C4_4B3C4(s32);
 void func_8004A72C_4B32C(s32);
+void HuVecDirectionSafe3F(Vec*, Vec*, Vec*);
+void HuVecMulScalar(Vec*, f32, Vec*);
 #endif

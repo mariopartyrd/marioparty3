@@ -24,9 +24,11 @@ extern s16 omovlhisidx;
 
 extern omOvlHisData omovlhis[12];
 extern omOvlHisData D_800D20F0_D2CF0[5];
-extern Unk800D6B48 D_800D6B48_D7748[2];
+// extern Unk800D6B48 D_800D6B48_D7748[2];
 extern u32 D_800D1240_D1E40;
 extern s16 D_800CC0B8_CCCB8;
+
+extern s16 mb_ovlhisidx;
 
 //pause
 extern u8 D_800CB99C_CC59C;

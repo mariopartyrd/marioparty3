@@ -1,8 +1,16 @@
 #include "common.h"
 
+void HuVecNormalize3F(Vec*);
+
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EC3B0", func_800D8790_EC3B0_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EC3B0", func_800D88E8_EC508_shared_board);
+void HuVecNormalizeSafe3F(Vec* vec) {
+    if ((vec->x == 0.0f) && (vec->y == 0.0f) && (vec->z == 0.0f)) {
+        vec->z = 1.0f;
+    }
+    
+    HuVecNormalize3F(vec);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EC3B0", func_800D8958_EC578_shared_board);
 

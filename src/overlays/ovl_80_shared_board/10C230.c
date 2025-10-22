@@ -6,7 +6,7 @@
 void func_800E982C_FD44C_shared_board(f32*);
 void func_800E98E8_FD508_shared_board(f32*);
 void func_800E9748_FD368_shared_board(Vec*);
-void func_800ED35C_100F7C_shared_board(Vec*, Vec*, Vec*, s32);
+Process* func_800ED35C_100F7C_shared_board(Vec*, Vec*, Vec*, s32);
 void func_800035E8_41E8(s16);
 void func_800DB56C_EF18C_shared_board(void);
 void func_800DF7F4_F3414_shared_board(void);
@@ -94,7 +94,7 @@ extern s16 D_80101DCC_1159EC_shared_board[][3];
 // };
 
 void func_800F8610_10C230_shared_board(s32 id, s16 event, u16 stat) {
-    omOvlHisData* overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18++];
+    omOvlHisData* overlay = &D_800D20F0_D2CF0[mb_ovlhisidx++];
 
     if (id != -2) {
         if (id == -1) {
@@ -111,14 +111,14 @@ void func_800F8610_10C230_shared_board(s32 id, s16 event, u16 stat) {
     overlay->event = event;
     overlay->stat = stat;
     
-    if (D_800D6B48_D7748->unk_18 >= ARRAY_COUNT(D_800D20F0_D2CF0)) {
-        D_800D6B48_D7748->unk_18 = ARRAY_COUNT(D_800D20F0_D2CF0) - 1;
+    if (mb_ovlhisidx >= ARRAY_COUNT(D_800D20F0_D2CF0)) {
+        mb_ovlhisidx = ARRAY_COUNT(D_800D20F0_D2CF0) - 1;
     }
 }
 
 void func_800F86B4_10C2D4_shared_board(void) {
     D_800CD2A0_CDEA0.unk_02 = 1;
-    D_800D6B48_D7748->unk_18 = 0;
+    mb_ovlhisidx = 0;
 
     if (GWBoardFlagCheck(1) == 0) {
         if ((GwSystem.current_board_index != 6) && (func_800F8610_10C230_shared_board(-2, 4, 0x192), (GwSystem.current_board_index != 6))) {
@@ -140,9 +140,9 @@ void func_800F8774_10C394_shared_board(void) {
     omOvlHisData* overlay;
 
     D_800D4190_D4D90.stat = 1;
-    if (D_800D6B48_D7748->unk_18 != 0) {
-        D_800D6B48_D7748->unk_18--;
-        overlay = &D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18];
+    if (mb_ovlhisidx != 0) {
+        mb_ovlhisidx--;
+        overlay = &D_800D20F0_D2CF0[mb_ovlhisidx];
         omOvlCallEx(overlay->overlayID, overlay->event, overlay->stat);
         return;
     }
@@ -169,12 +169,12 @@ s16 func_800F8858_10C478_shared_board(void) {
 }
 
 void func_800F8864_10C484_shared_board(s16 arg0) {
-    s16 temp_v0 = D_800D6B48_D7748->unk_18;
+    s16 temp_v0 = mb_ovlhisidx;
     
-    D_800D20F0_D2CF0[D_800D6B48_D7748->unk_18].event = arg0;
-    D_800D6B48_D7748->unk_18 = temp_v0 + 1;
-    if (D_800D6B48_D7748->unk_18 >= 5) {
-        D_800D6B48_D7748->unk_18 = 4;
+    D_800D20F0_D2CF0[mb_ovlhisidx].event = arg0;
+    mb_ovlhisidx = temp_v0 + 1;
+    if (mb_ovlhisidx >= 5) {
+        mb_ovlhisidx = 4;
     }
     func_800F8610_10C230_shared_board(-2, 3, 0x192);
     omOvlReturnEx(1);
@@ -1182,7 +1182,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FC4E
 void func_800FC594_1101B4_shared_board(void) {
     s32 i;
 
-    if (GWBoardFlagCheck(0xF) != 0) {
+    if (GWBoardFlagCheck(0xF)) {
         while (gCoinBlockSpaceIndex == -1 || gCoinBlockSpaceIndex == gStarBlockSpaceIndex || gCoinBlockSpaceIndex == gItemBlockSpaceIndex) {
             gCoinBlockSpaceIndex = MBMasuKakusiBlockGet(D_800D03FC);
             D_800D03FC++;
@@ -1191,7 +1191,7 @@ void func_800FC594_1101B4_shared_board(void) {
                     break;
                 }
             }
-            if (i != 0xA) {
+            if (i != 10) {
                 gCoinBlockSpaceIndex = -1;
             }
         }
@@ -1203,7 +1203,7 @@ void func_800FC594_1101B4_shared_board(void) {
                     break;
                 }
             }
-            if (i != 0xA) {
+            if (i != 10) {
                 gStarBlockSpaceIndex = -1;
             }
         }
@@ -1216,7 +1216,7 @@ void func_800FC594_1101B4_shared_board(void) {
                     break;
                 }
             }
-            if (i != 0xA) {
+            if (i != 10) {
                 gItemBlockSpaceIndex = -1;
             }
         }

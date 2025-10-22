@@ -852,6 +852,9 @@ alSynRemovePlayer = 0x8006FC50; //rom:0x70850
 //sndpdeallocate.c
 alSndpDeallocate = 0x8006D320; //rom:0x6DF20
 
+__osSiAccessQueue = 0x800D6B48; //size:0x18
+mb_ovlhisidx = 0x800D6B60; //size:0x2
+
 D_800A4340_A4F40 = 0x800A4340; //rom:0xA4F40 size:0x4 force_migration:True
 _Printf = 0x80081A40; //rom:0x82640
 proutSprintf = 0x8007BE18; //rom:0x7CA18
@@ -909,6 +912,8 @@ D_800CC0C0_CCCC0 = 0x800CC0C0; //size:0x01 type:u8
 MBSetItemSubFunction = 0x800E2960; //rom:0xF6580 segment:shared_board
 D_801019D0_1155F0_shared_board = 0x801019D0; //rom:0x1155F0 size:0x4C segment:shared_board
 MBMasuLinkMasuIdGet  = 0x800EB184; //rom:0xFEDA4 segment:shared_board
+HuVecNormalizeSafe3F = 0x800D88E8; //rom:0xEC508 segment:shared_board
+HuVecDirectionSafe3F = 0x800ECB58; //rom:0x100778 segment:shared_board
 
 MBMasuBlockGet = 0x800EB5DC; //rom:0xFF1FC segment:shared_board
 MBMasuKakusiBlockGet = 0x800EBCD4; //rom:0xFF8F4 segment:shared_board
