@@ -200,7 +200,7 @@ void func_800FC260_E4030_name_81(s32 arg0, s16 arg1) {
     func_800EB664_D3434_name_81();
 
     D_80105494_ED264_name_81 = -1;
-    D_800D1360_D1F60.unk_20 = 0;
+    D_800D1360.unk_20 = 0;
     D_80105496_ED266_name_81 = 0;
     func_800F4080_DBE50_name_81();
     D_80101A8C_E985C_name_81 = NULL;
@@ -484,7 +484,7 @@ void func_800FCAB4_E4884_name_81(void) {
             }
         }
         
-        WipeCreateOut((s32) D_800D1360_D1F60.unk_20, 0x10);
+        WipeCreateOut((s32) D_800D1360.unk_20, 0x10);
         HuPrcSleep(0x11);
         func_800FC4E4_E42B4_name_81();
         if (D_80105494_ED264_name_81 & 0x20) {
@@ -614,7 +614,7 @@ void func_800FD55C_E532C_name_81(void) {
 
 void func_800FD5F0_E53C0_name_81(void) {
     D_800D1240_D1E40 = 7;
-    D_800D1360_D1F60.unk_20 = 8;
+    D_800D1360.unk_20 = 8;
     func_800FD55C_E532C_name_81();
 }
 
@@ -634,7 +634,7 @@ void func_800FD620_E53F0_name_81(void) {
     D_800D1240_D1E40 = 10;
     D_80105494_ED264_name_81 = 2;
     D_80105496_ED266_name_81 = 1;
-    D_800D1360_D1F60.unk_20 = 10;
+    D_800D1360.unk_20 = 10;
     GwPlayer[0].group = 0;
     GwPlayer[1].group = 1;
     GwPlayer[2].group = 2;
@@ -659,7 +659,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/E3CD0", func_800FF640_E7410_n
 void func_800FF944_E7714_name_81(s16 arg0) {
     D_800CD2A0_CDEA0.unk_02 = 1;
     D_80105494_ED264_name_81 = 0x40;
-    D_800D1360_D1F60.unk_20 = arg0;
+    D_800D1360.unk_20 = arg0;
     D_80105496_ED266_name_81 = 0;
 }
 
@@ -671,7 +671,7 @@ void func_800FF97C_E774C_name_81(s32 arg0, s16 arg1, s16 arg2, s16 arg3) {
     D_80105498_ED268_name_81 = arg0;
     D_8010549C_ED26C_name_81 = arg1;
     D_80105494_ED264_name_81 = 8;
-    D_800D1360_D1F60.unk_20 = arg2;
+    D_800D1360.unk_20 = arg2;
     D_80105496_ED266_name_81 = arg3;
 }
 
@@ -685,7 +685,7 @@ void func_800FF9D8_E77A8_name_81(void) {
 
 void func_800FF9E8_E77B8_name_81(s16 arg0, s16 arg1) {
     D_80105494_ED264_name_81 = 0x10;
-    D_800D1360_D1F60.unk_20 = arg0;
+    D_800D1360.unk_20 = arg0;
     D_80105496_ED266_name_81 = arg1;
     func_800FC108_E3ED8_name_81();
 }

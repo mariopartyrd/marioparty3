@@ -18,6 +18,8 @@ void func_800EBCBC_FF8DC_shared_board(s16);
 void func_800F63F0_10A010_shared_board(s32);
 extern s16 D_80102C50_116870_shared_board;
 extern s16 D_80102C52_116872_shared_board;
+extern s32 D_801012C8_114EE8_shared_board[];
+extern s32 D_80101318_114F38_shared_board[];
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800E2260_F5E80_shared_board);
 
@@ -1118,7 +1120,30 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EA364
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EA4CC_FE0EC_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EA4F0_FE110_shared_board);
+void func_800EA4F0_FE110_shared_board(s16 arg0) {
+    s32* var_s2;
+    s32 i;
+
+    D_80105260_118E80_shared_board = arg0;
+    
+    switch (arg0) {
+    case 0:
+    default:
+        var_s2 = D_801012C8_114EE8_shared_board;
+        break;
+    case 1:
+        var_s2 = D_80101318_114F38_shared_board;
+        break;
+    }
+    
+    for (i = 0; i < SPACE_TYPES_TOTAL; i++) {
+        if (var_s2[i] != 0) {
+            D_80105220_118E40_shared_board[i] = DataRead(var_s2[i]);
+        } else {
+            D_80105220_118E40_shared_board[i] = NULL;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EA5A4_FE1C4_shared_board);
 

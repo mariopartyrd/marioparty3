@@ -914,6 +914,7 @@ D_801019D0_1155F0_shared_board = 0x801019D0; //rom:0x1155F0 size:0x4C segment:sh
 MBMasuLinkMasuIdGet  = 0x800EB184; //rom:0xFEDA4 segment:shared_board
 HuVecNormalizeSafe3F = 0x800D88E8; //rom:0xEC508 segment:shared_board
 HuVecDirectionSafe3F = 0x800ECB58; //rom:0x100778 segment:shared_board
+D_800D1360 = 0x800D1360; //size:0x20
 
 MBMasuBlockGet = 0x800EB5DC; //rom:0xFF1FC segment:shared_board
 MBMasuKakusiBlockGet = 0x800EBCD4; //rom:0xFF8F4 segment:shared_board
