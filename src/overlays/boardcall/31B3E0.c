@@ -1,7 +1,7 @@
 #include "common.h"
 
-void func_800F86B4_10C2D4_shared_board(void);
-void func_800F8774_10C394_shared_board(void);
+void MBOvlCallInit(void);
+void MBOvlCallExec(void);
 
 //entry 0
 void func_801059D0_31B3E0_boardcall(void) {
@@ -11,7 +11,7 @@ void func_801059D0_31B3E0_boardcall(void) {
         GWBoardFlagClear(1);
     }
     omInitObjMan(0xA, 0);
-    func_800F86B4_10C2D4_shared_board();
+    MBOvlCallInit();
     omOvlGotoEx(boardcall, 1, 0x192);
     omOvlHisChg(0, boardcall, 1, 0x192);
 }
@@ -19,7 +19,7 @@ void func_801059D0_31B3E0_boardcall(void) {
 //entry 1
 void func_80105A44_31B454_boardcall(void) {
     omInitObjMan(0xA, 0);
-    func_800F8774_10C394_shared_board();
+    MBOvlCallExec();
 }
 
 void func_80105A6C_31B47C_boardcall(void) {

@@ -99,6 +99,39 @@ Hu3DAnimInit = 0x8001FE20;
 
 MBItemFunctions = 0x80101080; //rom:0x114CA0 size:0x50 segment:shared_board
 MBItemSubFunctions = 0x80102C58; //size:0x58 segment:shared_board
+MBBattleKuriboObjMain = 0x800F9CA0; //rom:0x10D8C0 segment:shared_board
+MBBattleKuriboEnd = 0x800FA388; //rom:0x10DFA8 segment:shared_board
+MBKettouResultExec = 0x800FA448; //rom:0x10E068 segment:shared_board
+MBBattleKuriboStart = 0x800FA640; //rom:0x10E260 segment:shared_board
+MBKettouPlayerBitGet = 0x800FA818; //rom:0x10E438 segment:shared_board
+MBKettouComResultSet = 0x800FA95C; //rom:0x10E57C segment:shared_board
+MBKettouExec = 0x800FAB98; //rom:0x10E7B8 segment:shared_board
+mbBattleKuriboMdl = 0x801056B0; //segment:shared_board
+mbBattleKuriboUpperMdl = 0x801056B4; //segment:shared_board
+mbBattleKuriboObj = 0x801056B8; //segment:shared_board
+MBWinCreate = 0x800EBFE8; //rom:0xFFC08 segment:shared_board
+MBWinOpen = 0x800EC134; //rom:0xFFD54 segment:shared_board
+MBWinInsertOpen = 0x800EC1E8; //rom:0xFFE08 segment:shared_board
+MBDlgResultWinExec = 0x800EC414; //rom:0x100034 segment:shared_board
+MBDlgWinExecY = 0x800EC4E4; //rom:0x100104 segment:shared_board
+MBDlgWinExec = 0x800EC590; //rom:0x1001B0 segment:shared_board
+MBDlgWinCreate = 0x800EC628; //rom:0x100248 segment:shared_board
+MBDlgWinClose = 0x800EC6C8; //rom:0x1002E8 segment:shared_board
+MBDlgWinKill = 0x800EC6EC; //rom:0x10030C segment:shared_board
+MBDlgWinInsertCreateY = 0x800EC70C; //rom:0x10032C segment:shared_board
+MBRand = 0x800EEF80; //rom:0x102BA0 segment:shared_board
+MBOvlCall = 0x800F8610; //rom:0x10C230 segment:shared_board
+MBOvlCallInit = 0x800F86B4; //rom:0x10C2D4 segment:shared_board
+MBOvlCallExec = 0x800F8774; //rom:0x10C394 segment:shared_board
+MBObjectSetup = 0x800F89D0; //rom:0x10C5F0 segment:shared_board
+MBExit = 0x800F8C74; //rom:0x10C894 segment:shared_board
+MBSaveInit = 0x800F8D84; //rom:0x10C9A4 segment:shared_board
+MBNextPlayerTurn = 0x800F92A0; //rom:0x10CEC0 segment:shared_board
+MBLast5Check = 0x800F933C; //rom:0x10CF5C segment:shared_board
+MBBlockMasuUpdate = 0x800FC594; //rom:0x1101B4 segment:shared_board
+MBStart = 0x800FF41C; //rom:0x11303C segment:shared_board
+mbDlgWinId = 0x80105702; //segment:shared_board type:s16
+mbWinId = 0x80105714; //segment:shared_board type:s16
 
 // hmfman
 Hu3DModelCreate = 0x8001A150; //rom:0x1AD50
@@ -682,13 +715,13 @@ MBMasuCreate = 0x800EAE10; //rom:0xFEA30
 SaveFileEncode = 0x8004F5A4; //rom:0x501A4
 gEncodedSaveBuffer = 0x800CD0C0;
 gTotalSpaces = 0x80105210; // type:u16
-gCoinBlockSpaceIndex = 0x800CE1C4; // type:s16
-gStarBlockSpaceIndex = 0x800D124E; // type:s16
-gItemBlockSpaceIndex = 0x800CC4E4; // type:s16
+kakusiMasuCoin = 0x800CE1C4; // type:s16
+kakusiMasuStar = 0x800D124E; // type:s16
+kakusiMasuItem = 0x800CC4E4; // type:s16
 
-gPrevCoinBlockSpaceIndexes = 0x800CE1E8; //type:s16 size:0x14
-gPrevStarBlockSpaceIndexes = 0x800D59E0; //type:s16 size:0x14
-gPrevItemBlockSpaceIndexes = 0x800CC378; //type:s16 size:0x14
+kakusiMasuCoinOld = 0x800CE1E8; //type:s16 size:0x14
+kakusiMasuStarOld = 0x800D59E0; //type:s16 size:0x14
+kakusiMasuItemOld = 0x800CC378; //type:s16 size:0x14
 
 //gTotalTurns = 0x800CD05A;
 //gCurrentTurn = 0x800CD05B;
@@ -853,7 +886,7 @@ alSynRemovePlayer = 0x8006FC50; //rom:0x70850
 alSndpDeallocate = 0x8006D320; //rom:0x6DF20
 
 __osSiAccessQueue = 0x800D6B48; //size:0x18
-mb_ovlhisidx = 0x800D6B60; //size:0x2
+mbovlhisidx = 0x800D6B60; //size:0x2
 
 D_800A4340_A4F40 = 0x800A4340; //rom:0xA4F40 size:0x4 force_migration:True
 _Printf = 0x80081A40; //rom:0x82640
@@ -888,7 +921,7 @@ top_process = 0x800BBA8C;
 process_jmp_buf = 0x800BBA30;
 current_process = 0x800BBA90;
 sPrcSleepLoc = 0x800D20A8;
-D_800D20F0_D2CF0 = 0x800D20F0; //size:0x28
+mbovlhis = 0x800D20F0; //size:0x28
 D_800D6A46_D7646 = 0x800D6A46; //type:u16
 D_800D6A48_D7648 = 0x800D6A48; //type:s16
 D_800CDD54_CE954 = 0x800CDD54; //type:s32 size:0x4
@@ -915,6 +948,7 @@ MBMasuLinkMasuIdGet  = 0x800EB184; //rom:0xFEDA4 segment:shared_board
 HuVecNormalizeSafe3F = 0x800D88E8; //rom:0xEC508 segment:shared_board
 HuVecDirectionSafe3F = 0x800ECB58; //rom:0x100778 segment:shared_board
 D_800D1360 = 0x800D1360; //size:0x20
+MBMain = 0x800FCA7C; //rom:0x11069C segment:shared_board
 
 MBMasuBlockGet = 0x800EB5DC; //rom:0xFF1FC segment:shared_board
 MBMasuKakusiBlockGet = 0x800EBCD4; //rom:0xFF8F4 segment:shared_board
@@ -986,7 +1020,7 @@ PlayerBoardStatusRootPosition = 0x80101794; //rom:0x1153B4 size:0x20 segment:sha
 UpdatePlayerBoardStatus = 0x800F2E30; //rom:0x106A50 segment:shared_board
 ItemUseWackyWatch = 0x80115B80; //rom:0x32B6F0 segment:ChillyWaters
 D_80100F94_114BB4_shared_board = 0x80100F94; //rom:0x114BB4 segment:shared_board size:0x14
-ShowMessage = 0x800EC8EC; //rom:0x10050C segment:shared_board
+MBDlgWinInsertCreate = 0x800EC8EC; //rom:0x10050C segment:shared_board
 
 m254_CreateSystem = 0x8010DDC0; //rom:0x2A9850
 m254_SetFunc = 0x8010DF68; //rom:0x2A99F8

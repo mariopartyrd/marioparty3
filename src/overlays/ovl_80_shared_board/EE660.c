@@ -190,11 +190,11 @@ void func_800DCDD4_F09F4_shared_board(void) {
                             }
     
                             if (temp_s4->unk5 == 7) {
-                                func_800EC590_1001B0_shared_board(0x16, 0x3A24);
+                                MBDlgWinExec(0x16, 0x3A24);
                                 ShowPlayerCoinChange(temp_s3->unk0, 20); //triples, 20 coins
                                 func_800F5D44_109964_shared_board(temp_s3->unk0, 20);
                             } else {
-                                func_800EC590_1001B0_shared_board(0x16, 0x3A26);
+                                MBDlgWinExec(0x16, 0x3A26);
                                 ShowPlayerCoinChange(temp_s3->unk0, 0xA); //doubles, 10 coins
                                 func_800F5D44_109964_shared_board(temp_s3->unk0, 10); 
                             }
@@ -241,12 +241,12 @@ void func_800DCDD4_F09F4_shared_board(void) {
                                 }
                                 
                                 if (temp_s4->unk5 == 7) {
-                                    func_800EC590_1001B0_shared_board(0x16, 0x3A25);
+                                    MBDlgWinExec(0x16, 0x3A25);
                                     ShowPlayerCoinChange(temp_s3->unk0, 0x32);
                                     func_800F5D44_109964_shared_board(temp_s3->unk0, 0x32);
                                     D_800CC0C0_CCCC0 = 1;
                                 } else {
-                                    func_800EC590_1001B0_shared_board(0x16, 0x3A24);
+                                    MBDlgWinExec(0x16, 0x3A24);
                                     ShowPlayerCoinChange(temp_s3->unk0, 0x14);
                                     func_800F5D44_109964_shared_board(temp_s3->unk0, 0x14);
                                 }

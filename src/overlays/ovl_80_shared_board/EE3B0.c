@@ -62,10 +62,10 @@ void func_800DA948_EE568_shared_board(void) {
 //this needs a \0 due to rodata splitting problems
 void func_800DA950_EE570_shared_board(s32 arg0, s16 arg1) {
     
-    sprintf(D_800D5218_D5E18, "KMS: %d", gStarBlockSpaceIndex);
+    sprintf(D_800D5218_D5E18, "KMS: %d", kakusiMasuStar);
     arg0 = (arg0 * 8) & 0xFFF8;
     func_800DA790_EE3B0_shared_board( arg0, (arg1 * 8), D_800D5218_D5E18, 0xF, 9);
-    sprintf(D_800D5218_D5E18, "KMC: %d\0", gCoinBlockSpaceIndex);
+    sprintf(D_800D5218_D5E18, "KMC: %d\0", kakusiMasuCoin);
     func_800DA790_EE3B0_shared_board(arg0, ((arg1 + 1) * 8), D_800D5218_D5E18, 0xF, 9);
 }
 

@@ -301,7 +301,7 @@ void func_80106C78_3C3A98_koopa(void) {
         temp_v0 = DataRead(0x130260);
         D_80109558_3C6378_koopa = func_80055810_56410(temp_v0);
         DataClose(temp_v0);
-        randVal = func_800EEF80_102BA0_shared_board(5.0f);
+        randVal = MBRand(5.0f);
         for (i = 0; i < ARRAY_COUNT(D_80109554_3C6374_koopa); i++) {
             D_80109554_3C6374_koopa[i] = HuSprGrpCreate(1, 5);
             func_80055024_55C24(D_80109554_3C6374_koopa[i], 0, D_80109558_3C6378_koopa, 1);
@@ -414,9 +414,9 @@ s32 func_8010778C_3C45AC_koopa(void) {
     temp_v0 = func_80107658_3C4478_koopa(0, D_801094F4_3C6314_koopa);
     sprintf(D_80109508_3C6328_koopa, D_801094C0_3C62E0_koopa, temp_v0);
     if (GwPlayer[D_801094F4_3C6314_koopa].coin >= temp_v0) {
-        func_800EC1E8_FFE08_shared_board(0x420D, D_80109508_3C6328_koopa, 0, 0, 0, 0);
+        MBWinInsertOpen(0x420D, D_80109508_3C6328_koopa, 0, 0, 0, 0);
     } else {
-        func_800EC1E8_FFE08_shared_board(0x420E, D_80109508_3C6328_koopa, 0, 0, 0, 0);
+        MBWinInsertOpen(0x420E, D_80109508_3C6328_koopa, 0, 0, 0, 0);
     }
     
     func_800EC3C0_FFFE0_shared_board(D_801094F4_3C6314_koopa);
@@ -429,7 +429,7 @@ s32 func_8010778C_3C45AC_koopa(void) {
     func_800F5D44_109964_shared_board(D_801094F4_3C6314_koopa, -temp_v0);
     func_800FF900_113520_shared_board(D_801094F6_3C6316_koopa, 3);
     HuPrcSleep(30);
-    func_800EC134_FFD54_shared_board(0x420F);
+    MBWinOpen(0x420F);
     func_800EC3C0_FFFE0_shared_board(D_801094F4_3C6314_koopa);
     func_800EC3E4_100004_shared_board();
     return 0;
@@ -453,9 +453,9 @@ s32 func_801078CC_3C46EC_koopa(void) {
     }
 
     if (i == 4) {
-        func_800EC1E8_FFE08_shared_board(0x4210, D_80109508_3C6328_koopa, 0, 0, 0, 0);
+        MBWinInsertOpen(0x4210, D_80109508_3C6328_koopa, 0, 0, 0, 0);
     } else {
-        func_800EC1E8_FFE08_shared_board(0x4211, D_80109508_3C6328_koopa, 0, 0, 0, 0);
+        MBWinInsertOpen(0x4211, D_80109508_3C6328_koopa, 0, 0, 0, 0);
     }
     
     func_800EC3C0_FFFE0_shared_board(D_801094F4_3C6314_koopa);
@@ -481,7 +481,7 @@ s32 func_801078CC_3C46EC_koopa(void) {
     }
 
     HuPrcSleep(30);
-    func_800EC134_FFD54_shared_board(0x420F);
+    MBWinOpen(0x420F);
     func_800EC3C0_FFFE0_shared_board(D_801094F4_3C6314_koopa);
     func_800EC3E4_100004_shared_board();
     return 0;

@@ -110,7 +110,7 @@ s32 func_800F7240_10AE60_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
             if (GwPlayer[i].stat & 1) {
                 sp18[GwPlayer[i].pad] = 0x400;
             } else {
-                func_8005FE54_60A54(D_80105702_119322_shared_board, sp20[GwPlayer[i].pad]);
+                func_8005FE54_60A54(mbDlgWinId, sp20[GwPlayer[i].pad]);
                 sp18[GwPlayer[i].pad] = -1;                
             }
 
@@ -120,7 +120,7 @@ s32 func_800F7240_10AE60_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
 
     if (arg2 != 0) {
-        func_8005B63C_5C23C(D_80105702_119322_shared_board, 2, 2);
+        func_8005B63C_5C23C(mbDlgWinId, 2, 2);
         for (j = 0; arg2 != 0; j++) {
             if (--arg2 == 0) {
                 sp18[GwPlayer[GwSystem.current_player_index].pad] = -0x8000;
@@ -137,14 +137,14 @@ s32 func_800F7240_10AE60_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     for (i = 0; i < arg3; i++) {
         if ( (arg0 != 0) && ( (u8*)arg0)[i] == 0) {
-            func_8006010C_60D0C(D_80105702_119322_shared_board, i);
+            func_8006010C_60D0C(mbDlgWinId, i);
         }
     }
 
     i = 0;
 
     while (1) {
-        i = func_8005E1D8_5EDD8(D_80105702_119322_shared_board, i, arg1);
+        i = func_8005E1D8_5EDD8(mbDlgWinId, i, arg1);
         if (arg1 != 0) {
             if ((arg0 == 0) || ((((u8*)arg0)[i] != 0))) {
                 return i;
@@ -169,7 +169,7 @@ void func_800F74E4_10B104_shared_board(void) {
     for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
         boardItemIds = &D_80105630_119250_shared_board[i];
         while (1) {
-            *boardItemIds = D_80101A20_115640_shared_board[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101A20_115640_shared_board))];
+            *boardItemIds = D_80101A20_115640_shared_board[MBRand(ARRAY_COUNT(D_80101A20_115640_shared_board))];
             if (*boardItemIds != prev) {
                 prev = *boardItemIds;
                 break;
@@ -185,7 +185,7 @@ void func_800F7578_10B198_shared_board(void) {
     s32 temp_v0;
     
     while (1) {
-        temp_v0 = temp2[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101A40_115660_shared_board))];
+        temp_v0 = temp2[MBRand(ARRAY_COUNT(D_80101A40_115660_shared_board))];
         D_80105630_119250_shared_board[0] = temp_v0;
         
         if (temp_v0 == 0x12 && GwSystem.unk_52 == 0) {
@@ -208,7 +208,7 @@ void func_800F7578_10B198_shared_board(void) {
     
     while (1) {
         new_var = D_80105630_119250_shared_board[0] =
-        D_80101A40_115660_shared_board[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101A40_115660_shared_board))];
+        D_80101A40_115660_shared_board[MBRand(ARRAY_COUNT(D_80101A40_115660_shared_board))];
         
         if (new_var == 0x12) {
             if (GwSystem.unk_52 == 0) {
@@ -240,7 +240,7 @@ void func_800F7610_10B230_shared_board(void) {
     for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
         boardItemIds = &D_80105630_119250_shared_board[i];
         while (1) {
-            *boardItemIds = D_80101A50_115670_shared_board[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101A50_115670_shared_board))];
+            *boardItemIds = D_80101A50_115670_shared_board[MBRand(ARRAY_COUNT(D_80101A50_115670_shared_board))];
             if (*boardItemIds != prev) {
                 prev = *boardItemIds;
                 break;
@@ -318,9 +318,9 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
         func_80055458_56058(temp_s2->unk_0A, 0, 0xFFU);
 
         if (arg0 == 1) {
-            func_800EC70C_10032C_shared_board(-1, 0x3C0D, (u32) D_80101A94_1156B4_shared_board[D_8010565C_11927C_shared_board], 0U, 0U, 0U, 0U, 0x8C);
-            func_800EC6C8_1002E8_shared_board();
-            func_800EC6EC_10030C_shared_board();
+            MBDlgWinInsertCreateY(-1, 0x3C0D, (u32) D_80101A94_1156B4_shared_board[D_8010565C_11927C_shared_board], 0U, 0U, 0U, 0U, 0x8C);
+            MBDlgWinClose();
+            MBDlgWinKill();
         }
         for (i = 0; i < 70; i += 5) {
             //this sure is a line of code
@@ -350,95 +350,95 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
 
 //probably a file split here
 void func_800F7CF0_10B910_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C08);
+    MBDlgWinExec(CHAR_TOAD, 0x3C08);
 }
 
 void func_800F7D10_10B930_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C09);
+    MBDlgWinExec(CHAR_TOAD, 0x3C09);
     func_800F74E4_10B104_shared_board();
     func_800F76A4_10B2C4_shared_board(0);
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C0A);
+    MBDlgWinExec(CHAR_TOAD, 0x3C0A);
 }
 
 //Toad gives all skeleton keys
 void func_800F7D4C_10B96C_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C0B);
+    MBDlgWinExec(CHAR_TOAD, 0x3C0B);
     D_80105630_119250_shared_board[0] =
     D_80105630_119250_shared_board[1] =
     D_80105630_119250_shared_board[2] = ITEM_SKELETON_KEY;
     func_800F76A4_10B2C4_shared_board(0);
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C0A);
+    MBDlgWinExec(CHAR_TOAD, 0x3C0A);
 }
 
 void func_800F7D98_10B9B8_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C0C);
+    MBDlgWinExec(CHAR_TOAD, 0x3C0C);
     func_800F7578_10B198_shared_board();
     func_800F76A4_10B2C4_shared_board(1);
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C0A);
+    MBDlgWinExec(CHAR_TOAD, 0x3C0A);
 }
 
 void func_800F7DD4_10B9F4_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C12);
+    MBDlgWinExec(CHAR_TOAD, 0x3C12);
     func_800F74E4_10B104_shared_board();
     D_80105638_119258_shared_board = -1;
     func_800F76A4_10B2C4_shared_board(0);
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C0A);
+    MBDlgWinExec(CHAR_TOAD, 0x3C0A);
 }
 
 void func_800F7E1C_10BA3C_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C13);
+    MBDlgWinExec(CHAR_TOAD, 0x3C13);
     D_80105630_119250_shared_board[0] =
     D_80105630_119250_shared_board[1] =
     D_80105630_119250_shared_board[2] = 0;
     func_800F76A4_10B2C4_shared_board(0);
-    func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C0A);
+    MBDlgWinExec(CHAR_TOAD, 0x3C0A);
 }
 
 void func_800F7E64_10BA84_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C1C);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1C);
     func_800F7610_10B230_shared_board();
     D_80105634_119254_shared_board = -1;
     func_800F76A4_10B2C4_shared_board(0);
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C1D);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1D);
 }
 
 void func_800F7EAC_10BACC_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C1E);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1E);
     func_800F7610_10B230_shared_board();
     D_80105638_119258_shared_board = -1;
     func_800F76A4_10B2C4_shared_board(0);
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C1D);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1D);
 }
 
 void func_800F7EF4_10BB14_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C1F);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1F);
     func_800F7610_10B230_shared_board();
     func_800F76A4_10B2C4_shared_board(0);
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C1D);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1D);
 }
 
 //Baby bowser gives all skeleton keys
 void func_800F7F30_10BB50_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C20);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C20);
     D_80105630_119250_shared_board[0] =
     D_80105630_119250_shared_board[1] =
     D_80105630_119250_shared_board[2] = ITEM_SKELETON_KEY;
     func_800F76A4_10B2C4_shared_board(0);
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C1D);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1D);
 }
 
 //Baby bowser gives warp blocks from item space
 void func_800F7F7C_10BB9C_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C21);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C21);
     D_80105630_119250_shared_board[0] =
     D_80105630_119250_shared_board[1] =
     D_80105630_119250_shared_board[2] = ITEM_WARP_BLOCK;
     func_800F76A4_10B2C4_shared_board(0);
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C1D);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1D);
 }
 
 void func_800F7FC8_10BBE8_shared_board(void) {
-    func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C1B);
+    MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1B);
 }
 
 void func_800F7FE8_10BC08_shared_board(void) {
@@ -494,26 +494,26 @@ void func_800F7FE8_10BC08_shared_board(void) {
     
     if (D_80105654_119274_shared_board != 0) {
         HuAudFXPlay(0x298);
-        func_800EC590_1001B0_shared_board(CHAR_TOAD, 0x3C02);
-        func_800EC628_100248_shared_board(CHAR_TOAD, D_80101B10_115730_shared_board[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101B10_115730_shared_board))]);
+        MBDlgWinExec(CHAR_TOAD, 0x3C02);
+        MBDlgWinCreate(CHAR_TOAD, D_80101B10_115730_shared_board[MBRand(ARRAY_COUNT(D_80101B10_115730_shared_board))]);
         if (temp_s1->stat & 1) {
             var_f12 = 3.0f;
-            var_s0 = func_800EEF80_102BA0_shared_board(var_f12) + 1;
+            var_s0 = MBRand(var_f12) + 1;
         }
     } else {
         HuAudFXPlay(0x2A0);
-        func_800EC590_1001B0_shared_board(CHAR_BABY_BOWSER, 0x3C14);
-        func_800EC628_100248_shared_board(CHAR_BABY_BOWSER, D_80101B24_115744_shared_board[func_800EEF80_102BA0_shared_board(ARRAY_COUNT(D_80101B24_115744_shared_board))]);
+        MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C14);
+        MBDlgWinCreate(CHAR_BABY_BOWSER, D_80101B24_115744_shared_board[MBRand(ARRAY_COUNT(D_80101B24_115744_shared_board))]);
         if (temp_s1->stat & 1) {
             var_f12 = 2.0f;
-            var_s0 = func_800EEF80_102BA0_shared_board(var_f12) + 1;
+            var_s0 = MBRand(var_f12) + 1;
         }
     }
     
     temp_s0 = func_800F7240_10AE60_shared_board(0, 1, var_s0, -1);
-    func_800EC6C8_1002E8_shared_board();
-    func_800EC6EC_10030C_shared_board();
-    temp_v1 = func_800EEF80_102BA0_shared_board(10.0f);
+    MBDlgWinClose();
+    MBDlgWinKill();
+    temp_v1 = MBRand(10.0f);
     if (D_80105654_119274_shared_board != 0) {
         switch (temp_s0) {
         case 0:

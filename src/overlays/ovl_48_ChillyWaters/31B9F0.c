@@ -126,7 +126,7 @@ void func_80107CC4_31D834_ChillyWaters(void) {
     omInitObjMan(0xA0, 0x28);
     HmfLightColorSet(1, 0xFF, 0xFF, 0xFF);
     HmfLightColorSet(2, 0xC8, 0xC8, 0xC8);
-    func_800F89D0_10C5F0_shared_board(3, 0x23A, 5, 0);
+    MBObjectSetup(3, 0x23A, 5, 0);
     func_800EBCFC_FF91C_shared_board(&D_8011D31C_332E8C_ChillyWaters);
     MBMasuBlockTblSet(&D_8011D320_332E90_ChillyWaters);
     space = MBMasuGet(0x77);
@@ -195,14 +195,14 @@ void func_80108014_31DB84_ChillyWaters(void) {
     func_800F8D48_10C968_shared_board(&func_8011A8D8_330448_ChillyWaters);
     func_800EBA60_FF680_shared_board(&D_8011E344_333EB4_ChillyWaters);
     func_800EBA60_FF680_shared_board(&D_8011E4D8_334048_ChillyWaters);
-    func_800FF41C_11303C_shared_board(0);
+    MBStart(0);
 }
 
 //entrypoint 3
 void func_80108098_31DC08_ChillyWaters(void) {
     Hu3DCamInit(1);
     func_80107CC4_31D834_ChillyWaters();
-    func_800FF41C_11303C_shared_board(1);
+    MBStart(1);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801080C4_31DC34_ChillyWaters);
@@ -736,7 +736,7 @@ void ItemUseWackyWatch(void) {
         HuPrcVSleep();
     }
     
-    func_800EC414_100034_shared_board(0x3A23);
+    MBDlgResultWinExec(0x3A23);
     GwSystem.unk_52 = 2;
 }
 

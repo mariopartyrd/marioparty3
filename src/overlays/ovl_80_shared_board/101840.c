@@ -238,7 +238,7 @@ void func_800EEE84_102AA4_shared_board(void) {
     }
 }
 
-s32 func_800EEF80_102BA0_shared_board(f32 arg0) { //800EFE20 in duel mode,
+s32 MBRand(f32 arg0) { //800EFE20 in duel mode,
     // rand8 returns an unsigned byte
     u8 randomByte1 = rand8();
     u8 randomByte2 = rand8();
@@ -278,7 +278,7 @@ s32 func_800EF0D8_102CF8_shared_board(s32 arg0) {
     }
 
     while (1) {
-        randVal = func_800EEF80_102BA0_shared_board(100.0f);
+        randVal = MBRand(100.0f);
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
             if (D_801014C0_1150E0_shared_board[i] < randVal) {
                 continue;
