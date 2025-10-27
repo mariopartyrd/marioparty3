@@ -75,7 +75,7 @@ void func_800F2304_105F24_shared_board(s32 playerIndex, s16 arg1, u16 arg2) {
 
     player = MBGetPlayerStruct(playerIndex);
     if (player == MBGetPlayerStruct(CUR_PLAYER)) {
-        func_800D9CE8_ED908_shared_board(player->player_obj, arg1, arg2);
+        MBMotionSet(player->player_obj, arg1, arg2);
         if ((player->itemTurn != 0) & (arg1 < 7)) {
             func_800E6420_FA040_shared_board(arg1, arg2);
         }
@@ -87,7 +87,7 @@ void func_800F2388_105FA8_shared_board(s32 playerIndex, s16 arg1, s16 arg2, s16 
 
     player = MBGetPlayerStruct(playerIndex);
     if (player == MBGetPlayerStruct(CUR_PLAYER)) {
-        func_800D9D84_ED9A4_shared_board(player->player_obj, arg1, arg2, arg3, arg4);
+        MBMotionShiftSet(player->player_obj, arg1, arg2, arg3, arg4);
         if ((player->itemTurn != 0) & (arg1 < 7)) {
             func_800E644C_FA06C_shared_board(arg1, arg2, arg3, arg4);
         }

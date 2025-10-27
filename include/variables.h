@@ -13,7 +13,7 @@ extern s16 D_800CDD58_CE958;
 extern s16 D_800D037C_D0F7C;
 extern s16 D_800D51F8_D5DF8;
 extern UnkOvl81 D_800D1360;
-extern s8 D_800CD280_CDE80;
+extern u8 D_800CD280_CDE80;
 
 extern char D_800D5218_D5E18[];
 extern u16 D_800D5558_D6158[4];
@@ -32,5 +32,8 @@ extern s16 mbovlhisidx;
 
 //pause
 extern u8 D_800CB99C_CC59C;
+
+//esprite
+extern D_800CCF58_CDB58_Struct* D_800CCF58_CDB58;
 
 #endif //_VARIABLES_H_

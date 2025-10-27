@@ -30,20 +30,20 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D7770
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D7790_EB3B0_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D77F0_EB410_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", MBMapFullStarGlowKill);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D786C_EB48C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", MBMapFullStarGrow);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D79D0_EB5F0_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", MBMapFullStarGlowCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D7A3C_EB65C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", MBMapFullLinePosFix);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D7B6C_EB78C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", MBMapFullLineCreate);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D7D00_EB920_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D7D50_EB970_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", MBMapFullLineFlash);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D7F5C_EBB7C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", MBMapFullMain);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", func_800D86F0_EC310_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EB2F0", MBMapFullExec);

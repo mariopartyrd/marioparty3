@@ -1,3 +1,4 @@
+#include "common.h"
 #include "game/hmfman.h"
 #include "game/camera.h"
 #include "macros.h"
@@ -533,9 +534,21 @@ INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F154_1FD54);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F1FC_1FDFC);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F304_1FF04);
+void func_8001F304_1FF04(s16 arg0, s16 arg1) {
+    HmfModel* temp_v0;
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F358_1FF58);
+    temp_v0 = &HmfModelData[arg0];
+    temp_v0->unk02 = arg1;
+    temp_v0->unk03 = 0;
+    temp_v0->unk48 =
+    temp_v0->unk40 = 0.0f;
+    temp_v0->unk44 = 1.0f;
+    temp_v0->unk04 = 0xFF;
+}
+
+f32 func_8001F358_1FF58(s16 arg0) {
+    return D_800CCF58_CDB58[arg0].unk02;
+}
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F38C_1FF8C);
 

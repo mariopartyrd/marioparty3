@@ -73,11 +73,11 @@ void func_80107044_31CBB4_ChillyWaters(void) {
 void func_80107114_31CC84_ChillyWaters(void) {
     D_800CDD58_CE958 = 0;
     D_800D51F8_D5DF8 = 0;
-    func_800E21F4_F5E14_shared_board(D_8011FAC0_335630_ChillyWaters);
-    func_800E21F4_F5E14_shared_board(D_8011FAC4_335634_ChillyWaters);
-    func_800E21F4_F5E14_shared_board(D_8011FAD0_335640_ChillyWaters);
-    func_800E21F4_F5E14_shared_board(D_8011FAC8_335638_ChillyWaters);
-    func_800E21F4_F5E14_shared_board(D_8011FACC_33563C_ChillyWaters);
+    MBHelpWinKill(D_8011FAC0_335630_ChillyWaters);
+    MBHelpWinKill(D_8011FAC4_335634_ChillyWaters);
+    MBHelpWinKill(D_8011FAD0_335640_ChillyWaters);
+    MBHelpWinKill(D_8011FAC8_335638_ChillyWaters);
+    MBHelpWinKill(D_8011FACC_33563C_ChillyWaters);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80107174_31CCE4_ChillyWaters);
@@ -131,36 +131,36 @@ void func_80107CC4_31D834_ChillyWaters(void) {
     MBMasuBlockTblSet(&D_8011D320_332E90_ChillyWaters);
     space = MBMasuGet(0x77);
     HuVecDirectionSafe3F(&space->coords, &MBMasuGet(0x73)->coords, &sp10);
-    func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
+    func_800EA660_FE280_shared_board(MBVecAngleGet(&sp10) + 180.0f);
     space = MBMasuGet(0x7C);
     HuVecDirectionSafe3F(&space->coords, &MBMasuGet(0x6E)->coords, &sp10);
-    func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
+    func_800EA660_FE280_shared_board(MBVecAngleGet(&sp10) + 180.0f);
     space = MBMasuGet(0x8F);
     HuVecDirectionSafe3F(&space->coords, &MBMasuGet(0x80)->coords, &sp10);
-    func_800EA660_FE280_shared_board(func_800D8790_EC3B0_shared_board(&sp10) + 180.0f);
-    MBSetItemSubFunction(0, &func_8010DE7C_3239EC_ChillyWaters); //boo event
-    MBSetItemSubFunction(1, &func_8010F2FC_324E6C_ChillyWaters); //magic lamp
-    MBSetItemSubFunction(9, &func_8010F6C4_325234_ChillyWaters);
-    MBSetItemSubFunction(2, &func_8010F730_3252A0_ChillyWaters); //warp block
-    MBSetItemSubFunction(3, &func_80117C60_32D7D0_ChillyWaters); //plunder chest
-    MBSetItemSubFunction(4, &func_8011093C_3264AC_ChillyWaters); //activate bowser suit
-    MBSetItemSubFunction(5, &func_80110BC8_326738_ChillyWaters); //when landing on a space as bowser suit
-    MBSetItemSubFunction(6, &func_8010FC24_325794_ChillyWaters); //mushroom/golden mushroom/bowser suit
-    MBSetItemSubFunction(7, &func_80110194_325D04_ChillyWaters); //dueling glove/boo bell (?)
-    MBSetItemSubFunction(8, &func_801104E0_326050_ChillyWaters);
-    MBSetItemSubFunction(0xA, &func_80116F5C_32CACC_ChillyWaters); //poison mushroom
-    MBSetItemSubFunction(0xB, &func_801177DC_32D34C_ChillyWaters); //reverse mushroom
-    MBSetItemSubFunction(0xE, &func_80111018_326B88_ChillyWaters);
-    MBSetItemSubFunction(0xF, &func_801112D8_326E48_ChillyWaters); //bowser phone
-    MBSetItemSubFunction(0x10, &func_80111678_3271E8_ChillyWaters); //lucky lamp
-    MBSetItemSubFunction(0x11, &func_80112074_327BE4_ChillyWaters); //skeleton key throw away event
-    MBSetItemSubFunction(0x12, &func_80112BCC_32873C_ChillyWaters); //boo repellant/koopa kard thrown away
-    MBSetItemSubFunction(0x13, &func_801138E4_329454_ChillyWaters); //barter box
-    MBSetItemSubFunction(0x14, &func_80114B80_32A6F0_ChillyWaters); //game guy coin
-    MBSetItemSubFunction(0x15, &ItemUseWackyWatch); //wacky watch
-    MBSetItemSubFunction(0xC, &func_80116DAC_32C91C_ChillyWaters);
-    MBSetItemSubFunction(0xD, &func_801176A4_32D214_ChillyWaters);
-    func_800DA748_EE368_shared_board(&func_8011C88C_3323FC_ChillyWaters);
+    func_800EA660_FE280_shared_board(MBVecAngleGet(&sp10) + 180.0f);
+    MBItemHookSet(0, &func_8010DE7C_3239EC_ChillyWaters); //boo event
+    MBItemHookSet(1, &func_8010F2FC_324E6C_ChillyWaters); //magic lamp
+    MBItemHookSet(9, &func_8010F6C4_325234_ChillyWaters);
+    MBItemHookSet(2, &func_8010F730_3252A0_ChillyWaters); //warp block
+    MBItemHookSet(3, &func_80117C60_32D7D0_ChillyWaters); //plunder chest
+    MBItemHookSet(4, &func_8011093C_3264AC_ChillyWaters); //activate bowser suit
+    MBItemHookSet(5, &func_80110BC8_326738_ChillyWaters); //when landing on a space as bowser suit
+    MBItemHookSet(6, &func_8010FC24_325794_ChillyWaters); //mushroom/golden mushroom/bowser suit
+    MBItemHookSet(7, &func_80110194_325D04_ChillyWaters); //dueling glove/boo bell (?)
+    MBItemHookSet(8, &func_801104E0_326050_ChillyWaters);
+    MBItemHookSet(0xA, &func_80116F5C_32CACC_ChillyWaters); //poison mushroom
+    MBItemHookSet(0xB, &func_801177DC_32D34C_ChillyWaters); //reverse mushroom
+    MBItemHookSet(0xE, &func_80111018_326B88_ChillyWaters);
+    MBItemHookSet(0xF, &func_801112D8_326E48_ChillyWaters); //bowser phone
+    MBItemHookSet(0x10, &func_80111678_3271E8_ChillyWaters); //lucky lamp
+    MBItemHookSet(0x11, &func_80112074_327BE4_ChillyWaters); //skeleton key throw away event
+    MBItemHookSet(0x12, &func_80112BCC_32873C_ChillyWaters); //boo repellant/koopa kard thrown away
+    MBItemHookSet(0x13, &func_801138E4_329454_ChillyWaters); //barter box
+    MBItemHookSet(0x14, &func_80114B80_32A6F0_ChillyWaters); //game guy coin
+    MBItemHookSet(0x15, &ItemUseWackyWatch); //wacky watch
+    MBItemHookSet(0xC, &func_80116DAC_32C91C_ChillyWaters);
+    MBItemHookSet(0xD, &func_801176A4_32D214_ChillyWaters);
+    MBComItemDecideHookSet(&func_8011C88C_3323FC_ChillyWaters);
 
     for (i = 0; i < ARRAY_COUNT(D_8011D2C0_332E30_ChillyWaters); i++) {
         func_800EA6E0_FE300_shared_board(i, D_8011D2C0_332E30_ChillyWaters[i]);
@@ -623,8 +623,8 @@ void ItemUseWackyWatch(void) {
     func_8001C448_1D048(temp_v0_3->omObj1->model[0]);
     Hu3DModelScaleSet(temp_v0_3->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     HuVecCopy3F(&temp_v0_3->coords, &MBGetPlayerStruct(CUR_PLAYER)->player_obj->coords);
-    func_800D9714_ED334_shared_board(temp_v0_3);
-    func_800D9B24_ED744_shared_board(temp_v0_3);
+    MBModelTempAllocFree(temp_v0_3);
+    MBModelDispOff(temp_v0_3);
     HuSprAttrSet(D_8010570C_11932C_shared_board, 0, 0x8000U);
     func_800F68E0_10A500_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), 0);
     func_800F6E4C_10AA6C_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), &sp30, &sp34);

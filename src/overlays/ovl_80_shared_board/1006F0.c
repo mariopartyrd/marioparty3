@@ -10,7 +10,7 @@ typedef struct UnkProcess {
 
 void func_800ECAD0_1006F0_shared_board(s16, s16, Vec*);
 Process* func_800ED35C_100F7C_shared_board(Vec*, Vec*, Vec*, s32);
-void HuVecNormalizeSafe3F(Vec*);
+void MBVecNormalize(Vec*);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECAD0_1006F0_shared_board);
 
@@ -18,7 +18,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECB1
 
 void HuVecDirectionSafe3F(Vec* arg0, Vec* arg1, Vec* arg2) {
     HuVecSubtract(arg2, arg1, arg0);
-    HuVecNormalizeSafe3F(arg2);
+    MBVecNormalize(arg2);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECB90_1007B0_shared_board);

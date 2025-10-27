@@ -67,11 +67,11 @@ u32 func_800EE884_1024A4_shared_board(Object* arg0, s16 arg1, s16 arg2) {
 }
 
 void func_800EE94C_10256C_shared_board(Object* arg0, s16 arg1, s32 arg2) {
-    func_800D9D84_ED9A4_shared_board(arg0, arg1, 0, 0xA, arg2);
+    MBMotionShiftSet(arg0, arg1, 0, 0xA, arg2);
 }
 
 void func_800EE97C_10259C_shared_board(Object* arg0) {
-    while (!(func_800D9E0C_EDA2C_shared_board(arg0) & 1)) {
+    while (!(MBMotionCheck(arg0) & 1)) {
         HuPrcVSleep();
     }
 }

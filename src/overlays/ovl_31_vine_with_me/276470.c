@@ -57,7 +57,7 @@ extern u16 D_800D5558_D6158[];
 s32 _CheckFlag(s32);
 
 // unknown
-extern s8 D_800CD280_CDE80;
+extern u8 D_800CD280_CDE80;
 extern u16 D_800D530C_D5F0C;
 
 extern Gfx* gMainGfxPos;

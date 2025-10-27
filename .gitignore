@@ -11,6 +11,9 @@ include/ld_addrs.h
 marioparty3.ld
 ctx.c
 build.ninja
+tools/gcc_2.7.2
+tools/ido_recomp
+tools/slinky
 .ninja_deps
 .ninja_log
 .vscode/configurationCache.log

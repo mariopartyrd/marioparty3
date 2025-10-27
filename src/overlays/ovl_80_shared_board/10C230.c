@@ -35,8 +35,8 @@ void func_800DE868_F2488_shared_board(void);               /* extern */
 Process* func_800E0A14_F4634_shared_board(void);        /* extern */
 Process* func_800E0C3C_F485C_shared_board(void);        /* extern */
 Process* func_800E0F84_F4BA4_shared_board(void);        /* extern */
-void func_800E3498_F70B8_shared_board(void);               /* extern */
-void func_800E34BC_F70DC_shared_board(void);               /* extern */
+void MBItemKoopaNKinokoExec(void);               /* extern */
+void MBItemKoopaRKinokoExec(void);               /* extern */
 void func_800E455C_F817C_shared_board(void);               /* extern */
 void func_800E4954_F8574_shared_board(void);               /* extern */
 Process* func_800E5CE0_F9900_shared_board(s8);      /* extern */
@@ -310,7 +310,7 @@ void MBObjectSetup(s32 arg0, s16 arg1, s32 arg2, s32 unused) {
     }
     
     func_800D76D0_EB2F0_shared_board(arg2);
-    func_800D8F80_ECBA0_shared_board();
+    MBModelInit();
     func_800F26E8_106308_shared_board();
     func_800E63F0_FA010_shared_board();
     func_800F25D8_1061F8_shared_board(0);
@@ -319,17 +319,17 @@ void MBObjectSetup(s32 arg0, s16 arg1, s32 arg2, s32 unused) {
     func_800F25D8_1061F8_shared_board(3);
     
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
-        func_800D9714_ED334_shared_board(MBGetPlayerStruct(i)->player_obj);
+        MBModelTempAllocFree(MBGetPlayerStruct(i)->player_obj);
         temp_v0 = MBGetPlayerStruct(i)->player_obj;
         temp_v0->flags |= 2;
-        MBModelDispOff(MBGetPlayerStruct(i)->player_obj);
+        MBModelDispOn(MBGetPlayerStruct(i)->player_obj);
     }
     
     system = &GwSystem;
     playerIndex = system->current_player_index;
     if ((playerIndex < 4) && (GwPlayer[system->current_player_index].itemTurn != 0)) {
         func_800E6264_F9E84_shared_board();
-        func_800D9B24_ED744_shared_board(GwPlayer[system->current_player_index].player_obj);
+        MBModelDispOff(GwPlayer[system->current_player_index].player_obj);
     }
     
     func_8001FDE8_209E8(MBGetPlayerStruct(0)->player_obj->omObj1->model[0]);
@@ -338,7 +338,7 @@ void MBObjectSetup(s32 arg0, s16 arg1, s32 arg2, s32 unused) {
     func_8001FDE8_209E8(MBGetPlayerStruct(3)->player_obj->omObj1->model[0]);
     func_800F2A20_106640_shared_board();
     func_800DF854_F3474_shared_board();
-    func_800E17B0_F53D0_shared_board();
+    MBCoinChangeInit();
     func_800E4B60_F8780_shared_board();
     func_800F453C_10815C_shared_board();
     func_800DB5DC_EF1FC_shared_board();
@@ -372,7 +372,7 @@ void MBExit(void) {
     func_8005F524_60124();
     func_800E6404_FA024_shared_board();
     func_800F27C4_1063E4_shared_board();
-    func_800D8FC4_ECBE4_shared_board();
+    MBModelClose();
     func_800D7714_EB334_shared_board();
     func_800EB09C_FECBC_shared_board();
     func_800EA694_FE2B4_shared_board();
@@ -854,7 +854,7 @@ s32 func_800F9A68_10D688_shared_board(s32 arg0) {
     
     space = GET_SPACE_FROM_CHAIN(curPlayer->clink, curPlayer->cidx);
     HuVecSubtract(&sp10, &GET_SPACE_FROM_CHAIN(curPlayer->nlink, curPlayer->nidx)->coords, &space->coords);
-    var_f4 = func_800D8790_EC3B0_shared_board(&sp10);
+    var_f4 = MBVecAngleGet(&sp10);
     if ((var_s4 == 0) || (!(D_80101D5C_11597C_shared_board[var_s4].x < var_f4)) || (!(var_f4 <= D_80101D5C_11597C_shared_board[var_s4].y))) {
         if (var_s2 != 0) {
             if (D_80101D84_1159A4_shared_board[var_s2].x < 0.0f) {
@@ -1042,8 +1042,8 @@ void MBBattleKuriboEnd(void) {
         mbBattleKuriboUpperMdl->unk30.x += 3.0f;
     }
     
-    func_800D9B54_ED774_shared_board(mbBattleKuriboMdl);
-    func_800D9B54_ED774_shared_board(mbBattleKuriboUpperMdl);
+    MBModelKill(mbBattleKuriboMdl);
+    MBModelKill(mbBattleKuriboUpperMdl);
 }
 
 
@@ -1055,9 +1055,9 @@ void MBKettouResultExec(void) {
 
     if ((GwPlayer[system->current_player_index].bonusCoin == 0) && (GwPlayer[GwSystem.unk_58].bonusCoin == 0)) {
         MBDlgWinExecY(6, 0x4006, 0x88);
-        func_800E1F28_F5B48_shared_board(system->current_player_index, GwSystem.playerIndexVisitingBowser);
+        MBCoinChangeStatusCreate(system->current_player_index, GwSystem.playerIndexVisitingBowser);
         func_800F5BF4_109814_shared_board(system->current_player_index, GwSystem.playerIndexVisitingBowser, 0);
-        func_800E1F28_F5B48_shared_board(GwSystem.unk_58, GwSystem.playerIndexVisitingBowser);
+        MBCoinChangeStatusCreate(GwSystem.unk_58, GwSystem.playerIndexVisitingBowser);
         func_800F5BF4_109814_shared_board(GwSystem.unk_58, GwSystem.playerIndexVisitingBowser, 1);
     } else {
         var_s0 = (GwPlayer[system->current_player_index].bonusCoin != 0) ? system->current_player_index : GwSystem.unk_58;
@@ -1067,11 +1067,11 @@ void MBKettouResultExec(void) {
         MBDlgWinClose();
         MBDlgWinKill();
         if (GwPlayer[system->current_player_index].bonusCoin != 0) {
-            func_800E1F28_F5B48_shared_board(system->current_player_index, temp_s1);
+            MBCoinChangeStatusCreate(system->current_player_index, temp_s1);
             func_800F5BF4_109814_shared_board(system->current_player_index, temp_s1, 1);
         }
         if (GwPlayer[GwSystem.unk_58].bonusCoin != 0) {
-            func_800E1F28_F5B48_shared_board(GwSystem.unk_58, temp_s1);
+            MBCoinChangeStatusCreate(GwSystem.unk_58, temp_s1);
             func_800F5BF4_109814_shared_board(GwSystem.unk_58, temp_s1, 1);
         }        
     }
@@ -1515,8 +1515,8 @@ void MBMain(void) {
             func_800F88D0_10C4F0_shared_board();
             goto label654;
         case 14:
-            func_800E3498_F70B8_shared_board();
-            func_800E34BC_F70DC_shared_board();
+            MBItemKoopaNKinokoExec();
+            MBItemKoopaRKinokoExec();
             func_800F88D0_10C4F0_shared_board();
             goto label654;
             
@@ -2054,7 +2054,7 @@ void MBMain(void) {
                 var_s0 += var_v1;
 
                 label181C:
-                ShowPlayerCoinChange(system->current_player_index, var_s0);
+                MBCoinChangeCreate(system->current_player_index, var_s0);
                 func_800F5D44_109964_shared_board(system->current_player_index, var_s0);
                 HuPrcSleep(0x1E);
                 goto label2444;
@@ -2067,7 +2067,7 @@ void MBMain(void) {
                 var_s0 = -var_s0;
                 goto label181C;
                 
-                // ShowPlayerCoinChange(system->current_player_index, var_s0);
+                // MBCoinChangeCreate(system->current_player_index, var_s0);
                 // func_800F5D44_109964_shared_board(system->current_player_index, var_s0);
                 break;
                 
@@ -2295,7 +2295,7 @@ void MBMain(void) {
                 
                 // Create game guy object
                 temp_v0_22 = MBModelCreate(0x3EU, 0);
-                func_800D9714_ED334_shared_board(temp_v0_22);
+                MBModelTempAllocFree(temp_v0_22);
                 HuVecCopy3F(&temp_v0_22->coords, &temp_v0_4->player_obj->coords);
                 temp_v0_22->unk30.x = 100.0f;
                 
@@ -2314,7 +2314,7 @@ void MBMain(void) {
                     GwPlayer[system->current_player_index].gameCoin = 
                         GwPlayer[system->current_player_index].coin;
                     
-                    ShowPlayerCoinChange(system->current_player_index, 
+                    MBCoinChangeCreate(system->current_player_index, 
                                        -GwPlayer[system->current_player_index].coin);
                     func_800F5D44_109964_shared_board(system->current_player_index,
                                                      -GwPlayer[system->current_player_index].coin);
@@ -2339,7 +2339,7 @@ void MBMain(void) {
                         temp_v0_22->unk30.x += 4.0f;
                         HuPrcVSleep();
                     }
-                    func_800D9B54_ED774_shared_board(temp_v0_22);
+                    MBModelKill(temp_v0_22);
                     goto label2488;
                 }
                 
@@ -2348,7 +2348,7 @@ void MBMain(void) {
                     // COM game guy - immediate result
                     WipeCreateOut(9, 0x10);
                     HuPrcSleep(0x11);
-                    func_800D9B54_ED774_shared_board(temp_v0_22);
+                    MBModelKill(temp_v0_22);
                     func_800EE688_1022A8_shared_board(temp_v0_4->player_obj, 0, 0);
                     temp_v0_4->player_obj->unk30.x = 0.0f;
                     HuPrcSleep(5);
@@ -2380,7 +2380,7 @@ void MBMain(void) {
                         MBDlgWinClose();
                         MBDlgWinKill();
                         
-                        ShowPlayerCoinChange(system->current_player_index, var_s1_12);
+                        MBCoinChangeCreate(system->current_player_index, var_s1_12);
                         func_800F5D44_109964_shared_board(system->current_player_index, var_s1_12);
                         HuPrcSleep(0x14);
                         func_800F2304_105F24_shared_board(-1, 5, 0);
@@ -2511,7 +2511,7 @@ void MBMain(void) {
             // Hide all players
             for (var_s1 = 0; var_s1 < 4; var_s1++) {
                 func_800ECC28_100848_shared_board(var_s1);
-                func_800D9CE8_ED908_shared_board(MBGetPlayerStruct(var_s1)->player_obj, -1, 2);
+                MBMotionSet(MBGetPlayerStruct(var_s1)->player_obj, -1, 2);
             }
             
             HuPrcVSleep();

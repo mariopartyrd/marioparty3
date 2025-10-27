@@ -27,17 +27,17 @@ extern u8 D_800D6A90_D7690;
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D8E30_ECA50_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D8E60_ECA80_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBMotionLock);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D8E88_ECAA8_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D8ED4_ECAF4_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBMotionKill);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D8F30_ECB50_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D8F80_ECBA0_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelInit);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D8FC4_ECBE4_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelClose);
 
 UnkBoard3* func_800D9004_ECC24_shared_board(void) {
     UnkBoard3* temp_v0;
@@ -97,7 +97,7 @@ void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
     }
 
     if (!(temp_s0->flags & 4)) {
-        playerObj->rot.y = func_800D8790_EC3B0_shared_board(&temp_s0->unk18);
+        playerObj->rot.y = MBVecAngleGet(&temp_s0->unk18);
     }
     
     playerObj->trans.x = temp_s0->coords.x;
@@ -108,12 +108,12 @@ void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
     playerObj->scale.z = temp_s0->scale.z * temp_s2->unk_04 * func_800E72DC_FAEFC_shared_board();
 
     if (!(D_80105706_119326_shared_board & 1)) {
-        func_800D9AD0_ED6F0_shared_board(temp_s0);
+        MBModelAttrSetDispOff(temp_s0);
         return;
     }
     
     if (!(temp_s0->flags & 8)) {
-        func_800D9AD0_ED6F0_shared_board(temp_s0);
+        MBModelAttrSetDispOff(temp_s0);
         return;
     }
     
@@ -123,36 +123,36 @@ void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
             (sp10[0] < -50.0f) || 
             (sp10[1] > 290.0f) || 
             (sp10[1] < -20.0f)) {
-            func_800D9AD0_ED6F0_shared_board(temp_s0);
+            MBModelAttrSetDispOff(temp_s0);
             return;
         }
     }
-    MBModelAttrSetDispOff(temp_s0);
+    MBModelAttrSetDispOn(temp_s0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D95C4_ED1E4_shared_board);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D95D0_ED1F0_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9714_ED334_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelTempAllocFree);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D975C_ED37C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelLinkCreate);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9A40_ED660_shared_board);
+
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelAttrSetDispOn);
+
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelDispOn);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelAttrSetDispOff);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelDispOff);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9AD0_ED6F0_shared_board);
-
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9B24_ED744_shared_board);
-
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9B54_ED774_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelKill);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9CB0_ED8D0_shared_board);
 
-void func_800D9CE8_ED908_shared_board(Object* arg0, s16 arg1, u16 arg2) {
+void MBMotionSet(Object* arg0, s16 arg1, u16 arg2) {
     u16 var_v1;
 
     if (arg1 == -1) {
@@ -166,9 +166,9 @@ void func_800D9CE8_ED908_shared_board(Object* arg0, s16 arg1, u16 arg2) {
     func_8001C814_1D414(arg0->omObj1->model[0], -1, arg2);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9D84_ED9A4_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBMotionShiftSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9E0C_EDA2C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBMotionCheck);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9E80_EDAA0_shared_board);
 
@@ -176,4 +176,4 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9ED0
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9F5C_EDB7C_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800DA09C_EDCBC_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBPlayerMotionLoad);

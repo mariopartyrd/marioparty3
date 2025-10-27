@@ -14,6 +14,7 @@
 
 // EXTERN
 
+//also defined in variables.h
 typedef struct {
     /* 0x00 */ char unk00[2];
     /* 0x02 */ s16 unk02;

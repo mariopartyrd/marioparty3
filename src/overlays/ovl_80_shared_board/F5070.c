@@ -2,8 +2,8 @@
 #include "ovl_80.h"
 
 void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1);
-void func_800E1828_F5448_shared_board(s32);
-void func_800E1828_F5448_shared_board(s32);
+void MBCoinChangeKill(s32);
+void MBCoinChangeKill(s32);
 
 #define UNK_SIZE 4
 #define UNK_SIZE2 2
@@ -62,7 +62,7 @@ void func_800E1450_F5070_shared_board(omObjData* arg0) {
     }
     
     if (arg0->work[0] >= 30) {
-        func_800E1828_F5448_shared_board(arg0->work[3]);
+        MBCoinChangeKill(arg0->work[3]);
         return;
     }
     
@@ -70,7 +70,7 @@ void func_800E1450_F5070_shared_board(omObjData* arg0) {
 }
 
 
-void func_800E17B0_F53D0_shared_board(void) {
+void MBCoinChangeInit(void) {
     s32 i, j;
 
     for (i = 0; i < UNK_SIZE; i++) {
@@ -82,7 +82,7 @@ void func_800E17B0_F53D0_shared_board(void) {
     }
 }
 
-void func_800E1828_F5448_shared_board(s32 arg0) {
+void MBCoinChangeKill(s32 arg0) {
     s32 i;
     
     if (D_80102C20_116840_shared_board[arg0] != -1) {
@@ -106,7 +106,7 @@ void func_800E18FC_F551C_shared_board(void) {
     s32 i;
 
     for (i = 0; i < UNK_SIZE; i++) {
-        func_800E1828_F5448_shared_board(i);
+        MBCoinChangeKill(i);
     }
 }
 
@@ -223,12 +223,12 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
     }
 }
 
-void func_800E1F28_F5B48_shared_board(s32 arg0, s32 arg1) {
+void MBCoinChangeStatusCreate(s32 arg0, s32 arg1) {
     D_80102C48_116868_shared_board = 0;
     func_800E1934_F5554_shared_board(arg0, arg1);
 }
 
-void ShowPlayerCoinChange(s32 player, s32 coins) {
+void MBCoinChangeCreate(s32 player, s32 coins) {
     D_80102C48_116868_shared_board = 1;
     func_800E1934_F5554_shared_board(player, coins);
 }

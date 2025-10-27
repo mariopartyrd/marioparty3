@@ -230,7 +230,7 @@ void func_80106AB8_3C38D8_koopa(void) {
     }
     
     if (D_80109350_3C6170_koopa != 0) {
-        func_800E21F4_F5E14_shared_board(D_80109350_3C6170_koopa);
+        MBHelpWinKill(D_80109350_3C6170_koopa);
         D_80109350_3C6170_koopa = 0;
     }
     
@@ -422,7 +422,7 @@ s32 func_8010778C_3C45AC_koopa(void) {
     func_800EC3C0_FFFE0_shared_board(D_801094F4_3C6314_koopa);
     func_800EC3E4_100004_shared_board();
     func_80107724_3C4544_koopa();
-    func_800D9D84_ED9A4_shared_board(D_801094F8_3C6318_koopa, 2, 0, 5, 0);
+    MBMotionShiftSet(D_801094F8_3C6318_koopa, 2, 0, 5, 0);
     func_800EE884_1024A4_shared_board(D_801094F8_3C6318_koopa, -1, 2);
     HuPrcSleep(14);
     HuAudFXPlay(0x29F);
@@ -462,7 +462,7 @@ s32 func_801078CC_3C46EC_koopa(void) {
     func_800EC3E4_100004_shared_board();
     func_800F4994_1085B4_shared_board(0);
     HuPrcSleep(20);
-    func_800D9D84_ED9A4_shared_board(D_801094F8_3C6318_koopa, 2, 0, 5, 0);
+    MBMotionShiftSet(D_801094F8_3C6318_koopa, 2, 0, 5, 0);
     func_800EE884_1024A4_shared_board(D_801094F8_3C6318_koopa, -1, 2);
     HuPrcSleep(14);
     HuAudFXPlay(0x29F);

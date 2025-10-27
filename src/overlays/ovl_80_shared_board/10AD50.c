@@ -340,7 +340,7 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
         }
         
         omDelObj(obj);
-        func_800D9B54_ED774_shared_board(D_80105628_119248_shared_board);
+        MBModelKill(D_80105628_119248_shared_board);
     }
     
     func_800F6BC4_10A7E4_shared_board(-1);
@@ -472,9 +472,9 @@ void func_800F7FE8_10BC08_shared_board(void) {
     func_8001C8A8_1D4A8(D_80105658_119278_shared_board, 1);
     func_8000CD00_D900(D_80105658_119278_shared_board, 1.0f, 20.0f, 1.0f);
     func_8000D018_DC18(D_80105658_119278_shared_board, 15.0f);
-    func_800D9714_ED334_shared_board(D_80105620_119240_shared_board);
+    MBModelTempAllocFree(D_80105620_119240_shared_board);
     D_80105620_119240_shared_board->flags |= 1;
-    func_800D9714_ED334_shared_board(D_80105624_119244_shared_board);
+    MBModelTempAllocFree(D_80105624_119244_shared_board);
     HuVecCopy3F(&D_80105620_119240_shared_board->coords, &temp_s1->player_obj->coords);
     HuVecCopy3F(&D_80105624_119244_shared_board->coords, &temp_s1->player_obj->coords);
     
@@ -598,8 +598,8 @@ void func_800F7FE8_10BC08_shared_board(void) {
     }
 
     func_8000D044_DC44(D_80105658_119278_shared_board);
-    func_800D9B54_ED774_shared_board(D_80105620_119240_shared_board);
-    func_800D9B54_ED774_shared_board(D_80105624_119244_shared_board);
+    MBModelKill(D_80105620_119240_shared_board);
+    MBModelKill(D_80105624_119244_shared_board);
 }
 
 

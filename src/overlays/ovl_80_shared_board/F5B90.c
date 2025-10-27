@@ -54,7 +54,7 @@ Unk3* func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2) {
     return temp_v0;
 }
 
-void func_800E21F4_F5E14_shared_board(Unk3* arg0) {
+void MBHelpWinKill(Unk3* arg0) {
     if (arg0 != NULL) {
         arg0->unk_04->data = NULL;
         omDelObj(arg0->unk_04);
