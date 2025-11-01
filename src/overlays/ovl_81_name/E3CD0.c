@@ -24,14 +24,14 @@ extern f32 D_800C9938_CA538;
 extern s16 D_800CE1D0_CEDD0;
 extern s16 D_800CE206;
 extern s16 D_800D124C_D1E4C;
-extern s32 D_800D41C0_D4DC0;
+extern s32 mbWalkNum;
 extern s16 D_80101A50_E9820_name_81;
 extern s32 D_80101A98_E9868_name_81;
 extern void (*D_80101A8C_E985C_name_81)(void);
 extern s32 D_80101A70_E9840_name_81[];
 extern s32 D_80101A54_E9824_name_81[];
 extern s16 D_800D6A48_D7648;
-extern s32 D_800A12DC;
+extern s32 mbTurnOnF;
 extern s16 D_800C9930_CA530;
 extern s16 D_800CE204;
 extern s16 D_800CE206;
@@ -120,7 +120,7 @@ void func_800FC120_E3EF0_name_81(s16 arg0) {
 }
 
 s32 func_800FC18C_E3F5C_name_81(void) {
-    return D_800D1240_D1E40;
+    return mbGameMode;
 }
 
 void func_800FC198_E3F68_name_81(omObjData* obj) {
@@ -271,8 +271,8 @@ void func_800FC5D8_E43A8_name_81(void) {
     GW_COMMON* common = &GwCommon;
     s32 i, j;
 
-    D_800D1240_D1E40 = 0;
-    D_800D41C0_D4DC0 = 0;
+    mbGameMode = 0;
+    mbWalkNum = 0;
     D_800CE1D0_CEDD0 = 0;
     D_800D124C_D1E4C = 0;
     D_80101A50_E9820_name_81 = 0;
@@ -441,7 +441,7 @@ void func_800FC9FC_E47CC_name_81(void) {
     GW_SYSTEM* system = &GwSystem;
 
     system->current_player_index++;
-    if ((system->current_player_index >= 2) && (system->current_player_index = 0, (D_800A12DC == 0))) {
+    if ((system->current_player_index >= 2) && (system->current_player_index = 0, (mbTurnOnF == 0))) {
         system->current_turn++;
         if ((system->current_board_index == 4) && (system->total_turns == 50)) {
             if (system->current_turn > 20) {
@@ -613,7 +613,7 @@ void func_800FD55C_E532C_name_81(void) {
 }
 
 void func_800FD5F0_E53C0_name_81(void) {
-    D_800D1240_D1E40 = 7;
+    mbGameMode = 7;
     D_800D1360.unk_20 = 8;
     func_800FD55C_E532C_name_81();
 }
@@ -625,13 +625,13 @@ void func_800FD620_E53F0_name_81(void) {
 
     temp_s0 = MBDGetPlayerStruct(CUR_PLAYER);
     temp_s1 = HuPrcCurrentGet();
-    D_800D037C_D0F7C = 0;
+    mbItemBtnF = 0;
     func_8001FDE8_209E8(temp_s0->player_obj->omObj1->model[0]);
     func_800F8C68_E0A38_name_81(GwSystem.current_player_index);
     D_800A12D4 = 0;
     HuPrcChildLink(temp_s1, func_800E0888_C8658_name_81());
     HuPrcChildWait();
-    D_800D1240_D1E40 = 10;
+    mbGameMode = 10;
     D_80105494_ED264_name_81 = 2;
     D_80105496_ED266_name_81 = 1;
     D_800D1360.unk_20 = 10;

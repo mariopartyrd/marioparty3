@@ -72,7 +72,7 @@ extern s32 D_800D10F4_D1CF4;
 extern s32 D_800D1F70_D2B70;
 extern s32 D_800D1FE8_D2BE8;
 extern s8 D_800D2008_D2C08;
-extern s8 D_800D20B1_D2CB1;
+extern s8 HmfPauseF;
 extern s16 D_800D20EE_D2CEE;
 extern u16 D_800D5204_D5E04;
 
@@ -92,7 +92,7 @@ void func_8001A070_1AC70(void* arg0, void* arg1, u16 arg2, u16 arg3, u16 arg4, u
     D_800D20AC_D2CAC = 0;
     D_800D1F70_D2B70 = 0;
     D_800D20EE_D2CEE = 1;
-    D_800D20B1_D2CB1 = 0;
+    HmfPauseF = 0;
     D_800CD280_CDE80 = 1;
     D_800CC3D8_CCFD8[0] = D_800CC3D8_CCFD8[1] = 0;
     func_8000D3AC_DFAC();

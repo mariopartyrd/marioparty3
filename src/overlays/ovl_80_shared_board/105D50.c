@@ -1,19 +1,19 @@
 #include "common.h"
 #include "ovl_80.h"
 
-s16 GetCurrentPlayerIndex(void) {
+s16 MBPlayerTurnGet(void) {
     return GwSystem.current_player_index;
 }
 
-GW_PLAYER* MBGetPlayerStruct(s32 playerIndex) {
+GW_PLAYER* MBPlayerGet(s32 playerIndex) {
     if (playerIndex < 0) {
-        playerIndex = GetCurrentPlayerIndex();
+        playerIndex = MBPlayerTurnGet();
     }
     return &GwPlayer[playerIndex];
 }
 
 
-s32 func_800F217C_105D9C_shared_board(s16 playerIndex) {
+s32 MBPlayerCurrentCheck(s16 playerIndex) {
     if (playerIndex == GwSystem.current_player_index) {
         return TRUE;
     } else {
@@ -21,14 +21,14 @@ s32 func_800F217C_105D9C_shared_board(s16 playerIndex) {
     }
 }
 
-s32 func_800F2198_105DB8_shared_board(s16 playerIndex) {
-    return MBGetPlayerStruct(playerIndex)->stat & PLAYER_IS_CPU;
+s32 MBPlayerComCheck(s16 playerIndex) {
+    return MBPlayerGet(playerIndex)->stat & PLAYER_IS_CPU;
 }
 
-void AdjustPlayerCoins(s32 playerIndex, s32 amount) {
+void MBPlayerCoinAdd(s32 playerIndex, s32 amount) {
     GW_PLAYER* player;
 
-    player = MBGetPlayerStruct(playerIndex);
+    player = MBPlayerGet(playerIndex);
     player->coin = player->coin + amount;
     if (player->coin > 999) {
         player->coin = 999;
@@ -41,16 +41,16 @@ void AdjustPlayerCoins(s32 playerIndex, s32 amount) {
     }
 }
 
-s32 PlayerHasCoins(s32 playerIndex, s32 requiredCoins) {
-    if (MBGetPlayerStruct(playerIndex)->coin >= requiredCoins) {
+s32 MBPlayerCoinCheck(s32 playerIndex, s32 requiredCoins) {
+    if (MBPlayerGet(playerIndex)->coin >= requiredCoins) {
         return TRUE;
     } else {
         return FALSE;
     }
 }
 
-void func_800F2260_105E80_shared_board(s32 playerIndex, f32 arg1) {
-    GW_PLAYER* player = MBGetPlayerStruct(playerIndex);
+void MBPlayerSpeedSet(s32 playerIndex, f32 arg1) {
+    GW_PLAYER* player = MBPlayerGet(playerIndex);
 
     if (player->itemTurn != 0) {
         func_8001C92C_1D52C(D_801011FC_114E1C_shared_board->omObj1->model[0], arg1);
@@ -59,25 +59,25 @@ void func_800F2260_105E80_shared_board(s32 playerIndex, f32 arg1) {
     }
 }
 
-void func_800F22C0_105EE0_shared_board(s32 playerNo) {
+void MBPlayerMotionWait(s32 playerNo) {
     GW_PLAYER* player;
 
-    player = MBGetPlayerStruct(playerNo);
+    player = MBPlayerGet(playerNo);
     if (player->itemTurn != 0) {
-        func_800EE97C_10259C_shared_board(D_801011FC_114E1C_shared_board);
+        MBModelMotionWait(D_801011FC_114E1C_shared_board);
     } else {
-        func_800EE97C_10259C_shared_board(player->player_obj);
+        MBModelMotionWait(player->player_obj);
     }
 }
 
-void func_800F2304_105F24_shared_board(s32 playerIndex, s16 arg1, u16 arg2) {
+void MBPlayerMotionSet(s32 playerIndex, s16 arg1, u16 arg2) {
     GW_PLAYER* player;
 
-    player = MBGetPlayerStruct(playerIndex);
-    if (player == MBGetPlayerStruct(CUR_PLAYER)) {
+    player = MBPlayerGet(playerIndex);
+    if (player == MBPlayerGet(CUR_PLAYER)) {
         MBMotionSet(player->player_obj, arg1, arg2);
         if ((player->itemTurn != 0) & (arg1 < 7)) {
-            func_800E6420_FA040_shared_board(arg1, arg2);
+            MBKSuitMotionSet(arg1, arg2);
         }
     }
 }
@@ -85,11 +85,11 @@ void func_800F2304_105F24_shared_board(s32 playerIndex, s16 arg1, u16 arg2) {
 void func_800F2388_105FA8_shared_board(s32 playerIndex, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
     GW_PLAYER* player;
 
-    player = MBGetPlayerStruct(playerIndex);
-    if (player == MBGetPlayerStruct(CUR_PLAYER)) {
+    player = MBPlayerGet(playerIndex);
+    if (player == MBPlayerGet(CUR_PLAYER)) {
         MBMotionShiftSet(player->player_obj, arg1, arg2, arg3, arg4);
         if ((player->itemTurn != 0) & (arg1 < 7)) {
-            func_800E644C_FA06C_shared_board(arg1, arg2, arg3, arg4);
+            MBKSuitMotionShiftSet(arg1, arg2, arg3, arg4);
         }
     }
 }
@@ -101,7 +101,7 @@ void func_800F2484_1060A4_shared_board(void) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F248C_1060AC_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F24FC_10611C_shared_board); //create player sprite
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", MBPlayerModelCreate); //create player sprite
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/105D50", func_800F25B4_1061D4_shared_board);
 

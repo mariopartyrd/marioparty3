@@ -20,4 +20,4 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/113750", func_8010024
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/113750", func_80100630_114250_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/113750", func_8010067C_11429C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/113750", MBMapScrollExec);

@@ -150,7 +150,7 @@ void func_801059A0_3C27C0_koopa(void) {
     func_8005A6B0_5B2B0();
     func_800F453C_10815C_shared_board();
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
-        func_800F4874_108494_shared_board(i, 0x1E, -0x32);
+        MBStatusPosSet(i, 0x1E, -0x32);
     }
     omAddPrcObj(func_80108D2C_3C5B4C_koopa, 0x300, 0x2000, 0);
     omAddObj(0x1000, 0, 0, -1, func_80109220_3C6040_koopa);
@@ -351,7 +351,7 @@ s32 func_80107090_3C3EB0_koopa(void) {
 
     if (GwSystem.current_board_index == 0) {
         for (var_s3 = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
-            temp_s1 = MBGetPlayerStruct(i);
+            temp_s1 = MBPlayerGet(i);
             for (j = 0; D_80109418_3C6238_koopa[j] != -1; j++) {
                 if (MBMasuLinkMasuIdGet(temp_s1->clink, temp_s1->cidx) == D_80109418_3C6238_koopa[j]) {
                     var_s3++;
@@ -397,14 +397,14 @@ u16 func_801076CC_3C44EC_koopa(s32 playerIndex, s32 arg1) {
 
 void func_80107724_3C4544_koopa(void) {
     func_800F5E24_109A44_shared_board(D_801094F4_3C6314_koopa);
-    func_800F4994_1085B4_shared_board(0x18);
+    MBStatusDispMoveSet(0x18);
     func_800F5E24_109A44_shared_board(-1);
     HuPrcSleep(20);
 }
 
 void func_8010775C_3C457C_koopa(void) {
     func_800F5E24_109A44_shared_board(D_801094F4_3C6314_koopa);
-    func_800F4994_1085B4_shared_board(0x18);
+    MBStatusDispMoveSet(0x18);
     func_800F5E24_109A44_shared_board(-1);
 }
 
@@ -426,8 +426,8 @@ s32 func_8010778C_3C45AC_koopa(void) {
     func_800EE884_1024A4_shared_board(D_801094F8_3C6318_koopa, -1, 2);
     HuPrcSleep(14);
     HuAudFXPlay(0x29F);
-    func_800F5D44_109964_shared_board(D_801094F4_3C6314_koopa, -temp_v0);
-    func_800FF900_113520_shared_board(D_801094F6_3C6316_koopa, 3);
+    MBCoinTakeCreate(D_801094F4_3C6314_koopa, -temp_v0);
+    MBPlayerVibrate(D_801094F6_3C6316_koopa, 3);
     HuPrcSleep(30);
     MBWinOpen(0x420F);
     func_800EC3C0_FFFE0_shared_board(D_801094F4_3C6314_koopa);
@@ -460,7 +460,7 @@ s32 func_801078CC_3C46EC_koopa(void) {
     
     func_800EC3C0_FFFE0_shared_board(D_801094F4_3C6314_koopa);
     func_800EC3E4_100004_shared_board();
-    func_800F4994_1085B4_shared_board(0);
+    MBStatusDispMoveSet(0);
     HuPrcSleep(20);
     MBMotionShiftSet(D_801094F8_3C6318_koopa, 2, 0, 5, 0);
     func_800EE884_1024A4_shared_board(D_801094F8_3C6318_koopa, -1, 2);
@@ -476,8 +476,8 @@ s32 func_801078CC_3C46EC_koopa(void) {
         }
     }
     for (i = 0; i < 4; i++) {
-        func_800F5BF4_109814_shared_board(i, -temp_v0, i == var_s1);
-        func_800FF900_113520_shared_board(i, 3);
+        MBCoinTakeCreateSound(i, -temp_v0, i == var_s1);
+        MBPlayerVibrate(i, 3);
     }
 
     HuPrcSleep(30);
@@ -518,11 +518,11 @@ INCLUDE_ASM("asm/nonmatchings/overlays/koopa/3C27C0", func_801092A0_3C60C0_koopa
 s32 func_801092D4_3C60F4_koopa(void) {
     Hu3DCamInit(1);
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
-    func_800E69BC_FA5DC_shared_board(2);
+    MBBackKill(2);
     return func_800E9344_FCF64_shared_board(100.0f, 10000.0f);
 }
 
 void func_80109320_3C6140_koopa(void) {
     func_800E69D8_FA5F8_shared_board();
-    func_800E66E0_FA300_shared_board();
+    MBBackClose();
 }

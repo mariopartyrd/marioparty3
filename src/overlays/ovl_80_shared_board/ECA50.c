@@ -103,9 +103,9 @@ void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
     playerObj->trans.x = temp_s0->coords.x;
     playerObj->trans.y = temp_s0->coords.y + temp_s0->unk30.x;
     playerObj->trans.z = temp_s0->coords.z;
-    playerObj->scale.x = temp_s0->scale.x * temp_s2->unk_04 * func_800E72DC_FAEFC_shared_board();
-    playerObj->scale.y = temp_s0->scale.y * temp_s2->unk_04 * func_800E72DC_FAEFC_shared_board();
-    playerObj->scale.z = temp_s0->scale.z * temp_s2->unk_04 * func_800E72DC_FAEFC_shared_board();
+    playerObj->scale.x = temp_s0->scale.x * temp_s2->unk_04 * MBBackMdlScaleGet();
+    playerObj->scale.y = temp_s0->scale.y * temp_s2->unk_04 * MBBackMdlScaleGet();
+    playerObj->scale.z = temp_s0->scale.z * temp_s2->unk_04 * MBBackMdlScaleGet();
 
     if (!(D_80105706_119326_shared_board & 1)) {
         MBModelAttrSetDispOff(temp_s0);
@@ -118,7 +118,7 @@ void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
     }
     
     if (temp_s0->flags & 2) {
-        func_800E9940_FD560_shared_board(&temp_s0->coords, sp10);
+        MBCamera3Dto2D(&temp_s0->coords, sp10);
         if ((sp10[0] > 370.0f) || 
             (sp10[0] < -50.0f) || 
             (sp10[1] > 290.0f) || 

@@ -47,7 +47,7 @@ void func_80107550_3CFA70_opboardtutorial(void) {
     Hu3DCamInit(1);
     HmfLightColorSet(1, 0xFF, 0xFF, 0xFF);
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
-    func_800E69BC_FA5DC_shared_board(0x15);
+    MBBackKill(0x15);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/opboardtutorial/3CDEC0", func_80107594_3CFAB4_opboardtutorial);

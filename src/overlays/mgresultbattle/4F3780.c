@@ -12,7 +12,7 @@ void func_80106BA0_4F4980_mgresultbattle(void);
 void func_80107400_4F51E0_mgresultbattle(void);
 void func_80107D10_4F5AF0_mgresultbattle(void);
 void func_80108130_4F5F10_mgresultbattle(void);
-void func_800E6720_FA340_shared_board(s32, s32);
+void MBBackCreate(s32, s32);
 void func_80105CAC_4F3A8C_mgresultbattle(omObjData*);
 void func_80105E64_4F3C44_mgresultbattle(omObjData*);
 void func_80105F50_4F3D30_mgresultbattle(void);
@@ -62,7 +62,7 @@ void func_801059A0_4F3780_mgresultbattle(void) {
     if (var_a0_2 >= 4) {
         func_80037258_37E58();
         func_800E69D8_FA5F8_shared_board();
-        func_800E66E0_FA300_shared_board();
+        MBBackClose();
         omOvlReturnEx(1);
         return;
     }
@@ -91,9 +91,9 @@ void func_80105EF4_4F3CD4_mgresultbattle(void) {
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
     
     if (!(system->playMode & 2)) {
-        func_800E6720_FA340_shared_board(D_80108908_4F66E8_mgresultbattle[system->current_board_index], 0);
+        MBBackCreate(D_80108908_4F66E8_mgresultbattle[system->current_board_index], 0);
     } else {
-        func_800E6720_FA340_shared_board(0x17, 0);
+        MBBackCreate(0x17, 0);
     }
     func_80105F50_4F3D30_mgresultbattle();
 }

@@ -652,7 +652,7 @@ void func_800F924C_E101C_name_81(s32 arg0) {
 
         sp3C = MBDGetPlayerPartnerRef(curPlayerIndex, sp34);
         sp44 = MBDGetPlayerPartnerRef(opposingPlayerIndex, var_s5);
-        D_800D037C_D0F7C = 0;
+        mbItemBtnF = 0;
         var_s0 = 0x7F;
         HuPrcChildLink(temp_s6, MBDCameraZoomMotStart(1.0f));
         
@@ -943,7 +943,7 @@ void func_800F924C_E101C_name_81(s32 arg0) {
                 HuPrcChildLink(temp_s6, func_800EC1E4_D3FB4_name_81(&D_80105540_ED310_name_81, &player->player_obj->coords, &D_80105540_ED310_name_81, 4.0f));
                 HuPrcChildWait();
                 func_800FC888_E4658_name_81(1);
-                D_800D037C_D0F7C = 1;
+                mbItemBtnF = 1;
             }
         }
 

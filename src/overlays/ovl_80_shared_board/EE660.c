@@ -18,7 +18,7 @@ void func_800DBE6C_EFA8C_shared_board(s32);            /* extern */
 void func_800DCBCC_F07EC_shared_board(s32);            /* extern */
 void func_800DE9B8_F25D8_shared_board(s32, s32, s32, s32); /* extern */
 void func_800EE688_1022A8_shared_board(Object*, f32, f32);     /* extern */
-void func_800F2304_105F24_shared_board(s32 playerIndex, s16 arg1, u16 arg2);
+void MBPlayerMotionSet(s32 playerIndex, s16 arg1, u16 arg2);
 void func_800F2388_105FA8_shared_board(s32, s32, s32, s32, s32); /* extern */
 extern s8 D_80105704_119324_shared_board;
 extern u8 D_8010570E_11932E_shared_board;
@@ -125,9 +125,9 @@ void func_800DCDD4_F09F4_shared_board(void) {
         case 1:
             if (((GwPlayer[temp_s3->unk0].stat & 1) || (D_800D5558_D6158[GwPlayer[temp_s3->unk0].pad] & 0x8000)) && !(HmfModelData[D_800CDBC8_CE7C8[temp_s3->unk0].UnkDiceInner.unk16].unk18 & 4) && (GWBoardFlagCheck(0x11) == 0)) {
                 temp_s3->unk4++;
-                func_800F2304_105F24_shared_board(temp_s3->unk0, 2, 0);
+                MBPlayerMotionSet(temp_s3->unk0, 2, 0);
                 func_800EE688_1022A8_shared_board(GwPlayer[temp_s3->unk0].player_obj, 2.0f, -0.3f);
-                D_800CDD58_CE958 = 0;
+                mbCameraBtnF = 0;
                 D_800CDD64_CE964 = 0;
             }
             break;
@@ -169,9 +169,9 @@ void func_800DCDD4_F09F4_shared_board(void) {
                         } else {
                             HuAudFXPlay(0x15D);
                             if (temp_s4->unk5 == 7) {
-                                func_800FF900_113520_shared_board(-1, 3);
+                                MBPlayerVibrate(-1, 3);
                             } else {
-                                func_800FF900_113520_shared_board(-1, 2);
+                                MBPlayerVibrate(-1, 2);
                             }
                             
                             for (j = 0; j < 0x25; j++) {
@@ -192,33 +192,33 @@ void func_800DCDD4_F09F4_shared_board(void) {
                             if (temp_s4->unk5 == 7) {
                                 MBDlgWinExec(0x16, 0x3A24);
                                 MBCoinChangeCreate(temp_s3->unk0, 20); //triples, 20 coins
-                                func_800F5D44_109964_shared_board(temp_s3->unk0, 20);
+                                MBCoinTakeCreate(temp_s3->unk0, 20);
                             } else {
                                 MBDlgWinExec(0x16, 0x3A26);
                                 MBCoinChangeCreate(temp_s3->unk0, 0xA); //doubles, 10 coins
-                                func_800F5D44_109964_shared_board(temp_s3->unk0, 10); 
+                                MBCoinTakeCreate(temp_s3->unk0, 10); 
                             }
                             
                             func_8004ACE0_4B8E0(0x274, temp_s3->unk0);
-                            func_800F2304_105F24_shared_board(temp_s3->unk0, 5, 0);
+                            MBPlayerMotionSet(temp_s3->unk0, 5, 0);
                             HuPrcSleep(0x1E);
-                            func_800F2304_105F24_shared_board(temp_s3->unk0, -1, 2);
+                            MBPlayerMotionSet(temp_s3->unk0, -1, 2);
                         }
                     } else {
                         if (D_8010570E_11932E_shared_board == 3) {
                             if ((temp_s4->unk5 == temp_s4->unk6) && (temp_s4->unk5 == temp_s4->unk7)) {
                                 if (temp_s4->unk5 == 7) {
-                                    D_800D037C_D0F7C = 0;
+                                    mbItemBtnF = 0;
                                     HuAudFXPlay(0x15E);
                                     func_8004A670_4B270(0);
                                     func_8004A918_4B518(0x69);
                                     func_8004A880_4B480(0);
                                     func_8004A650_4B250(0xF);
 
-                                    func_800FF900_113520_shared_board(-1, 4);
+                                    MBPlayerVibrate(-1, 4);
                                 } else {
                                     HuAudFXPlay(0x15D);
-                                    func_800FF900_113520_shared_board(-1, 3);
+                                    MBPlayerVibrate(-1, 3);
                                 }
                                 for (i = 0; i < 73; i++, HuPrcVSleep()) {
                                     var_s1 = i;
@@ -243,20 +243,20 @@ void func_800DCDD4_F09F4_shared_board(void) {
                                 if (temp_s4->unk5 == 7) {
                                     MBDlgWinExec(0x16, 0x3A25);
                                     MBCoinChangeCreate(temp_s3->unk0, 0x32);
-                                    func_800F5D44_109964_shared_board(temp_s3->unk0, 0x32);
+                                    MBCoinTakeCreate(temp_s3->unk0, 0x32);
                                     D_800CC0C0_CCCC0 = 1;
                                 } else {
                                     MBDlgWinExec(0x16, 0x3A24);
                                     MBCoinChangeCreate(temp_s3->unk0, 0x14);
-                                    func_800F5D44_109964_shared_board(temp_s3->unk0, 0x14);
+                                    MBCoinTakeCreate(temp_s3->unk0, 0x14);
                                 }
                                 func_8004ACE0_4B8E0(0x274, temp_s3->unk0);
-                                func_800F2304_105F24_shared_board(temp_s3->unk0, 5, 0);
+                                MBPlayerMotionSet(temp_s3->unk0, 5, 0);
                                 HuPrcSleep(0x1E);
                                 if (temp_s4->unk5 == 7) {
-                                    D_800D037C_D0F7C = 1;
+                                    mbItemBtnF = 1;
                                 }
-                                func_800F2304_105F24_shared_board(temp_s3->unk0, -1, 2);
+                                MBPlayerMotionSet(temp_s3->unk0, -1, 2);
                             }
                         }
                     }

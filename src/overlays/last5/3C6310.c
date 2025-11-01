@@ -44,11 +44,11 @@ s32 func_801073B0_3C7D20_last5(void) {
 
     Hu3DCamInit(1);
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
-    func_800E69BC_FA5DC_shared_board(sp10[GwSystem.current_board_index]);
+    MBBackKill(sp10[GwSystem.current_board_index]);
     return func_800E9344_FCF64_shared_board(1000.0f, 10000.0f);
 }
 
 void func_80107450_3C7DC0_last5(void) {
     func_800E69D8_FA5F8_shared_board();
-    func_800E66E0_FA300_shared_board();
+    MBBackClose();
 }

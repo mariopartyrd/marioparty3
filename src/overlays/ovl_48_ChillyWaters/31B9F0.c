@@ -2,114 +2,114 @@
 #include "../ovl_80_shared_board/ovl_80.h"
 
 // Get toad space index for current start space index.
-s16 func_80105E80_31B9F0_ChillyWaters(void) {
-    return D_8011D2C0_332E30_ChillyWaters[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]];
+s16 MB1Ev_StarGuideMasuGet(void) {
+    return mb1ev_StarGuideMasu[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]];
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80105EA8_31BA18_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarShuffle);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80105FB0_31BB20_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarNextPos);
 
-void func_8010603C_31BBAC_ChillyWaters(void) {
+void MB1Ev_StarMasuInit(void) {
     GW_SYSTEM* system = &GwSystem;
     s32 i;
-    for (i = 0; i < ARRAY_COUNT(D_8011D2A0_332E10_ChillyWaters); i++) {
-        GWBoardFlagSet(D_8011D2A0_332E10_ChillyWaters[i]);
+    for (i = 0; i < ARRAY_COUNT(mb1ev_StarFlag); i++) {
+        GWBoardFlagSet(mb1ev_StarFlag[i]);
     }
 
-    MBMasuTypeSet(D_8011D2B0_332E20_ChillyWaters[system->star_spawn_indices[system->current_star_spawn]], 0xE);
-    GWBoardFlagClear(D_8011D2A0_332E10_ChillyWaters[system->star_spawn_indices[system->current_star_spawn]]);
+    MBMasuTypeSet(mb1ev_StarMasu[system->star_spawn_indices[system->current_star_spawn]], 0xE);
+    GWBoardFlagClear(mb1ev_StarFlag[system->star_spawn_indices[system->current_star_spawn]]);
 }
 
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801060E0_31BC50_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarCheck);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80106154_31BCC4_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarGuideIn);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80106544_31C0B4_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801065D0_31C140_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarMapView);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010698C_31C4FC_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarGet);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80106EEC_31CA5C_ChillyWaters);
 
 // View board map
-void func_80106F60_31CAD0_ChillyWaters(void) {
-    D_800CDD58_CE958 = 1;
-    D_800D037C_D0F7C = 0;
+void MB1_MapScroll(void) {
+    mbCameraBtnF = 1;
+    mbItemBtnF = 0;
     omPrcSetStatBit(HuPrcCurrentGet(), 0x80);
-    func_8010067C_11429C_shared_board(GwPlayer[GwSystem.current_player_index].pad);
+    MBMapScrollExec(GwPlayer[GwSystem.current_player_index].pad);
     omPrcResetStatBit(HuPrcCurrentGet(), 0x80);
-    D_800CDD58_CE958 = 0;
-    D_800D037C_D0F7C = 1;
+    mbCameraBtnF = 0;
+    mbItemBtnF = 1;
 }
 
 // Exit the board map?
-void func_80106FE8_31CB58_ChillyWaters(void) {
-    D_800D037C_D0F7C = 0;
+void MB1_MapScrollCancel(void) {
+    mbItemBtnF = 0;
     omPrcSetStatBit(HuPrcCurrentGet(), 0x80);
-    func_8010067C_11429C_shared_board(GwPlayer[GwSystem.current_player_index].pad);
-    D_800D037C_D0F7C = 1;
+    MBMapScrollExec(GwPlayer[GwSystem.current_player_index].pad);
+    mbItemBtnF = 1;
 }
 
 // setup arrows used during player direction decisions.
-void func_80107044_31CBB4_ChillyWaters(void) {
-    while (func_800E9AE0_FD700_shared_board() != 0) {
+void MB1_BranchHelpStart(void) {
+    while (MBCameraStopCheck() != 0) {
         HuPrcVSleep();
     }
     HuPrcVSleep();
-    D_8011FAC0_335630_ChillyWaters = func_800E210C_F5D2C_shared_board(0, 0x92, 1);
-    D_8011FAC4_335634_ChillyWaters = func_800E210C_F5D2C_shared_board(1, 0xA0, 1);
-    D_8011FAD0_335640_ChillyWaters = func_800E210C_F5D2C_shared_board(0xD, 0xAE, 1);
-    D_8011FAC8_335638_ChillyWaters = func_800E210C_F5D2C_shared_board(3, 0xBC, 1);
-    D_8011FACC_33563C_ChillyWaters = func_800E210C_F5D2C_shared_board(0xB, 0xCA, 1);
+    mb1_BranchStickHelp = func_800E210C_F5D2C_shared_board(0, 0x92, 1);
+    mb1_BranchBtnHelp = func_800E210C_F5D2C_shared_board(1, 0xA0, 1);
+    mb1_BranchItemHelp = func_800E210C_F5D2C_shared_board(0xD, 0xAE, 1);
+    mb1_BranchMapScrollHelp = func_800E210C_F5D2C_shared_board(3, 0xBC, 1);
+    mb1_BranchMapOverheadHelp = func_800E210C_F5D2C_shared_board(0xB, 0xCA, 1);
     HuPrcSleep(3);
-    D_800CDD58_CE958 = 1;
+    mbCameraBtnF = 1;
     D_800D51F8_D5DF8 = 1;
 }
 
 // teardown arrows
-void func_80107114_31CC84_ChillyWaters(void) {
-    D_800CDD58_CE958 = 0;
+void MB1_BranchHelpEnd(void) {
+    mbCameraBtnF = 0;
     D_800D51F8_D5DF8 = 0;
-    MBHelpWinKill(D_8011FAC0_335630_ChillyWaters);
-    MBHelpWinKill(D_8011FAC4_335634_ChillyWaters);
-    MBHelpWinKill(D_8011FAD0_335640_ChillyWaters);
-    MBHelpWinKill(D_8011FAC8_335638_ChillyWaters);
-    MBHelpWinKill(D_8011FACC_33563C_ChillyWaters);
+    MBHelpWinKill(mb1_BranchStickHelp);
+    MBHelpWinKill(mb1_BranchBtnHelp);
+    MBHelpWinKill(mb1_BranchItemHelp);
+    MBHelpWinKill(mb1_BranchMapScrollHelp);
+    MBHelpWinKill(mb1_BranchMapOverheadHelp);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80107174_31CCE4_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_ComShopItemChoice);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80107408_31CF78_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_ComShopEnterChoice);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80107620_31D190_ChillyWaters);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80107750_31D2C0_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801078E8_31D458_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_ComTeresaChoice);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80107BB4_31D724_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_ComTeresaTypeChoice);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80107BD4_31D744_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_ComTeresaPlayerChoice);
 
 //entrypoint 0
-void func_80107BF4_31D764_ChillyWaters(void) {
+void MB1_BoardInit(void) {
     GwSystem.current_board_index = 0;
     omInitObjMan(10, 0);
     omOvlGotoEx(0x47, 0, 0x192);
 }
 
 //entrypoint 1
-void func_80107C2C_31D79C_ChillyWaters(void) {
+void MB1_SaveInit(void) {
     omInitObjMan(0xA, 0);
-    func_800ED91C_10153C_shared_board(0, 0, 0);
-    func_800ED91C_10153C_shared_board(1, 0, 0);
-    func_800ED91C_10153C_shared_board(2, 0, 0);
-    func_800ED91C_10153C_shared_board(3, 0, 0);
+    MBMoveMasuSet(0, 0, 0);
+    MBMoveMasuSet(1, 0, 0);
+    MBMoveMasuSet(2, 0, 0);
+    MBMoveMasuSet(3, 0, 0);
     GWBoardFlagSet(3);
-    func_80105EA8_31BA18_ChillyWaters();
+    MB1Ev_StarShuffle();
     GWBoardFlagClear(0x12);
     GwSystem.bank_coins = 0;
     GwSystem.slow_dice_flags = 0;
@@ -118,7 +118,7 @@ void func_80107C2C_31D79C_ChillyWaters(void) {
     omOvlReturnEx(1);
 }
 
-void func_80107CC4_31D834_ChillyWaters(void) {
+void MB1_ObjectSetup(void) {
     Vec sp10;
     SpaceData* space;
     s32 i;
@@ -130,104 +130,104 @@ void func_80107CC4_31D834_ChillyWaters(void) {
     func_800EBCFC_FF91C_shared_board(&D_8011D31C_332E8C_ChillyWaters);
     MBMasuBlockTblSet(&D_8011D320_332E90_ChillyWaters);
     space = MBMasuGet(0x77);
-    HuVecDirectionSafe3F(&space->coords, &MBMasuGet(0x73)->coords, &sp10);
-    func_800EA660_FE280_shared_board(MBVecAngleGet(&sp10) + 180.0f);
+    MBVecDirGet(&space->coords, &MBMasuGet(0x73)->coords, &sp10);
+    MBMasuArrowAngleAdd(MBVecAngleGet(&sp10) + 180.0f);
     space = MBMasuGet(0x7C);
-    HuVecDirectionSafe3F(&space->coords, &MBMasuGet(0x6E)->coords, &sp10);
-    func_800EA660_FE280_shared_board(MBVecAngleGet(&sp10) + 180.0f);
+    MBVecDirGet(&space->coords, &MBMasuGet(0x6E)->coords, &sp10);
+    MBMasuArrowAngleAdd(MBVecAngleGet(&sp10) + 180.0f);
     space = MBMasuGet(0x8F);
-    HuVecDirectionSafe3F(&space->coords, &MBMasuGet(0x80)->coords, &sp10);
-    func_800EA660_FE280_shared_board(MBVecAngleGet(&sp10) + 180.0f);
-    MBItemHookSet(0, &func_8010DE7C_3239EC_ChillyWaters); //boo event
-    MBItemHookSet(1, &func_8010F2FC_324E6C_ChillyWaters); //magic lamp
-    MBItemHookSet(9, &func_8010F6C4_325234_ChillyWaters);
-    MBItemHookSet(2, &func_8010F730_3252A0_ChillyWaters); //warp block
-    MBItemHookSet(3, &func_80117C60_32D7D0_ChillyWaters); //plunder chest
-    MBItemHookSet(4, &func_8011093C_3264AC_ChillyWaters); //activate bowser suit
-    MBItemHookSet(5, &func_80110BC8_326738_ChillyWaters); //when landing on a space as bowser suit
-    MBItemHookSet(6, &func_8010FC24_325794_ChillyWaters); //mushroom/golden mushroom/bowser suit
-    MBItemHookSet(7, &func_80110194_325D04_ChillyWaters); //dueling glove/boo bell (?)
-    MBItemHookSet(8, &func_801104E0_326050_ChillyWaters);
-    MBItemHookSet(0xA, &func_80116F5C_32CACC_ChillyWaters); //poison mushroom
-    MBItemHookSet(0xB, &func_801177DC_32D34C_ChillyWaters); //reverse mushroom
-    MBItemHookSet(0xE, &func_80111018_326B88_ChillyWaters);
-    MBItemHookSet(0xF, &func_801112D8_326E48_ChillyWaters); //bowser phone
-    MBItemHookSet(0x10, &func_80111678_3271E8_ChillyWaters); //lucky lamp
-    MBItemHookSet(0x11, &func_80112074_327BE4_ChillyWaters); //skeleton key throw away event
-    MBItemHookSet(0x12, &func_80112BCC_32873C_ChillyWaters); //boo repellant/koopa kard thrown away
-    MBItemHookSet(0x13, &func_801138E4_329454_ChillyWaters); //barter box
-    MBItemHookSet(0x14, &func_80114B80_32A6F0_ChillyWaters); //game guy coin
-    MBItemHookSet(0x15, &ItemUseWackyWatch); //wacky watch
-    MBItemHookSet(0xC, &func_80116DAC_32C91C_ChillyWaters);
-    MBItemHookSet(0xD, &func_801176A4_32D214_ChillyWaters);
-    MBComItemDecideHookSet(&func_8011C88C_3323FC_ChillyWaters);
+    MBVecDirGet(&space->coords, &MBMasuGet(0x80)->coords, &sp10);
+    MBMasuArrowAngleAdd(MBVecAngleGet(&sp10) + 180.0f);
+    MBItemHookSet(0, &MB1Ev_Teresa); //boo event
+    MBItemHookSet(1, &MB1Ev_ItemMajinLamp); //magic lamp
+    MBItemHookSet(9, &MB1Ev_ItemMajinLampStar);
+    MBItemHookSet(2, &MB1Ev_ItemWarpBlock); //warp block
+    MBItemHookSet(3, &MB1Ev_ItemRobBox); //plunder chest
+    MBItemHookSet(4, &MB1Ev_KSuitStart); //activate bowser suit
+    MBItemHookSet(5, &MB1Ev_KSuitEnd); //when landing on a space as bowser suit
+    MBItemHookSet(6, &MB1Ev_ItemKinoko); //mushroom/golden mushroom/bowser suit
+    MBItemHookSet(7, &MB1Ev_ItemShake); //dueling glove/boo bell (?)
+    MBItemHookSet(8, &MB1Ev_ItemPhoneMove);
+    MBItemHookSet(0xA, &MB1Ev_ItemNKinoko); //poison mushroom
+    MBItemHookSet(0xB, &MB1Ev_ItemRKinoko); //reverse mushroom
+    MBItemHookSet(0xE, &MB1Ev_ItemShopPhone);
+    MBItemHookSet(0xF, &MB1Ev_ItemKoopaPhone); //bowser phone
+    MBItemHookSet(0x10, &MB1Ev_ItemStarYoke); //lucky lamp
+    MBItemHookSet(0x11, &MB1Ev_ItemKeyManUse); //skeleton key throw away event
+    MBItemHookSet(0x12, &MB1Ev_ItemNullUse); //boo repellant/koopa kard thrown away
+    MBItemHookSet(0x13, &MB1Ev_ItemExchangeBox); //barter box
+    MBItemHookSet(0x14, &MB1Ev_ItemGambleCoin); //game guy coin
+    MBItemHookSet(0x15, &MB1Ev_ItemAfter5); //wacky watch
+    MBItemHookSet(0xC, &MB1Ev_ItemKoopaNKinoko);
+    MBItemHookSet(0xD, &MB1Ev_ItemKoopaRKinoko);
+    MBComItemDecideHookSet(&MB1_ComItemDecide);
 
-    for (i = 0; i < ARRAY_COUNT(D_8011D2C0_332E30_ChillyWaters); i++) {
-        func_800EA6E0_FE300_shared_board(i, D_8011D2C0_332E30_ChillyWaters[i]);
+    for (i = 0; i < ARRAY_COUNT(mb1ev_StarGuideMasu); i++) {
+        MBMasuStarSet(i, mb1ev_StarGuideMasu[i]);
     }
 
     if (GWBoardFlagCheck(0xE) != 0) {
         GWBoardFlagClear(0xE);
-        func_80105FB0_31BB20_ChillyWaters();
+        MB1Ev_StarNextPos();
     }
 
-    func_8010603C_31BBAC_ChillyWaters();
-    func_80108250_31DDC0_ChillyWaters();
-    func_8010841C_31DF8C_ChillyWaters();
-    func_801086E0_31E250_ChillyWaters();
+    MB1Ev_StarMasuInit();
+    MB1_StarGuideCreateAll();
+    MB1_TeresaGuideCreateAll();
+    MB1_BankCoinCreateAll();
     func_801088B4_31E424_ChillyWaters();
     func_80108B24_31E694_ChillyWaters();
     func_80108BA4_31E714_ChillyWaters();
     func_80116AA0_32C610_ChillyWaters();
     func_800EBDAC_FF9CC_shared_board();
-    omAddPrcObj(func_80118B7C_32E6EC_ChillyWaters, 0x4800, 0, 0);
+    omAddPrcObj(MB1Ev_SnowmanObjMain, 0x4800, 0, 0);
 }
 
 //entrypoint 2
-void func_80108014_31DB84_ChillyWaters(void) {
+void MB1_Create(void) {
     HuAudSeqPlay(0x18);
     D_800CE194_CED94[2] = 0x18;
     func_800F8D6C_10C98C_shared_board(0x18);
     Hu3DCamInit(2);
-    func_80107CC4_31D834_ChillyWaters();
-    func_800EBA60_FF680_shared_board(&D_8011E2CC_333E3C_ChillyWaters);
-    func_800EBA60_FF680_shared_board(&D_8011E718_334288_ChillyWaters);
-    func_800F8D48_10C968_shared_board(&func_8011A8D8_330448_ChillyWaters);
-    func_800EBA60_FF680_shared_board(&D_8011E344_333EB4_ChillyWaters);
-    func_800EBA60_FF680_shared_board(&D_8011E4D8_334048_ChillyWaters);
+    MB1_ObjectSetup();
+    MBMasuEventTblAdd(&mb1_CommonEventTbl);
+    MBMasuEventTblAdd(&mb1_SpecialEventTbl);
+    MBHatenaFuncSet(&MB1Ev_SnowmanStart);
+    MBMasuEventTblAdd(&mb1_TeresaEventTbl);
+    MBMasuEventTblAdd(&mb1_TurnStatusEventTbl);
     MBStart(0);
 }
 
 //entrypoint 3
-void func_80108098_31DC08_ChillyWaters(void) {
+void MB1_BoardReload(void) {
     Hu3DCamInit(1);
-    func_80107CC4_31D834_ChillyWaters();
+    MB1_ObjectSetup();
     MBStart(1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801080C4_31DC34_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_StarGuideCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801081EC_31DD5C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_StarGuideKill);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108250_31DDC0_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_StarGuideCreateAll);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801082FC_31DE6C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_TeresaGuideCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010841C_31DF8C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_TeresaGuideCreateAll);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108478_31DFE8_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_BankCoinHide);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108574_31E0E4_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_BankCoinCreate);
 
-void func_801086E0_31E250_ChillyWaters(void) {
+void MB1_BankCoinCreateAll(void) {
     s32 i;
 
-    D_8011FB10_335680_ChillyWaters = 0;
-    for (i = 0; i < ARRAY_COUNT(D_8011FB18_335688_ChillyWaters); i++) {
-        D_8011FB18_335688_ChillyWaters[i] = 0;
-        func_80108574_31E0E4_ChillyWaters(i);
+    mb1_BankCoinBaseMdl = 0;
+    for (i = 0; i < ARRAY_COUNT(mb1_BankCoinMdl); i++) {
+        mb1_BankCoinMdl[i] = 0;
+        MB1_BankCoinCreate(i);
     }
-    func_80108478_31DFE8_ChillyWaters();
+    MB1_BankCoinHide();
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108748_31E2B8_ChillyWaters);
@@ -246,35 +246,35 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108B2
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108BA4_31E714_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108C1C_31E78C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_BranchMerge);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108CA4_31E814_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch1);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108CC8_31E838_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch1Rev);
 
-void func_80108D28_31E898_ChillyWaters(void) {
-    func_80116484_32BFF4_ChillyWaters(&D_8011DA84_3335F4_ChillyWaters, &D_8011DA98_333608_ChillyWaters, &D_8011D578_3330E8_ChillyWaters);
+void MB1Ev_Branch2(void) {
+    MB1Ev_BranchMain(&mb1ev_Branch2Masu, &mb1ev_Branch2Link, &mb1ev_Branch2ComTree);
     omDelPrcObj(0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108D60_31E8D0_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch2Rev);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108D98_31E908_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch3);
 
-void func_80108DD0_31E940_ChillyWaters(void) {
+void MB1Ev_Branch3Rev(void) {
     GW_PLAYER* player;
 
-    player = MBGetPlayerStruct(CUR_PLAYER);
+    player = MBPlayerGet(CUR_PLAYER);
     if ((MBMasuLinkMasuIdGet(player->blink, player->bidx) == 0x4B) && !(player->rev & FLAG_UNK_80)) {
-        func_800ED998_1015B8_shared_board(-1, 0xA, 0);
+        MBMoveNextMasuSet(-1, 0xA, 0);
         player->rev &= ~FLAG_REV;
     } else {
-        func_80116484_32BFF4_ChillyWaters(D_8011DB5C_3336CC_ChillyWaters, D_8011DB70_3336E0_ChillyWaters, D_8011D77C_3332EC_ChillyWaters);
+        MB1Ev_BranchMain(mb1ev_Branch3RevMasu, mb1ev_Branch3RevLink, mb1ev_Branch3RevComTree);
     }
     omDelPrcObj(0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108E80_31E9F0_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch4);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109390_31EF00_ChillyWaters);
 
@@ -350,7 +350,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109A9
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109AB4_31F624_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109AD8_31F648_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_KeyManMasu);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109E84_31F9F4_ChillyWaters);
 
@@ -364,15 +364,15 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010A06
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010A098_31FC08_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010A134_31FCA4_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_YesNoChoiceGet);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010A3B8_31FF28_ChillyWaters);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010A474_31FFE4_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010A4B4_320024_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarMasu);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010A860_3203D0_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_BankMasu);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010B394_320F04_ChillyWaters);
 
@@ -380,7 +380,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010B41
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010B484_320FF4_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010B65C_3211CC_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ShopMasu);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010C914_322484_ChillyWaters);
 
@@ -390,13 +390,13 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010CA5
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010CE9C_322A0C_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010CEC0_322A30_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_TeresaSteal);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010DCEC_32385C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_TeresaCoin);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010DE40_3239B0_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_TeresaCoinCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010DE7C_3239EC_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Teresa);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010F050_324BC0_ChillyWaters);
 
@@ -406,82 +406,82 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010F08
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010F1E4_324D54_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010F2FC_324E6C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemMajinLamp);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010F6C4_325234_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemMajinLampStar);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010F730_3252A0_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemWarpBlock);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010F8F0_325460_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemMove);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010FB54_3256C4_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemMoveCreate);
 
 extern f32 D_8011E354_333EC4_ChillyWaters[4][2];
 
 //ItemFunctions[IFUNC_MUSHROOM]
-void func_8010FC24_325794_ChillyWaters(void) {
+void MB1Ev_ItemKinoko(void) {
     f32 sp18[2];
     Process* process;
     s32 i;
     GW_SYSTEM* system = &GwSystem;
 
-    func_80055140_55D40(D_8010570C_11932C_shared_board, 0, 1, 0);
-    func_800550F4_55CF4(D_8010570C_11932C_shared_board, 0, 1);
+    func_80055140_55D40(mbItemCursorGrpId, 0, 1, 0);
+    func_800550F4_55CF4(mbItemCursorGrpId, 0, 1);
     HuPrcSleep(20);
     HuAudFXPlay(0x145);
-    func_800F6748_10A368_shared_board(D_8010570C_11932C_shared_board, 0, &sp18[0], &sp18[1]);
+    MBStatusSprPosGet(mbItemCursorGrpId, 0, &sp18[0], &sp18[1]);
     process = HuPrcCurrentGet();
-    HuPrcChildLink(process, func_8010FB54_3256C4_ChillyWaters(D_8010570C_11932C_shared_board, sp18[0], sp18[1], D_8011E354_333EC4_ChillyWaters[system->current_player_index][0], D_8011E354_333EC4_ChillyWaters[GwSystem.current_player_index][1], -1));
+    HuPrcChildLink(process, MB1Ev_ItemMoveCreate(mbItemCursorGrpId, sp18[0], sp18[1], D_8011E354_333EC4_ChillyWaters[system->current_player_index][0], D_8011E354_333EC4_ChillyWaters[GwSystem.current_player_index][1], -1));
     HuPrcChildWait();
     HuPrcSleep(0xA);
-    func_80055140_55D40(D_8010570C_11932C_shared_board, 0, 0, 0);
-    func_800550F4_55CF4(D_8010570C_11932C_shared_board, 0, 1);
+    func_80055140_55D40(mbItemCursorGrpId, 0, 0, 0);
+    func_800550F4_55CF4(mbItemCursorGrpId, 0, 1);
 
     for (i = 1; i < 10; i++) {
-        func_800F68E0_10A500_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), (255 - (i * 25)));
-        func_800F6780_10A3A0_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), 0, 2.0f);
+        MBStatusItemTPLvlSet(system->current_player_index, MBItemSelNoGet(), (255 - (i * 25)));
+        MBStatusItemOfsApply(system->current_player_index, MBItemSelNoGet(), 0, 2.0f);
         HuPrcVSleep();        
     }
 
-    func_800F68E0_10A500_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), 0);
-    func_800F2304_105F24_shared_board(-1, 5, 0);
+    MBStatusItemTPLvlSet(system->current_player_index, MBItemSelNoGet(), 0);
+    MBPlayerMotionSet(-1, 5, 0);
     func_8004ACE0_4B8E0(0x274, system->current_player_index);
     HuPrcSleep(50);
-    func_800F2304_105F24_shared_board(-1, -1, 2);
-    HuSprAttrSet(D_8010570C_11932C_shared_board, 0, 0x8000);
+    MBPlayerMotionSet(-1, -1, 2);
+    HuSprAttrSet(mbItemCursorGrpId, 0, 0x8000);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010FE54_3259C4_ChillyWaters);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80110024_325B94_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80110194_325D04_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemShake);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801104E0_326050_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemPhoneMove);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801106A4_326214_ChillyWaters);
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", D_8011F940_3354B0_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011093C_3264AC_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_KSuitStart);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80110BC8_326738_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_KSuitEnd);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80110E08_326978_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80111018_326B88_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemShopPhone);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801112D8_326E48_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemKoopaPhone);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80111678_3271E8_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemStarYoke);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80112074_327BE4_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemKeyManUse);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801125BC_32812C_ChillyWaters);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801127D8_328348_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80112BCC_32873C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemNullUse);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80112C88_3287F8_ChillyWaters);
 
@@ -497,17 +497,17 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801135F
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80113708_329278_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801138E4_329454_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemExchangeBox);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80114590_32A100_ChillyWaters);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80114650_32A1C0_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80114B80_32A6F0_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemGambleCoin);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011548C_32AFFC_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_After5ItemMove);
 
-void func_801155C4_32B134_ChillyWaters(omObjData* obj) {
+void MB1Ev_After5LineShow(omObjData* obj) {
     s32 temp_s1;
     s32 temp_v0;
     s32 var_s0;
@@ -520,28 +520,28 @@ void func_801155C4_32B134_ChillyWaters(omObjData* obj) {
 
     switch (temp_s1) {
     case 0:
-        func_80054904_55504(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0xB1, 0x2C);
+        func_80054904_55504(mb1_After5GrpId[temp_s1], 0, 0xB1, 0x2C);
         break;
     case 1:
-        func_80054904_55504(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0x7A, 0x39);
+        func_80054904_55504(mb1_After5GrpId[temp_s1], 0, 0x7A, 0x39);
         break;
     default:
-        func_80054904_55504(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0xA0, 0x98);
+        func_80054904_55504(mb1_After5GrpId[temp_s1], 0, 0xA0, 0x98);
         var_s3 = 30;
         break;
     }
 
-    HuSprAttrReset(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0x8000U);
+    HuSprAttrReset(mb1_After5GrpId[temp_s1], 0, 0x8000U);
     for (i = 0; i < 255; i += 255 / var_s3) {
-        func_80055458_56058(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, i & 0xFFFF);
+        func_80055458_56058(mb1_After5GrpId[temp_s1], 0, i & 0xFFFF);
         HuPrcVSleep();
     }
 
-    func_80055458_56058(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0xFF);
+    func_80055458_56058(mb1_After5GrpId[temp_s1], 0, 0xFF);
     omDelPrcObj(0);
 }
 
-void func_80115734_32B2A4_ChillyWaters(omObjData* obj) {
+void MB1Ev_After5NumFade(omObjData* obj) {
     RGB2 sp18;
     RGB2 sp28;
     s32 i, j;
@@ -569,10 +569,10 @@ void func_80115734_32B2A4_ChillyWaters(omObjData* obj) {
     omDelPrcObj(0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801158FC_32B46C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_After5Effect);
 
 //main function for using a wacky watch?
-void ItemUseWackyWatch(void) {
+void MB1Ev_ItemAfter5(void) {
     s32 sp18[4];
     f32 sp28[2];
     s32 sp30;
@@ -606,15 +606,15 @@ void ItemUseWackyWatch(void) {
     HuSprPriSet(temp_s4, 0, 0x4776U);
     HuSprAttrSet(temp_s4, 0, 0x1000U);
     for (i = 0; i < 4; i++) {
-        D_8011FB80_3356F0_ChillyWaters[i] = HuSprGrpCreate(1, 0);
+        mb1_After5GrpId[i] = HuSprGrpCreate(1, 0);
         temp_v0 = DataRead((i + 0x1BB) | 0x130000);
         sp18[i] = func_80055810_56410(temp_v0);
         DataClose(temp_v0);
-        func_80055024_55C24(D_8011FB80_3356F0_ChillyWaters[i], 0, sp18[i], 0);
-        HuSprPriSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x4780U);
-        HuSprAttrSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x980CU);
-        func_80055458_56058(D_8011FB80_3356F0_ChillyWaters[i], 0, 0U);
-        func_80055420_56020(D_8011FB80_3356F0_ChillyWaters[i], 0, 0xFF, 0xFF, 0);
+        func_80055024_55C24(mb1_After5GrpId[i], 0, sp18[i], 0);
+        HuSprPriSet(mb1_After5GrpId[i], 0, 0x4780U);
+        HuSprAttrSet(mb1_After5GrpId[i], 0, 0x980CU);
+        func_80055458_56058(mb1_After5GrpId[i], 0, 0U);
+        func_80055420_56020(mb1_After5GrpId[i], 0, 0xFF, 0xFF, 0);
     }
     temp_v0_3 = MBModelCreate(0x46, 0);
     D_8011FB90_335700_ChillyWaters = temp_v0_3;
@@ -622,44 +622,44 @@ void ItemUseWackyWatch(void) {
     func_8001C8E4_1D4E4(temp_v0_3->omObj1->model[0], 0x1800);
     func_8001C448_1D048(temp_v0_3->omObj1->model[0]);
     Hu3DModelScaleSet(temp_v0_3->omObj1->model[0], 0.0f, 0.0f, 0.0f);
-    HuVecCopy3F(&temp_v0_3->coords, &MBGetPlayerStruct(CUR_PLAYER)->player_obj->coords);
+    HuVecCopy3F(&temp_v0_3->coords, &MBPlayerGet(CUR_PLAYER)->player_obj->coords);
     MBModelTempAllocFree(temp_v0_3);
     MBModelDispOff(temp_v0_3);
-    HuSprAttrSet(D_8010570C_11932C_shared_board, 0, 0x8000U);
-    func_800F68E0_10A500_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), 0);
-    func_800F6E4C_10AA6C_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), &sp30, &sp34);
+    HuSprAttrSet(mbItemCursorGrpId, 0, 0x8000U);
+    MBStatusItemTPLvlSet(system->current_player_index, MBItemSelNoGet(), 0);
+    MBStatusItemPosGet(system->current_player_index, MBItemSelNoGet(), &sp30, &sp34);
     func_80054904_55504(temp_s4, 0, sp30, sp34);
     sp28[0] = 160.0f;
     sp28[1] = 76.0f;
     HuAudFXPlay(0x145);
-    func_8011548C_32AFFC_ChillyWaters(temp_s4, 0x1E, sp28);
-    GwPlayer[system->current_player_index].itemNo[func_800E4A7C_F869C_shared_board()] = -1;
-    FixUpPlayerItemSlots(system->current_player_index);
-    func_800F6BC4_10A7E4_shared_board(CUR_PLAYER);
-    func_800F66DC_10A2FC_shared_board(0);
-    func_800F6ECC_10AAEC_shared_board(CUR_PLAYER);
+    MB1Ev_After5ItemMove(temp_s4, 0x1E, sp28);
+    GwPlayer[system->current_player_index].itemNo[MBItemSelNoGet()] = -1;
+    MBItemRemoveEmpty(system->current_player_index);
+    MBStatusShrink(CUR_PLAYER);
+    MBStatusItemDispSetAll(0);
+    MBStatusGrow(CUR_PLAYER);
     HuPrcSleep(0x1E);
     sp28[0] = 203.0f;
     sp28[1] = 44.0f;
-    func_8011548C_32AFFC_ChillyWaters(temp_s4, 0xA, sp28);
-    temp_v0_4 = omAddPrcObj(func_801155C4_32B134_ChillyWaters, 0x4002U, 0, 0);
+    MB1Ev_After5ItemMove(temp_s4, 0xA, sp28);
+    temp_v0_4 = omAddPrcObj(MB1Ev_After5LineShow, 0x4002U, 0, 0);
     temp_v0_4->user_data = NULL;
     HuPrcChildLink(HuPrcCurrentGet(), temp_v0_4);
     sp28[0] -= 76.0f;
     HuAudFXPlay(0x14D);
-    func_8011548C_32AFFC_ChillyWaters(temp_s4, 0xA, sp28);
+    MB1Ev_After5ItemMove(temp_s4, 0xA, sp28);
     HuPrcChildWait();
     HuPrcSleep(0xA);
-    temp_v0_4 = omAddPrcObj(func_801155C4_32B134_ChillyWaters, 0x4002U, 0, 0);
+    temp_v0_4 = omAddPrcObj(MB1Ev_After5LineShow, 0x4002U, 0, 0);
     temp_v0_4->user_data = (void* )1;
     HuPrcChildLink(HuPrcCurrentGet(), temp_v0_4);
     sp28[1] += 64.0f;
     HuAudFXPlay(0x14D);
-    func_8011548C_32AFFC_ChillyWaters(temp_s4, 0xA, sp28);
+    MB1Ev_After5ItemMove(temp_s4, 0xA, sp28);
     HuPrcChildWait();
     HuPrcSleep(0xA);
     HuAudFXPlay(0x14E);
-    func_800F6748_10A368_shared_board(temp_s4, 0, &sp38, &sp3C);
+    MBStatusSprPosGet(temp_s4, 0, &sp38, &sp3C);
     for (var_f20 = 0.0f, var_s1 = 0; var_f20 < 90.0f; var_f20 += 3.6f) {
         func_80054904_55504(temp_s4, 0, ((HuMathCos((2.0f * var_f20) + 270.0f) * 80.0f) + sp38), (((1.0f - HuMathCos(var_f20)) * 90.0f) + sp3C));
         if (!(var_f20 > 54.0f)) {
@@ -670,7 +670,7 @@ void ItemUseWackyWatch(void) {
         temp = var_v1 != 0;
         if (temp && var_s1 == 0) {
             var_s1 = 1;
-            temp_v0_4 = omAddPrcObj(func_801155C4_32B134_ChillyWaters, 0x4002U, 0, 0);
+            temp_v0_4 = omAddPrcObj(MB1Ev_After5LineShow, 0x4002U, 0, 0);
             temp_v0_4->user_data = (void* )2;
             HuPrcChildLink(HuPrcCurrentGet(), temp_v0_4);
         }
@@ -689,18 +689,18 @@ void ItemUseWackyWatch(void) {
     HuPrcChildWait();
     
     for (i = 0; i < 3; i++) {
-        HuSprAttrSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x8000);
+        HuSprAttrSet(mb1_After5GrpId[i], 0, 0x8000);
     }
 
     HuSprAttrReset(D_8011FB8E_3356FE_ChillyWaters, 0, 0x8000U);
     func_80055458_56058(D_8011FB8E_3356FE_ChillyWaters, 0, 0xFFU);
     func_80054904_55504(D_8011FB8E_3356FE_ChillyWaters, 0, 0xA0, 0x78);
-    HuPrcChildLink(HuPrcCurrentGet(), omAddPrcObj(func_80115734_32B2A4_ChillyWaters, 0x4002U, 0, 0));
+    HuPrcChildLink(HuPrcCurrentGet(), omAddPrcObj(MB1Ev_After5NumFade, 0x4002U, 0, 0));
     sp40 = 0;
-    omAddPrcObj(func_801158FC_32B46C_ChillyWaters, 0x4002U, 0, 0)->user_data = &sp40;
+    omAddPrcObj(MB1Ev_After5Effect, 0x4002U, 0, 0)->user_data = &sp40;
     HuPrcChildWait();
     HuAudFXPlay(0x14F);
-    temp_s1_2 = func_800FFA4C_11366C_shared_board(-1, 4, 5);
+    temp_s1_2 = MBPlayerVibrateObjCreate(-1, 4, 5);
     
     for (i = 0; i <= 2880; i += 50) {
         temp_f20 = (HuMathSin(i) / 2.0f) + 1.0f;
@@ -714,7 +714,7 @@ void ItemUseWackyWatch(void) {
     HuAudFXPlay(0x129);
     WipeColorSet(0xFF, 0xFF, 0xFF);
     WipeCreateOut(0xB, 0x32);
-    func_800FFAEC_11370C_shared_board(temp_s1_2);
+    MBPlayerVibrateObjKill(temp_s1_2);
     
     for (var_f20 = 0.0f; WipeStatGet() != 0; var_f20 += 0.1f) {
         HuSprScaleSet(D_8011FB8E_3356FE_ChillyWaters, 0, var_f20, var_f20);
@@ -727,7 +727,7 @@ void ItemUseWackyWatch(void) {
     
     sp40 = 2;
     for (i = 0; i < 4; i++) {
-        HuSprGrpKill(D_8011FB80_3356F0_ChillyWaters[i]);
+        HuSprGrpKill(mb1_After5GrpId[i]);
         HuSprKill(sp18[i]);
     }
     
@@ -740,7 +740,7 @@ void ItemUseWackyWatch(void) {
     GwSystem.unk_52 = 2;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80116484_32BFF4_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_BranchMain);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011667C_32C1EC_ChillyWaters);
 
@@ -754,37 +754,37 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80116A0
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80116AA0_32C610_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80116BA0_32C710_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_NKinokoTurnStart);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80116DAC_32C91C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemKoopaNKinoko);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80116F0C_32CA7C_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80116F5C_32CACC_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemNKinoko);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801174D4_32D044_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_RKinokoTurnStart);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801176A4_32D214_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemKoopaRKinoko);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801177DC_32D34C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemRKinoko);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80117C60_32D7D0_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemRobBox);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80118308_32DE78_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_TuruturuMain);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80118A98_32E608_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Turuturu);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80118AE8_32E658_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80118B7C_32E6EC_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_SnowmanObjMain);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80118D6C_32E8DC_ChillyWaters);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80118E2C_32E99C_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80118EEC_32EA5C_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_SnowmanRoll);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80119924_32F494_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_SnowmanPathGet);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80119A20_32F590_ChillyWaters);
 
@@ -794,7 +794,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80119B3
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80119C54_32F7C4_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80119D08_32F878_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ActionTimeSpr);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011A764_3302D4_ChillyWaters);
 
@@ -804,9 +804,9 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011A83
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011A8B8_330428_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011A8D8_330448_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_SnowmanStart);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011B9A0_331510_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Snowman);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011BBA4_331714_ChillyWaters);
 
@@ -816,10 +816,10 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011BD8
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011BF3C_331AAC_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011C470_331FE0_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Lake);
 
 //entrypoint 4
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011C58C_3320FC_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_OpStarMapView);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011C5E0_332150_ChillyWaters);
 
@@ -829,7 +829,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011C75
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011C7A4_332314_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011C88C_3323FC_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_ComItemDecide);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011CE94_332A04_ChillyWaters);
 

@@ -2,13 +2,13 @@
 #include "duel01.h"
 
 void func_801059D0_3D8AC0_duel01(void) {
-    D_800CDD58_CE958 = 1;
-    D_800D037C_D0F7C = 0;
+    mbCameraBtnF = 1;
+    mbItemBtnF = 0;
     omPrcSetStatBit(HuPrcCurrentGet(), 0x80);
     func_80100CEC_E8ABC_name_81(GwPlayer[GwSystem.current_player_index].pad);
     omPrcResetStatBit(HuPrcCurrentGet(), 0x80);
-    D_800CDD58_CE958 = 0;
-    D_800D037C_D0F7C = 1;
+    mbCameraBtnF = 0;
+    mbItemBtnF = 1;
 }
 
 void func_80105A58_3D8B48_duel01(void) {
@@ -21,12 +21,12 @@ void func_80105A58_3D8B48_duel01(void) {
     D_80119478_3EC568_duel01 = func_800E1824_C95F4_name_81(1, 0xBC, 1);
     D_8011947C_3EC56C_duel01 = func_800E1824_C95F4_name_81(3, 0xCA, 1);
     HuPrcSleep(3);
-    D_800CDD58_CE958 = 1;
+    mbCameraBtnF = 1;
     D_800D51F8_D5DF8 = 1;
 }
 
 void func_80105B10_3D8C00_duel01(void) {
-    D_800CDD58_CE958 = 0;
+    mbCameraBtnF = 0;
     D_800D51F8_D5DF8 = 0;
     func_800E1854_C9624_name_81(D_80119470_3EC560_duel01);
     func_800E1854_C9624_name_81(D_80119474_3EC564_duel01);

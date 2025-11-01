@@ -8,7 +8,7 @@ void func_80106FC8_4E83E8_mgresultboard(void);
 void func_80107188_4E85A8_mgresultboard(void);
 void func_80107234_4E8654_mgresultboard(void);
 void func_800E6630_FA250_shared_board(Addr);
-void func_800E6720_FA340_shared_board(s32, s32);
+void MBBackCreate(s32, s32);
 void func_80107024_4E8444_mgresultboard(void);
 extern s32 D_8010AD0C_4EC12C_mgresultboard[];
 
@@ -74,9 +74,9 @@ void func_80106FC8_4E83E8_mgresultboard(void) {
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
     
     if (!(system->playMode & 2)) {
-        func_800E6720_FA340_shared_board(D_8010AD0C_4EC12C_mgresultboard[system->current_board_index], 0);
+        MBBackCreate(D_8010AD0C_4EC12C_mgresultboard[system->current_board_index], 0);
     } else {
-        func_800E6720_FA340_shared_board(0x17, 0);
+        MBBackCreate(0x17, 0);
     }
     func_80107024_4E8444_mgresultboard();
 }

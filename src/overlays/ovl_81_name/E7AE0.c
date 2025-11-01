@@ -365,7 +365,7 @@ void func_801008E8_E86B8_name_81(void) {
             func_8005F904_60504();
             goto label; //break doesn't work here for some reason
         }
-    } while (D_800CDD58_CE958 != 0 && !(D_800C9520_CA120[temp_s2] & 0xE010));
+    } while (mbCameraBtnF != 0 && !(D_800C9520_CA120[temp_s2] & 0xE010));
 
     while (1) {
         label:

@@ -7,7 +7,7 @@
 f32 HuMathSin(f32);
 
 extern Gfx* gMainGfxPos;
-extern s8 D_800D20B1_D2CB1;
+extern s8 HmfPauseF;
 
 typedef struct {
     /* 0x00 */ u8 mesNo;
@@ -120,7 +120,7 @@ void GMesExec(Gfx** arg0) {
     s16 result = FALSE;
     s16 i, j;
 
-    if (D_800D20B1_D2CB1 != 0 && !gMesCloseF) {
+    if (HmfPauseF != 0 && !gMesCloseF) {
         return;
     }
     for (i = 0; i < 8; i++) {

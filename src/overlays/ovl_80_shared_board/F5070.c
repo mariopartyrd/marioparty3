@@ -23,7 +23,7 @@ void func_800E1450_F5070_shared_board(omObjData* arg0) {
         sp10.x = GwPlayer[arg0->work[3]].player_obj->coords.x;
         sp10.y = GwPlayer[arg0->work[3]].player_obj->coords.y + 30.0f;
         sp10.z = GwPlayer[arg0->work[3]].player_obj->coords.z;
-        func_800E9940_FD560_shared_board(&sp10, sp20);
+        MBCamera3Dto2D(&sp10, sp20);
     } else {
         sp20[0] = D_80100F00_114B20_shared_board[arg0->work[3]][0];
         sp20[1] = D_80100F00_114B20_shared_board[arg0->work[3]][1];
@@ -202,7 +202,7 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
             sp18.x = GwPlayer[arg0].player_obj->coords.x;
             sp18.y = GwPlayer[arg0].player_obj->coords.y + 30.0f;
             sp18.z = GwPlayer[arg0].player_obj->coords.z;
-            func_800E9940_FD560_shared_board(&sp18, sp28);
+            MBCamera3Dto2D(&sp18, sp28);
             func_80054904_55504(temp_v0_2, 0, sp28[0], sp28[1]);
         } else {
             func_80054904_55504(temp_v0_2, 0, D_80100F00_114B20_shared_board[arg0][0], D_80100F00_114B20_shared_board[arg0][1]);

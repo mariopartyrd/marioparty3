@@ -8,15 +8,15 @@ typedef struct UnkProcess {
 /* 0x1C */ s32 interpolationTime;
 } UnkProcess;
 
-void func_800ECAD0_1006F0_shared_board(s16, s16, Vec*);
-Process* func_800ED35C_100F7C_shared_board(Vec*, Vec*, Vec*, s32);
+void MBMasuPosGet(s16, s16, Vec*);
+Process* MBPlayerPosMoveCreate(Vec*, Vec*, Vec*, s32);
 void MBVecNormalize(Vec*);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECAD0_1006F0_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBMasuPosGet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECB14_100734_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBPlayerPosMasuSet);
 
-void HuVecDirectionSafe3F(Vec* arg0, Vec* arg1, Vec* arg2) {
+void MBVecDirGet(Vec* arg0, Vec* arg1, Vec* arg2) {
     HuVecSubtract(arg2, arg1, arg0);
     MBVecNormalize(arg2);
 }
@@ -25,25 +25,25 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECB9
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECBD0_1007F0_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECC0C_10082C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBVecForwardSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECC28_100848_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBPlayerForwardSet);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECC54_100874_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECD00_100920_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBPlayerMasuSwap);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECDD4_1009F4_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBPlayerMasuColorSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECE4C_100A6C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBTotalStarGet);
 
-s32 RNGPercentChance(s8 arg0) {
+s32 MBRandCheck100(s8 arg0) {
     u8 randByte = rand8();
     s32 chance = arg0;
     return (randByte * 99 >> 8) < chance;
 }
 
-s16 GetTurnsElapsed(void) {
+s16 MBTurnRemain(void) {
     GW_SYSTEM* system = &GwSystem;
     
     return system->total_turns - system->current_turn + 1;
@@ -81,7 +81,7 @@ void func_800ED290_100EB0_shared_board(omObjData* obj) {
     omDelPrcObj(NULL);
 }
 
-Process* func_800ED35C_100F7C_shared_board(Vec* arg0, Vec* arg1, Vec* outVec, s32 interpolationTime) {
+Process* MBPlayerPosMoveCreate(Vec* arg0, Vec* arg1, Vec* outVec, s32 interpolationTime) {
     Process* interpProcess;
     UnkProcess* temp_v0_2;
 
@@ -96,17 +96,17 @@ Process* func_800ED35C_100F7C_shared_board(Vec* arg0, Vec* arg1, Vec* outVec, s3
 }
 
 //given a playerNo and interpolation time, walks a player to the next space
-void func_800ED410_101030_shared_board(s16 playerNo, s32 interpolationTime) {
+void MBPlayerPosMoveSet(s16 playerNo, s32 interpolationTime) {
     Vec sp10;
     Vec sp20;
     GW_PLAYER* temp_v0;
     Process* temp_s0;
 
-    temp_v0 = MBGetPlayerStruct(playerNo);
-    func_800ECAD0_1006F0_shared_board(playerNo, MBMasuLinkMasuIdGet(temp_v0->clink, temp_v0->cidx), &sp10); //get pos of current space
-    func_800ECAD0_1006F0_shared_board(playerNo, MBMasuLinkMasuIdGet(temp_v0->nlink, temp_v0->nidx), &sp20); //get pos of next space
-    HuVecDirectionSafe3F(&sp10, &sp20, &temp_v0->player_obj->unk18); //interpolate player position from cur space to next space
-    temp_s0 = func_800ED35C_100F7C_shared_board(&sp10, &sp20, &temp_v0->player_obj->coords, interpolationTime); //start process, return process handle
+    temp_v0 = MBPlayerGet(playerNo);
+    MBMasuPosGet(playerNo, MBMasuLinkMasuIdGet(temp_v0->clink, temp_v0->cidx), &sp10); //get pos of current space
+    MBMasuPosGet(playerNo, MBMasuLinkMasuIdGet(temp_v0->nlink, temp_v0->nidx), &sp20); //get pos of next space
+    MBVecDirGet(&sp10, &sp20, &temp_v0->player_obj->unk18); //interpolate player position from cur space to next space
+    temp_s0 = MBPlayerPosMoveCreate(&sp10, &sp20, &temp_v0->player_obj->coords, interpolationTime); //start process, return process handle
     HuPrcChildLink(HuPrcCurrentGet(), temp_s0); //wait on previous process to complete
     HuPrcChildWait();
 }
@@ -121,11 +121,11 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED75
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED810_101430_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED91C_10153C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBMoveMasuSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED998_1015B8_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBMoveNextMasuSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED9F8_101618_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBMoveBackMasuSet);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800EDA58_101678_shared_board);
 
