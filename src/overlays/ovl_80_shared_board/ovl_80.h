@@ -271,6 +271,7 @@ void func_8010067C_11429C_shared_board(s32);
 void func_800E1450_F5070_shared_board(omObjData* arg0);
 f32 func_800E72DC_FAEFC_shared_board(void);
 void MBModelAttrSetDispOn(Object*);
+void func_800EBCFC_FF91C_shared_board(s16*);
 
 extern s16 D_80105706_119326_shared_board;
 extern s16 D_80101482_1150A2_shared_board;

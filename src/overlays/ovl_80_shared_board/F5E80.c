@@ -24,11 +24,12 @@ extern s32 D_80101318_114F38_shared_board[];
 void func_8005FBA4_607A4(u8*, s32);
 extern s32 D_80101060_114C80_shared_board[];
 
-void func_800E2260_F5E80_shared_board(s32 arg0, u8* arg1) {
+//TODO: fix (u8*)arg1 hack
+void func_800E2260_F5E80_shared_board(s32 arg0, char* arg1) {
     if (arg0 == CUR_PLAYER) {
         arg0 = GwSystem.current_player_index;
     }
-    func_8005FBA4_607A4(arg1, D_80101060_114C80_shared_board[GwPlayer[arg0].chr]);
+    func_8005FBA4_607A4((u8*)arg1, D_80101060_114C80_shared_board[GwPlayer[arg0].chr]);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBItemWarpBlockSwapInit);
