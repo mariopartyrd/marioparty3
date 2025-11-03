@@ -102,10 +102,7 @@ extern s16 D_800D2130;
 extern s32 D_800D41C0_D4DC0;
 extern u8 D_80101C00_115820_shared_board[4];
 extern u8 D_80101C04_115824_shared_board[4];
-extern u16 D_80101C08_115828_shared_board[4][2];
 extern u16 D_80101C24_115844_shared_board[];
-extern u16 D_80101C2C_11584C_shared_board[4][8];
-extern u8 D_80101E70_115A90_shared_board[4][2];
 extern s32 D_80105660_119280_shared_board;
 extern s16 D_800CDD64_CE964;
 extern void* D_800D2140_D2D40[];
@@ -113,7 +110,7 @@ extern s16 D_800D6A44_D7644;
 extern s16 D_800D1FEC_D2BEC;
 extern s16 D_800D1708_D2308;
 extern s16 D_800D1F7A_D2B7A;
-extern u16 D_80101D2C_11594C_shared_board[2][4][3];
+extern u16 D_80101D2C_11594C_shared_board[][4][3];
 extern s32 D_80101C4C_11586C_shared_board[][8];
 extern u16 D_80101C8C_1158AC_shared_board[][5][8];
 
@@ -160,38 +157,296 @@ extern s16 kakusiMasuStarOld[10];
 extern s8 D_80101DAC_1159CC_shared_board[][4][2];
 extern s16 D_80101DCC_1159EC_shared_board[][3];
 
-// s8 D_80101DAC_1159CC_shared_board[4][4][2] = {
-//     {
-//         { 0xFF, 0x01 },
-//         { 0x03, 0x02 },
-//         { 0x03, 0x03 },
-//         { 0x03, 0x03 },
-//     },
-//     {
-//         { 0x00, 0x01 },
-//         { 0xFF, 0x01 },
-//         { 0x01, 0x02 },
-//         { 0x01, 0x02 },
-//     },
-//     {
-//         { 0x00, 0x01 },
-//         { 0x00, 0x01 },
-//         { 0xFF, 0x01 },
-//         { 0x01, 0x02 },
-//     },
-//     {
-//         { 0x00, 0x00 },
-//         { 0x00, 0x01 },
-//         { 0x00, 0x01 },
-//         { 0xFF, 0xFF },
-//     },
-// };
+s32 D_80101B40_115760_shared_board[] = {
+    0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D, 0x4E, 0x48, 0
+};
 
-// s16 D_80101DCC_1159EC_shared_board[][3] = {
-//     {0x2D, 0x5A, 100},
-//     {0x46, 0x5F, 100},
-//     {0x55, 0x5F, 0x64}
-// };
+void (*D_80101B64_115784_shared_board)(void) = NULL;
+void (*D_80101B68_115788_shared_board)(void) = NULL;
+void (*D_80101B6C_11578C_shared_board)(void) = NULL;
+
+f32 D_80101B70_115790_shared_board[][2] = {
+    {-7.0f, -7.0f},
+    {7.0f, -7.0f},
+    {7.0f, 7.0f},
+    {-7.0f, 7.0f}
+};
+
+f32 D_80101B90_1157B0_shared_board[][2] = {
+    {-7.0f, 4.0f},
+    {0.0f, -8.0f},
+    {7.0f, 4.0f},
+};
+
+f32 D_80101BA8_1157C8_shared_board[][2] = {
+    {-5.0f, 0.0f},
+    {5.0f, 0.0f},
+};
+
+f32 D_80101BB8_1157D8_shared_board[][2] = {
+    {-10.0f, -10.0f},
+    {10.0f, -10.0f},
+    {10.0f, 10.0f},
+    {-10.0f, 10.0f},
+};
+
+f32 D_80101BD8_1157F8_shared_board[][2] = {
+    {-10.0f, 0.0f},
+    {0.0f, -10.0f},
+    {10.0f, 0.0f},
+};
+
+f32 D_80101BF0_115810_shared_board[][2]= {
+    {-7.0f, -7.0f},
+    {7.0f, -7.0f}
+};
+
+u8 D_80101C00_115820_shared_board[] = {0x43, 0x44, 0x45, 0x46};
+u8 D_80101C04_115824_shared_board[] = {0x05, 0x1E, 0x41, 0x64};
+
+u16 D_80101C08_115828_shared_board[][2] = {
+    {0, 0x1F4},
+    {2, 0x366},
+    {4, 0x3B6},
+    {8, 0x3D9},
+    {16, 0x3E3},
+    {32, 0x3E7},
+    {64, 0x3E8}
+};
+
+u16 D_80101C24_115844_shared_board[] = {0x4B, 0x55, 0x5A, 0x5F};
+
+u16 D_80101C2C_11584C_shared_board[][8] = {
+    {0, 1, 4, 5, 8, 10, 12, 14},
+    {1, 2, 3, 6, 7, 9, 13, 11}
+};
+
+s32 D_80101C4C_11586C_shared_board[][8] = {
+    {0x00003C23, 0x00003C24, 0x00003C27, 0x00003C28, 0x00003C2B, 0x00003C2D, 0x00003C2F, 0x00003C31},
+    {0x00003C24, 0x00003C25, 0x00003C26, 0x00003C29, 0x00003C2A, 0x00003C2C, 0x00003C2E, 0x00003C30}
+};
+
+u16 D_80101C8C_1158AC_shared_board[][5][8] = {
+    {
+        {0x001E, 0x0032, 0x003C, 0x0046, 0x0046, 0x005A, 0x005A, 0x0064},
+        {0x000F, 0x001E, 0x0028, 0x0032, 0x0032, 0x0055, 0x0064, 0x0064},
+        {0x000F, 0x001E, 0x002D, 0x003C, 0x003C, 0x0064, 0x0064, 0x0064},
+        {0x000A, 0x0016, 0x0020, 0x0020, 0x002F, 0x0043, 0x0055, 0x0064},
+        {0x000A, 0x0014, 0x0014, 0x0014, 0x0025, 0x0039, 0x0046, 0x0064},
+    },
+    {
+        {0x001E, 0x0032, 0x003C, 0x0046, 0x0046, 0x0046, 0x005A, 0x0064},
+        {0x000F, 0x001E, 0x0028, 0x0032, 0x0032, 0x0050, 0x0064, 0x0064},
+        {0x000F, 0x001E, 0x0032, 0x003C, 0x0050, 0x005A, 0x0064, 0x0064},
+        {0x000A, 0x000A, 0x001E, 0x0028, 0x0037, 0x004B, 0x0055, 0x0064},
+        {0x000A, 0x000A, 0x0019, 0x0028, 0x0032, 0x0046, 0x0046, 0x0064},
+    },
+};
+
+u16 D_80101D2C_11594C_shared_board[][4][3] = {
+    {
+        {0x0000, 0x0001, 0x0002},
+        {0x0000, 0x0000, 0x0003},
+        {0x0000, 0x0000, 0x0004},
+        {0x0000, 0x0000, 0x0004},
+    },
+    {
+        {0x0000, 0x0001, 0x0002},
+        {0x0000, 0x0000, 0x0003},
+        {0x0000, 0x0000, 0x0004},
+        {0x0000, 0x0000, 0x0004},
+    },
+};
+
+Vec2f D_80101D5C_11597C_shared_board[] = {
+    {0.0f, 0.0f},
+    {200.0f, 250.0f},
+    {110.0f, 250.0f},
+    {70.0f, 290.0f},
+    {0.0f, 360.0f},
+};
+
+Vec2f D_80101D84_1159A4_shared_board[] = {
+    {0.0f, 0.0f},
+    {20.0f, 70.0f},
+    {-70.0f, 70.0f},
+    {70.0f, 290.0f},
+    {0.0f, 360.0f},
+};
+
+s8 D_80101DAC_1159CC_shared_board[][4][2] = {
+    {
+        { 0xFF, 0x01 },
+        { 0x03, 0x02 },
+        { 0x03, 0x03 },
+        { 0x03, 0x03 },
+    },
+    {
+        { 0x00, 0x01 },
+        { 0xFF, 0x01 },
+        { 0x01, 0x02 },
+        { 0x01, 0x02 },
+    },
+    {
+        { 0x00, 0x01 },
+        { 0x00, 0x01 },
+        { 0xFF, 0x01 },
+        { 0x01, 0x02 },
+    },
+    {
+        { 0x00, 0x00 },
+        { 0x00, 0x01 },
+        { 0x00, 0x01 },
+        { 0xFF, 0xFF },
+    },
+};
+
+s16 D_80101DCC_1159EC_shared_board[][3] = {
+    {0x2D, 0x5A, 100},
+    {0x46, 0x5F, 100},
+    {0x55, 0x5F, 0x64}
+};
+
+//s16 0x0000 might be needed here, but should just be automatic padding
+
+u16 D_80101DE0_115A00_shared_board[] = {20, 30, 50};
+
+//s16 0x0000 might be needed here, but should just be automatic padding
+
+u8 D_80101DE8_115A08_shared_board[9][3] = {
+    {  4,  7, 11 }, // 10 turns
+    {  6, 11, 16 }, // 15 turns
+    {  6, 16, 21 }, // 20 turns
+    {  9, 17, 26 }, // 25 turns
+    { 11, 21, 31 }, // 30 turns
+    { 11, 21, 36 }, // 35 turns
+    { 14, 27, 41 }, // 40 turns
+    { 16, 31, 46 }, // 45 turns
+    { 16, 36, 51 }, // 50 turns
+};
+
+u8 D_80101E04_115A24_shared_board[3][5] = {
+    {0xA, 0x5F, 0x64, 0, 0},
+    {0xA, 0x55, 0x64, 0, 0},
+    {0xA, 0x4B, 0x64, 0, 0}
+};
+
+u8 D_80101E14_115A34_shared_board[3][5] = {
+    {0x5, 0x4B, 0x5F, 0x64, 0},
+    {0x5, 0x41, 0x5A, 0x64, 0},
+    {0x5, 0x37, 0x55, 0x64, 0}
+};
+
+u8 D_80101E24_115A44_shared_board[3][5] = {
+    {0x5, 0x41, 0x55, 0x5F, 0x64},
+    {0x5, 0x32, 0x50, 0x5F, 0x64},
+    {0x5, 0x28, 0x46, 0x5A, 0x64}
+};
+
+u8 D_80101E34_115A54_shared_board[3][5] = {
+    {0x5, 0x32, 0x50, 0x5F, 0x64},
+    {0x05, 0x23, 0x46, 0x5A, 0x64},
+    {0x5, 0x19, 0x3C, 0x55, 0x64}
+};
+
+u16 D_80101E44_115A64_shared_board[] = {
+    0, 0xA, 0x14, 0x1E, 0x32
+};
+
+u8 (*D_80101E50_115A70_shared_board[])[3][5] = {
+    &D_80101E04_115A24_shared_board,
+    &D_80101E14_115A34_shared_board,
+    &D_80101E24_115A44_shared_board,
+    &D_80101E34_115A54_shared_board
+};
+
+Unk3* D_80101E60_115A80_shared_board = NULL;
+Unk3* D_80101E64_115A84_shared_board = NULL;
+Unk3* D_80101E68_115A88_shared_board = NULL;
+Unk3* D_80101E6C_115A8C_shared_board = NULL;
+
+u8 D_80101E70_115A90_shared_board[][2] = {
+    {1, 0x48},
+    {0xE, 0x50},
+    {0xF, 0x55},
+    {0x12, 0x5A},
+    {0x11, 0x5F},
+    {0x10, 0x64},
+    {0, 0},
+};
+
+//unused
+u8 D_80101E80_115AA0_shared_board[] = {
+    5, 10, 10, 20, 20, 30, 0, 0
+};
+
+//unused, maybe some padding in here as well
+u8 D_80101E88_115AA8_shared_board[] = {
+    0, 0, 0, 0, 0, 0, 0, 0
+};
+
+//unused
+f32 D_80101E90_115AB0_shared_board[][2] = {
+    {0.9f, 0.9f},
+    {1.2f, 1.1f},
+    {1.1f, 1.5f},
+    {0.9f, 1.2f}
+};
+
+//unused
+s16 D_80101EB0_115AD0_shared_board[][2] = {
+    {0x22, 0x80},
+    {0x11E, 0x80},
+    {0xA0, 0x18},
+    {0xA0, 0xD8}
+};
+
+//unused
+s32 D_80101EC0_115AE0_shared_board[] = {
+    0x00920080,
+    0x00AE0080,
+    0x00A0006C,
+    0x00A00084
+};
+
+//unused
+s16 D_80101ED0_115AF0_shared_board[][2] = {
+    {0xFFF0, 0},
+    {0x0010, 0},
+    {0, 0xFFF4},
+    {0, 0xC}
+};
+
+//unused
+f32 D_80101EE0_115B00_shared_board[][2] = {
+    {90.0f, -90.0f},
+    {0.0f, 180.0f}
+};
+
+//unused
+s32 D_80101EF0_115B10_shared_board[] = {
+    0x001300B3,
+    0x001300B4,
+    0x001300B5,
+    0x001300B6,
+    0x001300B7,
+    0x001300B8,
+    0x001300B9,
+    0x001300BA
+};
+
+//unused
+s32 D_80101F10_115B30_shared_board[] = {
+    0x001300C7,
+    0x001300C8,
+    0x001300C9,
+    0x001300CA,
+    0x001300CB,
+    0x001300CC,
+    0x001300CD,
+    0x001300CE
+};
+
 
 void MBOvlCall(s32 id, s16 event, u16 stat) {
     omOvlHisData* overlay = &mbovlhis[mbovlhisidx++];
@@ -406,7 +661,6 @@ void MBExit(void) {
     func_800FC8A4_1104C4_shared_board();
 }
 
-//unknown type
 void func_800F8D48_10C968_shared_board(void (*arg0)(void)) {
     D_80101B6C_11578C_shared_board = arg0;
 }
@@ -1504,18 +1758,6 @@ s32 MBKettouExec(GW_PLAYER* arg0, s32 arg1) {
     D_800D1380_D1F80 = 8;
     return 1;
 }
-
-// static const u8 D_80101DE8_115A08_shared_board[9][3] = {
-//     {  4,  7, 11 }, // 10 turns
-//     {  6, 11, 16 }, // 15 turns
-//     {  6, 16, 21 }, // 20 turns
-//     {  9, 17, 26 }, // 25 turns
-//     { 11, 21, 31 }, // 30 turns
-//     { 11, 21, 36 }, // 35 turns
-//     { 14, 27, 41 }, // 40 turns
-//     { 16, 31, 46 }, // 45 turns
-//     { 16, 36, 51 }, // 50 turns
-// };
 
 /**
  * @brief Gets the current game phase based on the given turn number.
@@ -2848,12 +3090,12 @@ void MBMain(void) {
                 break;
                 
             case 4:  // HAPPENING SPACE
-                if (D_80101B6C_11578C_shared_board == 0) {
+                if (D_80101B6C_11578C_shared_board == NULL) {
                     goto label2444;
                 }
                 
                 // Execute board-specific happening event
-                HuPrcChildLink(temp_s6, omAddPrcObj(D_80101B6C_11578C_shared_board, 0x4800U, 0, 0));
+                HuPrcChildLink(temp_s6, omAddPrcObj(D_80101B6C_11578C_shared_board, 0x4800, 0, 0));
                 HuPrcChildWait();
                 
                 // Special handling for board 3
@@ -2950,7 +3192,6 @@ void MBMain(void) {
                         
                         
                         // Find item based on weighted table
-                        //something is slightly off here...
                         for (var_s1 = 0; var_s1 < 8; var_s1++) {
                             if (D_80101C8C_1158AC_shared_board[temp_s2][temp_s0_4][var_s1] > temp_a0) {
                                 break;
