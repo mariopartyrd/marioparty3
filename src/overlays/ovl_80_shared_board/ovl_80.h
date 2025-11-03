@@ -272,7 +272,18 @@ void func_800E1450_F5070_shared_board(omObjData* arg0);
 f32 func_800E72DC_FAEFC_shared_board(void);
 void MBModelAttrSetDispOn(Object*);
 void func_800EBCFC_FF91C_shared_board(s16*);
-
+s32 func_800037C4_43C4(s16);                        /* extern */
+void func_800DECBC_F28DC_shared_board(void);               /* extern */
+void func_800E6FBC_FABDC_shared_board(void);               /* extern */
+void func_800E9730_FD350_shared_board(f32);              /* extern */
+void func_800E9AC8_FD6E8_shared_board(f32);              /* extern */
+void func_800ECB14_100734_shared_board(s16, s16);      /* extern */
+void func_800F2834_106454_shared_board(void);              /* extern */
+void func_800F5D8C_1099AC_shared_board(void);              /* extern */
+void func_800F91A4_10CDC4_shared_board(void);           /* extern */
+void func_800F93A4_10CFC4_shared_board(void);           /* extern */
+void func_800FF0F8_112D18_shared_board(void);           /* extern */
+void func_800FF158_112D78_shared_board(void);           /* extern */
 extern s16 D_80105706_119326_shared_board;
 extern s16 D_80101482_1150A2_shared_board;
 extern s32 D_80102CB0_1168D0_shared_board;

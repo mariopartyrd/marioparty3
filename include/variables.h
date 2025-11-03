@@ -25,7 +25,7 @@ extern s16 omovlhisidx;
 extern omOvlHisData omovlhis[12];
 extern omOvlHisData mbovlhis[5];
 // extern Unk800D6B48 D_800D6B48_D7748[2];
-extern u32 D_800D1240_D1E40;
+extern s32 D_800D1240_D1E40;
 extern s16 D_800CC0B8_CCCB8;
 
 extern s16 mbovlhisidx;
