@@ -90,33 +90,19 @@ void func_800E9730_FD350_shared_board(f32);
 f32 func_800E973C_FD35C_shared_board(void);
 void func_800E9AC8_FD6E8_shared_board(f32);
 f32 func_800E9AD4_FD6F4_shared_board(void);
-extern Unk3* D_80101E60_115A80_shared_board;
-extern Unk3* D_80101E64_115A84_shared_board;
-extern Unk3* D_80101E68_115A88_shared_board;
-extern Unk3* D_80101E6C_115A8C_shared_board;
+
 extern s16 D_800D1380_D1F80;
 extern s32 D_800A12CC;
-extern f32 D_800C9938_CA538;
 extern s16 D_800CC4A0_CD0A0;
 extern s16 D_800D2130;
-extern s32 D_800D41C0_D4DC0;
-extern u8 D_80101C00_115820_shared_board[4];
-extern u8 D_80101C04_115824_shared_board[4];
-extern u16 D_80101C24_115844_shared_board[];
 extern s32 D_80105660_119280_shared_board;
 extern s16 D_800CDD64_CE964;
-extern void* D_800D2140_D2D40[];
 extern s16 D_800D6A44_D7644;
 extern s16 D_800D1FEC_D2BEC;
 extern s16 D_800D1708_D2308;
 extern s16 D_800D1F7A_D2B7A;
-extern u16 D_80101D2C_11594C_shared_board[][4][3];
-extern s32 D_80101C4C_11586C_shared_board[][8];
-extern u16 D_80101C8C_1158AC_shared_board[][5][8];
 
 extern const char D_801025D0_1161F0_shared_board[];
-extern Vec2f D_80101D5C_11597C_shared_board[];
-extern Vec2f D_80101D84_1159A4_shared_board[];
 extern s16 D_800C9930_CA530;
 extern u8 D_800CB8B1_CC4B1[];
 extern s16 D_800CE206;
@@ -127,12 +113,6 @@ extern s32 D_800A12DC;
 extern s16 D_8010566E_11928E_shared_board;
 extern Vec D_80105670_119290_shared_board;
 extern Vec* D_8010567C_11929C_shared_board;
-extern f32 D_80101B70_115790_shared_board[][2];
-extern f32 D_80101B90_1157B0_shared_board[][2];
-extern f32 D_80101BA8_1157C8_shared_board[][2];
-extern f32 D_80101BB8_1157D8_shared_board[][2];
-extern f32 D_80101BD8_1157F8_shared_board[][2];
-extern f32 D_80101BF0_115810_shared_board[][2];
 extern Vec D_80105680_1192A0_shared_board[];
 extern Object* mbBattleKuriboMdl;
 extern Object* mbBattleKuriboUpperMdl;
@@ -154,11 +134,9 @@ extern u16 D_800CDD68;
 extern s16 kakusiMasuItemOld[10];
 extern s16 kakusiMasuCoinOld[10];
 extern s16 kakusiMasuStarOld[10];
-extern s8 D_80101DAC_1159CC_shared_board[][4][2];
-extern s16 D_80101DCC_1159EC_shared_board[][3];
 
 s32 D_80101B40_115760_shared_board[] = {
-    0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D, 0x4E, 0x48, 0
+    72, 73, 74, 75, 76, 77, 78, 72, 0
 };
 
 void (*D_80101B64_115784_shared_board)(void) = NULL;
@@ -201,17 +179,17 @@ f32 D_80101BF0_115810_shared_board[][2]= {
     {7.0f, -7.0f}
 };
 
-u8 D_80101C00_115820_shared_board[] = {0x43, 0x44, 0x45, 0x46};
-u8 D_80101C04_115824_shared_board[] = {0x05, 0x1E, 0x41, 0x64};
+u8 D_80101C00_115820_shared_board[] = {67, 68, 69, 70};
+u8 D_80101C04_115824_shared_board[] = {5, 30, 65, 100};
 
 u16 D_80101C08_115828_shared_board[][2] = {
-    {0, 0x1F4},
-    {2, 0x366},
-    {4, 0x3B6},
-    {8, 0x3D9},
-    {16, 0x3E3},
-    {32, 0x3E7},
-    {64, 0x3E8}
+    {0, 500},
+    {2, 870},
+    {4, 950},
+    {8, 985},
+    {16, 995},
+    {32, 999},
+    {64, 1000}
 };
 
 u16 D_80101C24_115844_shared_board[] = {0x4B, 0x55, 0x5A, 0x5F};
@@ -228,18 +206,18 @@ s32 D_80101C4C_11586C_shared_board[][8] = {
 
 u16 D_80101C8C_1158AC_shared_board[][5][8] = {
     {
-        {0x001E, 0x0032, 0x003C, 0x0046, 0x0046, 0x005A, 0x005A, 0x0064},
-        {0x000F, 0x001E, 0x0028, 0x0032, 0x0032, 0x0055, 0x0064, 0x0064},
-        {0x000F, 0x001E, 0x002D, 0x003C, 0x003C, 0x0064, 0x0064, 0x0064},
-        {0x000A, 0x0016, 0x0020, 0x0020, 0x002F, 0x0043, 0x0055, 0x0064},
-        {0x000A, 0x0014, 0x0014, 0x0014, 0x0025, 0x0039, 0x0046, 0x0064},
+        {30,  50,  60,  70,  70,  90,  90,  100},
+        {15,  30,  40,  50,  50,  85,  100, 100},
+        {15,  30,  45,  60,  60,  100, 100, 100},
+        {10,  22,  32,  32,  47,  67,  85,  100},
+        {10,  20,  20,  20,  37,  57,  70,  100},
     },
     {
-        {0x001E, 0x0032, 0x003C, 0x0046, 0x0046, 0x0046, 0x005A, 0x0064},
-        {0x000F, 0x001E, 0x0028, 0x0032, 0x0032, 0x0050, 0x0064, 0x0064},
-        {0x000F, 0x001E, 0x0032, 0x003C, 0x0050, 0x005A, 0x0064, 0x0064},
-        {0x000A, 0x000A, 0x001E, 0x0028, 0x0037, 0x004B, 0x0055, 0x0064},
-        {0x000A, 0x000A, 0x0019, 0x0028, 0x0032, 0x0046, 0x0046, 0x0064},
+        {30,  50,  60,  70,  70,  70,  90,  100},
+        {15,  30,  40,  50,  50,  80,  100, 100},
+        {15,  30,  50,  60,  80,  90,  100, 100},
+        {10,  10,  30,  40,  55,  75,  85,  100},
+        {10,  10,  25,  40,  50,  70,  70,  100},
     },
 };
 
@@ -276,42 +254,38 @@ Vec2f D_80101D84_1159A4_shared_board[] = {
 
 s8 D_80101DAC_1159CC_shared_board[][4][2] = {
     {
-        { 0xFF, 0x01 },
-        { 0x03, 0x02 },
-        { 0x03, 0x03 },
-        { 0x03, 0x03 },
+        { -1, 1 },
+        { 3, 2 },
+        { 3, 3 },
+        { 3, 3 },
     },
     {
-        { 0x00, 0x01 },
-        { 0xFF, 0x01 },
-        { 0x01, 0x02 },
-        { 0x01, 0x02 },
+        { 0, 1 },
+        { -1, 1 },
+        { 1, 2 },
+        { 1, 2 },
     },
     {
-        { 0x00, 0x01 },
-        { 0x00, 0x01 },
-        { 0xFF, 0x01 },
-        { 0x01, 0x02 },
+        { 0, 1 },
+        { 0, 1 },
+        { -1, 1 },
+        { 1, 2 },
     },
     {
-        { 0x00, 0x00 },
-        { 0x00, 0x01 },
-        { 0x00, 0x01 },
-        { 0xFF, 0xFF },
+        { 0, 0 },
+        { 0, 1 },
+        { 0, 1 },
+        { -1, -1 },
     },
 };
 
 s16 D_80101DCC_1159EC_shared_board[][3] = {
-    {0x2D, 0x5A, 100},
-    {0x46, 0x5F, 100},
-    {0x55, 0x5F, 0x64}
+    {45, 90, 100},
+    {70, 95, 100},
+    {85, 95, 100}
 };
 
-//s16 0x0000 might be needed here, but should just be automatic padding
-
 u16 D_80101DE0_115A00_shared_board[] = {20, 30, 50};
-
-//s16 0x0000 might be needed here, but should just be automatic padding
 
 u8 D_80101DE8_115A08_shared_board[9][3] = {
     {  4,  7, 11 }, // 10 turns
@@ -326,31 +300,31 @@ u8 D_80101DE8_115A08_shared_board[9][3] = {
 };
 
 u8 D_80101E04_115A24_shared_board[3][5] = {
-    {0xA, 0x5F, 0x64, 0, 0},
-    {0xA, 0x55, 0x64, 0, 0},
-    {0xA, 0x4B, 0x64, 0, 0}
+    {10, 95, 100, 0, 0},
+    {10, 85, 100, 0, 0},
+    {10, 75, 100, 0, 0}
 };
 
 u8 D_80101E14_115A34_shared_board[3][5] = {
-    {0x5, 0x4B, 0x5F, 0x64, 0},
-    {0x5, 0x41, 0x5A, 0x64, 0},
-    {0x5, 0x37, 0x55, 0x64, 0}
+    {5, 75, 95, 100, 0},
+    {5, 65, 90, 100, 0},
+    {5, 55, 85, 100, 0}
 };
 
 u8 D_80101E24_115A44_shared_board[3][5] = {
-    {0x5, 0x41, 0x55, 0x5F, 0x64},
-    {0x5, 0x32, 0x50, 0x5F, 0x64},
-    {0x5, 0x28, 0x46, 0x5A, 0x64}
+    {5, 65, 85, 95, 100},
+    {5, 50, 80, 95, 100},
+    {5, 40, 70, 90, 100}
 };
 
 u8 D_80101E34_115A54_shared_board[3][5] = {
-    {0x5, 0x32, 0x50, 0x5F, 0x64},
-    {0x05, 0x23, 0x46, 0x5A, 0x64},
-    {0x5, 0x19, 0x3C, 0x55, 0x64}
+    {5, 50, 80, 95, 100},
+    {5, 35, 70, 90, 100},
+    {5, 25, 60, 85, 100}
 };
 
 u16 D_80101E44_115A64_shared_board[] = {
-    0, 0xA, 0x14, 0x1E, 0x32
+    0, 10, 20, 30, 50
 };
 
 u8 (*D_80101E50_115A70_shared_board[])[3][5] = {
@@ -366,12 +340,12 @@ Unk3* D_80101E68_115A88_shared_board = NULL;
 Unk3* D_80101E6C_115A8C_shared_board = NULL;
 
 u8 D_80101E70_115A90_shared_board[][2] = {
-    {1, 0x48},
-    {0xE, 0x50},
-    {0xF, 0x55},
-    {0x12, 0x5A},
-    {0x11, 0x5F},
-    {0x10, 0x64},
+    {1, 72},
+    {14, 80},
+    {15, 85},
+    {18, 90},
+    {17, 95},
+    {16, 100},
     {0, 0},
 };
 
@@ -395,10 +369,10 @@ f32 D_80101E90_115AB0_shared_board[][2] = {
 
 //unused
 s16 D_80101EB0_115AD0_shared_board[][2] = {
-    {0x22, 0x80},
-    {0x11E, 0x80},
-    {0xA0, 0x18},
-    {0xA0, 0xD8}
+    {34, 128},
+    {286, 128},
+    {160, 24},
+    {160, 216}
 };
 
 //unused
@@ -411,10 +385,10 @@ s32 D_80101EC0_115AE0_shared_board[] = {
 
 //unused
 s16 D_80101ED0_115AF0_shared_board[][2] = {
-    {0xFFF0, 0},
-    {0x0010, 0},
-    {0, 0xFFF4},
-    {0, 0xC}
+    {-16, 0},
+    {16, 0},
+    {0, -12},
+    {0, 12}
 };
 
 //unused
