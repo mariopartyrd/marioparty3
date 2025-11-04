@@ -377,30 +377,38 @@ u8 D_80101DE8_115A08_shared_board[9][3] = {
     { 16, 36, 51 }, // 50 turns
 };
 
+//outcomes for how many coins are wagered for battle minigames
+//If it's early game, a 30% chance is rolled. If successful, the battle minigame will be for 0 coins. Otherwise, run the table below
+//order is probability of: 0 coins, 10 coins, 20 coins, 30 coins, 50 coins
+//1st place
 u8 D_80101E04_115A24_shared_board[3][5] = {
-    {10, 95, 100, 0, 0},
-    {10, 85, 100, 0, 0},
-    {10, 75, 100, 0, 0}
+    {10, 95, 100, 0, 0}, //early game
+    {10, 85, 100, 0, 0}, //mid game
+    {10, 75, 100, 0, 0}, //late game
 };
 
+//2nd place
 u8 D_80101E14_115A34_shared_board[3][5] = {
-    {5, 75, 95, 100, 0},
-    {5, 65, 90, 100, 0},
-    {5, 55, 85, 100, 0}
+    {5, 75, 95, 100, 0}, //early game
+    {5, 65, 90, 100, 0}, //mid game
+    {5, 55, 85, 100, 0}, //late game
 };
 
+//3rd place
 u8 D_80101E24_115A44_shared_board[3][5] = {
-    {5, 65, 85, 95, 100},
-    {5, 50, 80, 95, 100},
-    {5, 40, 70, 90, 100}
+    {5, 65, 85, 95, 100}, //early game
+    {5, 50, 80, 95, 100}, //mid game
+    {5, 40, 70, 90, 100}, //late game
 };
 
+//4th place
 u8 D_80101E34_115A54_shared_board[3][5] = {
-    {5, 50, 80, 95, 100},
-    {5, 35, 70, 90, 100},
-    {5, 25, 60, 85, 100}
+    {5, 50, 80, 95, 100}, //early game
+    {5, 35, 70, 90, 100}, //mid game
+    {5, 25, 60, 85, 100}, //late game
 };
 
+//battle coin amounts (map index -> coin amount)
 u16 D_80101E44_115A64_shared_board[] = {
     0, 10, 20, 30, 50
 };
@@ -418,86 +426,20 @@ Unk3* D_80101E68_115A88_shared_board = NULL;
 Unk3* D_80101E6C_115A8C_shared_board = NULL;
 
 u8 D_80101E70_115A90_shared_board[][2] = {
-    {1, 72},
-    {14, 80},
-    {15, 85},
-    {18, 90},
-    {17, 95},
-    {16, 100},
-    {0, 0},
+    {ITEM_SKELETON_KEY, 72},
+    {ITEM_MAGIC_LAMP,   80},
+    {ITEM_KOOPA_KARD,   85},
+    {ITEM_WACKY_WATCH,  90},
+    {ITEM_LUCKY_CHARM,  95},
+    {ITEM_BARTER_BOX,   100},
 };
 
-//unused
+//unused? padding?
+u8 D_80101E7C_115A9C_shared_board[2] = {0, 0};
+
 u8 D_80101E80_115AA0_shared_board[] = {
     5, 10, 10, 20, 20, 30
 };
-
-u8 D_80101E88_115AA8_shared_board[] = {
-    0, 0, 0, 0, 0, 0, 0, 0
-};
-
-//unused
-f32 D_80101E90_115AB0_shared_board[][2] = {
-    {0.9f, 0.9f},
-    {1.2f, 1.1f},
-    {1.1f, 1.5f},
-    {0.9f, 1.2f}
-};
-
-//unused
-s16 D_80101EB0_115AD0_shared_board[][2] = {
-    {34, 128},
-    {286, 128},
-    {160, 24},
-    {160, 216}
-};
-
-//unused
-s32 D_80101EC0_115AE0_shared_board[] = {
-    0x00920080,
-    0x00AE0080,
-    0x00A0006C,
-    0x00A00084
-};
-
-//unused
-s16 D_80101ED0_115AF0_shared_board[][2] = {
-    {-16, 0},
-    {16, 0},
-    {0, -12},
-    {0, 12}
-};
-
-//unused
-f32 D_80101EE0_115B00_shared_board[][2] = {
-    {90.0f, -90.0f},
-    {0.0f, 180.0f}
-};
-
-//unused
-s32 D_80101EF0_115B10_shared_board[] = {
-    0x001300B3,
-    0x001300B4,
-    0x001300B5,
-    0x001300B6,
-    0x001300B7,
-    0x001300B8,
-    0x001300B9,
-    0x001300BA
-};
-
-//unused
-s32 D_80101F10_115B30_shared_board[] = {
-    0x001300C7,
-    0x001300C8,
-    0x001300C9,
-    0x001300CA,
-    0x001300CB,
-    0x001300CC,
-    0x001300CD,
-    0x001300CE
-};
-
 
 void MBOvlCall(s32 id, s16 event, u16 stat) {
     omOvlHisData* overlay = &mbovlhis[mbovlhisidx++];
@@ -1859,11 +1801,6 @@ extern s16 D_800CC698_CD298;
 void func_800ECA38_100658_shared_board(void);              /* extern */
 extern u16 D_80101DE0_115A00_shared_board[];
 extern u16 D_80101E44_115A64_shared_board[];
-extern u8 D_80101E04_115A24_shared_board[3][5];
-extern u8 D_80101E14_115A34_shared_board[3][5];
-extern u8 D_80101E24_115A44_shared_board[3][5];
-extern u8 D_80101E34_115A54_shared_board[3][5];
-extern u8 (*D_80101E50_115A70_shared_board[])[3][5];
 void func_800EC980_1005A0_shared_board(s32, s32, char*, s32, s32, s32, s32, s32);
 #ifdef NON_EQUIVALENT //close, but not quite matching in logic
 s32 func_800FB624_10F244_shared_board(GW_PLAYER* arg0) {
