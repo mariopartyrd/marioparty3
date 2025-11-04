@@ -97,7 +97,14 @@ void func_800E9730_FD350_shared_board(f32);
 f32 func_800E973C_FD35C_shared_board(void);
 void func_800E9AC8_FD6E8_shared_board(f32);
 f32 func_800E9AD4_FD6F4_shared_board(void);
+void func_800DE874_F2494_shared_board(s32);
+s32 MBComItemDecide(void);
+void func_800F1EC8_105AE8_shared_board(s32);
+void func_800DE8D8_F24F8_shared_board(s32);
+void MBItemSelExec(s32, s32);
+void MBItemViewExec(s32);
 
+extern u8 D_800CC0BA_CCCBA;
 extern s16 D_800D1380_D1F80;
 extern s32 D_800A12CC;
 extern s16 D_800CC4A0_CD0A0;
@@ -108,7 +115,6 @@ extern s16 D_800D6A44_D7644;
 extern s16 D_800D1FEC_D2BEC;
 extern s16 D_800D1708_D2308;
 extern s16 D_800D1F7A_D2B7A;
-
 extern const char D_801025D0_1161F0_shared_board[];
 extern s16 D_800C9930_CA530;
 extern u8 D_800CB8B1_CC4B1[];
@@ -3538,7 +3544,81 @@ void func_800FF0F8_112D18_shared_board(void) {
     HuPrcVSleep();
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FF158_112D78_shared_board);
+void func_800FF158_112D78_shared_board(void) {
+    f32 sp10[2];
+    s32 curPlayerNo;
+    s32 i;
+    s32 comDecision;
+    s32 playerPadNo;
+
+    while (1) {
+        HuPrcVSleep();
+        if (WipeStatGet() != 0) {
+            continue;
+        }
+        if (D_800D037C_D0F7C == 0) {
+            continue;
+        }
+        if (D_800CC0BA_CCCBA == 3) {
+            continue;
+        }
+        curPlayerNo = GetCurrentPlayerIndex();
+        for (i = 0; i < MB_MAX_PLAYERS; i++) {
+            if ((D_800C9520_CA120[i] & START_BUTTON) && GwPlayer[GwSystem.current_player_index].itemTurn == 0) {
+                func_800DE874_F2494_shared_board(curPlayerNo);
+                func_800E98E8_FD508_shared_board(sp10);
+                func_800E982C_FD44C_shared_board(sp10);
+                func_800F1EC8_105AE8_shared_board(i);
+                func_800DE8D8_F24F8_shared_board(curPlayerNo);
+                break;
+            }
+            if (func_800F2198_105DB8_shared_board(i) == 0) {
+                playerPadNo = GwPlayer[i].pad;
+                if (i == curPlayerNo) {
+                    if (D_800CDD64_CE964 != 0 && (D_800C9520_CA120[playerPadNo] & B_BUTTON)) {
+                        if (!(GwSystem.cur_player_used_item & 1)) {
+                            func_800FC8A4_1104C4_shared_board();
+                            func_800DE874_F2494_shared_board(i);
+                            MBItemSelExec(i, -1);
+                            func_800DE8D8_F24F8_shared_board(i);
+                        }
+                        break;
+                    }
+                    if (D_800D51F8_D5DF8 != 0 && (D_800C9520_CA120[playerPadNo] & B_BUTTON)) {
+                        func_800DE874_F2494_shared_board(curPlayerNo);
+                        MBItemViewExec(curPlayerNo);
+                        func_800DE8D8_F24F8_shared_board(curPlayerNo);
+                        break;
+                    }
+                    if (D_800CDD58_CE958 != 0 && (D_800C9520_CA120[playerPadNo] & R_TRIG)) {
+                        func_800DE874_F2494_shared_board(curPlayerNo);
+                        func_8010067C_11429C_shared_board(playerPadNo);
+                        func_800DE8D8_F24F8_shared_board(curPlayerNo);
+                        break;
+                    }
+                    if (D_800CDD58_CE958 != 0 && (D_800C9520_CA120[playerPadNo] & Z_TRIG)) {
+                        func_800DE874_F2494_shared_board(curPlayerNo);
+                        MBMapFullExec(playerPadNo);
+                        func_800DE8D8_F24F8_shared_board(curPlayerNo);
+                        break;
+                    }
+                }
+            } else if (D_800CDD64_CE964 != 0 && D_800CC4A0_CD0A0 != 0) {
+                if (i == curPlayerNo) {
+                    comDecision = MBComItemDecide();
+                    if (comDecision == -1) {
+                        D_800CC4A0_CD0A0 = 0;
+                    } else {
+                        func_800FC8A4_1104C4_shared_board();
+                        func_800DE874_F2494_shared_board(curPlayerNo);
+                        MBItemSelExec(curPlayerNo, comDecision);
+                        func_800DE8D8_F24F8_shared_board(curPlayerNo);
+                    }
+                }
+            }
+        }
+    }
+}
 
 void MBStart(u32 arg0) {
     GW_PLAYER* player;

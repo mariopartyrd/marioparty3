@@ -1386,9 +1386,13 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EBAC8
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EBCB0_FF8D0_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EBCBC_FF8DC_shared_board);
+void func_800EBCBC_FF8DC_shared_board(s16 arg0) {
+    GwSystem.current_space_index = arg0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EBCC8_FF8E8_shared_board);
+s16 func_800EBCC8_FF8E8_shared_board(void) {
+    return GwSystem.current_space_index;
+}
 
 s16 MBMasuKakusiBlockGet(u8 arg0) {
     return MBMasuBlockGet((1 << SPACE_BLUE), arg0);

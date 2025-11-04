@@ -8,13 +8,13 @@ typedef struct UnkBoard6 {
     char unk_01[0x1B];
 } UnkBoard6; //sprite data?
 
-extern UnkBoard6 D_80102708_116328_shared_board[];
+extern UnkBoard6 D_80102708_116328_shared_board[32];
 
 void func_800D76D0_EB2F0_shared_board(s32 arg0) {
     s32 i;
 
     D_80102700_116320_shared_board = arg0;
-    for (i = 0; i < 32; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80102708_116328_shared_board); i++) {
         D_80102708_116328_shared_board[i].unk_00 = -1;
     }
 
