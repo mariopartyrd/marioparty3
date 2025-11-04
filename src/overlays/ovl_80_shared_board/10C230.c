@@ -3,6 +3,13 @@
 #include "game/object.h"
 #include "game/board.h"
 
+enum DIFFICULTIES {
+    EASY = 0,
+    NORMAL = 1,
+    HARD = 2,
+    VERY_HARD = 3
+};
+
 void func_800E982C_FD44C_shared_board(f32*);
 void func_800E98E8_FD508_shared_board(f32*);
 void func_800E9748_FD368_shared_board(Vec*);
@@ -136,7 +143,15 @@ extern s16 kakusiMasuCoinOld[10];
 extern s16 kakusiMasuStarOld[10];
 
 s32 D_80101B40_115760_shared_board[] = {
-    72, 73, 74, 75, 76, 77, 78, 72, 0
+    ChillyWaters,
+    w02,
+    w03,
+    w04,
+    w05,
+    w06,
+    w10,
+    ChillyWaters,
+    selmenu2
 };
 
 void (*D_80101B64_115784_shared_board)(void) = NULL;
@@ -179,29 +194,92 @@ f32 D_80101BF0_115810_shared_board[][2]= {
     {7.0f, -7.0f}
 };
 
-u8 D_80101C00_115820_shared_board[] = {67, 68, 69, 70};
-u8 D_80101C04_115824_shared_board[] = {5, 30, 65, 100};
-
-u16 D_80101C08_115828_shared_board[][2] = {
-    {0, 500},
-    {2, 870},
-    {4, 950},
-    {8, 985},
-    {16, 995},
-    {32, 999},
-    {64, 1000}
+u8 D_80101C00_115820_shared_board[] = {
+    MINIGAME_ID(game_guys_roulette),
+    MINIGAME_ID(game_guys_lucky_7),
+    MINIGAME_ID(game_guys_magic_boxes),
+    MINIGAME_ID(game_guys_sweet_surprise)
 };
 
-u16 D_80101C24_115844_shared_board[] = {0x4B, 0x55, 0x5A, 0x5F};
+u8 D_80101C04_115824_shared_board[] = {
+    5,  //5% game_guys_roulette
+    30, //25% game_guys_lucky_7
+    65, //35% game_guys_magic_boxes
+    100 //35% game_guys_sweet_surprise
+};
+
+//there's probably a better way to do this
+#define GAME_GUY_RANDOM_MAX 1000
+
+typedef struct CPU_GAMEGUY_STATS {
+    u16 multiplier;
+    u16 weight;
+} CPU_GAMEGUY_STATS;
+
+CPU_GAMEGUY_STATS D_80101C08_115828_shared_board[] = {
+    {0, 500},      // 0x multiplier - rolls 1-500 (50.0%)
+    {2, 870},      // 2x multiplier - rolls 501-870 (37.0%)
+    {4, 950},      // 4x multiplier - rolls 871-950 (8.0%)
+    {8, 985},      // 8x multiplier - rolls 951-985 (3.5%)
+    {16, 995},     // 16x multiplier - rolls 986-995 (1.0%)
+    {32, 999},     // 32x multiplier - rolls 996-999 (0.4%)
+    {64, 1000}     // 64x multiplier - roll 1000 (0.1%)
+};
+
+//CPU enter shop probabilites per difficulty
+u16 D_80101C24_115844_shared_board[] = {
+    [EASY]      75,
+    [NORMAL]    85,
+    [HARD]      90,
+    [VERY_HARD] 95
+};
 
 u16 D_80101C2C_11584C_shared_board[][8] = {
-    {0, 1, 4, 5, 8, 10, 12, 14},
-    {1, 2, 3, 6, 7, 9, 13, 11}
+    [SHOP_TOAD] {
+        ITEM_MUSHROOM,
+        ITEM_SKELETON_KEY,
+        ITEM_CELLULAR_SHOPPER,
+        ITEM_WARP_BLOCK,
+        ITEM_DUEL_GLOVE,
+        ITEM_GOLDEN_MUSHROOM,
+        ITEM_BOO_REPELLENT,
+        ITEM_MAGIC_LAMP
+    },
+
+    [SHOP_BABY_BOWSER] {
+        ITEM_SKELETON_KEY,
+        ITEM_POISON_MUSHROOM,
+        ITEM_REVERSE_MUSHROOM,
+        ITEM_PLUNDER_CHEST,
+        ITEM_BOWSER_PHONE,
+        ITEM_LUCKY_LAMP,
+        ITEM_BOWSER_SUIT,
+        ITEM_BOO_BELL
+    },
 };
 
+//shop messages
 s32 D_80101C4C_11586C_shared_board[][8] = {
-    {0x00003C23, 0x00003C24, 0x00003C27, 0x00003C28, 0x00003C2B, 0x00003C2D, 0x00003C2F, 0x00003C31},
-    {0x00003C24, 0x00003C25, 0x00003C26, 0x00003C29, 0x00003C2A, 0x00003C2C, 0x00003C2E, 0x00003C30}
+    [SHOP_TOAD] {
+        0x00003C23,
+        0x00003C24,
+        0x00003C27,
+        0x00003C28,
+        0x00003C2B,
+        0x00003C2D,
+        0x00003C2F,
+        0x00003C31
+    },
+    [SHOP_BABY_BOWSER] {
+        0x00003C24,
+        0x00003C25,
+        0x00003C26,
+        0x00003C29,
+        0x00003C2A,
+        0x00003C2C,
+        0x00003C2E,
+        0x00003C30
+    },
 };
 
 u16 D_80101C8C_1158AC_shared_board[][5][8] = {
@@ -236,7 +314,7 @@ u16 D_80101D2C_11594C_shared_board[][4][3] = {
     },
 };
 
-Vec2f D_80101D5C_11597C_shared_board[] = {
+f32 D_80101D5C_11597C_shared_board[][2] = {
     {0.0f, 0.0f},
     {200.0f, 250.0f},
     {110.0f, 250.0f},
@@ -244,7 +322,7 @@ Vec2f D_80101D5C_11597C_shared_board[] = {
     {0.0f, 360.0f},
 };
 
-Vec2f D_80101D84_1159A4_shared_board[] = {
+f32 D_80101D84_1159A4_shared_board[][2] = {
     {0.0f, 0.0f},
     {20.0f, 70.0f},
     {-70.0f, 70.0f},
@@ -351,10 +429,9 @@ u8 D_80101E70_115A90_shared_board[][2] = {
 
 //unused
 u8 D_80101E80_115AA0_shared_board[] = {
-    5, 10, 10, 20, 20, 30, 0, 0
+    5, 10, 10, 20, 20, 30
 };
 
-//unused, maybe some padding in here as well
 u8 D_80101E88_115AA8_shared_board[] = {
     0, 0, 0, 0, 0, 0, 0, 0
 };
@@ -1100,12 +1177,12 @@ s32 func_800F9A68_10D688_shared_board(s32 arg0) {
     space = GET_SPACE_FROM_CHAIN(curPlayer->clink, curPlayer->cidx);
     HuVecSubtract(&sp10, &GET_SPACE_FROM_CHAIN(curPlayer->nlink, curPlayer->nidx)->coords, &space->coords);
     var_f4 = MBVecAngleGet(&sp10);
-    if ((var_s4 == 0) || (!(D_80101D5C_11597C_shared_board[var_s4].x < var_f4)) || (!(var_f4 <= D_80101D5C_11597C_shared_board[var_s4].y))) {
+    if ((var_s4 == 0) || (!(D_80101D5C_11597C_shared_board[var_s4][0] < var_f4)) || (!(var_f4 <= D_80101D5C_11597C_shared_board[var_s4][1]))) {
         if (var_s2 != 0) {
-            if (D_80101D84_1159A4_shared_board[var_s2].x < 0.0f) {
+            if (D_80101D84_1159A4_shared_board[var_s2][0] < 0.0f) {
                 var_f4 -= 360.0f;
             }
-            if (!(D_80101D84_1159A4_shared_board[var_s2].x < var_f4) || (!(var_f4 <= D_80101D84_1159A4_shared_board[var_s2].y))) {
+            if (!(D_80101D84_1159A4_shared_board[var_s2][0] < var_f4) || (!(var_f4 <= D_80101D84_1159A4_shared_board[var_s2][1]))) {
                 return 0;
             } else {
                 return 1;
@@ -3152,19 +3229,16 @@ void MBMain(void) {
                     WipeCreateIn(6, 0x10);
                     HuPrcSleep(0x11);
 
-                    temp_s2 = RNGPercentChance(0x42) ? 0 : 1;
+                    temp_s2 = RNGPercentChance(66) ? 0 : 1;
                     
                     // AI decision logic
                     if (!(MBRand(100.0f) >= D_80101C24_115844_shared_board[GwPlayer[system->current_player_index].cpu_difficulty])) {
                         // AI accepts - determine item
                         var_s1 = 0;
                         temp_s0_3 = BoardPlayerRankCalc(system->current_player_index);
-                        //extern s8 D_80101DAC_1159CC_shared_board[][4][2];
                         temp_s0_4 = D_80101D2C_11594C_shared_board[temp_s2][temp_s0_3][BoardGetTurnTier(-1)];
                         temp_a0 = MBRand(100.0f);
 
-                        
-                        
                         // Find item based on weighted table
                         for (var_s1 = 0; var_s1 < 8; var_s1++) {
                             if (D_80101C8C_1158AC_shared_board[temp_s2][temp_s0_4][var_s1] > temp_a0) {
@@ -3347,16 +3421,16 @@ void MBMain(void) {
                     HuPrcSleep(0x11);
                     
                     // Weighted random multiplier
-                    temp_v1_8 = MBRand(1000.0f) + 1;
+                    temp_v1_8 = MBRand(GAME_GUY_RANDOM_MAX) + 1;
 
-                    for (var_s1 = 0; var_s1 < 7; var_s1++) {
-                        if (D_80101C08_115828_shared_board[var_s1][1] >= temp_v1_8) {
+                    for (var_s1 = 0; var_s1 < ARRAY_COUNT(D_80101C08_115828_shared_board); var_s1++) {
+                        if (D_80101C08_115828_shared_board[var_s1].weight >= temp_v1_8) {
                             break;
                         }
                     }
 
                     
-                    temp_a0_3 = D_80101C08_115828_shared_board[var_s1][0];
+                    temp_a0_3 = D_80101C08_115828_shared_board[var_s1].multiplier;
                     
                     if (temp_a0_3 != 0) {
                         // Won multiplier

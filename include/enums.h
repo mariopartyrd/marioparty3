@@ -91,6 +91,11 @@ enum CHARCTERS {
     CHAR_DAISY = 7
 };
 
+enum SHOP_HOST {
+    SHOP_TOAD = 0,
+    SHOP_BABY_BOWSER = 1
+};
+
 enum CHARACTER_IMAGES {
     CHAR_NONE = -1,
     CHAR_NONE2 = 0,

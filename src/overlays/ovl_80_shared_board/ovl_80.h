@@ -3,6 +3,8 @@
 #include "game/board.h"
 #include "malloc.h"
 
+#define MINIGAME_ID(id) ((id) + 1)
+
 typedef struct BoardStatus {
     /* 0x00 */ s8 uiUpdatePaused;
     /* 0x01 */ s8 unk1;
