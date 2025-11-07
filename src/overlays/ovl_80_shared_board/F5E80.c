@@ -20,7 +20,7 @@ extern s16 D_80102C50_116870_shared_board;
 extern s16 D_80102C52_116872_shared_board;
 extern s32 D_801012C8_114EE8_shared_board[];
 extern s32 D_80101318_114F38_shared_board[];
-
+extern f32 D_801049F8_118618_shared_board[2];
 void func_8005FBA4_607A4(u8*, s32);
 extern s32 D_80101060_114C80_shared_board[];
 
@@ -61,7 +61,7 @@ void MBItemWarpBlockSwap(void) {
     playerObj = temp_s4->player_obj;
     playerObjSecond = temp_s5->player_obj;
     HuAudFXPlay(0x107);
-    model = MBModelCreate(0x1C, 0);
+    model = MBModelCreate(0x1C, NULL);
     MBMotionSet(model, -1, 0);
     HuVecCopy3F(&model->coords, &playerObj->coords);
     
@@ -85,7 +85,7 @@ void MBItemWarpBlockSwap(void) {
     MBModelDispOff(playerObj);
     MBModelKill(model);
     HuAudFXPlay(0x107);
-    model = MBModelCreate(0x1C, 0);
+    model = MBModelCreate(0x1C, NULL);
     MBMotionSet(model, -1, 0);
     HuVecCopy3F(&model->coords, &playerObjSecond->coords);
     
@@ -106,7 +106,7 @@ void MBItemWarpBlockSwap(void) {
     func_800ECB14_100734_shared_board(D_80102C50_116870_shared_board, MBMasuLinkMasuIdGet(playerCopy->clink, temp_s4->cidx));
     func_800ECB14_100734_shared_board(D_80102C52_116872_shared_board, MBMasuLinkMasuIdGet(temp_s5->clink, temp_s5->cidx));
     HuAudFXPlay(0x107);
-    model = MBModelCreate(0x1C, 0);
+    model = MBModelCreate(0x1C, NULL);
     MBMotionSet(model, -1, 0);
     HuVecCopy3F(&model->coords, &playerObjSecond->coords);
     
@@ -135,7 +135,7 @@ void MBItemWarpBlockSwap(void) {
     HuAudFXPlay(0x107);
     playerObj->flags |= 2;
     MBModelDispOn(playerObj);
-    model = MBModelCreate(0x1C, 0);
+    model = MBModelCreate(0x1C, NULL);
     MBMotionSet(model, -1, 0);
     HuVecCopy3F(&model->coords, &playerObj->coords);
     
@@ -1068,7 +1068,10 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800E982C
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800E989C_FD4BC_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800E98E8_FD508_shared_board);
+void func_800E98E8_FD508_shared_board(f32* arg0) {
+    arg0[0] = -((D_801049F8_118618_shared_board[0] / 4.0f) - 160.0f);
+    arg0[1] = -((D_801049F8_118618_shared_board[1] / 4.0f) - 120.0f);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800E9940_FD560_shared_board);
 

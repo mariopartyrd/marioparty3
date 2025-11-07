@@ -1350,12 +1350,12 @@ void MBKettouResultExec(void) {
 }
 
 void MBBattleKuriboStart(GW_PLAYER* arg0, s32 arg1) {
-    mbBattleKuriboMdl = MBModelCreate(0xCU, 0);
+    mbBattleKuriboMdl = MBModelCreate(0xC, NULL);
     Hu3DModelScaleSet(mbBattleKuriboMdl->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     func_8001FDE8_209E8(mbBattleKuriboMdl->omObj1->model[0]);
     
     mbBattleKuriboMdl->flags |= 1;
-    mbBattleKuriboUpperMdl = MBModelCreate(0x1F, 0);
+    mbBattleKuriboUpperMdl = MBModelCreate(0x1F, NULL);
     
     Hu3DModelScaleSet(mbBattleKuriboUpperMdl->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     HuVecCopy3F(&mbBattleKuriboMdl->coords, &arg0->player_obj->coords);
@@ -1495,11 +1495,11 @@ s32 MBKettouExec(GW_PLAYER* arg0, s32 arg1) {
     HuPrcSleep(0x10);
     D_800C9930_CA530 = func_8004A5C4_4B1C4(0x3E);
     D_800D037C_D0F7C = 1;
-    mbBattleKuriboMdl = MBModelCreate(0xCU, 0);
+    mbBattleKuriboMdl = MBModelCreate(0xC, NULL);
     Hu3DModelScaleSet(mbBattleKuriboMdl->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     func_8001FDE8_209E8(mbBattleKuriboMdl->omObj1->model[0]);
     mbBattleKuriboMdl->flags |= 1;
-    mbBattleKuriboUpperMdl = MBModelCreate(0x1FU, 0);
+    mbBattleKuriboUpperMdl = MBModelCreate(0x1F, NULL);
     Hu3DModelScaleSet(mbBattleKuriboUpperMdl->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     HuVecCopy3F(&mbBattleKuriboMdl->coords, &arg0->player_obj->coords);
     HuVecCopy3F(&mbBattleKuriboUpperMdl->coords, &arg0->player_obj->coords);
@@ -1877,12 +1877,12 @@ s32 func_800FB624_10F244_shared_board(GW_PLAYER* arg0) {
     D_800C9930_CA530 = func_8004A5C4_4B1C4(0x3E);
     D_800D037C_D0F7C = 1;
     
-    mbBattleKuriboMdl = MBModelCreate(0xCU, 0);
+    mbBattleKuriboMdl = MBModelCreate(0xC, NULL);
     Hu3DModelScaleSet(mbBattleKuriboMdl->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     func_8001FDE8_209E8(mbBattleKuriboMdl->omObj1->model[0]);
     
     mbBattleKuriboMdl->flags |= 1;
-    mbBattleKuriboUpperMdl = MBModelCreate(0x1F, 0);
+    mbBattleKuriboUpperMdl = MBModelCreate(0x1F, NULL);
     
     Hu3DModelScaleSet(mbBattleKuriboUpperMdl->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     HuVecCopy3F(&mbBattleKuriboMdl->coords, &arg0->player_obj->coords);
@@ -3199,7 +3199,7 @@ void MBMain(void) {
                         GwPlayer[system->current_player_index].bonusCoin = D_80101C2C_11584C_shared_board[temp_s2][var_s1];
                         
                         // Display item sprite with animation
-                        temp_s2_2 = HuSprGrpCreate(1U, 5U);
+                        temp_s2_2 = HuSprGrpCreate(1, 5);
                         temp_v0_21 = DataRead(D_8010197C_11559C_shared_board[D_80101C2C_11584C_shared_board[temp_s2][var_s1]]);
                         temp_s3_3 = func_80055810_56410(temp_v0_21);
                         DataClose(temp_v0_21);
@@ -3302,7 +3302,7 @@ void MBMain(void) {
                 HuPrcSleep(8);
                 
                 // Create game guy object
-                temp_v0_22 = MBModelCreate(0x3EU, 0);
+                temp_v0_22 = MBModelCreate(0x3E, NULL);
                 MBModelTempAllocFree(temp_v0_22);
                 HuVecCopy3F(&temp_v0_22->coords, &temp_v0_4->player_obj->coords);
                 temp_v0_22->unk30.x = 100.0f;

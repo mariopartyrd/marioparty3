@@ -277,7 +277,7 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
 
     while ((PlayerHasEmptyItemSlot(playerNo) != -1) && (D_80105630_119250_shared_board[var_s4] != -1)) {
         if (D_80105654_119274_shared_board != 0) {
-            D_80105628_119248_shared_board = MBModelCreate(0x22U, 0);
+            D_80105628_119248_shared_board = MBModelCreate(0x22, NULL);
         } else {
             D_80105628_119248_shared_board = MBModelFileCreate(0xB0036, -1, 1.0f, 0, 0);
         }
@@ -458,12 +458,12 @@ void func_800F7FE8_10BC08_shared_board(void) {
     temp_s1 = MBGetPlayerStruct(CUR_PLAYER);
     
     if (D_80105654_119274_shared_board != 0) {
-        D_80105620_119240_shared_board = MBModelCreate(9U, 0);
+        D_80105620_119240_shared_board = MBModelCreate(9, NULL);
         D_80105624_119244_shared_board = MBModelFileCreate(0x1301C8, -1, 1.0f, 0, 0);
         D_80105658_119278_shared_board = func_8000CED8_DAD8(0xB0004, 0xAA9);
         HuAudFXPlay(0x119);
     } else {
-        D_80105620_119240_shared_board = MBModelCreate(0x39U, 0);
+        D_80105620_119240_shared_board = MBModelCreate(0x39, NULL);
         D_80105624_119244_shared_board = MBModelFileCreate(0x130203, -1, 1.0f, 0, 0);
         D_80105658_119278_shared_board = func_8000CED8_DAD8(0xB0005, 0xAA9);
         HuAudFXPlay(0x11A);
