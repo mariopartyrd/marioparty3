@@ -20,13 +20,17 @@
 #define GET_SPACE_FROM_LINK(link, idx) MBMasuGet(MBMasuLinkMasuIdGet(link, idx))
 
 #ifdef OLD_GCC
-#define VLA 0
-#else
-#define VLA
+    #ifndef VLA
+        #define VLA 0
+    #else
+        #define VLA
+    #endif
 #endif
 
 #ifdef M2CTX
-#define VLA 0
+    #ifndef VLA
+        #define VLA 0
+    #endif
 #endif
 
 

@@ -1,25 +1,7 @@
 #include "common.h"
 #include "ovl_80.h"
 
-// typedef struct Data {
-//     s32 count;
-//     s32 data[VLA];
-// } Data;
-
 u8 D_80101630_115250_shared_board[] = {0, 1, 2, 3};
-
-// Data D_80101634_115254_shared_board = {
-//     {ARRAY_COUNT(D_80101634_115254_shared_board.data)},
-//     {
-//         0x00020001,
-//         0x00020002,
-//         0x00020004,
-//         0x00020036,
-//         0x00020015,
-//         0x00020032,
-//         0x00020035,
-//     }
-// };
 
 u32 D_80101634_115254_shared_board[] = {
     7,
@@ -271,20 +253,20 @@ void func_800F25B4_1061D4_shared_board(s16 arg0, u32* arg1) {
     func_800F24FC_10611C_shared_board(arg0, arg1, 0);
 }
 
-void func_800F25D8_1061F8_shared_board(s16 arg0) {
-    GW_PLAYER* player = MBGetPlayerStruct(arg0);
+void func_800F25D8_1061F8_shared_board(s16 playerNo) {
+    GW_PLAYER* player = MBGetPlayerStruct(playerNo);
     
-    func_800F24FC_10611C_shared_board(arg0, D_80101734_115354_shared_board[player->chr], 0);
+    func_800F24FC_10611C_shared_board(playerNo, D_80101734_115354_shared_board[player->chr], 0);
 }
 
-void func_800F2624_106244_shared_board(s16 arg0) {
-    GW_PLAYER* player = MBGetPlayerStruct(arg0); //Remants of a debug build or the below function was changed to take a playerNo
+void func_800F2624_106244_shared_board(s16 playerNo) {
+    GW_PLAYER* player = MBGetPlayerStruct(playerNo); //Remants of a debug build or the below function was changed to take a playerNo
     
-    func_800F24FC_10611C_shared_board(arg0, 0, 0);
+    func_800F24FC_10611C_shared_board(playerNo, 0, 0);
 }
 
-u8 func_800F2660_106280_shared_board(s16 arg0) {
-    return D_8010175C_11537C_shared_board[MBGetPlayerStruct(arg0)->chr];
+u8 func_800F2660_106280_shared_board(s16 playerNo) {
+    return D_8010175C_11537C_shared_board[MBGetPlayerStruct(playerNo)->chr];
 }
 
 void func_800F2690_1062B0_shared_board(s16 playerNo) {

@@ -25,7 +25,7 @@ typedef struct BoardStatus {
     /* 0x24 */ f32 unk_24;
     /* 0x28 */ f32 unk_28;
     /* 0x2C */ f32 unk_2C;
-    /* 0x30 */ s32 unk30;
+    /* 0x30 */ omObjData* unk30;
     /* 0x34 */ char pad34[2];
     /* 0x36 */ s16 unk_36;
     /* 0x38 */ char unk_38[2];
