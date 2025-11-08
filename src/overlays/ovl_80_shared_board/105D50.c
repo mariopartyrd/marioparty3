@@ -1,11 +1,133 @@
 #include "common.h"
 #include "ovl_80.h"
 
-extern u8 D_80101754_115374_shared_board[8];
-extern u8 D_8010175C_11537C_shared_board[8];
-extern s32* D_80101734_115354_shared_board[];
-extern u32 D_80101634_115254_shared_board[];
-extern u8 D_80101630_115250_shared_board[];
+// typedef struct Data {
+//     s32 count;
+//     s32 data[VLA];
+// } Data;
+
+u8 D_80101630_115250_shared_board[] = {0, 1, 2, 3};
+
+// Data D_80101634_115254_shared_board = {
+//     {ARRAY_COUNT(D_80101634_115254_shared_board.data)},
+//     {
+//         0x00020001,
+//         0x00020002,
+//         0x00020004,
+//         0x00020036,
+//         0x00020015,
+//         0x00020032,
+//         0x00020035,
+//     }
+// };
+
+u32 D_80101634_115254_shared_board[] = {
+    7,
+    0x00020001,
+    0x00020002,
+    0x00020004,
+    0x00020036,
+    0x00020015,
+    0x00020032,
+    0x00020035, 
+};
+
+u32 D_80101654_115274_shared_board[] = {
+    7,
+    0x00030001,
+    0x00030002,
+    0x00030004,
+    0x00030036,
+    0x00030015,
+    0x00030032,
+    0x00030035
+};
+
+u32 D_80101674_115294_shared_board[] = {
+    0x00000007,
+
+    0x00070001,
+    0x00070002,
+    0x00070004,
+    0x00070036,
+    0x00070015,
+    0x00070032,
+    0x00070035,
+};
+
+u32 D_80101694_1152B4_shared_board[] = {
+    0x00000007,
+    0x00040001,
+    0x00040002,
+    0x00040004,
+    0x00040036,
+    0x00040015,
+    0x00040032,
+    0x00040035,
+};
+
+u32 D_801016B4_1152D4_shared_board[] = {
+    0x00000007,
+    0x00050001,
+    0x00050002,
+    0x00050004,
+    0x00050036,
+    0x00050015,
+    0x00050032,
+    0x00050035,
+};
+
+u32 D_801016D4_1152F4_shared_board[] = {
+    0x00000007,
+    0x00060001,
+    0x00060002,
+    0x00060004,
+    0x00060036,
+    0x00060015,
+    0x00060032,
+    0x00060035,
+};
+
+u32 D_801016F4_115314_shared_board[] = {
+    0x00000007,
+    0x00020001,
+    0x00020002,
+    0x00020004,
+    0x00020036,
+    0x00020015,
+    0x00020032,
+    0x00020035,
+};
+
+u32 D_80101714_115334_shared_board[] = {
+    0x00000007,
+    0x00070001,
+    0x00070002,
+    0x00070004,
+    0x00070036,
+    0x00070015,
+    0x00070032,
+    0x00070035,
+};
+
+u32* D_80101734_115354_shared_board[] = {
+    D_80101634_115254_shared_board,
+    D_80101654_115274_shared_board,
+    D_80101674_115294_shared_board,
+    D_80101694_1152B4_shared_board,
+    D_801016B4_1152D4_shared_board,
+    D_801016D4_1152F4_shared_board,
+    D_801016F4_115314_shared_board,
+    D_80101714_115334_shared_board
+};
+
+u8 D_80101754_115374_shared_board[] = {
+    0, 1, 2, 3, 4, 5, 6, 7
+};
+
+u8 D_8010175C_11537C_shared_board[] = {
+    14, 15, 16, 17, 18, 19, 20, 21
+};
 
 s16 GetCurrentPlayerIndex(void) {
     return GwSystem.current_player_index;
@@ -120,7 +242,7 @@ void func_800F248C_1060AC_shared_board(void) {
 }
 
 //create player sprite
-void func_800F24FC_10611C_shared_board(s16 playerNo, s32* arg1, s32 arg2) {
+void func_800F24FC_10611C_shared_board(s16 playerNo, u32* arg1, s32 arg2) {
     GW_PLAYER* player;
     Process* proc;
     u8 chr;
@@ -145,7 +267,7 @@ void func_800F24FC_10611C_shared_board(s16 playerNo, s32* arg1, s32 arg2) {
     proc->user_data = player;
 }
 
-void func_800F25B4_1061D4_shared_board(s16 arg0, s32* arg1) {
+void func_800F25B4_1061D4_shared_board(s16 arg0, u32* arg1) {
     func_800F24FC_10611C_shared_board(arg0, arg1, 0);
 }
 
@@ -180,10 +302,15 @@ void func_800F2690_1062B0_shared_board(s16 playerNo) {
 void func_800F26E8_106308_shared_board(void) {
     s32 i, j;
 
-    //5 players again??
+    #ifdef BUG_FIX
+    for (j = 0; j < MB_MAX_PLAYERS; j++){
+        MBGetPlayerStruct(j)->player_obj = NULL;
+    }
+    #else
     for (j = 0; j < 5; j++){
         MBGetPlayerStruct(j)->player_obj = NULL;
     }
+    #endif
 
     for (i = 1; i < 8; i++) {
         for (j = 0; j < D_80101634_115254_shared_board[0]; j++) {

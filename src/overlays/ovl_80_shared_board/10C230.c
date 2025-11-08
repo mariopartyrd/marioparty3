@@ -1040,7 +1040,7 @@ void func_800F96E0_10D300_shared_board(s32 playerNo, s32 arg1) {
     GW_SYSTEM* system = &GwSystem;
 
     player = MBGetPlayerStruct(playerNo);
-    space = GET_SPACE_FROM_CHAIN(player->clink, player->cidx);
+    space = GET_SPACE_FROM_LINK(player->clink, player->cidx);
     if (system->current_player_index == playerNo) {
         HuVecCopy3F(&player->player_obj->coords, &space->coords);
         return;
@@ -1122,8 +1122,8 @@ s32 func_800F9A68_10D688_shared_board(s32 arg0) {
         }        
     }
     
-    space = GET_SPACE_FROM_CHAIN(curPlayer->clink, curPlayer->cidx);
-    HuVecSubtract(&sp10, &GET_SPACE_FROM_CHAIN(curPlayer->nlink, curPlayer->nidx)->coords, &space->coords);
+    space = GET_SPACE_FROM_LINK(curPlayer->clink, curPlayer->cidx);
+    HuVecSubtract(&sp10, &GET_SPACE_FROM_LINK(curPlayer->nlink, curPlayer->nidx)->coords, &space->coords);
     var_f4 = MBVecAngleGet(&sp10);
     if ((var_s4 == 0) || (!(D_80101D5C_11597C_shared_board[var_s4][0] < var_f4)) || (!(var_f4 <= D_80101D5C_11597C_shared_board[var_s4][1]))) {
         if (var_s2 != 0) {

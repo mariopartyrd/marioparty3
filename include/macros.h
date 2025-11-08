@@ -17,7 +17,17 @@
 
 #define PACK_FILL_COLOR(r, g, b, a) (GPACK_RGBA5551(r, g, b, a) << 0x10) | GPACK_RGBA5551(r, g, b, a)
 
-#define GET_SPACE_FROM_CHAIN(link, idx) MBMasuGet(MBMasuLinkMasuIdGet(link, idx))
+#define GET_SPACE_FROM_LINK(link, idx) MBMasuGet(MBMasuLinkMasuIdGet(link, idx))
+
+#ifdef OLD_GCC
+#define VLA 0
+#else
+#define VLA
+#endif
+
+#ifdef M2CTX
+#define VLA 0
+#endif
 
 
 #endif

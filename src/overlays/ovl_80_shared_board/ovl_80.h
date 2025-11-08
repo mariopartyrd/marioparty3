@@ -136,7 +136,7 @@ void func_80089980_8A580(Mtx*, Mtx*);
 void func_800E989C_FD4BC_shared_board(void*);
 s16 MBMasuBlockGet(u16, u8);
 void func_800DA790_EE3B0_shared_board(u16 arg0, u16 arg1, char* arg2, u8 arg3, u8 arg4);
-Object* MBModelCreate(u8, s32*); //TODO: a1 of MBModelCreate is an s32 pointer, not just an s32
+Object* MBModelCreate(u8, u32*);
 void MBModelTempAllocFree(Object*);
 void func_800F3400_107020_shared_board(omObjData*);
 void func_800F4190_107DB0_shared_board(void);

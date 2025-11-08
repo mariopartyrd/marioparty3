@@ -29,7 +29,8 @@
             "defines": [
                 "F3DEX_GBI_2",
                 "_LANGUAGE_C",
-                "_MIPS_SZLONG=32"
+                "_MIPS_SZLONG=32",
+                "OLD_GCC"
             ],
             "cStandard": "gnu89",
             "intelliSenseMode": "${default}"
