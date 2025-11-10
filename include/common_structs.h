@@ -158,7 +158,7 @@ typedef struct Unk3 {
     omObjData* unk_04;
     s16 winID;
     char unk_0A[2];
-    void* unk_0C;
+    char* unk_0C; //messageID / pointer to message?
 } Unk3; //sizeof 0x10
 
 typedef struct {
