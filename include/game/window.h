@@ -5,6 +5,9 @@
 
 #define WINDOWS_MAX 16
 
+#define MAKE_MESSID(bank, mess) (((bank) << 16)+(mess))
+#define MAKE_MESSID_PTR(ptr) ((u32)(ptr))
+
 typedef struct TextWindow {
     /* 0x000 */ u8 unk_00;
     /* 0x001 */ char pad1[3];                       /* maybe part of unk_00[4]? */

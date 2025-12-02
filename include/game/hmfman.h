@@ -7,11 +7,10 @@
 #define HU3D_MODEL_MAX 128
 
 typedef struct {
-    /* 0x00 */ Gfx* unk00;
-    /* 0x04 */ Gfx* unk04[3]; // unknown length
+    /* 0x00 */ Gfx* unk00[4];
     /* 0x10 */ void* unk10;
     /* 0x14 */ void* unk14;
-} HmfModelData_Unk64_Unk3C_Struct; // Size unknown
+} HmfModelData_Unk64_Unk3C_Struct; //sizeof 0x18
 
 typedef struct {
     /* 0x00 */ u8 unk00;
@@ -45,7 +44,7 @@ typedef struct {
     /* 0x00 */ u8 unk00;
     /* 0x01 */ s8 unk01;
     /* 0x02 */ char unk02[8];
-    /* 0x0A */ s8 unk0A;
+    /* 0x0A */ u8 unk0A;
     /* 0x0B */ s8 unk0B;
     /* 0x0C */ s8 unk0C;
     /* 0x0E */ s16 unk0E;
@@ -55,9 +54,8 @@ typedef struct {
     /* 0x16 */ char unk16[0x22];
     /* 0x38 */ s32 unk38;
     /* 0x3C */ HmfModelData_Unk64_Unk3C_Struct* unk3C;
-    /* 0x40 */ char unk40[4];
-    /* 0x44 */ Vtx* unk44[1]; // unknown length
-    /* 0x48 */ char unk48[8];
+    /* 0x40 */ Vtx* unk40; //cur vtx?
+    /* 0x44 */ Vtx* unk44[3]; // vtx of 3 LODs?
     /* 0x50 */ void* unk50;
     /* 0x54 */ char unk54[0xC];
     /* 0x60 */ HmfModelData_Unk64_Unk60_Struct* unk60;

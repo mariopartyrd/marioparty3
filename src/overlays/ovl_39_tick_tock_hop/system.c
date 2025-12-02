@@ -613,8 +613,8 @@ s32 func_8010AD60_2C21D0_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
     gDPPipeSync(temp_v0++);
     gSPEndDisplayList(temp_v0++);
     temp_s0 = (u32) temp_v0 - (u32) temp_v0_0;
-    temp_s6->unk3C->unk00 = HuMemAllocTag(temp_s0, temp_s6->unk0E);
-    bcopy(temp_v0_0, temp_s6->unk3C->unk00, temp_s0);
+    temp_s6->unk3C->unk00[0] = HuMemAllocTag(temp_s0, temp_s6->unk0E);
+    bcopy(temp_v0_0, temp_s6->unk3C->unk00[0], temp_s0);
     HuMemFree(temp_v0_0);
     return temp_v0_2;
 }
@@ -708,17 +708,17 @@ s32 func_8010B4D0_2C2940_tick_tock_hop(HuSprite_Unk84_Struct* arg0, f32 arg1) {
     gDPPipeSync(temp_v0++);
     gSPEndDisplayList(temp_v0++);
     temp_s0 = (u32) temp_v0 - (u32) temp_v0_0;
-    temp_s4->unk3C->unk00 = temp_s4->unk3C->unk10 = HuMemAllocTag(temp_s0, temp_s4->unk0E);
-    bcopy(temp_v0_0, temp_s4->unk3C->unk00, temp_s0);
+    temp_s4->unk3C->unk00[0] = temp_s4->unk3C->unk10 = HuMemAllocTag(temp_s0, temp_s4->unk0E);
+    bcopy(temp_v0_0, temp_s4->unk3C->unk00[0], temp_s0);
     HuMemFree(temp_v0_0);
     for (var_s1 = 0; var_s1 < D_800D1FF0_D2BF0; var_s1++) {
-        temp_v0 = *(temp_s4->unk3C->unk04 + var_s1) = HuMemAllocTag(0x100, temp_s4->unk0E);
+        temp_v0 = *(temp_s4->unk3C->unk00 + (var_s1 + 1)) = HuMemAllocTag(0x100, temp_s4->unk0E);
         gDPPipeSync(temp_v0++);
         gSPSegment(temp_v0++, 0x02, osVirtualToPhysical(arg0->unk00->unk00));
         gSPDisplayList(temp_v0++, osVirtualToPhysical(temp_s4->unk3C->unk10));
         gSPEndDisplayList(temp_v0++);
     }
-    temp_s4->unk3C->unk00 = temp_s4->unk3C->unk04[D_800D2008_D2C08];
+    temp_s4->unk3C->unk00[0] = temp_s4->unk3C->unk00[D_800D2008_D2C08+1];
     return temp_v0_2;
 }
 
@@ -815,7 +815,7 @@ s16 func_8010C0E8_2C3558_tick_tock_hop(HuSprite_Unk84_Struct* arg0, RGBA* arg1) 
     bcopy(temp_v0_0, temp_s4->unk3C->unk14, temp_s0);
     HuMemFree(temp_v0_0);
     for (var_s1 = 0; var_s1 < D_800D1FF0_D2BF0; var_s1++) {
-        temp_v0_2 = temp_s4->unk3C->unk04[var_s1] = HuMemAllocTag(0x100, temp_s4->unk0E);
+        temp_v0_2 = temp_s4->unk3C->unk00[var_s1+1] = HuMemAllocTag(0x100, temp_s4->unk0E);
         gDPPipeSync(temp_v0_2++);
         gSPSegment(temp_v0_2++, 0x02, osVirtualToPhysical(arg0->unk00->unk00));
         gSPDisplayList(temp_v0_2++, osVirtualToPhysical(temp_s4->unk3C->unk10));
@@ -825,7 +825,7 @@ s16 func_8010C0E8_2C3558_tick_tock_hop(HuSprite_Unk84_Struct* arg0, RGBA* arg1) 
         gDPPipeSync(temp_v0_2++);
         gSPEndDisplayList(temp_v0_2++);
     }
-    temp_s4->unk3C->unk00 = temp_s4->unk3C->unk04[D_800D2008_D2C08];
+    temp_s4->unk3C->unk00[0] = temp_s4->unk3C->unk00[D_800D2008_D2C08+1];
     return temp_v0;
 }
 
@@ -833,9 +833,9 @@ s16 func_8010C0E8_2C3558_tick_tock_hop(HuSprite_Unk84_Struct* arg0, RGBA* arg1) 
 void func_8010CCD4_2C4144_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1, u16 arg2) {
     HmfModel* model = &HmfModelData[modelId];
     HmfData* temp_s2 = model->hmf;
-    Gfx* temp_s0 = temp_s2->unk3C->unk04[D_800D2008_D2C08];
+    Gfx* temp_s0 = temp_s2->unk3C->unk00[D_800D2008_D2C08+1];
 
-    temp_s2->unk3C->unk00 = temp_s0;
+    temp_s2->unk3C->unk00[0] = temp_s0;
     gDPPipeSync(&temp_s0[0]);
     gSPSegment(&temp_s0[1], 0x02, osVirtualToPhysical(arg1->unk00[arg2].unk00));
     gSPDisplayList(&temp_s0[2], osVirtualToPhysical(temp_s2->unk3C->unk10));
@@ -848,9 +848,9 @@ void func_8010CDA4_2C4214_tick_tock_hop(u16 modelId, HuSprite_Unk84_Struct* arg1
     HmfModel* model = &HmfModelData[modelId];
     HmfData* temp_s3 = model->hmf;
     HmfModelData_Unk64_Unk3C_Struct* temp_v1 = temp_s3->unk3C;
-    Gfx* temp_s0 = temp_v1->unk04[D_800D2008_D2C08];
+    Gfx* temp_s0 = temp_v1->unk00[D_800D2008_D2C08+1];
 
-    temp_v1->unk00 = temp_s0;
+    temp_v1->unk00[0] = temp_s0;
     gDPPipeSync(&temp_s0[0]);
     gSPSegment(&temp_s0[1], 0x02, osVirtualToPhysical(arg1->unk00[arg2].unk00));
     gSPDisplayList(&temp_s0[2], osVirtualToPhysical(temp_s3->unk3C->unk10));

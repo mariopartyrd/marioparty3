@@ -5,6 +5,10 @@
 #include "mallocblock.h"
 #include "include_asm.h"
 
+s32 func_80023264_23E64(HmfData*);
+extern s32 D_800A0530_A1130;
+extern s32 D_800C9940_CA540;
+
 // graphics.c
 u8 func_8000EF64_FB64(void* arg0, u16 arg1, s32 arg2, void* arg3, s32 arg4);
 
@@ -430,7 +434,20 @@ void func_8001C39C_1CF9C(s16 idx, s32 arg1, s32 arg2, s32 arg3) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C448_1D048);
+void func_8001C448_1D048(s16 arg0) {
+    func_8001C258_1CE58(arg0, 0x00800001, 1);
+    D_800C9940_CA540 = HmfModelData[arg0].unk18;
+    
+    if (D_800C9940_CA540 & 0x10) {
+        osSyncPrintf("RemakeStatic Error! Executed DynamicFree already!\n");
+        D_800A0530_A1130 = 0x10002;
+        return;
+    }
+    
+    if (func_80023264_23E64(HmfModelData[arg0].hmf) != NULL) {
+        func_8001C954_1D554(arg0);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C514_1D114);
 
@@ -480,6 +497,7 @@ void func_8001C8E4_1D4E4(s16 idx, u32 arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C92C_1D52C);
 
+//officially named "DynamicFree"
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C954_1D554);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001CAA4_1D6A4);

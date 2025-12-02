@@ -647,7 +647,7 @@ void func_800E455C_F817C_shared_board(void) {
     s32 temp_s0_2;
     s32 coinsToLose;
     s32 totalCoinsToLose;
-    s32 playerPassed;
+    s32 playersPassed;
     s32 curPlayerIndex;
     s32 i;
 
@@ -655,16 +655,16 @@ void func_800E455C_F817C_shared_board(void) {
     curPlayerIndex = GwSystem.current_player_index;
     curPlayer = MBGetPlayerStruct(CUR_PLAYER);
     if (GwPlayer[curPlayerIndex].itemTurn != 0) {
-        for (playerPassed = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
+        for (playersPassed = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
             if (i == curPlayerIndex) {
                 continue;
             }
             absSpace = MBMasuLinkMasuIdGet(GwPlayer[curPlayerIndex].clink, GwPlayer[curPlayerIndex].cidx);
             if (absSpace == MBMasuLinkMasuIdGet(GwPlayer[i].clink, GwPlayer[i].cidx)) {
-                sp20[playerPassed++] = i;
+                sp20[playersPassed++] = i;
             }
         }
-        if (playerPassed != 0) {
+        if (playersPassed != 0) {
             sp4C = func_800DBEC0_EFAE0_shared_board(curPlayerIndex);
             func_800E6420_FA040_shared_board(-1, 2);
             func_800ECC0C_10082C_shared_board(&sp28);
@@ -672,7 +672,7 @@ void func_800E455C_F817C_shared_board(void) {
             HuPrcSleep(8);
             totalCoinsToLose = 0;
 
-            for (i = 0; i < playerPassed; i++) {
+            for (i = 0; i < playersPassed; i++) {
                 if (GwPlayer[sp20[i]].coin != 0) {
                     if (GwPlayer[sp20[i]].coin < 20) {
                         coinsToLose = GwPlayer[sp20[i]].coin;

@@ -174,7 +174,7 @@ void func_800DCDD4_F09F4_shared_board(void) {
                                 func_800FF900_113520_shared_board(-1, 2);
                             }
                             
-                            for (j = 0; j < 0x25; j++) {
+                            for (j = 0; j < 37; j++) {
                                 temp_f22 = (f32) (((j * 4) + j) * 4);
                                 temp_f20 = (HuMathSin(temp_f22) * 0.5f) + 1.0f;
                                 HuSprScaleSet(temp_s4->unk_0E, 0, temp_f20, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
@@ -195,7 +195,7 @@ void func_800DCDD4_F09F4_shared_board(void) {
                                 func_800F5D44_109964_shared_board(temp_s3->unk0, 20);
                             } else {
                                 MBDlgWinExec(0x16, 0x3A26);
-                                MBCoinChangeCreate(temp_s3->unk0, 0xA); //doubles, 10 coins
+                                MBCoinChangeCreate(temp_s3->unk0, 10); //doubles, 10 coins
                                 func_800F5D44_109964_shared_board(temp_s3->unk0, 10); 
                             }
                             

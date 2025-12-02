@@ -1,4 +1,10 @@
 #include "common.h"
+#include "mallocblock.h"
+
+void func_80019C00_1A800(void* data);
+void func_80022660_23260(HmfData*);
+extern s16 D_800CDD6A_CE96A;
+extern u16 D_800D5204_D5E04;
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_800222B0_22EB0);
 
@@ -14,7 +20,50 @@ INCLUDE_ASM("asm/nonmatchings/22EB0", func_80022FF4_23BF4);
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_800230F8_23CF8);
 
-INCLUDE_ASM("asm/nonmatchings/22EB0", func_80023264_23E64);
+s32 func_80023264_23E64(HmfData* arg0) {
+    s32 var_s2;
+    s16 i;
+
+    var_s2 = 0;
+    if (arg0->unk40 != NULL) {
+        for (i = 0; i < ARRAY_COUNT(arg0->unk44); i++) {
+            if (arg0->unk40 != arg0->unk44[i]) {
+                if (arg0->unk0A != 0) {
+                    func_80019C00_1A800(arg0->unk44[i]);
+                } else {
+                    HuMemFree(arg0->unk44[i]);
+                }
+                arg0->unk44[i] = arg0->unk40;
+                var_s2 = 1;
+            }        
+        }
+
+        if (arg0->unk0A != 0) {
+            func_80019C00_1A800(arg0->unk40);
+        } else {
+            HuMemFree(arg0->unk40);
+        }
+    }
+    if (arg0->unk3C != NULL) {
+        for (i = 0; i < arg0->unk10; i++) {
+            if (arg0->unk0A != 0) {
+                func_80019C00_1A800(arg0->unk3C->unk00[i]);
+            } else {
+                HuMemFree(arg0->unk3C->unk00[i]);
+            }            
+        }
+ 
+        if (arg0->unk0A != 0) {
+            func_80019C00_1A800(arg0->unk3C);
+        } else {
+            HuMemFree(arg0->unk3C);
+        }
+    }
+    D_800D5204_D5E04 = arg0->unk0E;
+    D_800CDD6A_CE96A = arg0->unk0E + 1;
+    func_80022660_23260(arg0);
+    return var_s2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_80023404_24004);
 

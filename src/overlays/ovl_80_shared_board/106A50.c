@@ -765,10 +765,10 @@ s32 func_800F5278_108E98_shared_board(void) {
     s32 var_a0;
     s32 i;
 
-    var_a0 = 0;
+    var_a0 = FALSE;
     for (i = 0; i < MB_MAX_PLAYERS; i++) { //TODO: should this be MB_MAX_PLAYERS?
         if (D_801057E0_119400_shared_board[i].unkE != -2) {
-            var_a0 = 1;
+            var_a0 = TRUE;
         }
     }
     return var_a0;
@@ -1004,17 +1004,17 @@ void func_800F5D44_109964_shared_board(s32 arg0, s32 arg1) {
 
 s32 func_800F5D60_109980_shared_board(s32 arg0) {
     if (D_801055E8_119208_shared_board[arg0]) {
-        return 1;
+        return TRUE;
     } else {
-        return 0;
+        return FALSE;
     }
 }
 
 s32 func_800F5D78_109998_shared_board(void) {
     if (D_801057E0_119400_shared_board->uiVisible & 1) {
-        return 0;
+        return FALSE;
     } else {
-        return 1;
+        return TRUE;
     }
 }
 
@@ -1109,8 +1109,8 @@ void func_800F5F98_109BB8_shared_board(s32 arg0, s32 arg1) {
             } else {
                 HuSprPriSet(temp_s5, i + 2, ((arg0 * 5) + 0x478F) & 0xFFFF);
             }
-            HuSprAttrSet(temp_s5, i + 2, 0x180CU);
-            HuSprAttrReset(temp_s5, i + 2, 0x8000U);
+            HuSprAttrSet(temp_s5, i + 2, 0x180C);
+            HuSprAttrReset(temp_s5, i + 2, 0x8000);
             func_800552DC_55EDC(temp_s5, i + 2, 0.0f);
             if (GwPlayer[arg0].itemNo[0] != ITEM_NONE) {
                 if (arg1 != 0) {
