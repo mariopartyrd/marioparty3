@@ -1,6 +1,7 @@
 #include "common.h"
 #include "mallocblock.h"
 
+void func_80018544_19144(s32, s32);
 void func_80019C00_1A800(void* data);
 void func_80022660_23260(HmfData*);
 extern s16 D_800CDD6A_CE96A;
@@ -18,7 +19,42 @@ INCLUDE_ASM("asm/nonmatchings/22EB0", func_80022F08_23B08);
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_80022FF4_23BF4);
 
-INCLUDE_ASM("asm/nonmatchings/22EB0", func_800230F8_23CF8);
+void func_800230F8_23CF8(HmfData* arg0) {
+    s16 textureIndex;
+    s16 i, j;
+    
+    textureIndex = 4; //TODO: why does this start at 4?
+    
+    for (i = 0; i < arg0->unk12; i++) {
+        /* Skip entries marked as 0xFF */
+        if (arg0->unk84[i].unk9 == 0xFF) {
+            continue;
+        }
+        
+        /* Find first entry with different unkC value */
+        for (j = 0; j < i; j++) {
+            if (arg0->unk84[i].unkC == arg0->unk84[j].unkC) {
+                break;   
+            } 
+        }
+        
+        /* Copy or assign texture indices */
+        if (j != i) {
+            arg0->unk84[i].unk3 = arg0->unk84[j].unk3;
+            arg0->unk84[i].unk4 = arg0->unk84[j].unk4;
+        } else {
+            arg0->unk84[i].unk3 = textureIndex++;
+            if (arg0->unk84[i].unkC->unk_30 != NULL) {
+                arg0->unk84[i].unk4 = textureIndex++;
+            }
+            
+            if (textureIndex > 16) {
+                osSyncPrintf("Texture Anime Over\n");
+                return;
+            }
+        }
+    }
+}
 
 s32 func_80023264_23E64(HmfData* arg0) {
     s32 var_s2;
@@ -105,7 +141,14 @@ INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002B2AC_2BEAC);
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002C0EC_2CCEC);
 
-INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002C4C0_2D0C0);
+s32 func_8002C4C0_2D0C0(HmfData* arg0, s16 arg1, s32 arg2, s32 arg3) {
+    if (!(arg0->unk60[arg1].unk50 & 0x70000000)) {
+        return 0;
+    }
+    func_80018544_19144(arg2, arg3);
+    return 1;
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002C520_2D120);
 

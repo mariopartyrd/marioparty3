@@ -7,78 +7,94 @@
 #define HU3D_MODEL_MAX 128
 
 typedef struct {
-    /* 0x00 */ Gfx* unk00[4];
-    /* 0x10 */ void* unk10;
-    /* 0x14 */ void* unk14;
-} HmfModelData_Unk64_Unk3C_Struct; //sizeof 0x18
+    Gfx* unk00[4];
+    void* unk10;
+    void* unk14;
+} HmfModelData_Unk64_Unk3C_Struct;
 
 typedef struct {
-    /* 0x00 */ u8 unk00;
-    /* 0x01 */ char unk01[0x33];
-} HmfModelData_Unk64_Unk60_Unk54_Struct; // Size 0x34
+    u8 unk00;
+    char unk01[0x33];
+} HmfModelData_Unk64_Unk60_Unk54_Struct;
 
 typedef struct {
-    /* 0x00 */ char unk00[0x22];
-    /* 0x22 */ s16 unk22;
-    /* 0x24 */ char unk24[4];
-    /* 0x28 */ s16 unk28;
-    /* 0x2A */ s16 unk2A;
-    /* 0x2C */ char unk2C[0x24];
-    /* 0x50 */ s32 unk50;
-    /* 0x54 */ HmfModelData_Unk64_Unk60_Unk54_Struct* unk54;
-    /* 0x58 */ char unk58[0x10];
-} HmfModelData_Unk64_Unk60_Struct; // Size 0x68
+    char unk00[0x22];
+    s16 unk22;
+    char unk24[4];
+    s16 unk28;
+    s16 unk2A;
+    char unk2C[0x24];
+    s32 unk50;
+    HmfModelData_Unk64_Unk60_Unk54_Struct* unk54;
+    char unk58[0x10];
+} HmfModelData_Unk64_Unk60_Struct;
 
 typedef struct {
     char unk00[0x18];
-} HmfModelData_Unk64_Unk8C_Struct; // Size 0x18
+} HmfModelData_Unk64_Unk8C_Struct;
 
 typedef struct {
-    /* 0x00 */ char unk00[2];
-    /* 0x02 */ s16 unk02;
-    /* 0x04 */ char unk04[4];
-    /* 0x08 */ s32 unk08;
-} HmfModelData_Unk64_Unk98_Struct; // Size unknown
+    char unk00[2];
+    s16 unk02;
+    char unk04[4];
+    s32 unk08;
+} HmfModelData_Unk64_Unk98_Struct;
 
 typedef struct {
-    /* 0x00 */ u8 unk00;
-    /* 0x01 */ s8 unk01;
-    /* 0x02 */ char unk02[8];
-    /* 0x0A */ u8 unk0A;
-    /* 0x0B */ s8 unk0B;
-    /* 0x0C */ s8 unk0C;
-    /* 0x0E */ s16 unk0E;
-    /* 0x10 */ s16 unk10;
-    /* 0x12 */ char unk12[2];
-    /* 0x14 */ s16 unk14;
-    /* 0x16 */ char unk16[0x22];
-    /* 0x38 */ s32 unk38;
-    /* 0x3C */ HmfModelData_Unk64_Unk3C_Struct* unk3C;
-    /* 0x40 */ Vtx* unk40; //cur vtx?
-    /* 0x44 */ Vtx* unk44[3]; // vtx of 3 LODs?
-    /* 0x50 */ void* unk50;
-    /* 0x54 */ char unk54[0xC];
-    /* 0x60 */ HmfModelData_Unk64_Unk60_Struct* unk60;
-    /* 0x64 */ char unk64[0x20];
-    /* 0x84 */ s32 unk84;
-    /* 0x88 */ char unk88[4];
-    /* 0x8C */ HmfModelData_Unk64_Unk8C_Struct* unk8C;
-    /* 0x90 */ HmfModelData_Unk64_Unk8C_Struct* unk90;
-    /* 0x94 */ HmfModelData_Unk64_Unk8C_Struct* unk94;
-    /* 0x98 */ HmfModelData_Unk64_Unk98_Struct* unk98;
-    /* 0x9C */ char unk9C[4];
-    /* 0xA0 */ s32 unkA0;
-    /* 0xA4 */ f32 unkA4;
-    /* 0xA8 */ f32 unkA8;
-    /* 0xAC */ f32 unkAC;
-    /* 0xB0 */ char unkB0[4];
-    /* 0xB4 */ s32 unkB4;
-    /* 0xB8 */ char unkB8[0x10];
-    /* 0xC8 */ s32 unkC8;
-    /* 0xCC */ char unkCC[4];
-    /* 0xD0 */ s32 unkD0;
-    /* 0xD4 */ char unk_D4[8];
-} HmfData; // sizeof 0xDC
+    char unk_00[0x30];
+    s32 unk_30;
+} HmfData_Unk84_Entry2;
+
+// New struct for the array at unk84 (0x10 bytes per entry)
+typedef struct {
+    u8 unk0[3];
+    u8 unk3;
+    u8 unk4;
+    u8 unk5[4];
+    u8 unk9;
+    u8 unkA[2];
+    HmfData_Unk84_Entry2* unkC;  // Pointer to something with unk30 field
+} HmfData_Unk84_Entry;
+
+typedef struct {
+    u8 unk00;
+    s8 unk01;
+    char unk02[8];
+    u8 unk0A;
+    s8 unk0B;
+    s8 unk0C;
+    s16 unk0E;
+    s16 unk10;
+    s16 unk12;  // Changed from char[2] since it's used as s16
+    s16 unk14;
+    char unk16[0x22];
+    s32 unk38;
+    HmfModelData_Unk64_Unk3C_Struct* unk3C;
+    void* unk40;
+    Vtx* unk44[3];
+    void* unk50;
+    char unk54[0xC];
+    HmfModelData_Unk64_Unk60_Struct* unk60;
+    char unk64[0x20];
+    HmfData_Unk84_Entry* unk84;  // Array of entries
+    char unk88[4];
+    HmfModelData_Unk64_Unk8C_Struct* unk8C;
+    HmfModelData_Unk64_Unk8C_Struct* unk90;
+    HmfModelData_Unk64_Unk8C_Struct* unk94;
+    HmfModelData_Unk64_Unk98_Struct* unk98;
+    char unk9C[4];
+    s32 unkA0;
+    f32 unkA4;
+    f32 unkA8;
+    f32 unkAC;
+    char unkB0[4];
+    s32 unkB4;
+    char unkB8[0x10];
+    s32 unkC8;
+    char unkCC[4];
+    s32 unkD0;
+    char unkD4[8];
+} HmfData;
 
 typedef struct {
     /* 0x00 */ s16 unk00;
