@@ -18,7 +18,12 @@ typedef struct OverlayTable {
 
 typedef enum {
   #define OVL_DEFINE(name)  name,
+    #ifdef MOD
+    #include "mod_ovl_table.h"
+    #else
     #include "ovl_table.h"
+    #endif
+    
   #undef OVL_DEFINE
 
     OVL_COUNT
@@ -26,7 +31,11 @@ typedef enum {
 
 typedef enum {
   #define OVL_DEFINE(name)  name,
+    #ifdef MOD
+    #include "mod_ovl_table2.h"
+    #else
     #include "ovl_table2.h"
+    #endif
   #undef OVL_DEFINE
 
     MODE_OVL_COUNT

@@ -59,6 +59,7 @@ SPLAT	:= $(PYTHON) -m splat split $(SPLAT_YAML)  # Use splat from the virtual en
 MOD_SPLAT	:= $(PYTHON) -m splat split $(MOD_YAML)  # Use splat from the virtual environment
 MOD_LINKER_INJECT := $(PYTHON) ./tools/append_mod_to_linker_script.py
 MOD_OVL_TABLE_INJECT := $(PYTHON) ./tools/gen_new_overlay_table_file.py
+MOD_SET_SAVE_TYPE := $(PYTHON) ./tools/set_advanced_homebrew_header.py
 EMULATOR   := mupen64plus
 DIFF       := diff
 
@@ -140,9 +141,9 @@ modsetup: distclean modsplit
 
 modsplit:
 	$(V)rm -rf asm
-	$(V)$(MOD_OVL_TABLE_INJECT)
+#	$(V)$(MOD_OVL_TABLE_INJECT)
 	$(V)$(MOD_SPLAT)
-	$(V)$(MOD_LINKER_INJECT)
+#	$(V)$(MOD_LINKER_INJECT)
 
 split:
 	$(V)rm -rf asm
@@ -200,10 +201,20 @@ $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS)
 $(ROM): $(BUILD_DIR)/$(TARGET).elf
 	@$(PRINT)$(GREEN)Creating z64: $(ENDGREEN)$(BLUE)$@$(ENDBLUE)$(ENDLINE)
 	$(V)$(OBJCOPY) $< $@ -O binary
+# Only patch save type if MOD=1
+	@if [ "$(MOD)" = "1" ]; then \
+	    $(MOD_SET_SAVE_TYPE); \
+	fi
 	$(V)$(N64CKSUM) $@
 ifeq ($(COMPARE),1)
-	@$(DIFF) $(BASEROM) $(ROM) && printf "OK\n" || (echo 'The build succeeded, but did not match the base ROM. This is expected if you are making changes to the game. To skip this check, use "make COMPARE=0".' && false)
+ifeq ($(MOD),0)
+	@$(DIFF) $(BASEROM) $(ROM) && printf "OK\n" || (echo 'The build succeeded, but did not match the base ROM. To skip this check, use "make COMPARE=0".' && false)
+else
+	@$(PRINT)$(GREEN)Modified ROM: $(ENDGREEN)$(BLUE)build/marioparty3.z64$(ENDBLUE) built!$(ENDLINE)
 endif
+endif
+
+
 
 ### Make Settings ###
 

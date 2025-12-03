@@ -11,14 +11,8 @@
 #define HAS_DATA_SECTION 2
 #define HAS_BSS_SECTION 4
 
-#ifdef MOD
-extern OverlayTable mod_ovltbl[];
-extern OverlayTable mod_modeovltbl[];
-#else
 extern OverlayTable _ovltbl[];
 extern OverlayTable _modeovltbl[];
-#endif
-
 
 extern u8 D_800962F0_96EF0;
 extern u32 rnd_seed;
@@ -60,16 +54,6 @@ void func_8000B1A0_BDA0(s32 arg0, u8 sectionFlags) {
     u8* textStart;
     u8* tmp;
 
-    #ifdef MOD
-    romStart = mod_modeovltbl[arg0].romStart;
-    textVramStart = mod_modeovltbl[arg0].textVramStart;
-    textVramEnd = mod_modeovltbl[arg0].textVramEnd;
-    dataVramStart = mod_modeovltbl[arg0].dataVramStart;
-    dataVramEnd = mod_modeovltbl[arg0].dataVramEnd;
-    bss_start = mod_modeovltbl[arg0].bssVramStart;
-    bss_end = mod_modeovltbl[arg0].bssVramEnd;
-    textStart = mod_modeovltbl[arg0].vramStart;
-    #else
     romStart = _modeovltbl[arg0].romStart;
     textVramStart = _modeovltbl[arg0].textVramStart;
     textVramEnd = _modeovltbl[arg0].textVramEnd;
@@ -78,8 +62,6 @@ void func_8000B1A0_BDA0(s32 arg0, u8 sectionFlags) {
     bss_start = _modeovltbl[arg0].bssVramStart;
     bss_end = _modeovltbl[arg0].bssVramEnd;
     textStart = _modeovltbl[arg0].vramStart;
-    #endif
-
 
     if (sectionFlags & HAS_TEXT_SECTION) {
         dmaReadOvl(romStart, textStart, textVramEnd - textVramStart);
@@ -104,19 +86,11 @@ void OvlLoad(s32 overlayIndex) {
     u8* bss_end;
     u8* curBssAddr;
 
-    #ifdef MOD
-    rom_start = mod_ovltbl[overlayIndex].romStart;
-    rom_end = mod_ovltbl[overlayIndex].romEnd;
-    bss_start = mod_ovltbl[overlayIndex].bssVramStart;
-    bss_end = mod_ovltbl[overlayIndex].bssVramEnd;
-    dmaReadOvl(rom_start, mod_ovltbl[overlayIndex].vramStart, rom_end - rom_start);
-    #else
     rom_start = _ovltbl[overlayIndex].romStart;
     rom_end = _ovltbl[overlayIndex].romEnd;
     bss_start = _ovltbl[overlayIndex].bssVramStart;
     bss_end = _ovltbl[overlayIndex].bssVramEnd;
     dmaReadOvl(rom_start, _ovltbl[overlayIndex].vramStart, rom_end - rom_start);
-    #endif
 
     curBssAddr = bss_start;
     while (bss_start < bss_end) {

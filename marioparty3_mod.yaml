@@ -2281,21 +2281,21 @@ segments:
     name: mod
     symbol_name_format: $VRAM_$ROM_$SEG
     subsegments:
-      - [auto, c, new_overlay_table]
-      - [auto, .data, new_overlay_table] #80108C90
-      - [auto, .rodata, new_overlay_table] #80108C90
+      - [auto, c, overlay_table]
+      - [auto, .data, overlay_table] #80108C90
+      #- [auto, .rodata, overlay_table] #80108C90
 
-  - type: code
-    vram: 0x801059A0
-    dir: mod/overlays/ovl_80_name
-    name: CustomOverlay
-    exclusive_ram_id: minigame
-    symbol_name_format: $VRAM_$ROM_$SEG
-    subsegments:
-      - [auto, c, test]
-      - [auto, .data, test] #80108C90
-      - [auto, .rodata, test] #80108C90
-      - [auto, c, entrypoint]
-      - [auto, .data, entrypoint] #80108C90
-      - [auto, .rodata, entrypoint] #80108C90
+  # - type: code
+  #   vram: 0x80400000
+  #   dir: overlays/global
+  #   name: global
+  #   exclusive_ram_id: minigame
+  #   symbol_name_format: $VRAM_$ROM_$SEG
+  #   subsegments:
+  #     - [auto, c, test]
+  #     - [auto, .data, test] #80108C90
+  #     - [auto, .rodata, test] #80108C90
+  #     - [auto, c, entrypoint]
+  #     - [auto, .data, entrypoint] #80108C90
+  #     - [auto, .rodata, entrypoint] #80108C90
   - [0x4000000]
