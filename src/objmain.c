@@ -64,15 +64,28 @@ typedef struct {
 
 extern UnkomOvl D_800A1920_A2520[];
 
+//hacks with defines because there's an issue in our tools with renaming bss variables
+//the alternative is throwing them into undefined_syms, but that breaks shifting
+extern s16 D_800CCF50_CDB50;
+#define ommaxobjs D_800CCF50_CDB50
+
+extern s16 D_800CCF8C_CDB8C;
+#define omnumobjs D_800CCF8C_CDB8C
+
+extern omObjGroup D_800CD1E0_CDDE0[];
+#define omgroup D_800CD1E0_CDDE0
+
+extern s32 D_800CE200_CEE00;
+#define omovl D_800CE200_CEE00
+
+extern s16 D_800D5560_D6160;
+#define omobjfirst D_800D5560_D6160
+
 extern f32 D_800CB890_CC490;
 extern s16 omobjlast;
-extern s16 ommaxobjs;
 extern u8 D_800CCF52_CDB52;
-extern s16 omnumobjs;
 extern f32 D_800CCF98_CDB98[];
-extern omObjGroup omgroup[];
 extern u16 D_800CD2F4_CDEF4;
-extern s32 omovl;
 extern u16 D_800CE202_CEE02;
 extern s16 D_800D0A3A_D163A;
 extern s32 D_800D2118_D2D18;
@@ -80,11 +93,11 @@ extern u16 D_800D4082_D4C82;
 extern f32 D_800D4198_D4D98[];
 extern f32 D_800D5210_D5E10;
 extern u16 D_800D530C_D5F0C;
-extern s16 omobjfirst;
 extern s32 D_800D6A40_D7640;
 extern u16 D_800D6A56_D7656;
 extern u8 D_800D6A90_D7690;
-extern s16 omnextidx;
+extern s16 D_800D6B40_D7740;
+#define omnextidx D_800D6B40_D7740
 
 
 extern s8 D_800A1762_A2362;

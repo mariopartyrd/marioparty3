@@ -75,9 +75,11 @@ s32 func_800452C4_45EC4(void);
 s32 func_80045314_45F14(void);
 
 extern s8 D_800B1A50_B2650;
-extern u8 gMesCloseF;
+extern u8 D_800B1A51_B2651;
+#define gMesCloseF D_800B1A51_B2651
 extern u8 D_800B1A52_B2652;
-extern s8 gMesTimerId;
+extern s8 D_800B1A53_B2653;
+#define gMesTimerId D_800B1A53_B2653
 extern s16 D_800B1A54_B2654;
 extern s16 D_800B1A58_B2658[];
 extern s16 D_800B1A70_B2670[];
@@ -87,8 +89,10 @@ extern s16 D_800B1AF8_B26F8[];
 extern s16 D_800B1B30_B2730[];
 extern s16 D_800B1B50_B2750[];
 extern s16 D_800B1B70_B2770[];
-extern GAMEMES gMesData[];
+extern GAMEMES D_800CD300_CDF00[];
+#define gMesData D_800CD300_CDF00
 extern s32 D_800CE200_CEE00;
+#define omovl D_800CE200_CEE00
 
 INCLUDE_ASM("asm/nonmatchings/gamemes", func_80036610_37210);
 

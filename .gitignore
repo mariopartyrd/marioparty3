@@ -26,3 +26,4 @@ __pycache__/
 .*.swp
 .venv
 venv/
+run-ares.sh

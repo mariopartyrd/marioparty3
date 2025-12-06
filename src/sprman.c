@@ -9,10 +9,14 @@ void func_80052E68_53A68(void* arg0, s32 arg1);
 
 extern s32 D_800A1EA0_A2AA0; // redraw?
 extern HuSprite_Unk84_Struct* D_800C9530_CA130[];
-extern HuSprGrp* HuSprGrpLast;
-extern HuSprGrp* HuSprGrpFirst;
+extern HuSprGrp* D_800C9934_CA534;
+#define HuSprGrpLast D_800C9934_CA534
+extern HuSprGrp* D_800CC0A0_CCCA0;
+#define HuSprGrpFirst D_800CC0A0_CCCA0
 HuSprGrp* HuSprGrpData[HUSPR_GRP_MAX]__attribute__((aligned(16)));
 extern u16 HuSprGrpNum;
+extern u16 D_800D520C_D5E0C;
+#define HuSprGrpNum D_800D520C_D5E0C
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052330_52F30);
 
