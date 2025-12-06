@@ -180,8 +180,14 @@ $(BUILD_DIR)/src/%.c.o: src/%.c
 	$(V)export COMPILER_PATH=tools/gcc_2.7.2/$(DETECTED_OS) && $(CC) $(OPTFLAGS) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
 	@$(STRIP) $@ -N dummy-symbol-name
 
-# Assemble .s files with modern gnu as
+# Assemble .s files in asm/ with modern gnu as
 $(BUILD_DIR)/asm/%.s.o: asm/%.s
+	@$(PRINT)$(GREEN)Assembling asm file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	@mkdir -p $(shell dirname $@)
+	$(V)$(AS) $(ASFLAGS) -o $@ $<
+	
+# Assemble .s files in src/asm/ with modern gnu as
+$(BUILD_DIR)/src/asm/%.s.o: src/asm/%.s
 	@$(PRINT)$(GREEN)Assembling asm file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(shell dirname $@)
 	$(V)$(AS) $(ASFLAGS) -o $@ $<

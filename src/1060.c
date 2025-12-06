@@ -2,6 +2,7 @@
 
 s32 func_80007080_7C80(s32, s32);
 
+//thread3 main
 INCLUDE_ASM("asm/nonmatchings/1060", func_80000460_1060);
 
 INCLUDE_ASM("asm/nonmatchings/1060", func_800004D0_10D0);
