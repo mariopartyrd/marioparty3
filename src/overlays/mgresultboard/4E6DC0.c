@@ -85,34 +85,35 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80105C08_4E70
 //main state machine behind scoreboard and how it animates
 void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
     PlayerResult* temp_v0_13;
-    s32 temp_a1;
-    s32 temp_a2;
+    s32 coinTotal;
+    s32 currentCoin;
     s16 var_a1;
     s32 temp_v0;
     s8 var_a0;
-    u16 var_a0_3;
-    u16 var_a1_3;
+    u16 buttonPressed;
+    u16 cpuCount;
     s32 var_s3;
     s32 var_s5;
-    u32 var_s4;
+    u32 state;
     s32 var_v1_3;
     PlayerResult* temp_a0_5;
     s8 i;
-    s8 new_var;
+    s8 playerIdx;
     
     var_s5 = 0;
-    var_s4 = D_8010AAF0_4EBF10_mgresultboard;
+    state = D_8010AAF0_4EBF10_mgresultboard;
     var_s3 = 0;
-    switch (var_s4) {
+
+    switch (state) {
     case 0:
         HuAudSeqPlay(0x14);
         D_8010AD90_4EC1B0_mgresultboard = 0;
-        var_s4++;
+        state++;
         break;
     case 1:
         if (D_8010AAF8_4EBF18_mgresultboard == 1) {
             WipeCreateIn(0xFF, 0x10);
-            var_s4++;
+            state++;
         }
         break;
     case 2:
@@ -120,7 +121,7 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
         if (D_8010AD90_4EC1B0_mgresultboard >= 0x14) {
             D_8010AD94_4EC1B4_mgresultboard = 0;
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 3:
@@ -128,37 +129,35 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
         if (D_8010AD90_4EC1B0_mgresultboard >= ((s32) (40.0f / D_8010AAF4_4EBF14_mgresultboard) + (s32) (15.0f / D_8010AAF4_4EBF14_mgresultboard))) {
             D_8010AD90_4EC1B0_mgresultboard = 0;
             D_8010AD94_4EC1B4_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 4:
         D_8010AD94_4EC1B4_mgresultboard = 0;
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            //temp_v0_2 = D_8010B048_4EC468_mgresultboard[var_v1 >> 0x18].idx * 0x38;
-            temp_a1 = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
-            temp_a1 += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
-            if (temp_a1 <= 0) {
+            coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
+            coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
+            if (coinTotal <= 0) {
                 D_8010AD94_4EC1B4_mgresultboard++;
             }
         }
 
         if (D_8010AD94_4EC1B4_mgresultboard >= 4) {
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4 = 0x10;
+            state = 0x10;
         } else {
             D_8010AD94_4EC1B4_mgresultboard = 0;
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 5:
         var_s3 = 0;
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            //temp_a1 = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
-            new_var = D_8010B048_4EC468_mgresultboard[i].idx;
-            temp_a1 = GwPlayer[new_var].gameCoin;
-            temp_a1 += GwPlayer[new_var].bonusCoin;
-            if (temp_a1 > 0) {
+            playerIdx = D_8010B048_4EC468_mgresultboard[i].idx;
+            coinTotal = GwPlayer[playerIdx].gameCoin;
+            coinTotal += GwPlayer[playerIdx].bonusCoin;
+            if (coinTotal > 0) {
                 var_s5++;
                 var_s3 = func_80106D88_4E81A8_mgresultboard(i, ((((rand8()) << 8) | (rand8())) % 1000));
                 func_80107800_4E8C20_mgresultboard(i);               
@@ -170,17 +169,17 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
         if (var_s3 == 1) {
             if (++D_8010AD90_4EC1B0_mgresultboard >= 2) {
                 D_8010AD90_4EC1B0_mgresultboard = 0;
-                var_s4++;
+                state++;
             }
         }
         break;
     case 6:
         var_s3 = 0;
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            temp_a1 = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
-            temp_a1 += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
-            if (temp_a1 > 0) {
-                var_s3 = func_80106D88_4E81A8_mgresultboard(i, temp_a1);
+            coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
+            coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
+            if (coinTotal > 0) {
+                var_s3 = func_80106D88_4E81A8_mgresultboard(i, coinTotal);
                 func_80107800_4E8C20_mgresultboard(i);
                 var_s5++;
             } else {
@@ -189,15 +188,15 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
         }
 
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            temp_a1 = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
-            if (temp_a1 >= 10) {
+            coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
+            if (coinTotal >= 10) {
                 func_80106D50_4E8170_mgresultboard(i, 4);
                 var_s5++;
             }
         }
         if (var_s3 == 1) {
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
 
         break;
@@ -205,15 +204,15 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
         D_8010AD90_4EC1B0_mgresultboard++;
         if (!(D_8010AD90_4EC1B0_mgresultboard < ((s32) (40.0f / D_8010AAF4_4EBF14_mgresultboard) + (s32) (15.0f / D_8010AAF4_4EBF14_mgresultboard)))) {
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 8:
         var_s3 = 0;
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            temp_a1 = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
-            temp_a1 += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
-            if (temp_a1 > 0) {
+            coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
+            coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
+            if (coinTotal > 0) {
                 var_s5++;
                 var_s3 = func_80106DB8_4E81D8_mgresultboard(i, ((((rand8()) << 8) | (rand8())) % 1000));
                 func_80107800_4E8C20_mgresultboard(i);
@@ -224,21 +223,21 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
         }
 
         if (var_s3 == 1) {
-        D_8010AD90_4EC1B0_mgresultboard++;
-        if (D_8010AD90_4EC1B0_mgresultboard >= 2) {
-            D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4++;
-        }
-        break; //TODO: fallthrough?
+            D_8010AD90_4EC1B0_mgresultboard++;
+            if (D_8010AD90_4EC1B0_mgresultboard >= 2) {
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state++;
+            }
+            break;
         }
         break;
     case 9:
         var_s3 = 0;
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            temp_a2 = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].coin;
-            temp_a1 = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
-            if ((temp_a1 += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin) > 0) {  //TODO: this check is wrong i think
-                var_s3 = func_80106DB8_4E81D8_mgresultboard(i, temp_a2 + temp_a1);
+            currentCoin = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].coin;
+            coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
+            if ((coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin) > 0) {
+                var_s3 = func_80106DB8_4E81D8_mgresultboard(i, currentCoin + coinTotal);
                 func_80107800_4E8C20_mgresultboard(i);
                 var_s5++;
             } else {
@@ -248,35 +247,33 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
  
         if (var_s3 == 1) {
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 10:
         D_8010AD90_4EC1B0_mgresultboard++;
-        if (D_8010AD90_4EC1B0_mgresultboard < ((s32) (40.0f / D_8010AAF4_4EBF14_mgresultboard) + (s32) (15.0f / D_8010AAF4_4EBF14_mgresultboard))) {
-
-        } else {
+        if (!(D_8010AD90_4EC1B0_mgresultboard < ((s32) (40.0f / D_8010AAF4_4EBF14_mgresultboard) + (s32) (15.0f / D_8010AAF4_4EBF14_mgresultboard)))) {
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 11:
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
             D_8010B018_4EC438_mgresultboard[i] = D_8010B048_4EC468_mgresultboard[i];
-            new_var = D_8010B048_4EC468_mgresultboard[i].idx;
-            temp_a2 = GwPlayer[new_var].coin;
-            temp_a1 = GwPlayer[new_var].gameCoin;
-            temp_a1 += GwPlayer[new_var].bonusCoin;
+            playerIdx = D_8010B048_4EC468_mgresultboard[i].idx;
+            currentCoin = GwPlayer[playerIdx].coin;
+            coinTotal = GwPlayer[playerIdx].gameCoin;
+            coinTotal += GwPlayer[playerIdx].bonusCoin;
             
-            if (temp_a2 + temp_a1 < 0x3E8){
-                GwPlayer[new_var].coin = temp_a2 + temp_a1;
+            if (currentCoin + coinTotal < 0x3E8){
+                GwPlayer[playerIdx].coin = currentCoin + coinTotal;
             } else {
-                GwPlayer[new_var].coin = 0x3E7;
+                GwPlayer[playerIdx].coin = 0x3E7;
             }
-            GwPlayer[new_var].gameCoin = 0;
-            GwPlayer[new_var].bonusCoin = 0;
+            GwPlayer[playerIdx].gameCoin = 0;
+            GwPlayer[playerIdx].bonusCoin = 0;
         }
-        var_s4++;
+        state++;
         func_80107234_4E8654_mgresultboard();
         break;
     case 12:
@@ -299,21 +296,21 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
             }
 
             if (var_a0 > 0) {
-                new_var = D_8010B048_4EC468_mgresultboard[i].idx; //??? why does this help so much
-                if (GwPlayer[new_var].stat & 1) {
+                playerIdx = D_8010B048_4EC468_mgresultboard[i].idx; //??? why does this help so much
+                if (GwPlayer[playerIdx].stat & 1) {
                     continue;
                 } else {
-                    omVibrate(new_var, 5, 0, 5);
+                    omVibrate(playerIdx, 5, 0, 5);
                 }
             }
         }
 
         if (D_8010AD94_4EC1B4_mgresultboard == 0) {
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4 = 0xF;
+            state = 0xF;
         } else {
             D_8010AD94_4EC1B4_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 13:
@@ -340,7 +337,7 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
         }
         if (D_8010AD94_4EC1B4_mgresultboard >= 2) {
             D_8010AD94_4EC1B4_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 14:
@@ -361,24 +358,24 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
 
         if (var_s3 == 1) {
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 15:
         D_8010AD90_4EC1B0_mgresultboard++;
-        if (D_8010AD90_4EC1B0_mgresultboard >= 0x1E) {
+        if (D_8010AD90_4EC1B0_mgresultboard >= 30) {
             for (i = 0; i < MB_MAX_PLAYERS; i++) {
                 func_80107800_4E8C20_mgresultboard(i);
             }
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 16:
         D_8010AD90_4EC1B0_mgresultboard++;
-        if (D_8010AD90_4EC1B0_mgresultboard >= 0x28) {
+        if (D_8010AD90_4EC1B0_mgresultboard >= 40) {
             D_8010AD90_4EC1B0_mgresultboard = 0;
-            var_s4++;
+            state++;
         }
         break;
     case 17:
@@ -387,7 +384,7 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
         }
         WipeCreateOut(0, 0x14);
         HuAudSeqFadeOut(0x1E);
-        var_s4++;
+        state++;
         break;
     case 18:
         if (WipeStatGet() == 0) {
@@ -405,18 +402,18 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
         func_80107A58_4E8E78_mgresultboard();
     }
     
-    D_8010AAF0_4EBF10_mgresultboard = var_s4;
-    var_a0_3 = 0;
-    var_a1_3 = 0;
+    D_8010AAF0_4EBF10_mgresultboard = state;
+    buttonPressed = 0;
+    cpuCount = 0;
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (!(GwPlayer[i].stat & 1)) {
-            var_a0_3 |= D_800CDA7C_CE67C[GwPlayer[i].pad];
+            buttonPressed |= D_800CDA7C_CE67C[GwPlayer[i].pad];
         } else {
-            var_a1_3++;
+            cpuCount++;
         }
     }
     
-    D_8010AAF4_4EBF14_mgresultboard = ((var_a0_3 & 0x8000) || (var_a1_3 >= 4)) ? 4.0f : 1.0f;
+    D_8010AAF4_4EBF14_mgresultboard = ((buttonPressed & 0x8000) || (cpuCount >= 4)) ? 4.0f : 1.0f;
 }
 
 
