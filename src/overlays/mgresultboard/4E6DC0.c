@@ -13,6 +13,17 @@ typedef struct PlayerResult {
 extern PlayerResult D_8010B018_4EC438_mgresultboard[4];
 extern PlayerResult D_8010B048_4EC468_mgresultboard[4];
 
+typedef struct UnkTemp { //is this just a copy of PlayerResult ?
+/* 0x00 */ u8 unk_00;
+/* 0x01 */ char unk_01[3];
+/* 0x04 */ s16 unk_04;
+/* 0x06 */ char unk_06[2];
+/* 0x08 */ s16 unk_08;
+/* 0x0A */ char unk_0A[2];
+} UnkTemp; //sizeof 0xC
+
+extern UnkTemp D_8010AFB0_4EC3D0_mgresultboard[];
+
 void func_80105C08_4E7028_mgresultboard(void);
 void func_80105CE8_4E7108_mgresultboard(omObjData*);
 void func_80106DE8_4E8208_mgresultboard(void);
@@ -28,7 +39,7 @@ void func_800E66E0_FA300_shared_board(void);
 void func_800E69D8_FA5F8_shared_board(void);
 s32 func_80106A80_4E7EA0_mgresultboard(s8);
 s32 func_80106C80_4E80A0_mgresultboard(s8);
-void func_80106D50_4E8170_mgresultboard(s32, s32);
+s32 func_80106D50_4E8170_mgresultboard(s32, s32);
 s32 func_80106D88_4E81A8_mgresultboard(s32, s16);
 s32 func_80106DB8_4E81D8_mgresultboard(s32, s16);
 void func_80107234_4E8654_mgresultboard(void);
@@ -41,6 +52,8 @@ extern f32 D_8010AAF4_4EBF14_mgresultboard;
 extern s32 D_8010AAF8_4EBF18_mgresultboard;
 extern s32 D_8010AD90_4EC1B0_mgresultboard;
 extern s8 D_8010AD94_4EC1B4_mgresultboard;
+s32 func_8010A864_4EBC84_mgresultboard(omObjData*, s8, s8);  /* extern */
+extern omObjData* D_8010AFE0_4EC400_mgresultboard;
 
 //updates mg star coins on results scene load
 void func_801059A0_4E6DC0_mgresultboard(void) {
@@ -421,7 +434,13 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106A80_4E7E
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106C80_4E80A0_mgresultboard);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106D50_4E8170_mgresultboard);
+s32 func_80106D50_4E8170_mgresultboard(s32 arg0, s32 arg1) {
+    if (func_8010A864_4EBC84_mgresultboard(D_8010AFE0_4EC400_mgresultboard, arg0, arg1) ^ 1) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106D88_4E81A8_mgresultboard);
 
@@ -543,11 +562,17 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_8010A454_4EB8
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_8010A4A0_4EB8C0_mgresultboard);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_8010A864_4EBC84_mgresultboard);
-
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_8010A930_4EBD50_mgresultboard);
-
-void func_8010AADC_4EBEFC_mgresultboard(void) {
+s32 func_8010A864_4EBC84_mgresultboard(omObjData* arg0, s8 arg1, s8 arg2) {
+    if (D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_04 >= 0) {
+        return 0;
+    }
+    
+    D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_04 = arg2;
+    
+    if (D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_08 >= 0) {
+        func_8001C258_1CE58(arg0->model[D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_08+1], 4, 0);
+    }
+    
+    D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_00 = 1;
+    return 1;
 }
-
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_8010AAE4_4EBF04_mgresultboard);

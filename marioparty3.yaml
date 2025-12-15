@@ -2346,6 +2346,7 @@ segments:
     bss_size: 0x2F0
     subsegments:
       - [0x4E6DC0, c]
+      - [0x4EBD50, c]
       - [0x4EBF10, data, 4E6DC0] #8010AAF0
       - [0x4EC0E0, .rodata, 4E6DC0] #8010ACC0
       - {0x4EC1B0, type: bss, vram: 0x8010AD90, name: mgresultboard_bss}

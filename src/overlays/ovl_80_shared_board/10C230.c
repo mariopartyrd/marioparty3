@@ -2370,7 +2370,7 @@ void MBMain(void) {
     Object* temp_v0_22;
     Process* temp_s1_5;
     s32 temp_a0_4;
-    s32 var_v1_3;
+    u32 var_v1_3;
     s32 temp_v1_8;
     s32 temp_a0_3;
     s32 var_s1_12;
@@ -2387,7 +2387,7 @@ void MBMain(void) {
     temp_s6 = HuPrcCurrentGet();
     
     while (1) {  // Main game loop
-        if (D_800D1240_D1E40 < 2U && system->current_player_index == 0) {
+        if ((D_800D1240_D1E40 == 0 || D_800D1240_D1E40 == 1) && system->current_player_index == 0) {
             // Initialize all player colors
             for (var_s1 = 0; var_s1 < 4; var_s1++) {
                 MBGetPlayerStruct(var_s1)->color = 0;
@@ -2481,7 +2481,7 @@ void MBMain(void) {
 
         state = D_800D1240_D1E40;
 
-        if (state < 2U) {
+        if (state == 0 || state == 1) {
             goto temp;
         }
         
@@ -3205,20 +3205,20 @@ void MBMain(void) {
                         DataClose(temp_v0_21);
                         
                         func_80055024_55C24(temp_s2_2, 0, temp_s3_3, 0);
-                        HuSprPriSet(temp_s2_2, 0, 0xAU);
+                        HuSprPriSet(temp_s2_2, 0, 0xA);
                         func_800550F4_55CF4(temp_s2_2, 0, 0);
                         HuSprAttrSet(temp_s2_2, 0, 0x180C);
                         func_80054904_55504(temp_s2_2, 0, 0xA0, 0x5A);
-                        func_80055458_56058(temp_s2_2, 0, 0U);
+                        func_80055458_56058(temp_s2_2, 0, 0);
                         HuAudFXPlay(0x10);
                         
                         // Animate sprite appearing
                         for (var_s1 = 0; var_s1 < 0xA; var_s1++) {
-                            func_80055458_56058(temp_s2_2, 0, (var_s1 * 25) & 0xFFFF);
+                            func_80055458_56058(temp_s2_2, 0, (var_s1 * 25));
                             HuPrcVSleep();
                         }
                         
-                        func_80055458_56058(temp_s2_2, 0, 0x100U);
+                        func_80055458_56058(temp_s2_2, 0, 0x100);
                         HuPrcSleep(5);
                         func_800F2304_105F24_shared_board(-1, 5, 0);
                         HuPrcSleep(5);
@@ -3422,14 +3422,14 @@ void MBMain(void) {
                     temp_a0_4 = MBRand(100.0f);
                     var_v1_3 = 0;
 
-                    for (var_v1_3 = 0; var_v1_3 < 4U; var_v1_3++) {
+                    for (var_v1_3 = 0; var_v1_3 < ARRAY_COUNT(D_80101C04_115824_shared_board); var_v1_3++) {
                         if (D_80101C04_115824_shared_board[var_v1_3] > temp_a0_4) {
                             break;
                         }
                     }
                     
-                    if (var_v1_3 == 4) {
-                        var_v1_3 = 3;
+                    if (var_v1_3 == ARRAY_COUNT(D_80101C04_115824_shared_board)) {
+                        var_v1_3 = ARRAY_COUNT(D_80101C04_115824_shared_board) - 1;
                     }
                     
                     system->minigame_index = D_80101C00_115820_shared_board[var_v1_3];
