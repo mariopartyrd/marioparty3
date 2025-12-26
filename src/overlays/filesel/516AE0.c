@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/vibrator.h"
 
 #define UNK_VALUE 0x91
 
@@ -14,7 +15,6 @@ typedef struct UnkFileSelect {
     char unk_0C[0x78];
 } UnkFileSelect; //sizeof 0x84
 
-void func_8005A674_5B274(s32, s32, s32, s32);
 void func_801076D0_518810_filesel(s32, u32);
 s32 func_80108834_519974_filesel(void);
 void func_8010AB1C_51BC5C_filesel(s32, u32);
@@ -289,15 +289,15 @@ u32 func_80109570_51A6B0_filesel(s32 arg0) {
         if (D_800D5558_D6158[0] & A_BUTTON) {
             switch (selectedOption) {
             case OPTION_FILE0:
-                func_8005A674_5B274(0, 5, 0, 5);
+                RepeatVibrator(0, 5, 0, 5);
                 func_80110FB0_5220F0_filesel(selectedOption);
                 break;
             case OPTION_FILE1:
-                func_8005A674_5B274(0, 5, 0, 5);
+                RepeatVibrator(0, 5, 0, 5);
                 func_80110FB0_5220F0_filesel(selectedOption);
                 break;
             case OPTION_FILE2:
-                func_8005A674_5B274(0, 5, 0, 5);
+                RepeatVibrator(0, 5, 0, 5);
                 func_80110FB0_5220F0_filesel(selectedOption);
                 break;
             case OPTION_COPY:

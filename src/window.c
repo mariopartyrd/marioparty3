@@ -36,29 +36,6 @@ void func_8005DDDC_5E9DC(void);
 void func_8005F904_60504(void);
 void func_800605A4_611A4(u32);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A0F0_5ACF0);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A32C_5AF2C);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A37C_5AF7C);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A3C0_5AFC0);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A428_5B028);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A51C_5B11C);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A54C_5B14C);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A580_5B180);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A5B0_5B1B0);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A5EC_5B1EC);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A61C_5B21C);
-
-INCLUDE_ASM("asm/nonmatchings/window", func_8005A674_5B274);
 
 void func_8005A6B0_5B2B0(void) {
     Process* temp_v0_4;

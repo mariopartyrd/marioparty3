@@ -1,0 +1,3 @@
+-std=c89
+-Iinclude
+-D_LANGUAGE_C=1

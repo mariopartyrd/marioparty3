@@ -1,4 +1,5 @@
 #include "game/audio.h"
+#include "game/vibrator.h"
 #include "common.h" // TODO: remove.
 
 typedef struct {
@@ -15,7 +16,6 @@ s32 func_80007064_7C64(s32);
 s32 func_80007080_7C80(s16, UnkAudStruct*);
 void func_80007BD4_87D4(s16, s16);
 void func_80007DD8_89D8(s16);
-void func_8005A674_5B274(s32, s16, s16, s16); // window
 
 extern u8 D_800D09A8_D15A8;
 extern str800D5298 D_800D5298_D5E98;
@@ -164,7 +164,7 @@ INCLUDE_ASM("asm/nonmatchings/audio", func_8004B1AC_4BDAC);
 // Doesn't seem to be audio related? Maybe part of the next file.
 void omVibrate(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
     if (!(GwPlayer[arg0].stat & PLAYER_IS_CPU)) {
-        func_8005A674_5B274(GwPlayer[arg0].pad, arg1, arg2, arg3);
+        RepeatVibrator(GwPlayer[arg0].pad, arg1, arg2, arg3);
     }
 }
 
