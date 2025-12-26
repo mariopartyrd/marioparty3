@@ -750,11 +750,7 @@ void MBSaveInit(void) {
         system->current_player_index = 0;
         system->minigame_index = 0;
 
-        #ifdef BUG_FIX
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-        #else
-        for (i = 0; i < 5; i++) { // 5??
-        #endif
+        for (i = 0; i < ARRAY_COUNT(GwPlayer); i++) { //clear all 5 "players" (bowser bomb remnants)
             player = MBGetPlayerStruct(i);
             player->coin = 0;
             player->gamePrize = 0;

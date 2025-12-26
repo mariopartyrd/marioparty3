@@ -47,6 +47,8 @@ void func_80107650_4E8A70_mgresultboard(s8);
 void func_80107800_4E8C20_mgresultboard(s32);
 void func_801079B0_4E8DD0_mgresultboard(s32);
 void func_80107A58_4E8E78_mgresultboard(void);
+s32 func_80109A90_4EAEB0_mgresultboard(s32, s8, s16);
+extern s32 D_8010AEA0_4EC2C0_mgresultboard;
 extern u32 D_8010AAF0_4EBF10_mgresultboard;
 extern f32 D_8010AAF4_4EBF14_mgresultboard;
 extern s32 D_8010AAF8_4EBF18_mgresultboard;
@@ -442,7 +444,9 @@ s32 func_80106D50_4E8170_mgresultboard(s32 arg0, s32 arg1) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106D88_4E81A8_mgresultboard);
+s32 func_80106D88_4E81A8_mgresultboard(s32 arg0, s16 arg1) {
+    return func_80109A90_4EAEB0_mgresultboard(D_8010AEA0_4EC2C0_mgresultboard, arg0, arg1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106DB8_4E81D8_mgresultboard);
 

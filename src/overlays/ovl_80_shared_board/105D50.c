@@ -259,7 +259,7 @@ void func_800F25D8_1061F8_shared_board(s16 playerNo) {
 }
 
 void func_800F2624_106244_shared_board(s16 playerNo) {
-    GW_PLAYER* player = MBGetPlayerStruct(playerNo); //Remants of a debug build or the below function was changed to take a playerNo
+    GW_PLAYER* player = MBGetPlayerStruct(playerNo); //remnants of a debug build or the below function was changed to take a playerNo
     
     func_800F24FC_10611C_shared_board(playerNo, 0, 0);
 }
@@ -283,15 +283,9 @@ void func_800F2690_1062B0_shared_board(s16 playerNo) {
 void func_800F26E8_106308_shared_board(void) {
     s32 i, j;
 
-    #ifdef BUG_FIX
-    for (j = 0; j < MB_MAX_PLAYERS; j++){
+    for (j = 0; j < ARRAY_COUNT(GwPlayer); j++) { //clear all 5 "players" (bowser bomb remnants)
         MBGetPlayerStruct(j)->player_obj = NULL;
     }
-    #else
-    for (j = 0; j < 5; j++){
-        MBGetPlayerStruct(j)->player_obj = NULL;
-    }
-    #endif
 
     for (i = 1; i < 8; i++) {
         for (j = 0; j < D_80101634_115254_shared_board[0]; j++) {

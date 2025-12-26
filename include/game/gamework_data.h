@@ -182,6 +182,6 @@ typedef struct GwPlayer_s {
 extern GW_COMMON GwCommon;
 extern GW_STORY GwStory;
 extern GW_SYSTEM GwSystem;
-extern GW_PLAYER GwPlayer[4];
+extern GW_PLAYER GwPlayer[5]; //5 players due to remnants of mp2's bowser bomb
 
 #endif
