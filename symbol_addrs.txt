@@ -737,8 +737,8 @@ MBMapFullLineFlash = 0x800D7D50; //rom:0xEB970 segment:shared_board
 MBMapFullMain = 0x800D7F5C; //rom:0xEBB7C segment:shared_board
 MBMapFullExec = 0x800D86F0; //rom:0xEC310 segment:shared_board
 MBVecAngleGet = 0x800D8790; //rom:0xEC3B0 segment:shared_board
-MBVecRotateXZ = 0x800D8958; //rom:0xEC578 segment:shared_board
-MBVecRotateXY = 0x800D89F4; //rom:0xEC614 segment:shared_board
+MBVecRotateX = 0x800D8958; //rom:0xEC578 segment:shared_board
+MBVecRotateY = 0x800D89F4; //rom:0xEC614 segment:shared_board
 MBMotionLock = 0x800D8E60; //rom:0xECA80 segment:shared_board
 //MBMotionCreate = 0x800D8E88; //rom:0xECAA8 segment:shared_board
 MBMotionKill = 0x800D8ED4; //rom:0xECAF4 segment:shared_board
@@ -1035,6 +1035,8 @@ MBMain = 0x800FCA7C; //rom:0x11069C segment:shared_board
 MBMasuBlockGet = 0x800EB5DC; //rom:0xFF1FC segment:shared_board
 MBMasuKakusiBlockGet = 0x800EBCD4; //rom:0xFF8F4 segment:shared_board
 MBMasuBlockTblSet = 0x800EBD54; //rom:0xFF974 segment:shared_board
+
+MBVecRotateZ = 0x800D8A90; //rom:0xEC6B0 segment:shared_board
 
 //ovl_81
 D_80101BF8_E99C8_name_81 = 0x80101BF8; //rom:0xE99C8 type:f32 segment:name_81
