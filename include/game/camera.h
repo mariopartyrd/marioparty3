@@ -1,8 +1,12 @@
-#ifndef _CAMERA_H
-#define _CAMERA_H
+#ifndef _GAME_CAMERA_H
+#define _GAME_CAMERA_H
 
 #include "ultra64.h"
+#include "game/hmfman.h"
 #include "math.h"
+
+// Forward declaration to prevent issues with hmfman.h.
+struct HmfModel;
 
 typedef struct {
     Mtx perspMtx;
@@ -11,8 +15,8 @@ typedef struct {
 
 typedef struct HuCamera {
     /* 0x000 */ u16 perspNorm;
-    /* 0x002 */ char pad2[2];
-    /* 0x004 */ f32 unk4;
+    /* 0x002 */ s16 unk2;
+    /* 0x004 */ s16 unk4;
     /* 0x008 */ f32 unk8;
     /* 0x00C */ f32 unkC;
     /* 0x010 */ Vec pos;
@@ -28,10 +32,10 @@ typedef struct HuCamera {
     /* 0x094 */ f32 screenTop;
     /* 0x098 */ f32 screenRight;
     /* 0x09C */ f32 screenBottom;
-    /* 0x0A0 */ void (*unkA0)(void); //TODO: get correct signature for this
+    /* 0x0A0 */ void (*unkA0)(void*, struct HmfModel*); // TODO: unsure about first arg type.
     /* 0x0A4 */ void* unkA4;
-    /* 0x0A8 */ s32 unkA8;
-    /* 0x0AC */ s32 unkAC;
+    /* 0x0A8 */ void (*unkA8)(s32);
+    /* 0x0AC */ void (*unkAC)(s32);
     /* 0x0B0 */ HuCamMtxs mtxs[3];
 } HuCamera; //0x230 in size?
 
@@ -50,7 +54,7 @@ void CameraViewportSet(s16 camIndex, Vec* arg1, Vec* arg2);
 void Hu3DCamUpdateMtx(s16 camIndex);
 void func_80012640_13240(s16 camIndex, Gfx** dispList);
 void func_800127C4_133C4(s16 camIndex, Gfx** dispList);
-void func_80012888_13488(s16 camIndex, void (*arg1)(void), void* arg2);
+void func_80012888_13488(s16 camIndex, void (*arg1)(void*, struct HmfModel*), void* arg2);
 
 extern HuCamera* gCameraList;
 

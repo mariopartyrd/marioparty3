@@ -1,6 +1,7 @@
 #include "common.h"
 #include "game/hmfman.h"
 #include "game/camera.h"
+#include "game/hmflight.h"
 #include "macros.h"
 #include "mallocblock.h"
 #include "include_asm.h"
@@ -11,9 +12,6 @@ extern s32 D_800C9940_CA540;
 
 // graphics.c
 u8 func_8000EF64_FB64(void* arg0, u16 arg1, s32 arg2, void* arg3, s32 arg4);
-
-// hmflight.c
-void func_80019968_1A568(s32);
 
 // hmfload.c
 void func_8000F978_10578(HmfData*);

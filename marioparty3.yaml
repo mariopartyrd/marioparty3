@@ -92,7 +92,7 @@ segments:
       - [0x1A580, c, mallocblock]
       - [0x1AC70, c, hmfman]
       - [0x20A20, c]
-      - [0x22EB0, c]
+      - [0x22EB0, c] # hmfdraw?
       - [0x30C40, c]
       - [0x32160, c]
       - [0x34DC0, asm] # TODO: part of 32160?
@@ -274,7 +274,7 @@ segments:
       - [0x7E500, c, 2.0L/io/viswapbuf]
       - [0x7E550, c, 2.0L/io/viswapcontext]
       - [0x7E860, c, 2.0L/io/viblack]
-      - [0x7E8C0, hasm, 2.0L/gu/mtxidenf]
+      - [0x7E8C0, hasm, 2.0L/gu/mtxidentf]
       - [0x7E920, hasm, 2.0L/gu/mtxf2l]
       - [0x7E9A0, hasm, 2.0L/gu/mtxl2f]
       - [0x7EA20, hasm, 2.0L/gu/mtxcatf]

@@ -1,16 +1,55 @@
 #include "game/camera.h"
+#include "mallocblock.h"
 #include "include_asm.h"
 #include "macros.h"
 #include "types.h"
 
+// EXTERN
 f32 HuMathCos(f32);
 f32 HuMathSin(f32);
+void func_8008A0D0_8ACD0(Mtx*);
 
 extern HuCamera* gCameraList;
+extern Vec D_800A0554_A1154;
+extern Vec D_800A0590_A1190;
+extern RectF D_800A05CC_A11CC;
+extern s16 D_800C9932_CA532;
+extern HuCamMtxs* D_800D0444_D1044;
+extern HuCamera* D_800D10F4_D1CF4;
+extern u8 D_800D1FF0_D2BF0;
 extern u8 D_800D2008_D2C08;
 extern s16 D_800D418E_D4D8E;
 
-INCLUDE_ASM("asm/nonmatchings/camera", Hu3DCamInit);
+void Hu3DCamInit(u32 arg0)
+{
+    s16 var_s3;
+    s16 var_s2;
+
+    D_800C9932_CA532 = arg0;
+    D_800D418E_D4D8E = 0;
+    if (gCameraList != NULL) {
+        HuMemFree(gCameraList);
+    }
+    gCameraList = HuMemAlloc(0xD20);
+    for (var_s3 = 0; var_s3 < 6; var_s3++) {
+        gCameraList[var_s3].fov[0] = 45.0f;
+        gCameraList[var_s3].fov[1] = 80.0f;
+        gCameraList[var_s3].fov[2] = 8000.0f;
+        gCameraList[var_s3].unk2 = 0;
+        gCameraList[var_s3].unk4 = -1;
+        CameraViewportSet(var_s3, &D_800A0554_A1154, &D_800A0590_A1190);
+        CameraScissorSet(var_s3, &D_800A05CC_A11CC);
+        gCameraList[var_s3].unkA0 = NULL;
+        gCameraList[var_s3].unkA8 = NULL;
+        gCameraList[var_s3].unkAC = NULL;
+        for (var_s2 = 0; var_s2 < D_800D1FF0_D2BF0; var_s2++) {
+            func_8008A0D0_8ACD0(&gCameraList[var_s3].mtxs[var_s2].perspMtx);
+            func_8008A0D0_8ACD0(&gCameraList[var_s3].mtxs[var_s2].lookAtMtx);
+        }
+    }
+    D_800D10F4_D1CF4 = gCameraList;
+    D_800D0444_D1044 = gCameraList->mtxs;
+}
 
 void func_800123F4_12FF4(void)
 {
@@ -87,20 +126,20 @@ void func_800127C4_133C4(s16 camIndex, Gfx ** dispList) {
     gDPSetScissor((*dispList)++, G_SC_NON_INTERLACE, camera->screenLeft, camera->screenTop, camera->screenRight, camera->screenBottom);
 }
 
-void func_80012888_13488(s16 camIndex, void (*arg1)(void), void* arg2)
+void func_80012888_13488(s16 camIndex, void (*arg1)(void*, struct HmfModel*), void* arg2)
 {
     HuCamera * camera = &gCameraList[camIndex];
     camera->unkA0 = arg1;
     camera->unkA4 = arg2;
 }
 
-void func_800128BC_134BC(s16 camIndex, s32 arg1)
+void func_800128BC_134BC(s16 camIndex, void (*arg1)(s32))
 {
     gCameraList[camIndex].unkA8 = arg1;
 }
 
 
-void func_800128EC_134EC(s16 camIndex, s32 arg1)
+void func_800128EC_134EC(s16 camIndex, void (*arg1)(s32))
 {
     gCameraList[camIndex].unkAC = arg1;
 }

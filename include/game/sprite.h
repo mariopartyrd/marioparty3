@@ -75,6 +75,7 @@ typedef struct HuSprGrp {
 
 extern HuSprGrp* HuSprGrpData[HUSPR_GRP_MAX];
 
+void func_80052330_52F30(void);
 void HuSprGrpKill(s16);
 s16 HuSprGrpCreate(u16 arg0, u16 arg1);
 void func_80054904_55504(s16 group, s16 member, s16 arg2, s16 arg3);

@@ -222,6 +222,13 @@ HuSprGrpFirst = 0x800CC0A0; //rom:0xCCCA0
 HuSprGrpData = 0x800CDD70; //rom:0xCE970
 HuSprGrpNum = 0x800D520C; //rom:0xD5E0C
 
+guLookAtHiliteF = 0x80079B90; //rom:0x7A790
+guLookAtHilite = 0x8007A514; //rom:0x7B114
+
+guMtxIdentF = 0x8007DCC0; //rom:0x7E8C0
+guMtxF2L = 0x8007DD20; //rom:0x7E920
+guMtxL2F = 0x8007DDA0; //rom:0x7E9A0
+
 // 8EA10
 _atan2 = 0x8008DE10; //rom:0x8EA10
 _atan2d = 0x8008E108; //rom:0x8ED08
