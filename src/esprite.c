@@ -1,6 +1,7 @@
 #include "game/esprite.h"
 #include "game/data.h"
 #include "game/sprite.h"
+#include "mallocblock.h"
 #include "include_asm.h"
 
 // malloc
@@ -9,20 +10,41 @@ void HuMemMemoryFreePerm(void* ptr);
 typedef struct {
     /* 0x00 */ s16 unk00;
     /* 0x02 */ s16 unk02;
-    /* 0x04 */ s16 unk04;
+    /* 0x04 */ s16 unk04; // gid?
     /* 0x06 */ s16 unk06;
     /* 0x08 */ char unk08[8];
     /* 0x10 */ f32 unk10;
     /* 0x14 */ f32 unk14;
-    /* 0x18 */ char unk18[0xC];
+    /* 0x18 */ char unk18[4];
+    /* 0x1C */ s16 unk1C;
+    /* 0x1E */ s16 unk1E;
+    /* 0x20 */ s16 unk20;
+    /* 0x22 */ char unk22[2];
 } D_800CD1DC_CDDDC_Struct; // Size 0x24
 
 extern u16 D_800C951C_CA11C;
 extern u16 D_800CB8BC_CC4BC;
-extern D_800CD1DC_CDDDC_Struct* D_800CD1DC_CDDDC;
+extern D_800CD1DC_CDDDC_Struct* D_800CD1DC_CDDDC; // esprite?
 extern s16 D_800D5438_D6038;
 
-INCLUDE_ASM("asm/nonmatchings/esprite", func_8000B7A0_C3A0);
+void func_8000B7A0_C3A0(void) {
+    u16 var_a0;
+
+    func_80052330_52F30();
+    D_800CD1DC_CDDDC = HuMemAlloc(0x100 * sizeof(D_800CD1DC_CDDDC_Struct));
+    D_800C951C_CA11C = 0x100;
+    D_800CB8BC_CC4BC = 0;
+    for (var_a0 = 0; var_a0 < 0x100; var_a0++) {
+        D_800CD1DC_CDDDC_Struct* temp_v0 = &D_800CD1DC_CDDDC[var_a0];
+
+        temp_v0->unk00 = 0;
+        temp_v0->unk02 = var_a0 + 1;
+        temp_v0->unk1C = 0xFF;
+        temp_v0->unk1E = 0xFF;
+        temp_v0->unk20 = 0;
+    }
+    D_800D5438_D6038 = 0;
+}
 
 s16 func_8000B838_C438(s32 arg0) {
     void* temp_v0;
@@ -40,10 +62,12 @@ INCLUDE_ASM("asm/nonmatchings/esprite", func_8000BA00_C600);
 
 INCLUDE_ASM("asm/nonmatchings/esprite", func_8000BA30_C630);
 
+// espDispOn?
 void func_8000BB54_C754(u16 arg0) {
     HuSprAttrReset(D_800CD1DC_CDDDC[arg0].unk04, 0, 0x8000);
 }
 
+// espDispOff?
 void func_8000BB94_C794(u16 arg0) {
     HuSprAttrSet(D_800CD1DC_CDDDC[arg0].unk04, 0, 0x8000);
 }
@@ -52,12 +76,14 @@ INCLUDE_ASM("asm/nonmatchings/esprite", func_8000BBD4_C7D4);
 
 INCLUDE_ASM("asm/nonmatchings/esprite", func_8000BBFC_C7FC);
 
+// espAttrSet?
 void func_8000BC48_C848(u16 arg0, u16 arg1) {
     D_800CD1DC_CDDDC_Struct* temp = &D_800CD1DC_CDDDC[arg0];
 
     HuSprAttrSet(temp->unk04, 0, arg1);
 }
 
+// espAttrReset
 void func_8000BC88_C888(u16 arg0, u16 arg1) {
     D_800CD1DC_CDDDC_Struct* temp = &D_800CD1DC_CDDDC[arg0];
 
