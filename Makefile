@@ -156,6 +156,8 @@ build/src/2.0L/audio/%.c.o: OPTFLAGS = -O2
 build/src/2.0L/audio/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_MIPS_SZLONG=32 -D_LANGUAGE_C -DF3DEX_GBI -D__MIPSEB__
 build/src/2.0L/audio/%.c.o: CPPFLAGS = -I include -I include/PR -I include/gcc -I $(BUILD_DIR)/include -I src -DNDEBUG -D_MIPS_SZLONG=32 -DF3DEX_GBI_2
 build/src/8A6B0.c.o: OPTFLAGS = -O2 #Could also be -O3?
+build/src/8ACD0.c.o: OPTFLAGS = -O2
+build/src/2.0L/gu/lookathil.c.o: OPTFLAGS = -O2
 build/src/2.0L/libc/sprintf.c.o: OPTFLAGS = -O2
 build/src/2.0L/libc/syncprintf.c.o: OPTFLAGS = -O2
 build/src/2.0L/libc/string.c.o: OPTFLAGS = -O2
@@ -163,7 +165,9 @@ build/src/2.0L/libc/xprintf.c.o: OPTFLAGS = -O2
 build/src/88CF0.c.o: OPTFLAGS = -O2
 build/src/88CF0.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C
 # Files that must have -Wa,--vr4300mul-off disabled:
+build/src/2.0L/gu/lookathil.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/gamemes.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
+build/src/hmflight.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/pause.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/overlays/ovl_31_vine_with_me/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/overlays/ovl_36_motor_rooter/system.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common

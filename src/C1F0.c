@@ -4,7 +4,7 @@
 extern u8 D_80097660_98260;
 extern u8 D_80097661_98261;
 extern s32 D_800CE178_CED78; //TODO: type correctly
-void func_80020E94_21A94(void); //TODO: get correct signature
+void func_80020E94_21A94(void*, struct HmfModel*);
 
 typedef struct UnkC1F0 {
     char unk_00[0x18];
