@@ -3,11 +3,26 @@
 
 #include "common.h"
 
-#define SPACE_TYPES_TOTAL 16
 #define SPACES_MAX 128
 
-enum SPACE_TYPE {
+enum SPACE_TYPES {
+    SPACE_NONE = 0,
     SPACE_BLUE = 1,
+    SPACE_RED = 2,
+    SPACE_UNK = 3,
+    SPACE_HAPPENING = 4,
+    SPACE_CHANCE_TIME = 5,
+    SPACE_ITEM = 6,
+    SPACE_BANK = 7,
+    SPACE_START = 8,
+    SPACE_BATTLE = 9,
+    SPACE_UNK2 = 10,
+    SPACE_UNK3 = 11,
+    SPACE_BOWSER = 12,
+    SPACE_ARROW = 13,
+    SPACE_STAR = 14,
+    SPACE_GAME_GUY = 15,
+    SPACE_TYPES_TOTAL
 };
 
 enum LANGUAGE {

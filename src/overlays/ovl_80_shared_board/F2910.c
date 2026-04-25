@@ -1,6 +1,12 @@
 #include "common.h"
 #include "ovl_80.h"
 
+s32 func_800F482C_10844C_shared_board(s32);
+s32 func_800F5278_108E98_shared_board(void);
+void func_800E5840_F9460_shared_board(s32, s32);
+void func_800F53B4_108FD4_shared_board(void);
+s32 func_800E5B80_F97A0_shared_board(void);
+
 extern u32 D_800D2094_D2C94;
 extern u32 D_80100EE8_114B08_shared_board;
 typedef struct ItemRect {
@@ -94,17 +100,13 @@ extern u16 D_80102BD4_1167F4_shared_board;
 extern s16 D_80102C12_116832_shared_board;
 
 void func_800DED3C_F295C_shared_board(omObjData*);
-s32 func_800F52C4_108EE4_shared_board(void);
-void func_8005D2D4_5DED4(s16);
 void func_800DF9EC_F360C_shared_board(void);
-extern void func_800DED3C_F295C_shared_board(omObjData*);
 s32 func_800F52C4_108EE4_shared_board(void);
 void GWMgNoSet(s8);
 void func_8005BA90_5C690(s16, s16, s16);
 void func_8005BB18_5C718(s16, f32, f32);
 void func_8005C154_5CD54(s16, s32, s32, s32);
 void func_8005D2D4_5DED4(s16);
-void func_800DECF0_F2910_shared_board(void);
 void func_800DF8B4_F34D4_shared_board(void);
 void func_800DFAD4_F36F4_shared_board(void);
 void func_800E5B90_F97B0_shared_board(void);
@@ -527,11 +529,11 @@ void func_800DFBA8_F37C8_shared_board(s32 arg0) {
         D_80100E30_114A50_shared_board[D_80102C0D_11682D_shared_board][2]);
 }
 
-void func_800E00EC_F3D0C_shared_board(omObjData* arg0) {
+void func_800E00EC_F3D0C_shared_board(void) {
     D_80102C04_116824_shared_board->work[0] = 0;
 }
 
-void func_800E00FC_F3D1C_shared_board(s8* output, s32 count) {
+void func_800E00FC_F3D1C_shared_board(u8* output, s32 count) {
     s8 pool[256];
     s32 i;
     s32 randIndex;
@@ -552,7 +554,160 @@ void func_800E00FC_F3D1C_shared_board(s8* output, s32 count) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F2910", func_800E01DC_F3DFC_shared_board);
+void func_800E01DC_F3DFC_shared_board(u8* outSpaceTypes) {
+    s32 redAssignmentFlags[4];
+    u8 shuffledOrder[4];
+    s32 happeningCount;
+    s32 blueCount;
+    s32 i;
+    s32 happeningIndex;
+    s32 randPercent;
+
+    /* Zero out redAssignmentFlags array */
+    for (i = 0; i < 4; i++) {
+        redAssignmentFlags[i] = 0;
+    }
+
+    /* Count how many players are BLUE and HAPPENING */
+    happeningCount = 0;
+    blueCount = 0;
+    for (i = 0; i < 4; i++) {
+        if (func_800F482C_10844C_shared_board(i) == SPACE_BLUE) {
+            blueCount++;
+        } else if (func_800F482C_10844C_shared_board(i) != SPACE_RED) {
+            happeningCount += func_800F482C_10844C_shared_board(i) == SPACE_HAPPENING;
+        }
+    }
+
+    randPercent = MBRand(100.0f);
+
+    /* Decide which Happening slots become RED */
+    switch (happeningCount) {
+    case 1:
+        switch (blueCount) {
+        case 3:
+            if (randPercent < 30) {
+                redAssignmentFlags[0] =  1;
+            }
+            break;
+        case 2:
+            if (randPercent < 50) {
+                redAssignmentFlags[0] =  1;
+            }
+            break;
+        case 1:
+            if (randPercent < 50) {
+                redAssignmentFlags[0] =  1;
+            }
+            break;
+        case 0:
+            if (randPercent < 70) {
+                redAssignmentFlags[0] =  1;
+            }
+            break;
+        }
+        break;
+
+    case 2:
+        switch (blueCount) {
+        case 2:
+            if (randPercent < 15) {
+                redAssignmentFlags[1] = 1;
+                redAssignmentFlags[0] = 1;
+            } else if (randPercent < 30) {
+                redAssignmentFlags[1] = 1;
+            }
+            break;
+        case 1:
+            if (randPercent < 25) {
+                redAssignmentFlags[1] = 1;
+                redAssignmentFlags[0] = 1;
+            } else if (randPercent < 75) {
+                redAssignmentFlags[1] = 1;
+            }
+            break;
+        case 0:
+            if (randPercent < 70) {
+                redAssignmentFlags[1] = 1;
+                redAssignmentFlags[0] = 1;
+            } else if (randPercent < 85) {
+                redAssignmentFlags[1] = 1;
+            }
+            break;
+        }
+        break;
+
+    case 3:
+        switch (blueCount) {
+        case 1:
+            if (randPercent < 7) {
+                redAssignmentFlags[2] = 1;
+                redAssignmentFlags[1] = 1;
+                redAssignmentFlags[0] = 1;
+            } else if (randPercent < 22) {
+                redAssignmentFlags[2] = 1;
+                redAssignmentFlags[1] = 1;
+            } else if (randPercent < 30) {
+                redAssignmentFlags[2] = 1;
+            }
+            break;
+        case 0:
+            if (randPercent < 70) {
+                redAssignmentFlags[2] = 1;
+                redAssignmentFlags[1] = 1;
+                redAssignmentFlags[0] = 1;
+            } else if (randPercent < 78) {
+                redAssignmentFlags[2] = 1;
+                redAssignmentFlags[1] = 1;
+            } else if (randPercent < 93) {
+                redAssignmentFlags[2] = 1;
+            }
+            break;
+        }
+        break;
+
+    case 4:
+        if (randPercent < 35) {
+            redAssignmentFlags[3] = 1;
+            redAssignmentFlags[2] = 1;
+            redAssignmentFlags[1] = 1;
+            redAssignmentFlags[0] = 1;
+        } else if (randPercent < 42) {
+            redAssignmentFlags[3] = 1;
+            redAssignmentFlags[2] = 1;
+            redAssignmentFlags[1] = 1;
+        } else if (randPercent < 57) {
+            redAssignmentFlags[3] = 1;
+            redAssignmentFlags[2] = 1;
+        } else if (randPercent < 65) {
+            redAssignmentFlags[3] = 1;
+        }
+        break;
+    }
+
+    /* Shuffle Happening player indices */
+    func_800E00FC_F3D1C_shared_board(shuffledOrder, happeningCount - 1);
+
+    /* Assign final space types */
+    happeningIndex = 0;
+    for (i = 0; i < 4; i++) {
+        switch (func_800F482C_10844C_shared_board(i)) {
+        case SPACE_RED:
+            outSpaceTypes[i] = SPACE_RED;
+            break;
+        case SPACE_BLUE:
+            outSpaceTypes[i] = SPACE_BLUE;
+            break;
+        case SPACE_HAPPENING:
+            if (redAssignmentFlags[shuffledOrder[happeningIndex++]] == 0) {
+                outSpaceTypes[i] = SPACE_BLUE;
+            } else {
+                outSpaceTypes[i] = SPACE_RED;
+            }
+            break;
+        }
+    }
+}
 
 ItemRectTable const D_801020B0_115CD0_shared_board = {
     {
@@ -587,7 +742,185 @@ DefinitelyNotItemRectTable const D_801020E0_115D00_shared_board = {
     }
 };
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F2910", func_800E0534_F4154_shared_board);
+extern Vec D_8010125C_114E7C_shared_board;
+
+void func_800E0534_F4154_shared_board(void) {
+    u8 sp10[MB_MAX_PLAYERS];
+    u8 spaceTypes[MB_MAX_PLAYERS];
+    u32 sp20[2];
+    s32 sp2C;
+    Object* temp_v0;
+    Process* process;
+    s32 var_s1;
+    s32 var_s4;
+    u32 var_s5;
+    u32* temp_s2;
+    s32 i, j, k;
+
+    process = HuPrcCurrentGet();
+    sp20[0] = 1;
+    sp20[1] = 0xA007C;
+    var_s5 = 0;
+    var_s4 = 0;
+    sp2C = 0;
+    do {
+    temp_v0 = MBModelCreate(0x3BU, sp20);
+    MBModelTempAllocFree(temp_v0);
+    HuVecCopy3F(&temp_v0->coords, &D_8010125C_114E7C_shared_board);
+    } while (0);
+    HuVecCopyXYZ(&temp_v0->scale, 1.2f, 1.2f, 1.2f);
+    temp_v0->unk30.x = 120.0f;
+    MBMotionSet(temp_v0, 0, 0U);
+    HuPrcVSleep();
+    func_8001C814_1D414(temp_v0->omObj1->model[0], 2, 1);
+    temp_s2 = process->user_data;
+
+    //?
+    for (i = 0; 0 < 5; i++) {
+        switch (var_s5) {
+        case 0:
+            break;
+        case 1:
+            if ((sp2C == 0) && (temp_v0->unk30.x < 100.0f)) {
+                sp2C = 1;
+                HuAudFXPlay(0x156);
+            }
+            if ((temp_v0->unk30.x > 30.0f)) {
+                temp_v0->unk30.x -= 10.0f;
+            } else {
+                var_s5 = 2;
+                var_s4 = 0;
+                func_8001C814_1D414(temp_v0->omObj1->model[0], 1, 0);                
+            }
+            break;
+        case 2:
+            if (var_s4++ >= 0xA) {
+                var_s4 = 5;
+                var_s5 = 3;
+            }
+            break;
+        case 3:
+            if (var_s4 != 0) {
+                temp_v0->unk30.x += (f32) var_s4;
+                var_s4 -= 1;
+                break;
+            }
+            
+            var_s5 = 4;
+            break;
+            
+        case 4:
+            if (var_s4++ >= 0xF) {
+                MBModelDispOff(temp_v0);
+            }
+            break;
+        }
+    
+        switch (*temp_s2) {
+        case 0:
+            func_800F4994_1085B4_shared_board(4);
+            *temp_s2 = 0xAU;
+            break;
+        case 10:
+            if (func_800F5278_108E98_shared_board() == 0) {
+                *temp_s2 = 0xBU;
+            }
+            break;
+        case 11:
+            for (var_s1 = 0, j = 0; j < MB_MAX_PLAYERS; j++) {
+                if (func_800F482C_10844C_shared_board(j) == SPACE_HAPPENING) {
+                    var_s1 = 1;
+                    sp10[j] = 1;
+                } else {
+                    sp10[j] = 0;
+                }            
+            }
+    
+            if (var_s1) {
+                *temp_s2 = 0xC;
+            } else {
+                *temp_s2 = 1;
+                var_s5 = 1;
+            }
+            break;
+        case 12:
+            func_800E01DC_F3DFC_shared_board(spaceTypes);
+            HuAudFXPlay(0x13F);
+            for (j = 0; j < 0x18; j++) {
+                for (k = 0; k < MB_MAX_PLAYERS; k++) {
+                    s16 temp = sp10[k] != 0; //TODO: regalloc hack
+                    if (temp) {
+                        func_800F4798_1083B8_shared_board(k, j + 5);
+                    }
+                }
+                HuPrcVSleep();
+            }
+    
+            for (j = 0; j < MB_MAX_PLAYERS; j++) {
+                if (func_800F482C_10844C_shared_board(j) != spaceTypes[j]) {
+                    func_800F4798_1083B8_shared_board(j, spaceTypes[j]);
+                }            
+            }
+    
+            *temp_s2 = 1;
+            var_s5 = 1;
+            break;
+        case 1:
+            if (func_800F5278_108E98_shared_board() == 0) {
+                HuPrcSleep(1);
+                func_800E5840_F9460_shared_board(0, 0x25);
+                HuPrcSleep(5);
+                *temp_s2 = *temp_s2 + 1;
+            }
+            break;
+        case 2:
+            func_800F4994_1085B4_shared_board(2);
+            func_800F53B4_108FD4_shared_board();
+            *temp_s2 = *temp_s2 + 1;
+            break;
+        case 3:
+            if (func_800F5278_108E98_shared_board() == 0) {
+                for (j = 0; j < MB_MAX_PLAYERS; j++) {
+                    if (!(GwPlayer[j].stat & 1)) {
+                        break;
+                    }
+                }
+    
+                if (j != MB_MAX_PLAYERS) {
+                    for (j = 0; j < MB_MAX_PLAYERS; j++) {
+                        if ((D_800D5558_D6158[GwPlayer[j].pad] & 0x8000) && !(GwPlayer[j].stat & 1)) {
+                            break;
+                        }
+                    }
+                    if (j == MB_MAX_PLAYERS) {
+                        break;
+                    }
+                }
+                if (func_800F52C4_108EE4_shared_board() != -1) {
+                    func_800E00EC_F3D0C_shared_board();
+                    func_800F4994_1085B4_shared_board(5);
+                } else {
+                    GWMgNoSet(-1);
+                }
+                *temp_s2 = (u32) (*temp_s2 + 1);
+                break;
+                
+            }
+            break;
+        case 4:
+            if ((func_800F52C4_108EE4_shared_board() == -1) || (func_800E5B80_F97A0_shared_board() == 0)) {
+                func_800F5644_109264_shared_board();
+                MBModelKill(temp_v0);
+                omDelPrcObj(NULL);
+            }
+            break;
+        }
+        
+        HuPrcVSleep();        
+    }
+}
+
+
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F2910", func_800E0A14_F4634_shared_board);
 

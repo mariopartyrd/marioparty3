@@ -65,7 +65,7 @@ void func_800F22C0_105EE0_shared_board(s32);
 void func_800F2388_105FA8_shared_board(s32, s32, s32, s32, s32);
 Process* func_800F292C_10654C_shared_board(void);
 Process* func_800F29EC_10660C_shared_board(void);
-void func_800F482C_10844C_shared_board(s32);
+s32 func_800F482C_10844C_shared_board(s32);
 void func_800F70F8_10AD18_shared_board(void);
 void func_800F7108_10AD28_shared_board(void);
 void func_800F85C0_10C1E0_shared_board(void);
