@@ -349,7 +349,7 @@ s32 func_80107090_3C3EB0_koopa(void) {
     GW_PLAYER* temp_s1;
     s32 i, j;
 
-    if (GwSystem.current_board_index == 0) {
+    if (GwSystem.current_board_index == CHILLY_WATERS) {
         for (var_s3 = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
             temp_s1 = MBGetPlayerStruct(i);
             for (j = 0; D_80109418_3C6238_koopa[j] != -1; j++) {

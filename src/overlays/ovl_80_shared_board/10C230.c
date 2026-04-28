@@ -937,7 +937,7 @@ void func_800F93A4_10CFC4_shared_board(void) {
         
         if (D_80105664_119284_shared_board & 0x20) {
             D_800D6A48_D7648 = 1;
-            if (GwSystem.current_board_index == 5) {
+            if (GwSystem.current_board_index == WALUIGIS_ISLAND) {
                 _CheckFlag(9);
             }
             MBOvlCall(0x4F, 0, 0x4190);
@@ -1302,10 +1302,10 @@ s32 func_800FA104_10DD24_shared_board(u8* arg0) {
 void MBBattleKuriboEnd(void) {
     omDelObj(mbBattleKuriboObj);
     
-    while (mbBattleKuriboMdl->unk30.x <= 120.0f) {
+    while (mbBattleKuriboMdl->velocity.x <= 120.0f) {
         HuPrcVSleep();
-        mbBattleKuriboMdl->unk30.x += 3.0f;
-        mbBattleKuriboUpperMdl->unk30.x += 3.0f;
+        mbBattleKuriboMdl->velocity.x += 3.0f;
+        mbBattleKuriboUpperMdl->velocity.x += 3.0f;
     }
     
     MBModelKill(mbBattleKuriboMdl);
@@ -1357,15 +1357,15 @@ void MBBattleKuriboStart(GW_PLAYER* arg0, s32 arg1) {
     HuVecCopy3F(&mbBattleKuriboMdl->coords, &arg0->player_obj->coords);
     HuVecCopy3F(&mbBattleKuriboUpperMdl->coords, &arg0->player_obj->coords);
     
-    mbBattleKuriboMdl->unk30.x = 120.0f;
-    mbBattleKuriboUpperMdl->unk30.x = 122.0f;
+    mbBattleKuriboMdl->velocity.x = 120.0f;
+    mbBattleKuriboUpperMdl->velocity.x = 122.0f;
     
-    while (mbBattleKuriboMdl->unk30.x > 30.0f) {
+    while (mbBattleKuriboMdl->velocity.x > 30.0f) {
         if (arg1 == 0) {
             HuPrcVSleep();
         }
-        mbBattleKuriboMdl->unk30.x -= 1.0f;
-        mbBattleKuriboUpperMdl->unk30.x -= 1.0f;
+        mbBattleKuriboMdl->velocity.x -= 1.0f;
+        mbBattleKuriboUpperMdl->velocity.x -= 1.0f;
     }
     mbBattleKuriboObj = omAddObj(0x1F4, 0, 0, -1, MBBattleKuriboObjMain);
     mbBattleKuriboObj->rot.x = 180.0f;
@@ -1418,18 +1418,19 @@ void MBKettouComResultSet(void) {
         var_s0 = GwPlayer[GwSystem.unk_58].cpu_difficulty - GwPlayer[system->current_player_index].cpu_difficulty;
     }
     
+    //if cpu difficulty difference was greater than 2, clamp to 2
     if (var_s0 > 2) {
         var_s0 = 2;
     }
     
     temp_a0_2 = MBRand(100.0f);
+
     for (i = 0; i < 3; i++) {
         if (!(D_80101DCC_1159EC_shared_board[var_s0][i] < temp_a0_2)) {
             break;
         }
     }
 
-    //this whole block just sets both players to zero coins with pointless extra logic to do so
     var_a0 = system->current_player_index;
     var_a1 = var_s1;
     temp_a3 = var_a0;
@@ -1438,9 +1439,9 @@ void MBKettouComResultSet(void) {
         var_a0 = var_a1;
         var_a1 = temp_a3;
     }
+
     GwPlayer[var_a0].bonusCoin = 0;
     GwPlayer[var_a1].bonusCoin = 0;
-    //end of block
 
     switch(i) {
     case 0:
@@ -1499,13 +1500,13 @@ s32 MBKettouExec(GW_PLAYER* arg0, s32 arg1) {
     Hu3DModelScaleSet(mbBattleKuriboUpperMdl->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     HuVecCopy3F(&mbBattleKuriboMdl->coords, &arg0->player_obj->coords);
     HuVecCopy3F(&mbBattleKuriboUpperMdl->coords, &arg0->player_obj->coords);
-    mbBattleKuriboMdl->unk30.x = 120.0f;
-    mbBattleKuriboUpperMdl->unk30.x = 122.0f;
+    mbBattleKuriboMdl->velocity.x = 120.0f;
+    mbBattleKuriboUpperMdl->velocity.x = 122.0f;
     
-    while (mbBattleKuriboMdl->unk30.x > 30.0f) {
+    while (mbBattleKuriboMdl->velocity.x > 30.0f) {
         HuPrcVSleep();
-        mbBattleKuriboMdl->unk30.x -= 1.0f;
-        mbBattleKuriboUpperMdl->unk30.x -= 1.0f;
+        mbBattleKuriboMdl->velocity.x -= 1.0f;
+        mbBattleKuriboUpperMdl->velocity.x -= 1.0f;
     }
     
     mbBattleKuriboObj = omAddObj(0x1F4, 0U, 0U, -1, MBBattleKuriboObjMain);
@@ -1666,7 +1667,6 @@ s32 MBKettouExec(GW_PLAYER* arg0, s32 arg1) {
         } else {
             var_s0_3--;
             // AI controlled input
-            
             if (var_s0_3 == -1) {
                 if (var_s3 != var_s1_3) {
                     if ((var_s3 % 10) != (var_s1_3 % 10)) {
@@ -1884,13 +1884,13 @@ s32 func_800FB624_10F244_shared_board(GW_PLAYER* arg0) {
     HuVecCopy3F(&mbBattleKuriboMdl->coords, &arg0->player_obj->coords);
     HuVecCopy3F(&mbBattleKuriboUpperMdl->coords, &arg0->player_obj->coords);
     
-    mbBattleKuriboMdl->unk30.x = 120.0f;
-    mbBattleKuriboUpperMdl->unk30.x = 122.0f;
+    mbBattleKuriboMdl->velocity.x = 120.0f;
+    mbBattleKuriboUpperMdl->velocity.x = 122.0f;
     
-    while (mbBattleKuriboMdl->unk30.x > 30.0f) {
+    while (mbBattleKuriboMdl->velocity.x > 30.0f) {
         HuPrcVSleep();
-        mbBattleKuriboMdl->unk30.x -= 1.0f;
-        mbBattleKuriboUpperMdl->unk30.x -= 1.0f;
+        mbBattleKuriboMdl->velocity.x -= 1.0f;
+        mbBattleKuriboUpperMdl->velocity.x -= 1.0f;
     }
     
     kuriboObj = omAddObj(0x1F4, 0, 0, -1, MBBattleKuriboObjMain);
@@ -2141,10 +2141,10 @@ s32 func_800FB624_10F244_shared_board(GW_PLAYER* arg0) {
     
     if (var_s6 == 0) {
         omDelObj(kuriboObj);
-        while (mbBattleKuriboMdl->unk30.x <= 120.0f) {
+        while (mbBattleKuriboMdl->velocity.x <= 120.0f) {
             HuPrcVSleep();
-            mbBattleKuriboMdl->unk30.x += 3.0f;
-            mbBattleKuriboUpperMdl->unk30.x += 3.0f;
+            mbBattleKuriboMdl->velocity.x += 3.0f;
+            mbBattleKuriboUpperMdl->velocity.x += 3.0f;
         }
         MBModelKill(mbBattleKuriboMdl);
         MBModelKill(mbBattleKuriboUpperMdl);
@@ -2650,18 +2650,18 @@ void MBMain(void) {
                     
                     switch (system->walk_speed) {
                     case 0:
-                        temp_v0_4->player_obj->unk30.y = 8.0f;
-                        temp_v0_4->player_obj->unk30.z = -2.0f;
+                        temp_v0_4->player_obj->velocity.y = 8.0f;
+                        temp_v0_4->player_obj->velocity.z = -2.0f;
                         func_800ED410_101030_shared_board(system->current_player_index, 7);
                         break;
                     case 1:
-                        temp_v0_4->player_obj->unk30.y = 4.0f;
-                        temp_v0_4->player_obj->unk30.z = -0.5f;
+                        temp_v0_4->player_obj->velocity.y = 4.0f;
+                        temp_v0_4->player_obj->velocity.z = -0.5f;
                         func_800ED410_101030_shared_board(system->current_player_index, 0xF);
                         break;
                     case 2:
-                        temp_v0_4->player_obj->unk30.y = 2.0f;
-                        temp_v0_4->player_obj->unk30.z = -0.125f;
+                        temp_v0_4->player_obj->velocity.y = 2.0f;
+                        temp_v0_4->player_obj->velocity.z = -0.125f;
                         func_800ED410_101030_shared_board(system->current_player_index, 0x1E);
                         break;
                     }
@@ -3301,11 +3301,11 @@ void MBMain(void) {
                 temp_v0_22 = MBModelCreate(0x3E, NULL);
                 MBModelTempAllocFree(temp_v0_22);
                 HuVecCopy3F(&temp_v0_22->coords, &temp_v0_4->player_obj->coords);
-                temp_v0_22->unk30.x = 100.0f;
+                temp_v0_22->velocity.x = 100.0f;
                 
                 // Animate game guy appearing on screen
-                while (temp_v0_22->unk30.x >= 30.0f) {
-                    temp_v0_22->unk30.x -= 2.0f;
+                while (temp_v0_22->velocity.x >= 30.0f) {
+                    temp_v0_22->velocity.x -= 2.0f;
                     HuPrcVSleep();
                 }
                 
@@ -3327,8 +3327,8 @@ void MBMain(void) {
                     omDelPrcObj(temp_s1);
                     
                     // Animate game guy leaving with player
-                    while (temp_v0_22->unk30.x >= 10.0f) {
-                        temp_v0_22->unk30.x -= 2.0f;
+                    while (temp_v0_22->velocity.x >= 10.0f) {
+                        temp_v0_22->velocity.x -= 2.0f;
                         HuPrcVSleep();
                     }
                     
@@ -3339,8 +3339,8 @@ void MBMain(void) {
                     MBDlgWinExec(0xA, 0x2F01);
                     omDelPrcObj(temp_s1);
                     // Animate game guy leaving with player
-                    while (temp_v0_22->unk30.x <= 100.0f) {
-                        temp_v0_22->unk30.x += 4.0f;
+                    while (temp_v0_22->velocity.x <= 100.0f) {
+                        temp_v0_22->velocity.x += 4.0f;
                         HuPrcVSleep();
                     }
                     MBModelKill(temp_v0_22);
@@ -3354,7 +3354,7 @@ void MBMain(void) {
                     HuPrcSleep(0x11);
                     MBModelKill(temp_v0_22);
                     func_800EE688_1022A8_shared_board(temp_v0_4->player_obj, 0, 0);
-                    temp_v0_4->player_obj->unk30.x = 0.0f;
+                    temp_v0_4->player_obj->velocity.x = 0.0f;
                     HuPrcSleep(5);
                     WipeCreateIn(9, 0x10);
                     HuPrcSleep(0x11);
@@ -3520,7 +3520,7 @@ void MBMain(void) {
             
             HuPrcVSleep();
         
-            if (GwSystem.current_board_index == 0 && GWBoardFlagCheck(0x12) != 0) {
+            if (GwSystem.current_board_index == CHILLY_WATERS && GWBoardFlagCheck(0x12) != 0) {
                 func_800EBEC8_FFAE8_shared_board();
                 GWBoardFlagClear(0x12);
             }

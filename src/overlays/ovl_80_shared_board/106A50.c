@@ -779,17 +779,17 @@ s32 func_800F52C4_108EE4_shared_board(void) {
     u8 type1Indices[4];
     u8 type2Indices[4];
     u8 otherCount = 0;
-    u8 type2Count = 0;
-    u8 type1Count = 0;
+    u8 redCount = 0;
+    u8 blueCount = 0;
     s32 i;
 
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
         switch (D_801057E0_119400_shared_board[i].spaceType) {
-        case 1:
-            type1Indices[type1Count++] = i;
+        case SPACE_BLUE:
+            type1Indices[blueCount++] = i;
             break;
-        case 2:
-            type2Indices[type2Count++] = i;
+        case SPACE_RED:
+            type2Indices[redCount++] = i;
             break;
         default:
             otherCount++;
@@ -801,16 +801,16 @@ s32 func_800F52C4_108EE4_shared_board(void) {
         return -1;
     }
 
-    if (type1Count == 0 || type1Count == 4) {
+    if (blueCount == 0 || blueCount == 4) {
         return 0;
     }
 
-    if (type1Count == 1) {
+    if (blueCount == 1) {
         D_801055F8_119218_shared_board = type1Indices[0];
         return 1;
     }
 
-    if (type1Count == 3) {
+    if (blueCount == 3) {
         D_801055F8_119218_shared_board = type2Indices[0];
         return 1;
     }

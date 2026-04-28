@@ -179,6 +179,8 @@ typedef struct GwPlayer_s {
 // /* 0x35 */ char unk_35[3]; //likely padding
 // } GW_PLAYER; //sizeof 0x38
 
+#define FILE_FROM_OVL_ID(ovlID) (ovlID << 8)
+
 extern GW_COMMON GwCommon;
 extern GW_STORY GwStory;
 extern GW_SYSTEM GwSystem;

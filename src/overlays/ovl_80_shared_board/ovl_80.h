@@ -3,6 +3,15 @@
 #include "game/board.h"
 #include "malloc.h"
 
+enum BoardIndices {
+    CHILLY_WATERS = 0,
+    DEEP_BLOOBER_SEA = 1,
+    SPINY_DESERT = 2,
+    WOODY_WOODS = 3,
+    CREEPY_CAVERN = 4,
+    WALUIGIS_ISLAND = 5
+};
+
 #define MINIGAME_ID(id) ((id) + 1)
 
 typedef struct BoardStatus {

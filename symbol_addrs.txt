@@ -732,6 +732,8 @@ kakusiMasuCoinOld = 0x800CE1E8; //type:s16 size:0x14
 kakusiMasuStarOld = 0x800D59E0; //type:s16 size:0x14
 kakusiMasuItemOld = 0x800CC378; //type:s16 size:0x14
 
+MBShuffleRangeInclusive = 0x800E00FC; //rom:0xF3D1C segment:shared_board
+
 //gTotalTurns = 0x800CD05A;
 //gCurrentTurn = 0x800CD05B;
 

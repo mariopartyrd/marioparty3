@@ -72,7 +72,7 @@ void MBItemWarpBlockSwap(void) {
         playerObj->scale.x = temp_f2;
         playerObj->scale.y = temp_f0;
         playerObj->scale.z = temp_f2;
-        playerObj->unk30.x += 6.0f;
+        playerObj->velocity.x += 6.0f;
         HuPrcVSleep();       
     }
 
@@ -96,7 +96,7 @@ void MBItemWarpBlockSwap(void) {
         playerObjSecond->scale.x = temp_f2;
         playerObjSecond->scale.y = temp_f0;
         playerObjSecond->scale.z = temp_f2;
-        playerObjSecond->unk30.x += 6.0f;
+        playerObjSecond->velocity.x += 6.0f;
         HuPrcVSleep();     
     }
 
@@ -117,7 +117,7 @@ void MBItemWarpBlockSwap(void) {
         playerObjSecond->scale.x = temp_f2;
         playerObjSecond->scale.y = temp_f0;
         playerObjSecond->scale.z = temp_f2;
-        playerObjSecond->unk30.x -= 6.0f;
+        playerObjSecond->velocity.x -= 6.0f;
         HuPrcVSleep();    
     }
 
@@ -146,7 +146,7 @@ void MBItemWarpBlockSwap(void) {
         playerObj->scale.x = temp_f2;
         playerObj->scale.y = temp_f0;
         playerObj->scale.z = temp_f2;
-        playerObj->unk30.x -= 6.0f;
+        playerObj->velocity.x -= 6.0f;
         HuPrcVSleep();
     }
 
@@ -738,7 +738,7 @@ s32 PlayerHasItem(s32 playerNo, s32 itemID) {
     }
 
     if (i == ARRAY_COUNT(GwPlayer->itemNo)) {
-        return -1;
+        return ITEM_NONE;
     } else {
         return i;
     }

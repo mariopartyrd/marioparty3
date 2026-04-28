@@ -275,22 +275,22 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
         var_f28 = 10.0f;
     }
 
-    while ((PlayerHasEmptyItemSlot(playerNo) != -1) && (D_80105630_119250_shared_board[var_s4] != -1)) {
+    while ((PlayerHasEmptyItemSlot(playerNo) != ITEM_NONE) && (D_80105630_119250_shared_board[var_s4] != -1)) {
         if (D_80105654_119274_shared_board != 0) {
             D_80105628_119248_shared_board = MBModelCreate(0x22, NULL);
         } else {
             D_80105628_119248_shared_board = MBModelFileCreate(0xB0036, -1, 1.0f, 0, 0);
         }
-        func_8001C258_1CE58(*D_80105628_119248_shared_board->omObj1->model, 0x180, 0);
-        func_8001C8E4_1D4E4(*D_80105628_119248_shared_board->omObj1->model, 0x1800U);
-        func_8001C448_1D048(*D_80105628_119248_shared_board->omObj1->model);
+        func_8001C258_1CE58(D_80105628_119248_shared_board->omObj1->model[0], 0x180, 0);
+        func_8001C8E4_1D4E4(D_80105628_119248_shared_board->omObj1->model[0], 0x1800);
+        func_8001C448_1D048(D_80105628_119248_shared_board->omObj1->model[0]);
         HuVecCopy3F(&D_80105628_119248_shared_board->coords, &player->player_obj->coords);
         D_80105628_119248_shared_board->coords.y += 25.0f;
         func_800E9940_FD560_shared_board(&D_80105628_119248_shared_board->coords, sp20);
         HuAudFXPlay(0x143);
         D_80105650_119270_shared_board = 0;
         
-        obj = omAddObj(0x1F4, 0U, 0U, -1, func_800F71A8_10ADC8_shared_board);
+        obj = omAddObj(0x1F4, 0, 0, -1, func_800F71A8_10ADC8_shared_board);
         for (var_f20 = 1.0f; var_f20 < var_f28; var_f20 += 0.5) {
             HuVecCopyXYZ(&D_80105628_119248_shared_board->scale, var_f20, var_f20, var_f20);
             HuPrcVSleep();         
@@ -302,9 +302,9 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
         temp_s6 = D_80105630_119250_shared_board[var_s4++];
         temp_s2 = func_800F2C48_106868_shared_board(1, 0);
         temp_v0 = DataRead(D_8010197C_11559C_shared_board[temp_s6]);
-        *temp_s2->unk_0C = func_80055810_56410(temp_v0);
+        temp_s2->unk_0C[0] = func_80055810_56410(temp_v0);
         DataClose(temp_v0);
-        func_80055024_55C24(temp_s2->unk_0A, 0, *temp_s2->unk_0C, 0);
+        func_80055024_55C24(temp_s2->unk_0A, 0, temp_s2->unk_0C[0], 0);
         HuSprAttrReset(temp_s2->unk_0A, 0, 0xFFFF);
         HuSprAttrSet(temp_s2->unk_0A, 0, 0x1000);
         HuSprPriSet(temp_s2->unk_0A, 0, 0x1000U);
@@ -315,10 +315,10 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
             HuPrcVSleep();
         }
         
-        func_80055458_56058(temp_s2->unk_0A, 0, 0xFFU);
+        func_80055458_56058(temp_s2->unk_0A, 0, 0xFF);
 
         if (arg0 == 1) {
-            MBDlgWinInsertCreateY(-1, 0x3C0D, (u32) D_80101A94_1156B4_shared_board[D_8010565C_11927C_shared_board], 0U, 0U, 0U, 0U, 0x8C);
+            MBDlgWinInsertCreateY(-1, 0x3C0D, D_80101A94_1156B4_shared_board[D_8010565C_11927C_shared_board], 0, 0, 0, 0, 0x8C);
             MBDlgWinClose();
             MBDlgWinKill();
         }
@@ -478,14 +478,14 @@ void func_800F7FE8_10BC08_shared_board(void) {
     HuVecCopy3F(&D_80105620_119240_shared_board->coords, &temp_s1->player_obj->coords);
     HuVecCopy3F(&D_80105624_119244_shared_board->coords, &temp_s1->player_obj->coords);
     
-    D_80105620_119240_shared_board->unk30.x = 120.0f;
-    D_80105624_119244_shared_board->unk30.x = 120.0f;
+    D_80105620_119240_shared_board->velocity.x = 120.0f;
+    D_80105624_119244_shared_board->velocity.x = 120.0f;
     
-    while (D_80105620_119240_shared_board->unk30.x > 50.0f) {
-        func_8000CFA4_DBA4(D_80105658_119278_shared_board, D_80105620_119240_shared_board->coords.x, D_80105620_119240_shared_board->unk30.x - 10.0f, D_80105620_119240_shared_board->coords.z);
+    while (D_80105620_119240_shared_board->velocity.x > 50.0f) {
+        func_8000CFA4_DBA4(D_80105658_119278_shared_board, D_80105620_119240_shared_board->coords.x, D_80105620_119240_shared_board->velocity.x - 10.0f, D_80105620_119240_shared_board->coords.z);
         HuPrcVSleep();
-        D_80105620_119240_shared_board->unk30.x -= 2.0f;
-        D_80105624_119244_shared_board->unk30.x -= 2.0f;        
+        D_80105620_119240_shared_board->velocity.x -= 2.0f;
+        D_80105624_119244_shared_board->velocity.x -= 2.0f;        
     }
 
     temp_v0 = omAddObj(0x1F4, 0U, 0U, -1, func_800F7130_10AD50_shared_board);
@@ -496,7 +496,7 @@ void func_800F7FE8_10BC08_shared_board(void) {
         HuAudFXPlay(0x298);
         MBDlgWinExec(CHAR_TOAD, 0x3C02);
         MBDlgWinCreate(CHAR_TOAD, D_80101B10_115730_shared_board[MBRand(ARRAY_COUNT(D_80101B10_115730_shared_board))]);
-        if (temp_s1->stat & 1) {
+        if (temp_s1->stat & PLAYER_IS_CPU) {
             var_f12 = 3.0f;
             var_s0 = MBRand(var_f12) + 1;
         }
@@ -504,7 +504,7 @@ void func_800F7FE8_10BC08_shared_board(void) {
         HuAudFXPlay(0x2A0);
         MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C14);
         MBDlgWinCreate(CHAR_BABY_BOWSER, D_80101B24_115744_shared_board[MBRand(ARRAY_COUNT(D_80101B24_115744_shared_board))]);
-        if (temp_s1->stat & 1) {
+        if (temp_s1->stat & PLAYER_IS_CPU) {
             var_f12 = 2.0f;
             var_s0 = MBRand(var_f12) + 1;
         }
@@ -590,11 +590,11 @@ void func_800F7FE8_10BC08_shared_board(void) {
     dispatch_func();
     omDelObj(temp_v0);
 
-    while (D_80105620_119240_shared_board->unk30.x < 120.0f) {
-        func_8000CFA4_DBA4(D_80105658_119278_shared_board, D_80105620_119240_shared_board->coords.x, D_80105620_119240_shared_board->unk30.x - 10.0f, D_80105620_119240_shared_board->coords.z);
+    while (D_80105620_119240_shared_board->velocity.x < 120.0f) {
+        func_8000CFA4_DBA4(D_80105658_119278_shared_board, D_80105620_119240_shared_board->coords.x, D_80105620_119240_shared_board->velocity.x - 10.0f, D_80105620_119240_shared_board->coords.z);
         HuPrcVSleep();
-        D_80105620_119240_shared_board->unk30.x += 4.0f;
-        D_80105624_119244_shared_board->unk30.x += 4.0f;        
+        D_80105620_119240_shared_board->velocity.x += 4.0f;
+        D_80105624_119244_shared_board->velocity.x += 4.0f;        
     }
 
     func_8000D044_DC44(D_80105658_119278_shared_board);

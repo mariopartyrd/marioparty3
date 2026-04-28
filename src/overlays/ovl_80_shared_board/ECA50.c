@@ -85,13 +85,13 @@ void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
     temp_s0 = temp_s2->unk_00;
 
     if ((D_800D6A90_D7690 == 0) || (temp_s0->flags & 0x10)) {
-        if (temp_s0->unk30.z != 0.0f) {
-            temp_s0->unk30.y +=  temp_s0->unk30.z;
-            temp_s0->unk30.x = temp_s0->unk30.x + temp_s0->unk30.y;
-            if (temp_s0->unk30.x < 0.0f) {
-                temp_s0->unk30.x = 0.0f;
-                temp_s0->unk30.y = 0.0f;
-                temp_s0->unk30.z = 0.0f;
+        if (temp_s0->velocity.z != 0.0f) {
+            temp_s0->velocity.y +=  temp_s0->velocity.z;
+            temp_s0->velocity.x = temp_s0->velocity.x + temp_s0->velocity.y;
+            if (temp_s0->velocity.x < 0.0f) {
+                temp_s0->velocity.x = 0.0f;
+                temp_s0->velocity.y = 0.0f;
+                temp_s0->velocity.z = 0.0f;
             }
         }
     }
@@ -101,7 +101,7 @@ void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
     }
     
     playerObj->trans.x = temp_s0->coords.x;
-    playerObj->trans.y = temp_s0->coords.y + temp_s0->unk30.x;
+    playerObj->trans.y = temp_s0->coords.y + temp_s0->velocity.x;
     playerObj->trans.z = temp_s0->coords.z;
     playerObj->scale.x = temp_s0->scale.x * temp_s2->unk_04 * func_800E72DC_FAEFC_shared_board();
     playerObj->scale.y = temp_s0->scale.y * temp_s2->unk_04 * func_800E72DC_FAEFC_shared_board();
