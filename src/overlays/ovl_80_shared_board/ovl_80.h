@@ -119,7 +119,7 @@ void MBDlgWinKill(void);
 void func_800D7714_EB334_shared_board(void); 
 void MBModelClose(void); 
 void func_800DCB8C_F07AC_shared_board(void); 
-void func_800DF8B4_F34D4_shared_board(void); 
+void MBMgCallClose(void); 
 void func_800E18FC_F551C_shared_board(void); 
 void func_800E4BA0_F87C0_shared_board(void); 
 void func_800E6404_FA024_shared_board(void); 

@@ -732,12 +732,25 @@ kakusiMasuCoinOld = 0x800CE1E8; //type:s16 size:0x14
 kakusiMasuStarOld = 0x800D59E0; //type:s16 size:0x14
 kakusiMasuItemOld = 0x800CC378; //type:s16 size:0x14
 
-MBShuffleRangeInclusive = 0x800E00FC; //rom:0xF3D1C segment:shared_board
+MBArrayShuffle = 0x800E00FC; //rom:0xF3D1C segment:shared_board
+MBMgCallCursorFXPlay = 0x800DECF0; //rom:0xF2910 segment:shared_board
+MBMgCallListExec = 0x800DED3C; //rom:0xF295C segment:shared_board
+MBMgCallHisInit = 0x800DF7F4; //rom:0xF3414 segment:shared_board
+MBMgCallClose = 0x800DF8B4; //rom:0xF34D4 segment:shared_board
+MBMgCallListBgSprCreate = 0x800DF9EC; //rom:0xF360C segment:shared_board
+MBMgCallCursorSprCreate = 0x800DFAD4; //rom:0xF36F4 segment:shared_board
+MBMgCallListCreate = 0x800DFBA8; //rom:0xF37C8 segment:shared_board
+MBMgCallColorGet = 0x800E01DC; //rom:0xF3DFC segment:shared_board
+MBMgCallExec = 0x800E0534; //rom:0xF4154 segment:shared_board
+MBMgCallCreate = 0x800E0A14; //rom:0xF4634 segment:shared_board
+MBMgCallBattleExec = 0x800E0A64; //rom:0xF4684 segment:shared_board
+MBMgCallBattleCreate = 0x800E0C3C; //rom:0xF485C segment:shared_board
+MBMgCallTutorialExec = 0x800E1230; //rom:0xF4E50 segment:shared_board
+MBMgCallTutorialCreate = 0x800E13F0; //rom:0xF5010 segment:shared_board
+MBTelopMgCallCreate = 0x800E5840; //rom:0xF9460 segment:shared_board
 
 //gTotalTurns = 0x800CD05A;
 //gCurrentTurn = 0x800CD05B;
-
-
 
 MBMapFullStarGlowKill = 0x800D77F0; //rom:0xEB410 segment:shared_board
 MBMapFullStarGrow = 0x800D786C; //rom:0xEB48C segment:shared_board

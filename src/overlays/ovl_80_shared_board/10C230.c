@@ -16,7 +16,7 @@ void func_800E9748_FD368_shared_board(Vec*);
 Process* func_800ED35C_100F7C_shared_board(Vec*, Vec*, Vec*, s32);
 void func_800035E8_41E8(s16);
 void func_800DB56C_EF18C_shared_board(void);
-void func_800DF7F4_F3414_shared_board(void);
+void MBMgCallHisInit(void);
 void func_800F2484_1060A4_shared_board(s32);
 void func_8004A950_4B550(void);
 void MBNextPlayerTurn(void);
@@ -39,8 +39,8 @@ Process* func_800DE7E4_F2404_shared_board(s8);
 u8 func_800DE84C_F246C_shared_board(void);
 void func_800DE858_F2478_shared_board(void);
 void func_800DE868_F2488_shared_board(void);
-Process* func_800E0A14_F4634_shared_board(void);
-Process* func_800E0C3C_F485C_shared_board(void);
+Process* MBMgCallCreate(void);
+Process* MBMgCallBattleCreate(void);
 Process* func_800E0F84_F4BA4_shared_board(void);
 void MBItemKoopaNKinokoExec(void);
 void MBItemKoopaRKinokoExec(void);
@@ -638,7 +638,7 @@ void MBExit(void) {
     func_800F4730_108350_shared_board();
     func_800E4BA0_F87C0_shared_board();
     func_800E18FC_F551C_shared_board();
-    func_800DF8B4_F34D4_shared_board();
+    MBMgCallClose();
     func_800F2A34_106654_shared_board();
     func_8005F524_60124();
     func_800E6404_FA024_shared_board();
@@ -708,7 +708,7 @@ void MBSaveInit(void) {
     D_800D1FEC_D2BEC = 0;
     D_800C9938_CA538 = 1.0f;
 
-    func_800DF7F4_F3414_shared_board();
+    MBMgCallHisInit();
     func_800DB56C_EF18C_shared_board(); //clear lucky 7 flag for buffing golden mushrooms
 
     D_800A12C8 = -1;
@@ -3264,7 +3264,7 @@ void MBMain(void) {
                 } else {
                     D_800D037C_D0F7C = 0;
                     func_800F7108_10AD28_shared_board();
-                    HuPrcChildLink(temp_s6, func_800E0C3C_F485C_shared_board());
+                    HuPrcChildLink(temp_s6, MBMgCallBattleCreate());
                     HuPrcChildWait();
                     D_800D1240_D1E40 = 0x12;
                     D_80105664_119284_shared_board = 2;
@@ -3471,7 +3471,7 @@ void MBMain(void) {
                 D_800A12D4 = 0;
                 func_800F7108_10AD28_shared_board();
                 
-                HuPrcChildLink(temp_s6, func_800E0A14_F4634_shared_board());
+                HuPrcChildLink(temp_s6, MBMgCallCreate());
                 HuPrcChildWait();
                 
                 if (system->minigame_index >= 0) {

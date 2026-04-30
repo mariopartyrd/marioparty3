@@ -799,7 +799,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800E57C8
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800E57D8_F93F8_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800E5840_F9460_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopMgCallCreate);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800E5B80_F97A0_shared_board);
 

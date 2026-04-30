@@ -3,7 +3,7 @@
 
 s32 func_800F482C_10844C_shared_board(s32);
 s32 func_800F5278_108E98_shared_board(void);
-void func_800E5840_F9460_shared_board(s32, s32);
+void MBTelopMgCallCreate(s32, s32);
 void func_800F53B4_108FD4_shared_board(void);
 s32 func_800E5B80_F97A0_shared_board(void);
 void func_800F7114_10AD34_shared_board(s32, s32);
@@ -103,26 +103,26 @@ extern s8 D_80100E94_114AB4_shared_board[][2];
 extern u16 D_80102BD4_1167F4_shared_board;
 extern s16 D_80102C12_116832_shared_board;
 
-void func_800DED3C_F295C_shared_board(omObjData*);
-void func_800DF9EC_F360C_shared_board(void);
+void MBMgCallListExec(omObjData*);
+void MBMgCallListBgSprCreate(void);
 s32 func_800F52C4_108EE4_shared_board(void);
 void GWMgNoSet(s8);
 void func_8005BA90_5C690(s16, s16, s16);
 void func_8005BB18_5C718(s16, f32, f32);
 void func_8005C154_5CD54(s16, s32, s32, s32);
 void func_8005D2D4_5DED4(s16);
-void func_800DF8B4_F34D4_shared_board(void);
-void func_800DFAD4_F36F4_shared_board(void);
+void MBMgCallClose(void);
+void MBMgCallCursorSprCreate(void);
 void func_800E5B90_F97B0_shared_board(void);
 
-void func_800DECF0_F2910_shared_board(void) {
+void MBMgCallCursorFXPlay(void) {
     if (D_800D2094_D2C94 >= (D_80100EE8_114B08_shared_board + 4)) {
         HuAudFXPlay(0x104);
         D_80100EE8_114B08_shared_board = D_800D2094_D2C94;
     }
 }
 
-void func_800DED3C_F295C_shared_board(omObjData* arg0) {
+void MBMgCallListExec(omObjData* arg0) {
     ItemSlotEntry* entry = NULL;
     s32 i;
     s16 new_var;
@@ -182,7 +182,7 @@ void func_800DED3C_F295C_shared_board(omObjData* arg0) {
         HuSprScaleSet(D_80102C0E_11682E_shared_board, 0, HuMathSin(arg0->scale.x), arg0->scale.y);
         
         if (arg0->scale.x >= 90.0f) {
-            func_800DECF0_F2910_shared_board();
+            MBMgCallCursorFXPlay();
             arg0->work[0] = 1;
             arg0->scale.x = 1.0f;
             arg0->scale.z = -1.0f;
@@ -190,7 +190,7 @@ void func_800DED3C_F295C_shared_board(omObjData* arg0) {
             arg0->work[1] = 0;
             arg0->work[2] = MBRand((f32) D_80100E18_114A38_shared_board[D_80102C0D_11682D_shared_board]);
             arg0->work[3] = 0;
-            func_800DFAD4_F36F4_shared_board();
+            MBMgCallCursorSprCreate();
         }
         break;
     case 1:
@@ -210,7 +210,7 @@ void func_800DED3C_F295C_shared_board(omObjData* arg0) {
                     arg0->work[1] = D_80100E18_114A38_shared_board[D_80102C0D_11682D_shared_board] - 1;
                 }
             }
-            func_800DECF0_F2910_shared_board();
+            MBMgCallCursorFXPlay();
         }
         
         for (i = 0; i < D_80100E18_114A38_shared_board[D_80102C0D_11682D_shared_board]; i++) {
@@ -275,7 +275,7 @@ void func_800DED3C_F295C_shared_board(omObjData* arg0) {
             GWMgNoSet(D_80102C08_116828_shared_board[arg0->work[2]]);
             if (GwSystem.current_board_index != 6) {
                 func_800E5B90_F97B0_shared_board();
-                func_800DF8B4_F34D4_shared_board();
+                MBMgCallClose();
             }
         }
         arg0->rot.z += 1.0f;
@@ -294,7 +294,7 @@ void func_800DED3C_F295C_shared_board(omObjData* arg0) {
     }
 }
 
-void func_800DF7F4_F3414_shared_board(void) {
+void MBMgCallHisInit(void) {
     s32 category;
     s32 minigameCategoryIndex;
 
@@ -320,7 +320,7 @@ void func_800DF854_F3474_shared_board(void) {
     D_80102C12_116832_shared_board = -1;
 }
 
-void func_800DF8B4_F34D4_shared_board(void) {
+void MBMgCallClose(void) {
     ItemSlotEntry* entry;
     s32 i;
 
@@ -358,7 +358,7 @@ void func_800DF8B4_F34D4_shared_board(void) {
     }
 }
 
-void func_800DF9EC_F360C_shared_board(void) {
+void MBMgCallListBgSprCreate(void) {
     void* data;
 
     if (D_80102C0E_11682E_shared_board == -1) {
@@ -373,7 +373,7 @@ void func_800DF9EC_F360C_shared_board(void) {
     }
 }
 
-void func_800DFAD4_F36F4_shared_board(void) {
+void MBMgCallCursorSprCreate(void) {
     void* data;
 
     if (D_80102C12_116832_shared_board == -1) {
@@ -389,7 +389,7 @@ void func_800DFAD4_F36F4_shared_board(void) {
 }
 
 //TODO: this function is a confusing mess. BUG_FIX macros should work to make it act correctly?
-void func_800DFBA8_F37C8_shared_board(s32 arg0) {
+void MBMgCallListCreate(s32 arg0) {
     Sp18Struct sp18;
     ItemSlotEntry* entry;
     omObjData* obj;
@@ -517,7 +517,7 @@ void func_800DFBA8_F37C8_shared_board(s32 arg0) {
         func_8005BDFC_5C9FC(entry->obj, 0);
     }
 
-    obj = omAddObj(-0x8000, 0, 0, -1, func_800DED3C_F295C_shared_board);
+    obj = omAddObj(-0x8000, 0, 0, -1, MBMgCallListExec);
     D_80102C04_116824_shared_board = obj;
     obj->work[0] = 3;
     obj->work[1] = 5;
@@ -525,7 +525,7 @@ void func_800DFBA8_F37C8_shared_board(s32 arg0) {
     obj->scale.x = 10.0f;
     obj->scale.y = 0.0f;
     obj->rot.z = 0.0f;
-    func_800DF9EC_F360C_shared_board();
+    MBMgCallListBgSprCreate();
 
     func_80055420_56020(D_80102C0E_11682E_shared_board, 0,
         D_80100E30_114A50_shared_board[D_80102C0D_11682D_shared_board][0],
@@ -538,7 +538,7 @@ void func_800E00EC_F3D0C_shared_board(void) {
 }
 
 //Fisher–Yates shuffle via selection with removal
-void MBShuffleRangeInclusive(u8* output, s32 count) {
+void MBArrayShuffle(u8* output, s32 count) {
     s8 pool[256];
     s32 i;
     s32 j;
@@ -559,7 +559,7 @@ void MBShuffleRangeInclusive(u8* output, s32 count) {
     }
 }
 
-void func_800E01DC_F3DFC_shared_board(u8* outSpaceTypes) {
+void MBMgCallColorGet(u8* outSpaceTypes) {
     s32 redAssignmentFlags[MB_MAX_PLAYERS];
     u8 shuffledOrder[MB_MAX_PLAYERS];
     s32 greenCount;
@@ -691,7 +691,7 @@ void func_800E01DC_F3DFC_shared_board(u8* outSpaceTypes) {
     }
 
     /* Shuffle Happening player indices */
-    MBShuffleRangeInclusive(shuffledOrder, greenCount - 1);
+    MBArrayShuffle(shuffledOrder, greenCount - 1);
 
     greenIndex = 0;
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
@@ -746,7 +746,7 @@ DefinitelyNotItemRectTable const D_801020E0_115D00_shared_board = {
     }
 };
 
-void func_800E0534_F4154_shared_board(void) {
+void MBMgCallExec(void) {
     u8 sp10[MB_MAX_PLAYERS];
     u8 spaceTypes[MB_MAX_PLAYERS];
     u32 sp20[2];
@@ -845,7 +845,7 @@ void func_800E0534_F4154_shared_board(void) {
             }
             break;
         case 12:
-            func_800E01DC_F3DFC_shared_board(spaceTypes);
+            MBMgCallColorGet(spaceTypes);
             HuAudFXPlay(0x13F);
             for (j = 0; j < 24; j++) {
                 for (k = 0; k < MB_MAX_PLAYERS; k++) {
@@ -869,7 +869,7 @@ void func_800E0534_F4154_shared_board(void) {
         case 1:
             if (func_800F5278_108E98_shared_board() == 0) {
                 HuPrcSleep(1);
-                func_800E5840_F9460_shared_board(0, 0x25);
+                MBTelopMgCallCreate(0, 0x25);
                 HuPrcSleep(5);
                 *temp_s2 += 1;
             }
@@ -927,19 +927,19 @@ typedef struct UnkSize10 {
 /* 0x08 */ char unk_08[0x08];
 } UnkSize10;
 
-//TODO: this and func_800E0C3C_F485C_shared_board might potentially use different structs that happen to be the same size. unsure
-Process* func_800E0A14_F4634_shared_board(void) {
+//TODO: this and MBMgCallBattleCreate might potentially use different structs that happen to be the same size. unsure
+Process* MBMgCallCreate(void) {
     Process* proc;
     UnkSize10* data;
 
-    proc = omAddPrcObj(&func_800E0534_F4154_shared_board, 0, 0x2000, 0x40);
+    proc = omAddPrcObj(&MBMgCallExec, 0, 0x2000, 0x40);
     data = HuMemMemoryAlloc(proc->heap, sizeof(UnkSize10));
     proc->user_data = data;
     data->unk_00 = 0;
     return proc;
 }
 
-void func_800E0A64_F4684_shared_board(void) {
+void MBMgCallBattleExec(void) {
     UnkSize10* temp_s0;
     s32 i;
 
@@ -955,7 +955,7 @@ void func_800E0A64_F4684_shared_board(void) {
         case 1:
             if (func_800F5278_108E98_shared_board() == 0) {
                 HuPrcSleep(1);
-                func_800E5840_F9460_shared_board(temp_s0->curPlayerNo, 7);
+                MBTelopMgCallCreate(temp_s0->curPlayerNo, 7);
                 HuPrcSleep(5);
                 temp_s0->unk_00++;
             }
@@ -1005,11 +1005,11 @@ void func_800E0A64_F4684_shared_board(void) {
     }
 }
 
-Process* func_800E0C3C_F485C_shared_board(void) {
+Process* MBMgCallBattleCreate(void) {
     Process* temp_v0;
     UnkSize10* temp_v0_2;
 
-    temp_v0 = omAddPrcObj(&func_800E0A64_F4684_shared_board, 0, 0x2000, 0x40);
+    temp_v0 = omAddPrcObj(&MBMgCallBattleExec, 0, 0x2000, 0x40);
     temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkSize10));
     temp_v0->user_data = temp_v0_2;
     temp_v0_2->unk_00 = 0;
@@ -1083,7 +1083,7 @@ void func_800E0C94_F48B4_shared_board(void) {
         switch (temp_s2->unk_00) {
         case 0:
             func_800F4994_1085B4_shared_board(temp_s2->curPlayerNo + 6);
-            func_800E5840_F9460_shared_board(1, 0x1F);
+            MBTelopMgCallCreate(1, 0x1F);
             temp_s2->unk_00++;
             break;
         case 1:
@@ -1136,7 +1136,7 @@ void func_800E0FE0_F4C00_shared_board(void) {
     while (1) {
         switch (temp_s0->unk_00) {
         case 0:
-            func_800E5840_F9460_shared_board(3, 7);
+            MBTelopMgCallCreate(3, 7);
             func_800F7114_10AD34_shared_board(temp_s0->curPlayerNo, temp_s0->unk_08);
             func_800F4994_1085B4_shared_board(0x1B);
             func_800F53B4_108FD4_shared_board();
@@ -1177,7 +1177,7 @@ Process* func_800E11C0_F4DE0_shared_board(s32 arg0, s32 arg1) {
     return temp_v0;
 }
 
-void func_800E1230_F4E50_shared_board(void) {
+void MBMgCallTutorialExec(void) {
     u8 happeningPlayers[MB_MAX_PLAYERS];
     u8 spaceTypes[MB_MAX_PLAYERS];
     s32 i;
@@ -1209,7 +1209,7 @@ void func_800E1230_F4E50_shared_board(void) {
             }
             break;
         case 12:
-            func_800E01DC_F3DFC_shared_board(spaceTypes);
+            MBMgCallColorGet(spaceTypes);
             HuAudFXPlay(0x13F);
             for (i = 0; i < 24; i++) {
                 for (j = 0; j < MB_MAX_PLAYERS; j++) {
@@ -1234,11 +1234,11 @@ void func_800E1230_F4E50_shared_board(void) {
     }
 }
 
-Process* func_800E13F0_F5010_shared_board(void) {
+Process* MBMgCallTutorialCreate(void) {
     Process* temp_v0;
     UnkSize10_2* temp_v0_2;
 
-    temp_v0 = omAddPrcObj(func_800E1230_F4E50_shared_board, 0, 0x2000, 0x40);
+    temp_v0 = omAddPrcObj(MBMgCallTutorialExec, 0, 0x2000, 0x40);
     temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkSize10_2));
     temp_v0->user_data = temp_v0_2;
     temp_v0_2->unk_00 = 0xA;
