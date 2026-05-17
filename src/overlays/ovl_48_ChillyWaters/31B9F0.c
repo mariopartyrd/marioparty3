@@ -2,7 +2,7 @@
 #include "../ovl_80_shared_board/ovl_80.h"
 
 // Get toad space index for current start space index.
-s16 func_80105E80_31B9F0_ChillyWaters(void) {
+s16 MB1Ev_StarGuideMasuGet(void) {
     return D_8011D2C0_332E30_ChillyWaters[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]];
 }
 
@@ -13,12 +13,12 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80105FB
 void func_8010603C_31BBAC_ChillyWaters(void) {
     GW_SYSTEM* system = &GwSystem;
     s32 i;
-    for (i = 0; i < ARRAY_COUNT(D_8011D2A0_332E10_ChillyWaters); i++) {
-        GWBoardFlagSet(D_8011D2A0_332E10_ChillyWaters[i]);
+    for (i = 0; i < ARRAY_COUNT(mb1ev_StarFlag); i++) {
+        GWBoardFlagSet(mb1ev_StarFlag[i]);
     }
 
     MBMasuTypeSet(D_8011D2B0_332E20_ChillyWaters[system->star_spawn_indices[system->current_star_spawn]], 0xE);
-    GWBoardFlagClear(D_8011D2A0_332E10_ChillyWaters[system->star_spawn_indices[system->current_star_spawn]]);
+    GWBoardFlagClear(mb1ev_StarFlag[system->star_spawn_indices[system->current_star_spawn]]);
 }
 
 

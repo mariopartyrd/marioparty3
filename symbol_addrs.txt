@@ -1255,3 +1255,9 @@ opContErrorCreate = 0x80114A2C; //rom:0x53305C segment:opening
 opContErrorDispOn = 0x80114AA8; //rom:0x5330D8 segment:opening
 opContErrorDispOff = 0x80114AD8; //rom:0x533108 segment:opening
 opContErrorKill = 0x80114B08; //rom:0x533138 segment:opening
+
+
+//chilly waters
+MB1Ev_StarGuideMasuGet = 0x80105E80; //rom:0x31B9F0 segment:ChillyWaters
+
+mb1ev_StarFlag = 0x8011D2A0; //segment:ChillyWaters

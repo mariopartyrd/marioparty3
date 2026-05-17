@@ -96,7 +96,7 @@ extern char D_8011E718_334288_ChillyWaters[]; //unknown type
 extern s16 D_8011D2C0_332E30_ChillyWaters[8];
 extern s16 D_8011D31C_332E8C_ChillyWaters; //unknown type
 extern s32 D_8011D320_332E90_ChillyWaters; //unknown type
-extern s16 D_8011D2A0_332E10_ChillyWaters[8];
+extern s16 mb1ev_StarFlag[8];
 extern s16 D_8011D2B0_332E20_ChillyWaters[8];
 extern Unk3* D_8011FAC0_335630_ChillyWaters;           // used with direction arrows
 extern Unk3* D_8011FAC4_335634_ChillyWaters;           // used with direction arrows
