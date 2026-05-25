@@ -164,7 +164,7 @@ Gfx * func_8004D880_4E480(ProfSampleBuff * arg1, Gfx * arg2, s32 arg3) {
     return arg2;
 }
 
-extern s32 D_800B25C0_B31C0;
+extern u64* D_800B25C0_B31C0;
 extern s32 D_800B25C8_B31C8;
 extern s32 D_800B25CC_B31CC;
 extern s32 D_800B25D8_B31D8;
@@ -173,7 +173,7 @@ extern s32 D_800B25F4_B31F4;
 extern s32 D_800B25FC_B31FC;
 extern s32 D_800B2604_B3204;
 extern OSMesgQueue D_800CC3C0_CCFC0;
-extern s32 gThread3Stack;
+extern u64* gThread3Stack;
 extern s32 gThreadOutStack;
 extern s32 gThreadOutStackSize;
 extern s32 gThreadYieldStack;

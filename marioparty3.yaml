@@ -70,6 +70,7 @@ segments:
     bss_size: 0x2E080
     subsegments:
       - [0x1060, c]
+      - [0x1140, c]
       - [0x8F20, c]
       - [0x99D0, c, pad]
       - [0xA480, c, input]
@@ -460,7 +461,7 @@ segments:
       - [0xA4F40, rodata]
       - [0xA4F50, rodata]
       - [0xA6C50, rodata, n_aspMain_data]
-      - [0xA6F00, .rodata, 1060]
+      - [0xA6F00, .rodata, 1140]
       - [0xA7580, .rodata, 8F20]
       - [0xA7590, .rodata, decode]
       - [0xA75A8, .rodata, hmfload]
@@ -1693,7 +1694,7 @@ segments:
     name: boardcall
     exclusive_ram_id: minigame # ovl_47
     symbol_name_format: $VRAM_$ROM_$SEG
-    bss_size: 0x000
+    bss_size: 0
     subsegments:
       - [0x31B3B0, c]
       - [0x31B3E0, c]

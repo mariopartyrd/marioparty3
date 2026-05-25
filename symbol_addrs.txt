@@ -190,6 +190,14 @@ omovlhis = 0x800D2010; // size:0x60
 omobjfirst = 0x800D5560; //rom:0xD6160 type:s16
 omnextidx = 0x800D6B40; //rom:0xD7740 type:s16
 
+//1060.c
+ultraMain = 0x80000460; //rom:0x1060
+thread1_idle = 0x800004D0; //rom:0x10D0
+gInitThread = 0x800A92F0;
+gMainThread = 0x800A94A0;
+gThread1Stack = 0x800A8AF0; //size:0x800
+gThread3Stack = 0x800D0300;
+
 // audio
 HuAudSeqPlay = 0x8004A520; //rom:0x4B120
 HuAudSeqFadeOut = 0x8004A994; //rom:0x4B594
@@ -1014,7 +1022,6 @@ frameBufferCount = 0x800B199C;
 frameBufferPool = 0x800B1998;
 gMesgQueueInitMesg = 0x800B1978;
 frameBufferSegmentID = 0x800B199E;
-gThread3Stack = 0x800D0300;
 gThreadOutStack = 0x800D0548;
 gThreadOutStackSize = 0x800CB8B8;
 gThreadYieldStack = 0x800CE1FC;
