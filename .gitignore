@@ -11,6 +11,7 @@ include/ld_addrs.h
 marioparty3.ld
 ctx.c
 build.ninja
+tools/bin
 tools/gcc_2.7.2
 tools/ido_recomp
 tools/slinky
