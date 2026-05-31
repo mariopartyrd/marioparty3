@@ -130,10 +130,10 @@ void func_8005B6BC_5C2BC(s16 win_id, u32 arg1, s8 arg2) {
     //pointer check
     if (0x80000000 < arg1) {
         textWindow->usingStringIDBool[arg2] = 0;
-        textWindow->unk_B8[arg2] = arg1;
+        textWindow->unk_B8[arg2] = (char *)arg1;
     } else {
         textWindow->usingStringIDBool[arg2] = 1;
-        textWindow->unk_B8[arg2] = func_800364DC_370DC(arg1);
+        textWindow->unk_B8[arg2] = func_800364DC_370DC((void *)arg1);
     }
     textWindow->unk_B2[arg2] = -1;
 }

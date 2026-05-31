@@ -48,7 +48,7 @@ typedef struct TextWindow {
     /* 0x086 */ char pad86[0x27];                   /* maybe part of unk_6E[2]? */
     /* 0x0AD */ s8 usingStringIDBool[5];
     /* 0x0B2 */ s8 unk_B2[6];
-    /* 0x0B8 */ s32 unk_B8[4];
+    /* 0x0B8 */ void *unk_B8[4];
     /* 0x0C8 */ char padC8[0x1AC];                  /* maybe part of unk_B8[0x1B]? */
     /* 0x274 */ s16 unk274;
     /* 0x276 */ s16 unk276;
@@ -75,8 +75,8 @@ void func_8006022C_60E2C(u32 mesg, s32);
 void func_80060394_60F94(s32, s16*, s32);
 void func_80061388_61F88(s16);
 void func_80060144_60D44(s16 obj);
-s32 func_800364DC_370DC(u32);
-void func_800365E8_371E8(u32);
+void *func_800364DC_370DC(void *arg0);
+void func_800365E8_371E8(void *ptr);
 s16 func_8005B7B8_5C3B8(s16 win_id, u32 spriteMainFsPair, s16 arg2, s16 arg3, u16 arg4);
 void func_8005BA90_5C690(s16, s16, s16);
 void func_8005BCA4_5C8A4(s16, s16, s16);
