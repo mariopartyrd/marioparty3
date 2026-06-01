@@ -84,6 +84,7 @@ void func_80055024_55C24(s16 group, s16 member, s16 arg2, s32 arg3);
 void func_800550B4_55CB4(s16 group, s16 member, f32 arg2);
 void func_800550F4_55CF4(s16, s16, s32);
 void func_80055140_55D40(s32, s16, u16, s32);
+u8 func_800551AC_55DAC(s16 group, s16 member);
 HuSprite_Unk84_Struct* func_80055194_55D94(s16 arg0);
 void HuSprScaleSet(s16 group, s16 member, f32 x, f32 y);
 void HuSprPriSet(s16 group, s16 member, u16 prio);
@@ -96,5 +97,6 @@ void func_800554C4_560C4(s32, s32, s32);
 HuSprite* HuSprGet(s16 group, s16 member);
 void HuSprKill(s16);
 s16 func_80055810_56410(void*);
+void func_80056BAC_577AC(void);
 
 #endif
