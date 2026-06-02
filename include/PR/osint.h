@@ -25,6 +25,7 @@ extern void __osTimerInterrupt(void);
 extern u32 __osProbeTLB(void *);
 extern int     __osSpDeviceBusy(void);
 
+extern OSThread *D_800A2DB0_A39B0;
 extern OSThread *__osRunningThread;
 extern OSThread *__osActiveQueue;
 extern OSThread *__osFaultedThread;
