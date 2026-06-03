@@ -15,6 +15,7 @@ void func_800035E8_41E8(s16);
 s32 func_80007064_7C64(s32);
 s32 func_80007080_7C80(s16, UnkAudStruct*);
 void func_80007BD4_87D4(s16, s16);
+void func_80007C80_8880(s16, s16);
 void func_80007DD8_89D8(s16);
 
 extern u8 D_800D09A8_D15A8;
@@ -143,13 +144,19 @@ void HuAudFXStop(s32 seNo) {
     func_80007DD8_89D8(seNo);
 }
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AD70_4B970);
+void func_8004AD70_4B970() {
+    func_80007DD8_89D8(-1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/audio", func_8004AD8C_4B98C);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004ADDC_4B9DC);
+void func_8004ADDC_4B9DC(s16 arg0) {
+    func_80007C80_8880(-1, arg0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AE00_4BA00);
+void func_8004AE00_4BA00(s16 arg0, s16 arg1) {
+    func_80007C80_8880(arg0, arg1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/audio", func_8004AE28_4BA28);
 
@@ -168,7 +175,9 @@ void omVibrate(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004B2C0_4BEC0);
+s32 func_8004B2C0_4BEC0() {
+    return 0;
+}
 
 void func_8004B2C8_4BEC8(void) {
     str800D5298* temp;
