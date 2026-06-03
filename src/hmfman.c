@@ -435,13 +435,13 @@ void func_8001C39C_1CF9C(s16 idx, s32 arg1, s32 arg2, s32 arg3) {
 void func_8001C448_1D048(s16 arg0) {
     func_8001C258_1CE58(arg0, 0x00800001, 1);
     D_800C9940_CA540 = HmfModelData[arg0].unk18;
-    
+
     if (D_800C9940_CA540 & 0x10) {
         osSyncPrintf("RemakeStatic Error! Executed DynamicFree already!\n");
         D_800A0530_A1130 = 0x10002;
         return;
     }
-    
+
     if (func_80023264_23E64(HmfModelData[arg0].hmf) != NULL) {
         func_8001C954_1D554(arg0);
     }
@@ -451,7 +451,23 @@ INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C514_1D114);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C5B4_1D1B4);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C624_1D224);
+void func_8001C624_1D224(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+    HmfModel *temp_a0;
+
+    temp_a0 = &HmfModelData[arg0];
+    if (temp_a0->unk04 != 0xFF) {
+        temp_a0->unk02 = temp_a0->unk04;
+        temp_a0->unk40 = temp_a0->unk4C;
+        temp_a0->unk03 = temp_a0->unk05;
+        temp_a0->unk48 = temp_a0->unk54;
+    }
+    temp_a0->unk04 = (u8)arg1;
+    temp_a0->unk4C = arg2;
+    temp_a0->unk0E = (u16)0;
+    temp_a0->unk0C = arg3;
+    temp_a0->unk05 = (u8)arg4;
+    temp_a0->unk54 = 0.0f;
+}
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C6A8_1D2A8);
 
@@ -596,12 +612,23 @@ INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FA68_20668);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FB34_20734);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FBBC_207BC);
+void func_8001FBBC_207BC(s16 arg0, s8 arg1, s8 arg2, s8 arg3) {
+    HmfModel *other;
+
+    other = HmfModelData[arg0].unkB4;
+    if (other != NULL) {
+        other->unk00 = arg1;
+        other->unk01 = arg2;
+        other->unk02 = arg3;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FBFC_207FC);
 
 INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FD08_20908);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FDE8_209E8);
+void func_8001FDE8_209E8(s16 arg0) {
+    HmfModelData[arg0].unk02 = 0xFF;
+}
 
 INCLUDE_RODATA("asm/nonmatchings/hmfman", D_800A6C04_A7804);

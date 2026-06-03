@@ -82,7 +82,6 @@ void func_80060388_60F88(s32);
 void func_800604A8_610A8(s16*, s16, s16);
 void func_80061934_62534(s16, s16);
 void func_80061A5C_6265C(s16, s32);
-void func_8001C624_1D224(s16, s16, s16, s16, s32);
 void func_8002D4B8_2E0B8(s16);
 s32 func_8001F1FC_1FDFC(void*, s32);
 void func_8001F9E4_205E4(s16, u8);

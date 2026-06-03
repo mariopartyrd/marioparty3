@@ -120,7 +120,7 @@ typedef struct {
     /* 0x18 */ void (*unk18)(s16);
 } HmfModelData_UnkBC_Struct; // Size unknown
 
-typedef struct {
+typedef struct HmfModel {
     /* 0x00 */ s8 unk00;
     /* 0x01 */ u8 unk01;
     /* 0x02 */ u8 unk02;
@@ -153,7 +153,7 @@ typedef struct {
     /* 0x68 */ char unk68[8]; // 68 => 60 has size 0x68
     /* 0x70 */ void (*unk70)(Gfx**, s32, s32);
     /* 0x74 */ f32 mtx[16];
-    /* 0xB4 */ s32 unkB4;
+    /* 0xB4 */ struct HmfModel* unkB4;
     /* 0xB8 */ char unkB8[4];
     /* 0xBC */ HmfModelData_UnkBC_Struct* unkBC;
 } HmfModel; // Size 0xC0
@@ -174,7 +174,7 @@ void func_8001C2FC_1CEFC(s16 arg0, s32 arg1, s32 arg2);
 void func_8001C448_1D048(s16);
 s32 func_8001C514_1D114(s32);
 void func_8001C5B4_1D1B4(s16, s16);
-void func_8001C624_1D224(s16, s16, s16, s16, s32);
+void func_8001C624_1D224(s16, s16, s16, s16, s16);
 void func_8001C6A8_1D2A8(s32, f32);
 f32 func_8001C7D0_1D3D0(s16 arg0);
 void func_8001C814_1D414(s16, s16, s16);
