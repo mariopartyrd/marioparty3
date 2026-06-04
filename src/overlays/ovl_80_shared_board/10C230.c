@@ -29,7 +29,7 @@ void func_800500E0_50CE0(s32);
 s16 func_8005E0C0_5ECC0(s16);
 void func_800600C0_60CC0(s16, s32);
 s32 func_80061188_61D88(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 arg5);
-void func_80061A5C_6265C(s16, s32);
+void func_80061A5C_6265C(s16, s16);
 void func_800DBFBC_EFBDC_shared_board(s8);
 s32 func_800DCD9C_F09BC_shared_board(s8);
 Process* func_800DD6C4_F12E4_shared_board(s8);

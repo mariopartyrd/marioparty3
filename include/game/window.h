@@ -26,9 +26,12 @@ typedef struct TextWindow {
     /* 0x02B */ char pad2B[1];
     /* 0x02C */ s16 unk_2C;
     /* 0x02E */ s16 unk_2E;
-    /* 0x030 */ char pad30[4];                      /* maybe part of unk_2E[3]? */
+    /* 0x030 */ s8 unk_30;                      /* maybe part of unk_2E[3]? */
+    /* 0x031 */ s8 unk_31;
+    /* 0x032 */ s16 unk_32;
     /* 0x034 */ s16 unk_34;
-    /* 0x036 */ char pad36[6];                      /* maybe part of unk_34[4]? */
+    /* 0x036 */ char pad36[2];                      /* maybe part of unk_34[4]? */
+    /* 0x038 */ u32 unk_38;
     /* 0x03C */ u16 unk3C;
     /* 0x03E */ u16 unk3E;
     /* 0x040 */ char pad40[8];                      /* maybe part of unk3E[5]? */
@@ -48,7 +51,7 @@ typedef struct TextWindow {
     /* 0x086 */ char pad86[0x27];                   /* maybe part of unk_6E[2]? */
     /* 0x0AD */ s8 usingStringIDBool[5];
     /* 0x0B2 */ s8 unk_B2[6];
-    /* 0x0B8 */ s32 unk_B8[4];
+    /* 0x0B8 */ void *unk_B8[4];
     /* 0x0C8 */ char padC8[0x1AC];                  /* maybe part of unk_B8[0x1B]? */
     /* 0x274 */ s16 unk274;
     /* 0x276 */ s16 unk276;
@@ -61,7 +64,7 @@ void func_8005B43C_5C03C(s16, s32, s32, s32);
 void func_8005B6BC_5C2BC(s16 win_id, u32 arg1, s8 arg2);
 void func_8005BDFC_5C9FC(s16, s32);
 void func_8005BE30_5CA30(s16, s32);
-void func_8005BEE0_5CAE0(s16, s32);
+void func_8005BEE0_5CAE0(s16, s16);
 void func_8005C02C_5CC2C(s16, s32);
 void func_8005C060_5CC60(s16, s32, s32, s32, s32);
 void func_8005D294_5DE94(s16);
@@ -71,12 +74,12 @@ void func_8005F524_60124(void);
 void func_8005FBF8_607F8(s16, s32, s32, s32);
 void func_8005FE90_60A90(s16);
 void func_8005FFA8_60BA8(s16);
-void func_8006022C_60E2C(u32 mesg, s32);
+void func_8006022C_60E2C(u32 mesg, s16);
 void func_80060394_60F94(s32, s16*, s32);
 void func_80061388_61F88(s16);
 void func_80060144_60D44(s16 obj);
-s32 func_800364DC_370DC(u32);
-void func_800365E8_371E8(u32);
+void *func_800364DC_370DC(void *arg0);
+void func_800365E8_371E8(void *ptr);
 s16 func_8005B7B8_5C3B8(s16 win_id, u32 spriteMainFsPair, s16 arg2, s16 arg3, u16 arg4);
 void func_8005BA90_5C690(s16, s16, s16);
 void func_8005BCA4_5C8A4(s16, s16, s16);

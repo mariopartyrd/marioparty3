@@ -1,4 +1,6 @@
+#include "SpinyDesert.h"
 #include "common.h"
+#include "game/object.h"
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_801059D0_34E840_w03);
 
@@ -14,6 +16,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_80105DB0_34EC20_w03);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_801061A0_34F010_w03);
 
+// Star tour.
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_8010622C_34F09C_w03);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_801066CC_34F53C_w03);
@@ -42,14 +45,30 @@ INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_801078F4_350764_w03);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_80107914_350784_w03);
 
+// entrypoint 0
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_80107934_3507A4_w03);
 
+// entrypoint 1
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_80107970_3507E0_w03);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_80107A04_350874_w03);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_80107CA4_350B14_w03);
+// entrypoint 2
+void func_80107CA4_350B14_w03() {
+    HuAudSeqPlay(0x1A);
+    D_800CE194_CED94[2] = 0x1A;
+    func_800F8D6C_10C98C_shared_board(0x1A);
+    Hu3DCamInit(2);
+    func_80107A04_350874_w03();
+    func_800EBA60_FF680_shared_board(&D_8011D1C4_366034_w03);
+    func_800EBA60_FF680_shared_board(&D_8011D478_3662E8_w03);
+    func_800F8D48_10C968_shared_board(func_8011A704_363574_w03);
+    func_800EBA60_FF680_shared_board(&D_8011D23C_3660AC_w03);
+    func_800EBA60_FF680_shared_board(&D_8011D3D0_366240_w03);
+    MBStart(0);
+}
 
+// entrypoint 3
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_80107D28_350B98_w03);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_80107D54_350BC4_w03);
@@ -336,7 +355,14 @@ INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_8011A704_363574_w03);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_8011B1FC_36406C_w03);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_8011B41C_36428C_w03);
+// entrypoint 4
+void func_8011B41C_36428C_w03() {
+    Hu3DCamInit(2);
+    CameraScissorSet(1, &D_8011D598_366408_w03);
+    func_80107A04_350874_w03();
+    MBStart(2);
+    omAddPrcObj(func_8010622C_34F09C_w03, 0x1005, 0x1000, 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_8011B470_3642E0_w03);
 

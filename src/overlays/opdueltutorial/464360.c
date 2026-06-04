@@ -42,7 +42,10 @@ void func_801088C4_467284_opdueltutorial(void) {
     MBDBackLoad(30);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opdueltutorial/464360", func_80108908_4672C8_opdueltutorial);
+void func_80108908_4672C8_opdueltutorial() {
+    MBDBackKill();
+    MBDBackClose();
+}
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/opdueltutorial/464360", D_80108BBC_46757C_opdueltutorial);
 

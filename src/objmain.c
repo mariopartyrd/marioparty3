@@ -606,6 +606,12 @@ void func_8004A444_4B044(s32 arg0) {
     D_800D1710_D2310 = arg0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/objmain", func_8004A468_4B068);
+void func_8004A468_4B068(u16 arg0, u16 arg1, u16 arg2) {
+    D_800D4082_D4C82 = arg0;
+    D_800CD2F4_CDEF4 = arg1;
+    D_800D6A56_D7656 = arg2;
+    D_800A1780_A2380 = 1;
+    D_800D0A3A_D163A = 4;
+}
 
 INCLUDE_ASM("asm/nonmatchings/objmain", func_8004A49C_4B09C);

@@ -26,7 +26,7 @@ void func_80014A3C_1563C(u32 arg0);
 void func_800224BC_230BC(void);
 void GWInit(void); // save.h
 void GWMgRecordSet(s16 arg0, s16 arg1); // save.h
-void func_80036380_36F80(Addr arg0);
+void func_80036380_36F80(Addr stringsRomPtr);
 void pfInit(void);
 void func_8004F290_4FE90(void);
 s32  func_8004FDC0_509C0(void);
@@ -78,11 +78,10 @@ void func_8005FBA4_607A4(u8*, s32);
 s32 func_80061188_61D88(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 arg5);
 void func_8005D294_5DE94(s16);
 void func_8005FBF8_607F8(s16, s32, s32, s32);
-void func_80060388_60F88(s32);
+void func_80060388_60F88(s8);
 void func_800604A8_610A8(s16*, s16, s16);
 void func_80061934_62534(s16, s16);
-void func_80061A5C_6265C(s16, s32);
-void func_8001C624_1D224(s16, s16, s16, s16, s32);
+void func_80061A5C_6265C(s16, s16);
 void func_8002D4B8_2E0B8(s16);
 s32 func_8001F1FC_1FDFC(void*, s32);
 void func_8001F9E4_205E4(s16, u8);
