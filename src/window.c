@@ -9,6 +9,7 @@ extern u8 gLanguageIndex;
 extern u8 D_800A232C_A2F2C[];
 extern u8* D_800A2344_A2F44[];
 extern s16 D_800BDA50_BE650[12];
+extern s8 D_800BDA6D_BE66D;
 extern s16 D_800BDA68_BE668;
 extern s8 D_800CD2A4_CDEA4;
 extern void* D_800CE2C4_CEEC4;
@@ -26,6 +27,10 @@ extern u16 D_800BDA6C_BE66C;
 extern u16 D_800BDA6E_BE66E;
 extern u8 D_800D5206_D5E06[5];
 extern s8 D_800D5540_D6140;
+
+s16 func_8005BA54_5C654(s16, s16);
+void func_8005BB18_5C718(s16, f32, f32);
+void func_800615B8_621B8(s16, s32);
 
 void func_8005A6B0_5B2B0(void) {
     Process* temp_v0_4;
@@ -164,7 +169,10 @@ s16 func_8005B7B8_5C3B8(s16 win_id, u32 spriteMainFsPair, s16 arg2, s16 arg3, u1
     return i;
 }
 
-INCLUDE_ASM("asm/nonmatchings/window", func_8005B8F8_5C4F8);
+void func_8005B8F8_5C4F8(s16 arg0, s16 arg1) {
+    HuSprKill(func_8005BA54_5C654(arg0, arg1));
+    D_800CC69C_CD29C[arg0].unk_6E[arg1] = -1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005B974_5C574);
 
@@ -172,7 +180,15 @@ INCLUDE_ASM("asm/nonmatchings/window", func_8005BA28_5C628);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005BA54_5C654);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_8005BA90_5C690);
+void func_8005BA90_5C690(s16 winId, s16 arg1, s16 arg2) {
+    TextWindow *window;
+
+    window = &D_800CC69C_CD29C[winId];
+
+    func_80054904_55504(window->unk_6C, 0, arg1, arg2);
+    window->unk3C = arg1;
+    window->unk3E = arg2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005BB18_5C718);
 
@@ -180,13 +196,29 @@ INCLUDE_ASM("asm/nonmatchings/window", func_8005BBC0_5C7C0);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005BCA4_5C8A4);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_8005BDA8_5C9A8);
+void func_8005BDA8_5C9A8(s16 winId, f32 arg1) {
+    TextWindow *window;
+
+    window = &D_800CC69C_CD29C[winId];
+    func_800552DC_55EDC(window->unk_6C, 0, arg1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005BDFC_5C9FC);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005BE30_5CA30);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_8005BEE0_5CAE0);
+void func_8005BEE0_5CAE0(s16 winId, s16 arg1) {
+    TextWindow *window;
+
+    window = &D_800CC69C_CD29C[winId];
+
+    if (arg1 == 0) {
+        HuSprAttrSet(window->unk_6C, 0, 0x8000);
+    } else {
+        HuSprAttrReset(window->unk_6C, 0, 0x8000);
+    }
+    func_80055458_56058(window->unk_6C, 0, arg1 & 0xFFFF);
+}
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005BF70_5CB70);
 
@@ -290,8 +322,18 @@ INCLUDE_ASM("asm/nonmatchings/window", func_8005FE90_60A90);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005FFA8_60BA8);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_800600C0_60CC0);
+void func_800600C0_60CC0(s16 winId, s32 arg1) {
+    TextWindow *window;
 
+    window = &D_800CC69C_CD29C[winId];
+    if (arg1 != 0) {
+        window->unk_38 |= 0x10;
+    } else {
+        window->unk_38 &= ~0x10;
+    }
+}
+
+// Sets an option disabled.
 INCLUDE_ASM("asm/nonmatchings/window", func_8006010C_60D0C);
 
 void func_80060144_60D44(s16 obj) {
@@ -300,19 +342,32 @@ void func_80060144_60D44(s16 obj) {
     #endif
 }
 
-INCLUDE_ASM("asm/nonmatchings/window", func_8006014C_60D4C);
+s8 func_8006014C_60D4C(s32 winId) {
+    return D_800CC69C_CD29C[winId].unk_31;
+}
 
 INCLUDE_ASM("asm/nonmatchings/window", func_80060174_60D74);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_800601BC_60DBC);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_8006022C_60E2C);
+// Called to indicate that `str` should be the replacement at a
+// "replacement index" location in the main string.
+void func_8006022C_60E2C(u32 str, s16 index) {
+    D_800BDA6A_BE66A = 1;
+    D_800BDA6E_BE66E = 0;
+    D_800BDA6C_BE66C = 0;
+    func_800605A4_611A4(str);
+    D_800CD2A4_CDEA4 = 0;
+    D_800D5206_D5E06[index] = D_800BDA6D_BE66D;
+}
 
 INCLUDE_ASM("asm/nonmatchings/window", func_80060290_60E90);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8006034C_60F4C);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_80060388_60F88);
+void func_80060388_60F88(s8 arg0) {
+    D_800D5540_D6140 = arg0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/window", func_80060394_60F94);
 
@@ -376,7 +431,9 @@ INCLUDE_RODATA("asm/nonmatchings/window", D_800A7ECC_A8ACC);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_800605A4_611A4);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_80060848_61448);
+void func_80060848_61448() {
+    D_800CD2A4_CDEA4 = 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/window", func_80060858_61458);
 
@@ -394,6 +451,7 @@ INCLUDE_ASM("asm/nonmatchings/window", func_800610E0_61CE0);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_80061100_61D00);
 
+// Obtains a window handle
 s32 func_80061188_61D88(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 arg5) {
     TextWindow* temp_s2;
     s32 temp_v0;
@@ -431,6 +489,36 @@ INCLUDE_ASM("asm/nonmatchings/window", func_80061388_61F88);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_800615B8_621B8);
 
-INCLUDE_ASM("asm/nonmatchings/window", func_80061934_62534);
+void func_80061934_62534(s16 winId, s16 arg1) {
+    s16 temp_v0;
+    TextWindow *temp_s0;
 
-INCLUDE_ASM("asm/nonmatchings/window", func_80061A5C_6265C);
+    temp_s0 = &D_800CC69C_CD29C[winId];
+    func_800600C0_60CC0(winId, 1);
+    func_800615B8_621B8(winId, 0);
+    func_8005B8F8_5C4F8(winId, temp_s0->unk274);
+    temp_v0 = func_8005B7B8_5C3B8(winId, D_800A25D0_A31D0[arg1], 0x18 - temp_s0->unk48, 0x18 - temp_s0->unk4A, 0);
+    temp_s0->unk274 = temp_v0;
+    func_80054904_55504(temp_s0->unk_6C, temp_v0, 0x18 - temp_s0->unk48, 0x18 - temp_s0->unk4A);
+    HuSprScaleSet(temp_s0->unk_6C, temp_s0->unk274, 1.0f, 1.0f);
+    func_800615B8_621B8(winId, 1);
+    func_800600C0_60CC0(winId, 0);
+}
+
+void func_80061A5C_6265C(s16 arg0, s16 arg1) {
+    s16 i;
+
+    if (arg1 == 0) {
+        func_8005D294_5DE94(arg0);
+
+        for (i = 0; i < 5; i++) {
+            func_8005BB18_5C718(arg0, 1.0f, 1.0f - HuMathSin(i * 18.0f));
+            HuPrcVSleep();
+        }
+
+        func_8005FE90_60A90(arg0);
+        HuPrcVSleep();
+        return;
+    }
+    func_8005FE90_60A90(arg0);
+}
