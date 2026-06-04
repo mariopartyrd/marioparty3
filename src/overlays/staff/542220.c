@@ -248,7 +248,9 @@ INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010D998_54A218_staff
 
 INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010DE50_54A6D0_staff);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010DEDC_54A75C_staff);
+void func_8010DEDC_54A75C_staff(s32 *arg0, s32 arg1) {
+    *arg0 = arg1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010DEE4_54A764_staff);
 

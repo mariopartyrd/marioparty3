@@ -64,11 +64,14 @@ INCLUDE_RODATA("asm/nonmatchings/overlays/opboard/3CA800", D_80109020_3CDE80_opb
 INCLUDE_RODATA("asm/nonmatchings/overlays/opboard/3CA800", D_80109038_3CDE98_opboard);
 
 void func_80108CC0_3CDB20_opboard(void) {
-    s32 sp10[] = {3, 6, 9, 0xC, 0xF, 0x12};
-    
+    s32 sp10[] = { 3, 6, 9, 0xC, 0xF, 0x12 };
+
     Hu3DCamInit(1);
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
     func_800E69BC_FA5DC_shared_board(sp10[GwSystem.current_board_index]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opboard/3CA800", func_80108D44_3CDBA4_opboard);
+void func_80108D44_3CDBA4_opboard() {
+    func_800E69D8_FA5F8_shared_board();
+    func_800E66E0_FA300_shared_board();
+}

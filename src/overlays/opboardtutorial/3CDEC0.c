@@ -50,4 +50,7 @@ void func_80107550_3CFA70_opboardtutorial(void) {
     func_800E69BC_FA5DC_shared_board(0x15);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/opboardtutorial/3CDEC0", func_80107594_3CFAB4_opboardtutorial);
+void func_80107594_3CFAB4_opboardtutorial() {
+    func_800E69D8_FA5F8_shared_board();
+    func_800E66E0_FA300_shared_board();
+}

@@ -55,9 +55,19 @@ INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/4554C0", func_8010A978_45A498_
 
 INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/4554C0", func_8010AA9C_45A5BC_duelresult);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/4554C0", func_8010AAE8_45A608_duelresult);
+void func_8010AAE8_45A608_duelresult() {
+    func_800D7EB8_BFC88_name_81();
+    func_800F3F4C_DBD1C_name_81();
+    func_800EF840_D7610_name_81();
+    func_800F4300_DC0D0_name_81();
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/4554C0", func_8010AB1C_45A63C_duelresult);
+void func_8010AB1C_45A63C_duelresult() {
+    func_800F4314_DC0E4_name_81();
+    func_800EF880_D7650_name_81();
+    func_800F4030_DBE00_name_81();
+    func_800D7F0C_BFCDC_name_81();
+}
 
 void func_8010AB50_45A670_duelresult(void) {
     Hu3DCamInit(1);
@@ -67,6 +77,9 @@ void func_8010AB50_45A670_duelresult(void) {
     func_800E8180_CFF50_name_81(1000.0f, 10000.0f);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/4554C0", func_8010ABB0_45A6D0_duelresult);
+void func_8010ABB0_45A6D0_duelresult() {
+    MBDBackKill();
+    MBDBackClose();
+}
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/duelresult/4554C0", D_8010D83C_45D35C_duelresult);
