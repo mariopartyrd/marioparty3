@@ -1,14 +1,75 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/overlays/meschk/4F69F0", func_801059A0_4F69F0_meschk);
+extern u16 omdispinfo;
+extern s16 D_800A1786_A2386;
+extern u8 D_800CD280_CDE80;
+extern u16 D_800D530C_D5F0C;
+extern u16 D_80106500_4F7550_meschk;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/meschk/4F69F0", func_80105B50_4F6BA0_meschk);
+extern void func_800142A0_14EA0(s32);
+extern void func_8004DEC8_4EAC8(s16);
+extern void func_80105B50_4F6BA0_meschk(void);
+extern void func_80105B8C_4F6BDC_meschk(void);
+extern void func_80106334_4F7384_meschk(omObjData *data);
+extern void func_80106390_4F73E0_meschk(omObjData *data);
+extern void func_801063BC_4F740C_meschk(void);
+
+void func_801059A0_4F69F0_meschk() {
+    omObjData *temp_v0;
+
+    Hu3DCamInit(1);
+    Hu3DAnimInit(1);
+    func_800142A0_14EA0(0x19);
+    omInitObjMan(0x33, 10);
+    func_8005A6B0_5B2B0();
+    temp_v0 = omAddObj(0x7FDA, 0, 0, -1, omOutView);
+    Center.y = 100.0f;
+    CZoom = 600.0f;
+    CRot.x = -30.0f;
+    omSetStatBit(temp_v0, 0xA0);
+    if (omdispinfo != 0) {
+        omdispinfo = 0;
+        func_8004DEC8_4EAC8(D_800A1786_A2386);
+        D_800A1786_A2386 = -1;
+    }
+    omAddObj(0x2710, 0, 0, -1, func_80106334_4F7384_meschk);
+    HmfLightMaxSet(3);
+    HmfLightColorSet(0, 0x78, 0x78, 0x78);
+    HmfLightColorSet(1, 0x40, 0x40, 0x60);
+    HmfLightDirSet(1, -100.0f, 100.0f, 100.0f);
+    HmfLightColorSet(2, 0, 0, 0);
+    HmfLightColorSet(3, 0, 0, 0);
+    omAddPrcObj(func_80105B50_4F6BA0_meschk, 0x3F00, 0x800, 0);
+    omAddPrcObj(func_801063BC_4F740C_meschk, 0x3F00, 0x800, 0);
+    WipeCreateIn(0, 0);
+    D_800CD280_CDE80 = 1;
+    func_8001F38C_1FF8C(0xFF, 0xFF, 0xFF);
+}
+
+void func_80105B50_4F6BA0_meschk() {
+    func_80105B8C_4F6BDC_meschk();
+    D_80106500_4F7550_meschk = 1;
+    func_8005F524_60124();
+    while (1) {
+        HuPrcVSleep();
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/meschk/4F69F0", func_80105B8C_4F6BDC_meschk);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/meschk/4F69F0", func_80106334_4F7384_meschk);
+void func_80106334_4F7384_meschk(omObjData *arg0) {
+    if ((D_80106500_4F7550_meschk != 0) || (D_800D530C_D5F0C != 0)) {
+        WipeCreateOut(0, 8);
+        arg0->func = &func_80106390_4F73E0_meschk;
+        HuAudSeqFadeOut(0x3C);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/meschk/4F69F0", func_80106390_4F73E0_meschk);
+void func_80106390_4F73E0_meschk(omObjData *arg0) {
+    if (WipeStatGet() == 0) {
+        omOvlReturnEx(1);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/meschk/4F69F0", func_801063BC_4F740C_meschk);
 
