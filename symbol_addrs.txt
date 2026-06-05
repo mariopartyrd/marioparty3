@@ -133,6 +133,7 @@ MBStart = 0x800FF41C; //rom:0x11303C segment:shared_board
 mbDlgWinId = 0x80105702; //segment:shared_board type:s16
 mbWinId = 0x80105714; //segment:shared_board type:s16
 
+
 // hmfman
 Hu3DModelCreate = 0x8001A150; //rom:0x1AD50
 Hu3DModelLink = 0x8001A61C; //rom:0x1B21C
@@ -181,9 +182,9 @@ omprevovl = 0x800A1758; //rom:0xA2358 type:s32
 omovlstat = 0x800A1766; //rom:0xA2366 type:u16
 omovlhisidx = 0x800A1768; //rom:0xA2368 size:0x02 type:s16
 omobjall = 0x800A1770; //rom:0xA2370
-omobjlast = 0x800CC430; //rom:0xCD030 type:s16
-ommaxobjs = 0x800CCF50; //rom:0xCDB50 type:s16
-omnumobjs = 0x800CCF8C; //rom:0xCDB8C type:s16
+omobjlast = 0x800CC430; //type:s16
+ommaxobjs = 0x800CCF50; //type:s16
+omnumobjs = 0x800CCF8C; //type:s16
 omgroup = 0x800CD1E0; //rom:0xCDDE0
 omovl = 0x800CE200; //rom:0xCEE00 type:s32
 omovlhis = 0x800D2010; // size:0x60

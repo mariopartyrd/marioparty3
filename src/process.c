@@ -191,11 +191,11 @@ s32 HuPrcStatKill(Process* process)
     }
 }
 
-void HuPrcKill(Process* process)
+s32 HuPrcKill(Process* process)
 {
     HuPrcChildKill(process);
     HuPrcChildUnlink(process);
-    HuPrcStatKill(process);
+    return HuPrcStatKill(process);
 }
 
 void HuPrcChildKill(Process* process)

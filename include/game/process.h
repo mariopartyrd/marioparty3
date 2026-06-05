@@ -48,7 +48,7 @@ void HuPrcChildWait();
 Process* HuPrcCurrentGet();
 s32 HuPrcChildGet(Process*process);
 s32 HuPrcStatKill(Process*process);
-void HuPrcKill(Process*process);
+s32 HuPrcKill(Process*process);
 void HuPrcChildKill(Process*process);
 void HuPrcTerminate(Process*process);
 void HuPrcExit();
