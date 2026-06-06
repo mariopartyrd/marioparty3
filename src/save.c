@@ -4,11 +4,11 @@
 extern s32 D_800B1A30_B2630;
 
 void GWInit(void) {
-    GW_COMMON* gw = &GwCommon;
-    
+    GW_COMMON *gw = &GwCommon;
+
     bzero(&GwCommon, sizeof(GwCommon));
     bzero(&GwStory, sizeof(GwStory));
-    
+
     gw->unk_00 = 0x91;
     GwSystem.current_board_index = 0;
     GwSystem.minigame_index = 0;
@@ -19,11 +19,11 @@ void GWMgNoSet(s8 arg0) {
 }
 
 // bit position to byte + bit position
-void GWMgBitGet(s16 bitPos, s16* byteIdx, s16* bitIdx) {
+void GWMgBitGet(s16 bitPos, s16 *byteIdx, s16 *bitIdx) {
     s16 pos;
 
     if (bitPos < 0 && GwSystem.minigame_index > 0) {
-       pos = GwSystem.minigame_index - 1;
+        pos = GwSystem.minigame_index - 1;
     } else {
         if (bitPos < 0) {
             pos = 0;
@@ -31,9 +31,9 @@ void GWMgBitGet(s16 bitPos, s16* byteIdx, s16* bitIdx) {
             pos = bitPos;
         }
     }
-    
+
     *byteIdx = pos / 8;
-    *bitIdx  = pos % 8;
+    *bitIdx = pos % 8;
 }
 
 // set bit
@@ -42,7 +42,7 @@ void GWMgUnlockSet(s16 bitPos) {
     s16 outBitPos;
 
     GWMgBitGet(bitPos, &outBytePos, &outBitPos);
-    GwCommon.mgUnlock[outBytePos]|= (1 << outBitPos);
+    GwCommon.mgUnlock[outBytePos] |= (1 << outBitPos);
 }
 
 // clear bit

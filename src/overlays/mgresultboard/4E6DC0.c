@@ -1,33 +1,33 @@
 #include "common.h"
 
 typedef struct PlayerResult {
-/* 0x00 */ s8 idx;
-/* 0x01 */ s8 unk_01;
-/* 0x02 */ s8 unk_02;
-/* 0x03 */ s8 unk_03;
-/* 0x04 */ s16 score;
-/* 0x06 */ s16 coin;
-/* 0x08 */ s16 gameCoin;
-/* 0x0A */ s16 bonusCoin;
-} PlayerResult; //sizeof 0x0C
+    /* 0x00 */ s8 idx;
+    /* 0x01 */ s8 unk_01;
+    /* 0x02 */ s8 unk_02;
+    /* 0x03 */ s8 unk_03;
+    /* 0x04 */ s16 score;
+    /* 0x06 */ s16 coin;
+    /* 0x08 */ s16 gameCoin;
+    /* 0x0A */ s16 bonusCoin;
+} PlayerResult; // sizeof 0x0C
 extern PlayerResult D_8010B018_4EC438_mgresultboard[4];
 extern PlayerResult D_8010B048_4EC468_mgresultboard[4];
 
-typedef struct UnkTemp { //is this just a copy of PlayerResult ?
-/* 0x00 */ u8 unk_00;
-/* 0x01 */ char unk_01[3];
-/* 0x04 */ s16 unk_04;
-/* 0x06 */ char unk_06[2];
-/* 0x08 */ s16 unk_08;
-/* 0x0A */ char unk_0A[2];
-} UnkTemp; //sizeof 0xC
+typedef struct UnkTemp { // is this just a copy of PlayerResult ?
+    /* 0x00 */ u8 unk_00;
+    /* 0x01 */ char unk_01[3];
+    /* 0x04 */ s16 unk_04;
+    /* 0x06 */ char unk_06[2];
+    /* 0x08 */ s16 unk_08;
+    /* 0x0A */ char unk_0A[2];
+} UnkTemp; // sizeof 0xC
 
 extern UnkTemp D_8010AFB0_4EC3D0_mgresultboard[];
 
 void func_80105C08_4E7028_mgresultboard(void);
-void func_80105CE8_4E7108_mgresultboard(omObjData*);
+void func_80105CE8_4E7108_mgresultboard(omObjData *);
 void func_80106DE8_4E8208_mgresultboard(void);
-void func_80106F40_4E8360_mgresultboard(omObjData*);
+void func_80106F40_4E8360_mgresultboard(omObjData *);
 void func_80106FC8_4E83E8_mgresultboard(void);
 void func_80107188_4E85A8_mgresultboard(void);
 void func_80107234_4E8654_mgresultboard(void);
@@ -54,12 +54,12 @@ extern f32 D_8010AAF4_4EBF14_mgresultboard;
 extern s32 D_8010AAF8_4EBF18_mgresultboard;
 extern s32 D_8010AD90_4EC1B0_mgresultboard;
 extern s8 D_8010AD94_4EC1B4_mgresultboard;
-s32 func_8010A864_4EBC84_mgresultboard(omObjData*, s8, s8);  /* extern */
-extern omObjData* D_8010AFE0_4EC400_mgresultboard;
+s32 func_8010A864_4EBC84_mgresultboard(omObjData *, s8, s8); /* extern */
+extern omObjData *D_8010AFE0_4EC400_mgresultboard;
 
-//updates mg star coins on results scene load
+// updates mg star coins on results scene load
 void func_801059A0_4E6DC0_mgresultboard(void) {
-    omObjData* obj;
+    omObjData *obj;
     s32 minigameType;
     s8 i;
 
@@ -68,7 +68,7 @@ void func_801059A0_4E6DC0_mgresultboard(void) {
     for (i = 0; i < 2; i++) {
         ScissorSet(i, 0.0f, 0.0f, 320.0f, 240.0f);
         ViewportSet(i, 640.0f, 480.0f, 511.0f, 640.0f, 480.0f, 511.0f);
-        Hu3DCamSetPerspective(i, 30.0f, 80.0f, 8000.0f);        
+        Hu3DCamSetPerspective(i, 30.0f, 80.0f, 8000.0f);
     }
 
     obj = omAddObj(0x7FDA, 0, 0, -1, omOutViewMulti);
@@ -97,9 +97,9 @@ void func_801059A0_4E6DC0_mgresultboard(void) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80105C08_4E7028_mgresultboard);
 
-//main state machine behind scoreboard and how it animates
-void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
-    PlayerResult* temp_v0_13;
+// main state machine behind scoreboard and how it animates
+void func_80105CE8_4E7108_mgresultboard(omObjData *arg0) {
+    PlayerResult *temp_v0_13;
     s32 coinTotal;
     s32 currentCoin;
     s16 var_a1;
@@ -111,312 +111,312 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
     s32 var_s5;
     u32 state;
     s32 var_v1_3;
-    PlayerResult* temp_a0_5;
+    PlayerResult *temp_a0_5;
     s8 i;
     s8 playerIdx;
-    
+
     var_s5 = 0;
     state = D_8010AAF0_4EBF10_mgresultboard;
     var_s3 = 0;
 
     switch (state) {
-    case 0:
-        HuAudSeqPlay(0x14);
-        D_8010AD90_4EC1B0_mgresultboard = 0;
-        state++;
-        break;
-    case 1:
-        if (D_8010AAF8_4EBF18_mgresultboard == 1) {
-            WipeCreateIn(0xFF, 0x10);
-            state++;
-        }
-        break;
-    case 2:
-        D_8010AD90_4EC1B0_mgresultboard++;
-        if (D_8010AD90_4EC1B0_mgresultboard >= 0x14) {
-            D_8010AD94_4EC1B4_mgresultboard = 0;
+        case 0:
+            HuAudSeqPlay(0x14);
             D_8010AD90_4EC1B0_mgresultboard = 0;
             state++;
-        }
-        break;
-    case 3:
-        D_8010AD90_4EC1B0_mgresultboard++;
-        if (D_8010AD90_4EC1B0_mgresultboard >= ((s32) (40.0f / D_8010AAF4_4EBF14_mgresultboard) + (s32) (15.0f / D_8010AAF4_4EBF14_mgresultboard))) {
-            D_8010AD90_4EC1B0_mgresultboard = 0;
-            D_8010AD94_4EC1B4_mgresultboard = 0;
-            state++;
-        }
-        break;
-    case 4:
-        D_8010AD94_4EC1B4_mgresultboard = 0;
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
-            coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
-            if (coinTotal <= 0) {
-                D_8010AD94_4EC1B4_mgresultboard++;
-            }
-        }
-
-        if (D_8010AD94_4EC1B4_mgresultboard >= 4) {
-            D_8010AD90_4EC1B0_mgresultboard = 0;
-            state = 0x10;
-        } else {
-            D_8010AD94_4EC1B4_mgresultboard = 0;
-            D_8010AD90_4EC1B0_mgresultboard = 0;
-            state++;
-        }
-        break;
-    case 5:
-        var_s3 = 0;
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            playerIdx = D_8010B048_4EC468_mgresultboard[i].idx;
-            coinTotal = GwPlayer[playerIdx].gameCoin;
-            coinTotal += GwPlayer[playerIdx].bonusCoin;
-            if (coinTotal > 0) {
-                var_s5++;
-                var_s3 = func_80106D88_4E81A8_mgresultboard(i, ((((rand8()) << 8) | (rand8())) % 1000));
-                func_80107800_4E8C20_mgresultboard(i);               
-            } else {
-                func_80107650_4E8A70_mgresultboard(i);
-            }
-        }
-
-        if (var_s3 == 1) {
-            if (++D_8010AD90_4EC1B0_mgresultboard >= 2) {
-                D_8010AD90_4EC1B0_mgresultboard = 0;
+            break;
+        case 1:
+            if (D_8010AAF8_4EBF18_mgresultboard == 1) {
+                WipeCreateIn(0xFF, 0x10);
                 state++;
             }
-        }
-        break;
-    case 6:
-        var_s3 = 0;
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
-            coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
-            if (coinTotal > 0) {
-                var_s3 = func_80106D88_4E81A8_mgresultboard(i, coinTotal);
-                func_80107800_4E8C20_mgresultboard(i);
-                var_s5++;
-            } else {
-                func_80107650_4E8A70_mgresultboard(i);
-            }
-        }
-
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
-            if (coinTotal >= 10) {
-                func_80106D50_4E8170_mgresultboard(i, 4);
-                var_s5++;
-            }
-        }
-        if (var_s3 == 1) {
-            D_8010AD90_4EC1B0_mgresultboard = 0;
-            state++;
-        }
-
-        break;
-    case 7:
-        D_8010AD90_4EC1B0_mgresultboard++;
-        if (!(D_8010AD90_4EC1B0_mgresultboard < ((s32) (40.0f / D_8010AAF4_4EBF14_mgresultboard) + (s32) (15.0f / D_8010AAF4_4EBF14_mgresultboard)))) {
-            D_8010AD90_4EC1B0_mgresultboard = 0;
-            state++;
-        }
-        break;
-    case 8:
-        var_s3 = 0;
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
-            coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
-            if (coinTotal > 0) {
-                var_s5++;
-                var_s3 = func_80106DB8_4E81D8_mgresultboard(i, ((((rand8()) << 8) | (rand8())) % 1000));
-                func_80107800_4E8C20_mgresultboard(i);
-                
-            } else {
-                func_80107650_4E8A70_mgresultboard(i);
-            }
-        }
-
-        if (var_s3 == 1) {
+            break;
+        case 2:
             D_8010AD90_4EC1B0_mgresultboard++;
-            if (D_8010AD90_4EC1B0_mgresultboard >= 2) {
+            if (D_8010AD90_4EC1B0_mgresultboard >= 0x14) {
+                D_8010AD94_4EC1B4_mgresultboard = 0;
                 D_8010AD90_4EC1B0_mgresultboard = 0;
                 state++;
             }
             break;
-        }
-        break;
-    case 9:
-        var_s3 = 0;
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            currentCoin = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].coin;
-            coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
-            if ((coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin) > 0) {
-                var_s3 = func_80106DB8_4E81D8_mgresultboard(i, currentCoin + coinTotal);
-                func_80107800_4E8C20_mgresultboard(i);
-                var_s5++;
-            } else {
-                func_80107650_4E8A70_mgresultboard(i);
+        case 3:
+            D_8010AD90_4EC1B0_mgresultboard++;
+            if (D_8010AD90_4EC1B0_mgresultboard >= ((s32)(40.0f / D_8010AAF4_4EBF14_mgresultboard) + (s32)(15.0f / D_8010AAF4_4EBF14_mgresultboard))) {
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                D_8010AD94_4EC1B4_mgresultboard = 0;
+                state++;
             }
-        }
- 
-        if (var_s3 == 1) {
-            D_8010AD90_4EC1B0_mgresultboard = 0;
-            state++;
-        }
-        break;
-    case 10:
-        D_8010AD90_4EC1B0_mgresultboard++;
-        if (!(D_8010AD90_4EC1B0_mgresultboard < ((s32) (40.0f / D_8010AAF4_4EBF14_mgresultboard) + (s32) (15.0f / D_8010AAF4_4EBF14_mgresultboard)))) {
-            D_8010AD90_4EC1B0_mgresultboard = 0;
-            state++;
-        }
-        break;
-    case 11:
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            D_8010B018_4EC438_mgresultboard[i] = D_8010B048_4EC468_mgresultboard[i];
-            playerIdx = D_8010B048_4EC468_mgresultboard[i].idx;
-            currentCoin = GwPlayer[playerIdx].coin;
-            coinTotal = GwPlayer[playerIdx].gameCoin;
-            coinTotal += GwPlayer[playerIdx].bonusCoin;
-            
-            if (currentCoin + coinTotal < 0x3E8){
-                GwPlayer[playerIdx].coin = currentCoin + coinTotal;
-            } else {
-                GwPlayer[playerIdx].coin = 0x3E7;
-            }
-            GwPlayer[playerIdx].gameCoin = 0;
-            GwPlayer[playerIdx].bonusCoin = 0;
-        }
-        state++;
-        func_80107234_4E8654_mgresultboard();
-        break;
-    case 12:
-        D_8010AD94_4EC1B4_mgresultboard = 0;
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            var_a0 = 0;
-            if (D_8010B048_4EC468_mgresultboard[i].unk_01 != D_8010B018_4EC438_mgresultboard[i].unk_01) {
-                D_8010AD94_4EC1B4_mgresultboard++;
-                var_a0 = 1;
-            }
-
-            if (D_8010B048_4EC468_mgresultboard[i].idx != D_8010B018_4EC438_mgresultboard[i].idx) {
-                D_8010AD94_4EC1B4_mgresultboard++;
-                var_a0++;
-            }
-
-            if (D_8010B018_4EC438_mgresultboard[i].bonusCoin >= 10) {
-                D_8010AD94_4EC1B4_mgresultboard++;
-                var_a0++;
-            }
-
-            if (var_a0 > 0) {
-                playerIdx = D_8010B048_4EC468_mgresultboard[i].idx; //??? why does this help so much
-                if (GwPlayer[playerIdx].stat & 1) {
-                    continue;
-                } else {
-                    omVibrate(playerIdx, 5, 0, 5);
+            break;
+        case 4:
+            D_8010AD94_4EC1B4_mgresultboard = 0;
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
+                coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
+                if (coinTotal <= 0) {
+                    D_8010AD94_4EC1B4_mgresultboard++;
                 }
             }
-        }
 
-        if (D_8010AD94_4EC1B4_mgresultboard == 0) {
-            D_8010AD90_4EC1B0_mgresultboard = 0;
-            state = 0xF;
-        } else {
-            D_8010AD94_4EC1B4_mgresultboard = 0;
-            state++;
-        }
-        break;
-    case 13:
-        var_s3 = 0;
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            var_a1 = D_8010B048_4EC468_mgresultboard[i].unk_01 != D_8010B018_4EC438_mgresultboard[i].unk_01;
-            if (D_8010B048_4EC468_mgresultboard[i].idx != D_8010B018_4EC438_mgresultboard[i].idx) {
-                var_a1 = 1;
-            }
-            if (D_8010B018_4EC438_mgresultboard[i].bonusCoin >= 10) {
-                var_a1 = 1;
-            }
-            if (var_a1 == 1) {
-                var_s3 = func_80106A80_4E7EA0_mgresultboard(i);
-                func_80107800_4E8C20_mgresultboard(i);
-                var_s5 += 1;
+            if (D_8010AD94_4EC1B4_mgresultboard >= 4) {
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state = 0x10;
             } else {
-                func_80107650_4E8A70_mgresultboard(i);
-            }        
-        }
- 
-        if (var_s3 == 1) {
-            D_8010AD94_4EC1B4_mgresultboard += 1;
-        }
-        if (D_8010AD94_4EC1B4_mgresultboard >= 2) {
-            D_8010AD94_4EC1B4_mgresultboard = 0;
-            state++;
-        }
-        break;
-    case 14:
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            var_a1 = D_8010B048_4EC468_mgresultboard[i].unk_01 != D_8010B018_4EC438_mgresultboard[i].unk_01;
-            if (D_8010B048_4EC468_mgresultboard[i].idx != D_8010B018_4EC438_mgresultboard[i].idx) {
-                var_a1 = 1;
+                D_8010AD94_4EC1B4_mgresultboard = 0;
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state++;
             }
-            if (D_8010B018_4EC438_mgresultboard[i].bonusCoin >= 10) {
-                var_a1 = 1;
-            }
-            if (var_a1 == 1) {
-                var_s3 = func_80106C80_4E80A0_mgresultboard(i);
-                func_80107800_4E8C20_mgresultboard(i);
-                var_s5++;
-            }
-        }
-
-        if (var_s3 == 1) {
-            D_8010AD90_4EC1B0_mgresultboard = 0;
-            state++;
-        }
-        break;
-    case 15:
-        D_8010AD90_4EC1B0_mgresultboard++;
-        if (D_8010AD90_4EC1B0_mgresultboard >= 30) {
+            break;
+        case 5:
+            var_s3 = 0;
             for (i = 0; i < MB_MAX_PLAYERS; i++) {
-                func_80107800_4E8C20_mgresultboard(i);
+                playerIdx = D_8010B048_4EC468_mgresultboard[i].idx;
+                coinTotal = GwPlayer[playerIdx].gameCoin;
+                coinTotal += GwPlayer[playerIdx].bonusCoin;
+                if (coinTotal > 0) {
+                    var_s5++;
+                    var_s3 = func_80106D88_4E81A8_mgresultboard(i, ((((rand8()) << 8) | (rand8())) % 1000));
+                    func_80107800_4E8C20_mgresultboard(i);
+                } else {
+                    func_80107650_4E8A70_mgresultboard(i);
+                }
             }
-            D_8010AD90_4EC1B0_mgresultboard = 0;
+
+            if (var_s3 == 1) {
+                if (++D_8010AD90_4EC1B0_mgresultboard >= 2) {
+                    D_8010AD90_4EC1B0_mgresultboard = 0;
+                    state++;
+                }
+            }
+            break;
+        case 6:
+            var_s3 = 0;
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
+                coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
+                if (coinTotal > 0) {
+                    var_s3 = func_80106D88_4E81A8_mgresultboard(i, coinTotal);
+                    func_80107800_4E8C20_mgresultboard(i);
+                    var_s5++;
+                } else {
+                    func_80107650_4E8A70_mgresultboard(i);
+                }
+            }
+
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
+                if (coinTotal >= 10) {
+                    func_80106D50_4E8170_mgresultboard(i, 4);
+                    var_s5++;
+                }
+            }
+            if (var_s3 == 1) {
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state++;
+            }
+
+            break;
+        case 7:
+            D_8010AD90_4EC1B0_mgresultboard++;
+            if (!(D_8010AD90_4EC1B0_mgresultboard < ((s32)(40.0f / D_8010AAF4_4EBF14_mgresultboard) + (s32)(15.0f / D_8010AAF4_4EBF14_mgresultboard)))) {
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state++;
+            }
+            break;
+        case 8:
+            var_s3 = 0;
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
+                coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin;
+                if (coinTotal > 0) {
+                    var_s5++;
+                    var_s3 = func_80106DB8_4E81D8_mgresultboard(i, ((((rand8()) << 8) | (rand8())) % 1000));
+                    func_80107800_4E8C20_mgresultboard(i);
+
+                } else {
+                    func_80107650_4E8A70_mgresultboard(i);
+                }
+            }
+
+            if (var_s3 == 1) {
+                D_8010AD90_4EC1B0_mgresultboard++;
+                if (D_8010AD90_4EC1B0_mgresultboard >= 2) {
+                    D_8010AD90_4EC1B0_mgresultboard = 0;
+                    state++;
+                }
+                break;
+            }
+            break;
+        case 9:
+            var_s3 = 0;
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                currentCoin = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].coin;
+                coinTotal = GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].gameCoin;
+                if ((coinTotal += GwPlayer[D_8010B048_4EC468_mgresultboard[i].idx].bonusCoin) > 0) {
+                    var_s3 = func_80106DB8_4E81D8_mgresultboard(i, currentCoin + coinTotal);
+                    func_80107800_4E8C20_mgresultboard(i);
+                    var_s5++;
+                } else {
+                    func_80107650_4E8A70_mgresultboard(i);
+                }
+            }
+
+            if (var_s3 == 1) {
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state++;
+            }
+            break;
+        case 10:
+            D_8010AD90_4EC1B0_mgresultboard++;
+            if (!(D_8010AD90_4EC1B0_mgresultboard < ((s32)(40.0f / D_8010AAF4_4EBF14_mgresultboard) + (s32)(15.0f / D_8010AAF4_4EBF14_mgresultboard)))) {
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state++;
+            }
+            break;
+        case 11:
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                D_8010B018_4EC438_mgresultboard[i] = D_8010B048_4EC468_mgresultboard[i];
+                playerIdx = D_8010B048_4EC468_mgresultboard[i].idx;
+                currentCoin = GwPlayer[playerIdx].coin;
+                coinTotal = GwPlayer[playerIdx].gameCoin;
+                coinTotal += GwPlayer[playerIdx].bonusCoin;
+
+                if (currentCoin + coinTotal < 0x3E8) {
+                    GwPlayer[playerIdx].coin = currentCoin + coinTotal;
+                } else {
+                    GwPlayer[playerIdx].coin = 0x3E7;
+                }
+                GwPlayer[playerIdx].gameCoin = 0;
+                GwPlayer[playerIdx].bonusCoin = 0;
+            }
             state++;
-        }
-        break;
-    case 16:
-        D_8010AD90_4EC1B0_mgresultboard++;
-        if (D_8010AD90_4EC1B0_mgresultboard >= 40) {
-            D_8010AD90_4EC1B0_mgresultboard = 0;
+            func_80107234_4E8654_mgresultboard();
+            break;
+        case 12:
+            D_8010AD94_4EC1B4_mgresultboard = 0;
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                var_a0 = 0;
+                if (D_8010B048_4EC468_mgresultboard[i].unk_01 != D_8010B018_4EC438_mgresultboard[i].unk_01) {
+                    D_8010AD94_4EC1B4_mgresultboard++;
+                    var_a0 = 1;
+                }
+
+                if (D_8010B048_4EC468_mgresultboard[i].idx != D_8010B018_4EC438_mgresultboard[i].idx) {
+                    D_8010AD94_4EC1B4_mgresultboard++;
+                    var_a0++;
+                }
+
+                if (D_8010B018_4EC438_mgresultboard[i].bonusCoin >= 10) {
+                    D_8010AD94_4EC1B4_mgresultboard++;
+                    var_a0++;
+                }
+
+                if (var_a0 > 0) {
+                    playerIdx = D_8010B048_4EC468_mgresultboard[i].idx; //??? why does this help so much
+                    if (GwPlayer[playerIdx].stat & 1) {
+                        continue;
+                    } else {
+                        omVibrate(playerIdx, 5, 0, 5);
+                    }
+                }
+            }
+
+            if (D_8010AD94_4EC1B4_mgresultboard == 0) {
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state = 0xF;
+            } else {
+                D_8010AD94_4EC1B4_mgresultboard = 0;
+                state++;
+            }
+            break;
+        case 13:
+            var_s3 = 0;
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                var_a1 = D_8010B048_4EC468_mgresultboard[i].unk_01 != D_8010B018_4EC438_mgresultboard[i].unk_01;
+                if (D_8010B048_4EC468_mgresultboard[i].idx != D_8010B018_4EC438_mgresultboard[i].idx) {
+                    var_a1 = 1;
+                }
+                if (D_8010B018_4EC438_mgresultboard[i].bonusCoin >= 10) {
+                    var_a1 = 1;
+                }
+                if (var_a1 == 1) {
+                    var_s3 = func_80106A80_4E7EA0_mgresultboard(i);
+                    func_80107800_4E8C20_mgresultboard(i);
+                    var_s5 += 1;
+                } else {
+                    func_80107650_4E8A70_mgresultboard(i);
+                }
+            }
+
+            if (var_s3 == 1) {
+                D_8010AD94_4EC1B4_mgresultboard += 1;
+            }
+            if (D_8010AD94_4EC1B4_mgresultboard >= 2) {
+                D_8010AD94_4EC1B4_mgresultboard = 0;
+                state++;
+            }
+            break;
+        case 14:
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                var_a1 = D_8010B048_4EC468_mgresultboard[i].unk_01 != D_8010B018_4EC438_mgresultboard[i].unk_01;
+                if (D_8010B048_4EC468_mgresultboard[i].idx != D_8010B018_4EC438_mgresultboard[i].idx) {
+                    var_a1 = 1;
+                }
+                if (D_8010B018_4EC438_mgresultboard[i].bonusCoin >= 10) {
+                    var_a1 = 1;
+                }
+                if (var_a1 == 1) {
+                    var_s3 = func_80106C80_4E80A0_mgresultboard(i);
+                    func_80107800_4E8C20_mgresultboard(i);
+                    var_s5++;
+                }
+            }
+
+            if (var_s3 == 1) {
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state++;
+            }
+            break;
+        case 15:
+            D_8010AD90_4EC1B0_mgresultboard++;
+            if (D_8010AD90_4EC1B0_mgresultboard >= 30) {
+                for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                    func_80107800_4E8C20_mgresultboard(i);
+                }
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state++;
+            }
+            break;
+        case 16:
+            D_8010AD90_4EC1B0_mgresultboard++;
+            if (D_8010AD90_4EC1B0_mgresultboard >= 40) {
+                D_8010AD90_4EC1B0_mgresultboard = 0;
+                state++;
+            }
+            break;
+        case 17:
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                AdjustPlayerCoins(i, 0);
+            }
+            WipeCreateOut(0, 0x14);
+            HuAudSeqFadeOut(0x1E);
             state++;
-        }
-        break;
-    case 17:
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            AdjustPlayerCoins(i, 0);
-        }
-        WipeCreateOut(0, 0x14);
-        HuAudSeqFadeOut(0x1E);
-        state++;
-        break;
-    case 18:
-        if (WipeStatGet() == 0) {
-            func_80037258_37E58();
-            func_800E69D8_FA5F8_shared_board();
-            func_800E66E0_FA300_shared_board();
-            omOvlReturnEx(1);
-        }
-        break;
+            break;
+        case 18:
+            if (WipeStatGet() == 0) {
+                func_80037258_37E58();
+                func_800E69D8_FA5F8_shared_board();
+                func_800E66E0_FA300_shared_board();
+                omOvlReturnEx(1);
+            }
+            break;
     }
-    
+
     if (var_s5 > 0) {
         func_801079B0_4E8DD0_mgresultboard(var_s5);
     } else {
         func_80107A58_4E8E78_mgresultboard();
     }
-    
+
     D_8010AAF0_4EBF10_mgresultboard = state;
     buttonPressed = 0;
     cpuCount = 0;
@@ -427,10 +427,9 @@ void func_80105CE8_4E7108_mgresultboard(omObjData* arg0) {
             cpuCount++;
         }
     }
-    
+
     D_8010AAF4_4EBF14_mgresultboard = ((buttonPressed & 0x8000) || (cpuCount >= 4)) ? 4.0f : 1.0f;
 }
-
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106A80_4E7EA0_mgresultboard);
 
@@ -455,10 +454,10 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106DE8_4E82
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106F40_4E8360_mgresultboard);
 
 void func_80106FC8_4E83E8_mgresultboard(void) {
-    GW_SYSTEM* system = &GwSystem;
+    GW_SYSTEM *system = &GwSystem;
 
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
-    
+
     if (!(system->playMode & 2)) {
         func_800E6720_FA340_shared_board(D_8010AD0C_4EC12C_mgresultboard[system->current_board_index], 0);
     } else {
@@ -566,17 +565,17 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_8010A454_4EB8
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_8010A4A0_4EB8C0_mgresultboard);
 
-s32 func_8010A864_4EBC84_mgresultboard(omObjData* arg0, s8 arg1, s8 arg2) {
+s32 func_8010A864_4EBC84_mgresultboard(omObjData *arg0, s8 arg1, s8 arg2) {
     if (D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_04 >= 0) {
         return 0;
     }
-    
+
     D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_04 = arg2;
-    
+
     if (D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_08 >= 0) {
-        func_8001C258_1CE58(arg0->model[D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_08+1], 4, 0);
+        func_8001C258_1CE58(arg0->model[D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_08 + 1], 4, 0);
     }
-    
+
     D_8010AFB0_4EC3D0_mgresultboard[arg1].unk_00 = 1;
     return 1;
 }

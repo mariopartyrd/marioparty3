@@ -5,7 +5,7 @@
 
 // EXTERN
 
-extern HuCamMtxs* D_800D0444_D1044;
+extern HuCamMtxs *D_800D0444_D1044;
 
 f32 HuSqrtf(f32);
 
@@ -28,9 +28,9 @@ typedef struct {
     /* 0x40 */ Light unk40[3][8][8];
 } UnkLightData; // Size 0xC40
 
-extern Light* D_800CB8A8_CC4A8;
+extern Light *D_800CB8A8_CC4A8;
 extern s16 D_800CC0B4_CCCB4;
-extern UnkLightData* D_800CE1D4_CEDD4;
+extern UnkLightData *D_800CE1D4_CEDD4;
 extern u8 D_800D2008_D2C08;
 
 void HmfLightInit(void) {
@@ -42,10 +42,10 @@ void HmfLightInit(void) {
     for (var_a1 = 0; var_a1 < 8; var_a1++) {
         D_800CE1D4_CEDD4->unk02[var_a1].stat = 0;
         D_800CE1D4_CEDD4->unk02[var_a1].r =
-        D_800CE1D4_CEDD4->unk02[var_a1].g =
-        D_800CE1D4_CEDD4->unk02[var_a1].b = 0x40;
+            D_800CE1D4_CEDD4->unk02[var_a1].g =
+                D_800CE1D4_CEDD4->unk02[var_a1].b = 0x40;
         D_800CE1D4_CEDD4->unk02[var_a1].unk04 =
-        D_800CE1D4_CEDD4->unk02[var_a1].unk05 = 0;
+            D_800CE1D4_CEDD4->unk02[var_a1].unk05 = 0;
         D_800CE1D4_CEDD4->unk02[var_a1].unk06 = 100;
     }
     D_800CE1D4_CEDD4->unk00 = 1;
@@ -60,7 +60,7 @@ void HmfLightExec(s16 arg0) {
 
     D_800CB8A8_CC4A8 = D_800CE1D4_CEDD4->unk40[D_800D2008_D2C08][arg0];
     for (var_s1 = 0; var_s1 < D_800CE1D4_CEDD4->unk00 + 1; var_s1++) {
-        Light* temp_s0 = &D_800CB8A8_CC4A8[var_s1];
+        Light *temp_s0 = &D_800CB8A8_CC4A8[var_s1];
 
         temp_s0->l.col[0] = temp_s0->l.colc[0] = D_800CE1D4_CEDD4->unk02[var_s1].r;
         temp_s0->l.col[1] = temp_s0->l.colc[1] = D_800CE1D4_CEDD4->unk02[var_s1].g;
@@ -136,8 +136,8 @@ void HmfLightDirSet(s16 arg0, f32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-void func_80019668_1A268(HmfData_UnkD0* arg0) {
-    Light* temp_s0 = &arg0->unk08[D_800D2008_D2C08];
+void func_80019668_1A268(HmfData_UnkD0 *arg0) {
+    Light *temp_s0 = &arg0->unk08[D_800D2008_D2C08];
 
     temp_s0->l.col[0] = temp_s0->l.colc[0] = arg0->unk00;
     temp_s0->l.col[1] = temp_s0->l.colc[1] = arg0->unk01;
@@ -169,8 +169,8 @@ void func_80019668_1A268(HmfData_UnkD0* arg0) {
 }
 
 s16 func_80019828_1A428(s16 arg0, s16 arg1) {
-    HmfData* temp_v0_2 = HmfModelData[arg0].hmf;
-    UnkLightData_unk02* temp_s5 = temp_v0_2->unkC0;
+    HmfData *temp_v0_2 = HmfModelData[arg0].hmf;
+    UnkLightData_unk02 *temp_s5 = temp_v0_2->unkC0;
     s16 temp_v0 = temp_v0_2->unk20;
     s16 var_s2;
 

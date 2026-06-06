@@ -6,27 +6,23 @@
 #define isdigit(x) ((x >= '0' && x <= '9'))
 #define LDSIGN(x) (((unsigned short *)&(x))[0] & 0x8000)
 
-#define ATOI(dst, src)                   \
-    for (dst = 0; isdigit(*src); ++src)  \
-    {                                    \
-        if (dst < 999)                   \
-            dst = dst * 10 + *src - '0'; \
+#define ATOI(dst, src)                    \
+    for (dst = 0; isdigit(*src); ++src) { \
+        if (dst < 999)                    \
+            dst = dst * 10 + *src - '0';  \
     }
 
 #define MAX_PAD ((sizeof(spaces) - 1))
 #define PAD(s, n)                                             \
-    if (0 < (n))                                              \
-    {                                                         \
+    if (0 < (n)) {                                            \
         int i, j = (n);                                       \
-        for (; 0 < j; j -= i)                                 \
-        {                                                     \
+        for (; 0 < j; j -= i) {                               \
             i = MAX_PAD < (unsigned int)j ? (int)MAX_PAD : j; \
             PUT(s, i);                                        \
         }                                                     \
     }
 #define PUT(s, n)                                \
-    if (0 < (n))                                 \
-    {                                            \
+    if (0 < (n)) {                               \
         if ((arg = (*prout)(arg, s, n)) != NULL) \
             x.nchar += (n);                      \
         else                                     \
@@ -35,37 +31,37 @@
 static char spaces[] = "                                ";
 static char zeroes[] = "00000000000000000000000000000000";
 
-//TODO: when alignment is correctly set to 0x10, this won't be needed
+// TODO: when alignment is correctly set to 0x10, this won't be needed
 static char dummy_data[] = "\0\0\0\0";
 
 static void _Putfld(_Pft *pf, va_list *pap, char code, char *ac);
 
 int _Printf(outfun prout, char *arg, const char *fmt, va_list args) {
     _Pft x;
-    
+
     x.nchar = 0;
 
     while (TRUE) {
         const char *s;
         char c;
         const char *t;
-        static const char fchar[] = {' ', '+', '-', '#', '0', '\0'};
-        static const int fbit[] = {FLAGS_SPACE, FLAGS_PLUS, FLAGS_MINUS, FLAGS_HASH, FLAGS_ZERO, 0};
+        static const char fchar[] = { ' ', '+', '-', '#', '0', '\0' };
+        static const int fbit[] = { FLAGS_SPACE, FLAGS_PLUS, FLAGS_MINUS, FLAGS_HASH, FLAGS_ZERO, 0 };
         char ac[32];
         s = fmt;
 
         for (c = *s; c != 0 && c != '%';) {
             c = *++s;
         }
-        
+
         PUT(fmt, s - fmt);
-        
+
         if (c == 0) {
             return x.nchar;
         }
-        
+
         fmt = ++s;
-        
+
         for (x.flags = 0; (t = strchr(fchar, *s)) != NULL; s++) {
             x.flags |= fbit[t - fchar];
         }
@@ -78,24 +74,22 @@ int _Printf(outfun prout, char *arg, const char *fmt, va_list args) {
                 x.flags |= FLAGS_MINUS;
             }
             s++;
-        } else 
+        } else
             ATOI(x.width, s);
-
 
         if (*s != '.') {
             x.prec = -1;
         } else if (*++s == '*') {
             x.prec = va_arg(args, int);
             ++s;
-        } else 
-            for (x.prec = 0; isdigit(*s); s++) { 
-                if (x.prec < 999) 
-                    x.prec = x.prec * 10 + *s - '0'; 
+        } else
+            for (x.prec = 0; isdigit(*s); s++) {
+                if (x.prec < 999)
+                    x.prec = x.prec * 10 + *s - '0';
             }
 
-
         x.qual = strchr("hlL", *s) ? *s++ : '\0';
-        
+
         if (x.qual == 'l' && *s == 'l') {
             x.qual = 'L';
             ++s;
@@ -104,15 +98,13 @@ int _Printf(outfun prout, char *arg, const char *fmt, va_list args) {
         _Putfld(&x, &args, *s, ac);
         x.width -= x.n0 + x.nz0 + x.n1 + x.nz1 + x.n2 + x.nz2;
 
-       {
+        {
 
             if (!(x.flags & FLAGS_MINUS)) {
                 int i, j;
-                if (0 < (x.width))
-                {
+                if (0 < (x.width)) {
                     i, j = x.width;
-                    for (; 0 < j; j -= i)
-                    {
+                    for (; 0 < j; j -= i) {
                         i = MAX_PAD < (unsigned int)j ? (int)MAX_PAD : j;
                         PUT(spaces, i);
                     }
@@ -239,11 +231,11 @@ static void _Putfld(_Pft *x, va_list *args, char type, char *buff) {
         case 's':
             x->s = va_arg(*args, char *);
             x->n1 = strlen(x->s);
-            
+
             if (x->prec >= 0 && x->prec < x->n1) {
                 x->n1 = x->prec;
             }
-            
+
             break;
         case '%':
             buff[x->n0++] = '%';
@@ -254,5 +246,5 @@ static void _Putfld(_Pft *x, va_list *args, char type, char *buff) {
     }
 }
 
-//TODO: when alignment is correctly set to 0x10, this won't be needed
+// TODO: when alignment is correctly set to 0x10, this won't be needed
 const char dummy_rodata[] = "\0";

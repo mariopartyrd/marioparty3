@@ -63,7 +63,7 @@ void func_80105B9C_3D8C8C_duel01(void) {
     omOvlReturnEx(1);
 }
 
-void func_80105C64_3D8D54_duel01(s32 arg0, s32 arg1, unkStruct01* arg2) {
+void func_80105C64_3D8D54_duel01(s32 arg0, s32 arg1, unkStruct01 *arg2) {
     f32 temp_f20;
 
     func_800EB708_D34D8_name_81(arg0, arg1, arg2);
@@ -74,9 +74,9 @@ void func_80105C64_3D8D54_duel01(s32 arg0, s32 arg1, unkStruct01* arg2) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/duel01/3D8AC0", func_80105CC0_3D8DB0_duel01);
 
-void* func_80105EB0_3D8FA0_duel01(unkStruct04* arg0) {
-    Process* process;
-    unkStruct02* temp_v0_2;
+void *func_80105EB0_3D8FA0_duel01(unkStruct04 *arg0) {
+    Process *process;
+    unkStruct02 *temp_v0_2;
 
     process = omAddPrcObj(&func_80105CC0_3D8DB0_duel01, 0xA, 0, 0x40);
     temp_v0_2 = HuMemMemoryAlloc(process->heap, sizeof(unkStruct02));
@@ -97,8 +97,8 @@ void func_80106240_3D9330_duel01(void) {
     func_800FC8C4_E4694_name_81(&D_80105540_ED310_name_81);
 }
 
-//TODO: arg0 is a pointer
-void func_80106260_3D9350_duel01(s32 arg0, unkStruct05* arg1, s32 arg2, f32 arg3) {
+// TODO: arg0 is a pointer
+void func_80106260_3D9350_duel01(s32 arg0, unkStruct05 *arg1, s32 arg2, f32 arg3) {
     arg3 = arg3 + 0.5f;
     if (arg2 & 9) {
         func_800EC1E4_D3FB4_name_81(&D_80105540_ED310_name_81, arg0 + 0xC, &D_80105540_ED310_name_81, arg3);
@@ -107,8 +107,8 @@ void func_80106260_3D9350_duel01(s32 arg0, unkStruct05* arg1, s32 arg2, f32 arg3
     }
 }
 
-//TODO: arg0 is a pointer
-void func_801062C0_3D93B0_duel01(s32 arg0, unkStruct05* arg1, s32 arg2, f32 arg3) {
+// TODO: arg0 is a pointer
+void func_801062C0_3D93B0_duel01(s32 arg0, unkStruct05 *arg1, s32 arg2, f32 arg3) {
     if (arg2 & 9) {
         func_800EBF2C_D3CFC_name_81(&D_80105540_ED310_name_81, arg0 + 0xC, &D_80105540_ED310_name_81);
     } else {
@@ -118,9 +118,9 @@ void func_801062C0_3D93B0_duel01(s32 arg0, unkStruct05* arg1, s32 arg2, f32 arg3
 
 INCLUDE_ASM("asm/nonmatchings/overlays/duel01/3D8AC0", func_80106308_3D93F8_duel01);
 
-Process* func_8010645C_3D954C_duel01(s32 arg0, s32 arg1) {
-    Process* process;
-    unkStruct06* temp_v0_2;
+Process *func_8010645C_3D954C_duel01(s32 arg0, s32 arg1) {
+    Process *process;
+    unkStruct06 *temp_v0_2;
 
     process = omAddPrcObj(&func_80106308_3D93F8_duel01, 0xA, 0, 0x40);
     temp_v0_2 = HuMemMemoryAlloc(process->heap, sizeof(unkStruct06));
@@ -132,8 +132,8 @@ Process* func_8010645C_3D954C_duel01(s32 arg0, s32 arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/duel01/3D8AC0", func_801064C8_3D95B8_duel01);
 
-void* func_80106740_3D9830_duel01(s32 arg0) {
-    Object* obj;
+void *func_80106740_3D9830_duel01(s32 arg0) {
+    Object *obj;
 
     obj = func_800D8010_BFDE0_name_81(arg0 & 0xFF, 0);
     func_8001C258_1CE58(obj->omObj1->model[0], 0x180, 0);
@@ -145,7 +145,7 @@ void* func_80106740_3D9830_duel01(s32 arg0) {
     return obj;
 }
 
-void func_801067D4_3D98C4_duel01(Object* arg0, Vec * arg1) {
+void func_801067D4_3D98C4_duel01(Object *arg0, Vec *arg1) {
     func_800D8E88_C0C58_name_81();
     func_8001C814_1D414(arg0->omObj1->model[0], 3, 0);
     HuVecCopy3F(&arg0->coords, arg1);
@@ -272,7 +272,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/duel01/3D8AC0", func_8010F99C_3E2A8C_duel
 INCLUDE_ASM("asm/nonmatchings/overlays/duel01/3D8AC0", func_80110068_3E3158_duel01);
 
 void func_80110B7C_3E3C6C_duel01(void) {
-    GW_PLAYER* temp_s0;
+    GW_PLAYER *temp_s0;
 
     temp_s0 = MBDGetPlayerStruct(CUR_PLAYER);
     if (MBDGetCurrentPlayerIndex() == 0 && !(temp_s0->rev & 4)) {
@@ -282,7 +282,7 @@ void func_80110B7C_3E3C6C_duel01(void) {
 }
 
 void func_80110BD8_3E3CC8_duel01(void) {
-    GW_PLAYER* temp_s0;
+    GW_PLAYER *temp_s0;
 
     temp_s0 = MBDGetPlayerStruct(CUR_PLAYER);
     if ((MBDGetCurrentPlayerIndex() == 1) && !(temp_s0->rev & 4)) {

@@ -45,7 +45,7 @@ extern u16 D_800CDA7C_CE67C[];
 extern u16 D_800D5558_D6158[];
 
 // printfunc
-s32 print8(u16 x, u16 y, char* src);
+s32 print8(u16 x, u16 y, char *src);
 
 // unknown
 extern s32 D_800A178C[][6];
@@ -83,12 +83,12 @@ typedef struct {
 typedef struct {
     /* 0x00 */ s16 wallCount;
     /* 0x02 */ s16 screwCount;
-    /* 0x04 */ NutData* nuts;
+    /* 0x04 */ NutData *nuts;
     /* 0x08 */ char unk08[4];
 } PlayerWorld; // Size 0xC
 
 typedef struct {
-    /* 0x00 */ PlayerWorld* worlds;
+    /* 0x00 */ PlayerWorld *worlds;
     /* 0x04 */ s8 unk04;
     /* 0x08 */ f32 timer; // counted in frames
     /* 0x0C */ Work work;
@@ -118,7 +118,7 @@ enum {
 };
 
 typedef struct {
-    /* 0x00 */ omObjData* object;
+    /* 0x00 */ omObjData *object;
     /* 0x04 */ s16 padId;
     /* 0x08 */ f32 startPosX;
     /* 0x0C */ s16 state;
@@ -139,38 +139,38 @@ typedef struct {
 
 void m255_InitEnvironment(void);
 void m255_CreateMinigame(void);
-void m255_CheckExitRequest(omObjData* object);
-void m255_WaitExitWipeOut(omObjData* object);
-void m255_ExitOverlay(omObjData* object);
-void m255_InitMinigame(omObjData* object);
-void m255_UpdateSystem(omObjData* object);
-void m255_CreateWall(omObjData* object);
-void m255_UpdateWall(omObjData* object);
-void m255_CreateSigns(omObjData* object);
-void m255_UpdateSigns(omObjData* object);
-void m255_CreateScrews(omObjData* object);
-void m255_UpdateScrews(omObjData* object);
-void m255_CreateNuts(omObjData* object);
-void m255_UpdateNuts(omObjData* object);
-void m255_InitPlayer(omObjData* object);
-void m255_UpdatePlayer(omObjData* object);
-void m255_InitCamera(FuncContext* ctx);
-void m255_FollowPlayerWithCamera(FuncContext* ctx);
-void m255_ExecMinigameIntro(FuncContext* ctx);
-void m255_ExecPlayersDraw(FuncContext* ctx);
-void m255_CheckMinigameEnd(FuncContext* ctx);
+void m255_CheckExitRequest(omObjData *object);
+void m255_WaitExitWipeOut(omObjData *object);
+void m255_ExitOverlay(omObjData *object);
+void m255_InitMinigame(omObjData *object);
+void m255_UpdateSystem(omObjData *object);
+void m255_CreateWall(omObjData *object);
+void m255_UpdateWall(omObjData *object);
+void m255_CreateSigns(omObjData *object);
+void m255_UpdateSigns(omObjData *object);
+void m255_CreateScrews(omObjData *object);
+void m255_UpdateScrews(omObjData *object);
+void m255_CreateNuts(omObjData *object);
+void m255_UpdateNuts(omObjData *object);
+void m255_InitPlayer(omObjData *object);
+void m255_UpdatePlayer(omObjData *object);
+void m255_InitCamera(FuncContext *ctx);
+void m255_FollowPlayerWithCamera(FuncContext *ctx);
+void m255_ExecMinigameIntro(FuncContext *ctx);
+void m255_ExecPlayersDraw(FuncContext *ctx);
+void m255_CheckMinigameEnd(FuncContext *ctx);
 void m255_ChooseNutsPositions(void);
 void m255_SetWall(s16 modelId, s16 worldId);
 void m255_SetScrew(s16 modelId, s16 worldId);
-void m255_UpdateNutSpinning(FuncContext* ctx);
-void m255_UpdatePlayerCue(FuncContext* ctx);
-void m255_ExecPlayerWins(FuncContext* ctx);
-void m255_UpdatePlayerSpeed(FuncContext* ctx);
-void m255_UpdatePlayerAnimation(FuncContext* ctx);
-void m255_LerpPlayerRotation(FuncContext* ctx);
-void m255_ExecPlayerJump(FuncContext* ctx);
-void m255_UpdateComInput(FuncContext* ctx);
-f32 func_8010B18C_2B4A3C_silly_screws(PlayerData* player);
+void m255_UpdateNutSpinning(FuncContext *ctx);
+void m255_UpdatePlayerCue(FuncContext *ctx);
+void m255_ExecPlayerWins(FuncContext *ctx);
+void m255_UpdatePlayerSpeed(FuncContext *ctx);
+void m255_UpdatePlayerAnimation(FuncContext *ctx);
+void m255_LerpPlayerRotation(FuncContext *ctx);
+void m255_ExecPlayerJump(FuncContext *ctx);
+void m255_UpdateComInput(FuncContext *ctx);
+f32 func_8010B18C_2B4A3C_silly_screws(PlayerData *player);
 
 const s16 D_8010BE50_2B5700_silly_screws[] = {
     0x8272, 0x8273, 0x8260, 0x8271, 0x8273, 0x0000
@@ -184,8 +184,8 @@ const s16 D_8010BE6C_2B571C_silly_screws[] = {
     0x8263, 0x8271, 0x8260, 0x8276, 0x0000, 0x0000
 };
 
-MinigameData* BSS m255_minigame;
-PlayerData* BSS m255_players;
+MinigameData *BSS m255_minigame;
+PlayerData *BSS m255_players;
 s16 BSS m255_playerId[PLAYERS_TOTAL];
 
 s16 D_8010BE20_2B56D0_silly_screws = -1;
@@ -206,7 +206,7 @@ void m255_OverlayMain(void) {
 }
 
 void m255_InitEnvironment(void) {
-    omObjData* temp_v0;
+    omObjData *temp_v0;
 
     Hu3DAnimInit(50);
     func_800142A0_14EA0(0x20);
@@ -255,20 +255,20 @@ void m255_CreateMinigame(void) {
     m255_ChooseNutsPositions();
 }
 
-void m255_CheckExitRequest(omObjData* object) {
+void m255_CheckExitRequest(omObjData *object) {
     if (D_800D530C_D5F0C == 1) {
         WipeCreateOut(0, 20);
         object->func = m255_WaitExitWipeOut;
     }
 }
 
-void m255_WaitExitWipeOut(omObjData* object) {
+void m255_WaitExitWipeOut(omObjData *object) {
     if (WipeStatGet() == 0) {
         object->func = m255_ExitOverlay;
     }
 }
 
-void m255_ExitOverlay(omObjData* object) {
+void m255_ExitOverlay(omObjData *object) {
     osViBlack(0);
     omOvlReturnEx(1);
 }
@@ -291,7 +291,7 @@ void m255_UpdateCameras(void) {
     m255_UpdateFuncGroup(FGRP_CAMERA);
 }
 
-void m255_InitMinigame(omObjData* object) {
+void m255_InitMinigame(omObjData *object) {
     s16 player1Set = FALSE;
     s16 player2Set = FALSE;
     s16 i;
@@ -324,13 +324,13 @@ void m255_InitMinigame(omObjData* object) {
     object->func = m255_UpdateSystem;
 }
 
-void m255_UpdateSystem(omObjData* object) {
+void m255_UpdateSystem(omObjData *object) {
     m255_UpdateFuncGroup(FGRP_MINIGAME);
     m255_UpdateCameras();
     m255_UpdateSprites();
 }
 
-void m255_CreateWall(omObjData* object) {
+void m255_CreateWall(omObjData *object) {
     s16 var_a1;
     s16 i;
 
@@ -364,7 +364,7 @@ void m255_CreateWall(omObjData* object) {
     object->func = m255_UpdateWall;
 }
 
-void m255_UpdateWall(omObjData* object) {
+void m255_UpdateWall(omObjData *object) {
     s16 i;
 
     if (m255_minigame->unk04 != 0) {
@@ -373,7 +373,7 @@ void m255_UpdateWall(omObjData* object) {
         }
     }
     for (i = 0; i < 8; i++) {
-        HmfModel* model = &HmfModelData[object->model[i]];
+        HmfModel *model = &HmfModelData[object->model[i]];
 
         if (i < 5) {
             if (CenterM[object->work[0]].z - 1050.0f < model->pos.z) {
@@ -397,7 +397,7 @@ void m255_UpdateWall(omObjData* object) {
     m255_SyncWithModel(object);
 }
 
-void m255_CreateSigns(omObjData* object) {
+void m255_CreateSigns(omObjData *object) {
     s16 var_a1;
     s16 i;
 
@@ -418,11 +418,11 @@ void m255_CreateSigns(omObjData* object) {
     object->func = m255_UpdateSigns;
 }
 
-void m255_UpdateSigns(omObjData* object) {
+void m255_UpdateSigns(omObjData *object) {
     s16 i;
 
     for (i = 0; i < SIGNS_TOTAL; i++) {
-        HmfModel* model = &HmfModelData[object->model[i]];
+        HmfModel *model = &HmfModelData[object->model[i]];
 
         if (CenterM[object->work[0]].z - 1050.0f < model->pos.z) {
             func_8001C258_1CE58(object->model[i], 4, 0);
@@ -437,7 +437,7 @@ void m255_UpdateSigns(omObjData* object) {
     m255_SyncWithModel(object);
 }
 
-void m255_CreateScrews(omObjData* object) {
+void m255_CreateScrews(omObjData *object) {
     s16 var_a1;
     s16 i;
 
@@ -463,11 +463,11 @@ void m255_CreateScrews(omObjData* object) {
     object->func = m255_UpdateScrews;
 }
 
-void m255_UpdateScrews(omObjData* object) {
+void m255_UpdateScrews(omObjData *object) {
     s16 i;
 
     for (i = 0; i < SCREWS_TOTAL; i++) {
-        HmfModel* model = &HmfModelData[object->model[i]];
+        HmfModel *model = &HmfModelData[object->model[i]];
 
         if (CenterM[object->work[0]].z - 800.0f < model->pos.z) {
             func_8001C258_1CE58(object->model[i], 4, 0);
@@ -482,8 +482,8 @@ void m255_UpdateScrews(omObjData* object) {
     m255_SyncWithModel(object);
 }
 
-void m255_CreateNuts(omObjData* object) {
-    PlayerWorld* world = &m255_minigame->worlds[m255_minigame->work.s8[1]];
+void m255_CreateNuts(omObjData *object) {
+    PlayerWorld *world = &m255_minigame->worlds[m255_minigame->work.s8[1]];
     s32 file[] = { 3, 4, 5, 6, 7, 8 };
     s16 var_s4;
     s16 i;
@@ -501,7 +501,7 @@ void m255_CreateNuts(omObjData* object) {
     object->func = m255_UpdateNuts;
 }
 
-void m255_UpdateNuts(omObjData* object) {
+void m255_UpdateNuts(omObjData *object) {
     s16 i;
 
     if (m255_minigame->unk04 != 0) {
@@ -513,8 +513,8 @@ void m255_UpdateNuts(omObjData* object) {
     m255_SyncWithModel(object);
 }
 
-void m255_InitPlayer(omObjData* object) {
-    s8* unkData;
+void m255_InitPlayer(omObjData *object) {
+    s8 *unkData;
     s32 temp_v0_2;
     s32 temp_a1;
     s16 var_a1;
@@ -567,12 +567,12 @@ void m255_InitPlayer(omObjData* object) {
     object->func = m255_UpdatePlayer;
 }
 
-void m255_UpdatePlayer(omObjData* object) {
+void m255_UpdatePlayer(omObjData *object) {
     m255_UpdateFuncGroup(FGRP_PLAYER_1 + object->work[0]);
     func_800E4E30_B79B0_minigame(object);
 }
 
-void m255_InitCamera(FuncContext* ctx) {
+void m255_InitCamera(FuncContext *ctx) {
     s16 i;
 
     switch (ctx->state) {
@@ -597,7 +597,7 @@ void m255_InitCamera(FuncContext* ctx) {
 
 // TODO: only works with -Wa,--vr4300mul-off.
 #ifdef NON_MATCHING
-void m255_ExecCameraIntro(FuncContext* ctx) {
+void m255_ExecCameraIntro(FuncContext *ctx) {
     s16 camId = ctx->unk06;
     f32 temp_f22;
 
@@ -639,12 +639,12 @@ void m255_ExecCameraIntro(FuncContext* ctx) {
     }
 }
 #else
-void m255_ExecCameraIntro(FuncContext* ctx);
+void m255_ExecCameraIntro(FuncContext *ctx);
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_37_silly_screws/main", m255_ExecCameraIntro);
 #endif
 
-void m255_CenterCameraOnWinner(FuncContext* ctx) {
-    PlayerData* player = ctx->data;
+void m255_CenterCameraOnWinner(FuncContext *ctx) {
+    PlayerData *player = ctx->data;
     s16 camId = player->object->work[0];
     f32 temp_f0;
 
@@ -689,8 +689,8 @@ void m255_CenterCameraOnWinner(FuncContext* ctx) {
     }
 }
 
-void m255_FollowPlayerWithCamera(FuncContext* ctx) {
-    PlayerData* player;
+void m255_FollowPlayerWithCamera(FuncContext *ctx) {
+    PlayerData *player;
 
     switch (ctx->state) {
         case 0:
@@ -711,7 +711,7 @@ void m255_FollowPlayerWithCamera(FuncContext* ctx) {
     }
 }
 
-void m255_UpdateDebugCamera(FuncContext* ctx) {
+void m255_UpdateDebugCamera(FuncContext *ctx) {
     s16 camId = ctx->work.s8[3];
     u16 temp_a0;
 
@@ -808,7 +808,7 @@ void m255_UpdateDebugCamera(FuncContext* ctx) {
     }
 }
 
-void m255_UpdateTimer(FuncContext* ctx) {
+void m255_UpdateTimer(FuncContext *ctx) {
     s16 i;
 
     if (D_8010BE24_2B56D4_silly_screws != 0) {
@@ -846,8 +846,8 @@ void m255_UpdateTimer(FuncContext* ctx) {
     }
 }
 
-void m255_ExecMinigameIntro(FuncContext* ctx) {
-    PlayerData* player = m255_players;
+void m255_ExecMinigameIntro(FuncContext *ctx) {
+    PlayerData *player = m255_players;
     s16 i;
 
     switch (ctx->state) {
@@ -896,7 +896,7 @@ void m255_ExecMinigameIntro(FuncContext* ctx) {
     }
 }
 
-void m255_ExecMinigameFinish(FuncContext* ctx) {
+void m255_ExecMinigameFinish(FuncContext *ctx) {
     s16 temp_v1;
 
     switch (ctx->state) {
@@ -934,7 +934,7 @@ void m255_ExecMinigameFinish(FuncContext* ctx) {
     }
 }
 
-void m255_ExecPlayersDraw(FuncContext* ctx) {
+void m255_ExecPlayersDraw(FuncContext *ctx) {
     s16 i;
 
     switch (ctx->state) {
@@ -979,8 +979,8 @@ void m255_ExecPlayersDraw(FuncContext* ctx) {
     }
 }
 
-void m255_CheckMinigameEnd(FuncContext* ctx) {
-    PlayerData* player = m255_players;
+void m255_CheckMinigameEnd(FuncContext *ctx) {
+    PlayerData *player = m255_players;
     s16 winnerCount = 0;
     s16 winners[] = { -1, -1 };
     u8 unused_stack[8];
@@ -1027,10 +1027,17 @@ void m255_CheckMinigameEnd(FuncContext* ctx) {
 
 // TODO: doesn't work with -Wa,--vr4300mul-off.
 void m255_ChooseNutsPositions(void) {
-    PlayerWorld* world = m255_minigame->worlds;
+    PlayerWorld *world = m255_minigame->worlds;
     f32 nutBasePosX[][6] = {
-        { 4.5f, 6.5f, 2.5f, 4.5f, 2.5f, 5.0f, },
-        { 4.5f, 2.5f, 6.5f, 2.5f, 4.5f, 6.5f  }
+        {
+            4.5f,
+            6.5f,
+            2.5f,
+            4.5f,
+            2.5f,
+            5.0f,
+        },
+        { 4.5f, 2.5f, 6.5f, 2.5f, 4.5f, 6.5f }
     };
     s16 rand = rand16() & 1;
     s16 i, j;
@@ -1058,7 +1065,7 @@ void m255_SetScrew(s16 modelId, s16 worldId) {
     }
 }
 
-static inline void m255_SpinNutModel(HmfModel* model, PlayerData* player) {
+static inline void m255_SpinNutModel(HmfModel *model, PlayerData *player) {
     model->rot.x -= player->speed;
     if (model->rot.x > 360.0f) {
         model->rot.x -= 360.0f;
@@ -1073,9 +1080,9 @@ static inline void m255_SpinNutModel(HmfModel* model, PlayerData* player) {
     }
 }
 
-void m255_UpdateNutSpinning(FuncContext* ctx) {
-    PlayerWorld* world = ctx->data;
-    NutData* nut = world->nuts;
+void m255_UpdateNutSpinning(FuncContext *ctx) {
+    PlayerWorld *world = ctx->data;
+    NutData *nut = world->nuts;
     s16 i;
 
     switch (ctx->state) {
@@ -1085,8 +1092,8 @@ void m255_UpdateNutSpinning(FuncContext* ctx) {
             break;
         case 1:
             for (i = 0; i < NUTS_TOTAL; i++, nut++) {
-                HmfModel* nutModel = &HmfModelData[nut->modelId];
-                PlayerData* player = &m255_players[ctx->work.s16[0]];
+                HmfModel *nutModel = &HmfModelData[nut->modelId];
+                PlayerData *player = &m255_players[ctx->work.s16[0]];
 
                 if (CenterM[ctx->work.s16[0]].z - 800.0f < nutModel->pos.z) {
                     func_8001C258_1CE58(nut->modelId, 4, 0);
@@ -1129,10 +1136,10 @@ void m255_UpdateNutSpinning(FuncContext* ctx) {
     }
 }
 
-void m255_UpdatePlayerCue(FuncContext* ctx) {
-    PlayerData* player = ctx->data;
-    HmfModel* cueModel = NULL;
-    PlayerWorld* world = &m255_minigame->worlds[player->object->work[0]];
+void m255_UpdatePlayerCue(FuncContext *ctx) {
+    PlayerData *player = ctx->data;
+    HmfModel *cueModel = NULL;
+    PlayerWorld *world = &m255_minigame->worlds[player->object->work[0]];
     f32 cuePosY = 0.0f;
     f32 cuePosZ = 0.0f;
 
@@ -1147,7 +1154,7 @@ void m255_UpdatePlayerCue(FuncContext* ctx) {
                 break;
             }
             if (player->inputEnabled) {
-                NutData* nut = &world->nuts[player->currNutId];
+                NutData *nut = &world->nuts[player->currNutId];
                 f32 currNutPosX;
                 f32 nextNutPosX;
 
@@ -1161,7 +1168,7 @@ void m255_UpdatePlayerCue(FuncContext* ctx) {
                 func_8001C258_1CE58(player->object->model[MDL_ARROW], 4, 4);
                 func_8001C258_1CE58(player->object->model[MDL_BALLOON_B], 4, 4);
                 func_8001C258_1CE58(player->object->model[MDL_BALLOON_A], 4, 4);
-                if (ABS((s32) (currNutPosX - nextNutPosX)) < JUMP_RANGE_X) {
+                if (ABS((s32)(currNutPosX - nextNutPosX)) < JUMP_RANGE_X) {
                     ctx->work.s8[1] = ctx->work.s8[0];
                     ctx->work.s8[0] = CUE_ARROW;
                 } else if (currNutPosX - nextNutPosX < 0.0f) {
@@ -1221,8 +1228,8 @@ void m255_UpdatePlayerCue(FuncContext* ctx) {
     }
 }
 
-void m255_ExecPlayerWins(FuncContext* ctx) {
-    PlayerData* player = ctx->data;
+void m255_ExecPlayerWins(FuncContext *ctx) {
+    PlayerData *player = ctx->data;
 
     if (GMesStatGet() == GMES_STAT_NONE) {
         D_8010BE4C_2B56FC_silly_screws = 1;
@@ -1252,8 +1259,8 @@ void m255_ExecPlayerWins(FuncContext* ctx) {
     }
 }
 
-void m255_UpdatePlayerSpeed(FuncContext* ctx) {
-    PlayerData* player = ctx->data;
+void m255_UpdatePlayerSpeed(FuncContext *ctx) {
+    PlayerData *player = ctx->data;
     f32 newSpeed;
     s16 absSpeed;
     s16 pitch;
@@ -1308,7 +1315,7 @@ void m255_UpdatePlayerSpeed(FuncContext* ctx) {
                     }
                     HuAudFXPitchSet(player->nutSeNo, pitch);
                     absSpeed = ABS(player->speed);
-                    func_8004AAD0_4B6D0(player->nutSeNo, 100 + (s32) ((absSpeed / 15.0f) * 27.0f));
+                    func_8004AAD0_4B6D0(player->nutSeNo, 100 + (s32)((absSpeed / 15.0f) * 27.0f));
                 }
             } else if (D_800CDA7C_CE67C[player->padId] & A_BUTTON) {
                 if (ctx->work.s8[1] == 0 && player->state != PLAYER_STATE_ROTATE) {
@@ -1340,7 +1347,7 @@ void m255_UpdatePlayerSpeed(FuncContext* ctx) {
                     }
                     HuAudFXPitchSet(player->nutSeNo, pitch);
                     absSpeed = ABS(player->speed);
-                    func_8004AAD0_4B6D0(player->nutSeNo, 100 + (s32) ((absSpeed / 15.0f) * 27.0f));
+                    func_8004AAD0_4B6D0(player->nutSeNo, 100 + (s32)((absSpeed / 15.0f) * 27.0f));
                 }
             }
             if (!(D_800CDA7C_CE67C[player->padId] & B_BUTTON)) {
@@ -1353,8 +1360,8 @@ void m255_UpdatePlayerSpeed(FuncContext* ctx) {
     }
 }
 
-void m255_UpdatePlayerAnimation(FuncContext* ctx) {
-    PlayerData* player = ctx->data;
+void m255_UpdatePlayerAnimation(FuncContext *ctx) {
+    PlayerData *player = ctx->data;
 
     switch (ctx->state) {
         case 0:
@@ -1438,8 +1445,8 @@ void m255_UpdatePlayerAnimation(FuncContext* ctx) {
     }
 }
 
-void m255_LerpPlayerRotation(FuncContext* ctx) {
-    PlayerData* player = ctx->data;
+void m255_LerpPlayerRotation(FuncContext *ctx) {
+    PlayerData *player = ctx->data;
 
     switch (ctx->state) {
         case 0:
@@ -1448,7 +1455,7 @@ void m255_LerpPlayerRotation(FuncContext* ctx) {
             ctx->state = 1;
             break;
         case 1:
-            if (m255_CalcLerp(&player->object->rot.y, (u8*) &ctx->work.s8[0], player->work.f32[0], player->work.f32[1], 5.0f)) {
+            if (m255_CalcLerp(&player->object->rot.y, (u8 *)&ctx->work.s8[0], player->work.f32[0], player->work.f32[1], 5.0f)) {
                 m255_ResetFunc(FGRP_PLAYER_1 + player->object->work[0], ctx);
                 player->state = PLAYER_STATE_ON_PLATFORM;
             }
@@ -1457,9 +1464,9 @@ void m255_LerpPlayerRotation(FuncContext* ctx) {
 }
 
 // TODO: doesn't work with -Wa,--vr4300mul-off.
-void m255_ExecPlayerJump(FuncContext* ctx) {
-    PlayerData* player = ctx->data;
-    Work* ctxWork = &ctx->work;
+void m255_ExecPlayerJump(FuncContext *ctx) {
+    PlayerData *player = ctx->data;
+    Work *ctxWork = &ctx->work;
     f32 accelY;
     f32 scale;
 
@@ -1484,7 +1491,7 @@ void m255_ExecPlayerJump(FuncContext* ctx) {
             switch (ctxWork->s8[1]) {
                 case 0:
                     player->state = PLAYER_STATE_TRANSITION; // moving forward before jumping
-                    if (m255_CalcLerp(&player->object->trans.z, (u8*) &ctxWork->s8[0], ctxWork->f32[0], ctxWork->f32[0] - 80.0f, 10.0f)) {
+                    if (m255_CalcLerp(&player->object->trans.z, (u8 *)&ctxWork->s8[0], ctxWork->f32[0], ctxWork->f32[0] - 80.0f, 10.0f)) {
                         ctxWork->s8[1] = 1;
                         ctxWork->f32[0] = player->object->trans.z;
                         if (player->currNutId < NUTS_TOTAL) {
@@ -1546,7 +1553,7 @@ void m255_ExecPlayerJump(FuncContext* ctx) {
                     }
                     Hu3DModelScaleSet(player->object->model[1], scale, 1.0f, scale);
                     Hu3DModelPosSet(player->object->model[1], player->object->trans.x, ctxWork->f32[1] + 1.0f, player->object->trans.z);
-                    if (m255_CalcLerp(&player->object->trans.z, (u8*) &ctxWork->s8[0], ctxWork->f32[0], ctxWork->f32[2], ctxWork->f32[3])) {
+                    if (m255_CalcLerp(&player->object->trans.z, (u8 *)&ctxWork->s8[0], ctxWork->f32[0], ctxWork->f32[2], ctxWork->f32[3])) {
                         m255_ResetFunc(FGRP_PLAYER_1 + player->object->work[0], ctx);
                         Hu3DModelScaleSet(player->object->model[1], 1.0f, 1.0f, 1.0f);
                         if (player->lost) {
@@ -1565,15 +1572,15 @@ void m255_ExecPlayerJump(FuncContext* ctx) {
     }
 }
 
-void m255_UpdateComInput(FuncContext* ctx) {
-    PlayerData* player = ctx->data;
+void m255_UpdateComInput(FuncContext *ctx) {
+    PlayerData *player = ctx->data;
     u8 unused_stack[0x18];
 
     switch (ctx->state) {
         case 0:
             switch (GwPlayer[m255_playerId[player->object->work[0]]].cpu_difficulty) {
                 case 0:
-                    ctx->work.s8[2] = 9; // controls the delay between button presses
+                    ctx->work.s8[2] = 9;  // controls the delay between button presses
                     ctx->work.s8[3] = 12; // controls precision when deciding when to stop running
                     break;
                 case 1:
@@ -1602,8 +1609,8 @@ void m255_UpdateComInput(FuncContext* ctx) {
             }
             if (player->currNutId != NUTS_TOTAL) {
                 f32 temp_f6 = func_8010B18C_2B4A3C_silly_screws(player);
-                NutData* nut = &m255_minigame->worlds[player->object->work[0]].nuts[player->currNutId];
-                HmfModel* nutModel = &HmfModelData[nut->modelId];
+                NutData *nut = &m255_minigame->worlds[player->object->work[0]].nuts[player->currNutId];
+                HmfModel *nutModel = &HmfModelData[nut->modelId];
                 f32 nextNutPosX;
                 s8 temp_v1_3;
 
@@ -1615,7 +1622,7 @@ void m255_UpdateComInput(FuncContext* ctx) {
                 if (player->state == PLAYER_STATE_JUMP) {
                     ctx->work.s8[4] = 0;
                 }
-                if (ABS((s32) (nutModel->pos.x + temp_f6 - (nextNutPosX + ctx->work.f32[0]))) < JUMP_RANGE_X) {
+                if (ABS((s32)(nutModel->pos.x + temp_f6 - (nextNutPosX + ctx->work.f32[0]))) < JUMP_RANGE_X) {
                     ctx->work.s8[4] = ctx->work.s8[4] - 1 - (rand16() & 1);
                     temp_v1_3 = rand16() % (ctx->work.s8[3] + 1) + ctx->work.s8[4];
                     ctx->work.f32[0] = (temp_v1_3 >= 0 ? temp_v1_3 : 0) * 0.1f * 20.0f * 5.0f;
@@ -1644,12 +1651,12 @@ void m255_UpdateComInput(FuncContext* ctx) {
 }
 
 // TODO: doesn't work with -Wa,--vr4300mul-off.
-f32 func_8010B18C_2B4A3C_silly_screws(PlayerData* player) {
+f32 func_8010B18C_2B4A3C_silly_screws(PlayerData *player) {
     f32 var_f4 = 0.0f;
     f32 absSpeed;
     f32 var_f2;
 
-    absSpeed = ABS((s32) player->speed);
+    absSpeed = ABS((s32)player->speed);
     for (var_f2 = 0.0f; var_f2 <= absSpeed; var_f2 += 0.5f) {
         var_f4 += var_f2 * 0.22222222f;
     }

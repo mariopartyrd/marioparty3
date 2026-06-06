@@ -3,25 +3,25 @@
 #include "ovl_80.h"
 
 typedef struct UnkBoard3 {
-/* 0x00 */ void* doublyLinkedList;
-/* 0x04 */ s32 unk_04;
-/* 0x08 */ char unk_08[2];
-/* 0x0A */ s16 unk_0A;
-/* 0x0C */ Vec vec0;
-/* 0x18 */ Vec vec1;
-/* 0x24 */ Vec vec2;
-/* 0x30 */ Vec vec3; //could also be 3 s32s
-/* 0x3C */ char unk_3C[8];
-/* 0x44 */ s16 unk_44;
-/* 0x46 */ s16 unk_46;
-} UnkBoard3; //sizeof 0x48
+    /* 0x00 */ void *doublyLinkedList;
+    /* 0x04 */ s32 unk_04;
+    /* 0x08 */ char unk_08[2];
+    /* 0x0A */ s16 unk_0A;
+    /* 0x0C */ Vec vec0;
+    /* 0x18 */ Vec vec1;
+    /* 0x24 */ Vec vec2;
+    /* 0x30 */ Vec vec3; // could also be 3 s32s
+    /* 0x3C */ char unk_3C[8];
+    /* 0x44 */ s16 unk_44;
+    /* 0x46 */ s16 unk_46;
+} UnkBoard3; // sizeof 0x48
 
 typedef struct Node {
-/* 0x00 */ struct Node* next;
-/* 0x04 */ struct Node* prev;
+    /* 0x00 */ struct Node *next;
+    /* 0x04 */ struct Node *prev;
 } Node;
 
-extern Node* D_80102AB0_1166D0_shared_board;
+extern Node *D_80102AB0_1166D0_shared_board;
 extern u16 D_80102AB4_1166D4_shared_board;
 extern u8 D_800D6A90_D7690;
 
@@ -39,8 +39,8 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelInit);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelClose);
 
-UnkBoard3* func_800D9004_ECC24_shared_board(void) {
-    UnkBoard3* temp_v0;
+UnkBoard3 *func_800D9004_ECC24_shared_board(void) {
+    UnkBoard3 *temp_v0;
 
     temp_v0 = HuMemMemoryAllocTemp(sizeof(UnkBoard3));
     if (temp_v0 != NULL) {
@@ -48,9 +48,9 @@ UnkBoard3* func_800D9004_ECC24_shared_board(void) {
         temp_v0->doublyLinkedList = D_80102AB0_1166D0_shared_board;
         temp_v0->unk_04 = 0;
         if (D_80102AB0_1166D0_shared_board != NULL) {
-            D_80102AB0_1166D0_shared_board->prev = (Node* ) temp_v0;
+            D_80102AB0_1166D0_shared_board->prev = (Node *)temp_v0;
         }
-        D_80102AB0_1166D0_shared_board = (Node* ) temp_v0;
+        D_80102AB0_1166D0_shared_board = (Node *)temp_v0;
         temp_v0->unk_0A = 8;
         HuVecCopyXYZ(&temp_v0->vec0, 0.0f, 0.0f, 0.0f);
         HuVecCopyXYZ(&temp_v0->vec1, 0.0f, 0.0f, 1.0f);
@@ -69,14 +69,14 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelCreate
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelFileCreate);
 
 typedef struct UnkObj {
-    Object* unk_00;
+    Object *unk_00;
     f32 unk_04;
 } UnkObj;
 
-void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
+void func_800D93C0_ECFE0_shared_board(omObjData *playerObj) {
     f32 sp10[2];
-    Object* temp_s0;
-    UnkObj* temp_s2;
+    Object *temp_s0;
+    UnkObj *temp_s2;
     f32 temp_f0;
     f32 temp_f0_2;
     f32 temp_f2;
@@ -86,7 +86,7 @@ void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
 
     if ((D_800D6A90_D7690 == 0) || (temp_s0->flags & 0x10)) {
         if (temp_s0->velocity.z != 0.0f) {
-            temp_s0->velocity.y +=  temp_s0->velocity.z;
+            temp_s0->velocity.y += temp_s0->velocity.z;
             temp_s0->velocity.x = temp_s0->velocity.x + temp_s0->velocity.y;
             if (temp_s0->velocity.x < 0.0f) {
                 temp_s0->velocity.x = 0.0f;
@@ -99,7 +99,7 @@ void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
     if (!(temp_s0->flags & 4)) {
         playerObj->rot.y = MBVecAngleGet(&temp_s0->unk18);
     }
-    
+
     playerObj->trans.x = temp_s0->coords.x;
     playerObj->trans.y = temp_s0->coords.y + temp_s0->velocity.x;
     playerObj->trans.z = temp_s0->coords.z;
@@ -111,17 +111,17 @@ void func_800D93C0_ECFE0_shared_board(omObjData* playerObj) {
         MBModelAttrSetDispOff(temp_s0);
         return;
     }
-    
+
     if (!(temp_s0->flags & 8)) {
         MBModelAttrSetDispOff(temp_s0);
         return;
     }
-    
+
     if (temp_s0->flags & 2) {
         func_800E9940_FD560_shared_board(&temp_s0->coords, sp10);
-        if ((sp10[0] > 370.0f) || 
-            (sp10[0] < -50.0f) || 
-            (sp10[1] > 290.0f) || 
+        if ((sp10[0] > 370.0f) ||
+            (sp10[0] < -50.0f) ||
+            (sp10[1] > 290.0f) ||
             (sp10[1] < -20.0f)) {
             MBModelAttrSetDispOff(temp_s0);
             return;
@@ -152,7 +152,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", MBModelKill);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/ECA50", func_800D9CB0_ED8D0_shared_board);
 
-void MBMotionSet(Object* arg0, s16 arg1, u16 arg2) {
+void MBMotionSet(Object *arg0, s16 arg1, u16 arg2) {
     u16 var_v1;
 
     if (arg1 == -1) {

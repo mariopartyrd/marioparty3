@@ -4,8 +4,7 @@
 // https://decomp.me/scratch/6UMIQ
 // the original output has the function prologue near the end rather than the start
 #ifdef NONMATCHING
-void _HuVecNormalize3F(Vec * vec)
-{
+void _HuVecNormalize3F(Vec *vec) {
     f32 x;
     f32 y;
     f32 z;

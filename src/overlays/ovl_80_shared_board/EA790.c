@@ -1,10 +1,10 @@
 #include "common.h"
 #include "ovl_80.h"
 
-UnkBoard2* func_800D6B70_EA790_shared_board(s32 arg0) {
-    s32 sp10[3] = {22, 22, 22};
-    UnkBoard2* temp_v0;
-    Object* temp_v0_2;
+UnkBoard2 *func_800D6B70_EA790_shared_board(s32 arg0) {
+    s32 sp10[3] = { 22, 22, 22 };
+    UnkBoard2 *temp_v0;
+    Object *temp_v0_2;
 
     temp_v0 = HuMemMemoryAllocTemp(sizeof(UnkBoard2));
     temp_v0->unk_00 = 0;

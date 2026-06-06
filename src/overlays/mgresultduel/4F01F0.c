@@ -2,15 +2,15 @@
 #include "game/object.h"
 
 typedef struct UnkOmData {
-    omObjData* unk_00;
-    void (*objFunc)(omObjData*); //func pointer
+    omObjData *unk_00;
+    void (*objFunc)(omObjData *); // func pointer
 } UnkOmData;
 
 extern UnkOmData D_80109338_4F3B88_mgresultduel;
 extern s8 D_80108E78_4F36C8_mgresultduel;
 void func_80106054_4F08A4_mgresultduel(void);
-void func_80106544_4F0D94_mgresultduel(omObjData*);
-void func_80106270_4F0AC0_mgresultduel(omObjData*);
+void func_80106544_4F0D94_mgresultduel(omObjData *);
+void func_80106270_4F0AC0_mgresultduel(omObjData *);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultduel/4F01F0", func_801059A0_4F01F0_mgresultduel);
 
@@ -41,7 +41,7 @@ void func_80106054_4F08A4_mgresultduel(void) {
 }
 
 void func_80106080_4F08D0_mgresultduel(void) {
-    omObjData* temp_v0;
+    omObjData *temp_v0;
 
     temp_v0 = omAddObj(0x14, 5U, 8U, -1, NULL);
     D_80109338_4F3B88_mgresultduel.unk_00 = temp_v0;
@@ -68,16 +68,16 @@ void func_80106080_4F08D0_mgresultduel(void) {
     D_80109338_4F3B88_mgresultduel.objFunc = func_80106270_4F0AC0_mgresultduel;
     while (1) {
         D_80109338_4F3B88_mgresultduel.objFunc(temp_v0);
-        HuPrcVSleep();   
+        HuPrcVSleep();
     }
 }
 
-void func_80106270_4F0AC0_mgresultduel(omObjData* arg0) {
+void func_80106270_4F0AC0_mgresultduel(omObjData *arg0) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultduel/4F01F0", func_80106278_4F0AC8_mgresultduel);
 
-void func_80106544_4F0D94_mgresultduel(omObjData* arg0) {
+void func_80106544_4F0D94_mgresultduel(omObjData *arg0) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultduel/4F01F0", func_8010654C_4F0D9C_mgresultduel);

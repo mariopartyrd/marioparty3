@@ -3,8 +3,8 @@
 
 extern u8 D_80097660_98260;
 extern u8 D_80097661_98261;
-extern s32 D_800CE178_CED78; //TODO: type correctly
-void func_80020E94_21A94(void*, struct HmfModel*);
+extern s32 D_800CE178_CED78; // TODO: type correctly
+void func_80020E94_21A94(void *, struct HmfModel *);
 
 typedef struct UnkC1F0 {
     char unk_00[0x18];
@@ -43,7 +43,7 @@ void func_8000B690_C290(s32 arg0) {
 
 s32 func_8000B710_C310(s32 arg0) {
     s32 i;
-    
+
     for (i = 0; i < arg0; i++) {
         func_80012888_13488(i, &func_80020E94_21A94, &D_800D04B8_D10B8[i]);
         D_80097661_98261++;

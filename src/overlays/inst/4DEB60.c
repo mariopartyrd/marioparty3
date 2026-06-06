@@ -1,21 +1,21 @@
 #include "common.h"
 
-void func_80105D9C_4DEF5C_inst(omObjData*);      /* extern */
-void func_801061EC_4DF3AC_inst(void);                   /* extern */
-void func_80106310_4DF4D0_inst(omObjData*);      /* extern */
-void func_80106388_4DF548_inst(void);                   /* extern */
-void func_8010674C_4DF90C_inst(omObjData*);      /* extern */
-void func_801067CC_4DF98C_inst(void);                   /* extern */
-void func_80106850_4DFA10_inst(Vec*, Vec*);             /* extern */
-void func_80106898_4DFA58_inst(void);                   /* extern */
-void func_80106EB4_4E0074_inst(void);                   /* extern */
-void func_80107308_4E04C8_inst(void);                   /* extern */
-void func_80107470_4E0630_inst(void);                /* extern */
-void func_80108350_4E1510_inst(void);                /* extern */
-void func_801094B0_4E2670_inst(void);                /* extern */
-void func_80109A90_4E2C50_inst(void);                /* extern */
-void func_8010A1D0_4E3390_inst(void);                /* extern */
-void func_8010B990_4E4B50_inst(void);                /* extern */
+void func_80105D9C_4DEF5C_inst(omObjData *);  /* extern */
+void func_801061EC_4DF3AC_inst(void);         /* extern */
+void func_80106310_4DF4D0_inst(omObjData *);  /* extern */
+void func_80106388_4DF548_inst(void);         /* extern */
+void func_8010674C_4DF90C_inst(omObjData *);  /* extern */
+void func_801067CC_4DF98C_inst(void);         /* extern */
+void func_80106850_4DFA10_inst(Vec *, Vec *); /* extern */
+void func_80106898_4DFA58_inst(void);         /* extern */
+void func_80106EB4_4E0074_inst(void);         /* extern */
+void func_80107308_4E04C8_inst(void);         /* extern */
+void func_80107470_4E0630_inst(void);         /* extern */
+void func_80108350_4E1510_inst(void);         /* extern */
+void func_801094B0_4E2670_inst(void);         /* extern */
+void func_80109A90_4E2C50_inst(void);         /* extern */
+void func_8010A1D0_4E3390_inst(void);         /* extern */
+void func_8010B990_4E4B50_inst(void);         /* extern */
 
 extern s8 D_8010D400_4E65C0_inst[7];
 extern s8 D_8010D407_4E65C7_inst;
@@ -26,13 +26,12 @@ extern s8 D_8010D411_4E65D1_inst;
 extern Vec D_8010D45C_4E661C_inst;
 extern Vec D_8010D48C_4E664C_inst;
 
-
 void func_801059A0_4DEB60_inst(void) {
     void (*procFunc)(void) = NULL;
     s16 var_a1 = 0;
     s16 i;
     s16 j;
-    
+
     for (i = 0; i < 4; i++) {
         for (j = 0; j < MB_MAX_PLAYERS; j++) {
             if (i != GwPlayer[j].group) {
@@ -51,7 +50,7 @@ void func_801059A0_4DEB60_inst(void) {
     }
     D_8010D40B_4E65CB_inst = GwSystem.minigame_index - 1;
     D_8010D40A_4E65CA_inst = D_800A6D44_A7944[D_8010D40B_4E65CB_inst].minigameType;
-    
+
     if (_CheckFlag(0xF) != 0) {
         D_8010D407_4E65C7_inst = 1;
         D_8010D408_4E65C8_inst = 1;
@@ -59,7 +58,7 @@ void func_801059A0_4DEB60_inst(void) {
         D_8010D407_4E65C7_inst = 0;
         if ((GWMgUnlockCheck(D_8010D40B_4E65CB_inst)) != 0) {
             D_8010D408_4E65C8_inst = 1;
-        }        
+        }
     }
 
     GWMgUnlockSet(-1);
@@ -67,12 +66,12 @@ void func_801059A0_4DEB60_inst(void) {
     func_80106EB4_4E0074_inst();
     func_80106898_4DFA58_inst();
     func_80107308_4E04C8_inst();
-    
+
     if ((GwSystem.show_minigame_explanations == 1) || (D_8010D40A_4E65CA_inst == 6)) {
         func_801061EC_4DF3AC_inst();
         return;
     }
-    
+
     Hu3DAnimInit(1);
     omInitObjMan(0x1E, 0x1E);
     func_8005A6B0_5B2B0();
@@ -86,35 +85,35 @@ void func_801059A0_4DEB60_inst(void) {
     omAddPrcObj(func_80107470_4E0630_inst, 0x1001U, 0x1000, 0);
     omAddPrcObj(func_8010B990_4E4B50_inst, 0x1001U, 0x1000, 0);
     omAddPrcObj(func_8010A1D0_4E3390_inst, 0x1001U, 0x1000, 0);
-    
+
     switch (D_8010D40A_4E65CA_inst) {
-    case 5:
-        procFunc = func_801094B0_4E2670_inst;
-        D_8010D411_4E65D1_inst = 1;
-        break;
-    case 4:
-        if (omovlhisidx <= 0) {
+        case 5:
+            procFunc = func_801094B0_4E2670_inst;
+            D_8010D411_4E65D1_inst = 1;
             break;
-        }
-        if (GwSystem.playMode & 2) {
+        case 4:
+            if (omovlhisidx <= 0) {
+                break;
+            }
+            if (GwSystem.playMode & 2) {
+                procFunc = func_80108350_4E1510_inst;
+                D_8010D411_4E65D1_inst = 0;
+                break;
+            }
+        case 3:
+            procFunc = func_80109A90_4E2C50_inst;
+            D_8010D411_4E65D1_inst = 2;
+            break;
+        case 0:
+        case 1:
+        case 2:
+        case 6:
+        case 7:
+        case 8:
+        default:
             procFunc = func_80108350_4E1510_inst;
             D_8010D411_4E65D1_inst = 0;
             break;
-        }
-    case 3:
-        procFunc = func_80109A90_4E2C50_inst;
-        D_8010D411_4E65D1_inst = 2;
-        break;
-    case 0:
-    case 1:
-    case 2:
-    case 6:
-    case 7:
-    case 8:
-    default:
-        procFunc = func_80108350_4E1510_inst;
-        D_8010D411_4E65D1_inst = 0;
-        break;
     }
 
     omAddPrcObj(procFunc, 0x1001U, 0x800, 0);

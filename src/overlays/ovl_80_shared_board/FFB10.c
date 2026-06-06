@@ -25,9 +25,9 @@ void func_800EBF98_FFBB8_shared_board(s16 arg0, s32 arg1) {
     func_800EDC58_101878_shared_board(arg0, arg1);
 }
 
-s16 MBWinCreate(s16 arg0, s16* arg1, s16 arg2) {
+s16 MBWinCreate(s16 arg0, s16 *arg1, s16 arg2) {
     s32 result;
-    
+
     if (arg2 == -1) {
         if (arg0 == arg2) {
             result = func_80061188_61D88(-1, 0, 0, arg1[0], arg1[1], 2);
@@ -54,7 +54,7 @@ void MBWinOpen(s32 arg0) {
     s16 temp_v0;
 
     func_80060394_60F94(1, sp18, arg0);
-    temp_v0 = func_80061188_61D88(-1, 0, 0, sp18[0],sp18[1], 2);
+    temp_v0 = func_80061188_61D88(-1, 0, 0, sp18[0], sp18[1], 2);
     mbWinId = temp_v0;
 
     if (D_800CB99C_CC59C == 0) {
@@ -65,49 +65,48 @@ void MBWinOpen(s32 arg0) {
     func_80061388_61F88(temp_v0);
 }
 
-
-void MBWinInsertOpen(s32 arg0, char* arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5) {
+void MBWinInsertOpen(s32 arg0, char *arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5) {
     s16 sp18[2];
     s16 temp_v0;
 
-    //if arg isn't a pointer, treat as ID and return pointer to message from dynamic memory
+    // if arg isn't a pointer, treat as ID and return pointer to message from dynamic memory
     if (arg1 != NULL) {
-        func_8006022C_60E2C((u32) arg1, 0);
+        func_8006022C_60E2C((u32)arg1, 0);
     }
     if (arg2 != NULL) {
-        func_8006022C_60E2C((u32) arg2, 1);
+        func_8006022C_60E2C((u32)arg2, 1);
     }
     if (arg3 != NULL) {
-        func_8006022C_60E2C((u32) arg3, 2);
+        func_8006022C_60E2C((u32)arg3, 2);
     }
     if (arg4 != NULL) {
-        func_8006022C_60E2C((u32) arg4, 3);
+        func_8006022C_60E2C((u32)arg4, 3);
     }
     if (arg5 != NULL) {
-        func_8006022C_60E2C((u32) arg5, 4);
+        func_8006022C_60E2C((u32)arg5, 4);
     }
-    
+
     func_80060394_60F94(1, sp18, arg0);
     temp_v0 = func_80061188_61D88(-1, 0, 0, sp18[0], sp18[1], 2);
     mbWinId = temp_v0;
-    
+
     if (D_800CB99C_CC59C == 0) {
         func_8005B63C_5C23C(temp_v0, 0x40, 0x40);
     }
     if (arg1 != NULL) {
-        func_8005B6BC_5C2BC(temp_v0, (u32) arg1, 0);
+        func_8005B6BC_5C2BC(temp_v0, (u32)arg1, 0);
     }
     if (arg2 != 0) {
-        func_8005B6BC_5C2BC(temp_v0, (u32) arg2, 1);
+        func_8005B6BC_5C2BC(temp_v0, (u32)arg2, 1);
     }
     if (arg3 != 0) {
-        func_8005B6BC_5C2BC(temp_v0, (u32) arg3, 2);
+        func_8005B6BC_5C2BC(temp_v0, (u32)arg3, 2);
     }
     if (arg4 != 0) {
-        func_8005B6BC_5C2BC(temp_v0, (u32) arg4, 3);
+        func_8005B6BC_5C2BC(temp_v0, (u32)arg4, 3);
     }
     if (arg5 != 0) {
-        func_8005B6BC_5C2BC(temp_v0, (u32) arg5, 4);
+        func_8005B6BC_5C2BC(temp_v0, (u32)arg5, 4);
     }
     func_8005B43C_5C03C(temp_v0, arg0, -1, -1);
     func_80061388_61F88(temp_v0);
@@ -133,11 +132,11 @@ void MBDlgResultWinExec(s32 arg0) {
     func_80060394_60F94(1, sp18, arg0);
     temp_v0 = func_80061188_61D88(-1, 0, 0, sp18[0], sp18[1], 2);
     mbDlgWinId = temp_v0;
-    
+
     if (D_800CB99C_CC59C == 0) {
         func_8005B63C_5C23C(temp_v0, 0x40, 0x40);
     }
-    
+
     func_8005B43C_5C03C(temp_v0, arg0, -1, -1);
     func_80061388_61F88(temp_v0);
     func_800EBEF0_FFB10_shared_board(temp_v0);
@@ -194,11 +193,9 @@ void MBDlgWinClose(void) {
     func_80061A5C_6265C(mbDlgWinId, 0);
 }
 
-
 void MBDlgWinKill(void) {
     func_8005F364_5FF64(mbDlgWinId);
 }
-
 
 void MBDlgWinInsertCreateY(s16 arg0, s32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 arg6, s16 arg7) {
     s16 sp10[2];
@@ -223,7 +220,7 @@ void MBDlgWinInsertCreateY(s16 arg0, s32 arg1, u32 arg2, u32 arg3, u32 arg4, u32
     func_80060394_60F94(1, sp10, arg1);
     temp_v0 = MBWinCreate(arg0, sp10, arg7);
     mbDlgWinId = temp_v0;
-    
+
     if (arg2 != 0) {
         func_8005B6BC_5C2BC(temp_v0, arg2, 0);
     }
@@ -250,7 +247,7 @@ void MBDlgWinInsertCreateY(s16 arg0, s32 arg1, u32 arg2, u32 arg3, u32 arg4, u32
     } else {
         func_80061388_61F88(temp_v0);
     }
-    
+
     func_800EBF48_FFB68_shared_board(temp_v0, GwSystem.current_player_index);
 }
 

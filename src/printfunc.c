@@ -3,11 +3,11 @@
 #define MAX_STRINGS 512
 
 typedef struct strline_data {
-/* 0x00 */ u16 color;
-/* 0x02 */ s16 x;
-/* 0x04 */ s16 y;
-/* 0x06 */ s16 empstrline_next;
-/* 0x08 */ u8 str[64];
+    /* 0x00 */ u16 color;
+    /* 0x02 */ s16 x;
+    /* 0x04 */ s16 y;
+    /* 0x06 */ s16 empstrline_next;
+    /* 0x08 */ u8 str[64];
 } strline_data;
 
 typedef struct Unk_D_800CC440 {
@@ -33,7 +33,7 @@ void pfInit(void) {
     fontcolor = 15;
     empstrline = 0;
 
-    //null every string by setting the first byte to 0
+    // null every string by setting the first byte to 0
     for (i = 0; i < MAX_STRINGS; i++) {
         strline[i].str[0] = '\0';
     }
@@ -61,7 +61,7 @@ void pfClsScr(void) {
 }
 
 void func_8004DCFC_4E8FC(s16 arg0) {
-    strline_data* temp_v1;
+    strline_data *temp_v1;
 
     if ((strline[arg0].str[0] != '\0') && (strlinecnt != 0)) {
         strlinecnt -= 1;
@@ -71,10 +71,10 @@ void func_8004DCFC_4E8FC(s16 arg0) {
     }
 }
 
-//unsure if this should be char* src or u8* src
-s32 print8(u16 x, u16 y, char* src) {
-    u8* dst;
-    strline_data* strLine;
+// unsure if this should be char* src or u8* src
+s32 print8(u16 x, u16 y, char *src) {
+    u8 *dst;
+    strline_data *strLine;
     s16 prevStrIndex;
 
     strLine = &strline[empstrline];
@@ -86,8 +86,8 @@ s32 print8(u16 x, u16 y, char* src) {
         strLine->x = x;
         strLine->y = y;
         dst = strLine->str;
-        while (*(u8*)src != '\0') {
-            *dst++ = *(u8*)src++;
+        while (*(u8 *)src != '\0') {
+            *dst++ = *(u8 *)src++;
         }
         *dst = '\0';
         return prevStrIndex;
@@ -96,11 +96,11 @@ s32 print8(u16 x, u16 y, char* src) {
     }
 }
 
-//printWin?
+// printWin?
 s16 func_8004DE24_4EA24(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    Unk_D_800CC440* temp;
+    Unk_D_800CC440 *temp;
     s32 i;
-    
+
     if (D_800D6A46_D7646 >= 4) {
         return -1;
     }
@@ -179,13 +179,13 @@ void func_8004DFC0_4EBC0(void) {
     D_800CE1DC_CEDDC.unk_03 = D_800CE1DC_CEDDC.unk_04 = D_800CE1DC_CEDDC.unk_05 = 0;
 }
 
-void func_8004DFD8_4EBD8 (void) {
+void func_8004DFD8_4EBD8(void) {
     D_800CDD4C_CE94C = 0;
 }
 
-void func_8004DFE4_4EBE4(s16 arg0, u8* src) {
-    u8* dst;
-    
+void func_8004DFE4_4EBE4(s16 arg0, u8 *src) {
+    u8 *dst;
+
     if (strline[arg0].str != NULL) {
         dst = strline[arg0].str;
         while (*src != '\0') {

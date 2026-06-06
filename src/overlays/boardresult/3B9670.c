@@ -2,14 +2,14 @@
 #include "../ovl_81_name/ovl_81.h"
 
 void func_8010BA98_3BF768_boardresult(void);
-void func_8010BBF0_3BF8C0_boardresult(omObjData*);
+void func_8010BBF0_3BF8C0_boardresult(omObjData *);
 void func_8010BC3C_3BF90C_boardresult(void);
 void func_8010BCA4_3BF974_boardresult(void);
 extern s32 D_8010E72C_3C23FC_boardresult[];
 extern u32 D_8010E738_3C2408_boardresult[];
 extern s32 D_8010E73C_3C240C_boardresult[];
-extern s32* D_8010E88C_3C255C_boardresult[];
-extern s32* D_8010E8AC_3C257C_boardresult[];
+extern s32 *D_8010E88C_3C255C_boardresult[];
+extern s32 *D_8010E8AC_3C257C_boardresult[];
 extern u8 D_8010EAF0_3C27C0_boardresult;
 
 void func_801059A0_3B9670_boardresult(void) {
@@ -28,14 +28,14 @@ void func_801059A0_3B9670_boardresult(void) {
 
     for (i = 1; i < 8; i++) {
         for (j = 0; j < D_8010E72C_3C23FC_boardresult[0]; j++) {
-            D_8010E88C_3C255C_boardresult[i][j+1] = func_80017BB8_187B8(i, D_8010E72C_3C23FC_boardresult[j+1]);
-        }              
+            D_8010E88C_3C255C_boardresult[i][j + 1] = func_80017BB8_187B8(i, D_8010E72C_3C23FC_boardresult[j + 1]);
+        }
     }
 
     for (i = 1; i < 8; i++) {
         for (j = 0; j < D_8010E738_3C2408_boardresult[0]; j++) {
-            D_8010E8AC_3C257C_boardresult[i][j+1] = func_80017BB8_187B8(i, D_8010E738_3C2408_boardresult[j+1]);
-        }              
+            D_8010E8AC_3C257C_boardresult[i][j + 1] = func_80017BB8_187B8(i, D_8010E738_3C2408_boardresult[j + 1]);
+        }
     }
 
     func_800EF3EC_D71BC_name_81(4);

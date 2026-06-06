@@ -30,21 +30,21 @@ enum {
 };
 
 typedef struct {
-    /* 0x00 */ omObjData* unk00;
+    /* 0x00 */ omObjData *unk00;
     /* 0x04 */ char unk04[0x86];
     /* 0x8A */ s16 unk8A;
-    /* 0x8C */ omObjData* unk8C;
+    /* 0x8C */ omObjData *unk8C;
     /* 0x90 */ char unk90[0x64];
 } PlayerView; // Size 0xF4
 
 typedef struct {
-    /* 0x000 */ PlayerView* views;
+    /* 0x000 */ PlayerView *views;
     /* 0x004 */ char unk04[0x1A0];
     /* 0x1A4 */ u8 unk1A4[0x30]; // mtx?
-} MinigameData; // Size 0x1D4
+} MinigameData;                  // Size 0x1D4
 
 typedef struct {
-    /* 0x00 */ omObjData* unk00;
+    /* 0x00 */ omObjData *unk00;
     /* 0x04 */ char unk04[4];
     /* 0x08 */ s32 unk08;
     /* 0x0C */ f32 unk0C;
@@ -55,29 +55,29 @@ typedef struct {
 
 void m254_InitEnvironment(void);
 void m254_CreateMinigame(void);
-void m254_CheckExitRequest(omObjData* object);
-void m254_WaitExitWipeOut(omObjData* object);
-void m254_ExitOverlay(omObjData* object);
-void func_80106044_2A1AD4_motor_rooter(omObjData* object);
-void func_80106298_2A1D28_motor_rooter(omObjData* object);
-void func_801062BC_2A1D4C_motor_rooter(omObjData* object);
-void func_80106508_2A1F98_motor_rooter(omObjData* object);
-void func_80106998_2A2428_motor_rooter(omObjData* object);
-void func_80106BAC_2A263C_motor_rooter(omObjData* object);
-void func_80107210_2A2CA0_motor_rooter(omObjData* object);
-void func_801079E8_2A3478_motor_rooter(omObjData* object);
-void m254_InitCamera(FuncContext* ctx);
-void func_801082E0_2A3D70_motor_rooter(FuncContext* ctx);
-void func_80108BF0_2A4680_motor_rooter(FuncContext* ctx);
-void func_8010CD84_2A8814_motor_rooter(void*, s32);
+void m254_CheckExitRequest(omObjData *object);
+void m254_WaitExitWipeOut(omObjData *object);
+void m254_ExitOverlay(omObjData *object);
+void func_80106044_2A1AD4_motor_rooter(omObjData *object);
+void func_80106298_2A1D28_motor_rooter(omObjData *object);
+void func_801062BC_2A1D4C_motor_rooter(omObjData *object);
+void func_80106508_2A1F98_motor_rooter(omObjData *object);
+void func_80106998_2A2428_motor_rooter(omObjData *object);
+void func_80106BAC_2A263C_motor_rooter(omObjData *object);
+void func_80107210_2A2CA0_motor_rooter(omObjData *object);
+void func_801079E8_2A3478_motor_rooter(omObjData *object);
+void m254_InitCamera(FuncContext *ctx);
+void func_801082E0_2A3D70_motor_rooter(FuncContext *ctx);
+void func_80108BF0_2A4680_motor_rooter(FuncContext *ctx);
+void func_8010CD84_2A8814_motor_rooter(void *, s32);
 s16 func_8010D03C_2A8ACC_motor_rooter(f32);
-void func_8010D0AC_2A8B3C_motor_rooter(f32*, s16, f32);
+void func_8010D0AC_2A8B3C_motor_rooter(f32 *, s16, f32);
 void func_8010D2E4_2A8D74_motor_rooter(s32);
 
 // BSS
-extern f32* D_801137C0_2AF250_motor_rooter;
-extern MinigameData* m254_minigame; // D_801137C4_2AF254_motor_rooter
-extern D_801137C8_2AF258_Struct* D_801137C8_2AF258_motor_rooter;
+extern f32 *D_801137C0_2AF250_motor_rooter;
+extern MinigameData *m254_minigame; // D_801137C4_2AF254_motor_rooter
+extern D_801137C8_2AF258_Struct *D_801137C8_2AF258_motor_rooter;
 extern s16 D_801137CC_2AF25C_motor_rooter;
 extern s16 D_801137CE_2AF25E_motor_rooter;
 extern s16 m254_playerId[]; // D_801137D4_2AF264_motor_rooter
@@ -94,7 +94,7 @@ void m254_OverlayMain(void) {
 }
 
 void m254_InitEnvironment(void) {
-    omObjData* temp_v0;
+    omObjData *temp_v0;
 
     Hu3DAnimInit(50);
     func_800142A0_14EA0(0x30);
@@ -170,27 +170,27 @@ void m254_CreateMinigame(void) {
     memset(D_801137C8_2AF258_motor_rooter, 0, 2 * sizeof(D_801137C8_2AF258_Struct));
 }
 
-void m254_CheckExitRequest(omObjData* object) {
+void m254_CheckExitRequest(omObjData *object) {
     if (D_800D530C_D5F0C == 1) {
         WipeCreateOut(0, 20);
         object->func = m254_WaitExitWipeOut;
     }
 }
 
-void m254_WaitExitWipeOut(omObjData* object) {
+void m254_WaitExitWipeOut(omObjData *object) {
     if (WipeStatGet() == 0) {
         object->func = m254_ExitOverlay;
     }
 }
 
-void m254_ExitOverlay(omObjData* object) {
+void m254_ExitOverlay(omObjData *object) {
     osViBlack(0);
     omOvlReturnEx(1);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_36_motor_rooter/main", func_80105F04_2A1994_motor_rooter);
 
-void func_80106044_2A1AD4_motor_rooter(omObjData* object) {
+void func_80106044_2A1AD4_motor_rooter(omObjData *object) {
     s16 i;
 
     func_8001EF24_1FB24(0x3CA, 1000, 0xFF, 0xFF, 0xFF);
@@ -237,7 +237,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_36_motor_rooter/main", func_801079E8_
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_36_motor_rooter/main", func_80107D50_2A37E0_motor_rooter);
 
-void m254_InitCamera(FuncContext* ctx) {
+void m254_InitCamera(FuncContext *ctx) {
     s16 i;
 
     for (i = 0; i < 2; i++) {
@@ -253,9 +253,9 @@ void m254_InitCamera(FuncContext* ctx) {
     m254_SetFunc(FGRP_CAMERA, 0, -1, NULL, func_801082E0_2A3D70_motor_rooter, 0, FALSE);
 }
 
-void func_801082E0_2A3D70_motor_rooter(FuncContext* ctx) {
-    PlayerView* view;
-    D_801137C8_2AF258_Struct* var_s1;
+void func_801082E0_2A3D70_motor_rooter(FuncContext *ctx) {
+    PlayerView *view;
+    D_801137C8_2AF258_Struct *var_s1;
     f32 sp10[7];
     s16 temp_v0;
     s16 i;

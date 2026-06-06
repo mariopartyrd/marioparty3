@@ -5,7 +5,6 @@ void func_801183D4_37A364_w04(void);
 void func_801191B8_37B148_w04(void);
 void func_8011A4E0_37C470_w04(s32);
 
-
 INCLUDE_ASM("asm/nonmatchings/overlays/w04/367960", func_801059D0_367960_w04);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w04/367960", func_801059F8_367988_w04);
@@ -345,35 +344,35 @@ INCLUDE_ASM("asm/nonmatchings/overlays/w04/367960", func_8011A5DC_37C56C_w04);
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/w04/367960", D_8011DE80_37FE10_w04);
 
-//main func for reroll event in woody woods
+// main func for reroll event in woody woods
 void func_8011A858_37C7E8_w04(void) {
-    GW_PLAYER* curPlayer;
+    GW_PLAYER *curPlayer;
     s16 curPlayerSpace;
 
     curPlayer = MBGetPlayerStruct(CUR_PLAYER);
     curPlayerSpace = MBMasuLinkMasuIdGet(curPlayer->clink, curPlayer->cidx);
     HuPrcSleep(8);
     switch (curPlayerSpace) {
-    //space IDs for reroll event
-    case 0x3F:
-    case 0x49:
-    case 0x4A:
-        func_801183D4_37A364_w04();
-        break;
-    case 0x1F:
-    case 0x21:
-    case 0x22:
-        func_801191B8_37B148_w04();
-        break;
-    case 0x4F:
-        func_8011A4E0_37C470_w04(0);
-        break;
-    case 0xC:
-        func_8011A4E0_37C470_w04(1);
-        break;
-    case 0x3B:
-        func_8011A4E0_37C470_w04(2);
-        break;
+        // space IDs for reroll event
+        case 0x3F:
+        case 0x49:
+        case 0x4A:
+            func_801183D4_37A364_w04();
+            break;
+        case 0x1F:
+        case 0x21:
+        case 0x22:
+            func_801191B8_37B148_w04();
+            break;
+        case 0x4F:
+            func_8011A4E0_37C470_w04(0);
+            break;
+        case 0xC:
+            func_8011A4E0_37C470_w04(1);
+            break;
+        case 0x3B:
+            func_8011A4E0_37C470_w04(2);
+            break;
     }
     omDelPrcObj(NULL);
 }

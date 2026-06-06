@@ -9,11 +9,11 @@ typedef struct {
     /* 0x0C */ char unk0C[0x1D];
 } UnkAudStruct; // Size unknown (min: 0x29, max: 0x30)
 
-void func_8000086C_146C(str800D5298*);
+void func_8000086C_146C(str800D5298 *);
 s16 func_80003310_3F10(s16);
 void func_800035E8_41E8(s16);
 s32 func_80007064_7C64(s32);
-s32 func_80007080_7C80(s16, UnkAudStruct*);
+s32 func_80007080_7C80(s16, UnkAudStruct *);
 void func_80007BD4_87D4(s16, s16);
 void func_80007C80_8880(s16, s16);
 void func_80007DD8_89D8(s16);
@@ -25,7 +25,7 @@ extern s32 D_800D52C0_D5EC0;
 u16 D_800A1900_A2500 = 1;
 u16 D_800A1902_A2502 = 1;
 s16 D_800A1904_A2504 = -1; // active musId
-u16 D_800A1906_A2506 = 1; // stat/attr
+u16 D_800A1906_A2506 = 1;  // stat/attr
 s16 D_800A1908_A2508 = 0;
 s16 D_800A190A_A250A = 0;
 s16 D_800A190C_A250C = 1;
@@ -180,7 +180,7 @@ s32 func_8004B2C0_4BEC0() {
 }
 
 void func_8004B2C8_4BEC8(void) {
-    str800D5298* temp;
+    str800D5298 *temp;
 
     func_80000EA8_1AA8(&D_800D5298_D5E98);
     temp = &D_800D5298_D5E98;

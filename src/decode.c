@@ -5,17 +5,14 @@
 u8 __attribute__((aligned(16))) readBuffer[1024]; // src copy
 u8 __attribute__((aligned(16))) textBuffer[1024]; // window
 
-void HuDecodeNone(DecodeStruct* decode)
-{
+void HuDecodeNone(DecodeStruct *decode) {
     s32 copyLen;
 
-    while (decode->len)
-    {
+    while (decode->len) {
         if (decode->len < 1024) {
             copyLen = (decode->len + 1) & ~1;
             decode->len = 0;
-        }
-        else {
+        } else {
             copyLen = 1024;
             decode->len -= 1024;
         }
@@ -25,8 +22,7 @@ void HuDecodeNone(DecodeStruct* decode)
     }
 }
 
-void HuDecodeLZ(DecodeStruct* decode)
-{
+void HuDecodeLZ(DecodeStruct *decode) {
     u16 flag = 0;
     u16 windowPos = 958;
     s32 winTemp;
@@ -91,8 +87,7 @@ void HuDecodeLZ(DecodeStruct* decode)
     }
 }
 
-void HuDecodeSlide(DecodeStruct* decode)
-{
+void HuDecodeSlide(DecodeStruct *decode) {
     s32 codeWordBitsRemaining;
     s32 curCodeWord;
     u8 *destOrig;
@@ -238,8 +233,7 @@ void HuDecodeSlide(DecodeStruct* decode)
     }
 }
 
-void HuDecodeFslide(DecodeStruct *decode)
-{
+void HuDecodeFslide(DecodeStruct *decode) {
     s32 codeWordBitsRemaining;
     s32 curCodeWord;
 
@@ -379,8 +373,7 @@ void HuDecodeFslide(DecodeStruct *decode)
     }
 }
 
-void HuDecodeRLE(DecodeStruct* decode)
-{
+void HuDecodeRLE(DecodeStruct *decode) {
     s32 curCodeByte;
     s32 i;
     s32 byteValue;
@@ -426,17 +419,15 @@ void HuDecodeRLE(DecodeStruct* decode)
     }
 }
 
-void DecodeData(void * src, void * dest, s32 len, EDecodeType decodeType)
-{
+void DecodeData(void *src, void *dest, s32 len, EDecodeType decodeType) {
     DecodeStruct decodeStruct;
-    DecodeStruct * decodePtr = &decodeStruct;
+    DecodeStruct *decodePtr = &decodeStruct;
     decodeStruct.src = (u8 *)src;
     decodeStruct.dest = (u8 *)dest;
     decodeStruct.len = len;
     decodeStruct.chunkLen = 1024;
 
-    switch (decodeType)
-    {
+    switch (decodeType) {
         case DECODE_NONE:
             HuDecodeNone(decodePtr);
             break;

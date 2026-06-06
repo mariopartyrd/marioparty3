@@ -1,8 +1,7 @@
 #include "common.h"
 #include "math.h"
 
-f32 HuVecGetLengthSqr3F(Vec * vec)
-{
+f32 HuVecGetLengthSqr3F(Vec *vec) {
     f32 x;
     f32 y;
     f32 z;
@@ -13,4 +12,3 @@ f32 HuVecGetLengthSqr3F(Vec * vec)
 
     return (x * x) + (y * y) + (z * z);
 }
-

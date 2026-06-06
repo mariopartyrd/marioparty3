@@ -1,9 +1,9 @@
 #include "common.h"
 
-void func_80105B64_3D7884_sldebug(omObjData*);      /* extern */
-void func_80106254_3D7F74_sldebug(omObjData*);      /* extern */
-void func_80106850_3D8570_sldebug(void);                   /* extern */
-void func_801068D4_3D85F4_sldebug(omObjData*);      /* extern */
+void func_80105B64_3D7884_sldebug(omObjData *); /* extern */
+void func_80106254_3D7F74_sldebug(omObjData *); /* extern */
+void func_80106850_3D8570_sldebug(void);        /* extern */
+void func_801068D4_3D85F4_sldebug(omObjData *); /* extern */
 extern Vec D_80106C10_3D8930_sldebug;
 extern f32 D_80106C1C_3D893C_sldebug;
 extern Vec D_80106C2C_3D894C_sldebug;

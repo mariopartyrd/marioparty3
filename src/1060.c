@@ -1,12 +1,12 @@
 #include "common.h"
 #include "PR/os.h"
 
-extern void func_800354A0_360A0(void* arg);
+extern void func_800354A0_360A0(void *arg);
 
 extern OSThread gInitThread;
 extern u8 gThread1Stack[];
 extern OSThread gMainThread;
-extern u64* gThread3Stack;
+extern u64 *gThread3Stack;
 
 void ultraMain(void);
 void thread1_idle(void *arg);
@@ -25,7 +25,7 @@ void ultraMain() {
     osStartThread(&gInitThread);
 }
 
-void thread1_idle(void* arg) {
+void thread1_idle(void *arg) {
     osCreateThread(&gMainThread, 3, &func_800354A0_360A0, arg, &gThread3Stack, 2);
     osStartThread(&gMainThread);
     osSetIntMask(0x3FFF01);

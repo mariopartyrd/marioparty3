@@ -12,9 +12,9 @@ extern f32 D_80100F00_114B20_shared_board[UNK_SIZE][UNK_SIZE2];
 extern s16 D_80102C20_116840_shared_board[UNK_SIZE];
 extern u8 D_80102C48_116868_shared_board;
 extern s16 D_80102C28_116848_shared_board[UNK_SIZE][UNK_SIZE2];
-extern omObjData* D_80102C38_116858_shared_board[UNK_SIZE];
+extern omObjData *D_80102C38_116858_shared_board[UNK_SIZE];
 
-void func_800E1450_F5070_shared_board(omObjData* arg0) {
+void func_800E1450_F5070_shared_board(omObjData *arg0) {
     Vec sp10;
     f32 sp20[2];
     s32 i;
@@ -28,7 +28,7 @@ void func_800E1450_F5070_shared_board(omObjData* arg0) {
         sp20[0] = D_80100F00_114B20_shared_board[arg0->work[3]][0];
         sp20[1] = D_80100F00_114B20_shared_board[arg0->work[3]][1];
     }
-    
+
     if (arg0->work[0] < 10) {
         if (arg0->rot.x > 0.0f) {
             arg0->trans.y -= 1.5f;
@@ -46,10 +46,10 @@ void func_800E1450_F5070_shared_board(omObjData* arg0) {
         if (arg0->scale.y < 0.0f) {
             arg0->scale.y = 0.0f;
         }
-        
+
         for (i = 1; i < arg0->work[1]; i++) {
             HuSprScaleSet(D_80102C20_116840_shared_board[arg0->work[3]], i, arg0->scale.x, arg0->scale.y);
-        }            
+        }
     } else if (arg0->work[0] >= 22) {
         arg0->scale.y -= 0.3f;
         if (arg0->scale.y < 0.0f) {
@@ -58,17 +58,16 @@ void func_800E1450_F5070_shared_board(omObjData* arg0) {
 
         for (i = 1; i < arg0->work[1]; i++) {
             HuSprScaleSet(D_80102C20_116840_shared_board[arg0->work[3]], i, arg0->scale.x, arg0->scale.y);
-        }            
+        }
     }
-    
+
     if (arg0->work[0] >= 30) {
         MBCoinChangeKill(arg0->work[3]);
         return;
     }
-    
+
     arg0->work[0]++;
 }
-
 
 void MBCoinChangeInit(void) {
     s32 i, j;
@@ -84,7 +83,7 @@ void MBCoinChangeInit(void) {
 
 void MBCoinChangeKill(s32 arg0) {
     s32 i;
-    
+
     if (D_80102C20_116840_shared_board[arg0] != -1) {
         HuSprGrpKill(D_80102C20_116840_shared_board[arg0]);
         D_80102C20_116840_shared_board[arg0] = -1;
@@ -113,13 +112,13 @@ void func_800E18FC_F551C_shared_board(void) {
 void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
     Vec sp18;
     f32 sp28[2];
-    omObjData* temp_v0;
-    omObjData** temp_v1;
+    omObjData *temp_v0;
+    omObjData **temp_v1;
     s16 temp_v0_2;
     s32 var_s1;
     s32 var_s2;
     s32 var_s3;
-    void* temp_v0_3;
+    void *temp_v0_3;
     s32 i;
 
     var_s3 = arg1;
@@ -148,7 +147,7 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
         } else {
             temp_v0_3 = DataRead(0x00130214);
         }
-        
+
         D_80102C28_116848_shared_board[arg0][1] = func_80055810_56410(temp_v0_3);
         DataClose(temp_v0_3);
         func_80055024_55C24(temp_v0_2, 1, D_80102C28_116848_shared_board[arg0][0], 0);
@@ -164,13 +163,13 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
         } else {
             func_80055140_55D40(temp_v0_2, var_s2, 0xB, 0);
         }
-        
+
         HuSprPriSet(temp_v0_2, var_s2, 0x2010);
         HuSprAttrSet(temp_v0_2, var_s2, 0x1000);
 
         var_s2++;
         var_s3 = (var_s3 < 0) ? -var_s3 : var_s3;
-        
+
         if (var_s3 >= 100) {
             func_80055024_55C24(temp_v0_2, var_s2, D_80102C28_116848_shared_board[arg0][1], 0);
             func_800550F4_55CF4(temp_v0_2, var_s2, 1);
@@ -197,7 +196,7 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
         HuSprPriSet(temp_v0_2, var_s2, 0x2010U);
         HuSprAttrSet(temp_v0_2, var_s2, 0x1000);
         var_s2++;
-        
+
         if (D_80102C48_116868_shared_board != 0) {
             sp18.x = GwPlayer[arg0].player_obj->coords.x;
             sp18.y = GwPlayer[arg0].player_obj->coords.y + 30.0f;
@@ -209,7 +208,7 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
         }
 
         var_s1 = (var_s2 - 2);
-        var_s1 = -( var_s1 * 8);
+        var_s1 = -(var_s1 * 8);
 
         for (i = 1; i < var_s2; i++) {
             func_80054904_55504(temp_v0_2, i, var_s1, 0);
@@ -219,7 +218,6 @@ void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
         for (; var_s2 < 6; var_s2++) {
             HuSprAttrSet(temp_v0_2, var_s2, 0x8000);
         }
-
     }
 }
 

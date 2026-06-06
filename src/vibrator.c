@@ -10,8 +10,8 @@ s16 D_800BDA48_BE648;
 
 void RetraceCallbackVibrator(void) {
     s16 i;
-    VibratorState* state;
-    OSPfs* pfs;
+    VibratorState *state;
+    OSPfs *pfs;
 
     if (D_800BDA48_BE648 == 0) {
         for (i = 0; i < 4; i++) {
@@ -52,20 +52,20 @@ void RetraceCallbackVibrator(void) {
                     // oscillating mode
                     if (state->timer <= 0) {
                         switch (state->stat) {
-                        case 1:
-                            if (state->onTime != 0) {
-                                osMotorStart(pfs);
-                                state->stat = 2;
-                                state->timer = state->onTime;
-                            }
-                            break;
-                        case 2:
-                            if (state->offTime != 0) {
-                                osMotorStop(pfs);
-                                state->stat = 1;
-                                state->timer = state->offTime;
-                            }
-                            break;
+                            case 1:
+                                if (state->onTime != 0) {
+                                    osMotorStart(pfs);
+                                    state->stat = 2;
+                                    state->timer = state->onTime;
+                                }
+                                break;
+                            case 2:
+                                if (state->offTime != 0) {
+                                    osMotorStop(pfs);
+                                    state->stat = 1;
+                                    state->timer = state->offTime;
+                                }
+                                break;
                         }
                     }
                     state->timer--;
@@ -96,14 +96,13 @@ void PRENMICallbackVibrator(void) {
     }
 }
 
-
 s32 _InitVibrator(void) {
     s16 i;
 
     for (i = 0; i < 4; ++i) {
         _ResetVibrator(&i);
     }
-    
+
     return 0;
 }
 
@@ -116,19 +115,19 @@ void InitVibrator(void) {
     AddSIClient(&D_800BDA3C_BE63C, 1, &PRENMICallbackVibrator);
 }
 
-s32 _ResetVibrator(s16* contId) {
+s32 _ResetVibrator(s16 *contId) {
     s16 id;
     s32 result;
 
     id = *contId;
-    result = osMotorInit(&D_800CE1A0_CEDA0, &D_800BD860_BE460[id], (s32) id);
+    result = osMotorInit(&D_800CE1A0_CEDA0, &D_800BD860_BE460[id], (s32)id);
     if (result == 0) {
-        D_800BDA00_BE600[*contId].stat = 1;  // motor initialized and off
+        D_800BDA00_BE600[*contId].stat = 1; // motor initialized and off
         osMotorStop(&D_800BD860_BE460[*contId]);
     } else {
-        D_800BDA00_BE600[*contId].stat = 0;  // no rumble pak
+        D_800BDA00_BE600[*contId].stat = 0; // no rumble pak
     }
-    D_800BDA00_BE600[*contId].mode = 0;  // set to idle mode
+    D_800BDA00_BE600[*contId].mode = 0; // set to idle mode
     return result;
 }
 
@@ -137,12 +136,12 @@ void ResetVibrator(s16 contId) {
     RequestSIFunction(&siMesg, _ResetVibrator, &contId, 1);
 }
 
-void _StartVibrator(s16* contId) {
-    VibratorState* state;
+void _StartVibrator(s16 *contId) {
+    VibratorState *state;
 
     state = &D_800BDA00_BE600[*contId];
     if (state->stat != 0) {
-        state->mode = 2;  // set to starting mode
+        state->mode = 2; // set to starting mode
     }
 }
 
@@ -151,13 +150,13 @@ void StartVibrator(s16 contId) {
     RequestSIFunction(&siMesg, _StartVibrator, &contId, 1);
 }
 
-void _StopVibrator(s16* contId) {
-    VibratorState* state;
+void _StopVibrator(s16 *contId) {
+    VibratorState *state;
 
     state = &D_800BDA00_BE600[*contId];
     if (state->stat != 0) {
-        state->mode = 1;      // set to stopping mode
-        state->duration = 3;  // 3-frame wind-down
+        state->mode = 1;     // set to stopping mode
+        state->duration = 3; // 3-frame wind-down
     }
 }
 
@@ -166,13 +165,13 @@ void StopVibrator(s16 contId) {
     RequestSIFunction(&siMesg, _StopVibrator, &contId, 1);
 }
 
-void _RepeatVibrator(VibratorSetting* setting) {
-    VibratorState* state;
+void _RepeatVibrator(VibratorSetting *setting) {
+    VibratorState *state;
 
     state = &D_800BDA00_BE600[setting->stateIdx];
     if (state->stat != 0) {
-        state->stat = 1;                      // start with motor off
-        state->mode = 3;                      // oscillating mode
+        state->stat = 1; // start with motor off
+        state->mode = 3; // oscillating mode
         state->onTime = setting->onTime;
         state->offTime = setting->offTime;
         state->duration = setting->duration;
