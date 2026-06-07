@@ -105,8 +105,8 @@ typedef struct {
     /* 0x22 */ s16 resetInputId;
     /* 0x24 */ s16 unk24;
     /* 0x26 */ char unk26[0x1A];
-    /* 0x40 */ ModelTracker* obstacleCollisionTracker;
-    /* 0x44 */ ModelTracker* obstacleProximityTracker;
+    /* 0x40 */ ModelTracker *obstacleCollisionTracker;
+    /* 0x44 */ ModelTracker *obstacleProximityTracker;
     /* 0x48 */ f32 accelY;
     /* 0x4C */ s16 comReactionDelay;
     /* 0x4E */ s16 comShortJumpBias;
@@ -117,37 +117,37 @@ typedef struct {
 
 void m257_InitEnvironment(void);
 void m257_CreateMinigame(void);
-void m257_CheckExitRequest(omObjData* object);
-void m257_ExitOverlay(omObjData* object);
-void m257_WaitExitWipeOut(omObjData* object);
-void m257_InitMinigame(omObjData* object);
-void m257_UpdateSystem(omObjData* object);
-void m257_InitClock(omObjData* object);
-void m257_UpdateClockHands(omObjData* object);
-void m257_InitPlayer(omObjData* object);
-void m257_UpdatePlayer(omObjData* object);
-void m257_InitCamera(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_CheckMinigameEnd(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_ExecPlayersDraw(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_ExecClockIntro(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_UpdateClockSpeed(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_UpdateClockObstacleRotation(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_UpdateClockPlatformRotation(FuncGroupContext* groupCtx, FuncContext* ctx);
+void m257_CheckExitRequest(omObjData *object);
+void m257_ExitOverlay(omObjData *object);
+void m257_WaitExitWipeOut(omObjData *object);
+void m257_InitMinigame(omObjData *object);
+void m257_UpdateSystem(omObjData *object);
+void m257_InitClock(omObjData *object);
+void m257_UpdateClockHands(omObjData *object);
+void m257_InitPlayer(omObjData *object);
+void m257_UpdatePlayer(omObjData *object);
+void m257_InitCamera(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_CheckMinigameEnd(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_ExecPlayersDraw(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_ExecClockIntro(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_UpdateClockSpeed(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_UpdateClockObstacleRotation(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_UpdateClockPlatformRotation(FuncGroupContext *groupCtx, FuncContext *ctx);
 f32 m257_GetRandInRange(s16 min, s16 max);
-void m257_CheckPlayerJumpStart(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_UpdatePlayerPosition(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_UpdatePlayerRotation(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_ExecPlayerJump(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_CheckPlayerCollision(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_ExecPlayerIntro(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_ExecPlayerWins(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_ExecPlayerKnockedOut(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_UpdatePlayerAnimation(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_SetPlayerState(PlayerData* player, s32 state, s32 updateAnimation);
-void m257_SetPlayerNextState(PlayerData* player, s32 state);
-void m257_InitCom(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_ResetPlayerInput(FuncGroupContext* groupCtx, FuncContext* ctx);
-void m257_UpdateComInput(FuncGroupContext* groupCtx, FuncContext* ctx);
+void m257_CheckPlayerJumpStart(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_UpdatePlayerPosition(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_UpdatePlayerRotation(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_ExecPlayerJump(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_CheckPlayerCollision(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_ExecPlayerIntro(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_ExecPlayerWins(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_ExecPlayerKnockedOut(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_UpdatePlayerAnimation(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_SetPlayerState(PlayerData *player, s32 state, s32 updateAnimation);
+void m257_SetPlayerNextState(PlayerData *player, s32 state);
+void m257_InitCom(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_ResetPlayerInput(FuncGroupContext *groupCtx, FuncContext *ctx);
+void m257_UpdateComInput(FuncGroupContext *groupCtx, FuncContext *ctx);
 
 const s16 D_8010E5F0_2C5A60_tick_tock_hop[] = {
     0x8272, 0x8273, 0x8260, 0x8271, 0x8273, 0x0000
@@ -161,8 +161,8 @@ const s16 D_8010E60C_2C5A7C_tick_tock_hop[] = {
     0x8263, 0x8271, 0x8260, 0x8276, 0x0000, 0x0000
 };
 
-MinigameData* BSS m257_minigame;
-PlayerData* BSS m257_players;
+MinigameData *BSS m257_minigame;
+PlayerData *BSS m257_players;
 s16 BSS m257_playerId[PLAYERS_TOTAL];
 s16 BSS m257_playerOrder[PLAYERS_TOTAL];
 
@@ -229,20 +229,20 @@ void m257_CreateMinigame(void) {
     memset(m257_players, 0, PLAYERS_TOTAL * sizeof(PlayerData));
 }
 
-void m257_CheckExitRequest(omObjData* object) {
+void m257_CheckExitRequest(omObjData *object) {
     if (D_800D530C_D5F0C == 1) { // omSysExitReq?
         WipeCreateOut(0, 20);
         object->func = m257_WaitExitWipeOut;
     }
 }
 
-void m257_WaitExitWipeOut(omObjData* object) {
+void m257_WaitExitWipeOut(omObjData *object) {
     if (WipeStatGet() == 0) {
         object->func = m257_ExitOverlay;
     }
 }
 
-void m257_ExitOverlay(omObjData* object) {
+void m257_ExitOverlay(omObjData *object) {
     osViBlack(0);
     omOvlReturnEx(1);
 }
@@ -261,8 +261,8 @@ void m257_UpdateCamera(void) {
     m257_UpdateFuncGroup(FGRP_CAMERA);
 }
 
-void m257_InitMinigame(omObjData* object) {
-    FuncContext* createCollidersCtx;
+void m257_InitMinigame(omObjData *object) {
+    FuncContext *createCollidersCtx;
     s16 createCollidersId;
     s16 i;
 
@@ -284,7 +284,7 @@ void m257_InitMinigame(omObjData* object) {
     object->func = m257_UpdateSystem;
 }
 
-void m257_UpdateSystem(omObjData* object) {
+void m257_UpdateSystem(omObjData *object) {
     m257_UpdateFuncGroup(FGRP_MINIGAME);
     m257_UpdateCamera();
     m257_UpdateSprites();
@@ -292,22 +292,18 @@ void m257_UpdateSystem(omObjData* object) {
     m257_UpdateBills();
 }
 
-void m257_InitClock(omObjData* object) {
-    FuncGroupContext* groupCtx;
+void m257_InitClock(omObjData *object) {
+    FuncGroupContext *groupCtx;
     s32 var_s4 = 0xB9;
     s32 spriteAttr = 0x4000;
-    Quad obstacleQuad = { {
-        {  30.000002f, 0.0f, 100.0f },
-        { -30.000002f, 0.0f, 100.0f },
-        { -30.000002f, 0.0f, 400.0f },
-        {  30.000002f, 0.0f, 400.0f }
-    } };
-    Quad obstacleProximityQuad = { {
-        {  90.0f, 0.0f, 100.0f },
-        { -90.0f, 0.0f, 100.0f },
-        { -90.0f, 0.0f, 400.0f },
-        {  90.0f, 0.0f, 400.0f }
-    } };
+    Quad obstacleQuad = { { { 30.000002f, 0.0f, 100.0f },
+                            { -30.000002f, 0.0f, 100.0f },
+                            { -30.000002f, 0.0f, 400.0f },
+                            { 30.000002f, 0.0f, 400.0f } } };
+    Quad obstacleProximityQuad = { { { 90.0f, 0.0f, 100.0f },
+                                     { -90.0f, 0.0f, 100.0f },
+                                     { -90.0f, 0.0f, 400.0f },
+                                     { 90.0f, 0.0f, 400.0f } } };
     f32 starAngle[] = { 35.0f, 60.0f, 120.0f, 145.0f, 215.0f, 240.0f, 300.0f, 325.0f };
     s16 id;
     s16 i;
@@ -356,13 +352,13 @@ void m257_InitClock(omObjData* object) {
     object->func = m257_UpdateClockHands;
 }
 
-void m257_UpdateClockHands(omObjData* object) {
+void m257_UpdateClockHands(omObjData *object) {
     m257_UpdateFuncGroup(FGRP_CLOCK);
     m257_SyncWithModel(object);
 }
 
-void m257_InitPlayer(omObjData* object) {
-    PlayerData* player;
+void m257_InitPlayer(omObjData *object) {
+    PlayerData *player;
     s32 var_a0 = 0x2B9;
     s32 temp_a1;
     s32 temp_a2;
@@ -385,7 +381,7 @@ void m257_InitPlayer(omObjData* object) {
     func_800E5A00_B8580_minigame(object, PLAYER_STATE_LOST, func_80017BB8_187B8(player->chr, 0x36), 1, 999);
     m257_SetPlayerState(player, PLAYER_STATE_IDLE, TRUE);
     player->nextState = -1;
-    player->padId = ((s8*) object->data)[0x57]; // TODO: figure out type.
+    player->padId = ((s8 *)object->data)[0x57]; // TODO: figure out type.
     player->stat = PLAYER_STAT_01;
     object->rot.x = object->rot.y = object->rot.z = 0.0f;
     object->scale.x = object->scale.y = object->scale.z = 1.0f;
@@ -404,12 +400,12 @@ void m257_InitPlayer(omObjData* object) {
     object->func = m257_UpdatePlayer;
 }
 
-void m257_UpdatePlayer(omObjData* object) {
+void m257_UpdatePlayer(omObjData *object) {
     m257_UpdateFuncGroup(object->work[1]);
     func_800E4E30_B79B0_minigame(object);
 }
 
-void m257_InitCamera(FuncGroupContext* groupCtx, FuncContext* ctx) {
+void m257_InitCamera(FuncGroupContext *groupCtx, FuncContext *ctx) {
     Center.x = 0.0f;
     Center.y = 0.0f;
     Center.z = -137.0f;
@@ -420,7 +416,7 @@ void m257_InitCamera(FuncGroupContext* groupCtx, FuncContext* ctx) {
     m257_ResetFunc(FGRP_CAMERA, ctx);
 }
 
-void m257_UpdateJumpCounterSprites(FuncGroupContext* groupCtx, FuncContext* ctx) {
+void m257_UpdateJumpCounterSprites(FuncGroupContext *groupCtx, FuncContext *ctx) {
     s16 units = m257_minigame->jumpCount % 10;
     s16 tens = m257_minigame->jumpCount * 0.1f;
 
@@ -433,7 +429,7 @@ void m257_UpdateJumpCounterSprites(FuncGroupContext* groupCtx, FuncContext* ctx)
     func_80054FF8_55BF8(m257_sprites[m257_minigame->unitsSpriteId].groupId, 0, units);
 }
 
-void m257_ExecMinigameStart(FuncGroupContext* groupCtx, FuncContext* ctx) {
+void m257_ExecMinigameStart(FuncGroupContext *groupCtx, FuncContext *ctx) {
     s16 i;
 
     if (ctx->state == 0) {
@@ -476,7 +472,7 @@ void m257_ExecMinigameStart(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_ExitOverlayOnWipeOut(FuncGroupContext* groupCtx, FuncContext* ctx) {
+void m257_ExitOverlayOnWipeOut(FuncGroupContext *groupCtx, FuncContext *ctx) {
     switch (ctx->state) {
         case 0:
             WipeCreateOut(0, 20);
@@ -490,8 +486,8 @@ void m257_ExitOverlayOnWipeOut(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_CheckMinigameEnd(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = m257_players;
+void m257_CheckMinigameEnd(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = m257_players;
     s16 losers[2] = { -1, -1 };
     s16 loserCount;
     f32 clockObstacleRot;
@@ -550,9 +546,9 @@ void m257_CheckMinigameEnd(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_ExecBothPlayersWin(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player1 = &m257_players[0];
-    PlayerData* player2 = &m257_players[1];
+void m257_ExecBothPlayersWin(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player1 = &m257_players[0];
+    PlayerData *player2 = &m257_players[1];
 
     if (ctx->state == 0) {
         ctx->work.s16[0] = 0;
@@ -592,7 +588,7 @@ void m257_ExecBothPlayersWin(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_ExecPlayersDraw(FuncGroupContext* groupCtx, FuncContext* ctx) {
+void m257_ExecPlayersDraw(FuncGroupContext *groupCtx, FuncContext *ctx) {
     if (ctx->state == 0) {
         ctx->work.s16[0] = 0;
         ctx->state = 1;
@@ -627,7 +623,7 @@ void m257_ExecPlayersDraw(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_ExecClockIntro(FuncGroupContext* groupCtx, FuncContext* ctx) {
+void m257_ExecClockIntro(FuncGroupContext *groupCtx, FuncContext *ctx) {
     s16 i;
 
     switch (ctx->state) {
@@ -685,8 +681,8 @@ void m257_ExecClockIntro(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_UpdateClockSpeed(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player1 = &m257_players[0];
+void m257_UpdateClockSpeed(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player1 = &m257_players[0];
     f32 clockObstacleRot;
     f32 clockPlatformRot;
     s16 fxPlayed;
@@ -751,9 +747,9 @@ void m257_UpdateClockSpeed(FuncGroupContext* groupCtx, FuncContext* ctx) {
                 case 2:
                     ctx->work.f32[0] = m257_GetRandInRange(2, 3);
                     if (ctx->work.f32[0] > 0.0f) {
-                        ctx->work.f32[1] = -(f32) (2 + (rand16() & 1));
+                        ctx->work.f32[1] = -(f32)(2 + (rand16() & 1));
                     } else {
-                        ctx->work.f32[1] = (f32) (2 + (rand16() & 1));
+                        ctx->work.f32[1] = (f32)(2 + (rand16() & 1));
                     }
                     break;
             }
@@ -804,7 +800,7 @@ void m257_UpdateClockSpeed(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_UpdateClockObstacleRotation(FuncGroupContext* groupCtx, FuncContext* ctx) {
+void m257_UpdateClockObstacleRotation(FuncGroupContext *groupCtx, FuncContext *ctx) {
     s32 seNo;
     s16 currSeNo;
     s16 pitch;
@@ -824,7 +820,7 @@ void m257_UpdateClockObstacleRotation(FuncGroupContext* groupCtx, FuncContext* c
             ctx->work.s8[0] = 1;
         }
         basePitch = m257_minigame->clockSpeedMultiplier * 150.0f;
-        switch ((s16) ABS(m257_minigame->clockBaseSpeed[HAND_OBSTACLE])) {
+        switch ((s16)ABS(m257_minigame->clockBaseSpeed[HAND_OBSTACLE])) {
             case 1:
                 seNo = currSeNo;
                 pitch = basePitch;
@@ -854,7 +850,7 @@ void m257_UpdateClockObstacleRotation(FuncGroupContext* groupCtx, FuncContext* c
     }
 }
 
-void m257_UpdateClockPlatformRotation(FuncGroupContext* groupCtx, FuncContext* ctx) {
+void m257_UpdateClockPlatformRotation(FuncGroupContext *groupCtx, FuncContext *ctx) {
     s32 seNo;
     s16 currSeNo;
     s16 pitch;
@@ -874,7 +870,7 @@ void m257_UpdateClockPlatformRotation(FuncGroupContext* groupCtx, FuncContext* c
             ctx->work.s8[0] = 1;
         }
         basePitch = m257_minigame->clockSpeedMultiplier * 150.0f;
-        switch ((s16) ABS(m257_minigame->clockBaseSpeed[HAND_PLATFORM])) {
+        switch ((s16)ABS(m257_minigame->clockBaseSpeed[HAND_PLATFORM])) {
             case 1:
                 seNo = currSeNo;
                 pitch = basePitch;
@@ -914,10 +910,10 @@ f32 m257_GetRandInRange(s16 min, s16 max) {
     return rand;
 }
 
-void m257_CheckPlayerJumpStart(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
-    omObjData* object = groupCtx->object;
-    FuncContext* playerJumpCtx;
+void m257_CheckPlayerJumpStart(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
+    omObjData *object = groupCtx->object;
+    FuncContext *playerJumpCtx;
     s16 playerJumpId;
 
     if (!m257_jumpEnabled) {
@@ -940,9 +936,9 @@ void m257_CheckPlayerJumpStart(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_UpdatePlayerPosition(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
-    omObjData* object = groupCtx->object;
+void m257_UpdatePlayerPosition(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
+    omObjData *object = groupCtx->object;
     f32 clockPlatformRot = m257_minigame->clockHandRot[HAND_PLATFORM];
 
     if (player->stat & PLAYER_STAT_LOST) {
@@ -969,9 +965,9 @@ void m257_UpdatePlayerPosition(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_UpdatePlayerRotation(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
-    omObjData* object = groupCtx->object;
+void m257_UpdatePlayerRotation(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
+    omObjData *object = groupCtx->object;
     Vec direction;
     Vec origin;
     f32 rotAngles[3];
@@ -999,9 +995,9 @@ void m257_UpdatePlayerRotation(FuncGroupContext* groupCtx, FuncContext* ctx) {
 }
 
 // TODO: doesn't work with -Wa,--vr4300mul-off.
-void m257_ExecPlayerJump(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
-    omObjData* object = groupCtx->object;
+void m257_ExecPlayerJump(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
+    omObjData *object = groupCtx->object;
     f32 var_f2;
     f32 accelY;
     f32 scale;
@@ -1049,9 +1045,9 @@ void m257_ExecPlayerJump(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_CheckPlayerCollision(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
-    omObjData* object = groupCtx->object;
+void m257_CheckPlayerCollision(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
+    omObjData *object = groupCtx->object;
 
     if ((player->stat & PLAYER_STAT_FINISHED) || m257_minigame->jumpCount == JUMPS_MAX) {
         return;
@@ -1068,8 +1064,8 @@ void m257_CheckPlayerCollision(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_ExecPlayerIntro(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
+void m257_ExecPlayerIntro(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
 
     D_800CDA7C_CE67C[player->padId] = 0;
     D_800CBB6E_CC76E[player->padId] = 0;
@@ -1094,9 +1090,9 @@ void m257_ExecPlayerIntro(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_ExecPlayerWins(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
-    omObjData* object = groupCtx->object;
+void m257_ExecPlayerWins(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
+    omObjData *object = groupCtx->object;
     f32 lerpT;
 
     ctx->work.s16[3]++;
@@ -1170,8 +1166,8 @@ void m257_ExecPlayerWins(FuncGroupContext* groupCtx, FuncContext* ctx) {
 }
 
 // TODO: doesn't work with -Wa,--vr4300mul-off.
-void m257_ExecPlayerKnockedOut(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    omObjData* object = groupCtx->object;
+void m257_ExecPlayerKnockedOut(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    omObjData *object = groupCtx->object;
     f32 rotDirection;
     f32 scale;
     f32 transY;
@@ -1228,10 +1224,10 @@ void m257_ExecPlayerKnockedOut(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_UpdatePlayerAnimation(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
-    omObjData* object = groupCtx->object;
-    HmfModel* model = &HmfModelData[object->model[0]];
+void m257_UpdatePlayerAnimation(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
+    omObjData *object = groupCtx->object;
+    HmfModel *model = &HmfModelData[object->model[0]];
 
     if (D_800CCF58_CDB58[model->unk02].unk02 - 1 <= model->unk40) {
         player->updateAnimation = TRUE;
@@ -1249,24 +1245,22 @@ void m257_UpdatePlayerAnimation(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_SetPlayerState(PlayerData* player, s32 state, s32 updateAnimation) {
+void m257_SetPlayerState(PlayerData *player, s32 state, s32 updateAnimation) {
     player->updateAnimation = updateAnimation;
     player->state = state;
 }
 
-void m257_SetPlayerNextState(PlayerData* player, s32 state) {
+void m257_SetPlayerNextState(PlayerData *player, s32 state) {
     player->nextState = state;
 }
 
-void m257_InitCom(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
-    omObjData* object = groupCtx->object;
-    Quad obstacleProximityQuad = { {
-        {  90.0f, 0.0f, 100.0f },
-        { -90.0f, 0.0f, 100.0f },
-        { -90.0f, 0.0f, 400.0f },
-        {  90.0f, 0.0f, 400.0f }
-    } };
+void m257_InitCom(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
+    omObjData *object = groupCtx->object;
+    Quad obstacleProximityQuad = { { { 90.0f, 0.0f, 100.0f },
+                                     { -90.0f, 0.0f, 100.0f },
+                                     { -90.0f, 0.0f, 400.0f },
+                                     { 90.0f, 0.0f, 400.0f } } };
 
     switch (GwPlayer[m257_playerId[object->work[0]]].cpu_difficulty) {
         case 0:
@@ -1294,8 +1288,8 @@ void m257_InitCom(FuncGroupContext* groupCtx, FuncContext* ctx) {
     ctx->func = m257_UpdateComInput;
 }
 
-void m257_ResetPlayerInput(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
+void m257_ResetPlayerInput(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
 
     if (player->unk24 != 99) {
         D_800CDA7C_CE67C[player->padId] = 0;
@@ -1304,8 +1298,8 @@ void m257_ResetPlayerInput(FuncGroupContext* groupCtx, FuncContext* ctx) {
     }
 }
 
-void m257_UpdateComInput(FuncGroupContext* groupCtx, FuncContext* ctx) {
-    PlayerData* player = ctx->data;
+void m257_UpdateComInput(FuncGroupContext *groupCtx, FuncContext *ctx) {
+    PlayerData *player = ctx->data;
 
     player->unk24 = 99;
     D_800CDA7C_CE67C[player->padId] = 0;
@@ -1332,9 +1326,7 @@ void m257_UpdateComInput(FuncGroupContext* groupCtx, FuncContext* ctx) {
         if (ctx->work.s16[0] > rand16() % (player->comReactionDelay + 1)) {
             ctx->work.s16[0] = 0;
             ctx->work.s8[0] = 2;
-            if (rand16() % (player->comShortJumpBias + 1) != 0
-                && ABS(m257_minigame->clockBaseSpeed[HAND_PLATFORM] - m257_minigame->clockBaseSpeed[HAND_OBSTACLE]) > 2.0f)
-            {
+            if (rand16() % (player->comShortJumpBias + 1) != 0 && ABS(m257_minigame->clockBaseSpeed[HAND_PLATFORM] - m257_minigame->clockBaseSpeed[HAND_OBSTACLE]) > 2.0f) {
                 ctx->work.s16[1] = 1;
             } else {
                 ctx->work.s16[1] = 6;

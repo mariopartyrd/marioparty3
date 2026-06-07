@@ -151,23 +151,23 @@ INCLUDE_ASM("asm/nonmatchings/1140", func_800068B8_74B8);
 INCLUDE_ASM("asm/nonmatchings/1140", func_80006A8C_768C);
 
 typedef struct {
-    /* 0x00 */ s8  cmdType;  // cmdType
-    /* 0x01 */ s8  voiceSlot;  // voiceSlot
-    /* 0x04 */ s32 cmdArg;  // cmdArg
-} AudioCmd; // size: 0x8
+    /* 0x00 */ s8 cmdType;   // cmdType
+    /* 0x01 */ s8 voiceSlot; // voiceSlot
+    /* 0x04 */ s32 cmdArg;   // cmdArg
+} AudioCmd;                  // size: 0x8
 
 typedef struct {
     /* 0x00 */ char unk00[0x38];
-    /* 0x38 */ s32 unk38;        // write index (wraps at 0x80)
+    /* 0x38 */ s32 unk38;           // write index (wraps at 0x80)
     /* 0x3C */ AudioCmd cmds[0x80]; // ring buffer of commands
 } UnkAudio;
 
 void func_80001134_1D34(s32, s32);
-extern UnkAudio* D_800A97BC_AA3BC;
+extern UnkAudio *D_800A97BC_AA3BC;
 
 void func_80006CD4_78D4(s32 voiceSlot, s32 cmdType, s32 cmdArg) {
     u32 temp_s3;
-    AudioCmd* cmd;
+    AudioCmd *cmd;
     s32 temp_v0_2;
 
     temp_s3 = osSetIntMask(1);

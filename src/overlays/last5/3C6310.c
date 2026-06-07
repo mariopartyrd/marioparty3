@@ -40,7 +40,7 @@ INCLUDE_RODATA("asm/nonmatchings/overlays/last5/3C6310", D_80107510_3C7E80_last5
 INCLUDE_RODATA("asm/nonmatchings/overlays/last5/3C6310", D_80107520_3C7E90_last5);
 
 s32 func_801073B0_3C7D20_last5(void) {
-    s32 sp10[] = {4, 7, 0xA, 0xD, 0x10, 0x13};
+    s32 sp10[] = { 4, 7, 0xA, 0xD, 0x10, 0x13 };
 
     Hu3DCamInit(1);
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);

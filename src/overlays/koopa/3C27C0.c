@@ -6,7 +6,7 @@ typedef struct UnkBowser {
     s16 unk_02;
     s16 unk_04;
     s16 unk_06;
-} UnkBowser; //sizeof 0x8
+} UnkBowser; // sizeof 0x8
 
 typedef struct UnkBowser2 {
     s32 unk_00;
@@ -18,11 +18,11 @@ typedef struct UnkBowser2 {
     s32 unk_18;
     s32 unk_1C;
     s32 unk_20;
-} UnkBowser2; //sizeof 0x24
+} UnkBowser2; // sizeof 0x24
 
 void func_8005A6B0_5B2B0(void);
 void func_80108D2C_3C5B4C_koopa(void);
-void func_80109220_3C6040_koopa(omObjData*);
+void func_80109220_3C6040_koopa(omObjData *);
 s32 func_8010926C_3C608C_koopa(void);
 s32 func_801092D4_3C60F4_koopa(void);
 void func_80107724_3C4544_koopa(void);
@@ -37,14 +37,14 @@ s32 func_8010778C_3C45AC_koopa(void);
 s32 func_801078CC_3C46EC_koopa(void);
 
 extern s16 D_801094F6_3C6316_koopa;
-extern Object* D_801094F8_3C6318_koopa;
+extern Object *D_801094F8_3C6318_koopa;
 extern char D_80109508_3C6328_koopa[];
 
 extern u8 D_801094F0_3C6310_koopa;
 extern s32 D_801094F4_3C6314_koopa;
 extern u32 D_800D2094_D2C94;
 extern s32 D_8010956C_3C638C_koopa;
-extern omObjData* D_80109550_3C6370_koopa;
+extern omObjData *D_80109550_3C6370_koopa;
 extern s16 D_80109518_3C6338_koopa[5][5];
 extern s16 D_80109554_3C6374_koopa[2];
 extern s16 D_80109558_3C6378_koopa;
@@ -60,7 +60,7 @@ extern s32 D_80109504_3C6324_koopa;
 extern s16 D_8010951A_3C633A_koopa[];
 
 //.data
-void* D_80109350_3C6170_koopa = 0;
+void *D_80109350_3C6170_koopa = 0;
 
 s32 D_80109354_3C6174_koopa[] = {
     0x00004200,
@@ -76,29 +76,29 @@ s32 D_80109354_3C6174_koopa[] = {
 };
 
 UnkBowser D_8010937C_3C619C_koopa[] = {
-    {64, -206, 200, 20},
-    {64, -186, 200, 20},
-    {64, -166, 200, 20},
-    {64, -146, 200, 20},
-    {64, -126, 200, 20}
+    { 64, -206, 200, 20 },
+    { 64, -186, 200, 20 },
+    { 64, -166, 200, 20 },
+    { 64, -146, 200, 20 },
+    { 64, -126, 200, 20 }
 };
 
 u8 D_801093A4_3C61C4_koopa = 94;
 u8 D_801093A8_3C61C8_koopa[][2] = {
-    {1, 0},
-    {9, 15},
-    {11, 8},
-    {13, 0}
+    { 1, 0 },
+    { 9, 15 },
+    { 11, 8 },
+    { 13, 0 }
 };
-Vec D_801093B0_3C61D0_koopa = {0.0f, 0.0f, 2250.0f};
-Vec D_801093BC_3C61DC_koopa = {0.0f, 0.0f, -1000.0f};
+Vec D_801093B0_3C61D0_koopa = { 0.0f, 0.0f, 2250.0f };
+Vec D_801093BC_3C61DC_koopa = { 0.0f, 0.0f, -1000.0f };
 
 UnkBowser2 D_801093C8_3C61E8_koopa = {
     0x00000008, 0x000A0035, 0x000A0032, 0x000A0038,
     0x000A0040, 0x000A0043, 0x000A0041, 0x000A0042, 0x000A0044
 };
 
-void* D_801093EC_3C620C_koopa[] = {
+void *D_801093EC_3C620C_koopa[] = {
     func_8010778C_3C45AC_koopa,
     func_801078CC_3C46EC_koopa,
     func_80107A9C_3C48BC_koopa,
@@ -112,35 +112,31 @@ void* D_801093EC_3C620C_koopa[] = {
 };
 
 u32 D_80109414_3C6234_koopa = 0;
-s16 D_80109418_3C6238_koopa[] = {90, 89, 87, 71, 70, 84, 85, 86, 62, 61, 58, 59, 60, -1};
+s16 D_80109418_3C6238_koopa[] = { 90, 89, 87, 71, 70, 84, 85, 86, 62, 61, 58, 59, 60, -1 };
 u16 D_80109434_3C6254_koopa[2][3][4] = {
-    {
-        {20, 20, 10, 10},
-        {20, 20, 15, 15},
-        {30, 30, 20, 20}
-    },
-    {
-        {10, 10, 10, 10},
-        {20, 20, 20, 20},
-        {30, 30, 30, 30}
-    }
+    { { 20, 20, 10, 10 },
+      { 20, 20, 15, 15 },
+      { 30, 30, 20, 20 } },
+    { { 10, 10, 10, 10 },
+      { 20, 20, 20, 20 },
+      { 30, 30, 30, 30 } }
 };
 
-//unused
+// unused
 s16 D_80109464_3C6284_koopa[][2] = {
-    {20, 20},
-    {30, 30},
-    {30, 30},
-    {40, 40},
-    {30, 40},
-    {50, 50},
-    {0, 0}
+    { 20, 20 },
+    { 30, 30 },
+    { 30, 30 },
+    { 40, 40 },
+    { 30, 40 },
+    { 50, 50 },
+    { 0, 0 }
 };
 
 //.text
 void func_801059A0_3C27C0_koopa(void) {
     s32 i;
-    
+
     D_801094F0_3C6310_koopa = GwSystem.current_board_index;
     D_801094F4_3C6314_koopa = GwSystem.playerIndexVisitingBowser;
     omInitObjMan(0x32, 0x32);
@@ -222,43 +218,43 @@ void func_80106AB8_3C38D8_koopa(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_80109518_3C6338_koopa); i++) {
-        s16* temp = D_80109518_3C6338_koopa[i];
+        s16 *temp = D_80109518_3C6338_koopa[i];
         if (temp[0] != -1) {
             func_8005F364_5FF64(temp[0]);
             temp[0] = -1;
         }
     }
-    
+
     if (D_80109350_3C6170_koopa != 0) {
         MBHelpWinKill(D_80109350_3C6170_koopa);
         D_80109350_3C6170_koopa = 0;
     }
-    
+
     if (D_80109550_3C6370_koopa != NULL) {
         omDelObj(D_80109550_3C6370_koopa);
         D_80109550_3C6370_koopa = NULL;
     }
-    
+
     if (D_8010955E_3C637E_koopa != -1) {
         HuSprGrpKill(D_8010955E_3C637E_koopa);
         D_8010955E_3C637E_koopa = -1;
     }
-    
+
     if (D_80109560_3C6380_koopa != -1) {
         HuSprKill(D_80109560_3C6380_koopa);
         D_80109560_3C6380_koopa = -1;
     }
-    
+
     if (D_8010955A_3C637A_koopa != -1) {
         HuSprGrpKill(D_8010955A_3C637A_koopa);
         D_8010955A_3C637A_koopa = -1;
     }
-    
+
     if (D_8010955C_3C637C_koopa != -1) {
         HuSprKill(D_8010955C_3C637C_koopa);
         D_8010955C_3C637C_koopa = -1;
     }
-    
+
     for (i = 0; i < ARRAY_COUNT(D_80109554_3C6374_koopa); i++) {
         if (D_80109554_3C6374_koopa[i] != -1) {
             HuSprGrpKill(D_80109554_3C6374_koopa[i]);
@@ -270,14 +266,14 @@ void func_80106AB8_3C38D8_koopa(void) {
         HuSprKill(D_80109558_3C6378_koopa);
         D_80109558_3C6378_koopa = -1;
     }
-    
+
     func_80106A54_3C3874_koopa();
 }
 
 void func_80106C78_3C3A98_koopa(void) {
     s32 randVal;
     s32 var_v0_2;
-    void* temp_v0;
+    void *temp_v0;
     s32 i;
 
     if (D_8010955E_3C637E_koopa == -1) {
@@ -311,7 +307,7 @@ void func_80106C78_3C3A98_koopa(void) {
             if ((randVal == 0) && (D_80109504_3C6324_koopa == 0)) {
                 var_v0_2 = D_80109500_3C6320_koopa;
                 if (var_v0_2 == 0) {
-                    func_80055420_56020(D_80109554_3C6374_koopa[i], 0, 0, 0, 0xFF);     
+                    func_80055420_56020(D_80109554_3C6374_koopa[i], 0, 0, 0, 0xFF);
                 } else {
                     if (var_v0_2 < 0) {
                         var_v0_2 = -var_v0_2;
@@ -319,18 +315,18 @@ void func_80106C78_3C3A98_koopa(void) {
                     if (var_v0_2 < 2) {
                         func_80055420_56020(D_80109554_3C6374_koopa[i], 0, 0xFF, 0xFF, 0);
                     } else {
-                        func_80055420_56020(D_80109554_3C6374_koopa[i], 0, 0xFF, 0, 0);                      
+                        func_80055420_56020(D_80109554_3C6374_koopa[i], 0, 0xFF, 0, 0);
                     }
                 }
             } else {
-                func_80055420_56020(D_80109554_3C6374_koopa[i], 0, 0xFF, 0, 0);   
+                func_80055420_56020(D_80109554_3C6374_koopa[i], 0, 0xFF, 0, 0);
             }
         }
     }
 }
 
 void func_80106FC8_3C3DE8_koopa(void) {
-    void* temp_v0;
+    void *temp_v0;
 
     if (D_80109562_3C6382_koopa == -1) {
         D_80109562_3C6382_koopa = HuSprGrpCreate(1, 5);
@@ -346,7 +342,7 @@ void func_80106FC8_3C3DE8_koopa(void) {
 
 s32 func_80107090_3C3EB0_koopa(void) {
     s32 var_s3;
-    GW_PLAYER* temp_s1;
+    GW_PLAYER *temp_s1;
     s32 i, j;
 
     if (GwSystem.current_board_index == CHILLY_WATERS) {
@@ -418,7 +414,7 @@ s32 func_8010778C_3C45AC_koopa(void) {
     } else {
         MBWinInsertOpen(0x420E, D_80109508_3C6328_koopa, 0, 0, 0, 0);
     }
-    
+
     func_800EC3C0_FFFE0_shared_board(D_801094F4_3C6314_koopa);
     func_800EC3E4_100004_shared_board();
     func_80107724_3C4544_koopa();
@@ -457,7 +453,7 @@ s32 func_801078CC_3C46EC_koopa(void) {
     } else {
         MBWinInsertOpen(0x4211, D_80109508_3C6328_koopa, 0, 0, 0, 0);
     }
-    
+
     func_800EC3C0_FFFE0_shared_board(D_801094F4_3C6314_koopa);
     func_800EC3E4_100004_shared_board();
     func_800F4994_1085B4_shared_board(0);

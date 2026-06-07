@@ -9,11 +9,10 @@
 extern s32 D_800A0530_A1130;
 
 /*
-* Creates an empty heap of a given size.
-*/
-void* HuMemHeapInit(void* ptr, u32 size)
-{
-    HeapNode* heap = (HeapNode *)ptr;
+ * Creates an empty heap of a given size.
+ */
+void *HuMemHeapInit(void *ptr, u32 size) {
+    HeapNode *heap = (HeapNode *)ptr;
     heap->size = size;
     heap->heap_constant = HEAP_CONSTANT;
     heap->active = 0;
@@ -23,24 +22,19 @@ void* HuMemHeapInit(void* ptr, u32 size)
 }
 
 /*
-* Allocates the requested size of memory in the given heap.
+ * Allocates the requested size of memory in the given heap.
  */
-void* HuMemMemoryAlloc(HeapNode* heap, s32 size)
-{
-    HeapNode* cur_heap;
-    HeapNode* new_heap_temp;
+void *HuMemMemoryAlloc(HeapNode *heap, s32 size) {
+    HeapNode *cur_heap;
+    HeapNode *new_heap_temp;
 
     size = ALIGN_16(size);
 
     cur_heap = heap;
-    do
-    {
-        if (!cur_heap->active)
-        {
-            if (cur_heap->size >= size)
-            {
-                if ((u32)(cur_heap->size - size) > MIN_HEAP_NODE_SIZE)
-                {
+    do {
+        if (!cur_heap->active) {
+            if (cur_heap->size >= size) {
+                if ((u32)(cur_heap->size - size) > MIN_HEAP_NODE_SIZE) {
                     new_heap_temp = ((void *)cur_heap) + size;
                     new_heap_temp->size = cur_heap->size - size;
                     new_heap_temp->heap_constant = HEAP_CONSTANT;
@@ -59,36 +53,31 @@ void* HuMemMemoryAlloc(HeapNode* heap, s32 size)
         }
 
         cur_heap = cur_heap->next;
-    }
-    while (cur_heap != heap);
+    } while (cur_heap != heap);
 
     D_800A0530_A1130 = 0x10000;
     return NULL;
 }
 
 /*
-* Frees the given heap memory pointer.
+ * Frees the given heap memory pointer.
  */
-void HuMemMemoryFree(void *ptr)
-{
+void HuMemMemoryFree(void *ptr) {
     HeapNode *given_heap;
     HeapNode *heap_other;
 
-    if (ptr == NULL)
-    {
+    if (ptr == NULL) {
         return;
     }
 
     given_heap = (HeapNode *)(ptr - sizeof(HeapNode));
-    if (given_heap->heap_constant != HEAP_CONSTANT)
-    {
+    if (given_heap->heap_constant != HEAP_CONSTANT) {
         D_800A0530_A1130 = 0x10001;
         return;
     }
 
     heap_other = given_heap->prev;
-    if (((u32)heap_other < (u32)given_heap) && !heap_other->active)
-    {
+    if (((u32)heap_other < (u32)given_heap) && !heap_other->active) {
         given_heap->next->prev = heap_other;
         given_heap->prev->next = given_heap->next;
         given_heap->prev->size += given_heap->size;
@@ -96,8 +85,7 @@ void HuMemMemoryFree(void *ptr)
     }
 
     heap_other = given_heap->next;
-    if (((u32)given_heap < (u32)heap_other) && !heap_other->active)
-    {
+    if (((u32)given_heap < (u32)heap_other) && !heap_other->active) {
         heap_other->next->prev = given_heap;
         given_heap->size += given_heap->next->size;
         given_heap->next = given_heap->next->next;
@@ -107,10 +95,9 @@ void HuMemMemoryFree(void *ptr)
 }
 
 /*
-* Resizes a previously allocated buffer in a heap.
+ * Resizes a previously allocated buffer in a heap.
  */
-void* HuMemMemoryRealloc(HeapNode *heap, void *mem, u32 new_size)
-{
+void *HuMemMemoryRealloc(HeapNode *heap, void *mem, u32 new_size) {
     void *ret;
     HeapNode *given_heap;
     HeapNode *new_heap;
@@ -119,10 +106,8 @@ void* HuMemMemoryRealloc(HeapNode *heap, void *mem, u32 new_size)
     given_heap = (HeapNode *)(mem - sizeof(HeapNode));
     temp = ALIGN_16(new_size);
 
-    if (given_heap->size >= temp)
-    {
-        if ((u32)(given_heap->size - temp) > MIN_HEAP_NODE_SIZE)
-        {
+    if (given_heap->size >= temp) {
+        if ((u32)(given_heap->size - temp) > MIN_HEAP_NODE_SIZE) {
             new_heap = (void *)given_heap + temp;
             new_heap->size = given_heap->size - temp;
             new_heap->heap_constant = HEAP_CONSTANT;
@@ -135,12 +120,9 @@ void* HuMemMemoryRealloc(HeapNode *heap, void *mem, u32 new_size)
         }
 
         return (void *)given_heap + sizeof(HeapNode);
-    }
-    else
-    {
+    } else {
         ret = HuMemMemoryAlloc(heap, new_size);
-        if (ret != NULL)
-        {
+        if (ret != NULL) {
             bcopy(mem, ret, given_heap->size - sizeof(HeapNode));
             HuMemMemoryFree(mem);
         }
@@ -152,52 +134,44 @@ void* HuMemMemoryRealloc(HeapNode *heap, void *mem, u32 new_size)
 }
 
 /*
-* Returns the total size of allocated buffers in a heap.
+ * Returns the total size of allocated buffers in a heap.
  */
-u32 HuMemUsedMemorySizeGet(HeapNode* heap)
-{
+u32 HuMemUsedMemorySizeGet(HeapNode *heap) {
     HeapNode *cur_heap;
     u32 total_size;
 
     cur_heap = heap;
     total_size = 0;
-    do
-    {
-        if (cur_heap->active == TRUE)
-        {
+    do {
+        if (cur_heap->active == TRUE) {
             total_size += cur_heap->size;
         }
         cur_heap = cur_heap->next;
-    }
-    while (cur_heap != heap);
+    } while (cur_heap != heap);
 
     return total_size;
 }
 
 /*
-* Counts the number of used nodes in the heap's doubly linked list.
+ * Counts the number of used nodes in the heap's doubly linked list.
  */
-u32 HuMemUsedMemoryBlockGet(HeapNode *heap)
-{
+u32 HuMemUsedMemoryBlockGet(HeapNode *heap) {
     HeapNode *cur_heap;
     u32 count_free;
 
     cur_heap = heap;
     count_free = 0;
-    do
-    {
+    do {
         count_free += (cur_heap->active ^ TRUE) == FALSE ? 1 : 0;
         cur_heap = cur_heap->next;
-    }
-    while (cur_heap != heap);
+    } while (cur_heap != heap);
 
     return count_free;
 }
 
 /*
-* Rounds a value up to align by 16.
+ * Rounds a value up to align by 16.
  */
-s32 HuMemMemoryAllocSizeGet(s32 value)
-{
+s32 HuMemMemoryAllocSizeGet(s32 value) {
     return ALIGN_16(value);
 }

@@ -10,24 +10,24 @@ typedef struct UnkStaff {
 } UnkStaff;
 
 typedef struct UnkStaff_1 {
-/* 0x00 */ char unk_00[0x18];
-/* 0x18 */ s16 unk_18;
-/* 0x1A */ s16 unk_1A;
-/* 0x1C */ s16 unk_1C;
-/* 0x1E */ s16 unk_1E;
-/* 0x20 */ char unk_20[8];
-/* 0x28 */ s16 unk_28;
-/* 0x2A */ char unk_2A[2];
+    /* 0x00 */ char unk_00[0x18];
+    /* 0x18 */ s16 unk_18;
+    /* 0x1A */ s16 unk_1A;
+    /* 0x1C */ s16 unk_1C;
+    /* 0x1E */ s16 unk_1E;
+    /* 0x20 */ char unk_20[8];
+    /* 0x28 */ s16 unk_28;
+    /* 0x2A */ char unk_2A[2];
 } UnkStaff_1;
 
-void func_80105E6C_5426EC_staff(void*, s16*, s32);
-void func_8010C680_548F00_staff(s16*, s32*, f32*, void*);
-void func_8010C8F4_549174_staff(UnkStaff_1*);
-void func_8010CD74_5495F4_staff(UnkStaff_1*);
-void func_8010CFD4_549854_staff(UnkStaff*);
+void func_80105E6C_5426EC_staff(void *, s16 *, s32);
+void func_8010C680_548F00_staff(s16 *, s32 *, f32 *, void *);
+void func_8010C8F4_549174_staff(UnkStaff_1 *);
+void func_8010CD74_5495F4_staff(UnkStaff_1 *);
+void func_8010CFD4_549854_staff(UnkStaff *);
 extern f32 D_80110534_54CDB4_staff;
 extern s8 D_80110538_54CDB8_staff;
-extern char D_80110FF4_54D874_staff[];  //unk type
+extern char D_80110FF4_54D874_staff[]; // unk type
 extern Vec D_80111534_54DDB4_staff;
 extern Vec D_80111540_54DDC0_staff;
 extern f32 D_80111560_54DDE0_staff;
@@ -169,12 +169,12 @@ void func_8010D1E8_549A68_staff(void) {
     s32 sp1AC;
     f32 sp1B0;
     s16 var_v0;
-    s16* temp_s2;
+    s16 *temp_s2;
     s16 var_s0;
     s32 i;
-    UnkStaff_1* temp;
-    UnkStaff* temp2;
-    s16* temp3;
+    UnkStaff_1 *temp;
+    UnkStaff *temp2;
+    s16 *temp3;
 
     temp_s2 = HuPrcCurrentGet()->user_data;
     HmfLightDirSet(1, 0.0f, 0.0f, 100.0f);
@@ -215,7 +215,7 @@ void func_8010D1E8_549A68_staff(void) {
         }
     }
 
-    //TODO: fix typing of temp3 or sp10
+    // TODO: fix typing of temp3 or sp10
     for (temp3 = sp10[0], i = 0; i < 3; i++, temp3 += 2) {
         func_8001ACDC_1B8DC(*temp3); //?
     }

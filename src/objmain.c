@@ -7,14 +7,14 @@
 typedef struct unkProcessStruct {
     u16 stat;
     s16 unk2;
-    Process* processInstance;
+    Process *processInstance;
     void (*destructor)();
 } unkProcessStruct;
 
 extern s16 D_800A1774_A2374;
 extern s16 D_800A1776_A2376;
 extern s16 D_800A1778_A2378;
-extern unkProcessStruct* D_800A177C_A237C;
+extern unkProcessStruct *D_800A177C_A237C;
 extern s16 D_800A1780_A2380;
 extern s8 D_800D1710_D2310;
 extern u16 D_800D5560_D6160;
@@ -26,20 +26,20 @@ void func_8000BBFC_C7FC(s32, s16);
 void func_800166D0_172D0(void);
 void func_8001AFE4_1BBE4(void);
 void func_80021AF4_226F4(void);
-void omInsertObj(omObjData * obj);
-void omAddMember(u16 group, omObjData * obj);
-void func_8004A354_4AF54(omObjData*);
+void omInsertObj(omObjData *obj);
+void omAddMember(u16 group, omObjData *obj);
+void func_8004A354_4AF54(omObjData *);
 void func_8004A444_4B044(s32);
 void func_8004A468_4B068(u16, u16, u16);
 void func_8004CEA4_4DAA4();
-void func_80047D4C_4894C(omObjData* obj);
+void func_80047D4C_4894C(omObjData *obj);
 extern u8 D_800A16B0_A22B0[][2];
 extern u8 D_800A1740_A2340[][2];
 extern u16 D_800A1756_A2356;
 extern s32 omprevovl;
 extern u16 omovlstat;
 extern u8 D_800A176C_A236C;
-extern omObjData* omobjall;
+extern omObjData *omobjall;
 extern s8 D_800A1784_A2384;
 extern s16 D_800A18A8_A24A8[][2];
 extern u8 D_800A18B7_A24B7[];
@@ -55,15 +55,15 @@ typedef struct UnkomOvl {
     u16 unk_00;
     u16 unk_02;
     u16 unk_04;
-    char unk_06[2]; //unused pad?
+    char unk_06[2]; // unused pad?
 } UnkomOvl;
 
 typedef struct {
     u16 next_idx;
     u16 max_objs;
     u16 num_objs;
-    u16* next;
-    omObjData** objs;
+    u16 *next;
+    omObjData **objs;
 } omObjGroup;
 
 extern UnkomOvl D_800A1920_A2520[];
@@ -79,7 +79,7 @@ extern u16 D_800CD2F4_CDEF4;
 extern s32 omovl;
 extern u16 D_800CE202_CEE02;
 extern u16 D_800D0A3A_D163A;
-extern omObjData* D_800D2118_D2D18;
+extern omObjData *D_800D2118_D2D18;
 extern u16 D_800D4082_D4C82;
 extern f32 D_800D4198_D4D98[];
 extern f32 D_800D5210_D5E10;
@@ -89,7 +89,6 @@ extern s32 D_800D6A40_D7640;
 extern u16 D_800D6A56_D7656;
 extern u8 D_800D6A90_D7690;
 extern s16 omnextidx;
-
 
 extern u8 D_800A1762_A2362;
 extern u16 D_800B23C0_B2FC0;
@@ -107,12 +106,11 @@ typedef struct OverlayInfo {
     u8 *bss_end;
 } OverlayInfo; // sizeof 0x24
 
-void omInitObjMan(s16 numOfObjs, s32 numOfPrcs)
-{
+void omInitObjMan(s16 numOfObjs, s32 numOfPrcs) {
     s16 prcCount;
     s32 i;
-    omObjData* obj;
-    unkProcessStruct* prcInfo;
+    omObjData *obj;
+    unkProcessStruct *prcInfo;
 
     ommaxobjs = numOfObjs + 1;
     omnumobjs = 0;
@@ -127,10 +125,9 @@ void omInitObjMan(s16 numOfObjs, s32 numOfPrcs)
         HuMemMemoryFreeTemp((void *)omobjall);
     }
 
-    omobjall = (omObjData *)HuMemMemoryAllocTemp(ommaxobjs* sizeof(omObjData));
+    omobjall = (omObjData *)HuMemMemoryAllocTemp(ommaxobjs * sizeof(omObjData));
 
-    for (i = 0; i < ommaxobjs; ++i)
-    {
+    for (i = 0; i < ommaxobjs; ++i) {
         obj = &omobjall[i];
         obj->stat = 1;
         obj->next = -1;
@@ -138,14 +135,14 @@ void omInitObjMan(s16 numOfObjs, s32 numOfPrcs)
         obj->prio = -1;
         obj->unk10 = 0;
         obj->rot.x =
-        obj->rot.y =
-        obj->rot.z = 0.0f;
+            obj->rot.y =
+                obj->rot.z = 0.0f;
         obj->trans.x =
-        obj->trans.y =
-        obj->trans.z = 0.0f;
+            obj->trans.y =
+                obj->trans.z = 0.0f;
         obj->scale.x =
-        obj->scale.y =
-        obj->scale.z = 1.0f;
+            obj->scale.y =
+                obj->scale.z = 1.0f;
         obj->motion = NULL;
         obj->model = NULL;
         obj->data = NULL;
@@ -155,8 +152,7 @@ void omInitObjMan(s16 numOfObjs, s32 numOfPrcs)
         obj->motion = NULL;
     }
 
-    for (i = 0; i < 10; ++i)
-    {
+    for (i = 0; i < 10; ++i) {
         omgroup[i].max_objs = 0;
         omgroup[i].num_objs = 0;
         omgroup[i].next_idx = 0;
@@ -168,10 +164,9 @@ void omInitObjMan(s16 numOfObjs, s32 numOfPrcs)
     D_800A1774_A2374 = prcCount;
     D_800A1776_A2376 = 0;
     D_800A1778_A2378 = 0;
-    D_800A177C_A237C = (unkProcessStruct *)HuMemMemoryAllocTemp(prcCount* sizeof(unkProcessStruct));
+    D_800A177C_A237C = (unkProcessStruct *)HuMemMemoryAllocTemp(prcCount * sizeof(unkProcessStruct));
 
-    for (i = 0; i < D_800A1774_A2374; ++i)
-    {
+    for (i = 0; i < D_800A1774_A2374; ++i) {
         prcInfo = &D_800A177C_A237C[i];
         prcInfo->stat = 1;
         prcInfo->unk2 = i + 1;
@@ -192,9 +187,9 @@ void omInitObjMan(s16 numOfObjs, s32 numOfPrcs)
 }
 
 void omDestroyObjMan(void) {
-    omObjData* obj;
-    omObjGroup* group;
-    unkProcessStruct* prcInfo;
+    omObjData *obj;
+    omObjGroup *group;
+    unkProcessStruct *prcInfo;
     s32 i;
 
     omobjlast = -1;
@@ -219,7 +214,7 @@ void omDestroyObjMan(void) {
     omobjall = NULL;
     ommaxobjs = 0;
 
-   for (i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++) {
         if (omgroup[i].max_objs != 0) {
             if (omgroup[i].objs != NULL) {
                 HuMemMemoryFreeTemp(omgroup[i].objs);
@@ -249,9 +244,8 @@ void omDestroyObjMan(void) {
     D_800D6A40_D7640 = 0;
 }
 
-omObjData* omAddObj(s16 prio, u16 mdlcnt, u16 mtncnt, s16 group, omObjFunc func)
-{
-    omObjData* object;
+omObjData *omAddObj(s16 prio, u16 mdlcnt, u16 mtncnt, s16 group, omObjFunc func) {
+    omObjData *object;
     s32 i;
 
     if (omnumobjs == ommaxobjs) {
@@ -265,7 +259,7 @@ omObjData* omAddObj(s16 prio, u16 mdlcnt, u16 mtncnt, s16 group, omObjFunc func)
     omInsertObj(object);
 
     if (mdlcnt != 0) {
-        object->model = HuMemMemoryAllocTemp(mdlcnt* sizeof(s16));
+        object->model = HuMemMemoryAllocTemp(mdlcnt * sizeof(s16));
         object->mdlcnt = mdlcnt;
         for (i = 0; i < mdlcnt; ++i) {
             object->model[i] = -1;
@@ -276,7 +270,7 @@ omObjData* omAddObj(s16 prio, u16 mdlcnt, u16 mtncnt, s16 group, omObjFunc func)
     }
 
     if (mtncnt != 0) {
-        object->motion = HuMemMemoryAllocTemp(mtncnt* sizeof(s16));
+        object->motion = HuMemMemoryAllocTemp(mtncnt * sizeof(s16));
         object->mtncnt = mtncnt;
     } else {
         object->motion = NULL;
@@ -300,12 +294,10 @@ omObjData* omAddObj(s16 prio, u16 mdlcnt, u16 mtncnt, s16 group, omObjFunc func)
     return object;
 }
 
-void omSetObjPrio(omObjData* obj, s16 prio)
-{
+void omSetObjPrio(omObjData *obj, s16 prio) {
     obj->prio = prio;
 
-    if (omobjlast != omobjfirst)
-    {
+    if (omobjlast != omobjfirst) {
         if (obj->next >= 0) {
             omobjall[obj->next].prev = obj->prev;
         }
@@ -325,12 +317,11 @@ void omSetObjPrio(omObjData* obj, s16 prio)
 }
 
 // register object into linked list, sort based on priority
-void omInsertObj(omObjData* obj)
-{
+void omInsertObj(omObjData *obj) {
     s16 next_idx_alloc;
     s16 prio;
     s16 obj_idx;
-    omObjData* obj_new;
+    omObjData *obj_new;
     s16 prev_idx;
 
     next_idx_alloc = obj->next_idx_alloc;
@@ -367,7 +358,7 @@ void omInsertObj(omObjData* obj)
     }
 }
 
-void omDelObj(omObjData* obj) {
+void omDelObj(omObjData *obj) {
     u16 idx = obj->next_idx_alloc;
 
     if (omnumobjs != 0 && obj->stat != 1) {
@@ -411,50 +402,50 @@ void omDelObj(omObjData* obj) {
     }
 }
 
-void omSetStat(omObjData* obj, u16 stat) {
+void omSetStat(omObjData *obj, u16 stat) {
     obj->stat = stat;
 }
 
-void omSetStatBit(omObjData* obj, u16 stat) {
+void omSetStatBit(omObjData *obj, u16 stat) {
     obj->stat |= stat;
 }
 
-void omResetStatBit(omObjData* obj, u16 stat) {
+void omResetStatBit(omObjData *obj, u16 stat) {
     obj->stat &= ~stat;
 }
 
-void omPrcSetStat(Process* prc, s32 stat) {
+void omPrcSetStat(Process *prc, s32 stat) {
     D_800A177C_A237C[prc->dtor_idx].stat = stat;
 }
 
-void omPrcSetStatBit(Process* prc, s32 stat) {
+void omPrcSetStatBit(Process *prc, s32 stat) {
     D_800A177C_A237C[prc->dtor_idx].stat |= stat;
 }
 
-void omPrcResetStatBit(Process* prc, s32 stat) {
+void omPrcResetStatBit(Process *prc, s32 stat) {
     D_800A177C_A237C[prc->dtor_idx].stat &= ~stat;
 }
 
-void omSetTra(omObjData* obj, f32 x, f32 y, f32 z) {
+void omSetTra(omObjData *obj, f32 x, f32 y, f32 z) {
     obj->trans.x = x;
     obj->trans.y = y;
     obj->trans.z = z;
 }
 
-void omSetRot(omObjData* obj, f32 x, f32 y, f32 z) {
+void omSetRot(omObjData *obj, f32 x, f32 y, f32 z) {
     obj->rot.x = x;
     obj->rot.y = y;
     obj->rot.z = z;
 }
 
-void omSetSca(omObjData* obj, f32 x, f32 y, f32 z) {
+void omSetSca(omObjData *obj, f32 x, f32 y, f32 z) {
     obj->scale.x = x;
     obj->scale.y = y;
     obj->scale.z = z;
 }
 
 void func_80047C0C_4880C(u16 group, u16 max_objs) {
-    omObjGroup* grp = &omgroup[group];
+    omObjGroup *grp = &omgroup[group];
     s32 i;
 
     if (grp->objs != NULL) {
@@ -467,7 +458,7 @@ void func_80047C0C_4880C(u16 group, u16 max_objs) {
     grp->next_idx = 0;
     grp->max_objs = max_objs;
     grp->num_objs = 0;
-    grp->objs = HuMemMemoryAllocTemp(max_objs * sizeof(omObjData*));
+    grp->objs = HuMemMemoryAllocTemp(max_objs * sizeof(omObjData *));
     grp->next = HuMemMemoryAllocTemp(max_objs * sizeof(u16));
 
     for (i = 0; i < max_objs; i++) {
@@ -476,12 +467,10 @@ void func_80047C0C_4880C(u16 group, u16 max_objs) {
     }
 }
 
-void omAddMember(u16 group, omObjData* obj)
-{
-    omObjGroup* group_ptr = &omgroup[group];
+void omAddMember(u16 group, omObjData *obj) {
+    omObjGroup *group_ptr = &omgroup[group];
 
-    if (group_ptr->num_objs != group_ptr->max_objs)
-    {
+    if (group_ptr->num_objs != group_ptr->max_objs) {
         obj->group = group;
         obj->group_idx = group_ptr->next_idx;
         group_ptr->objs[group_ptr->next_idx] = obj;
@@ -490,8 +479,8 @@ void omAddMember(u16 group, omObjData* obj)
     }
 }
 
-void func_80047D4C_4894C(omObjData* obj) {
-    omObjGroup* grp;
+void func_80047D4C_4894C(omObjData *obj) {
+    omObjGroup *grp;
 
     if (obj->group != -1) {
         grp = &omgroup[obj->group];
@@ -503,16 +492,16 @@ void func_80047D4C_4894C(omObjData* obj) {
     }
 }
 
-omObjData** func_80047DBC_489BC(s16 arg0) {
+omObjData **func_80047DBC_489BC(s16 arg0) {
     return omgroup[arg0].objs;
 }
 
-omObjData* func_80047DD4_489D4(s16 arg0, u16 arg1) {
+omObjData *func_80047DD4_489D4(s16 arg0, u16 arg1) {
     return omgroup[arg0].objs[arg1];
 }
 
 void func_80047DFC_489FC(s16 group, u32 stat) {
-    omObjGroup* grp = &omgroup[group];
+    omObjGroup *grp = &omgroup[group];
     s32 i;
 
     for (i = 0; i < grp->max_objs; i++) {
@@ -526,29 +515,28 @@ void func_80047E5C_48A5C(s16 group, u16 idx, s32 flags) {
     omgroup[group].objs[idx]->unk10 |= flags;
 }
 
-void func_80047E90_48A90(omObjData* obj, s32 arg1) {
+void func_80047E90_48A90(omObjData *obj, s32 arg1) {
     obj->unk10 |= arg1;
 }
 
-Process* omAddPrcObj(process_func func, u16 priority, s32 stackSize, s32 extDataSize)
-{
+Process *omAddPrcObj(process_func func, u16 priority, s32 stackSize, s32 extDataSize) {
     s16 prevIdx;
-    Process* newPrc;
-    unkProcessStruct* temp_s0;
+    Process *newPrc;
+    unkProcessStruct *temp_s0;
 
     if (D_800A1776_A2376 == D_800A1774_A2374) {
         return NULL;
     }
 
-    prevIdx             = D_800A1778_A2378;
-    temp_s0             = &D_800A177C_A237C[D_800A1778_A2378];
-    temp_s0->stat       = 4;
-    D_800A1778_A2378    = temp_s0->unk2;
+    prevIdx = D_800A1778_A2378;
+    temp_s0 = &D_800A177C_A237C[D_800A1778_A2378];
+    temp_s0->stat = 4;
+    D_800A1778_A2378 = temp_s0->unk2;
 
     newPrc = HuPrcCreate(func, priority, stackSize, extDataSize);
 
     temp_s0->processInstance = newPrc;
-    newPrc->dtor_idx         = prevIdx;
+    newPrc->dtor_idx = prevIdx;
     HuPrcDtor(temp_s0->processInstance, omDestroyPrcObj);
 
     temp_s0->destructor = NULL;
@@ -557,9 +545,9 @@ Process* omAddPrcObj(process_func func, u16 priority, s32 stackSize, s32 extData
     return temp_s0->processInstance;
 }
 
-Process* func_80047F50_48B50(process_func func, s32 priority, s32 stack_size, s32 extra_data_size, Process* parent) {
-    unkProcessStruct* prcInfo;
-    Process* process;
+Process *func_80047F50_48B50(process_func func, s32 priority, s32 stack_size, s32 extra_data_size, Process *parent) {
+    unkProcessStruct *prcInfo;
+    Process *process;
     s16 prevIdx;
 
     if (D_800A1776_A2376 == D_800A1774_A2374) {
@@ -579,20 +567,18 @@ Process* func_80047F50_48B50(process_func func, s32 priority, s32 stack_size, s3
     return prcInfo->processInstance;
 }
 
-s32 omDelPrcObj(Process* arg0) {
+s32 omDelPrcObj(Process *arg0) {
     if (arg0 != NULL) {
         return HuPrcKill(arg0);
-    }
-    else if (HuPrcKill(HuPrcCurrentGet()) == 0) {
+    } else if (HuPrcKill(HuPrcCurrentGet()) == 0) {
         HuPrcVSleep();
     }
     return -1;
 }
 
-void omDestroyPrcObj(void)
-{
-    Process* currPrc;
-    unkProcessStruct* temp_s0;
+void omDestroyPrcObj(void) {
+    Process *currPrc;
+    unkProcessStruct *temp_s0;
 
     currPrc = HuPrcCurrentGet();
     temp_s0 = &D_800A177C_A237C[currPrc->dtor_idx];
@@ -605,13 +591,13 @@ void omDestroyPrcObj(void)
     --D_800A1776_A2376;
 }
 
-void omPrcSetDestructor(s32 arg0, void* arg1) {
-    unkProcessStruct* unk = &D_800A177C_A237C[HuPrcCurrentGet()->dtor_idx];
+void omPrcSetDestructor(s32 arg0, void *arg1) {
+    unkProcessStruct *unk = &D_800A177C_A237C[HuPrcCurrentGet()->dtor_idx];
     unk->destructor = arg1;
 }
 
 s32 omOvlCallEx(s32 ovlID, s16 event, u16 stat) {
-    omOvlHisData* history;
+    omOvlHisData *history;
 
     // history is full, cannot call overlay
     if (omovlhisidx >= ARRAY_COUNT(omovlhis)) {
@@ -628,7 +614,7 @@ s32 omOvlCallEx(s32 ovlID, s16 event, u16 stat) {
 
 s32 omOvlReturnEx(s16 level) {
     omovlhisidx -= level;
-    
+
     if (omovlhisidx < 0) {
         omovlhisidx = 0;
         omOvlGotoEx(omovlhis[0].overlayID, omovlhis[0].event, omovlhis[0].stat);
@@ -646,7 +632,7 @@ void omOvlGotoEx(s32 ovlID, s16 event, u16 stat) {
         omprevovl = omovl;
         D_800A1756_A2356 = D_800CE202_CEE02;
     }
-    
+
     D_800A176C_A236C = 1;
     omovl = ovlID;
     omovlevtno = event;
@@ -700,8 +686,8 @@ void omOvlGotoEx(s32 ovlID, s16 event, u16 stat) {
 
 void omOvlHisChg(s16 level, s32 overlay, s16 event, s16 stat) {
     s32 ovlhisIndex = omovlhisidx - level;
-    omOvlHisData* history;
-    
+    omOvlHisData *history;
+
     if (ovlhisIndex >= 0) {
         history = &omovlhis[ovlhisIndex];
         history->overlayID = overlay;
@@ -729,7 +715,7 @@ extern u16 D_800A1906_A2506;
 extern s16 D_800A1786_A2386;
 extern u8 D_800A1783_A2383;
 extern u8 D_800D1FA0_D2BA0;
-extern void* D_800A1240_A1E40[3];
+extern void *D_800A1240_A1E40[3];
 extern u8 D_800A1782_A2382;
 extern u8 D_800A1848_A2448;
 extern u8 D_800A1849_A2449;
@@ -740,19 +726,18 @@ extern f32 D_800D5410_D6010;
 extern f32 D_800D51FC_D5DFC;
 extern u8 D_800A176D_A236D;
 extern s32 D_800CC370_CCF70;
-extern omObjData* D_800D054C_D114C;
+extern omObjData *D_800D054C_D114C;
 extern s16 D_800CE190_CED90;
-extern void (*D_800CC3B8_CCFB8)(omObjData*);
+extern void (*D_800CC3B8_CCFB8)(omObjData *);
 void func_8004A950_4B550(void);
 void func_8001BF14_1CB14(void);
-
 
 extern u8 D_800A1762_A2362;
 extern u8 D_800A176C_A236C;
 extern u16 D_800D0A3A_D163A;
 
 u16 func_8004B2C0_4BEC0(void);
-void func_8000F024_FC24(void*, u8, s32);
+void func_8000F024_FC24(void *, u8, s32);
 void ResetVibrator(s16);
 s32 func_80000F08_1B08(s32);
 s32 func_8004DE24_4EA24(s32, s32, s32, s32, s32);
@@ -779,11 +764,11 @@ s16 func_8004D6AC_4E2AC(s32, s32, s32);
 void func_8004D6E8_4E2E8(s16);
 
 void omMain(void) {
-    omObjData* obj;
-    void (*func)(omObjData*);
+    omObjData *obj;
+    void (*func)(omObjData *);
     s16 temp_s3;
     s16 var_v1;
-    s16* model;
+    s16 *model;
     s16 model_id;
     s32 i;
     s32 var_s0;
@@ -889,7 +874,7 @@ void omMain(void) {
                     }
                 }
             }
-            HuMemHeapInitTemp((void*)0x80128000, 0x18000);
+            HuMemHeapInitTemp((void *)0x80128000, 0x18000);
             for (i = 0; i < 4; i++) {
                 if (CheckControllerRead(i) != 0) {
                     ResetVibrator(i);
@@ -1006,10 +991,10 @@ char const D_800A7AFC_A86FC[] = " LIGHT ";
 char const D_800A7B04_A8704[] = " RESET ";
 char const D_800A7B0C_A870C[] = " CANCEL";
 
-void func_800499B0_4A5B0(omObjData*);
+void func_800499B0_4A5B0(omObjData *);
 
 void func_80048E88_49A88(void) {
-    omObjData* temp_v0;
+    omObjData *temp_v0;
 
     temp_v0 = omAddObj(0x7FD9, 0, 0, -1, func_800499B0_4A5B0);
     D_800D2118_D2D18 = temp_v0;
@@ -1018,7 +1003,6 @@ void func_80048E88_49A88(void) {
     temp_v0->work[1] = 0;
     temp_v0->work[2] = 0;
 }
-
 
 INCLUDE_ASM("asm/nonmatchings/objmain", func_80048EE8_49AE8);
 
@@ -1054,7 +1038,7 @@ void func_8004A208_4AE08(void) {
     }
 }
 
-void func_8004A354_4AF54(omObjData* arg0) {
+void func_8004A354_4AF54(omObjData *arg0) {
     D_800B23C6_B2FC6 += 10;
     if (D_800B23C6_B2FC6 > 180) {
         D_800B23C6_B2FC6 -= 180;

@@ -19,7 +19,6 @@ extern OverlayTable _ovltbl[];
 extern OverlayTable _modeovltbl[];
 #endif
 
-
 extern u8 D_800962F0_96EF0;
 extern u32 rnd_seed;
 extern RectF D_800975F0_981F0[];
@@ -43,24 +42,24 @@ s16 func_8000B13C_BD3C(s32 arg0) {
 }
 
 u8 rand8(void) {
-    rnd_seed = rnd_seed* 0x41C64E6D + 0x3039;
+    rnd_seed = rnd_seed * 0x41C64E6D + 0x3039;
     return ((rnd_seed + 1) >> 16);
 }
 
-//checks if the overlay has a text, data, and bss section and dmas/clears the region if so
+// checks if the overlay has a text, data, and bss section and dmas/clears the region if so
 void func_8000B1A0_BDA0(s32 arg0, u8 sectionFlags) {
-    u8* textVramEnd;
-    u8* textVramStart;
-    u8* romStart;
-    u8* dataVramStart;
-    u8* dataVramEnd;
-    u8* bss_end;
-    u8* bss_start;
-    u8* curBssAddr;
-    u8* textStart;
-    u8* tmp;
+    u8 *textVramEnd;
+    u8 *textVramStart;
+    u8 *romStart;
+    u8 *dataVramStart;
+    u8 *dataVramEnd;
+    u8 *bss_end;
+    u8 *bss_start;
+    u8 *curBssAddr;
+    u8 *textStart;
+    u8 *tmp;
 
-    #ifdef MOD
+#ifdef MOD
     romStart = mod_modeovltbl[arg0].romStart;
     textVramStart = mod_modeovltbl[arg0].textVramStart;
     textVramEnd = mod_modeovltbl[arg0].textVramEnd;
@@ -69,7 +68,7 @@ void func_8000B1A0_BDA0(s32 arg0, u8 sectionFlags) {
     bss_start = mod_modeovltbl[arg0].bssVramStart;
     bss_end = mod_modeovltbl[arg0].bssVramEnd;
     textStart = mod_modeovltbl[arg0].vramStart;
-    #else
+#else
     romStart = _modeovltbl[arg0].romStart;
     textVramStart = _modeovltbl[arg0].textVramStart;
     textVramEnd = _modeovltbl[arg0].textVramEnd;
@@ -78,8 +77,7 @@ void func_8000B1A0_BDA0(s32 arg0, u8 sectionFlags) {
     bss_start = _modeovltbl[arg0].bssVramStart;
     bss_end = _modeovltbl[arg0].bssVramEnd;
     textStart = _modeovltbl[arg0].vramStart;
-    #endif
-
+#endif
 
     if (sectionFlags & HAS_TEXT_SECTION) {
         dmaReadOvl(romStart, textStart, textVramEnd - textVramStart);
@@ -98,25 +96,25 @@ void func_8000B1A0_BDA0(s32 arg0, u8 sectionFlags) {
 
 // copies in an overlay and clears bss region.
 void OvlLoad(s32 overlayIndex) {
-    u8* rom_start;
-    u8* rom_end;
-    u8* bss_start;
-    u8* bss_end;
-    u8* curBssAddr;
+    u8 *rom_start;
+    u8 *rom_end;
+    u8 *bss_start;
+    u8 *bss_end;
+    u8 *curBssAddr;
 
-    #ifdef MOD
+#ifdef MOD
     rom_start = mod_ovltbl[overlayIndex].romStart;
     rom_end = mod_ovltbl[overlayIndex].romEnd;
     bss_start = mod_ovltbl[overlayIndex].bssVramStart;
     bss_end = mod_ovltbl[overlayIndex].bssVramEnd;
     dmaReadOvl(rom_start, mod_ovltbl[overlayIndex].vramStart, rom_end - rom_start);
-    #else
+#else
     rom_start = _ovltbl[overlayIndex].romStart;
     rom_end = _ovltbl[overlayIndex].romEnd;
     bss_start = _ovltbl[overlayIndex].bssVramStart;
     bss_end = _ovltbl[overlayIndex].bssVramEnd;
     dmaReadOvl(rom_start, _ovltbl[overlayIndex].vramStart, rom_end - rom_start);
-    #endif
+#endif
 
     curBssAddr = bss_start;
     while (bss_start < bss_end) {
@@ -147,7 +145,7 @@ void ViewportSet(u8 camIndex, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, 
     CameraViewportSet(camIndex, &D_80097560_98160[camIndex], &D_800975A8_981A8[camIndex]);
 }
 
-void func_8000B460_C060(omObjData* arg0, u16 arg1, s32 arg2) {
+void func_8000B460_C060(omObjData *arg0, u16 arg1, s32 arg2) {
     s16 temp_v0;
 
     temp_v0 = func_8000B13C_BD3C(arg2);
@@ -169,7 +167,7 @@ s8 func_8000B4B4_C0B4(void) {
 
 u16 SprModelRead(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
-    void* temp_v0;
+    void *temp_v0;
 
     temp_v0 = DataRead(arg0);
     temp_s0 = HmfSprModelCreate(temp_v0, arg1, arg2);
@@ -179,7 +177,7 @@ u16 SprModelRead(s32 arg0, s32 arg1, s32 arg2) {
 
 s16 HmfAnimRead(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
-    void* temp_v0;
+    void *temp_v0;
 
     temp_v0 = DataRead(arg1);
     temp_s0 = HmfAnimCreate(arg0, temp_v0, 0, arg2);

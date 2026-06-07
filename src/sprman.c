@@ -1,23 +1,23 @@
 #include "game/sprite.h"
 #include "include_asm.h"
 
-#define offsetof(st, m) ((u32)&(((st*)0)->m))
+#define offsetof(st, m) ((u32) & (((st *)0)->m))
 
-void* HuMemAlloc(s32 size);
+void *HuMemAlloc(s32 size);
 
-void func_80052E68_53A68(void* arg0, s32 arg1);
+void func_80052E68_53A68(void *arg0, s32 arg1);
 
 extern s32 D_800A1EA0_A2AA0; // redraw?
-extern HuSprite_Unk84_Struct* D_800C9530_CA130[];
-extern HuSprGrp* HuSprGrpLast;
-extern HuSprGrp* HuSprGrpFirst;
-HuSprGrp* HuSprGrpData[HUSPR_GRP_MAX]__attribute__((aligned(16)));
+extern HuSprite_Unk84_Struct *D_800C9530_CA130[];
+extern HuSprGrp *HuSprGrpLast;
+extern HuSprGrp *HuSprGrpFirst;
+HuSprGrp *HuSprGrpData[HUSPR_GRP_MAX] __attribute__((aligned(16)));
 extern u16 HuSprGrpNum;
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052330_52F30);
 
-HuSprGrp* func_80052468_53068(s16 arg0, u16 arg1) {
-    HuSprGrp* temp_v0;
+HuSprGrp *func_80052468_53068(s16 arg0, u16 arg1) {
+    HuSprGrp *temp_v0;
 
     // Allocation assumes 'members' is the last member of HuSprGrp.
     temp_v0 = HuMemAlloc(offsetof(HuSprGrp, members) + arg0 * sizeof(*temp_v0->members));
@@ -47,9 +47,9 @@ INCLUDE_ASM("asm/nonmatchings/sprman", HuSprGrpKill);
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052700_53300);
 
 s16 HuSprGrpCreate(u16 arg0, u16 arg1) {
-    HuSprGrp* temp_v0_2;
-    HuSprite** var_s2;
-    HuSprite* temp_v0_3;
+    HuSprGrp *temp_v0_2;
+    HuSprite **var_s2;
+    HuSprite *temp_v0_3;
     s16 var_s4;
     s16 i;
 
@@ -88,7 +88,7 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80052A90_53690);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052DD8_539D8);
 
-void func_80052E14_53A14(HuSprite* arg0) {
+void func_80052E14_53A14(HuSprite *arg0) {
     arg0->unk_68 = arg0->unk_84;
     arg0->unk_6C = arg0->unk_88;
     arg0->unk_6E = arg0->unk_0E;
@@ -118,10 +118,10 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80054218_54E18);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80054658_55258);
 
-//HuSprPosSet?
+// HuSprPosSet?
 void func_80054904_55504(s16 group, s16 member, s16 arg2, s16 arg3) {
-    HuSprGrp* group_ptr = HuSprGrpData[group];
-    HuSprite* sprite_ptr = group_ptr->members[member];
+    HuSprGrp *group_ptr = HuSprGrpData[group];
+    HuSprite *sprite_ptr = group_ptr->members[member];
 
     if ((sprite_ptr->unk_48 != arg2) || (sprite_ptr->unk_4C != arg3)) {
         group_ptr->unk_0C = 1;
@@ -143,7 +143,7 @@ void func_80054FF8_55BF8(s16 group, s16 member, s32 arg2) {
 }
 
 void func_80055024_55C24(s16 group, s16 member, s16 arg2, s32 arg3) {
-    HuSprite* sprite_ptr = HuSprGrpData[group]->members[member];
+    HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
 
     sprite_ptr->unk_84 = D_800C9530_CA130[arg2];
     if (D_800C9530_CA130[arg2]->unk04 != 0) {
@@ -159,7 +159,7 @@ void func_80055024_55C24(s16 group, s16 member, s16 arg2, s32 arg3) {
 }
 
 void func_800550B4_55CB4(s16 group, s16 member, f32 arg2) {
-    HuSprite* sprite_ptr = HuSprGrpData[group]->members[member];
+    HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
 
     sprite_ptr->unk_10 = arg2;
     func_80052E14_53A14(sprite_ptr);
@@ -169,15 +169,15 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_800550F4_55CF4);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80055140_55D40);
 
-HuSprite_Unk84_Struct* func_80055194_55D94(s16 arg0) {
+HuSprite_Unk84_Struct *func_80055194_55D94(s16 arg0) {
     return D_800C9530_CA130[arg0];
 }
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800551AC_55DAC);
 
 void HuSprScaleSet(s16 group, s16 member, f32 x, f32 y) {
-    HuSprGrp* group_ptr = HuSprGrpData[group];
-    HuSprite* sprite_ptr = group_ptr->members[member];
+    HuSprGrp *group_ptr = HuSprGrpData[group];
+    HuSprite *sprite_ptr = group_ptr->members[member];
 
     if (sprite_ptr->unk_50 != x || sprite_ptr->unk_54 != y || sprite_ptr->unk_60 != 1.0f || sprite_ptr->unk_64 != 1.0f) {
         group_ptr->unk_0C = 1;
@@ -189,7 +189,7 @@ void HuSprScaleSet(s16 group, s16 member, f32 x, f32 y) {
 }
 
 void HuSprPriSet(s16 group, s16 member, u16 prio) {
-    HuSprite* sprite_ptr = HuSprGrpData[group]->members[member];
+    HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
 
     if (sprite_ptr->prio != prio) {
         sprite_ptr->prio = prio;
@@ -200,7 +200,7 @@ void HuSprPriSet(s16 group, s16 member, u16 prio) {
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800552DC_55EDC);
 
 void HuSprAttrReset(s16 group, s16 member, s32 attr) {
-    HuSprite* sprite_ptr = HuSprGrpData[group]->members[member];
+    HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
 
     if ((sprite_ptr->unk_5C & 0x8000) && (attr & 0x8000)) {
         D_800A1EA0_A2AA0 = 1;
@@ -213,7 +213,7 @@ void HuSprAttrReset(s16 group, s16 member, s32 attr) {
 }
 
 void HuSprAttrSet(s16 group, s16 member, s32 attr) {
-    HuSprite* sprite_ptr = HuSprGrpData[group]->members[member];
+    HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
 
     if (!(sprite_ptr->unk_5C & 0x8000) && (attr & 0x8000)) {
         D_800A1EA0_A2AA0 = 1;
@@ -235,7 +235,7 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_800554C4_560C4);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800554F0_560F0);
 
-HuSprite* HuSprGet(s16 group, s16 member) {
+HuSprite *HuSprGet(s16 group, s16 member) {
     return HuSprGrpData[group]->members[member];
 }
 

@@ -332,28 +332,28 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mstory4/4C2BD0", func_8010F660_4CC890_mst
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mstory4/4C2BD0", func_8010F910_4CCB40_mstory4);
 
-void func_8000BB94_C794(u16);                          /* extern */
-void func_8000BD94_C994(u16, s32, s32);                    /* extern */
-void func_8000BDDC_C9DC(u16, s32);                       /* extern */
+void func_8000BB94_C794(u16);           /* extern */
+void func_8000BD94_C994(u16, s32, s32); /* extern */
+void func_8000BDDC_C9DC(u16, s32);      /* extern */
 void func_8000C184_CD84(u16);
-void func_80017954_18554(s16, s32, u8, s16);             /* extern */
-void Hu3DModelRotSet(s16, f32, f32, f32);                /* extern */
-void func_800E4F50_CCD20_name_81(Addr*);                  /* extern */
-void MBDBackCreate(s32, s32);                /* extern */
-void func_80106C78_4C3EA8_mstory4(void);                   /* extern */
-void func_80106CA8_4C3ED8_mstory4(void);                   /* extern */
-void func_80106CCC_4C3EFC_mstory4(s32);                  /* extern */
-void func_8010724C_4C447C_mstory4(void*, f32, f32, f32, s32, s32); /* extern */
-void func_80107480_4C46B0_mstory4(void*, f32, f32, f32, s32); /* extern */
-void func_801074AC_4C46DC_mstory4(s16);                /* extern */
-void func_8010E5C4_4CB7F4_mstory4(void*, f32, f32, f32, s32, s32); /* extern */
-void func_8010EF28_4CC158_mstory4(s32);                  /* extern */
-void func_8010F0A0_4CC2D0_mstory4(void);                   /* extern */
-void func_8010F12C_4CC35C_mstory4(void);                   /* extern */
-void func_80110270_4CD4A0_mstory4(void);                   /* extern */
-void func_80110DB0_4CDFE0_mstory4(f32, f32, f32, s16);       /* extern */
-void func_801118F8_4CEB28_mstory4(s32, s32);               /* extern */
-void func_8011196C_4CEB9C_mstory4(s32);                  /* extern */
+void func_80017954_18554(s16, s32, u8, s16);                        /* extern */
+void Hu3DModelRotSet(s16, f32, f32, f32);                           /* extern */
+void func_800E4F50_CCD20_name_81(Addr *);                           /* extern */
+void MBDBackCreate(s32, s32);                                       /* extern */
+void func_80106C78_4C3EA8_mstory4(void);                            /* extern */
+void func_80106CA8_4C3ED8_mstory4(void);                            /* extern */
+void func_80106CCC_4C3EFC_mstory4(s32);                             /* extern */
+void func_8010724C_4C447C_mstory4(void *, f32, f32, f32, s32, s32); /* extern */
+void func_80107480_4C46B0_mstory4(void *, f32, f32, f32, s32);      /* extern */
+void func_801074AC_4C46DC_mstory4(s16);                             /* extern */
+void func_8010E5C4_4CB7F4_mstory4(void *, f32, f32, f32, s32, s32); /* extern */
+void func_8010EF28_4CC158_mstory4(s32);                             /* extern */
+void func_8010F0A0_4CC2D0_mstory4(void);                            /* extern */
+void func_8010F12C_4CC35C_mstory4(void);                            /* extern */
+void func_80110270_4CD4A0_mstory4(void);                            /* extern */
+void func_80110DB0_4CDFE0_mstory4(f32, f32, f32, s16);              /* extern */
+void func_801118F8_4CEB28_mstory4(s32, s32);                        /* extern */
+void func_8011196C_4CEB9C_mstory4(s32);                             /* extern */
 extern Addr D_128CC60;
 
 extern s32 D_80111AC4_4CECF4_mstory4;
@@ -362,15 +362,15 @@ extern Vec D_80111ADC_4CED0C_mstory4;
 extern s32 D_80111B8C_4CEDBC_mstory4;
 
 typedef struct UnkModel {
-/* 0x00 */ omObjData* obj;
-/* 0x04 */ char unk_04[0x14];
-/* 0x18 */ omObjData* obj2;
-} UnkModel; //sizeof 0x14
+    /* 0x00 */ omObjData *obj;
+    /* 0x04 */ char unk_04[0x14];
+    /* 0x18 */ omObjData *obj2;
+} UnkModel; // sizeof 0x14
 
 typedef struct Unk {
     s16 unk_00;
     char unk_02[6];
-} Unk; //sizeof 0x8
+} Unk; // sizeof 0x8
 
 extern Unk D_80112088_4CF2B8_mstory4[6];
 extern UnkModel D_801122A0_4CF4D0_mstory4;
@@ -381,8 +381,8 @@ extern s16 D_801123A4_4CF5D4_mstory4;
 
 #ifdef NON_MATCHING
 void func_8010FC98_4CCEC8_mstory4(void) {
-    omObjData* temp_s5;
-    omObjData* temp_s7;
+    omObjData *temp_s5;
+    omObjData *temp_s7;
     s32 temp_s4;
     s32 var_a3;
     s32 var_s0;
@@ -392,22 +392,22 @@ void func_8010FC98_4CCEC8_mstory4(void) {
     s32 var_s3;
     s32 var_v0;
     u16 temp_fp;
-    u16* temp_s0;
+    u16 *temp_s0;
     s32 i, j;
 
     temp_s5 = D_801122A0_4CF4D0_mstory4.obj;
     temp_s7 = D_801122A0_4CF4D0_mstory4.obj2;
     temp_fp = temp_s5->model[1];
     Hu3DCamSetPerspective(0, 40.0f, 80.0f, 8000.0f);
-    
+
     D_80111AD0_4CED00_mstory4.x = 0.0f;
     D_80111AD0_4CED00_mstory4.y = 190.0f;
     D_80111AD0_4CED00_mstory4.z = 3770.0f;
-    
+
     D_80111ADC_4CED0C_mstory4.x = 0.0f;
     D_80111ADC_4CED0C_mstory4.y = 130.0f;
     D_80111ADC_4CED0C_mstory4.z = 450.0f;
-    
+
     D_80111AC4_4CECF4_mstory4 = 1;
     var_s3 = 0;
     func_800E4F50_CCD20_name_81(hvq_data_ROM_START);
@@ -415,12 +415,12 @@ void func_8010FC98_4CCEC8_mstory4(void) {
     func_8010EF28_4CC158_mstory4(7);
     for (i = 0; i < 6; i++) {
         // if (D_80112088_4CF2B8_mstory4[i].unk_00 > 0) {
-            for (j = 0, temp_s4 = D_80112088_4CF2B8_mstory4[i].unk_00; j < temp_s4; var_s3++, j++) {
-                func_8000BD94_C994(D_80112378_4CF5A8_mstory4[var_s3], 0, 0);
-                func_8000BDDC_C9DC(D_80112378_4CF5A8_mstory4[var_s3], 1);
-                func_8000BB94_C794(D_80112378_4CF5A8_mstory4[var_s3]);
-                func_8000C184_CD84(D_80112378_4CF5A8_mstory4[var_s3]);
-            }
+        for (j = 0, temp_s4 = D_80112088_4CF2B8_mstory4[i].unk_00; j < temp_s4; var_s3++, j++) {
+            func_8000BD94_C994(D_80112378_4CF5A8_mstory4[var_s3], 0, 0);
+            func_8000BDDC_C9DC(D_80112378_4CF5A8_mstory4[var_s3], 1);
+            func_8000BB94_C794(D_80112378_4CF5A8_mstory4[var_s3]);
+            func_8000C184_CD84(D_80112378_4CF5A8_mstory4[var_s3]);
+        }
         // }
     }
 

@@ -11,7 +11,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80105EA
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80105FB0_31BB20_ChillyWaters);
 
 void func_8010603C_31BBAC_ChillyWaters(void) {
-    GW_SYSTEM* system = &GwSystem;
+    GW_SYSTEM *system = &GwSystem;
     s32 i;
     for (i = 0; i < ARRAY_COUNT(mb1ev_StarFlag); i++) {
         GWBoardFlagSet(mb1ev_StarFlag[i]);
@@ -20,7 +20,6 @@ void func_8010603C_31BBAC_ChillyWaters(void) {
     MBMasuTypeSet(D_8011D2B0_332E20_ChillyWaters[system->star_spawn_indices[system->current_star_spawn]], 0xE);
     GWBoardFlagClear(mb1ev_StarFlag[system->star_spawn_indices[system->current_star_spawn]]);
 }
-
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801060E0_31BC50_ChillyWaters);
 
@@ -94,14 +93,14 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80107BB
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80107BD4_31D744_ChillyWaters);
 
-//entrypoint 0
+// entrypoint 0
 void func_80107BF4_31D764_ChillyWaters(void) {
     GwSystem.current_board_index = 0;
     omInitObjMan(10, 0);
     omOvlGotoEx(0x47, 0, 0x192);
 }
 
-//entrypoint 1
+// entrypoint 1
 void func_80107C2C_31D79C_ChillyWaters(void) {
     omInitObjMan(0xA, 0);
     func_800ED91C_10153C_shared_board(0, 0, 0);
@@ -120,7 +119,7 @@ void func_80107C2C_31D79C_ChillyWaters(void) {
 
 void func_80107CC4_31D834_ChillyWaters(void) {
     Vec sp10;
-    SpaceData* space;
+    SpaceData *space;
     s32 i;
 
     omInitObjMan(0xA0, 0x28);
@@ -138,26 +137,26 @@ void func_80107CC4_31D834_ChillyWaters(void) {
     space = MBMasuGet(0x8F);
     HuVecDirectionSafe3F(&space->coords, &MBMasuGet(0x80)->coords, &sp10);
     func_800EA660_FE280_shared_board(MBVecAngleGet(&sp10) + 180.0f);
-    MBItemHookSet(0, &func_8010DE7C_3239EC_ChillyWaters); //boo event
-    MBItemHookSet(1, &func_8010F2FC_324E6C_ChillyWaters); //magic lamp
+    MBItemHookSet(0, &func_8010DE7C_3239EC_ChillyWaters); // boo event
+    MBItemHookSet(1, &func_8010F2FC_324E6C_ChillyWaters); // magic lamp
     MBItemHookSet(9, &func_8010F6C4_325234_ChillyWaters);
-    MBItemHookSet(2, &func_8010F730_3252A0_ChillyWaters); //warp block
-    MBItemHookSet(3, &func_80117C60_32D7D0_ChillyWaters); //plunder chest
-    MBItemHookSet(4, &func_8011093C_3264AC_ChillyWaters); //activate bowser suit
-    MBItemHookSet(5, &func_80110BC8_326738_ChillyWaters); //when landing on a space as bowser suit
-    MBItemHookSet(6, &func_8010FC24_325794_ChillyWaters); //mushroom/golden mushroom/bowser suit
-    MBItemHookSet(7, &func_80110194_325D04_ChillyWaters); //dueling glove/boo bell (?)
+    MBItemHookSet(2, &func_8010F730_3252A0_ChillyWaters); // warp block
+    MBItemHookSet(3, &func_80117C60_32D7D0_ChillyWaters); // plunder chest
+    MBItemHookSet(4, &func_8011093C_3264AC_ChillyWaters); // activate bowser suit
+    MBItemHookSet(5, &func_80110BC8_326738_ChillyWaters); // when landing on a space as bowser suit
+    MBItemHookSet(6, &func_8010FC24_325794_ChillyWaters); // mushroom/golden mushroom/bowser suit
+    MBItemHookSet(7, &func_80110194_325D04_ChillyWaters); // dueling glove/boo bell (?)
     MBItemHookSet(8, &func_801104E0_326050_ChillyWaters);
-    MBItemHookSet(0xA, &func_80116F5C_32CACC_ChillyWaters); //poison mushroom
-    MBItemHookSet(0xB, &func_801177DC_32D34C_ChillyWaters); //reverse mushroom
+    MBItemHookSet(0xA, &func_80116F5C_32CACC_ChillyWaters); // poison mushroom
+    MBItemHookSet(0xB, &func_801177DC_32D34C_ChillyWaters); // reverse mushroom
     MBItemHookSet(0xE, &func_80111018_326B88_ChillyWaters);
-    MBItemHookSet(0xF, &func_801112D8_326E48_ChillyWaters); //bowser phone
-    MBItemHookSet(0x10, &func_80111678_3271E8_ChillyWaters); //lucky lamp
-    MBItemHookSet(0x11, &func_80112074_327BE4_ChillyWaters); //skeleton key throw away event
-    MBItemHookSet(0x12, &func_80112BCC_32873C_ChillyWaters); //boo repellant/koopa kard thrown away
-    MBItemHookSet(0x13, &func_801138E4_329454_ChillyWaters); //barter box
-    MBItemHookSet(0x14, &func_80114B80_32A6F0_ChillyWaters); //game guy coin
-    MBItemHookSet(0x15, &ItemUseWackyWatch); //wacky watch
+    MBItemHookSet(0xF, &func_801112D8_326E48_ChillyWaters);  // bowser phone
+    MBItemHookSet(0x10, &func_80111678_3271E8_ChillyWaters); // lucky lamp
+    MBItemHookSet(0x11, &func_80112074_327BE4_ChillyWaters); // skeleton key throw away event
+    MBItemHookSet(0x12, &func_80112BCC_32873C_ChillyWaters); // boo repellant/koopa kard thrown away
+    MBItemHookSet(0x13, &func_801138E4_329454_ChillyWaters); // barter box
+    MBItemHookSet(0x14, &func_80114B80_32A6F0_ChillyWaters); // game guy coin
+    MBItemHookSet(0x15, &ItemUseWackyWatch);                 // wacky watch
     MBItemHookSet(0xC, &func_80116DAC_32C91C_ChillyWaters);
     MBItemHookSet(0xD, &func_801176A4_32D214_ChillyWaters);
     MBComItemDecideHookSet(&func_8011C88C_3323FC_ChillyWaters);
@@ -183,7 +182,7 @@ void func_80107CC4_31D834_ChillyWaters(void) {
     omAddPrcObj(func_80118B7C_32E6EC_ChillyWaters, 0x4800, 0, 0);
 }
 
-//entrypoint 2
+// entrypoint 2
 void func_80108014_31DB84_ChillyWaters(void) {
     HuAudSeqPlay(0x18);
     D_800CE194_CED94[2] = 0x18;
@@ -198,7 +197,7 @@ void func_80108014_31DB84_ChillyWaters(void) {
     MBStart(0);
 }
 
-//entrypoint 3
+// entrypoint 3
 void func_80108098_31DC08_ChillyWaters(void) {
     Hu3DCamInit(1);
     func_80107CC4_31D834_ChillyWaters();
@@ -262,7 +261,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108D6
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108D98_31E908_ChillyWaters);
 
 void func_80108DD0_31E940_ChillyWaters(void) {
-    GW_PLAYER* player;
+    GW_PLAYER *player;
 
     player = MBGetPlayerStruct(CUR_PLAYER);
     if ((MBMasuLinkMasuIdGet(player->blink, player->bidx) == 0x4B) && !(player->rev & FLAG_UNK_80)) {
@@ -433,12 +432,12 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010FB5
 
 extern f32 D_8011E354_333EC4_ChillyWaters[4][2];
 
-//ItemFunctions[IFUNC_MUSHROOM]
+// ItemFunctions[IFUNC_MUSHROOM]
 void func_8010FC24_325794_ChillyWaters(void) {
     f32 sp18[2];
-    Process* process;
+    Process *process;
     s32 i;
-    GW_SYSTEM* system = &GwSystem;
+    GW_SYSTEM *system = &GwSystem;
 
     func_80055140_55D40(D_8010570C_11932C_shared_board, 0, 1, 0);
     func_800550F4_55CF4(D_8010570C_11932C_shared_board, 0, 1);
@@ -455,7 +454,7 @@ void func_8010FC24_325794_ChillyWaters(void) {
     for (i = 1; i < 10; i++) {
         func_800F68E0_10A500_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), (255 - (i * 25)));
         func_800F6780_10A3A0_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), 0, 2.0f);
-        HuPrcVSleep();        
+        HuPrcVSleep();
     }
 
     func_800F68E0_10A500_shared_board(system->current_player_index, func_800E4A7C_F869C_shared_board(), 0);
@@ -532,7 +531,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80114B8
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011548C_32AFFC_ChillyWaters);
 
-void func_801155C4_32B134_ChillyWaters(omObjData* obj) {
+void func_801155C4_32B134_ChillyWaters(omObjData *obj) {
     s32 temp_s1;
     s32 temp_v0;
     s32 var_s0;
@@ -544,16 +543,16 @@ void func_801155C4_32B134_ChillyWaters(omObjData* obj) {
     var_s3 = 10;
 
     switch (temp_s1) {
-    case 0:
-        func_80054904_55504(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0xB1, 0x2C);
-        break;
-    case 1:
-        func_80054904_55504(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0x7A, 0x39);
-        break;
-    default:
-        func_80054904_55504(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0xA0, 0x98);
-        var_s3 = 30;
-        break;
+        case 0:
+            func_80054904_55504(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0xB1, 0x2C);
+            break;
+        case 1:
+            func_80054904_55504(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0x7A, 0x39);
+            break;
+        default:
+            func_80054904_55504(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0xA0, 0x98);
+            var_s3 = 30;
+            break;
     }
 
     HuSprAttrReset(D_8011FB80_3356F0_ChillyWaters[temp_s1], 0, 0x8000U);
@@ -566,7 +565,7 @@ void func_801155C4_32B134_ChillyWaters(omObjData* obj) {
     omDelPrcObj(0);
 }
 
-void func_80115734_32B2A4_ChillyWaters(omObjData* obj) {
+void func_80115734_32B2A4_ChillyWaters(omObjData *obj) {
     RGB2 sp18;
     RGB2 sp28;
     s32 i, j;
@@ -576,19 +575,19 @@ void func_80115734_32B2A4_ChillyWaters(omObjData* obj) {
         sp18.g = D_8011E4B8_334028_ChillyWaters[i].g;
         sp18.b = D_8011E4B8_334028_ChillyWaters[i].b;
 
-        sp28.r = (D_8011E4B8_334028_ChillyWaters[i+1].r - sp18.r) / 30;
-        sp28.g = (D_8011E4B8_334028_ChillyWaters[i+1].g - sp18.g) / 30;
-        sp28.b = (D_8011E4B8_334028_ChillyWaters[i+1].b - sp18.b) / 30;
+        sp28.r = (D_8011E4B8_334028_ChillyWaters[i + 1].r - sp18.r) / 30;
+        sp28.g = (D_8011E4B8_334028_ChillyWaters[i + 1].g - sp18.g) / 30;
+        sp28.b = (D_8011E4B8_334028_ChillyWaters[i + 1].b - sp18.b) / 30;
 
         for (j = 0; j < 30; j++) {
             func_80055420_56020(D_8011FB8E_3356FE_ChillyWaters, 0, sp18.r, sp18.g, sp18.b);
             sp18.r += sp28.r;
             sp18.g += sp28.g;
             sp18.b += sp28.b;
-            HuPrcVSleep();            
+            HuPrcVSleep();
         }
-        func_80055420_56020(D_8011FB8E_3356FE_ChillyWaters, 0, D_8011E4B8_334028_ChillyWaters[i+1].r, D_8011E4B8_334028_ChillyWaters[i+1].g, D_8011E4B8_334028_ChillyWaters[i+1].b);
-        HuPrcSleep(0xA);        
+        func_80055420_56020(D_8011FB8E_3356FE_ChillyWaters, 0, D_8011E4B8_334028_ChillyWaters[i + 1].r, D_8011E4B8_334028_ChillyWaters[i + 1].g, D_8011E4B8_334028_ChillyWaters[i + 1].b);
+        HuPrcSleep(0xA);
     }
 
     omDelPrcObj(0);
@@ -596,7 +595,7 @@ void func_80115734_32B2A4_ChillyWaters(omObjData* obj) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801158FC_32B46C_ChillyWaters);
 
-//main function for using a wacky watch?
+// main function for using a wacky watch?
 void ItemUseWackyWatch(void) {
     s32 sp18[4];
     f32 sp28[2];
@@ -605,7 +604,7 @@ void ItemUseWackyWatch(void) {
     f32 sp38;
     f32 sp3C;
     s32 sp40;
-    Process* temp_v0_4;
+    Process *temp_v0_4;
     f32 temp_f20;
     f32 var_f20;
     s32 temp_s0_3;
@@ -615,14 +614,14 @@ void ItemUseWackyWatch(void) {
     s32 var_s1;
     s32 var_v0;
     s32 var_v1;
-    s32* temp_s0;
-    void* temp_v0;
-    Object* temp_v0_3;
+    s32 *temp_s0;
+    void *temp_v0;
+    Object *temp_v0_3;
     s32 i;
     s32 j;
-    GW_SYSTEM* system = &GwSystem;
+    GW_SYSTEM *system = &GwSystem;
     s32 temp;
-    
+
     temp_s4 = HuSprGrpCreate(1, 0);
     temp_v0 = DataRead(D_8010197C_11559C_shared_board[18]);
     temp_s7 = func_80055810_56410(temp_v0);
@@ -676,7 +675,7 @@ void ItemUseWackyWatch(void) {
     HuPrcChildWait();
     HuPrcSleep(0xA);
     temp_v0_4 = omAddPrcObj(func_801155C4_32B134_ChillyWaters, 0x4002U, 0, 0);
-    temp_v0_4->user_data = (void* )1;
+    temp_v0_4->user_data = (void *)1;
     HuPrcChildLink(HuPrcCurrentGet(), temp_v0_4);
     sp28[1] += 64.0f;
     HuAudFXPlay(0x14D);
@@ -696,15 +695,15 @@ void ItemUseWackyWatch(void) {
         if (temp && var_s1 == 0) {
             var_s1 = 1;
             temp_v0_4 = omAddPrcObj(func_801155C4_32B134_ChillyWaters, 0x4002U, 0, 0);
-            temp_v0_4->user_data = (void* )2;
+            temp_v0_4->user_data = (void *)2;
             HuPrcChildLink(HuPrcCurrentGet(), temp_v0_4);
         }
-        HuPrcVSleep();        
+        HuPrcVSleep();
     }
 
-    temp_s0_3 = (s16) (s32) ((HuMathCos(450.0f) * 80.0f) + sp38);
+    temp_s0_3 = (s16)(s32)((HuMathCos(450.0f) * 80.0f) + sp38);
     func_80054904_55504(temp_s4, 0, temp_s0_3, (((1.0f - HuMathCos(90.0f)) * 90.0f) + sp3C));
-    
+
     for (j = 255; j > 0; j -= 0x19, HuPrcVSleep()) {
         func_80055458_56058(temp_s4, 0, j);
     }
@@ -712,7 +711,7 @@ void ItemUseWackyWatch(void) {
     HuSprGrpKill(temp_s4);
     HuSprKill(temp_s7);
     HuPrcChildWait();
-    
+
     for (i = 0; i < 3; i++) {
         HuSprAttrSet(D_8011FB80_3356F0_ChillyWaters[i], 0, 0x8000);
     }
@@ -726,41 +725,41 @@ void ItemUseWackyWatch(void) {
     HuPrcChildWait();
     HuAudFXPlay(0x14F);
     temp_s1_2 = func_800FFA4C_11366C_shared_board(-1, 4, 5);
-    
+
     for (i = 0; i <= 2880; i += 50) {
         temp_f20 = (HuMathSin(i) / 2.0f) + 1.0f;
         HuSprScaleSet(D_8011FB8E_3356FE_ChillyWaters, 0, temp_f20, (HuMathSin(i) / 3.0f) + 1.0f);
         if (i >= (2880 / 2 + 1)) {
             sp40 = 1;
         }
-        HuPrcVSleep();        
+        HuPrcVSleep();
     }
-    
+
     HuAudFXPlay(0x129);
     WipeColorSet(0xFF, 0xFF, 0xFF);
     WipeCreateOut(0xB, 0x32);
     func_800FFAEC_11370C_shared_board(temp_s1_2);
-    
+
     for (var_f20 = 0.0f; WipeStatGet() != 0; var_f20 += 0.1f) {
         HuSprScaleSet(D_8011FB8E_3356FE_ChillyWaters, 0, var_f20, var_f20);
         HuPrcVSleep();
     }
-    
+
     while (WipeStatGet() != 0) {
         HuPrcVSleep();
     }
-    
+
     sp40 = 2;
     for (i = 0; i < 4; i++) {
         HuSprGrpKill(D_8011FB80_3356F0_ChillyWaters[i]);
         HuSprKill(sp18[i]);
     }
-    
+
     WipeCreateIn(0xB, 0x5A);
     while (WipeStatGet() != 0) {
         HuPrcVSleep();
     }
-    
+
     MBDlgResultWinExec(0x3A23);
     GwSystem.unk_52 = 2;
 }
@@ -922,7 +921,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011BF3
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011C470_331FE0_ChillyWaters);
 
-//entrypoint 4
+// entrypoint 4
 void func_8011C58C_3320FC_ChillyWaters() {
     Hu3DCamInit(2);
     CameraScissorSet(1, &D_8011E8B8_334428_ChillyWaters);

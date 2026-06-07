@@ -7,15 +7,15 @@
 #define INCREMENT_TEXT_Y_POSITION() (TextYPos += 8)
 
 //.data
-//screen scissor dimensions
-RectF ScissorDimensions = {0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT};
-s16 StringBufferIndex = 0; //only used once and never written to?
+// screen scissor dimensions
+RectF ScissorDimensions = { 0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT };
+s16 StringBufferIndex = 0; // only used once and never written to?
 u16 TextYPos = DEFAULT_Y_POS;
 
 extern s32 fontcolor;
 extern u8 D_801068C0_4684F0_storydebug[512];
 
-void func_80106108_467D38_storydebug(omObjData*);
+void func_80106108_467D38_storydebug(omObjData *);
 void func_80106134_467D64_storydebug(void);
 void func_80105C6C_46789C_storydebug(s16 arg0);
 void func_801062A0_467ED0_storydebug(void);
@@ -40,7 +40,7 @@ void func_80105A98_4676C8_storydebug(void) {
 
     var_s2 = StringBufferIndex;
     fontcolor = 15;
-    
+
     for (i = 0; i < 16 && (i * 8) < ARRAY_COUNT(D_801068C0_4684F0_storydebug); i++) {
         sprintf(D_800D5218_D5E18, "%3X:", var_s2);
         print8(40, (i * 10 + 48), D_800D5218_D5E18);
@@ -69,7 +69,7 @@ void func_80105BB4_4677E4_storydebug(void) {
 
         for (i = var_s1; i < var_s1 + 2; i++) {
             func_80105C6C_46789C_storydebug(i);
-        }        
+        }
     }
 }
 
@@ -122,10 +122,9 @@ void func_80105C6C_46789C_storydebug(s16 playerIndex) {
     sprintf(buffer, "GBPRZ#%2d,DUEL#%2d", GwPlayer[playerIndex].stats.prize.gamblePrize, GwPlayer[playerIndex].stats.prize.duelNo);
     print8(DEFAULT_X_POS, TextYPos, buffer);
     INCREMENT_TEXT_Y_POSITION();
-
 }
 
-void func_80106108_467D38_storydebug(omObjData* arg0) {
+void func_80106108_467D38_storydebug(omObjData *arg0) {
     if (D_800D530C_D5F0C != 0) {
         omOvlReturnEx(1);
     }
@@ -163,14 +162,14 @@ void func_80106134_467D64_storydebug(void) {
 void func_801062A0_467ED0_storydebug(void) {
     char sp18[0x120];
     s16 i, j;
-    
+
     fontcolor = 15;
     sprintf(sp18, "INDEX:%2X,CHR:%2X,DIF:%2X,LAST:%2X", GwStory.unk0, GwStory.unk1, GwStory.unk2, GwStory.unkF);
     print8(DEFAULT_X_POS, TextYPos, sp18);
     INCREMENT_TEXT_Y_POSITION();
 
     print8(DEFAULT_X_POS, TextYPos, "SC:");
-    //iterate over first half of the array
+    // iterate over first half of the array
     for (j = 0; j < ARRAY_COUNT(GwStory.unk3) / 2; j++) {
         sprintf(sp18, "%2X", GwStory.unk3[j]);
         print8(GET_TEXT_X_POSITION(j), TextYPos, sp18);
@@ -178,7 +177,7 @@ void func_801062A0_467ED0_storydebug(void) {
 
     INCREMENT_TEXT_Y_POSITION();
 
-    //iterate over last half of the array
+    // iterate over last half of the array
     for (j = 0; j < ARRAY_COUNT(GwStory.unk3) / 2; j++) {
         sprintf(sp18, "%2X", GwStory.unk3[j + 6]);
         print8(GET_TEXT_X_POSITION(j), TextYPos, sp18);
@@ -187,9 +186,9 @@ void func_801062A0_467ED0_storydebug(void) {
     INCREMENT_TEXT_Y_POSITION();
 
     print8(DEFAULT_X_POS, TextYPos, "HS:");
-    
+
     for (i = 0; i < ARRAY_COUNT_2D_ROWS(GwStory.unk10); i++) {
-        //iterate over first half of array
+        // iterate over first half of array
         for (j = 0; j < ARRAY_COUNT_2D_COLS(GwStory.unk10) / 2; j++) {
             sprintf(sp18, "%2X", GwStory.unk10[i][j]);
             print8(GET_TEXT_X_POSITION(j), TextYPos, sp18);
@@ -197,10 +196,10 @@ void func_801062A0_467ED0_storydebug(void) {
 
         INCREMENT_TEXT_Y_POSITION();
 
-        //iterate over last half of array
+        // iterate over last half of array
         for (j = 0; j < ARRAY_COUNT_2D_COLS(GwStory.unk10) / 2; j++) {
             sprintf(sp18, "%2X", GwStory.unk10[i][j + 6]);
-            print8(GET_TEXT_X_POSITION(j), TextYPos, sp18);       
+            print8(GET_TEXT_X_POSITION(j), TextYPos, sp18);
         }
 
         INCREMENT_TEXT_Y_POSITION();
@@ -210,7 +209,7 @@ void func_801062A0_467ED0_storydebug(void) {
 
     for (j = 0; j < ARRAY_COUNT(GwStory.unk58); j++) {
         sprintf(sp18, "%2X", GwStory.unk58[j]);
-        print8(GET_TEXT_X_POSITION(j), TextYPos, sp18);        
+        print8(GET_TEXT_X_POSITION(j), TextYPos, sp18);
     }
 
     INCREMENT_TEXT_Y_POSITION();
@@ -219,7 +218,7 @@ void func_801062A0_467ED0_storydebug(void) {
 
     for (j = 0; j < ARRAY_COUNT(GwStory.unk5E); j++) {
         sprintf(sp18, "%2X", GwStory.unk5E[j]);
-        print8(GET_TEXT_X_POSITION(j), TextYPos, sp18);        
+        print8(GET_TEXT_X_POSITION(j), TextYPos, sp18);
     }
 
     INCREMENT_TEXT_Y_POSITION();

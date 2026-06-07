@@ -1,7 +1,7 @@
 #include "common.h"
 #include "math.h"
 
-void HuVecNeg(Vec * out, Vec * a) {
+void HuVecNeg(Vec *out, Vec *a) {
 
     float x = -a->x;
     float y = -a->y;
@@ -11,4 +11,3 @@ void HuVecNeg(Vec * out, Vec * a) {
     out->y = y;
     out->z = z;
 }
-

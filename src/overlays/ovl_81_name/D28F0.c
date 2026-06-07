@@ -79,10 +79,9 @@ void func_800EB2BC_D308C_name_81(s16 arg0, s32 arg1, u32 arg2, u32 arg3, u32 arg
     } else {
         func_80061388_61F88(temp_v0);
     }
-    
+
     func_800EAB6C_D293C_name_81(temp_v0, GwSystem.current_player_index);
 }
-
 
 void func_800EB49C_D326C_name_81(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
     func_800EB2BC_D308C_name_81(arg0, arg1, arg2, arg3, arg4, arg5, arg6, -1);

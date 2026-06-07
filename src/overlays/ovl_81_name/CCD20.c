@@ -6,7 +6,7 @@ extern f32 D_80101000_E8DD0_name_81;
 extern f32 D_801031D0_EAFA0_name_81;
 extern f32 D_80104848_EC618_name_81[2];
 extern f32 D_80104840_EC610_name_81[];
-s32 MBDBackPosClamp(f32*, f32);
+s32 MBDBackPosClamp(f32 *, f32);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E4F50_CCD20_name_81);
 
@@ -108,7 +108,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E8578_D0348_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", MBDCameraPos3DSet);
 
-u16 MBDCameraPos2DSet(f32* arg0) {
+u16 MBDCameraPos2DSet(f32 *arg0) {
     D_80104840_EC610_name_81[0] = arg0[0] / D_801031D0_EAFA0_name_81 + 160.0f;
     D_80104840_EC610_name_81[1] = arg0[1] / D_801031D0_EAFA0_name_81 + 120.0f;
     return MBDBackPosClamp(D_80104840_EC610_name_81, D_801031D0_EAFA0_name_81);
@@ -116,12 +116,12 @@ u16 MBDCameraPos2DSet(f32* arg0) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", MBDCameraPos3DGet);
 
-void MBDCameraPos2DGet(f32* arg0) {
+void MBDCameraPos2DGet(f32 *arg0) {
     arg0[0] = -((D_80104848_EC618_name_81[0] / 4.0f) - 160.0f);
     arg0[1] = -((D_80104848_EC618_name_81[1] / 4.0f) - 120.0f);
 }
 
-void MBDCamera3Dto2D(Vec* arg0, f32* arg1) {
+void MBDCamera3Dto2D(Vec *arg0, f32 *arg1) {
     typedef struct UnkData {
         Vec vec;
         f32 unk_0C;

@@ -1,7 +1,6 @@
 #include "math.h"
 
-void HuVecCross(Vec * out, Vec * a, Vec * b)
-{
+void HuVecCross(Vec *out, Vec *a, Vec *b) {
     f32 vector1Y = a->y;
     f32 vector2Z = b->z;
     f32 vector1Z = a->z;

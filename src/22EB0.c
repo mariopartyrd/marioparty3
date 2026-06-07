@@ -2,8 +2,8 @@
 #include "mallocblock.h"
 
 void func_80018544_19144(s32, s32);
-void func_80019C00_1A800(void* data);
-void func_80022660_23260(HmfData*);
+void func_80019C00_1A800(void *data);
+void func_80022660_23260(HmfData *);
 extern s16 D_800CDD6A_CE96A;
 extern u16 D_800D5204_D5E04;
 
@@ -19,25 +19,25 @@ INCLUDE_ASM("asm/nonmatchings/22EB0", func_80022F08_23B08);
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_80022FF4_23BF4);
 
-void func_800230F8_23CF8(HmfData* arg0) {
+void func_800230F8_23CF8(HmfData *arg0) {
     s16 textureIndex;
     s16 i, j;
-    
-    textureIndex = 4; //TODO: why does this start at 4?
-    
+
+    textureIndex = 4; // TODO: why does this start at 4?
+
     for (i = 0; i < arg0->unk12; i++) {
         /* Skip entries marked as 0xFF */
         if (arg0->unk84[i].unk9 == 0xFF) {
             continue;
         }
-        
+
         /* Find first entry with different unkC value */
         for (j = 0; j < i; j++) {
             if (arg0->unk84[i].unkC == arg0->unk84[j].unkC) {
-                break;   
-            } 
+                break;
+            }
         }
-        
+
         /* Copy or assign texture indices */
         if (j != i) {
             arg0->unk84[i].unk3 = arg0->unk84[j].unk3;
@@ -47,7 +47,7 @@ void func_800230F8_23CF8(HmfData* arg0) {
             if (arg0->unk84[i].unkC->unk_30 != NULL) {
                 arg0->unk84[i].unk4 = textureIndex++;
             }
-            
+
             if (textureIndex > 16) {
                 osSyncPrintf("Texture Anime Over\n");
                 return;
@@ -56,7 +56,7 @@ void func_800230F8_23CF8(HmfData* arg0) {
     }
 }
 
-s32 func_80023264_23E64(HmfData* arg0) {
+s32 func_80023264_23E64(HmfData *arg0) {
     s32 var_s2;
     s16 i;
 
@@ -71,7 +71,7 @@ s32 func_80023264_23E64(HmfData* arg0) {
                 }
                 arg0->unk44[i] = arg0->unk40;
                 var_s2 = 1;
-            }        
+            }
         }
 
         if (arg0->unk0A != 0) {
@@ -86,9 +86,9 @@ s32 func_80023264_23E64(HmfData* arg0) {
                 func_80019C00_1A800(arg0->unk3C->unk00[i]);
             } else {
                 HuMemFree(arg0->unk3C->unk00[i]);
-            }            
+            }
         }
- 
+
         if (arg0->unk0A != 0) {
             func_80019C00_1A800(arg0->unk3C);
         } else {
@@ -141,14 +141,13 @@ INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002B2AC_2BEAC);
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002C0EC_2CCEC);
 
-s32 func_8002C4C0_2D0C0(HmfData* arg0, s16 arg1, s32 arg2, s32 arg3) {
+s32 func_8002C4C0_2D0C0(HmfData *arg0, s16 arg1, s32 arg2, s32 arg3) {
     if (!(arg0->unk60[arg1].unk50 & 0x70000000)) {
         return 0;
     }
     func_80018544_19144(arg2, arg3);
     return 1;
 }
-
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002C520_2D120);
 

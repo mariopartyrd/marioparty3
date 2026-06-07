@@ -1,8 +1,8 @@
 #include "common.h"
 #include "../ovl_81_name/ovl_81.h"
 
-void func_801060D0_54E440_storyresult(Vec*);
-void func_8010818C_5504FC_storyresult(s16*, s32);
+void func_801060D0_54E440_storyresult(Vec *);
+void func_8010818C_5504FC_storyresult(s16 *, s32);
 extern s16 D_8010A910_552C80_storyresult;
 extern s16 D_8010A912_552C82_storyresult;
 extern s16 D_8010A914_552C84_storyresult;
@@ -76,7 +76,7 @@ void func_8010822C_55059C_storyresult(void) {
     D_8010A910_552C80_storyresult = 1;
 
     while (1) {
-        HuPrcVSleep();    
+        HuPrcVSleep();
     }
 }
 

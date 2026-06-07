@@ -19,12 +19,12 @@ typedef struct {
     /* 0x04 */ char unk04[0x14];
 } D_800CCF58_CDB58_Struct; // Size 0x18
 
-extern D_800CCF58_CDB58_Struct* D_800CCF58_CDB58; // esprite
+extern D_800CCF58_CDB58_Struct *D_800CCF58_CDB58; // esprite
 
 // LOCAL
 
 typedef struct {
-    /* 0x00 */ FuncContext* funcCtx;
+    /* 0x00 */ FuncContext *funcCtx;
     /* 0x04 */ s8 maxFuncs;
     /* 0x05 */ u8 sort;
     /* 0x06 */ s8 order[FUNC_PRIO_MAX];
@@ -57,12 +57,12 @@ typedef struct {
     /* 0x14 */ f32 animStart;
 } AnimModelData; // Size 0x18
 
-void m255_InitFuncGroup(FuncGroup* group, s16 maxFuncs);
-void m255_SortFuncGroup(FuncGroup* group);
+void m255_InitFuncGroup(FuncGroup *group, s16 maxFuncs);
+void m255_SortFuncGroup(FuncGroup *group);
 
-SpriteData* BSS m255_sprites;
-FuncGroup* BSS m255_funcGroups;
-AnimModelData* BSS m255_animModels;
+SpriteData *BSS m255_sprites;
+FuncGroup *BSS m255_funcGroups;
+AnimModelData *BSS m255_animModels;
 
 void m255_CreateSystem(void) {
     s8 maxFuncs[FUNC_GRP_MAX] = { 6, 4, 3, 3, 8, 8 };
@@ -76,7 +76,7 @@ void m255_CreateSystem(void) {
     }
 }
 
-void m255_InitFuncGroup(FuncGroup* group, s16 maxFuncs) {
+void m255_InitFuncGroup(FuncGroup *group, s16 maxFuncs) {
     s16 i;
 
     group->funcCtx = HuMemAllocTag(maxFuncs * sizeof(FuncContext), 31000);
@@ -89,9 +89,9 @@ void m255_InitFuncGroup(FuncGroup* group, s16 maxFuncs) {
     group->maxFuncs = maxFuncs;
 }
 
-FuncContext* m255_SetFunc(s8 groupId, s8 prio, s16 param, void* data, void (*func)(FuncContext*), u8 sort, s8 execFunc) {
-    FuncGroup* group = &m255_funcGroups[groupId];
-    FuncContext* ctx = group->funcCtx;
+FuncContext *m255_SetFunc(s8 groupId, s8 prio, s16 param, void *data, void (*func)(FuncContext *), u8 sort, s8 execFunc) {
+    FuncGroup *group = &m255_funcGroups[groupId];
+    FuncContext *ctx = group->funcCtx;
     s16 i = 0;
     s16 maxFuncs = group->maxFuncs;
 
@@ -125,7 +125,7 @@ FuncContext* m255_SetFunc(s8 groupId, s8 prio, s16 param, void* data, void (*fun
     return ctx;
 }
 
-void m255_ResetFunc(s8 groupId, FuncContext* ctx) {
+void m255_ResetFunc(s8 groupId, FuncContext *ctx) {
     s8 next = ctx->next;
 
     memset(ctx, 0, sizeof(FuncContext));
@@ -134,7 +134,7 @@ void m255_ResetFunc(s8 groupId, FuncContext* ctx) {
 }
 
 void m255_ResetFuncGroup(s8 groupId) {
-    FuncGroup* group = &m255_funcGroups[groupId];
+    FuncGroup *group = &m255_funcGroups[groupId];
     s8 i = 0;
 
     memset(group->funcCtx, 0, group->maxFuncs * sizeof(FuncContext));
@@ -145,8 +145,8 @@ void m255_ResetFuncGroup(s8 groupId) {
 }
 
 void m255_UpdateFuncGroup(s8 groupId) {
-    FuncGroup* group = &m255_funcGroups[groupId];
-    FuncContext* ctx = group->funcCtx;
+    FuncGroup *group = &m255_funcGroups[groupId];
+    FuncContext *ctx = group->funcCtx;
     s8 i;
 
     if (group->sort) {
@@ -162,8 +162,8 @@ void m255_UpdateFuncGroup(s8 groupId) {
     }
 }
 
-void m255_SortFuncGroup(FuncGroup* group) {
-    FuncContext* currCtx = group->funcCtx;
+void m255_SortFuncGroup(FuncGroup *group) {
+    FuncContext *currCtx = group->funcCtx;
     s8 prio;
     s8 i;
 
@@ -182,8 +182,8 @@ void m255_SortFuncGroup(FuncGroup* group) {
 }
 
 s16 m255_SetSprite(s32 dir, s32 file, u16 arg2, s32 attr) {
-    SpriteData* sprite;
-    HuSprite* temp_v0_2;
+    SpriteData *sprite;
+    HuSprite *temp_v0_2;
     s16 i;
 
     sprite = m255_sprites;
@@ -214,7 +214,7 @@ s16 m255_SetSprite(s32 dir, s32 file, u16 arg2, s32 attr) {
 }
 
 void m255_SetSpriteDispOn(s16 spriteId, s32 posX, s32 posY) {
-    SpriteData* sprite = &m255_sprites[spriteId];
+    SpriteData *sprite = &m255_sprites[spriteId];
 
     if (sprite->state != SPRITE_STATE_NOTSET) {
         func_80054FF8_55BF8(sprite->groupId, 0, 0);
@@ -225,7 +225,7 @@ void m255_SetSpriteDispOn(s16 spriteId, s32 posX, s32 posY) {
 }
 
 void m255_SetSpriteDispOff(s16 spriteId) {
-    SpriteData* sprite = &m255_sprites[spriteId];
+    SpriteData *sprite = &m255_sprites[spriteId];
 
     if (sprite->state != SPRITE_STATE_NOTSET) {
         HuSprAttrSet(sprite->groupId, 0, 0x8000);
@@ -234,7 +234,7 @@ void m255_SetSpriteDispOff(s16 spriteId) {
 }
 
 void m255_UpdateSprites(void) {
-    SpriteData* sprite;
+    SpriteData *sprite;
     s16 i;
 
     sprite = m255_sprites;
@@ -251,8 +251,8 @@ void m255_UpdateSprites(void) {
 }
 
 s32 m255_SetAnimModel(s32 dir, s32 file, f32 freq, s32 attr, s32 arg4) {
-    AnimModelData* animModel;
-    HmfModel* hmfModel;
+    AnimModelData *animModel;
+    HmfModel *hmfModel;
     s16 i;
 
     animModel = m255_animModels;
@@ -277,8 +277,8 @@ s32 m255_SetAnimModel(s32 dir, s32 file, f32 freq, s32 attr, s32 arg4) {
 }
 
 s32 m255_SetAnimModelDispOn(s16 animModelId, f32 posX, f32 posY, f32 posZ, f32 rotX, f32 rotY, f32 rotZ, f32 scale, f32 animStart) {
-    AnimModelData* animModel;
-    HmfModel* HmfModel;
+    AnimModelData *animModel;
+    HmfModel *HmfModel;
 
     if (animModelId >= ANIMMDL_MAX) {
         return FALSE;
@@ -309,8 +309,8 @@ s32 m255_SetAnimModelDispOn(s16 animModelId, f32 posX, f32 posY, f32 posZ, f32 r
 }
 
 void m255_UpdateAnimModels(void) {
-    AnimModelData* animModel;
-    HmfModel* hmfModel;
+    AnimModelData *animModel;
+    HmfModel *hmfModel;
     s16 i;
 
     animModel = m255_animModels;
@@ -344,7 +344,7 @@ void m255_UpdateAnimModels(void) {
     }
 }
 
-u8 m255_CalcLerp(f32* out, u8* timer, f32 start, f32 end, f32 duration) {
+u8 m255_CalcLerp(f32 *out, u8 *timer, f32 start, f32 end, f32 duration) {
     f32 t = *timer / duration;
 
     *out = start + (end - start) * t;
@@ -367,7 +367,7 @@ f32 m255_CalcQuadraticBezier(f32 t, f32 p0, f32 p1, f32 p2) {
     return ret;
 }
 
-void m255_SyncWithModel(omObjData* object) {
+void m255_SyncWithModel(omObjData *object) {
     object->trans.x = HmfModelData[object->model[0]].pos.x;
     object->trans.y = HmfModelData[object->model[0]].pos.y;
     object->trans.z = HmfModelData[object->model[0]].pos.z;

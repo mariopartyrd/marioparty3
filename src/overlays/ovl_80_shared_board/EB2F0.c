@@ -6,7 +6,7 @@ extern s16 D_80102704_116324_shared_board;
 typedef struct UnkBoard6 {
     s8 unk_00;
     char unk_01[0x1B];
-} UnkBoard6; //sprite data?
+} UnkBoard6; // sprite data?
 
 extern UnkBoard6 D_80102708_116328_shared_board[32];
 

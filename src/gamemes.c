@@ -6,7 +6,7 @@
 
 f32 HuMathSin(f32);
 
-extern Gfx* gMainGfxPos;
+extern Gfx *gMainGfxPos;
 extern s8 D_800D20B1_D2CB1;
 
 typedef struct {
@@ -33,44 +33,44 @@ typedef struct {
     /* 0x70 */ s32 unk70;
 } GAMEMES; // Size 0x74
 
-s32 func_80037574_38174(GAMEMES* gMes, Gfx**);
-s32 func_80037878_38478(GAMEMES* gMes, Gfx**);
-s32 func_80037C44_38844(GAMEMES* gMes, Gfx**);
-s32 func_8003843C_3903C(GAMEMES* gMes, Gfx**);
-s32 func_80038934_39534(GAMEMES* gMes, Gfx**);
-s32 func_80038D78_39978(GAMEMES* gMes, Gfx**);
-s32 func_800392AC_39EAC(GAMEMES* gMes, Gfx**);
-s32 func_8003966C_3A26C(GAMEMES* gMes, Gfx**);
-s32 func_80039A6C_3A66C(GAMEMES* gMes, Gfx**);
-s32 func_80039E80_3AA80(GAMEMES* gMes, Gfx**);
-s32 func_8003A2EC_3AEEC(GAMEMES* gMes, Gfx**);
-s32 func_8003B14C_3BD4C(GAMEMES* gMes, Gfx**);
-s32 func_8003B7E8_3C3E8(GAMEMES* gMes, Gfx**);
-s32 func_8003BB84_3C784(GAMEMES* gMes, Gfx**);
-s32 func_8003C248_3CE48(GAMEMES* gMes, Gfx**);
-s32 func_8003C644_3D244(GAMEMES* gMes, Gfx**);
-s32 func_8003CA24_3D624(GAMEMES* gMes, Gfx**);
-s32 func_8003CE20_3DA20(GAMEMES* gMes, Gfx**);
-s32 func_8003D134_3DD34(GAMEMES* gMes, Gfx**);
-s32 func_8003D4DC_3E0DC(GAMEMES* gMes, Gfx**);
-s32 func_8003D890_3E490(GAMEMES* gMes, Gfx**);
-s32 func_8003DC88_3E888(GAMEMES* gMes, Gfx**);
-s32 func_8003DE60_3EA60(GAMEMES* gMes, Gfx**);
-s32 func_8003E4A4_3F0A4(GAMEMES* gMes, Gfx**);
-s32 func_8003EBC8_3F7C8(GAMEMES* gMes, Gfx**);
-s32 func_8003EE98_3FA98(GAMEMES* gMes, Gfx**);
-s32 GMesTimerExec(GAMEMES* gMes, Gfx**);
-s32 func_8003F604_40204(GAMEMES* gMes, Gfx**);
-s32 func_8003FD34_40934(GAMEMES* gMes, Gfx**);
-s32 func_8003FFD0_40BD0(GAMEMES* gMes, Gfx**);
-s32 func_80040290_40E90(GAMEMES* gMes, Gfx**);
-s32 func_800407B8_413B8(GAMEMES* gMes, Gfx**);
-s32 func_80040CF4_418F4(GAMEMES* gMes, Gfx**);
-s32 func_80041700_42300(GAMEMES* gMes, Gfx**);
-s32 func_80041B68_42768(GAMEMES* gMes, Gfx**);
-s32 func_80042AC8_436C8(GAMEMES* gMes, Gfx**);
-s32 func_800440D4_44CD4(GAMEMES* gMes, Gfx**);
-s32 func_800448C0_454C0(GAMEMES* gMes, Gfx**);
+s32 func_80037574_38174(GAMEMES *gMes, Gfx **);
+s32 func_80037878_38478(GAMEMES *gMes, Gfx **);
+s32 func_80037C44_38844(GAMEMES *gMes, Gfx **);
+s32 func_8003843C_3903C(GAMEMES *gMes, Gfx **);
+s32 func_80038934_39534(GAMEMES *gMes, Gfx **);
+s32 func_80038D78_39978(GAMEMES *gMes, Gfx **);
+s32 func_800392AC_39EAC(GAMEMES *gMes, Gfx **);
+s32 func_8003966C_3A26C(GAMEMES *gMes, Gfx **);
+s32 func_80039A6C_3A66C(GAMEMES *gMes, Gfx **);
+s32 func_80039E80_3AA80(GAMEMES *gMes, Gfx **);
+s32 func_8003A2EC_3AEEC(GAMEMES *gMes, Gfx **);
+s32 func_8003B14C_3BD4C(GAMEMES *gMes, Gfx **);
+s32 func_8003B7E8_3C3E8(GAMEMES *gMes, Gfx **);
+s32 func_8003BB84_3C784(GAMEMES *gMes, Gfx **);
+s32 func_8003C248_3CE48(GAMEMES *gMes, Gfx **);
+s32 func_8003C644_3D244(GAMEMES *gMes, Gfx **);
+s32 func_8003CA24_3D624(GAMEMES *gMes, Gfx **);
+s32 func_8003CE20_3DA20(GAMEMES *gMes, Gfx **);
+s32 func_8003D134_3DD34(GAMEMES *gMes, Gfx **);
+s32 func_8003D4DC_3E0DC(GAMEMES *gMes, Gfx **);
+s32 func_8003D890_3E490(GAMEMES *gMes, Gfx **);
+s32 func_8003DC88_3E888(GAMEMES *gMes, Gfx **);
+s32 func_8003DE60_3EA60(GAMEMES *gMes, Gfx **);
+s32 func_8003E4A4_3F0A4(GAMEMES *gMes, Gfx **);
+s32 func_8003EBC8_3F7C8(GAMEMES *gMes, Gfx **);
+s32 func_8003EE98_3FA98(GAMEMES *gMes, Gfx **);
+s32 GMesTimerExec(GAMEMES *gMes, Gfx **);
+s32 func_8003F604_40204(GAMEMES *gMes, Gfx **);
+s32 func_8003FD34_40934(GAMEMES *gMes, Gfx **);
+s32 func_8003FFD0_40BD0(GAMEMES *gMes, Gfx **);
+s32 func_80040290_40E90(GAMEMES *gMes, Gfx **);
+s32 func_800407B8_413B8(GAMEMES *gMes, Gfx **);
+s32 func_80040CF4_418F4(GAMEMES *gMes, Gfx **);
+s32 func_80041700_42300(GAMEMES *gMes, Gfx **);
+s32 func_80041B68_42768(GAMEMES *gMes, Gfx **);
+s32 func_80042AC8_436C8(GAMEMES *gMes, Gfx **);
+s32 func_800440D4_44CD4(GAMEMES *gMes, Gfx **);
+s32 func_800448C0_454C0(GAMEMES *gMes, Gfx **);
 s32 func_800452C4_45EC4(void);
 s32 func_80045314_45F14(void);
 
@@ -116,7 +116,7 @@ void func_8003661C_3721C(void) {
     D_800B1A52_B2652 = 0;
 }
 
-void GMesExec(Gfx** arg0) {
+void GMesExec(Gfx **arg0) {
     s16 result = FALSE;
     s16 i, j;
 
@@ -125,7 +125,7 @@ void GMesExec(Gfx** arg0) {
     }
     for (i = 0; i < 8; i++) {
         if (gMesData[i].stat != GMES_STAT_NONE) {
-            GAMEMES* gMes = &gMesData[i];
+            GAMEMES *gMes = &gMesData[i];
 
             switch (gMes->mesNo) {
                 case GMES_MES_0:
@@ -265,7 +265,7 @@ void GMesExec(Gfx** arg0) {
 }
 
 s16 GMesCreate(s16 mesNo, ...) {
-    GAMEMES* gMes;
+    GAMEMES *gMes;
     va_list args;
     s32 chr;
     s16 mesId;
@@ -449,7 +449,7 @@ void func_80037258_37E58(void) {
     }
 }
 
-void GMesSprKill(GAMEMES* gMes) {
+void GMesSprKill(GAMEMES *gMes) {
     s16 i;
 
     for (i = 0; i < 16; i++) {
@@ -490,7 +490,7 @@ INCLUDE_ASM("asm/nonmatchings/gamemes", func_8003A2EC_3AEEC);
 
 INCLUDE_ASM("asm/nonmatchings/gamemes", func_8003A308_3AF08);
 
-void func_8003A37C_3AF7C(GAMEMES* gMes, const char*, s32, s32, s32);
+void func_8003A37C_3AF7C(GAMEMES *gMes, const char *, s32, s32, s32);
 INCLUDE_ASM("asm/nonmatchings/gamemes", func_8003A37C_3AF7C);
 
 INCLUDE_ASM("asm/nonmatchings/gamemes", func_8003A3C4_3AFC4);
@@ -565,7 +565,7 @@ INCLUDE_ASM("asm/nonmatchings/gamemes", func_8003EBC8_3F7C8);
 
 INCLUDE_ASM("asm/nonmatchings/gamemes", func_8003EE98_3FA98);
 
-s32 GMesTimerExec(GAMEMES* gMes, Gfx** arg1) {
+s32 GMesTimerExec(GAMEMES *gMes, Gfx **arg1) {
     f32 temp_f22;
     u8 temp_s2;
     u8 temp_s0;
@@ -699,10 +699,10 @@ INCLUDE_ASM("asm/nonmatchings/gamemes", func_80045010_45C10);
 
 INCLUDE_ASM("asm/nonmatchings/gamemes", func_800450B8_45CB8);
 
-s32 func_80045208_45E08(void* arg0, void* arg1);
+s32 func_80045208_45E08(void *arg0, void *arg1);
 INCLUDE_ASM("asm/nonmatchings/gamemes", func_80045208_45E08);
 
-s32 func_800452A0_45EA0(void* arg0, void* arg1) {
+s32 func_800452A0_45EA0(void *arg0, void *arg1) {
     return func_80045208_45E08(arg0, arg1);
 }
 

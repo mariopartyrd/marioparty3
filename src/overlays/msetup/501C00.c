@@ -15,12 +15,12 @@ void HuSprKill(s16);
 void func_8010B82C_507A8C_msetup(s32);
 void func_8010B858_507AB8_msetup();
 void func_8010B998_507BF8_msetup();
-s32 func_8010D684_5098E4_msetup(s16, s16*);
-void func_8010DDD8_50A038_msetup(void*);
-omObjData* func_8010DE38_50A098_msetup(s32, s32, s32);
-void func_8010E4BC_50A71C_msetup(Array2D*, s32, s32);
-void func_8010E4D8_50A738_msetup(Array2D*, s32);
-void func_8010E8C8_50AB28_msetup(Array2D*, s32, s32, f32, f32, f32, f32, s32);
+s32 func_8010D684_5098E4_msetup(s16, s16 *);
+void func_8010DDD8_50A038_msetup(void *);
+omObjData *func_8010DE38_50A098_msetup(s32, s32, s32);
+void func_8010E4BC_50A71C_msetup(Array2D *, s32, s32);
+void func_8010E4D8_50A738_msetup(Array2D *, s32);
+void func_8010E8C8_50AB28_msetup(Array2D *, s32, s32, f32, f32, f32, f32, s32);
 void func_8010F320_50B580_msetup(s32, s32, s16, s16);
 extern s32 D_80119420_515680_msetup;
 extern s32 D_80119E94_5160F4_msetup[];
@@ -29,16 +29,16 @@ extern s32 D_80119EC4_516124_msetup[];
 extern s32 D_80119EE0_516140_msetup[];
 extern s16 D_8011A938_516B98_msetup;
 extern s16 D_8011A948_516BA8_msetup;
-extern u8 D_8011AA45_516CA5_msetup; //board index chosen
+extern u8 D_8011AA45_516CA5_msetup; // board index chosen
 typedef struct UnkStarLift {
     char unk_00[0x04];
     s16 unk4;
 } UnkStarLift;
 
-s32 _CheckFlag(s32);                                  /* extern */
-s16 func_80055810_56410(void*);                       /* extern */
+s32 _CheckFlag(s32);             /* extern */
+s16 func_80055810_56410(void *); /* extern */
 
-s32 func_80113ED4_510134_msetup(UnkStarLift* arg0);
+s32 func_80113ED4_510134_msetup(UnkStarLift *arg0);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/msetup/501C00", func_801059A0_501C00_msetup);
 
@@ -226,9 +226,9 @@ INCLUDE_ASM("asm/nonmatchings/overlays/msetup/501C00", func_8010E21C_50A47C_mset
 
 INCLUDE_ASM("asm/nonmatchings/overlays/msetup/501C00", func_8010E32C_50A58C_msetup);
 
-void func_8010E32C_50A58C_msetup(Array2D*, s32, s32, s32);
+void func_8010E32C_50A58C_msetup(Array2D *, s32, s32, s32);
 
-void func_8010E4BC_50A71C_msetup(Array2D* arg0, s32 arg1, s32 arg2) {
+void func_8010E4BC_50A71C_msetup(Array2D *arg0, s32 arg1, s32 arg2) {
     func_8010E32C_50A58C_msetup(arg0, arg1, arg2, 1);
 }
 
@@ -324,25 +324,25 @@ INCLUDE_ASM("asm/nonmatchings/overlays/msetup/501C00", func_80113E54_5100B4_mset
 
 INCLUDE_ASM("asm/nonmatchings/overlays/msetup/501C00", func_80113E88_5100E8_msetup);
 
-s32 func_80113ED4_510134_msetup(UnkStarLift* arg0) {
-    #define MODE_PARTY 0
-    #define MODE_DUEL 1
-    #define FLAG_WALUIGIS_ISLAND 0x31
-    #define FLAG_BACKTRACK 0x30
+s32 func_80113ED4_510134_msetup(UnkStarLift *arg0) {
+#define MODE_PARTY 0
+#define MODE_DUEL 1
+#define FLAG_WALUIGIS_ISLAND 0x31
+#define FLAG_BACKTRACK 0x30
     Array2D sp20;
     s16 unk_68;
-    s32* mainFSArray;
+    s32 *mainFSArray;
     s32 boardCountMaxCopy;
     f32 var_f20;
-    void* temp_v0_4;
-    omObjData* temp_s5;
+    void *temp_v0_4;
+    omObjData *temp_s5;
     s16 prevBoardIndex;
     s16 backgroundEspriteSlot;
     s16 var_s6;
     s32 pad;
     s32 var_fp;
     s32 boardCountMax;
-    s32* boardDescriptionId;
+    s32 *boardDescriptionId;
     s16 curBoardIndex;
     s16 temp;
     s32 i;
@@ -358,26 +358,26 @@ s32 func_80113ED4_510134_msetup(UnkStarLift* arg0) {
     var_fp = 70;
     tempFloat = 1.0f;
 
-    switch (D_8011A938_516B98_msetup) { //current mode
-    case MODE_PARTY:
-        boardDescriptionId = D_80119EC4_516124_msetup;
-        mainFSArray = D_80119E94_5160F4_msetup; //party mode board backgrounds
-        tempFloat = 1.0f;
-        var_fp = 74;
-        boardCountMax = 5;
-        if (_CheckFlag(FLAG_WALUIGIS_ISLAND) != 0) {
-            boardCountMax = 6;
-        }
-        break;
-    case MODE_DUEL:
-        boardDescriptionId = D_80119EE0_516140_msetup;
-        mainFSArray = D_80119EAC_51610C_msetup; //duel mode board backgrounds
-        var_fp = 74;
-        boardCountMax = 5;
-        if (_CheckFlag(FLAG_BACKTRACK) != 0) {
-            boardCountMax = 6;
-        }
-        break;
+    switch (D_8011A938_516B98_msetup) { // current mode
+        case MODE_PARTY:
+            boardDescriptionId = D_80119EC4_516124_msetup;
+            mainFSArray = D_80119E94_5160F4_msetup; // party mode board backgrounds
+            tempFloat = 1.0f;
+            var_fp = 74;
+            boardCountMax = 5;
+            if (_CheckFlag(FLAG_WALUIGIS_ISLAND) != 0) {
+                boardCountMax = 6;
+            }
+            break;
+        case MODE_DUEL:
+            boardDescriptionId = D_80119EE0_516140_msetup;
+            mainFSArray = D_80119EAC_51610C_msetup; // duel mode board backgrounds
+            var_fp = 74;
+            boardCountMax = 5;
+            if (_CheckFlag(FLAG_BACKTRACK) != 0) {
+                boardCountMax = 6;
+            }
+            break;
     }
 
     func_8010B998_507BF8_msetup();
@@ -390,21 +390,21 @@ s32 func_80113ED4_510134_msetup(UnkStarLift* arg0) {
     HuAudFXPlay(0x2D9);
     func_8010E8C8_50AB28_msetup(&sp20, 2, 0xF, 720.0f, 565.0f, 0.1f, 1.0f, 1);
     func_8001C258_1CE58(sp20[1][12], 4, 4);
-    
+
     for (var_f20 = 0.0f; var_f20 < 180.0f; var_f20 += (180.0f / 7.0f)) {
         Hu3DModelRotSet(temp, 0, var_f20, 0);
         HuPrcVSleep();
     }
-    
+
     Hu3DModelRotSet(temp, 0, 180.0f, 0);
     temp_s5->work[0] = 1;
     temp_s5->work[1] = 36;
-    
+
     for (var_f20 = 1.0f; var_f20 < 2.5f; var_f20 += (3.0f / 14.0f)) {
         Hu3DModelScaleSet(temp, var_f20, var_f20, var_f20);
         HuPrcVSleep();
     }
-    
+
     Hu3DModelScaleSet(temp, 2.5f, 2.5f, 2.5f);
     prevBoardIndex = -1;
     pad = func_8010D684_5098E4_msetup(D_8011A948_516BA8_msetup, &unk_68);
@@ -434,7 +434,7 @@ s32 func_80113ED4_510134_msetup(UnkStarLift* arg0) {
                 temp_s5->work[0] = 3;
             }
         }
-        //check if background image should update
+        // check if background image should update
         if (prevBoardIndex != curBoardIndex) {
             if (backgroundEspriteSlot >= 0) {
                 for (i = 255; i > 0; i -= (255 / 5)) {
@@ -462,7 +462,7 @@ s32 func_80113ED4_510134_msetup(UnkStarLift* arg0) {
         }
         HuPrcVSleep();
     }
-    
+
     arg0->unk4 = curBoardIndex;
     if (curBoardIndex >= 0) {
         D_8011AA45_516CA5_msetup = curBoardIndex;
@@ -470,7 +470,7 @@ s32 func_80113ED4_510134_msetup(UnkStarLift* arg0) {
 
     temp_s5->work[0] = 2;
     temp_s5->work[1] = 17;
-    
+
     for (i = 255; i > 0; i -= (255 / 5)) {
         func_8000BBFC_C7FC(backgroundEspriteSlot, i);
         HuPrcVSleep();

@@ -13,8 +13,8 @@ void func_80107400_4F51E0_mgresultbattle(void);
 void func_80107D10_4F5AF0_mgresultbattle(void);
 void func_80108130_4F5F10_mgresultbattle(void);
 void func_800E6720_FA340_shared_board(s32, s32);
-void func_80105CAC_4F3A8C_mgresultbattle(omObjData*);
-void func_80105E64_4F3C44_mgresultbattle(omObjData*);
+void func_80105CAC_4F3A8C_mgresultbattle(omObjData *);
+void func_80105E64_4F3C44_mgresultbattle(omObjData *);
 void func_80105F50_4F3D30_mgresultbattle(void);
 
 extern u8 D_80108F8C_4F6D6C_mgresultbattle[4];
@@ -27,7 +27,7 @@ void func_801059A0_4F3780_mgresultbattle(void) {
     s16 j;
 
     var_a1 = 0;
-    
+
     for (i = 0; i < 4; i++) {
         for (j = 0; j < MB_MAX_PLAYERS; j++) {
             if (i != GwPlayer[j].group) {
@@ -52,7 +52,7 @@ void func_801059A0_4F3780_mgresultbattle(void) {
     Hu3DCamSetPerspective(0, 30.0f, 80.0f, 8000.0f);
     omSetStatBit(omAddObj(0x7FDA, 0U, 0U, -1, omOutView), 0xA0);
     HmfLightColorSet(1, 0xFF, 0xFF, 0xFF);
-    
+
     for (var_a0_2 = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
         if (GwPlayer[i].bonusCoin == 3) {
             var_a0_2++;
@@ -86,10 +86,10 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mgresultbattle/4F3780", func_80105E0C_4F3
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultbattle/4F3780", func_80105E64_4F3C44_mgresultbattle);
 
 void func_80105EF4_4F3CD4_mgresultbattle(void) {
-    GW_SYSTEM* system = &GwSystem;
+    GW_SYSTEM *system = &GwSystem;
 
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
-    
+
     if (!(system->playMode & 2)) {
         func_800E6720_FA340_shared_board(D_80108908_4F66E8_mgresultbattle[system->current_board_index], 0);
     } else {

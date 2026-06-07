@@ -13,24 +13,24 @@ void InitSI(void) {
     osStartThread(&D_800BCE00_BDA00);
 }
 
-functionListEntry** GetSIClientListTable(functionListEntry* entry) {
+functionListEntry **GetSIClientListTable(functionListEntry *entry) {
     switch (entry->type) {
-    case 0:
-        return &D_800BD7B0_BE3B0;
-    case 1:
-        return &D_800BD7B4_BE3B4;
-    default:
-        return NULL;
+        case 0:
+            return &D_800BD7B0_BE3B0;
+        case 1:
+            return &D_800BD7B4_BE3B4;
+        default:
+            return NULL;
     }
 }
 
 /* Function Linked List Insertion */
-s32 _AddSIClient(functionListEntry* node) {
-    functionListEntry* pYoungest;
-    functionListEntry* child;
+s32 _AddSIClient(functionListEntry *node) {
+    functionListEntry *pYoungest;
+    functionListEntry *child;
 
     // Add node as youngest child of a linked list
-    pYoungest = (functionListEntry*) GetSIClientListTable(node);
+    pYoungest = (functionListEntry *)GetSIClientListTable(node);
     child = pYoungest->child;
     if (child != NULL) {
         pYoungest = child;
@@ -45,8 +45,7 @@ s32 _AddSIClient(functionListEntry* node) {
     return 0;
 }
 
-
-void AddSIClient(functionListEntry* entry, s16 type, void* func) {
+void AddSIClient(functionListEntry *entry, s16 type, void *func) {
     OSMesg msgBuffer;
     OSMesgQueue mq;
     unkMesg msgOut;
@@ -62,12 +61,11 @@ void AddSIClient(functionListEntry* entry, s16 type, void* func) {
     osRecvMesg(&mq, NULL, 1);
 }
 
-
 /* Function Linked List Deletion */
-s32 _RemoveSIClient(functionListEntry* arg0) {
-    functionListEntry* var_v0;
-    functionListEntry* var_v1;
-    functionListEntry** root;
+s32 _RemoveSIClient(functionListEntry *arg0) {
+    functionListEntry *var_v0;
+    functionListEntry *var_v1;
+    functionListEntry **root;
 
     root = GetSIClientListTable(arg0);
     var_v0 = *root;
@@ -85,12 +83,11 @@ s32 _RemoveSIClient(functionListEntry* arg0) {
             }
             return 0;
         }
-        var_v1 = var_v0;        
+        var_v1 = var_v0;
         var_v0 = var_v0->child;
     }
     return 0;
 }
-
 
 void RemoveSIClient(void *entry) {
     OSMesg msgBuffer;
@@ -100,25 +97,24 @@ void RemoveSIClient(void *entry) {
     msgOut.func = (HuSiFunc)&_RemoveSIClient;
     msgOut.arg = entry;
     msgOut.recvQueue = &mq;
-    
+
     osCreateMesgQueue(&mq, &msgBuffer, 1);
     osSendMesg(&D_800D1220_D1E20, &msgOut, OS_MESG_BLOCK);
     osRecvMesg(&mq, NULL, OS_MESG_BLOCK);
 }
 
-
 /* Do all functions in functionList of type "type" */
 void CallSIClient(s16 type) {
-    functionListEntry* funcList;
+    functionListEntry *funcList;
 
     funcList = NULL;
     switch (type) {
-    case 0:
-        funcList = D_800BD7B0_BE3B0;
-        break;
-    case 1:
-        funcList = D_800BD7B4_BE3B4;
-        break;
+        case 0:
+            funcList = D_800BD7B0_BE3B0;
+            break;
+        case 1:
+            funcList = D_800BD7B4_BE3B4;
+            break;
     }
     if (funcList != NULL) {
         do {
@@ -128,27 +124,25 @@ void CallSIClient(s16 type) {
     }
 }
 
-
 /* Wait for message to do all functions in a global function list
-* or to run custom functions?
+ * or to run custom functions?
  */
-void SIProc(void* arg0) {
+void SIProc(void *arg0) {
     unkMesgWrapper msgWrapper;
 
     AddSchedulerClient(&msgWrapper, &D_800D1220_D1E20, 3);
 
     while (TRUE) {
-        osRecvMesg(&D_800D1220_D1E20, (OSMesg*) &msgWrapper.unkMsg, OS_MESG_BLOCK);       
-        switch ((s32) msgWrapper.unkMsg) {
+        osRecvMesg(&D_800D1220_D1E20, (OSMesg *)&msgWrapper.unkMsg, OS_MESG_BLOCK);
+        switch ((s32)msgWrapper.unkMsg) {
             case 1:
-                CallSIClient((s16) 0);
+                CallSIClient((s16)0);
                 break;
             case 2:
-                CallSIClient((s16) 1);
+                CallSIClient((s16)1);
                 break;
-            default:
-            {
-                unkMesg* recvdMsg;
+            default: {
+                unkMesg *recvdMsg;
                 recvdMsg = msgWrapper.unkMsg;
                 recvdMsg->ret = recvdMsg->func(recvdMsg->arg);
                 if (recvdMsg->recvQueue != NULL) {
@@ -159,9 +153,7 @@ void SIProc(void* arg0) {
     }
 }
 
-
-s32 RequestSIFunction(unkMesg* siMessg, void* func, void* arg, s32 type) 
-{
+s32 RequestSIFunction(unkMesg *siMessg, void *func, void *arg, s32 type) {
     OSMesgQueue msgQueue;
     OSMesg tmpMsg;
 
@@ -171,17 +163,17 @@ s32 RequestSIFunction(unkMesg* siMessg, void* func, void* arg, s32 type)
     osCreateMesgQueue(&msgQueue, &tmpMsg, 1);
     osSendMesg(&D_800D1220_D1E20, siMessg, OS_MESG_BLOCK);
     switch (type) {
-    case 0:
-        siMessg->ret = 0;
-        break;
-    case 1:
-        osRecvMesg(&msgQueue, NULL, OS_MESG_BLOCK);
-        break;
-    case 2:
-        while (osRecvMesg(&msgQueue, NULL, OS_MESG_NOBLOCK)) {
-            HuPrcVSleep();
-        }
-        break;
+        case 0:
+            siMessg->ret = 0;
+            break;
+        case 1:
+            osRecvMesg(&msgQueue, NULL, OS_MESG_BLOCK);
+            break;
+        case 2:
+            while (osRecvMesg(&msgQueue, NULL, OS_MESG_NOBLOCK)) {
+                HuPrcVSleep();
+            }
+            break;
     }
     return siMessg->ret;
 }

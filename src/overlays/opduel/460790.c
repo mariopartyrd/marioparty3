@@ -44,7 +44,7 @@ INCLUDE_RODATA("asm/nonmatchings/overlays/opduel/460790", D_80109528_464318_opdu
 INCLUDE_RODATA("asm/nonmatchings/overlays/opduel/460790", D_80109548_464338_opduel);
 
 void func_80109158_463F48_opduel(void) {
-    s32 sp10[] = {0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D};
+    s32 sp10[] = { 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D };
 
     Hu3DCamInit(1);
     func_800E4F50_CCD20_name_81(hvq_data_ROM_START);

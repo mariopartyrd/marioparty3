@@ -4,9 +4,9 @@
 
 #include "gcc/string.h"
 
-static char* proutSprintf(char* dst, const char* src, unsigned int count);
+static char *proutSprintf(char *dst, const char *src, unsigned int count);
 
-int sprintf(char* dst, const char* fmt, ...) {
+int sprintf(char *dst, const char *fmt, ...) {
     s32 ans;
     va_list ap;
     va_start(ap, fmt);
@@ -17,6 +17,6 @@ int sprintf(char* dst, const char* fmt, ...) {
     return ans;
 }
 
-char* proutSprintf(char* dst, const char* src, unsigned int count) {
-    return (char*)memcpy((u8*)dst, (u8*)src, count) + count;
+char *proutSprintf(char *dst, const char *src, unsigned int count) {
+    return (char *)memcpy((u8 *)dst, (u8 *)src, count) + count;
 }

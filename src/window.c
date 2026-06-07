@@ -3,20 +3,20 @@
 #include "common.h"
 #include "malloc.h"
 
-extern TextWindow* D_800CC69C_CD29C;
+extern TextWindow *D_800CC69C_CD29C;
 extern u8 D_800A2150_A2D50;
 extern u8 gLanguageIndex;
 extern u8 D_800A232C_A2F2C[];
-extern u8* D_800A2344_A2F44[];
+extern u8 *D_800A2344_A2F44[];
 extern s16 D_800BDA50_BE650[12];
 extern s8 D_800BDA6D_BE66D;
 extern s16 D_800BDA68_BE668;
 extern s8 D_800CD2A4_CDEA4;
-extern void* D_800CE2C4_CEEC4;
-extern Process* D_800D040C_D100C;
+extern void *D_800CE2C4_CEEC4;
+extern Process *D_800D040C_D100C;
 extern s8 D_800D1F34_D2B34;
-extern void* D_800D1FE4_D2BE4;
-extern void* D_800D4084_D4C84;
+extern void *D_800D1FE4_D2BE4;
+extern void *D_800D4084_D4C84;
 extern u8 D_800D5206_D5E06[5];
 extern s8 D_800D5540_D6140;
 extern s8 D_800D6A26_D7626;
@@ -33,8 +33,8 @@ void func_8005BB18_5C718(s16, f32, f32);
 void func_800615B8_621B8(s16, s32);
 
 void func_8005A6B0_5B2B0(void) {
-    Process* temp_v0_4;
-    void* temp_v0_6;
+    Process *temp_v0_4;
+    void *temp_v0_6;
     s16 i;
 
     if (D_800A2150_A2D50 == 0) {
@@ -43,7 +43,7 @@ void func_8005A6B0_5B2B0(void) {
         for (i = 0; i < WINDOWS_MAX; i++) {
             D_800CC69C_CD29C[i].unk5E = -1;
         }
-        
+
         D_800CC69C_CD29C[0].unk62 = -1;
         D_800CC69C_CD29C[0].unk64 = 1;
         D_800CC69C_CD29C[0].unk5E = 0;
@@ -64,24 +64,24 @@ void func_8005A6B0_5B2B0(void) {
         } else {
             D_800D1FE4_D2BE4 = DataReadTemp(0x0000002C);
             switch (gLanguageIndex) {
-            case LANGUAGE_ENGLISH:
-                func_80036414_37014(strings_english_ROM_START);
-                break;
-            case LANGUAGE_FRENCH:
-                func_80036414_37014(strings_french_ROM_START);
-                break;
-            case LANGUAGE_GERMAN:
-                func_80036414_37014(strings_german_ROM_START);
-                break;
-            case LANGUAGE_SPANISH:
-                func_80036414_37014(strings_spanish_ROM_START);
-                break;
-            case LANGUAGE_ITALIAN:
-                func_80036414_37014(strings_italian_ROM_START);
-                break;
+                case LANGUAGE_ENGLISH:
+                    func_80036414_37014(strings_english_ROM_START);
+                    break;
+                case LANGUAGE_FRENCH:
+                    func_80036414_37014(strings_french_ROM_START);
+                    break;
+                case LANGUAGE_GERMAN:
+                    func_80036414_37014(strings_german_ROM_START);
+                    break;
+                case LANGUAGE_SPANISH:
+                    func_80036414_37014(strings_spanish_ROM_START);
+                    break;
+                case LANGUAGE_ITALIAN:
+                    func_80036414_37014(strings_italian_ROM_START);
+                    break;
             }
         }
-        
+
         temp_v0_4 = omAddPrcObj(func_8005DDDC_5E9DC, 0x1001, 0x800, 0);
         D_800D040C_D100C = temp_v0_4;
         omPrcSetStatBit(temp_v0_4, 0xA0);
@@ -125,14 +125,14 @@ INCLUDE_ASM("asm/nonmatchings/window", func_8005B63C_5C23C);
 INCLUDE_ASM("asm/nonmatchings/window", func_8005B68C_5C28C);
 
 void func_8005B6BC_5C2BC(s16 win_id, u32 arg1, s8 arg2) {
-    TextWindow* textWindow = &D_800CC69C_CD29C[win_id];
+    TextWindow *textWindow = &D_800CC69C_CD29C[win_id];
 
     if (textWindow->unk_B8[arg2] != 0) {
         if (textWindow->usingStringIDBool[arg2] != 0) {
             func_800365E8_371E8(textWindow->unk_B8[arg2]);
         }
     }
-    //pointer check
+    // pointer check
     if (0x80000000 < arg1) {
         textWindow->usingStringIDBool[arg2] = 0;
         textWindow->unk_B8[arg2] = (char *)arg1;
@@ -144,7 +144,7 @@ void func_8005B6BC_5C2BC(s16 win_id, u32 arg1, s8 arg2) {
 }
 
 s16 func_8005B7B8_5C3B8(s16 win_id, u32 spriteMainFsPair, s16 arg2, s16 arg3, u16 arg4) {
-    TextWindow* window = &D_800CC69C_CD29C[win_id];
+    TextWindow *window = &D_800CC69C_CD29C[win_id];
     s16 spriteId;
     void *spriteBytes;
     s16 i;
@@ -294,7 +294,7 @@ INCLUDE_ASM("asm/nonmatchings/window", func_8005F904_60504);
 
 INCLUDE_ASM("asm/nonmatchings/window", func_8005F918_60518);
 
-u8 func_8005FA90_60690(u8* arg0) {
+u8 func_8005FA90_60690(u8 *arg0) {
     s16 i, j;
 
     for (i = 0; i < 10; i += 2) {
@@ -337,9 +337,9 @@ void func_800600C0_60CC0(s16 winId, s32 arg1) {
 INCLUDE_ASM("asm/nonmatchings/window", func_8006010C_60D0C);
 
 void func_80060144_60D44(s16 obj) {
-    #ifdef DEBUG
+#ifdef DEBUG
 
-    #endif
+#endif
 }
 
 s8 func_8006014C_60D4C(s32 winId) {
@@ -371,7 +371,7 @@ void func_80060388_60F88(s8 arg0) {
 
 INCLUDE_ASM("asm/nonmatchings/window", func_80060394_60F94);
 
-void func_800604A8_610A8(s16* arg0, s16 arg1, s16 arg2) {
+void func_800604A8_610A8(s16 *arg0, s16 arg1, s16 arg2) {
     u32 i;
 
     if (arg2 < arg1) {
@@ -379,11 +379,11 @@ void func_800604A8_610A8(s16* arg0, s16 arg1, s16 arg2) {
         arg0[0] = 0x64;
         return;
     }
-    
+
     D_800BDA6A_BE66A = 0;
     D_800BDA6E_BE66E = 0;
     D_800BDA6C_BE66C = 0;
-    
+
     for (i = arg1; arg2 >= i; i++) {
         func_800605A4_611A4(i);
     }
@@ -453,27 +453,27 @@ INCLUDE_ASM("asm/nonmatchings/window", func_80061100_61D00);
 
 // Obtains a window handle
 s32 func_80061188_61D88(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 arg5) {
-    TextWindow* temp_s2;
+    TextWindow *temp_s2;
     s32 temp_v0;
     s32 temp_s0_2;
     s32 temp_s1;
     s32 temp_s0 = arg3 + 2;
-    
+
     if ((arg0 != -1) & (arg4 < 0x30)) {
         arg4 = 0x30;
     }
-    
+
     temp_v0 = func_8005A968_5B568(arg1, arg2, temp_s0, arg4, 0, arg5);
     func_8005BDFC_5C9FC(temp_v0, 0);
     temp_s2 = &D_800CC69C_CD29C[temp_v0];
     func_8005BCA4_5C8A4(temp_v0, temp_s0 / 2, arg4 / 2);
     func_8005BA90_5C690(temp_v0, (temp_s2->unk3C + temp_s0 / 2), (temp_s2->unk3E + arg4 / 2));
     temp_s2->unk276 = arg0;
-    
+
     if (arg0 != -1) {
         temp_s2->unk274 = func_8005B7B8_5C3B8(temp_v0, D_800A25D0_A31D0[arg0], (0x18 - temp_s2->unk48), (0x18 - temp_s2->unk4A), 0);
     }
-    
+
     temp_s2->unk54 = 6;
     temp_s2->unk4C = 6;
     func_8005BEE0_5CAE0(temp_v0, 0xD0);

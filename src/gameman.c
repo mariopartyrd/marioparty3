@@ -8,14 +8,14 @@
 #include "game/util.h"
 
 extern str800D5298 D_800D5298_D5E98;
-extern void* D_800CCF38_CDB38;
+extern void *D_800CCF38_CDB38;
 extern u8 D_800CCF78_CDB78[];
 extern f32 CZoomM[];
 extern u16 D_800CD2F4_CDEF4;
 extern s32 D_800CDD50_CE950;
-extern Process* D_800D0448_D1048;
+extern Process *D_800D0448_D1048;
 extern u8 D_800D09A8_D15A8;
-extern Process* D_800D170C_D230C;
+extern Process *D_800D170C_D230C;
 extern u8 D_800D1710_D2310;
 extern s16 D_800D1F36_D2B36;
 extern u16 D_800D4082_D4C82;
@@ -24,7 +24,6 @@ extern u16 D_800D6A56_D7656;
 extern Vec CRotM[];
 extern u16 D_800A190C_A250C;
 extern u16 D_800A190E_A250E;
-
 
 void func_8000E3C0_EFC0(void) {
     s32 i;
@@ -39,19 +38,19 @@ void func_8000E3C0_EFC0(void) {
     CZoom = 2250.0f;
 
     Center.x =
-    Center.y =
-    Center.z = CRot.y;
+        Center.y =
+            Center.z = CRot.y;
 
     for (i = 0; i < 4; i++) {
         CRotM[i].x = 325.0f;
         CRotM[i].y =
-        CRotM[i].z = 0.0f;
+            CRotM[i].z = 0.0f;
 
         CZoomM[i] = 2250.0f;
 
         CenterM[i].x =
-        CenterM[i].y =
-        CenterM[i].z = 0.0f;
+            CenterM[i].y =
+                CenterM[i].z = 0.0f;
     }
 
     D_800D1710_D2310 = 3;
@@ -89,8 +88,7 @@ void func_8000E3C0_EFC0(void) {
         func_80050800_51400();
         if (temp_s0 != 0) {
             omOvlCallEx(slerror, 0, 0x82);
-        }
-        else {
+        } else {
             omOvlCallEx(ovl_boot, 0, 0x84);
         }
     }
@@ -114,8 +112,7 @@ void func_8000E3C0_EFC0(void) {
 
     if ((D_800D09A8_D15A8 & 1) != 0) {
         func_80000F30_1B30(1);
-    }
-    else {
+    } else {
         func_80000F30_1B30(0);
     }
 

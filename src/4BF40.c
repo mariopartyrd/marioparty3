@@ -8,7 +8,7 @@ extern f32 D_800D04B8_D10B8[][6];
 extern f32 D_800D4198_D4D98[];
 extern f32 D_800D5210_D5E10;
 
-void omOutView(omObjData* object) {
+void omOutView(omObjData *object) {
     Vec pos, at, up;
     f32 rot_x = CRot.x;
     f32 rot_y = CRot.y;
@@ -32,7 +32,7 @@ void omOutView(omObjData* object) {
     Hu3DCamUpdateMtx(0);
 }
 
-void omOutViewMulti(omObjData* object) {
+void omOutViewMulti(omObjData *object) {
     u8 i;
 
     for (i = 0; i < object->work[0]; i++) {

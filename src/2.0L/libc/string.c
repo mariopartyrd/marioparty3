@@ -1,6 +1,6 @@
 #include "common.h"
 
-char* strchr(const char* s, int c) {
+char *strchr(const char *s, int c) {
     const char ch = c;
     while (*s != ch) {
         if (*s == 0) {
@@ -8,25 +8,25 @@ char* strchr(const char* s, int c) {
         }
         s++;
     }
-    return (char*)s;
+    return (char *)s;
 }
 
-unsigned int strlen(const char* s) {
-    const char* sc = s;
+unsigned int strlen(const char *s) {
+    const char *sc = s;
     while (*sc != 0) {
         sc++;
     }
     return sc - s;
 }
 
-void* memcpy(void* s1, const void* s2, unsigned int n) {
-    char* su1 = (char*)s1;
-    const char* su2 = (const char*)s2;
+void *memcpy(void *s1, const void *s2, unsigned int n) {
+    char *su1 = (char *)s1;
+    const char *su2 = (const char *)s2;
     while (n > 0) {
         *su1 = *su2;
         su1++;
         su2++;
         n--;
     }
-    return (void*)s1;
+    return (void *)s1;
 }

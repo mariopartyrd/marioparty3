@@ -1,13 +1,13 @@
 #include "common.h"
 
-void func_80105AF0_3D72A0_ovl_boot(omObjData*);
+void func_80105AF0_3D72A0_ovl_boot(omObjData *);
 void func_80105C80_3D7430_ovl_boot(void);
-void func_80105BA4_3D7354_ovl_boot(omObjData*);
+void func_80105BA4_3D7354_ovl_boot(omObjData *);
 void func_801059D0_3D7180_ovl_boot(void);
-void func_80105C14_3D73C4_ovl_boot(omObjData*);
+void func_80105C14_3D73C4_ovl_boot(omObjData *);
 
 /* .bss */
-extern Process* D_80105F10_3D76C0_ovl_boot;
+extern Process *D_80105F10_3D76C0_ovl_boot;
 
 /* .data */
 s32 D_80105F00_3D76B0_ovl_boot = 0;
@@ -17,7 +17,7 @@ void func_801059D0_3D7180_ovl_boot(void) {
     Hu3DCamInit(1);
     omInitObjMan(0x10, 4);
     D_800D6A58_D7658 = 1;
-    
+
     if (D_80105F00_3D76B0_ovl_boot == 0) {
         GWContErrorSet();
         D_80105F10_3D76C0_ovl_boot = omAddPrcObj(func_80105C80_3D7430_ovl_boot, 0xAU, 0, 0);
@@ -39,12 +39,12 @@ void func_80105ACC_3D727C_ovl_boot(void) {
     func_801059D0_3D7180_ovl_boot();
 }
 
-void func_80105AF0_3D72A0_ovl_boot(omObjData* arg0) {
+void func_80105AF0_3D72A0_ovl_boot(omObjData *arg0) {
     if (((D_800D530C_D5F0C != 0) || (D_80105F04_3D76B4_ovl_boot != 0)) && (WipeStatGet() == 0)) {
         WipeColorSet(0U, 0U, 0U);
         WipeCreateOut(0xB, 9);
         arg0->func = &func_80105BA4_3D7354_ovl_boot;
-        
+
         if ((D_800D530C_D5F0C != 0) && (WipeStatGet() == 0)) {
             WipeColorSet(0U, 0U, 0U);
             WipeCreateOut(0xB, 9);
@@ -53,7 +53,7 @@ void func_80105AF0_3D72A0_ovl_boot(omObjData* arg0) {
     }
 }
 
-void func_80105BA4_3D7354_ovl_boot(omObjData* arg0) {
+void func_80105BA4_3D7354_ovl_boot(omObjData *arg0) {
     if (WipeStatGet() == 0) {
         func_8005F524_60124();
         if (D_80105F00_3D76B0_ovl_boot != 0) {
@@ -65,7 +65,7 @@ void func_80105BA4_3D7354_ovl_boot(omObjData* arg0) {
     }
 }
 
-void func_80105C14_3D73C4_ovl_boot(omObjData* arg0) {
+void func_80105C14_3D73C4_ovl_boot(omObjData *arg0) {
     s32 temp_v0;
 
     if (WipeStatGet() == 0) {
@@ -93,14 +93,14 @@ void func_80105C80_3D7430_ovl_boot(void) {
     while (WipeStatGet() != 0) {
         HuPrcVSleep();
     }
-    
+
     HuPrcSleep(37);
     WipeCreateOut(0xB, 9);
-    
+
     while (WipeStatGet() != 0) {
         HuPrcVSleep();
     }
-    
+
     func_8000C184_CD84(temp_v0_2);
     HuSprKill(temp_v0);
     HuPrcSleep(9);
@@ -110,18 +110,18 @@ void func_80105C80_3D7430_ovl_boot(void) {
     func_8000BB54_C754(temp_v0_4);
     func_8000BCC8_C8C8(temp_v0_4, 0xFFFF);
     WipeCreateIn(0xB, 9);
-    
+
     while (WipeStatGet() != 0) {
         HuPrcVSleep();
     }
-    
+
     HuPrcSleep(37);
     WipeCreateOut(0xB, 9);
-    
+
     while (WipeStatGet() != 0) {
         HuPrcVSleep();
     }
-    
+
     func_8000C184_CD84(temp_v0_4);
     HuSprKill(temp_v0_3);
     HuPrcSleep(9);
@@ -130,14 +130,14 @@ void func_80105C80_3D7430_ovl_boot(void) {
     func_8000BB54_C754(temp_s0_3);
     func_8000BCC8_C8C8(temp_s0_3, 0xFFFF);
     WipeCreateIn(0xB, 9);
-    
+
     while (WipeStatGet() != 0) {
         HuPrcVSleep();
     }
-    
+
     HuPrcSleep(37);
     D_800D530C_D5F0C = 1;
-    
+
     while (1) {
         HuPrcVSleep();
     }

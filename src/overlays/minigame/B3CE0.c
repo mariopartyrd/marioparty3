@@ -8,7 +8,7 @@
 // EXTERN
 
 s16 func_8000B0D4_BCD4(s32, s32);
-void func_800DDD94_B0914_minigame(omObjData*);
+void func_800DDD94_B0914_minigame(omObjData *);
 
 // LOCAL
 
@@ -34,7 +34,7 @@ extern f32 D_800EB778_BE2F8_minigame;
 extern f32 D_800EB77C_BE2FC_minigame;
 extern s16 D_800EB784_BE304_minigame[][14];
 
-void func_800E1160_B3CE0_minigame(omObjData*, s32, s32, s32, s32, f32);
+void func_800E1160_B3CE0_minigame(omObjData *, s32, s32, s32, s32, f32);
 INCLUDE_ASM("asm/nonmatchings/overlays/minigame/B3CE0", func_800E1160_B3CE0_minigame);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/minigame/B3CE0", func_800E123C_B3DBC_minigame);
@@ -43,14 +43,14 @@ INCLUDE_ASM("asm/nonmatchings/overlays/minigame/B3CE0", func_800E12B0_B3E30_mini
 
 INCLUDE_ASM("asm/nonmatchings/overlays/minigame/B3CE0", func_800E12E0_B3E60_minigame);
 
-void func_800E12EC_B3E6C_minigame(omObjData* arg0, f32 arg1) {
-    func_800E1BA8_B4728_ObjData* temp_data = arg0->data;
+void func_800E12EC_B3E6C_minigame(omObjData *arg0, f32 arg1) {
+    func_800E1BA8_B4728_ObjData *temp_data = arg0->data;
 
     temp_data->unk38 = arg1;
 }
 
-void func_800E12F8_B3E78_minigame(omObjData* arg0, f32 arg1) {
-    func_800E1BA8_B4728_ObjData* temp_data = arg0->data;
+void func_800E12F8_B3E78_minigame(omObjData *arg0, f32 arg1) {
+    func_800E1BA8_B4728_ObjData *temp_data = arg0->data;
 
     temp_data->unk44 = arg1;
 }
@@ -61,38 +61,38 @@ INCLUDE_ASM("asm/nonmatchings/overlays/minigame/B3CE0", func_800E1310_B3E90_mini
 
 INCLUDE_ASM("asm/nonmatchings/overlays/minigame/B3CE0", func_800E131C_B3E9C_minigame);
 
-void func_800E1328_B3EA8_minigame(omObjData* arg0, f32 arg1) {
-    func_800E1BA8_B4728_ObjData* temp_data = arg0->data;
+void func_800E1328_B3EA8_minigame(omObjData *arg0, f32 arg1) {
+    func_800E1BA8_B4728_ObjData *temp_data = arg0->data;
 
     temp_data->unk48 = arg1;
 }
 
-void func_800E1334_B3EB4_minigame(omObjData* arg0, f32 arg1) {
-    func_800E1BA8_B4728_ObjData* temp_data = arg0->data;
+void func_800E1334_B3EB4_minigame(omObjData *arg0, f32 arg1) {
+    func_800E1BA8_B4728_ObjData *temp_data = arg0->data;
 
     temp_data->unk34 = arg1;
 }
 
-void func_800E1340_B3EC0_minigame(omObjData* arg0, f32 arg1) {
-    func_800E1BA8_B4728_ObjData* temp_data = arg0->data;
+void func_800E1340_B3EC0_minigame(omObjData *arg0, f32 arg1) {
+    func_800E1BA8_B4728_ObjData *temp_data = arg0->data;
 
     temp_data->unk64 = arg1;
 }
 
-void func_800E134C_B3ECC_minigame(omObjData* arg0, f32 arg1) {
-    func_800E1BA8_B4728_ObjData* temp_data = arg0->data;
+void func_800E134C_B3ECC_minigame(omObjData *arg0, f32 arg1) {
+    func_800E1BA8_B4728_ObjData *temp_data = arg0->data;
 
     temp_data->unk68 = arg1;
 }
 
-void func_800E1358_B3ED8_minigame(omObjData* arg0, f32 arg1) {
-    func_800E1BA8_B4728_ObjData* temp_data = arg0->data;
+void func_800E1358_B3ED8_minigame(omObjData *arg0, f32 arg1) {
+    func_800E1BA8_B4728_ObjData *temp_data = arg0->data;
 
     temp_data->unk6C = arg1;
 }
 
-void func_800E1364_B3EE4_minigame(omObjData* arg0, f32 arg1) {
-    func_800E1BA8_B4728_ObjData* temp_data = arg0->data;
+void func_800E1364_B3EE4_minigame(omObjData *arg0, f32 arg1) {
+    func_800E1BA8_B4728_ObjData *temp_data = arg0->data;
 
     temp_data->unk70 = arg1;
 }
@@ -181,8 +181,8 @@ INCLUDE_ASM("asm/nonmatchings/overlays/minigame/B3CE0", func_800E1A9C_B461C_mini
 
 INCLUDE_ASM("asm/nonmatchings/overlays/minigame/B3CE0", func_800E1B3C_B46BC_minigame);
 
-void func_800E1BA8_B4728_minigame(omObjData* arg0, u32 arg1, s32 arg2, u16 arg3, s32 arg4, s32 arg5) {
-    func_800E1BA8_B4728_ObjData* temp_s0;
+void func_800E1BA8_B4728_minigame(omObjData *arg0, u32 arg1, s32 arg2, u16 arg3, s32 arg4, s32 arg5) {
+    func_800E1BA8_B4728_ObjData *temp_s0;
     s32 var_a0;
 
     for (var_a0 = 0; var_a0 < arg0->mdlcnt; var_a0++) {
@@ -228,7 +228,7 @@ void func_800E1BA8_B4728_minigame(omObjData* arg0, u32 arg1, s32 arg2, u16 arg3,
     func_800E1364_B3EE4_minigame(arg0, 40.0f);
     func_800E12EC_B3E6C_minigame(arg0, 1000.0f);
     temp_s0->unk9C = temp_s0->unkA0 = temp_s0->unkA4 = 0.0f;
-    temp_s0->unk59 = (s8) arg3;
+    temp_s0->unk59 = (s8)arg3;
     temp_s0->unkC3 = -1;
     temp_s0->unkC4 = -1;
     temp_s0->unkB0 = 1.0f;

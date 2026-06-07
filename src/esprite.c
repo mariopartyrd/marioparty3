@@ -5,7 +5,7 @@
 #include "include_asm.h"
 
 // malloc
-void HuMemMemoryFreePerm(void* ptr);
+void HuMemMemoryFreePerm(void *ptr);
 
 typedef struct {
     /* 0x00 */ s16 unk00;
@@ -27,7 +27,7 @@ typedef struct {
 
 extern u16 D_800C951C_CA11C;
 extern u16 D_800CB8BC_CC4BC;
-extern D_800CD1DC_CDDDC_Struct* D_800CD1DC_CDDDC; // esprite?
+extern D_800CD1DC_CDDDC_Struct *D_800CD1DC_CDDDC; // esprite?
 extern s16 D_800D5438_D6038;
 
 void func_8000B7A0_C3A0(void) {
@@ -38,7 +38,7 @@ void func_8000B7A0_C3A0(void) {
     D_800C951C_CA11C = 0x100;
     D_800CB8BC_CC4BC = 0;
     for (var_a0 = 0; var_a0 < 0x100; var_a0++) {
-        D_800CD1DC_CDDDC_Struct* temp_v0 = &D_800CD1DC_CDDDC[var_a0];
+        D_800CD1DC_CDDDC_Struct *temp_v0 = &D_800CD1DC_CDDDC[var_a0];
 
         temp_v0->unk00 = 0;
         temp_v0->unk02 = var_a0 + 1;
@@ -50,7 +50,7 @@ void func_8000B7A0_C3A0(void) {
 }
 
 s16 func_8000B838_C438(s32 arg0) {
-    void* temp_v0;
+    void *temp_v0;
     s16 temp_s0;
 
     temp_v0 = DataRead(arg0);
@@ -99,14 +99,14 @@ void func_8000BBFC_C7FC(u16 spriteId, s16 arg1) {
 
 // espAttrSet?
 void func_8000BC48_C848(u16 arg0, u16 arg1) {
-    D_800CD1DC_CDDDC_Struct* temp = &D_800CD1DC_CDDDC[arg0];
+    D_800CD1DC_CDDDC_Struct *temp = &D_800CD1DC_CDDDC[arg0];
 
     HuSprAttrSet(temp->unk04, 0, arg1);
 }
 
 // espAttrReset
 void func_8000BC88_C888(u16 arg0, u16 arg1) {
-    D_800CD1DC_CDDDC_Struct* temp = &D_800CD1DC_CDDDC[arg0];
+    D_800CD1DC_CDDDC_Struct *temp = &D_800CD1DC_CDDDC[arg0];
 
     HuSprAttrReset(temp->unk04, 0, arg1);
 }
@@ -203,7 +203,7 @@ void func_8000BF8C_CB8C(u16 spriteId, s16 arg1) {
 }
 
 s16 InitEspriteSlot(s16 arg0, u16 arg1, u16 arg2) {
-    D_800CD1DC_CDDDC_Struct* temp_s0;
+    D_800CD1DC_CDDDC_Struct *temp_s0;
     s16 temp_s3;
     s16 temp_v0;
 
