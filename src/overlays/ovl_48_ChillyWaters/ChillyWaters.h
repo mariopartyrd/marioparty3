@@ -13,7 +13,7 @@ void func_8010067C_11429C_shared_board(s32);
 s32 func_800E9AE0_FD700_shared_board(void);
 void func_800ED91C_10153C_shared_board(s32, s32, s32);
 void func_800F69F8_10A618_shared_board(s32, s32, s32);
-void func_80105EA8_31BA18_ChillyWaters(void);
+void MB1Ev_StarShuffle(void);
 f32 MBVecAngleGet(Vec*);
 void MBComItemDecideHookSet(void*);
 void MBItemHookSet(s32, void*);
@@ -23,7 +23,7 @@ void MBMasuBlockTblExtSet(void*);
 void MBMasuBlockTblSet(void*);
 void func_800EBDAC_FF9CC_shared_board(void);
 void MBObjectSetup(s32 arg0, s16 arg1, s32 arg2, s32 unused);
-void func_80105FB0_31BB20_ChillyWaters(void);
+void MB1Ev_StarNextPos(void);
 void func_8010603C_31BBAC_ChillyWaters(void);
 void func_801065D0_31C140_ChillyWaters(void);
 void func_80108250_31DDC0_ChillyWaters(void);
@@ -110,7 +110,7 @@ extern s16 D_8011D2C0_332E30_ChillyWaters[8];
 extern s16 D_8011D31C_332E8C_ChillyWaters; //unknown type
 extern s32 D_8011D320_332E90_ChillyWaters; //unknown type
 extern s16 mb1ev_StarFlag[8];
-extern s16 D_8011D2B0_332E20_ChillyWaters[8];
+extern s16 mb1ev_StarMasu[8];
 extern Unk3* D_8011FAC0_335630_ChillyWaters;           // used with direction arrows
 extern Unk3* D_8011FAC4_335634_ChillyWaters;           // used with direction arrows
 extern Unk3* D_8011FAC8_335638_ChillyWaters;           // used with direction arrows

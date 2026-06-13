@@ -133,7 +133,6 @@ MBStart = 0x800FF41C; //rom:0x11303C segment:shared_board
 mbDlgWinId = 0x80105702; //segment:shared_board type:s16
 mbWinId = 0x80105714; //segment:shared_board type:s16
 
-
 // hmfman
 Hu3DModelCreate = 0x8001A150; //rom:0x1AD50
 Hu3DModelLink = 0x8001A61C; //rom:0x1B21C
@@ -148,8 +147,9 @@ GMesCreate = 0x80036C4C; //rom:0x3784C
 GMesStatGet = 0x80037030; //rom:0x37C30
 GMesClose = 0x80037190; //rom:0x37D90
 GMesSprKill = 0x800374E0; //rom:0x380E0
-gMesCloseF = 0x800B1A51; //rom:0xB2651
-gMesData = 0x800CD300; //rom:0xCDF00
+gMesCloseF = 0x800B1A51; //
+gMesTimerId = 0x800B1A53;
+gMesData = 0x800CD300; //
 
 // objmain
 omInitObjMan = 0x80047160; //rom:0x47D60
@@ -183,13 +183,13 @@ omovlstat = 0x800A1766; //rom:0xA2366 type:u16
 omovlhisidx = 0x800A1768; //rom:0xA2368 size:0x02 type:s16
 omobjall = 0x800A1770; //rom:0xA2370
 omobjlast = 0x800CC430; //type:s16
-ommaxobjs = 0x800CCF50; //type:s16
-omnumobjs = 0x800CCF8C; //type:s16
-omgroup = 0x800CD1E0; //rom:0xCDDE0
-omovl = 0x800CE200; //rom:0xCEE00 type:s32
+ommaxobjs = 0x800CCF50; // type:s16
+omnumobjs = 0x800CCF8C; // type:s16
+omgroup = 0x800CD1E0; //
+omovl = 0x800CE200; // type:s32
 omovlhis = 0x800D2010; // size:0x60
-omobjfirst = 0x800D5560; //rom:0xD6160 type:s16
-omnextidx = 0x800D6B40; //rom:0xD7740 type:s16
+omobjfirst = 0x800D5560; // type:s16
+omnextidx = 0x800D6B40; // type:s16
 
 //1060.c
 ultraMain = 0x80000460; //rom:0x1060
@@ -210,12 +210,12 @@ HuAudFXStop = 0x8004AD50; //rom:0x4B950
 // 4BF40
 omOutView = 0x8004B340; //rom:0x4BF40
 omOutViewMulti = 0x8004B4D4; //rom:0x4C0D4
-CZoomM = 0x800CD288; //rom:0xCDE88
-CZoom = 0x800CE1C8; //rom:0xCEDC8
-CRot = 0x800D138C; //rom:0xD1F8C
-CenterM = 0x800D54F8; //rom:0xD60F8
-Center = 0x800D6ABC; //rom:0xD76BC
-CRotM = 0x800D6AE0; //rom:0xD76E0
+CZoomM = 0x800CD288; //
+CZoom = 0x800CE1C8; //
+CRot = 0x800D138C; //
+CenterM = 0x800D54F8; //
+Center = 0x800D6ABC; //
+CRotM = 0x800D6AE0; //
 
 // sprman
 HuSprGrpKill = 0x800525C8; //rom:0x531C8
@@ -226,10 +226,10 @@ HuSprAttrReset = 0x8005532C; //rom:0x55F2C
 HuSprAttrSet = 0x800553A8; //rom:0x55FA8
 HuSprGet = 0x80055520; //rom:0x56120
 HuSprKill = 0x80055670; //rom:0x56270
-HuSprGrpLast = 0x800C9934; //rom:0xCA534
-HuSprGrpFirst = 0x800CC0A0; //rom:0xCCCA0
-HuSprGrpData = 0x800CDD70; //rom:0xCE970
-HuSprGrpNum = 0x800D520C; //rom:0xD5E0C
+HuSprGrpLast = 0x800C9934; //
+HuSprGrpFirst = 0x800CC0A0; //
+HuSprGrpData = 0x800CDD70; //
+HuSprGrpNum = 0x800D520C; //
 
 guLookAtHiliteF = 0x80079B90; //rom:0x7A790
 guLookAtHilite = 0x8007A514; //rom:0x7B114
@@ -730,7 +730,7 @@ MBMasuLinkNumGet = 0x800EB1B0; //rom:0xFEDD0
 MBMasuCreate = 0x800EAE10; //rom:0xFEA30
 SaveFileEncode = 0x8004F5A4; //rom:0x501A4
 gEncodedSaveBuffer = 0x800CD0C0;
-gTotalSpaces = 0x80105210; //segment:main type:u16
+gTotalSpaces = 0x80105210; // type:u16 segment:shared_board
 kakusiMasuCoin = 0x800CE1C4; // type:s16 size:0x2
 kakusiMasuStar = 0x800D124E; // type:s16 size:0x2
 D_800CC3DC_CCFDC = 0x800CC3DC; //type:s32 size:0x4
@@ -1043,8 +1043,8 @@ D_800CDD58_CE958 = 0x800CDD58; //type:s16 size:0x2
 D_800CDD5C_CE95C = 0x800CDD5C; //size:0x08
 D_800CDD64_CE964 = 0x800CDD64; //type:s16 size:0x2
 
-D_800D037C_D0F7C = 0x800D037C; //rom:0xD0F7C type:s16
-D_800D51F8_D5DF8 = 0x800D51F8; //rom:0xD5DF8 type:s16
+D_800D037C_D0F7C = 0x800D037C; // type:s16
+D_800D51F8_D5DF8 = 0x800D51F8; // type:s16
 MBMasuTypeSet = 0x800EB7F0; //rom:0xFF410 segment:shared_board
 
 n_aspMain_code = 0x800954C0; //rom:0x960C0 size:0xC60
@@ -1140,8 +1140,7 @@ D_800D41B0_D4DB0 = 0x800D41B0; //type:s32 size:0x10
 D_800CE1CE_CEDCE = 0x800CE1CE; //type:s16 size:0x2
 D_800CE1D0_CEDD0 = 0x800CE1D0; //type:s16 size:0x2
 D_800D1244_D1E44 = 0x800D1244; //size:0x8
-D_800C9934_CA534 = 0x800C9934; //type:s32 size:0x4
-D_800C9938_CA538 = 0x800C9938; //rom:0xCA538 type:f32
+D_800C9938_CA538 = 0x800C9938; // type:f32
 
 //weird bug going on with these 2 symbols
 //they must be declared in this order, or D_80105718_119338_shared_board will be used for both symbols
@@ -1223,7 +1222,7 @@ opModelRotGet = 0x80106C0C; //rom:0x52523C segment:opening
 opModelScaleGet = 0x80106C54; //rom:0x525284 segment:opening
 opModelDispOff = 0x80106C9C; //rom:0x5252CC segment:opening
 opModelDispOn = 0x80106CDC; //rom:0x52530C segment:opening
-opMotionFlagSet = 0x80106D1C; //rom:0x525390 segment:opening
+opMotionFlagSet = 0x80106D1C; //rom:0x52534C segment:opening
 opMotionShiftSet = 0x80106D60; //rom:0x525390 segment:opening
 opMotionSpeedSet = 0x80106E14; //rom:0x525444 segment:opening
 opMotionTimeSet = 0x80106E4C; //rom:0x52547C segment:opening
@@ -1267,5 +1266,8 @@ opContErrorKill = 0x80114B08; //rom:0x533138 segment:opening
 
 //chilly waters
 MB1Ev_StarGuideMasuGet = 0x80105E80; //rom:0x31B9F0 segment:ChillyWaters
+MB1Ev_StarShuffle = 0x80105EA8; //rom:0x31BA18 segment:ChillyWaters
+MB1Ev_StarNextPos = 0x80105FB0; //rom:0x31BB20 segment:ChillyWaters
 
 mb1ev_StarFlag = 0x8011D2A0; //segment:ChillyWaters
+mb1ev_StarMasu = 0x8011D2B0; //rom:0x332E20 segment:ChillyWaters

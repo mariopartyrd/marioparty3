@@ -88,7 +88,7 @@ extern s16 D_800B1B30_B2730[];
 extern s16 D_800B1B50_B2750[];
 extern s16 D_800B1B70_B2770[];
 extern GAMEMES gMesData[];
-extern s32 D_800CE200_CEE00;
+extern s32 omovl;
 
 INCLUDE_ASM("asm/nonmatchings/gamemes", func_80036610_37210);
 
@@ -714,7 +714,7 @@ INCLUDE_RODATA("asm/nonmatchings/gamemes", D_800A78F4_A84F4);
 INCLUDE_RODATA("asm/nonmatchings/gamemes", jtbl_800A78F8_A84F8);
 
 s32 func_800452C4_45EC4(void) {
-    switch (D_800CE200_CEE00) {
+    switch (omovl) {
         case 0x1:
         case 0x2:
         case 0x6:
@@ -741,7 +741,7 @@ s32 func_800452C4_45EC4(void) {
 }
 
 s32 func_80045314_45F14(void) {
-    switch (D_800CE200_CEE00) {
+    switch (omovl) {
         case 2:
             return 20;
         case 3:

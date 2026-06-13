@@ -17,8 +17,6 @@ extern s16 D_800A1778_A2378;
 extern unkProcessStruct *D_800A177C_A237C;
 extern s16 D_800A1780_A2380;
 extern s8 D_800D1710_D2310;
-extern u16 D_800D5560_D6160;
-extern u16 D_800D6B40_D7740;
 
 void omDestroyPrcObj(void);
 void func_8000BA00_C600(void);
@@ -390,15 +388,15 @@ void omDelObj(omObjData *obj) {
         }
 
         if (obj->prev < 0 || (omobjall[obj->prev].next = obj->next, obj->prev < 0)) {
-            D_800D5560_D6160 = omobjall[obj->next].next_idx_alloc;
+            omobjfirst = omobjall[obj->next].next_idx_alloc;
         }
 
         if (obj->next < 0) {
             omobjlast = omobjall[obj->prev].next_idx_alloc;
         }
 
-        obj->next_idx = D_800D6B40_D7740;
-        D_800D6B40_D7740 = idx;
+        obj->next_idx = omnextidx;
+        omnextidx = idx;
     }
 }
 
@@ -710,7 +708,7 @@ void omOvlKill(void) {
 
 extern s32 fontcolor;
 extern u16 omdispinfo;
-extern s32 D_800CE200_CEE00;
+extern s32 omovl;
 extern u16 D_800A1906_A2506;
 extern s16 D_800A1786_A2386;
 extern u8 D_800A1783_A2383;
@@ -789,7 +787,7 @@ void omMain(void) {
         tempSize = HuMemHeapAllocTempSizeGet();
         sprintf(D_800D5218_D5E18, "%8lX(%ld)", tempSize, HuMemUsedMemoryBlockGetTemp());
         print8(0x10U, 0x20U, D_800D5218_D5E18);
-        sprintf(D_800D5218_D5E18, "OVL:%d(%ld<%ld)", omovlhisidx, D_800CE200_CEE00, (s32)(s16)D_800A1756_A2356);
+        sprintf(D_800D5218_D5E18, "OVL:%d(%ld<%ld)", omovlhisidx, omovl, (s32)(s16)D_800A1756_A2356);
         print8(0x18U, 0x28U, D_800D5218_D5E18);
         sprintf(D_800D5218_D5E18, "OBJ:%d/%d", omnumobjs, ommaxobjs);
         print8(0x18U, 0x30U, D_800D5218_D5E18);
@@ -885,7 +883,7 @@ void omMain(void) {
             func_8001766C_1826C();
             D_800A176C_A236C = 0;
             func_8004A49C_4B09C();
-            OvlLoad(D_800CE200_CEE00);
+            OvlLoad(omovl);
             HmfLightInit();
             D_800D5410_D6010 = 1.0f;
             D_800D51FC_D5DFC = 1.0f;

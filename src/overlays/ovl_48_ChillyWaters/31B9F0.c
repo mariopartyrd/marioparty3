@@ -6,9 +6,9 @@ s16 MB1Ev_StarGuideMasuGet(void) {
     return D_8011D2C0_332E30_ChillyWaters[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]];
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80105EA8_31BA18_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarShuffle);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80105FB0_31BB20_ChillyWaters);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarNextPos);
 
 void func_8010603C_31BBAC_ChillyWaters(void) {
     GW_SYSTEM *system = &GwSystem;
@@ -17,7 +17,7 @@ void func_8010603C_31BBAC_ChillyWaters(void) {
         GWBoardFlagSet(mb1ev_StarFlag[i]);
     }
 
-    MBMasuTypeSet(D_8011D2B0_332E20_ChillyWaters[system->star_spawn_indices[system->current_star_spawn]], 0xE);
+    MBMasuTypeSet(mb1ev_StarMasu[system->star_spawn_indices[system->current_star_spawn]], 0xE);
     GWBoardFlagClear(mb1ev_StarFlag[system->star_spawn_indices[system->current_star_spawn]]);
 }
 
@@ -108,7 +108,7 @@ void func_80107C2C_31D79C_ChillyWaters(void) {
     func_800ED91C_10153C_shared_board(2, 0, 0);
     func_800ED91C_10153C_shared_board(3, 0, 0);
     GWBoardFlagSet(3);
-    func_80105EA8_31BA18_ChillyWaters();
+    MB1Ev_StarShuffle();
     GWBoardFlagClear(0x12);
     GwSystem.bank_coins = 0;
     GwSystem.slow_dice_flags = 0;
@@ -167,7 +167,7 @@ void func_80107CC4_31D834_ChillyWaters(void) {
 
     if (GWBoardFlagCheck(0xE) != 0) {
         GWBoardFlagClear(0xE);
-        func_80105FB0_31BB20_ChillyWaters();
+        MB1Ev_StarNextPos();
     }
 
     func_8010603C_31BBAC_ChillyWaters();
