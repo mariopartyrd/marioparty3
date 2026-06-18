@@ -1,9 +1,38 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/audio/sl", alInit);
+ALGlobals *alGlobals = 0;
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/audio/sl", alClose);
+void alInit(ALGlobals *g, ALSynConfig *c) {
+    if (!alGlobals) {
+        alGlobals = g;
+        alSynNew(&alGlobals->drvr, c);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/audio/sl", alLink);
+void alClose(ALGlobals *glob) {
+    if (alGlobals) {
+        alSynDelete(&glob->drvr);
+        alGlobals = 0;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/audio/sl", alUnlink);
+void alLink(ALLink *ln, ALLink *to) {
+    ln->next = to->next;
+    ln->prev = to;
+
+    if (to->next) {
+        to->next->prev = ln;
+    }
+
+    to->next = ln;
+}
+
+void alUnlink(ALLink *ln) {
+    if (ln->next) {
+        ln->next->prev = ln->prev;
+    }
+
+    if (ln->prev) {
+        ln->prev->next = ln->next;
+    }
+}

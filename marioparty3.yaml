@@ -459,6 +459,8 @@ segments:
       - [0xA32D0, data, wipe]
       - [0xA3380, data, 6B050]
       - [0xA3480, data]
+      - [0xA3940, .data, 2.0L/audio/sl]
+      - [0xA3950, data]
       - [0xA4C50, .data, 2.0L/libc/xprintf]
       - [0xA4CA0, data]
       - [0xA4F30, .rodata, 8F1A0]
