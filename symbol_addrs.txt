@@ -2,6 +2,10 @@ alCSPGetChlVol = 0x8006CFF0;
 alCSPGetChlFXMix = 0x8006D010;
 alCSPGetChlPan = 0x8006D030;
 alCSPGetChlProgram = 0x8006D050;
+alInit = 0x800771A0;
+alClose = 0x800771CC;
+alLink = 0x800771FC;
+alUnlink = 0x8007721C;
 
 D_800C9530_CA130 = 0x800C9530; //size:0x400
 D_800CE204 = 0x800CE204; //type:s16
