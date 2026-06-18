@@ -142,7 +142,7 @@ segments:
       - [0x6DC30, c, 2.0L/audio/cspgetpan]
       - [0x6DC50, c, 2.0L/audio/cspgetprogram]
       - [0x6DCD0, c, 2.0L/audio/6DCD0]
-      - [0x6DCE0, c, 2.0L/audio/6DCE0]
+      - [0x6DCE0, c, 2.0L/audio/cspgettempo]
       - [0x6DD10, c, 2.0L/audio/6DD10]
       - [0x6DD40, c, 2.0L/audio/6DD40]
       - [0x6DD70, c, 2.0L/audio/6DD70]
