@@ -1,6 +1,6 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/audio/synthesizer", func_80077DE0_789E0);
+INCLUDE_ASM("asm/nonmatchings/2.0L/audio/synthesizer", alSynNew);
 
 INCLUDE_ASM("asm/nonmatchings/2.0L/audio/synthesizer", func_800780AC_78CAC);
 
