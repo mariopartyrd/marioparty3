@@ -1,3 +1,5 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/audio/syndelete", alSynDelete);
+void alSynDelete(ALSynth *drvr) {
+    drvr->head = 0;
+}
