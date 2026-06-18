@@ -138,7 +138,7 @@ segments:
       - [0x6C9F0, c]
       - [0x6DBD0, c]
       - [0x6DBF0, c, 2.0L/audio/cspgetchlvol]
-      - [0x6DC10, c, 2.0L/seqpgetchlvol]
+      - [0x6DC10, c, 2.0L/audio/cspgetfxmix]
       - [0x6DC30, c, 2.0L/audio/6DC30]
       - [0x6DC50, c, 2.0L/audio/6DC50]
       - [0x6DCD0, c]
