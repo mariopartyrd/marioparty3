@@ -1,3 +1,11 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/audio/synaddplayer", func_80078430_79030);
+void alSynAddPlayer(ALSynth *drvr, ALPlayer *client) {
+    OSIntMask mask = osSetIntMask(OS_IM_NONE);
+
+    client->samplesLeft = drvr->curSamples;
+    client->next = drvr->head;
+    drvr->head = client;
+
+    osSetIntMask(mask);
+}

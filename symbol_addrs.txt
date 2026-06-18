@@ -9,6 +9,7 @@ alLink = 0x800771FC;
 alUnlink = 0x8007721C;
 alSynNew = 0x80077DE0;
 alSynDelete = 0x80078420;
+alSynAddPlayer = 0x80078430;
 
 D_800C9530_CA130 = 0x800C9530; //size:0x400
 D_800CE204 = 0x800CE204; //type:s16
