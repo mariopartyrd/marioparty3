@@ -181,7 +181,8 @@ segments:
       - [0x72C20, c, 2.0L/io/conteepwrite]
       - [0x73020, c, 2.0L/io/conteepprobe]
       - [0x730A0, c, 2.0L/io/conteeplongwrite]
-      - [0x73190, c, 2.0L/io/conteeplongread] # TODO: split out 2.0L/os/setintmask and its rodata from this file
+      - [0x73190, c, 2.0L/io/conteeplongread]
+      - [0x73200, hasm, 2.0L/os/setintmask]
       - [0x732A0, c, 2.0L/io/pimgr]
       - [0x73550, c, 2.0L/io/epirawdma]
       - [0x73740, c, 2.0L/io/epidma]
@@ -495,7 +496,7 @@ segments:
       - [0xA8CE0, .rodata, 6DFD0]
       - [0xA8D40, .rodata, 6F470]
       - [0xA8DB0, .rodata, 70C30]
-      - [0xA8E10, .rodata, 2.0L/io/conteeplongread] # TODO: this rodata belongs to 2.0L/os/setintmask
+      - [0xA8E10, rodata]
       - [0xA8E90, .rodata, 2.0L/io/devmgr]
       - [0xA8EB0, .rodata, 2.0L/io/aisetfreq]
       - [0xA8EC0, .rodata, 2.0L/audio/drvrnew]
