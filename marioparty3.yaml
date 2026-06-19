@@ -299,7 +299,8 @@ segments:
       - [0x7FCD0, c, 2.0L/os/initialize_kmc]
       - [0x800A0, c, 2.0L/os/initialize_msp]
       - [0x80460, c, 2.0L/os/initialize_emu]
-      - [0x804E0, c] # TODO: should be 2.0L/io/conteepread and 2.0L/os/exceptasm (issues with rodata)
+      - [0x804E0, c, 2.0L/io/conteepread]
+      - [0x80710, hasm, 2.0L/os/exceptasm]
       - [0x815D0, c, 2.0L/os/setglobalintmask]
       - [0x81610, c, 2.0L/os/resetglobalintmask]
       - [0x81660, asm] # TODO: should be 2.0L/io/pirawdma (throwing internal compiler error)
@@ -514,7 +515,7 @@ segments:
       - [0xA91E0, .rodata, 2.0L/gu/perspective]
       - [0xA9228, .rodata, 2.0L/gu/sinf]
       - [0xA9280, .rodata, 2.0L/io/viswapcontext]
-      - [0xA9290, .rodata, 804E0]
+      - [0xA9290, rodata] # exceptasm
       - [0xA9300, rodata] #nan?
       - [0xA9310, .rodata, 2.0L/libc/xprintf]
       - [0xA9490, .rodata, 2.0L/libc/xldtob]
