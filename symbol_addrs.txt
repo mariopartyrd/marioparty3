@@ -1015,6 +1015,9 @@ alCents2Ratio = 0x80078B40; //rom:0x79740
 //synremoveplayer.c
 alSynRemovePlayer = 0x8006FC50; //rom:0x70850
 
+//sndpallocate.c
+alSndpAllocate = 0x8006D250; //rom:0x6DE50
+
 //sndpdeallocate.c
 alSndpDeallocate = 0x8006D320; //rom:0x6DF20
 

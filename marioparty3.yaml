@@ -149,7 +149,7 @@ segments:
       - [0x6DDA0, c, 2.0L/audio/6DDA0]
       - [0x6DDF0, c, 2.0L/audio/seqpsetvol]
       - [0x6DE20, c, 2.0L/audio/seqpstop]
-      - [0x6DE50, c, 2.0L/audio/6DE50]
+      - [0x6DE50, c, 2.0L/audio/sndpallocate]
       - [0x6DF20, c, 2.0L/audio/sndpdeallocate]
       - [0x6DF70, c]
       - [0x6DFA0, c]
