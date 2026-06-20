@@ -62,6 +62,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/boardresult2/3CFC80", func_80109740_3D3A2
 
 INCLUDE_ASM("asm/nonmatchings/overlays/boardresult2/3CFC80", func_8010976C_3D3A4C_boardresult2);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/boardresult2/3CFC80", func_8010979C_3D3A7C_boardresult2);
+void func_8010979C_3D3A7C_boardresult2(void) {
+}
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/boardresult2/3CFC80", D_8010996C_3D3C4C_boardresult2);
