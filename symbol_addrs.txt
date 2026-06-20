@@ -12,6 +12,7 @@ alSeqpSetTempo = 0x8006D1A0;
 alSeqpSetVol = 0x8006D1F0;
 alSeqpStop = 0x8006D220;
 alSeqGetTicks = 0x80077074;
+alCSeqGetTicks = 0x8007792C;
 alInit = 0x800771A0;
 alClose = 0x800771CC;
 alLink = 0x800771FC;
