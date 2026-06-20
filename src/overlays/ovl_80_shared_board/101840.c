@@ -304,7 +304,9 @@ s32 func_800EF0D8_102CF8_shared_board(s32 arg0) {
     return i;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EF200_102E20_shared_board);
+s32 func_800EF200_102E20_shared_board(s32 arg0) {
+    return arg0;
+}
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_80_shared_board/101840", D_80102320_115F40_shared_board);
 
