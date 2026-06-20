@@ -208,7 +208,13 @@ segments:
       - [0x77E50, c, 2.0L/audio/heapinit]
       - [0x77E90, c, 2.0L/audio/heapalloc]
       - [0x77EE0, c, 2.0L/audio/copy]
-      - [0x77F20, c] # TODO: supposedly 2.0L/audio/cseq, but it conflicts with 0x6EC30
+      # Second (duplicate) copy of the ALCSeq module. The primary copy is the
+      # 0x6EC30 segment ("2.0L/audio/cseq"); alCSeqNew is byte-identical between
+      # the two modulo embedded addresses, so this is the same code rebased here.
+      # Left unnamed because splat can't have two segments named "cseq". This copy
+      # is the fuller build -- it has alCSeqGetTicks (0x8007792C), which the
+      # 0x6EC30 copy lacks entirely.
+      - [0x77F20, c]
       - [0x789E0, c, 2.0L/audio/synthesizer]
       - [0x79020, c, 2.0L/audio/syndelete]
       - [0x79030, c, 2.0L/audio/synaddplayer]
