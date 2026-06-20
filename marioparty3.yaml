@@ -141,7 +141,7 @@ segments:
       - [0x6DC10, c, 2.0L/audio/cspgetfxmix]
       - [0x6DC30, c, 2.0L/audio/cspgetpan]
       - [0x6DC50, c, 2.0L/audio/cspgetprogram]
-      - [0x6DCD0, c, 2.0L/audio/6DCD0]
+      - [0x6DCD0, c, 2.0L/audio/cspgetstate]
       - [0x6DCE0, c, 2.0L/audio/cspgettempo]
       - [0x6DD10, c, 2.0L/audio/seqpplay]
       - [0x6DD40, c, 2.0L/audio/seqpsetbank]
