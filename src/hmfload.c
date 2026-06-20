@@ -28,7 +28,19 @@ INCLUDE_ASM("asm/nonmatchings/hmfload", func_8001116C_11D6C);
 
 INCLUDE_ASM("asm/nonmatchings/hmfload", func_80011334_11F34);
 
-INCLUDE_ASM("asm/nonmatchings/hmfload", func_80011460_12060);
+s16 func_80011460_12060(u8 *arg0) {
+    s32 sum = 0;
+    s16 i = 1;
+    u8 c = arg0[0];
+
+    while (c != 0 && i < 28) {
+        sum += i * c;
+        arg0++;
+        i++;
+        c = arg0[0];
+    }
+    return sum;
+}
 
 INCLUDE_ASM("asm/nonmatchings/hmfload", func_800114C0_120C0);
 
