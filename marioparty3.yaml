@@ -303,7 +303,7 @@ segments:
       - [0x80710, hasm, 2.0L/os/exceptasm]
       - [0x815D0, c, 2.0L/os/setglobalintmask]
       - [0x81610, c, 2.0L/os/resetglobalintmask]
-      - [0x81660, asm] # TODO: should be 2.0L/io/pirawdma (throwing internal compiler error)
+      - [0x81660, c, 2.0L/io/pirawdma]
       - [0x81730, c, 2.0L/io/pigetcmdq]
       - [0x81750, c, 2.0L/io/epirawread] # double check
       - [0x818C0, c, 2.0L/io/epirawwrite]
