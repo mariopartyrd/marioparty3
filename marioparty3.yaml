@@ -2350,8 +2350,10 @@ segments:
     bss_size: 0x1F0
     subsegments:
       - [0x4DEB60, c]
+      - [0x4E2C50, c]
       - [0x4E65C0, data, 4DEB60] #8010D400
       - [0x4E6780, .rodata, 4DEB60] #8010D5C0
+      - [0x4E6B70, .rodata, 4E2C50] #8010D9B0
       - {0x4E6DC0, type: bss, vram: 0x8010DC00, name: inst_bss}
 
   - type: code
