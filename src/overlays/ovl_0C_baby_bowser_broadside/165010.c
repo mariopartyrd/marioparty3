@@ -1,5 +1,10 @@
 #include "common.h"
 
+typedef struct unk_80109EBC {
+    /* 0x00 */ char unk_00[0xC];
+    /* 0x0C */ s16 unk_0C;
+} unk_80109EBC;
+
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_0C_baby_bowser_broadside/165010", func_801059A0_165010_baby_bowser_broadside);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_0C_baby_bowser_broadside/165010", func_801059BC_16502C_baby_bowser_broadside);
@@ -80,4 +85,6 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_0C_baby_bowser_broadside/165010", fun
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_0C_baby_bowser_broadside/165010", func_80109EB0_169520_baby_bowser_broadside);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_0C_baby_bowser_broadside/165010", func_80109EBC_16952C_baby_bowser_broadside);
+void func_80109EBC_16952C_baby_bowser_broadside(unk_80109EBC *arg0, s16 arg1) {
+    arg0->unk_0C = arg1;
+}
