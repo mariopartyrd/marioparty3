@@ -20,6 +20,14 @@ typedef struct UnkStaff_1 {
     /* 0x2A */ char unk_2A[2];
 } UnkStaff_1;
 
+typedef struct UnkStaff_2 {
+    /* 0x00 */ s32 unk_00;
+    /* 0x04 */ s16 unk_04;
+    /* 0x06 */ s16 unk_06;
+    /* 0x08 */ s16 unk_08;
+    /* 0x0A */ s16 unk_0A;
+} UnkStaff_2;
+
 void func_80105E6C_5426EC_staff(void *, s16 *, s32);
 void func_8010C680_548F00_staff(s16 *, s32 *, f32 *, void *);
 void func_8010C8F4_549174_staff(UnkStaff_1 *);
@@ -256,13 +264,19 @@ INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010DEE4_54A764_staff
 
 INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010DEF4_54A774_staff);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010DF04_54A784_staff);
+void func_8010DF04_54A784_staff(UnkStaff_2 *arg0, s16 arg1) {
+    arg0->unk_0A = arg1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010DF0C_54A78C_staff);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010DF24_54A7A4_staff);
+s16 func_8010DF24_54A7A4_staff(UnkStaff_2 *arg0) {
+    return arg0->unk_04;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010DF2C_54A7AC_staff);
+void func_8010DF2C_54A7AC_staff(UnkStaff_2 *arg0, s16 arg1) {
+    arg0->unk_06 = arg1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/staff/542220", func_8010DF34_54A7B4_staff);
 
