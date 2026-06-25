@@ -28,7 +28,9 @@ void func_8010BDE4_3BFAB4_boardresult(BoardResultWork *arg0, s16 arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/boardresult/3BFA00", func_8010BDEC_3BFABC_boardresult);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/boardresult/3BFA00", func_8010BE04_3BFAD4_boardresult);
+s16 func_8010BE04_3BFAD4_boardresult(BoardResultWork *arg0) {
+    return arg0->unk_04;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/boardresult/3BFA00", func_8010BE0C_3BFADC_boardresult);
 
