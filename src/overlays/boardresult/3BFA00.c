@@ -2,7 +2,9 @@
 
 INCLUDE_ASM("asm/nonmatchings/overlays/boardresult/3BFA00", func_8010BD30_3BFA00_boardresult);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/boardresult/3BFA00", func_8010BDBC_3BFA8C_boardresult);
+void func_8010BDBC_3BFA8C_boardresult(s32 *arg0, s32 arg1) {
+    arg0[0] = arg1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/boardresult/3BFA00", func_8010BDC4_3BFA94_boardresult);
 
