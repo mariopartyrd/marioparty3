@@ -7,7 +7,11 @@ INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/45A700", func_8010ABE0_45A700_
 // are decompiled.
 typedef struct DuelResultWork {
     /* 0x00 */ u32 unk_00;
-    /* 0x04 */ char unk_04[0x48];
+    /* 0x04 */ s16 unk_04;
+    /* 0x06 */ s16 unk_06;
+    /* 0x08 */ s16 unk_08;
+    /* 0x0A */ s16 unk_0A;
+    /* 0x0C */ char unk_0C[0x40];
 } DuelResultWork; // sizeof 0x4C
 
 void func_8010AC6C_45A78C_duelresult(DuelResultWork *arg0, u32 arg1) {
@@ -18,7 +22,9 @@ INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/45A700", func_8010AC74_45A794_
 
 INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/45A700", func_8010AC84_45A7A4_duelresult);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/45A700", func_8010AC94_45A7B4_duelresult);
+void func_8010AC94_45A7B4_duelresult(DuelResultWork *arg0, s16 arg1) {
+    arg0->unk_0A = arg1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/45A700", func_8010AC9C_45A7BC_duelresult);
 
