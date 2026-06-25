@@ -2466,8 +2466,10 @@ segments:
     bss_size: 0x1D0
     subsegments:
       - [0x501C00, c]
+      - [0x506F20, c]
       - [0x515670, data, 501C00] #80119410
       - [0x5167E0, .rodata, 501C00] #8011A580
+      - [0x516830, .rodata, 506F20] #8011A5D0
       - {0x516AE0, type: bss, vram: 0x8011A880, name: msetup_bss}
 
   - type: code
