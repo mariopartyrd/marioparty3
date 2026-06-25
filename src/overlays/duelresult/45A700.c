@@ -2,7 +2,17 @@
 
 INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/45A700", func_8010ABE0_45A700_duelresult);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/45A700", func_8010AC6C_45A78C_duelresult);
+// Work area allocated by func_8010ABE0 and stored at the process's user_data
+// (see Process.user_data). Total size is 0x4C; fields are added as functions
+// are decompiled.
+typedef struct DuelResultWork {
+    /* 0x00 */ u32 unk_00;
+    /* 0x04 */ char unk_04[0x48];
+} DuelResultWork; // sizeof 0x4C
+
+void func_8010AC6C_45A78C_duelresult(DuelResultWork *arg0, u32 arg1) {
+    arg0->unk_00 = arg1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/45A700", func_8010AC74_45A794_duelresult);
 
