@@ -32,7 +32,9 @@ s16 func_8010ACB4_45A7D4_duelresult(DuelResultWork *arg0) {
     return arg0->unk_04;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/45A700", func_8010ACBC_45A7DC_duelresult);
+void func_8010ACBC_45A7DC_duelresult(DuelResultWork *arg0, s16 arg1) {
+    arg0->unk_06 = arg1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/duelresult/45A700", func_8010ACC4_45A7E4_duelresult);
 
