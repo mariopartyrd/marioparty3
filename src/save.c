@@ -89,7 +89,13 @@ INCLUDE_ASM("asm/nonmatchings/save", GWPlayNumInc);
 
 INCLUDE_ASM("asm/nonmatchings/save", GWCharPlayNumInc);
 
-INCLUDE_ASM("asm/nonmatchings/save", func_80035E3C_36A3C);
+s32 func_80035E3C_36A3C(s16 arg0) {
+    // 0x18 of stack is reserved but unused in the original; the array keeps the frame.
+    s32 buf[6];
+
+    GWBoardRecordGet(arg0);
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/save", func_80035E60_36A60);
 
