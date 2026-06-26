@@ -123,4 +123,6 @@ void GWContErrorSet(void) {
     D_800B1A30_B2630 = FALSE;
 }
 
-INCLUDE_ASM("asm/nonmatchings/save", GWContErrorGet);
+s32 GWContErrorGet(void) {
+    return D_800B1A30_B2630;
+}
