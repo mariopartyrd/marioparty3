@@ -3,6 +3,8 @@
 
 extern s32 D_800B1A30_B2630;
 
+u8 *GWBoardRecordGet(s16 arg0);
+
 void GWInit(void) {
     GW_COMMON *gw = &GwCommon;
 
@@ -79,7 +81,9 @@ void GWBoardNoSet(s8 boardIndex) {
 
 INCLUDE_ASM("asm/nonmatchings/save", GWBoardRecordGet);
 
-INCLUDE_ASM("asm/nonmatchings/save", GWPlayNumGet);
+u8 GWPlayNumGet(s16 arg0) {
+    return *GWBoardRecordGet(arg0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/save", GWPlayNumInc);
 
