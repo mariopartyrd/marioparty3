@@ -147,7 +147,11 @@ void func_80054904_55504(s16 group, s16 member, s16 arg2, s16 arg3) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800549C0_555C0);
+void func_800549C0_555C0(s16 group, s16 member, s16 arg2) {
+    HuSprite *sprite = HuSprGrpData[group]->members[member];
+
+    sprite->unk_44 = arg2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800549F4_555F4);
 
