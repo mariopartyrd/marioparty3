@@ -115,7 +115,7 @@ void func_80054FF8_55BF8(s16 group, s16 member, s32 arg2);
 void func_80055024_55C24(s16 group, s16 member, s16 arg2, s32 arg3);
 void func_800550B4_55CB4(s16 group, s16 member, f32 arg2);
 void func_800550F4_55CF4(s16, s16, s32);
-void func_80055140_55D40(s32, s16, u16, s32);
+void func_80055140_55D40(s16, s16, u16, s32);
 u8 func_800551AC_55DAC(s16 group, s16 member);
 HuSprite_Unk84_Struct* func_80055194_55D94(s16 arg0);
 void HuSprScaleSet(s16 group, s16 member, f32 x, f32 y);
