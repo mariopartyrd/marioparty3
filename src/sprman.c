@@ -1,4 +1,5 @@
 #include "game/sprite.h"
+#include "mallocblock.h"
 #include "include_asm.h"
 
 #define offsetof(st, m) ((u32) & (((st *)0)->m))
@@ -318,15 +319,29 @@ void *func_8005614C_56D4C(s16 arg0, u16 arg1) {
     return entry->unk00;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056180_56D80);
+void func_80056180_56D80(HuSprite_Unk84_Struct **arg0, u16 arg1, void *arg2) {
+    HuSprite_Unk84_Unk00_Struct *entry = &(*arg0)->unk00[arg1];
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800561D0_56DD0);
+    func_80019C00_1A800(entry->unk00);
+    entry->unk00 = arg2;
+}
+
+void func_800561D0_56DD0(s16 arg0, u16 arg1, void *arg2) {
+    HuSprite_Unk84_Unk00_Struct *entry = &D_800C9530_CA130[arg0]->unk00[arg1];
+
+    func_80019C00_1A800(entry->unk00);
+    entry->unk00 = arg2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056230_56E30);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056254_56E54);
+void *func_80056254_56E54(HuSprite_Unk84_Struct **arg0) {
+    return (*arg0)->unk0C;
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056260_56E60);
+void *func_80056260_56E60(s16 arg0) {
+    return D_800C9530_CA130[arg0]->unk0C;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_8005627C_56E7C);
 
