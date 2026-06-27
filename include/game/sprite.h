@@ -36,7 +36,10 @@ typedef struct HuSprite {
     /* 0x14 */ u16 prio;
     /* 0x18 */ char unk_18[0xC];
     /* 0x24 */ s32 unk_24;
-    /* 0x28 */ char unk28[0x20];
+    /* 0x28 */ char unk_28[4];
+    /* 0x2C */ u16 unk_2C;
+    /* 0x2E */ u16 unk_2E;
+    /* 0x30 */ char unk_30[0x18];
     /* 0x48 */ f32 unk_48;
     /* 0x4C */ f32 unk_4C;
     /* 0x50 */ f32 unk_50;

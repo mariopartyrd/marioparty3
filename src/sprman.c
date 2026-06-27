@@ -236,12 +236,16 @@ void HuSprAttrSet(s16 group, s16 member, s32 attr) {
 void func_80055420_56020(s16 group, s16 member, u8 r, u8 g, u8 b) {
     HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
 
-    sprite_ptr->unk28[0] = r;
-    sprite_ptr->unk28[1] = g;
-    sprite_ptr->unk28[2] = b;
+    sprite_ptr->unk_28[0] = r;
+    sprite_ptr->unk_28[1] = g;
+    sprite_ptr->unk_28[2] = b;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055458_56058);
+void func_80055458_56058(s16 group, s16 member, u16 arg2) {
+    HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
+
+    sprite_ptr->unk_2C = arg2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80055484_56084);
 
