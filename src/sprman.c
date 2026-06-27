@@ -90,20 +90,32 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_800528EC_534EC);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052A90_53690);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80052DD8_539D8);
+void func_80052DD8_539D8(HuSprAnm *arg0) {
+    arg0->unk00 = NULL;
+    arg0->unk04 = 0;
+    arg0->unk06 = 0;
+    arg0->unk08 = 0;
+    arg0->unk0A = 0;
+    arg0->unk0C = 0.0f;
+    arg0->unk10 = 1.0f;
+    arg0->unk14 = 0;
+    arg0->unk16 = 0;
+    arg0->unk18 = 0;
+    arg0->unk17 = 0;
+}
 
 void func_80052E14_53A14(HuSprite *arg0) {
-    arg0->unk_68 = arg0->unk_84;
-    arg0->unk_6C = arg0->unk_88;
-    arg0->unk_6E = arg0->unk_0E;
-    arg0->unk_72 = arg0->unk_8A;
-    arg0->unk_70 = arg0->unk_0C;
-    arg0->unk_74 = arg0->unk_8C;
-    arg0->unk_78 = arg0->unk_10;
-    arg0->unk_7E = arg0->unk_92;
-    arg0->unk_7C = arg0->unk_90;
-    arg0->unk_80 = 0;
-    arg0->unk_7F = 0;
+    arg0->unk_68.unk00 = arg0->unk_84;
+    arg0->unk_68.unk04 = arg0->unk_88;
+    arg0->unk_68.unk06 = arg0->unk_0E;
+    arg0->unk_68.unk0A = arg0->unk_8A;
+    arg0->unk_68.unk08 = arg0->unk_0C;
+    arg0->unk_68.unk0C = arg0->unk_8C;
+    arg0->unk_68.unk10 = arg0->unk_10;
+    arg0->unk_68.unk16 = arg0->unk_92;
+    arg0->unk_68.unk14 = arg0->unk_90;
+    arg0->unk_68.unk18 = 0;
+    arg0->unk_68.unk17 = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052E68_53A68);
@@ -315,7 +327,9 @@ HuSprite_Unk84_Unk00_Struct *func_800560D8_56CD8(s16 arg0, u16 arg1) {
     return &D_800C9530_CA130[arg0]->unk00[arg1];
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056108_56D08);
+HuSprite_Unk84_Unk00_Struct *func_80056108_56D08(HuSprAnm *arg0) {
+    return &arg0->unk00->unk00[arg0->unk14];
+}
 
 void *func_80056128_56D28(HuSprite_Unk84_Struct **arg0, u16 arg1) {
     HuSprite_Unk84_Unk00_Struct *entry = &(*arg0)->unk00[arg1];

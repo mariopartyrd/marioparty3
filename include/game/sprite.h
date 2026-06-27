@@ -28,6 +28,22 @@ typedef struct {
     /* 0x1A */ u16 unk1A;
 } HuSprite_Unk84_Struct; // Size 0x1C
 
+// Cel-animation playback state. Embedded in HuSprite at offset 0x68 (unk_68);
+// the animation functions receive a pointer to this region.
+typedef struct HuSprAnm {
+    /* 0x00 */ HuSprite_Unk84_Struct* unk00; // texture descriptor
+    /* 0x04 */ u8 unk04;                     // flags
+    /* 0x06 */ s16 unk06;                    // playback mode
+    /* 0x08 */ s16 unk08;                    // cel index
+    /* 0x0A */ s16 unk0A;                    // frame counter
+    /* 0x0C */ f32 unk0C;                    // time accumulator
+    /* 0x10 */ f32 unk10;                    // frame step
+    /* 0x14 */ s16 unk14;                    // current cel output
+    /* 0x16 */ u8 unk16;
+    /* 0x17 */ u8 unk17;
+    /* 0x18 */ u8 unk18;
+} HuSprAnm; // Size 0x1C
+
 typedef struct HuSprite {
     /* 0x00 */ char unk_00[0xC];
     /* 0x0C */ s16 unk_0C;
@@ -48,17 +64,7 @@ typedef struct HuSprite {
     /* 0x5C */ s32 unk_5C;
     /* 0x60 */ f32 unk_60;
     /* 0x64 */ f32 unk_64;
-    /* 0x68 */ HuSprite_Unk84_Struct* unk_68;
-    /* 0x6C */ s8 unk_6C;
-    /* 0x6E */ s16 unk_6E;
-    /* 0x70 */ s16 unk_70;
-    /* 0x72 */ s16 unk_72;
-    /* 0x74 */ f32 unk_74;
-    /* 0x78 */ f32 unk_78;
-    /* 0x7C */ s16 unk_7C;
-    /* 0x7E */ s8 unk_7E;
-    /* 0x7F */ s8 unk_7F;
-    /* 0x80 */ s8 unk_80;
+    /* 0x68 */ HuSprAnm unk_68;
     /* 0x84 */ HuSprite_Unk84_Struct* unk_84;
     /* 0x88 */ s8 unk_88;
     /* 0x8A */ s16 unk_8A;
