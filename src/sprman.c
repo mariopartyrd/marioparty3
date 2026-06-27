@@ -10,7 +10,7 @@ void func_80052E68_53A68(void *arg0, s32 arg1);
 void func_80056F80_57B80(s16 arg0);
 
 extern s32 D_800A1EA0_A2AA0; // redraw?
-extern void *D_800D0A50_D1650[0x100];
+extern HuSprAnmDesc *D_800D0A50_D1650[0x100];
 extern u16 D_800D554E_D614E;
 extern u16 D_800CC3E6_CCFE6;
 extern HuSprite_Unk84_Struct *D_800C9530_CA130[];
@@ -295,7 +295,12 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80055548_56148);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80055588_56188);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800555B8_561B8);
+void func_800555B8_561B8(s16 group, s16 member, u16 arg2, u16 arg3) {
+    HuSprite *sprite = HuSprGrpData[group]->members[member];
+
+    sprite->unk_38 = arg2;
+    sprite->unk_3A = arg3;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800555E8_561E8);
 

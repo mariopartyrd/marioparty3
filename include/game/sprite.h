@@ -44,6 +44,22 @@ typedef struct HuSprAnm {
     /* 0x18 */ u8 unk18;
 } HuSprAnm; // Size 0x1C
 
+// Loaded cel-animation descriptor and its group/cel entries (built by the data
+// loader, stored in the D_800D0A50_D1650 table).
+typedef struct HuSprAnmEntry {
+    /* 0x00 */ u16 unk00;
+    /* 0x02 */ u16 unk02;
+    /* 0x04 */ struct HuSprAnmEntry **unk04;
+} HuSprAnmEntry; // Size 0x8
+
+typedef struct HuSprAnmDesc {
+    /* 0x00 */ u16 unk00;
+    /* 0x02 */ u16 unk02;             // group count
+    /* 0x04 */ HuSprAnmEntry **unk04; // groups
+    /* 0x08 */ u16 unk08;
+    /* 0x0C */ void *unk0C;
+} HuSprAnmDesc; // Size 0x10
+
 typedef struct HuSprite {
     /* 0x00 */ char unk_00[0xC];
     /* 0x0C */ s16 unk_0C;
@@ -55,7 +71,14 @@ typedef struct HuSprite {
     /* 0x28 */ char unk_28[4];
     /* 0x2C */ u16 unk_2C;
     /* 0x2E */ u16 unk_2E;
-    /* 0x30 */ char unk_30[0x18];
+    /* 0x30 */ char unk_30[0x8];
+    /* 0x38 */ u16 unk_38;
+    /* 0x3A */ u16 unk_3A;
+    /* 0x3C */ u16 unk_3C;
+    /* 0x3E */ u16 unk_3E;
+    /* 0x40 */ u16 unk_40;
+    /* 0x42 */ u16 unk_42;
+    /* 0x44 */ s32 unk_44;
     /* 0x48 */ f32 unk_48;
     /* 0x4C */ f32 unk_4C;
     /* 0x50 */ f32 unk_50;
