@@ -367,7 +367,13 @@ u16 func_80056C74_57874(u8 **arg0) {
     return val;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056C98_57898);
+u32 func_80056C98_57898(u8 **arg0) {
+    u8 *p = *arg0;
+    u32 val = (p[0] << 24) + (p[1] << 16) + (p[2] << 8) + p[3];
+
+    *arg0 = p + 4;
+    return val;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056CD0_578D0);
 
