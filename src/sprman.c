@@ -345,9 +345,15 @@ void *func_80056260_56E60(s16 arg0) {
     return D_800C9530_CA130[arg0]->unk0C;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_8005627C_56E7C);
+void func_8005627C_56E7C(HuSprite_Unk84_Struct **arg0, void *arg1) {
+    func_80019C00_1A800((*arg0)->unk0C);
+    (*arg0)->unk0C = arg1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800562BC_56EBC);
+void func_800562BC_56EBC(s16 arg0, void *arg1) {
+    func_80019C00_1A800(D_800C9530_CA130[arg0]->unk0C);
+    D_800C9530_CA130[arg0]->unk0C = arg1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_8005630C_56F0C);
 
