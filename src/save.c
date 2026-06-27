@@ -3,8 +3,6 @@
 
 extern s32 D_800B1A30_B2630;
 
-u8 *GWBoardRecordGet(s16 arg0);
-
 void GWInit(void) {
     GW_COMMON *gw = &GwCommon;
 
@@ -79,7 +77,18 @@ void GWBoardNoSet(s8 boardIndex) {
     GwSystem.current_board_index = boardIndex;
 }
 
-INCLUDE_ASM("asm/nonmatchings/save", GWBoardRecordGet);
+u8 *GWBoardRecordGet(s16 arg0) {
+    s16 idx = arg0;
+
+    if (arg0 < 0) {
+        idx = GwSystem.current_board_index;
+    }
+
+    if (GwSystem.playMode & 1) {
+        return (u8 *)&GwCommon.unk_1D[2] + idx * 9;
+    }
+    return (u8 *)&GwCommon.unk_1D[0x38] + idx * 9;
+}
 
 u8 GWPlayNumGet(s16 arg0) {
     return *GWBoardRecordGet(arg0);
