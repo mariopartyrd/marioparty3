@@ -97,7 +97,10 @@ s32 func_80035E3C_36A3C(s16 arg0) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/save", func_80035E60_36A60);
+void func_80035E60_36A60(s16 arg0) {
+    u8 *record = GWBoardRecordGet(arg0);
+    *record = *record;
+}
 
 INCLUDE_ASM("asm/nonmatchings/save", func_80035E88_36A88);
 
