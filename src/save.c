@@ -102,7 +102,10 @@ void func_80035E60_36A60(s16 arg0) {
     *record = *record;
 }
 
-INCLUDE_ASM("asm/nonmatchings/save", func_80035E88_36A88);
+void func_80035E88_36A88(s16 arg0) {
+    u8 *record = GWBoardRecordGet(arg0);
+    *record = *record;
+}
 
 s32 _CheckFlag(s32 flag) {
     return GwCommon.flag[flag / 8] & (1 << flag % 8);
