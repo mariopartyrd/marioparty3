@@ -9,6 +9,8 @@ void *HuMemAlloc(s32 size);
 void func_80052E68_53A68(void *arg0, s32 arg1);
 
 extern s32 D_800A1EA0_A2AA0; // redraw?
+extern void *D_800D0A50_D1650[0x100];
+extern u16 D_800D554E_D614E;
 extern HuSprite_Unk84_Struct *D_800C9530_CA130[];
 extern HuSprGrp *HuSprGrpLast;
 extern HuSprGrp *HuSprGrpFirst;
@@ -375,7 +377,14 @@ u32 func_80056C98_57898(u8 **arg0) {
     return val;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056CD0_578D0);
+void func_80056CD0_578D0(void) {
+    s16 i;
+
+    D_800D554E_D614E = 0;
+    for (i = 0; i < 0x100; i++) {
+        D_800D0A50_D1650[i] = NULL;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056D18_57918);
 
