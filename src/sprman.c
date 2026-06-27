@@ -359,7 +359,13 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80056BAC_577AC);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056C28_57828);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056C74_57874);
+u16 func_80056C74_57874(u8 **arg0) {
+    u8 *p = *arg0;
+    u16 val = (p[0] << 8) + p[1];
+
+    *arg0 = p + 2;
+    return val;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056C98_57898);
 
