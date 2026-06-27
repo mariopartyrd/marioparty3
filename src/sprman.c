@@ -357,7 +357,11 @@ void func_800561D0_56DD0(s16 arg0, u16 arg1, void *arg2) {
     entry->unk00 = arg2;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056230_56E30);
+void *func_80056230_56E30(HuSprAnm *arg0) {
+    HuSprite_Unk84_Unk00_Struct *entry = &arg0->unk00->unk00[arg0->unk14];
+
+    return entry->unk00;
+}
 
 void *func_80056254_56E54(HuSprite_Unk84_Struct **arg0) {
     return (*arg0)->unk0C;
