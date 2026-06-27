@@ -197,7 +197,15 @@ void HuSprPriSet(s16 group, s16 member, u16 prio) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800552DC_55EDC);
+void func_800552DC_55EDC(s16 group, s16 member, f32 arg2) {
+    HuSprGrp *group_ptr = HuSprGrpData[group];
+    HuSprite *sprite_ptr = group_ptr->members[member];
+
+    if (sprite_ptr->unk_58 != arg2) {
+        group_ptr->unk_0C = 1;
+        sprite_ptr->unk_58 = arg2;
+    }
+}
 
 void HuSprAttrReset(s16 group, s16 member, s32 attr) {
     HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
