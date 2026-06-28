@@ -1,6 +1,6 @@
 #include "common.h"
 
-void guOrthoF(float mf[4][4], float l, float r, float b, float t, float n, float f, float scale) {
+inline void guOrthoF(float mf[4][4], float l, float r, float b, float t, float n, float f, float scale) {
     int i, j;
 
     guMtxIdentF(mf);
@@ -18,7 +18,14 @@ void guOrthoF(float mf[4][4], float l, float r, float b, float t, float n, float
             mf[i][j] *= scale;
 }
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/gu/ortho", func_8007AD10_7B910);
+void guOrtho(Mtx *m, float l, float r, float b, float t, float n, float f, float scale) {
+    float mf[4][4];
+
+    // Inlined guOrthoF
+    guOrthoF(mf, l, r, b, t, n, f, scale);
+
+    guMtxF2L(mf, m);
+}
 
 INCLUDE_RODATA("asm/nonmatchings/2.0L/gu/ortho", D_800A85D8_A91D8);
 
