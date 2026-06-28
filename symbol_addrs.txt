@@ -259,6 +259,8 @@ guMtxIdentF = 0x8007DCC0; //rom:0x7E8C0
 guMtxF2L = 0x8007DD20; //rom:0x7E920
 guMtxL2F = 0x8007DDA0; //rom:0x7E9A0
 
+guOrthoF = 0x8007ABE0;
+
 // 8EA10
 _atan2 = 0x8008DE10; //rom:0x8EA10
 _atan2d = 0x8008E108; //rom:0x8ED08
