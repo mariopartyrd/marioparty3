@@ -20,7 +20,9 @@ INCLUDE_ASM("asm/nonmatchings/1140", func_80000EDC_1ADC);
 
 INCLUDE_ASM("asm/nonmatchings/1140", func_80000EFC_1AFC);
 
-INCLUDE_ASM("asm/nonmatchings/1140", func_80000F08_1B08);
+s32 func_80000F08_1B08(s32 arg0) {
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/1140", func_80000F10_1B10);
 
@@ -34,7 +36,9 @@ INCLUDE_ASM("asm/nonmatchings/1140", func_800010B8_1CB8);
 
 INCLUDE_ASM("asm/nonmatchings/1140", func_8000110C_1D0C);
 
-INCLUDE_ASM("asm/nonmatchings/1140", func_80001134_1D34);
+s32 func_80001134_1D34(s32 arg0, s32 arg1) {
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/1140", func_8000113C_1D3C);
 
@@ -162,7 +166,6 @@ typedef struct {
     /* 0x3C */ AudioCmd cmds[0x80]; // ring buffer of commands
 } UnkAudio;
 
-void func_80001134_1D34(s32, s32);
 extern UnkAudio *D_800A97BC_AA3BC;
 
 void func_80006CD4_78D4(s32 voiceSlot, s32 cmdType, s32 cmdArg) {

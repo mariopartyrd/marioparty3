@@ -77,7 +77,9 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_06_hide_and_sneak/137C00", func_80108
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_06_hide_and_sneak/137C00", func_80108AF0_13AD50_hide_and_sneak);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_06_hide_and_sneak/137C00", func_80108BD8_13AE38_hide_and_sneak);
+s32 func_80108BD8_13AE38_hide_and_sneak(void) {
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_06_hide_and_sneak/137C00", func_80108BE0_13AE40_hide_and_sneak);
 

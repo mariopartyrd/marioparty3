@@ -12,7 +12,9 @@ INCLUDE_ASM("asm/nonmatchings/77F20", func_80077810_78410);
 
 INCLUDE_ASM("asm/nonmatchings/77F20", func_8007788C_7848C);
 
-INCLUDE_ASM("asm/nonmatchings/77F20", func_8007792C_7852C);
+s32 alCSeqGetTicks(ALCSeq *seq) {
+    return seq->lastTicks;
+}
 
 INCLUDE_ASM("asm/nonmatchings/77F20", func_80077934_78534);
 

@@ -917,7 +917,9 @@ typedef s16   ALSndId;
 void            alSndpNew(ALSndPlayer *sndp, ALSndpConfig *c);
 void            alSndpDelete(ALSndPlayer *sndp);
 
-ALSndId         alSndpAllocate(ALSndPlayer *sndp, ALSound *sound);
+// void            alSndpAllocate(ALSndPlayer *sndp, ALSound *sound);
+//custom function signature
+ALSndId         alSndpAllocate(ALSound *sound);
 // void            alSndpDeallocate(ALSndPlayer *sndp, ALSndId id);
 //custom function signature
 void            alSndpDeallocate(ALSndId id);

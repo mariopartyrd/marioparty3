@@ -81,4 +81,5 @@ void func_800DAA24_EE644_shared_board(void) {
 void func_800DAA2C_EE64C_shared_board(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE3B0", func_800DAA34_EE654_shared_board);
+void func_800DAA34_EE654_shared_board(void) {
+}

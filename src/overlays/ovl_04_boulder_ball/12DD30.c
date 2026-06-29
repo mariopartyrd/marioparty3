@@ -46,7 +46,9 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_04_boulder_ball/12DD30", func_8010879
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_04_boulder_ball/12DD30", func_80108A08_130D98_boulder_ball);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_04_boulder_ball/12DD30", func_80108CF4_131084_boulder_ball);
+s32 func_80108CF4_131084_boulder_ball(void) {
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_04_boulder_ball/12DD30", func_80108CFC_13108C_boulder_ball);
 

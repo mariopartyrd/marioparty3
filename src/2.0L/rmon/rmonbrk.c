@@ -2,7 +2,9 @@
 
 INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonbrk", __rmonSetBreak);
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonbrk", __rmonListBreak);
+s32 __rmonListBreak(void *arg) {
+    return -1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonbrk", __rmonClearBreak);
 

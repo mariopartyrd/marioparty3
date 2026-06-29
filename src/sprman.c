@@ -1,4 +1,5 @@
 #include "game/sprite.h"
+#include "mallocblock.h"
 #include "include_asm.h"
 
 #define offsetof(st, m) ((u32) & (((st *)0)->m))
@@ -6,8 +7,12 @@
 void *HuMemAlloc(s32 size);
 
 void func_80052E68_53A68(void *arg0, s32 arg1);
+void func_80056F80_57B80(s16 arg0);
 
 extern s32 D_800A1EA0_A2AA0; // redraw?
+extern HuSprAnmDesc *D_800D0A50_D1650[0x100];
+extern u16 D_800D554E_D614E;
+extern u16 D_800CC3E6_CCFE6;
 extern HuSprite_Unk84_Struct *D_800C9530_CA130[];
 extern HuSprGrp *HuSprGrpLast;
 extern HuSprGrp *HuSprGrpFirst;
@@ -86,20 +91,32 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_800528EC_534EC);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052A90_53690);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80052DD8_539D8);
+void func_80052DD8_539D8(HuSprAnm *arg0) {
+    arg0->unk00 = NULL;
+    arg0->unk04 = 0;
+    arg0->unk06 = 0;
+    arg0->unk08 = 0;
+    arg0->unk0A = 0;
+    arg0->unk0C = 0.0f;
+    arg0->unk10 = 1.0f;
+    arg0->unk14 = 0;
+    arg0->unk16 = 0;
+    arg0->unk18 = 0;
+    arg0->unk17 = 0;
+}
 
 void func_80052E14_53A14(HuSprite *arg0) {
-    arg0->unk_68 = arg0->unk_84;
-    arg0->unk_6C = arg0->unk_88;
-    arg0->unk_6E = arg0->unk_0E;
-    arg0->unk_72 = arg0->unk_8A;
-    arg0->unk_70 = arg0->unk_0C;
-    arg0->unk_74 = arg0->unk_8C;
-    arg0->unk_78 = arg0->unk_10;
-    arg0->unk_7E = arg0->unk_92;
-    arg0->unk_7C = arg0->unk_90;
-    arg0->unk_80 = 0;
-    arg0->unk_7F = 0;
+    arg0->unk_68.unk00 = arg0->unk_84;
+    arg0->unk_68.unk04 = arg0->unk_88;
+    arg0->unk_68.unk06 = arg0->unk_0E;
+    arg0->unk_68.unk0A = arg0->unk_8A;
+    arg0->unk_68.unk08 = arg0->unk_0C;
+    arg0->unk_68.unk0C = arg0->unk_8C;
+    arg0->unk_68.unk10 = arg0->unk_10;
+    arg0->unk_68.unk16 = arg0->unk_92;
+    arg0->unk_68.unk14 = arg0->unk_90;
+    arg0->unk_68.unk18 = 0;
+    arg0->unk_68.unk17 = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052E68_53A68);
@@ -130,7 +147,11 @@ void func_80054904_55504(s16 group, s16 member, s16 arg2, s16 arg3) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800549C0_555C0);
+void func_800549C0_555C0(s16 group, s16 member, s16 arg2) {
+    HuSprite *sprite = HuSprGrpData[group]->members[member];
+
+    sprite->unk_44 = arg2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800549F4_555F4);
 
@@ -165,15 +186,31 @@ void func_800550B4_55CB4(s16 group, s16 member, f32 arg2) {
     func_80052E14_53A14(sprite_ptr);
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800550F4_55CF4);
+void func_800550F4_55CF4(s16 group, s16 member, s32 arg2) {
+    HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055140_55D40);
+    sprite_ptr->unk_88 &= 0x7F;
+    sprite_ptr->unk_0E = arg2;
+    func_80052E14_53A14(sprite_ptr);
+}
+
+void func_80055140_55D40(s16 group, s16 member, u16 arg2, s32 arg3) {
+    HuSprite *sprite = HuSprGrpData[group]->members[member];
+
+    sprite->unk_88 &= 0x7F;
+    sprite->unk_0C = arg2;
+    sprite->unk_8A = arg3;
+    sprite->unk_8C = 0;
+    func_80052E14_53A14(sprite);
+}
 
 HuSprite_Unk84_Struct *func_80055194_55D94(s16 arg0) {
     return D_800C9530_CA130[arg0];
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800551AC_55DAC);
+u8 func_800551AC_55DAC(s16 group, s16 member) {
+    return HuSprGrpData[group]->members[member]->unk_88;
+}
 
 void HuSprScaleSet(s16 group, s16 member, f32 x, f32 y) {
     HuSprGrp *group_ptr = HuSprGrpData[group];
@@ -197,7 +234,15 @@ void HuSprPriSet(s16 group, s16 member, u16 prio) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800552DC_55EDC);
+void func_800552DC_55EDC(s16 group, s16 member, f32 arg2) {
+    HuSprGrp *group_ptr = HuSprGrpData[group];
+    HuSprite *sprite_ptr = group_ptr->members[member];
+
+    if (sprite_ptr->unk_58 != arg2) {
+        group_ptr->unk_0C = 1;
+        sprite_ptr->unk_58 = arg2;
+    }
+}
 
 void HuSprAttrReset(s16 group, s16 member, s32 attr) {
     HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
@@ -225,13 +270,32 @@ void HuSprAttrSet(s16 group, s16 member, s32 attr) {
     sprite_ptr->unk_24 = sprite_ptr->unk_5C;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055420_56020);
+void func_80055420_56020(s16 group, s16 member, u8 r, u8 g, u8 b) {
+    HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055458_56058);
+    sprite_ptr->unk_28[0] = r;
+    sprite_ptr->unk_28[1] = g;
+    sprite_ptr->unk_28[2] = b;
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055484_56084);
+void func_80055458_56058(s16 group, s16 member, u16 arg2) {
+    HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800554C4_560C4);
+    sprite_ptr->unk_2C = arg2;
+}
+
+void func_80055484_56084(s16 group, s16 member, u8 arg2, u8 arg3, u8 arg4, u16 arg5) {
+    HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
+
+    sprite_ptr->unk_28[0] = arg2;
+    sprite_ptr->unk_28[1] = arg3;
+    sprite_ptr->unk_28[2] = arg4;
+    sprite_ptr->unk_2C = arg5;
+}
+
+void func_800554C4_560C4(s16 group, s16 member, u16 arg2) {
+    HuSprGrpData[group]->members[member]->unk_2E = arg2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800554F0_560F0);
 
@@ -243,15 +307,35 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80055548_56148);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80055588_56188);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800555B8_561B8);
+void func_800555B8_561B8(s16 group, s16 member, u16 arg2, u16 arg3) {
+    HuSprite *sprite = HuSprGrpData[group]->members[member];
+
+    sprite->unk_38 = arg2;
+    sprite->unk_3A = arg3;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800555E8_561E8);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055628_56228);
+void func_80055628_56228(void) {
+    s16 i;
+
+    D_800CC3E6_CCFE6 = 0;
+    for (i = 0; i < 0x100; i++) {
+        D_800C9530_CA130[i] = NULL;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", HuSprKill);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800557A0_563A0);
+void func_800557A0_563A0(void) {
+    s16 i;
+
+    for (i = 0; i < 0x100; i++) {
+        if (D_800C9530_CA130[i] != NULL) {
+            HuSprKill(i);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80055810_56410);
 
@@ -261,29 +345,67 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80055FF4_56BF4);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056054_56C54);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800560B8_56CB8);
+HuSprite_Unk84_Unk00_Struct *func_800560B8_56CB8(HuSprite_Unk84_Struct **arg0, u16 arg1) {
+    return &(*arg0)->unk00[arg1];
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800560D8_56CD8);
+HuSprite_Unk84_Unk00_Struct *func_800560D8_56CD8(s16 arg0, u16 arg1) {
+    return &D_800C9530_CA130[arg0]->unk00[arg1];
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056108_56D08);
+HuSprite_Unk84_Unk00_Struct *func_80056108_56D08(HuSprAnm *arg0) {
+    return &arg0->unk00->unk00[arg0->unk14];
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056128_56D28);
+void *func_80056128_56D28(HuSprite_Unk84_Struct **arg0, u16 arg1) {
+    HuSprite_Unk84_Unk00_Struct *entry = &(*arg0)->unk00[arg1];
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_8005614C_56D4C);
+    return entry->unk00;
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056180_56D80);
+void *func_8005614C_56D4C(s16 arg0, u16 arg1) {
+    HuSprite_Unk84_Unk00_Struct *entry = &D_800C9530_CA130[arg0]->unk00[arg1];
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800561D0_56DD0);
+    return entry->unk00;
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056230_56E30);
+void func_80056180_56D80(HuSprite_Unk84_Struct **arg0, u16 arg1, void *arg2) {
+    HuSprite_Unk84_Unk00_Struct *entry = &(*arg0)->unk00[arg1];
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056254_56E54);
+    func_80019C00_1A800(entry->unk00);
+    entry->unk00 = arg2;
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056260_56E60);
+void func_800561D0_56DD0(s16 arg0, u16 arg1, void *arg2) {
+    HuSprite_Unk84_Unk00_Struct *entry = &D_800C9530_CA130[arg0]->unk00[arg1];
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_8005627C_56E7C);
+    func_80019C00_1A800(entry->unk00);
+    entry->unk00 = arg2;
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800562BC_56EBC);
+void *func_80056230_56E30(HuSprAnm *arg0) {
+    HuSprite_Unk84_Unk00_Struct *entry = &arg0->unk00->unk00[arg0->unk14];
+
+    return entry->unk00;
+}
+
+void *func_80056254_56E54(HuSprite_Unk84_Struct **arg0) {
+    return (*arg0)->unk0C;
+}
+
+void *func_80056260_56E60(s16 arg0) {
+    return D_800C9530_CA130[arg0]->unk0C;
+}
+
+void func_8005627C_56E7C(HuSprite_Unk84_Struct **arg0, void *arg1) {
+    func_80019C00_1A800((*arg0)->unk0C);
+    (*arg0)->unk0C = arg1;
+}
+
+void func_800562BC_56EBC(s16 arg0, void *arg1) {
+    func_80019C00_1A800(D_800C9530_CA130[arg0]->unk0C);
+    D_800C9530_CA130[arg0]->unk0C = arg1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_8005630C_56F0C);
 
@@ -297,11 +419,30 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80056BAC_577AC);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056C28_57828);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056C74_57874);
+u16 func_80056C74_57874(u8 **arg0) {
+    u8 *p = *arg0;
+    u16 val = (p[0] << 8) + p[1];
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056C98_57898);
+    *arg0 = p + 2;
+    return val;
+}
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056CD0_578D0);
+u32 func_80056C98_57898(u8 **arg0) {
+    u8 *p = *arg0;
+    u32 val = (p[0] << 24) + (p[1] << 16) + (p[2] << 8) + p[3];
+
+    *arg0 = p + 4;
+    return val;
+}
+
+void func_80056CD0_578D0(void) {
+    s16 i;
+
+    D_800D554E_D614E = 0;
+    for (i = 0; i < 0x100; i++) {
+        D_800D0A50_D1650[i] = NULL;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056D18_57918);
 
@@ -311,6 +452,14 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_800570A8_57CA8);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_8005712C_57D2C);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80057158_57D58);
+void func_80057158_57D58(void) {
+    s16 i;
+
+    for (i = 0; i < 0x100; i++) {
+        if (D_800D0A50_D1650[i] != NULL) {
+            func_80056F80_57B80(i);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800571C8_57DC8);

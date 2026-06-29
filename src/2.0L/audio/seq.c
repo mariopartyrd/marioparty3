@@ -12,7 +12,9 @@ INCLUDE_ASM("asm/nonmatchings/2.0L/audio/seq", func_80076ED0_77AD0);
 
 INCLUDE_ASM("asm/nonmatchings/2.0L/audio/seq", func_80076F60_77B60);
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/audio/seq", func_80077074_77C74);
+s32 alSeqGetTicks(ALSeq *seq) {
+    return seq->lastTicks;
+}
 
 INCLUDE_ASM("asm/nonmatchings/2.0L/audio/seq", func_8007707C_77C7C);
 

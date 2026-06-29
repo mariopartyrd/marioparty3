@@ -1,5 +1,13 @@
 #include "common.h"
 
+// Heap-allocated (0x20 bytes) work block; unk_0C is the head of a linked list
+// of nodes (func_80108B64 inserts, func_80108BCC removes, func_80108C08 walks).
+typedef struct EtchNCatchWork {
+    /* 0x00 */ char unk_00[0xC];
+    /* 0x0C */ struct EtchNCatchNode *unk_0C;
+    /* 0x10 */ char unk_10[0x10];
+} EtchNCatchWork; // sizeof 0x20
+
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_12_etch_n_catch/19CEF0", func_801059A0_19CEF0_etch_n_catch);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_12_etch_n_catch/19CEF0", func_80105CD0_19D220_etch_n_catch);
@@ -18,7 +26,9 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_12_etch_n_catch/19CEF0", func_80107EA
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_12_etch_n_catch/19CEF0", func_8010880C_19FD5C_etch_n_catch);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_12_etch_n_catch/19CEF0", func_80108B20_1A0070_etch_n_catch);
+void func_80108B20_1A0070_etch_n_catch(EtchNCatchWork *arg0) {
+    arg0->unk_0C = NULL;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_12_etch_n_catch/19CEF0", func_80108B28_1A0078_etch_n_catch);
 

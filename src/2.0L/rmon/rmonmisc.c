@@ -4,6 +4,8 @@ INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonmisc", __rmonSetFault);
 
 INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonmisc", __rmonInit);
 
-INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonmisc", __rmonPanic);
+void __rmonPanic(void) {
+    for (;;) {}
+}
 
 INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonmisc", __rmonSetComm);

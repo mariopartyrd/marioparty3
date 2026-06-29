@@ -1,5 +1,26 @@
 alCSPGetChlVol = 0x8006CFF0;
 alCSPGetChlFXMix = 0x8006D010;
+alCSPGetChlPan = 0x8006D030;
+alCSPGetChlProgram = 0x8006D050;
+alCSPGetState = 0x8006D0D0;
+alCSPGetTempo = 0x8006D0E0;
+alEvtqPostEvent = 0x8006DE74;
+alSeqpPlay = 0x8006D110;
+alSeqpSetBank = 0x8006D140;
+alSeqpSetSeq = 0x8006D170;
+alSeqpSetTempo = 0x8006D1A0;
+alSeqpSetVol = 0x8006D1F0;
+alSeqpStop = 0x8006D220;
+alSeqGetTicks = 0x80077074;
+alCSeqGetTicks = 0x8007792C;
+alInit = 0x800771A0;
+alClose = 0x800771CC;
+alLink = 0x800771FC;
+alUnlink = 0x8007721C;
+alSynNew = 0x80077DE0;
+alSynDelete = 0x80078420;
+alSynAddPlayer = 0x80078430;
+alGlobals = 0x800A2D40;
 
 D_800C9530_CA130 = 0x800C9530; //size:0x400
 D_800CE204 = 0x800CE204; //type:s16
@@ -237,6 +258,9 @@ guLookAtHilite = 0x8007A514; //rom:0x7B114
 guMtxIdentF = 0x8007DCC0; //rom:0x7E8C0
 guMtxF2L = 0x8007DD20; //rom:0x7E920
 guMtxL2F = 0x8007DDA0; //rom:0x7E9A0
+
+guOrthoF = 0x8007ABE0;
+guOrtho = 0x8007AD10;
 
 // 8EA10
 _atan2 = 0x8008DE10; //rom:0x8EA10
@@ -996,6 +1020,9 @@ alCents2Ratio = 0x80078B40; //rom:0x79740
 
 //synremoveplayer.c
 alSynRemovePlayer = 0x8006FC50; //rom:0x70850
+
+//sndpallocate.c
+alSndpAllocate = 0x8006D250; //rom:0x6DE50
 
 //sndpdeallocate.c
 alSndpDeallocate = 0x8006D320; //rom:0x6DF20
