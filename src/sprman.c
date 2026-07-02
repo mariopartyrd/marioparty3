@@ -13,6 +13,7 @@ extern s32 D_800A1EA0_A2AA0; // redraw?
 extern HuSprAnmDesc *D_800D0A50_D1650[0x100];
 extern u16 D_800D554E_D614E;
 extern u16 D_800CC3E6_CCFE6;
+extern u16 D_800CB8A0_CC4A0;
 extern HuSprite_Unk84_Struct *D_800C9530_CA130[];
 extern void *D_800CE1B8_CEDB8[3];
 extern u8 D_800D2008_D2C08;
@@ -53,7 +54,20 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80052518_53118);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", HuSprGrpKill);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80052700_53300);
+void func_80052700_53300(void) {
+    s16 i;
+
+    HuSprGrpNum = 0;
+    for (i = 0; i < HUSPR_GRP_MAX; i++) {
+        if (HuSprGrpData[i] != NULL) {
+            HuSprGrpKill(i);
+        }
+    }
+    HuSprGrpFirst = NULL;
+    HuSprGrpLast = NULL;
+    D_800CB8A0_CC4A0 = 0;
+    D_800A1EA0_A2AA0 = 1;
+}
 
 s16 HuSprGrpCreate(u16 arg0, u16 arg1) {
     HuSprGrp *temp_v0_2;
