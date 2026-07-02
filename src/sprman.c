@@ -8,6 +8,9 @@ void *HuMemAlloc(s32 size);
 
 void func_80052E68_53A68(void *arg0, s32 arg1);
 void func_80056F80_57B80(s16 arg0);
+s16 func_8005630C_56F0C(HuSprAnm *arg0);
+void func_800563A4_56FA4(HuSprAnm *arg0);
+void func_800571C8_57DC8(HuSprAnmDesc *arg0);
 
 extern s32 D_800A1EA0_A2AA0; // redraw?
 extern HuSprAnmDesc *D_800D0A50_D1650[0x100];
@@ -19,6 +22,7 @@ extern void *D_800CE1B8_CEDB8[3];
 extern u8 D_800D2008_D2C08;
 extern s32 D_800D1FDC_D2BDC;
 extern void *D_800D59F4_D65F4;
+extern s8 D_800D20B1_D2CB1;
 extern HuSprGrp *HuSprGrpLast;
 extern HuSprGrp *HuSprGrpFirst;
 HuSprGrp *HuSprGrpData[HUSPR_GRP_MAX] __attribute__((aligned(16)));
@@ -473,7 +477,34 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_8005630C_56F0C);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800563A4_56FA4);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056650_57250);
+void func_80056650_57250(HuSprite *sprite) {
+    HuSprAnm *anm = &sprite->unk_68;
+
+    func_80052E14_53A14(sprite);
+    if (!(sprite->unk_68.unk04 & 0x80)) {
+        if (func_8005630C_56F0C(anm) == 0) {
+            sprite->unk_68.unk04 |= 0x80;
+        }
+    } else {
+        if (D_800D20B1_D2CB1 == 0 || (sprite->unk_24 & 0x1000000)) {
+            func_800563A4_56FA4(anm);
+        }
+    }
+    sprite->unk_88 = anm->unk04;
+    sprite->unk_0E = (u16)anm->unk06;
+    sprite->unk_90 = (u16)anm->unk14;
+    sprite->unk_93 = anm->unk17;
+    sprite->unk_94 = anm->unk18;
+    sprite->unk_92 = anm->unk16;
+    sprite->unk_8A = (u16)anm->unk0A;
+    sprite->unk_8C = anm->unk0C;
+    sprite->unk_10 = anm->unk10;
+    sprite->unk_18 = sprite->unk_50 * sprite->unk_60;
+    sprite->unk_1C = sprite->unk_54 * sprite->unk_64;
+    if (sprite->unk_98 != NULL) {
+        func_800571C8_57DC8(&sprite->unk_98);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056758_57358);
 
