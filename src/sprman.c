@@ -212,7 +212,16 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_800530AC_53CAC);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_8005338C_53F8C);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800534C8_540C8);
+void func_800534C8_540C8(f32 a0[][2], f32 a1[][2], f32 a2[][2]) {
+    s16 i;
+
+    for (i = 0; i < 3; i++) {
+        a2[i][0] = a0[i][0] * a1[0][0] + a0[i][1] * a1[1][0];
+        a2[i][1] = a0[i][0] * a1[0][1] + a0[i][1] * a1[1][1];
+    }
+    a2[2][0] += a1[2][0];
+    a2[2][1] += a1[2][1];
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80053558_54158);
 
