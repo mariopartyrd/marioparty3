@@ -469,7 +469,72 @@ void func_800557A0_563A0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80055810_56410);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055DBC_569BC);
+s32 func_80055DBC_569BC(u16 arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
+    HuSprite_Unk84_Struct *desc;
+    HuSprite_Unk84_Unk00_Struct *cel;
+    s16 i;
+    s16 slot;
+
+    for (i = 0; i < 0x100 && D_800C9530_CA130[i] != NULL; i++) {
+    }
+    if (i == 0x100) {
+        return -1;
+    }
+    slot = i;
+    desc = HuMemAlloc(0x1C);
+    if (desc == NULL) {
+        return -1;
+    }
+    desc->unk10 = arg4;
+    desc->unk12 = 0;
+    desc->unk14 = arg0;
+    desc->unk16 = arg1 * arg4;
+    desc->unk18 = arg2;
+    desc->unk1A = arg3;
+    desc->unk00 = NULL;
+    desc->unk04 = 0;
+    desc->unk08 = NULL;
+    desc->unk0C = NULL;
+    D_800C9530_CA130[slot] = desc;
+    D_800CC3E6_CCFE6++;
+    cel = HuMemAlloc(desc->unk10 * 0xC);
+    if (cel != NULL) {
+        desc->unk00 = cel;
+    } else {
+        HuSprKill(slot);
+        return -1;
+    }
+    for (i = 0; i < desc->unk10; i++) {
+        s32 size;
+
+        cel->unk04 = arg0;
+        cel->unk06 = arg1;
+        cel->unk08 = arg0 >> 1;
+        cel->unk0A = arg1 >> 1;
+        size = cel->unk04 * cel->unk06 * (desc->unk18 & 0x7FFF);
+        cel->unk00 = HuMemAlloc(size / 8);
+        if (cel->unk00 == NULL) {
+            desc->unk10 = i;
+            HuSprKill(slot);
+            return -1;
+        }
+        if (i == 0) {
+            desc->unk08 = cel->unk00;
+        }
+        cel++;
+    }
+    if (desc->unk1A != 0) {
+        void *pal = HuMemAlloc(desc->unk1A * 2);
+
+        if (pal != NULL) {
+            desc->unk0C = pal;
+        } else {
+            HuSprKill(slot);
+            return -1;
+        }
+    }
+    return slot;
+}
 
 void func_80055FF4_56BF4(HuSprAnm *arg0, s16 arg1, u16 arg2, u16 arg3) {
     func_80052DD8_539D8(arg0);
