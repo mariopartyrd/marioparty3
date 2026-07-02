@@ -121,7 +121,7 @@ typedef struct HuSprGrp {
     struct HuSprGrp* next;
     struct HuSprGrp* prev;
     s16 unk_08;
-    s16 unk_0A;
+    u16 unk_0A;
     s32 unk_0C;
     HuSprite* members[4]; //unknown size
 } HuSprGrp; //unknown size

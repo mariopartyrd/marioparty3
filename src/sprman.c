@@ -8,6 +8,7 @@
 void *HuMemAlloc(s32 size);
 
 void func_80052E68_53A68(void *arg0, s32 arg1);
+void func_80052518_53118(HuSprite *arg0);
 void func_80056F80_57B80(s16 arg0);
 s16 func_8005630C_56F0C(HuSprAnm *arg0);
 void func_800563A4_56FA4(HuSprAnm *arg0);
@@ -85,7 +86,42 @@ HuSprGrp *func_80052468_53068(s16 arg0, u16 arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80052518_53118);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", HuSprGrpKill);
+void HuSprGrpKill(s16 arg0) {
+    HuSprGrp *group = HuSprGrpData[arg0];
+    HuSprGrp *next = group->next;
+    HuSprGrp *prev = group->prev;
+
+    if (group->members[0] != NULL) {
+        s16 i;
+        HuSprite **mp = group->members;
+
+        for (i = 0; i < group->unk_0A; i++) {
+            func_80052518_53118(*mp++);
+        }
+    }
+    if (next != NULL) {
+        next->prev = prev;
+    }
+    if (prev != NULL) {
+        prev->next = next;
+    }
+    if (HuSprGrpLast == group) {
+        HuSprGrpLast = prev;
+        if (prev != NULL) {
+            prev->next = NULL;
+        }
+    }
+    if (HuSprGrpFirst == group) {
+        HuSprGrpFirst = next;
+        if (next != NULL) {
+            next->prev = NULL;
+        }
+    }
+    HuMemFree(group);
+    HuSprGrpData[arg0] = NULL;
+    HuSprGrpNum--;
+    D_800A1EA0_A2AA0 = 1;
+}
 
 void func_80052700_53300(void) {
     s16 i;
