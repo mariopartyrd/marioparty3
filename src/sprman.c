@@ -297,15 +297,32 @@ void func_800554C4_560C4(s16 group, s16 member, u16 arg2) {
     HuSprGrpData[group]->members[member]->unk_2E = arg2;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800554F0_560F0);
+void func_800554F0_560F0(s16 group, s16 member, u8 arg2, u8 arg3) {
+    HuSprite *sprite = HuSprGrpData[group]->members[member];
+
+    sprite->unk_93 = arg2;
+    sprite->unk_94 = arg3;
+}
 
 HuSprite *HuSprGet(s16 group, s16 member) {
     return HuSprGrpData[group]->members[member];
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055548_56148);
+void func_80055548_56148(s16 group, s16 member, u16 arg2, u16 arg3, u16 arg4, u16 arg5) {
+    HuSprite *sprite = HuSprGrpData[group]->members[member];
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055588_56188);
+    sprite->unk_3C = arg2;
+    sprite->unk_3E = arg3;
+    sprite->unk_40 = arg4;
+    sprite->unk_42 = arg5;
+}
+
+void func_80055588_56188(s16 group, s16 member, s32 arg2, s32 arg3) {
+    HuSprite *sprite = HuSprGrpData[group]->members[member];
+
+    sprite->unk_30 = arg2;
+    sprite->unk_34 = arg3;
+}
 
 void func_800555B8_561B8(s16 group, s16 member, u16 arg2, u16 arg3) {
     HuSprite *sprite = HuSprGrpData[group]->members[member];
@@ -314,7 +331,14 @@ void func_800555B8_561B8(s16 group, s16 member, u16 arg2, u16 arg3) {
     sprite->unk_3A = arg3;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800555E8_561E8);
+void func_800555E8_561E8(s16 group, s16 member, u16 arg2, u16 arg3, u16 arg4, u16 arg5) {
+    HuSprite *sprite = HuSprGrpData[group]->members[member];
+
+    sprite->unk_204 = arg2;
+    sprite->unk_206 = arg3;
+    sprite->unk_208 = arg4;
+    sprite->unk_20A = arg5;
+}
 
 void func_80055628_56228(void) {
     s16 i;
@@ -450,7 +474,9 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80056F80_57B80);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800570A8_57CA8);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_8005712C_57D2C);
+void func_8005712C_57D2C(s16 group, s16 member, s32 arg2) {
+    HuSprGrpData[group]->members[member]->unk_FC = arg2;
+}
 
 void func_80057158_57D58(void) {
     s16 i;

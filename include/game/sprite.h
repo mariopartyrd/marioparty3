@@ -71,7 +71,8 @@ typedef struct HuSprite {
     /* 0x28 */ char unk_28[4];
     /* 0x2C */ u16 unk_2C;
     /* 0x2E */ u16 unk_2E;
-    /* 0x30 */ char unk_30[0x8];
+    /* 0x30 */ s32 unk_30;
+    /* 0x34 */ s32 unk_34;
     /* 0x38 */ u16 unk_38;
     /* 0x3A */ u16 unk_3A;
     /* 0x3C */ u16 unk_3C;
@@ -94,7 +95,17 @@ typedef struct HuSprite {
     /* 0x8C */ f32 unk_8C;
     /* 0x90 */ s16 unk_90;
     /* 0x92 */ s8 unk_92;
-} HuSprite; // Size 0x210 (or a divisor of 0x210)
+    /* 0x93 */ u8 unk_93;
+    /* 0x94 */ u8 unk_94;
+    /* 0x95 */ char unk_95_pad[0x67];
+    /* 0xFC */ s32 unk_FC;
+    /* 0x100 */ char unk_100_pad[0x104];
+    /* 0x204 */ u16 unk_204;
+    /* 0x206 */ u16 unk_206;
+    /* 0x208 */ u16 unk_208;
+    /* 0x20A */ u16 unk_20A;
+    /* 0x20C */ char unk_20C_pad[0x4];
+} HuSprite; // Size 0x210
 
 typedef struct HuSprGrp {
     struct HuSprGrp* next;
