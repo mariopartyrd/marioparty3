@@ -14,6 +14,10 @@ extern HuSprAnmDesc *D_800D0A50_D1650[0x100];
 extern u16 D_800D554E_D614E;
 extern u16 D_800CC3E6_CCFE6;
 extern HuSprite_Unk84_Struct *D_800C9530_CA130[];
+extern void *D_800CE1B8_CEDB8[3];
+extern u8 D_800D2008_D2C08;
+extern s32 D_800D1FDC_D2BDC;
+extern void *D_800D59F4_D65F4;
 extern HuSprGrp *HuSprGrpLast;
 extern HuSprGrp *HuSprGrpFirst;
 HuSprGrp *HuSprGrpData[HUSPR_GRP_MAX] __attribute__((aligned(16)));
@@ -129,7 +133,17 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_800534C8_540C8);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80053558_54158);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80054170_54D70);
+void func_80054170_54D70(void) {
+    if (D_800CE1B8_CEDB8[D_800D2008_D2C08] != NULL) {
+        HuMemFree(D_800CE1B8_CEDB8[D_800D2008_D2C08]);
+    }
+    if (D_800D1FDC_D2BDC != NULL) {
+        D_800CE1B8_CEDB8[D_800D2008_D2C08] = HuMemAlloc(D_800D1FDC_D2BDC);
+    } else {
+        D_800CE1B8_CEDB8[D_800D2008_D2C08] = NULL;
+    }
+    D_800D59F4_D65F4 = D_800CE1B8_CEDB8[D_800D2008_D2C08];
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80054218_54E18);
 
@@ -449,7 +463,18 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80056650_57250);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056758_57358);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056BAC_577AC);
+void func_80056BAC_577AC(void) {
+    s16 i;
+
+    func_80052700_53300();
+    func_800557A0_563A0();
+    func_80057158_57D58();
+    for (i = 0; i < 3; i++) {
+        if (D_800CE1B8_CEDB8[i] != NULL) {
+            HuMemFree(D_800CE1B8_CEDB8[i]);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056C28_57828);
 
