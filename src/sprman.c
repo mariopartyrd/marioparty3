@@ -624,7 +624,32 @@ void func_80056CD0_578D0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_80056D18_57918);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80056F80_57B80);
+void func_80056F80_57B80(s16 arg0) {
+    HuSprAnmDesc *desc = D_800D0A50_D1650[arg0];
+    s32 i;
+
+    for (i = 0; i < desc->unk02; i++) {
+        HuSprAnmEntry *group = desc->unk04[i];
+
+        if (group->unk00 != 0) {
+            s32 j;
+
+            for (j = 0; j < group->unk02; j++) {
+                HuSprAnmEntry *cel = group->unk04[j];
+
+                HuMemFree(cel->unk04);
+                HuMemFree(cel);
+            }
+            HuMemFree(group->unk04);
+        }
+        HuMemFree(group);
+    }
+    HuMemFree(desc->unk04);
+    HuMemFree(desc->unk0C);
+    HuMemFree(desc);
+    D_800D0A50_D1650[arg0] = NULL;
+    D_800D554E_D614E--;
+}
 
 void func_800570A8_57CA8(s16 group, s16 member, s16 arg2) {
     HuSprite *sprite = HuSprGrpData[group]->members[member];
