@@ -1,4 +1,5 @@
 #include "game/sprite.h"
+#include "game/hmfman.h"
 #include "mallocblock.h"
 #include "include_asm.h"
 
@@ -11,8 +12,13 @@ void func_80056F80_57B80(s16 arg0);
 s16 func_8005630C_56F0C(HuSprAnm *arg0);
 void func_800563A4_56FA4(HuSprAnm *arg0);
 void func_800571C8_57DC8(HuSprAnmDesc *arg0);
+void func_80054218_54E18(Gfx **, s32, s32);
+void func_80054658_55258(Gfx **, s32, s32);
 
 extern s32 D_800A1EA0_A2AA0; // redraw?
+extern Mtx D_800BD7C0_BE3C0;
+extern s16 D_800D0468_D1068;
+extern s16 D_800D10F2_D1CF2;
 extern HuSprAnmDesc *D_800D0A50_D1650[0x100];
 extern u16 D_800D554E_D614E;
 extern u16 D_800CC3E6_CCFE6;
@@ -28,7 +34,30 @@ extern HuSprGrp *HuSprGrpFirst;
 HuSprGrp *HuSprGrpData[HUSPR_GRP_MAX] __attribute__((aligned(16)));
 extern u16 HuSprGrpNum;
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80052330_52F30);
+void func_80052330_52F30(void) {
+    s16 i;
+    void **p;
+
+    HuSprGrpNum = 0;
+    for (i = 0; i < HUSPR_GRP_MAX; i++) {
+        HuSprGrpData[i] = NULL;
+    }
+    HuSprGrpFirst = NULL;
+    HuSprGrpLast = NULL;
+    D_800CB8A0_CC4A0 = 0;
+    D_800CE1B8_CEDB8[0] =
+        D_800CE1B8_CEDB8[1] =
+            D_800CE1B8_CEDB8[2] =
+                D_800D59F4_D65F4 = NULL;
+    D_800D1FDC_D2BDC = NULL;
+    guOrtho(&D_800BD7C0_BE3C0, -160.0f, 160.0f, -120.0f, 120.0f, 0.0f, 8000.0f, 2.0f);
+    D_800D0468_D1068 = func_8001AC8C_1B88C(0, func_80054218_54E18, 0);
+    func_8001C8A8_1D4A8(D_800D0468_D1068, 1);
+    D_800D10F2_D1CF2 = func_8001AC8C_1B88C(0, func_80054658_55258, 6);
+    func_80055628_56228();
+    func_80056CD0_578D0();
+    D_800A1EA0_A2AA0 = 1;
+}
 
 HuSprGrp *func_80052468_53068(s16 arg0, u16 arg1) {
     HuSprGrp *temp_v0;
