@@ -225,7 +225,41 @@ INCLUDE_ASM("asm/nonmatchings/sprman", func_80052E68_53A68);
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800530AC_53CAC);
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_8005338C_53F8C);
+s16 func_8005338C_53F8C(HuSprGrp *arg0) {
+    HuSprite *sprite;
+    s16 result = 0;
+    s16 i;
+    s16 j;
+
+    for (j = 0; j < arg0->unk_0A; j++) {
+        sprite = arg0->members[j];
+        sprite->unk_116 = -1;
+        sprite->unk_114 = -1;
+    }
+    for (i = 0; i < arg0->unk_0A; i++) {
+        sprite = arg0->members[i];
+
+        if (sprite->unk_2E >= 0) {
+            HuSprite *parent = arg0->members[sprite->unk_2E];
+
+            if (parent->unk_116 < 0) {
+                parent->unk_116 = i;
+            } else {
+                for (j = 0; j < i; j++) {
+                    HuSprite *other = arg0->members[j];
+
+                    if (j != i && sprite->unk_2E == other->unk_2E && other->unk_114 < 0) {
+                        other->unk_114 = i;
+                        break;
+                    }
+                }
+            }
+        } else {
+            result = i;
+        }
+    }
+    return result;
+}
 
 void func_800534C8_540C8(f32 a0[][2], f32 a1[][2], f32 a2[][2]) {
     s16 i;

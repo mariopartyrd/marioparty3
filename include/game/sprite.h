@@ -89,7 +89,7 @@ typedef struct HuSprite {
     /* 0x24 */ s32 unk_24;
     /* 0x28 */ char unk_28[4];
     /* 0x2C */ u16 unk_2C;
-    /* 0x2E */ u16 unk_2E;
+    /* 0x2E */ s16 unk_2E;
     /* 0x30 */ s32 unk_30;
     /* 0x34 */ s32 unk_34;
     /* 0x38 */ u16 unk_38;
@@ -127,7 +127,12 @@ typedef struct HuSprite {
     /* 0x100 */ char unk_100_pad[0x4];
     /* 0x104 */ s32 unk_104;
     /* 0x108 */ void* unk_108[3];
-    /* 0x114 */ char unk_114_pad[0x14];
+    /* 0x114 */ s16 unk_114;
+    /* 0x116 */ s16 unk_116;
+    /* 0x118 */ void* unk_118;
+    /* 0x11C */ void* unk_11C;
+    /* 0x120 */ void* unk_120;
+    /* 0x124 */ void* unk_124;
     /* 0x128 */ void* unk_128[3];
     /* 0x134 */ void* unk_134[3];
     /* 0x140 */ char unk_140_pad[0xC4];
