@@ -612,7 +612,32 @@ void func_800562BC_56EBC(s16 arg0, void *arg1) {
     D_800C9530_CA130[arg0]->unk0C = arg1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_8005630C_56F0C);
+s16 func_8005630C_56F0C(HuSprAnm *arg0) {
+    HuSprite_Unk84_Struct *desc = arg0->unk00;
+
+    if (desc == NULL) {
+        return -1;
+    }
+    if (arg0->unk06 == 1) {
+        HuSprCelAnm *cel;
+        HuSprCelFrame *frame;
+
+        if (desc->unk04 == NULL) {
+            return 0;
+        }
+        cel = &(*desc->unk04)[arg0->unk08];
+        frame = &cel->unk04[arg0->unk0A];
+        arg0->unk14 = frame->unk00;
+        arg0->unk17 = frame->unk04;
+        arg0->unk18 = frame->unk05;
+        arg0->unk16 = frame->unk06;
+    } else if (arg0->unk06 >= 2) {
+        if (arg0->unk06 < 4) {
+            arg0->unk14 = arg0->unk0A;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sprman", func_800563A4_56FA4);
 
