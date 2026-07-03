@@ -84,7 +84,22 @@ HuSprGrp *func_80052468_53068(s16 arg0, u16 arg1) {
     return temp_v0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80052518_53118);
+void func_80052518_53118(HuSprite *arg0) {
+    s16 i;
+
+    for (i = 0; i < 3; i++) {
+        if (arg0->unk_128[i] != NULL) {
+            func_80019C00_1A800(arg0->unk_128[i]);
+        }
+        if (arg0->unk_134[i] != NULL) {
+            func_80019C00_1A800(arg0->unk_134[i]);
+        }
+        if (arg0->unk_108[i] != NULL) {
+            func_80019C00_1A800(arg0->unk_108[i]);
+        }
+    }
+    func_80019C00_1A800(arg0);
+}
 
 void HuSprGrpKill(s16 arg0) {
     HuSprGrp *group = HuSprGrpData[arg0];

@@ -126,7 +126,11 @@ typedef struct HuSprite {
     } unk_FC;
     /* 0x100 */ char unk_100_pad[0x4];
     /* 0x104 */ s32 unk_104;
-    /* 0x108 */ char unk_108_pad[0xFC];
+    /* 0x108 */ void* unk_108[3];
+    /* 0x114 */ char unk_114_pad[0x14];
+    /* 0x128 */ void* unk_128[3];
+    /* 0x134 */ void* unk_134[3];
+    /* 0x140 */ char unk_140_pad[0xC4];
     /* 0x204 */ u16 unk_204;
     /* 0x206 */ u16 unk_206;
     /* 0x208 */ u16 unk_208;
