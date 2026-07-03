@@ -470,7 +470,34 @@ void func_80055628_56228(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", HuSprKill);
+void HuSprKill(s16 arg0) {
+    HuSprite_Unk84_Struct *desc = D_800C9530_CA130[arg0];
+    s16 i;
+
+    if (desc->unk04 != NULL) {
+        HuSprCelAnm *cel = *desc->unk04;
+        if (cel != NULL) {
+            for (i = 0; i < desc->unk12; i++) {
+                HuMemFree(cel->unk04);
+                cel++;
+            }
+        }
+        HuMemFree(*desc->unk04);
+        HuMemFree(desc->unk04);
+    }
+    func_80019C00_1A800(desc->unk0C);
+    {
+        HuSprite_Unk84_Unk00_Struct *cel = desc->unk00;
+        for (i = 0; i < desc->unk10; i++) {
+            func_80019C00_1A800(cel->unk00);
+            cel++;
+        }
+    }
+    HuMemFree(desc->unk00);
+    HuMemFree(desc);
+    D_800C9530_CA130[arg0] = NULL;
+    D_800CC3E6_CCFE6--;
+}
 
 void func_800557A0_563A0(void) {
     s16 i;
