@@ -95,6 +95,12 @@ typedef struct OvlEntrypoint {
 /* 0x04 */ void (*fn)(void);
 } OvlEntrypoint; //sizeof 0x08
 
+typedef struct RGB2 {
+    s32 r;
+    s32 g;
+    s32 b;
+} RGB2;
+
 typedef struct RGB {
 /* 0x00 */ u8 r;
 /* 0x01 */ u8 g;

@@ -3,12 +3,6 @@
 #include "game/board.h"
 
 
-typedef struct RGB2 {
-    s32 r;
-    s32 g;
-    s32 b;
-} RGB2;
-
 void MB1Ev_StarShuffle(void);
 void MB1Ev_StarNextPos(void);
 void MB1Ev_StarMasuInit(void);
@@ -46,7 +40,7 @@ void MB1Ev_ItemNKinoko(void);
 void MB1Ev_ItemKoopaRKinoko(void);
 void MB1Ev_ItemRKinoko(void);
 void MB1Ev_ItemRobBox(void);
-void MB1_ComItemDecide(void);
+s32 MB1_ComItemDecide(void);
 void MB1_ObjectSetup(void);
 void MB1Ev_SnowmanStart(void);
 void MB1_BankCoinHide(void);

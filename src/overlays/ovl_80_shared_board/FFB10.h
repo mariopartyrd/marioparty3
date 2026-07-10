@@ -8,6 +8,7 @@ void func_800EBF98_FFBB8_shared_board(s16 arg0, s32 arg1);
 s16 MBWinCreate(s16 arg0, s16 *arg1, s16 arg2);
 void MBWinOpen(s32 arg0);
 void MBWinInsertOpen(s32 arg0, char *arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5);
+void func_800EC39C_FFFBC_shared_board(s32 arg0);
 void func_800EC3C0_FFFE0_shared_board(s32 arg0);
 void func_800EC3E4_100004_shared_board(void);
 void MBDlgResultWinExec(s32 arg0);
