@@ -15,13 +15,30 @@ typedef struct {
     /* 0x0A */ s16 unk0A;
 } HuSprite_Unk84_Unk00_Struct; // Size 0xC
 
+// One frame of a cel animation (built by the cel-anm loader).
+typedef struct HuSprCelFrame {
+    /* 0x00 */ u16 unk00;
+    /* 0x02 */ u16 unk02;
+    /* 0x04 */ u8 unk04;
+    /* 0x05 */ u8 unk05;
+    /* 0x06 */ u8 unk06;
+    /* 0x07 */ u8 unk07;
+} HuSprCelFrame; // Size 0x8
+
+// A cel within a cel animation: a count plus its frame table.
+typedef struct HuSprCelAnm {
+    /* 0x00 */ u16 unk00;
+    /* 0x02 */ u16 unk02;
+    /* 0x04 */ HuSprCelFrame* unk04;
+} HuSprCelAnm; // Size 0x8
+
 typedef struct {
     /* 0x00 */ HuSprite_Unk84_Unk00_Struct* unk00;
-    /* 0x04 */ s32 unk04;
+    /* 0x04 */ HuSprCelAnm** unk04;
     /* 0x08 */ void* unk08;
     /* 0x0C */ void* unk0C; // pal data?
     /* 0x10 */ u16 unk10;
-    /* 0x12 */ s16 unk12;
+    /* 0x12 */ u16 unk12;
     /* 0x14 */ s16 unk14;
     /* 0x16 */ s16 unk16;
     /* 0x18 */ u16 unk18;
@@ -66,12 +83,15 @@ typedef struct HuSprite {
     /* 0x0E */ s16 unk_0E;
     /* 0x10 */ f32 unk_10;
     /* 0x14 */ u16 prio;
-    /* 0x18 */ char unk_18[0xC];
+    /* 0x18 */ f32 unk_18;
+    /* 0x1C */ f32 unk_1C;
+    /* 0x20 */ char unk_20[0x4];
     /* 0x24 */ s32 unk_24;
     /* 0x28 */ char unk_28[4];
     /* 0x2C */ u16 unk_2C;
-    /* 0x2E */ u16 unk_2E;
-    /* 0x30 */ char unk_30[0x8];
+    /* 0x2E */ s16 unk_2E;
+    /* 0x30 */ s32 unk_30;
+    /* 0x34 */ s32 unk_34;
     /* 0x38 */ u16 unk_38;
     /* 0x3A */ u16 unk_3A;
     /* 0x3C */ u16 unk_3C;
@@ -94,13 +114,40 @@ typedef struct HuSprite {
     /* 0x8C */ f32 unk_8C;
     /* 0x90 */ s16 unk_90;
     /* 0x92 */ s8 unk_92;
-} HuSprite; // Size 0x210 (or a divisor of 0x210)
+    /* 0x93 */ u8 unk_93;
+    /* 0x94 */ u8 unk_94;
+    /* 0x95 */ char unk_95_pad[0x3];
+    /* 0x98 */ HuSprAnmDesc* unk_98;
+    /* 0x9C */ u16 unk_9C[0x10];
+    /* 0xBC */ s32 unk_BC[0x10];
+    /* 0xFC */ union {
+        f32 f;
+        s32 i;
+    } unk_FC;
+    /* 0x100 */ char unk_100_pad[0x4];
+    /* 0x104 */ s32 unk_104;
+    /* 0x108 */ void* unk_108[3];
+    /* 0x114 */ s16 unk_114;
+    /* 0x116 */ s16 unk_116;
+    /* 0x118 */ void* unk_118;
+    /* 0x11C */ void* unk_11C;
+    /* 0x120 */ void* unk_120;
+    /* 0x124 */ void* unk_124;
+    /* 0x128 */ void* unk_128[3];
+    /* 0x134 */ void* unk_134[3];
+    /* 0x140 */ char unk_140_pad[0xC4];
+    /* 0x204 */ u16 unk_204;
+    /* 0x206 */ u16 unk_206;
+    /* 0x208 */ u16 unk_208;
+    /* 0x20A */ u16 unk_20A;
+    /* 0x20C */ char unk_20C_pad[0x4];
+} HuSprite; // Size 0x210
 
 typedef struct HuSprGrp {
     struct HuSprGrp* next;
     struct HuSprGrp* prev;
     s16 unk_08;
-    s16 unk_0A;
+    u16 unk_0A;
     s32 unk_0C;
     HuSprite* members[4]; //unknown size
 } HuSprGrp; //unknown size
