@@ -6,8 +6,8 @@
 
 extern s16 omovlevtno;
 extern UnkDiceRelated D_800CDBC8_CE7C8[4];
-extern s32 D_800A12D4;
-extern s32 D_800A12D8;
+extern s32 D_800A12D4_A1ED4;
+extern s32 D_800A12D8_A1ED8;
 
 extern s16 D_800CDD58_CE958;
 extern s16 D_800D037C_D0F7C;

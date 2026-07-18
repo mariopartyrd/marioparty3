@@ -37,7 +37,7 @@ extern u16 D_800CDA7C_CE67C[];
 extern s8 D_800D20A1_D2CA1[];
 
 // unknown
-extern s32 D_800A178C[][6];
+extern s32 D_800A178C_A238C[][6];
 extern u16 D_800D530C_D5F0C;
 
 // LOCAL
@@ -366,8 +366,8 @@ void m257_InitPlayer(omObjData *object) {
     object->work[0] = D_800EC280_BEE00_minigame;
     player = &m257_players[object->work[0]];
     player->chr = GwPlayer[m257_playerId[object->work[0]]].chr;
-    temp_a1 = D_800A178C[player->chr][0];
-    temp_a2 = D_800A178C[player->chr][1];
+    temp_a1 = D_800A178C_A238C[player->chr][0];
+    temp_a2 = D_800A178C_A238C[player->chr][1];
     func_800E1BA8_B4728_minigame(object, temp_a1, temp_a2, m257_playerId[object->work[0]], var_a0, var_a0);
     object->model[7] = func_8000B108_BD08(8, var_a0);
     func_8001C258_1CE58(object->model[7], 4, 4);
@@ -1235,7 +1235,7 @@ void m257_UpdatePlayerAnimation(FuncGroupContext *groupCtx, FuncContext *ctx) {
     if (player->updateAnimation) {
         func_800E5690_B8210_minigame(object, player->state);
         if (player->state == PLAYER_STATE_WON) {
-            func_80045F1C_46B1C(D_800A178C[GwPlayer[m257_playerId[object->work[0]]].chr][0] | 0x30, -1, m257_playerId[object->work[0]]);
+            func_80045F1C_46B1C(D_800A178C_A238C[GwPlayer[m257_playerId[object->work[0]]].chr][0] | 0x30, -1, m257_playerId[object->work[0]]);
         }
         player->updateAnimation = FALSE;
         if (player->nextState != -1) {

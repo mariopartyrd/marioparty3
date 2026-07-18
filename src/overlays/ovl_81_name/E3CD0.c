@@ -18,7 +18,7 @@ extern UnkE3CD0 *D_801054B0_ED280_name_81;
 extern Vec *D_801054AC_ED27C_name_81;
 extern Vec D_801054A0_ED270_name_81;
 extern s16 D_8010549E_ED26E_name_81;
-extern s16 D_800A12C8;
+extern s16 D_800A12C8_A1EC8;
 extern s16 D_800C9930_CA530;
 extern f32 D_800C9938_CA538;
 extern s16 D_800CE1D0_CEDD0;
@@ -31,7 +31,7 @@ extern void (*D_80101A8C_E985C_name_81)(void);
 extern s32 D_80101A70_E9840_name_81[];
 extern s32 D_80101A54_E9824_name_81[];
 extern s16 D_800D6A48_D7648;
-extern s32 D_800A12DC;
+extern s32 D_800A12DC_A1EDC;
 extern s16 D_800C9930_CA530;
 extern s16 D_800CE204;
 extern s16 D_800CE206;
@@ -129,8 +129,8 @@ void func_800FC198_E3F68_name_81(omObjData *obj) {
     while (1) {
         if (
             (func_800F37B8_DB588_name_81(temp_s0[0]) == 0) &&
-            (D_800A12D8 == 0) &&
-            ((GwSystem.current_player_index != temp_s0[0]) || (D_800A12D4 == 0)) &&
+            (D_800A12D8_A1ED8 == 0) &&
+            ((GwSystem.current_player_index != temp_s0[0]) || (D_800A12D4_A1ED4 == 0)) &&
             (D_800C9520_CA120[GwPlayer[temp_s0[0]].pad] & 0x20)) {
             func_8004ACE0_4B8E0(0x2BD, temp_s0[0]);
         }
@@ -278,11 +278,11 @@ void func_800FC5D8_E43A8_name_81(void) {
     D_800C9938_CA538 = 1.4f;
     func_800DF154_C6F24_name_81();
     func_800DAAB0_C2880_name_81();
-    D_800A12C8 = -1;
+    D_800A12C8_A1EC8 = -1;
     D_800C9930_CA530 = -1;
     D_800CE206 = 0;
-    D_800A12D4 = 1;
-    D_800A12D8 = 0;
+    D_800A12D4_A1ED4 = 1;
+    D_800A12D8_A1ED8 = 0;
 
     if (((common->unk9E == 3) | (common->unk9E == 1)) != 0) {
         common->unk9E = 2;
@@ -440,7 +440,7 @@ void func_800FC9FC_E47CC_name_81(void) {
     GW_SYSTEM *system = &GwSystem;
 
     system->current_player_index++;
-    if ((system->current_player_index >= 2) && (system->current_player_index = 0, (D_800A12DC == 0))) {
+    if ((system->current_player_index >= 2) && (system->current_player_index = 0, (D_800A12DC_A1EDC == 0))) {
         system->current_turn++;
         if ((system->current_board_index == 4) && (system->total_turns == 50)) {
             if (system->current_turn > 20) {
@@ -625,7 +625,7 @@ void func_800FD620_E53F0_name_81(void) {
     D_800D037C_D0F7C = 0;
     func_8001FDE8_209E8(temp_s0->player_obj->omObj1->model[0]);
     func_800F8C68_E0A38_name_81(GwSystem.current_player_index);
-    D_800A12D4 = 0;
+    D_800A12D4_A1ED4 = 0;
     HuPrcChildLink(temp_s1, func_800E0888_C8658_name_81());
     HuPrcChildWait();
     D_800D1240_D1E40 = 10;
@@ -661,7 +661,7 @@ void func_800FF944_E7714_name_81(s16 arg0) {
 }
 
 void func_800FF970_E7740_name_81(s32 arg0) {
-    D_800A12C8 = arg0;
+    D_800A12C8_A1EC8 = arg0;
 }
 
 void func_800FF97C_E774C_name_81(s32 arg0, s16 arg1, s16 arg2, s16 arg3) {

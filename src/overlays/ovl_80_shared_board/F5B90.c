@@ -4,7 +4,7 @@
 void func_800E1F70_F5B90_shared_board(Unk3 *);
 extern u8 D_800D6A90_D7690;
 extern char D_80102180_115DA0_shared_board[];
-extern s16 D_800D41C2;
+extern s16 D_800D41C2_D4DC2;
 
 s32 D_80100F20_114B40_shared_board[] = {
     0x00003000,
@@ -99,7 +99,7 @@ Unk3 *func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2) {
         } else {
             temp_v0_3 = HuMemMemoryAllocTemp(8);
             temp_v0->unk_0C = temp_v0_3;
-            sprintf(temp_v0_3, D_80102180_115DA0_shared_board, D_800D41C2);
+            sprintf(temp_v0_3, D_80102180_115DA0_shared_board, D_800D41C2_D4DC2);
             return temp_v0;
         }
     }

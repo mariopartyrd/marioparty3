@@ -48,7 +48,7 @@ extern u16 D_800D5558_D6158[];
 s32 print8(u16 x, u16 y, char *src);
 
 // unknown
-extern s32 D_800A178C[][6];
+extern s32 D_800A178C_A238C[][6];
 extern char D_800D5218_D5E18[];
 extern u16 D_800D530C_D5F0C;
 
@@ -524,8 +524,8 @@ void m255_InitPlayer(omObjData *object) {
     object->work[0] = D_800EC280_BEE00_minigame;
     object->work[1] = m255_playerId[object->work[0]];
     chr = GwPlayer[object->work[1]].chr;
-    temp_a1 = D_800A178C[GwPlayer[object->work[1]].chr][0];
-    temp_v0_2 = D_800A178C[GwPlayer[object->work[1]].chr][2];
+    temp_a1 = D_800A178C_A238C[GwPlayer[object->work[1]].chr][0];
+    temp_v0_2 = D_800A178C_A238C[GwPlayer[object->work[1]].chr][2];
     func_800E1BA8_B4728_minigame(object, temp_a1, temp_v0_2, object->work[1], 0x2A9, 0x2B9);
     object->model[MDL_ARROW] = func_8000B108_BD08(0x58000B, 0x2B9);
     object->model[MDL_BALLOON_B] = func_8000B108_BD08(0x58000D, 0x2B9);
@@ -1430,7 +1430,7 @@ void m255_UpdatePlayerAnimation(FuncContext *ctx) {
                 case PLAYER_STATE_WON:
                     if (D_8010BE4E_2B56FE_silly_screws == 0) {
                         func_800E5690_B8210_minigame(player->object, PLAYER_ANIM_WON);
-                        func_80045F1C_46B1C(D_800A178C[GwPlayer[m255_playerId[player->object->work[0]]].chr][0] | 0x2F, -1, m255_playerId[player->object->work[0]]);
+                        func_80045F1C_46B1C(D_800A178C_A238C[GwPlayer[m255_playerId[player->object->work[0]]].chr][0] | 0x2F, -1, m255_playerId[player->object->work[0]]);
                         D_8010BE4E_2B56FE_silly_screws = 1;
                     }
                     break;

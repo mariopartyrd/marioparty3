@@ -106,9 +106,9 @@ void MBItemViewExec(s32);
 
 extern u8 D_800CC0BA_CCCBA;
 extern s16 D_800D1380_D1F80;
-extern s32 D_800A12CC;
+extern s32 D_800A12CC_A1ECC;
 extern s16 D_800CC4A0_CD0A0;
-extern s16 D_800D2130;
+extern s16 D_800D2130_D2D30;
 extern s32 D_80105660_119280_shared_board;
 extern s16 D_800CDD64_CE964;
 extern s16 D_800D6A44_D7644;
@@ -122,7 +122,7 @@ extern s16 D_800CE206;
 extern s32 D_80105668_119288_shared_board;
 extern s16 D_8010566C_11928C_shared_board;
 extern s16 D_800D037E_D0F7E;
-extern s32 D_800A12DC;
+extern s32 D_800A12DC_A1EDC;
 extern s16 D_8010566E_11928E_shared_board;
 extern Vec D_80105670_119290_shared_board;
 extern Vec *D_8010567C_11929C_shared_board;
@@ -130,11 +130,10 @@ extern Vec D_80105680_1192A0_shared_board[];
 extern Object *mbBattleKuriboMdl;
 extern Object *mbBattleKuriboUpperMdl;
 extern omObjData *mbBattleKuriboObj;
-extern s16 D_800A12C8;
+extern s16 D_800A12C8_A1EC8;
 extern s16 D_800C9930_CA530;
 extern f32 D_800C9938_CA538;
 extern s16 D_800CE206;
-extern s16 D_800D2130;
 extern s32 D_800D41C0_D4DC0;
 extern s16 D_800D1708_D2308;
 extern s16 D_800D4080_D4C80;
@@ -143,7 +142,7 @@ extern s16 D_800D6A44_D7644;
 extern s16 D_800D1FEC_D2BEC;
 extern u16 D_800D03FC;
 extern u16 D_800CE208;
-extern u16 D_800CDD68;
+extern u16 D_800CDD68_CE968;
 extern s16 kakusiMasuItemOld[10];
 extern s16 kakusiMasuCoinOld[10];
 extern s16 kakusiMasuStarOld[10];
@@ -549,8 +548,8 @@ void func_800F8908_10C528_shared_board(void) {
     while (1) {
         if (
             (func_800F2198_105DB8_shared_board(temp_s0[0]) == 0) &&
-            (D_800A12D8 == 0) &&
-            ((GwSystem.current_player_index != temp_s0[0]) || (D_800A12D4 == 0)) &&
+            (D_800A12D8_A1ED8 == 0) &&
+            ((GwSystem.current_player_index != temp_s0[0]) || (D_800A12D4_A1ED4 == 0)) &&
             (D_800C9520_CA120[GwPlayer[temp_s0[0]].pad] & 0x20)) {
             func_8004ACE0_4B8E0(0x2BD, temp_s0[0]);
         }
@@ -685,7 +684,7 @@ void MBSaveInit(void) {
 
     D_800D1240_D1E40 = 0;
     D_800D41C0_D4DC0 = 0;
-    D_800CDD68 = 0;
+    D_800CDD68_CE968 = 0;
     D_800CE208 = 0;
     D_800D03FC = 0;
     kakusiMasuItem = -1;
@@ -693,7 +692,7 @@ void MBSaveInit(void) {
     kakusiMasuCoin = -1;
     D_800D1708_D2308 = 0;
     D_800D4080_D4C80 = 0;
-    D_800D2130 = 0;
+    D_800D2130_D2D30 = 0;
 
     for (i = 0; i < 10; i++) {
         kakusiMasuCoinOld[i] =
@@ -709,11 +708,11 @@ void MBSaveInit(void) {
     MBMgCallHisInit();
     func_800DB56C_EF18C_shared_board(); // clear lucky 7 flag for buffing golden mushrooms
 
-    D_800A12C8 = -1;
+    D_800A12C8_A1EC8 = -1;
     D_800C9930_CA530 = -1;
     D_800CE206 = 0;
-    D_800A12D4 = 1;
-    D_800A12D8 = 0;
+    D_800A12D4_A1ED4 = 1;
+    D_800A12D8_A1ED8 = 0;
 
     func_800F2484_1060A4_shared_board(0);
     func_800F2484_1060A4_shared_board(1);
@@ -866,7 +865,7 @@ void MBNextPlayerTurn(void) {
 
     if (system->current_player_index >= 4) {
         system->current_player_index = 0;
-        if (D_800A12DC == 0) {
+        if (D_800A12DC_A1EDC == 0) {
             if (GwSystem.unk_52 != 2) {
                 system->current_turn++;
             } else {
@@ -2232,8 +2231,8 @@ void MBBlockMasuUpdate(void) {
         }
 
         while (kakusiMasuItem == -1 || kakusiMasuCoin == kakusiMasuItem || kakusiMasuStar == kakusiMasuItem) {
-            kakusiMasuItem = MBMasuKakusiBlockGet(D_800CDD68);
-            D_800CDD68++;
+            kakusiMasuItem = MBMasuKakusiBlockGet(D_800CDD68_CE968);
+            D_800CDD68_CE968++;
             for (i = 0; i < ARRAY_COUNT(kakusiMasuItemOld); i++) {
                 if (kakusiMasuItem == kakusiMasuItemOld[i]) {
                     break;
@@ -2434,11 +2433,11 @@ void MBMain(void) {
             }
 
             GWBoardFlagClear(1);
-            D_800A12D4 = 0;
+            D_800A12D4_A1ED4 = 0;
             D_80105660_119280_shared_board = func_800EBAC8_FF6E8_shared_board(-2, 7);
         }
 
-        D_800A12D4 = 1;
+        D_800A12D4_A1ED4 = 1;
 
         var_s1 = 0;
         eight = 8; // definitely a hack
@@ -2545,7 +2544,7 @@ void MBMain(void) {
                 }
 
                 // Camera setup
-                if (D_800A12CC == 0) {
+                if (D_800A12CC_A1ECC == 0) {
                     D_800C9938_CA538 = 1.0f;
                     func_800E8DD4_FC9F4_shared_board(1.0f);
                     HuPrcChildLink(temp_s6, func_800F29EC_10660C_shared_board());
@@ -2894,7 +2893,7 @@ void MBMain(void) {
                 }
 
                 // COIN BLOCK HANDLING (similar structure to star block)
-                if (kakusiMasuCoin == var_s5 || D_800D2130 != 0) {
+                if (kakusiMasuCoin == var_s5 || D_800D2130_D2D30 != 0) {
                     func_800FF900_113520_shared_board(-1, 5);
                     HuPrcChildLink(temp_s6, func_800E8EDC_FCAFC_shared_board(1.6f));
                     temp_s1 = func_800DE7E4_F2404_shared_board(system->current_player_index);
@@ -3455,7 +3454,7 @@ void MBMain(void) {
                 if (system->current_player_index >= 3) {
                     func_800EBAC8_FF6E8_shared_board(-3, 7);
                     func_8001FDE8_209E8(MBGetPlayerStruct(3)->player_obj->omObj1->model[0]);
-                    D_800A12D4 = 0;
+                    D_800A12D4_A1ED4 = 0;
                     func_800F7108_10AD28_shared_board();
 
                     HuPrcChildLink(temp_s6, MBMgCallCreate());
@@ -3627,14 +3626,14 @@ void MBStart(u32 arg0) {
                     func_800F2834_106454_shared_board();
                     break;
                 default:
-                    if (D_800A12C8 != -1) {
-                        if (D_800A12C8 == 0) { // logic is backwards here
+                    if (D_800A12C8_A1EC8 != -1) {
+                        if (D_800A12C8_A1EC8 == 0) { // logic is backwards here
                             WipeColorSet(255, 255, 255);
                         } else {
                             WipeColorSet(0, 0, 0);
                         }
-                        WipeCreateIn(D_800A12C8, 0x10);
-                        D_800A12C8 = -1;
+                        WipeCreateIn(D_800A12C8_A1EC8, 0x10);
+                        D_800A12C8_A1EC8 = -1;
                         func_800FF900_113520_shared_board(0, 0);
                         func_800FF900_113520_shared_board(1, 0);
                         func_800FF900_113520_shared_board(2, 0);
@@ -3685,7 +3684,7 @@ void func_800FF75C_11337C_shared_board(s16 arg0) {
 }
 
 void func_800FF788_1133A8_shared_board(s32 arg0) {
-    D_800A12C8 = arg0;
+    D_800A12C8_A1EC8 = arg0;
 }
 
 void func_800FF794_1133B4_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
