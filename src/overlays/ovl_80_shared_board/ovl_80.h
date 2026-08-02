@@ -322,7 +322,7 @@ extern void (*D_80101B6C_11578C_shared_board)(void);
 extern s16 D_80105664_119284_shared_board;
 extern s16 D_80105666_119286_shared_board;
 extern u8 D_80101DE8_115A08_shared_board[][3];
-extern s32 D_80102DCC_1169EC_shared_board;
+extern u8* D_80102DCC_1169EC_shared_board;
 extern HvqHeader* D_80102DD0_1169F0_shared_board;
 extern Addr D_101358;
 extern Addr D_101398;
@@ -337,7 +337,7 @@ extern u8* D_80105220_118E40_shared_board[]; //space form images
 extern f32 D_80105290_118EB0_shared_board[];
 extern s32 D_801052B0_118ED0_shared_board;
 extern u8 (*D_801012C4_114EE4_shared_board)[SPACES_MAX];
-extern s32 D_80103138_116D58_shared_board;
+extern u8* D_80103138_116D58_shared_board;
 extern OSMesgQueue D_80104880_1184A0_shared_board;
 extern OSMesgQueue D_80104928_118548_shared_board;
 extern OSMesgQueue D_801049D0_1185F0_shared_board;
