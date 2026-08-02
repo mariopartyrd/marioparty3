@@ -318,7 +318,7 @@ void func_80054FF8_55BF8(s16 group, s16 member, s32 arg2) {
     HuSprGrpData[group]->members[member]->unk_90 = arg2;
 }
 
-void func_80055024_55C24(s16 group, s16 member, s16 arg2, s32 arg3) {
+void func_80055024_55C24(s16 group, s16 member, s16 arg2, u16 arg3) {
     HuSprite *sprite_ptr = HuSprGrpData[group]->members[member];
 
     sprite_ptr->unk_84 = D_800C9530_CA130[arg2];

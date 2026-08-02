@@ -159,7 +159,7 @@ void HuSprGrpKill(s16);
 s16 HuSprGrpCreate(u16 arg0, u16 arg1);
 void func_80054904_55504(s16 group, s16 member, s16 arg2, s16 arg3);
 void func_80054FF8_55BF8(s16 group, s16 member, s32 arg2);
-void func_80055024_55C24(s16 group, s16 member, s16 arg2, s32 arg3);
+void func_80055024_55C24(s16 group, s16 member, s16 arg2, u16 arg3);
 void func_800550B4_55CB4(s16 group, s16 member, f32 arg2);
 void func_800550F4_55CF4(s16, s16, s32);
 void func_80055140_55D40(s16, s16, u16, s32);

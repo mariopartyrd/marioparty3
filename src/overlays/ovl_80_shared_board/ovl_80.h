@@ -88,7 +88,7 @@ typedef struct UnkBoard7 {
 
 //very closely resembles UnkBoard5, but member at offset 0x08 must be s16 here instead of s32?
 typedef struct UnkBoard8 {
-    struct UnkBoard8* unk_00; //?
+    struct UnkBoard8* unk_00; //double check this
     struct UnkBoard8* unk_04; //?
     s16 unk_08;
     s16 unk_0A;
@@ -100,7 +100,7 @@ typedef struct UnkBoard8 {
 } UnkBoard8; //sizeof 0x20
 
 void MBModelAttrSetDispOff(Object*);
-
+Unk3 *func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2);
 void func_800EE97C_10259C_shared_board(Object* arg0);
 void func_800F641C_10A03C_shared_board(s32 playerIndex);
 void func_800E9940_FD560_shared_board(Vec*, f32*);
@@ -295,6 +295,7 @@ void func_800F91A4_10CDC4_shared_board(void);           /* extern */
 void func_800F93A4_10CFC4_shared_board(void);           /* extern */
 void func_800FF0F8_112D18_shared_board(void);           /* extern */
 void func_800FF158_112D78_shared_board(void);           /* extern */
+void func_800E6120_F9D40_shared_board(UnkBoard8*, s16, s32);
 extern s16 D_80105706_119326_shared_board;
 extern s16 D_80101482_1150A2_shared_board;
 extern s32 D_80102CB0_1168D0_shared_board;
@@ -383,7 +384,7 @@ extern Process* D_80105580_1191A0_shared_board;
 extern s16 D_801055C2_1191E2_shared_board;
 extern s16 D_801055C4_1191E4_shared_board;
 extern s32 D_80101784_1153A4_shared_board;
-extern BoardStatus D_801057E0_119400_shared_board[];
+extern BoardStatus D_801057E0_119400_shared_board[MB_MAX_PLAYERS];
 extern UnkBoard D_80105718_119338_shared_board[16];
 extern omObjData* D_801055E8_119208_shared_board[];
 extern s32 D_80101F30_115B50_shared_board[3];

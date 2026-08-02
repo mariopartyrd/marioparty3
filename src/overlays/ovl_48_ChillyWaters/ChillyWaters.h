@@ -8,7 +8,7 @@ typedef struct RGB2 {
 } RGB2;
 
 void MBHelpWinKill(Unk3*);
-void* func_800E210C_F5D2C_shared_board(s32, s32, s32);
+Unk3 *func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2);
 void func_8010067C_11429C_shared_board(s32);
 s32 func_800E9AE0_FD700_shared_board(void);
 void func_800ED91C_10153C_shared_board(s32, s32, s32);
