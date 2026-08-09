@@ -1504,7 +1504,7 @@ s32 MBKettouExec(GW_PLAYER *arg0, s32 arg1) {
         mbBattleKuriboUpperMdl->velocity.x -= 1.0f;
     }
 
-    mbBattleKuriboObj = omAddObj(0x1F4, 0U, 0U, -1, MBBattleKuriboObjMain);
+    mbBattleKuriboObj = omAddObj(0x1F4, 0, 0, -1, MBBattleKuriboObjMain);
     mbBattleKuriboObj->rot.x = 180.0f;
     HuAudFXPlay(0x25B);
     var_s1 = 0;
@@ -1541,7 +1541,7 @@ s32 MBKettouExec(GW_PLAYER *arg0, s32 arg1) {
             mbItemBtnF = 1;
             D_800C9930_CA530 = -1;
             D_800CE206 = 0;
-            omPrcSetStatBit(omAddPrcObj(func_800F9C68_10D888_shared_board, 0U, 0, 0), 0xA0);
+            omPrcSetStatBit(omAddPrcObj(func_800F9C68_10D888_shared_board, 0, 0, 0), 0xA0);
             HuPrcSleep(0x1F);
             return 0;
         } else {
@@ -1557,7 +1557,7 @@ s32 MBKettouExec(GW_PLAYER *arg0, s32 arg1) {
         mbItemBtnF = 1;
         D_800C9930_CA530 = -1;
         D_800CE206 = 0;
-        omPrcSetStatBit(omAddPrcObj(func_800F9C68_10D888_shared_board, 0U, 0, 0), 0xA0);
+        omPrcSetStatBit(omAddPrcObj(func_800F9C68_10D888_shared_board, 0, 0, 0), 0xA0);
         HuPrcSleep(0x1F);
         return 0;
     }
@@ -1933,7 +1933,7 @@ s32 func_800FB624_10F244_shared_board(GW_PLAYER *arg0) {
         func_800ECA38_100658_shared_board();
         MBDlgWinClose();
         MBDlgWinKill();
-        temp_s5 = HuSprGrpCreate(2U, 2U);
+        temp_s5 = HuSprGrpCreate(2, 2U);
         temp_v0_4 = DataRead(0x130113);
         sp44 = func_80055810_56410(temp_v0_4);
         DataClose(temp_v0_4);
@@ -2149,7 +2149,7 @@ s32 func_800FB624_10F244_shared_board(GW_PLAYER *arg0) {
         mbItemBtnF = 1;
         D_800C9930_CA530 = -1;
         D_800CE206 = 0;
-        omPrcSetStatBit(omAddPrcObj(func_800F9C68_10D888_shared_board, 0U, 0, 0), 0xA0);
+        omPrcSetStatBit(omAddPrcObj(func_800F9C68_10D888_shared_board, 0, 0, 0), 0xA0);
         HuPrcSleep(2);
         return 0;
     } else {
@@ -3646,14 +3646,14 @@ void MBStart(u32 arg0) {
                     break;
             }
             MBCameraPos3DSet(&GwPlayer[GwSystem.current_player_index].player_obj->coords);
-            omAddPrcObj(MBMain, 0xEFFFU, 0x3000, 0);
-            omAddPrcObj(func_800F93A4_10CFC4_shared_board, 0x1005U, 0, 0);
-            omPrcSetStatBit(omAddPrcObj(func_800FF158_112D78_shared_board, 0x1001U, 0, 0), 0x80);
+            omAddPrcObj(MBMain, 0xEFFF, 0x3000, 0);
+            omAddPrcObj(func_800F93A4_10CFC4_shared_board, 0x1005, 0, 0);
+            omPrcSetStatBit(omAddPrcObj(func_800FF158_112D78_shared_board, 0x1001, 0, 0), 0x80);
             mbCameraBtnF = 0;
             mbItemBtnF = 0;
             D_800CDD64_CE964 = 0;
             D_800D51F8_D5DF8 = 0;
-            omAddPrcObj(func_800F91A4_10CDC4_shared_board, 0x1005U, 0, 0);
+            omAddPrcObj(func_800F91A4_10CDC4_shared_board, 0x1005, 0, 0);
             MBCameraFocusModeSet(1);
             if (func_800037C4_43C4(D_800CDBC8_CE7C8->unk_00) < 0x7F) {
                 func_800DECBC_F28DC_shared_board();

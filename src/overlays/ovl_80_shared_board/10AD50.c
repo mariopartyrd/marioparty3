@@ -487,7 +487,7 @@ void func_800F7FE8_10BC08_shared_board(void) {
         D_80105624_119244_shared_board->velocity.x -= 2.0f;
     }
 
-    temp_v0 = omAddObj(0x1F4, 0U, 0U, -1, func_800F7130_10AD50_shared_board);
+    temp_v0 = omAddObj(0x1F4, 0, 0, -1, func_800F7130_10AD50_shared_board);
     temp_v0->rot.x = 180.0f;
     var_s0 = 0;
 

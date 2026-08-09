@@ -783,21 +783,21 @@ void omMain(void) {
     permUsed = HuMemUsedMemoryBlockGetPerm();
     if (omdispinfo != 0) {
         sprintf(D_800D5218_D5E18, "%8lX(%ld)", permSize, permUsed);
-        print8(0x10U, 0x18U, D_800D5218_D5E18);
+        print8(0x10, 0x18, D_800D5218_D5E18);
         tempSize = HuMemHeapAllocTempSizeGet();
         sprintf(D_800D5218_D5E18, "%8lX(%ld)", tempSize, HuMemUsedMemoryBlockGetTemp());
-        print8(0x10U, 0x20U, D_800D5218_D5E18);
+        print8(0x10, 0x20, D_800D5218_D5E18);
         sprintf(D_800D5218_D5E18, "OVL:%d(%ld<%ld)", omovlhisidx, omovl, (s32)(s16)D_800A1756_A2356);
-        print8(0x18U, 0x28U, D_800D5218_D5E18);
+        print8(0x18, 0x28, D_800D5218_D5E18);
         sprintf(D_800D5218_D5E18, "OBJ:%d/%d", omnumobjs, ommaxobjs);
-        print8(0x18U, 0x30U, D_800D5218_D5E18);
+        print8(0x18, 0x30, D_800D5218_D5E18);
         sprintf(D_800D5218_D5E18, "PRC:%d/%d", D_800A1776_A2376, D_800A1774_A2374);
-        print8(0x18U, 0x38U, D_800D5218_D5E18);
+        print8(0x18, 0x38, D_800D5218_D5E18);
         sprintf(D_800D5218_D5E18, "%02X", D_800A1906_A2506);
-        print8(0x70U, 0x38U, D_800D5218_D5E18);
+        print8(0x70, 0x38, D_800D5218_D5E18);
         i = func_80000F08_1B08(6);
         sprintf(D_800D5218_D5E18, "C:%04X D:%02X", i, func_80000F08_1B08(5));
-        print8(0x28U, 0x40U, D_800D5218_D5E18);
+        print8(0x28, 0x40, D_800D5218_D5E18);
         if (D_800A1786_A2386 == -1) {
             D_800A1786_A2386 = func_8004DE24_4EA24(0xE, 0x16, 0x82, 0x4A, 0xFF70);
         }

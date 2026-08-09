@@ -469,12 +469,12 @@ void MBStatusNumSprCreate(s32 arg0) {
     for (i = 0; i < 5; i++) {
         func_80055024_55C24(temp_s2, i + 4, temp_s4->unk_3A, 0);
         func_800550F4_55CF4(temp_s2, i + 4, 1);
-        func_80055140_55D40(temp_s2, i + 4, 0xAU, 0);
+        func_80055140_55D40(temp_s2, i + 4, 0xA, 0);
         HuSprPriSet(temp_s2, i + 4, ((arg0 * 5) + 0x4790) & 0xFFFF);
         HuSprAttrReset(temp_s2, i + 4, 0xFFFFU);
         HuSprAttrSet(temp_s2, i + 4, 0U);
         func_80054904_55504(temp_s2, i + 4, D_801018E4_115504_shared_board[i + 4][0], D_801018E4_115504_shared_board[i + 4][1]);
-        func_80055420_56020(temp_s2, i + 4, 0xFFU, 0xFFU, 0xFF);
+        func_80055420_56020(temp_s2, i + 4, 0xFF, 0xFF, 0xFF);
         func_80055458_56058(temp_s2, i + 4, 0x100U);
         func_800552DC_55EDC(temp_s2, i + 4, 0.0f);
     }
@@ -655,7 +655,7 @@ void func_800F453C_10815C_shared_board(void) {
         func_800F43FC_10801C_shared_board(i);
     }
 
-    D_80105580_1191A0_shared_board = omAddPrcObj(MBStatusMain, 0U, 0x2000, 0);
+    D_80105580_1191A0_shared_board = omAddPrcObj(MBStatusMain, 0, 0x2000, 0);
     omPrcSetStatBit(D_80105580_1191A0_shared_board, 0x80);
 
     D_801055C4_1191E4_shared_board = -1;

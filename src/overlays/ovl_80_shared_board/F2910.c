@@ -1101,7 +1101,7 @@ Process *func_800E0F84_F4BA4_shared_board(void) {
     Process *temp_v0;
     UnkSize10 *temp_v0_2;
 
-    temp_v0 = omAddPrcObj(func_800E0C94_F48B4_shared_board, 0U, 0x2000, 0x40);
+    temp_v0 = omAddPrcObj(func_800E0C94_F48B4_shared_board, 0, 0x2000, 0x40);
     temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkSize10));
     temp_v0->user_data = temp_v0_2;
     temp_v0_2->unk_00 = 0;

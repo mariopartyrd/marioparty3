@@ -219,7 +219,7 @@ void *func_80100420_E81F0_name_81(void) {
         func_80054904_55504(temp_s2->unk_0A, i, D_80101B80_E9950_name_81[i][0], D_80101B80_E9950_name_81[i][1]);
         DataClose(temp_v0);
     }
-    D_8010551C_ED2EC_name_81 = omAddPrcObj(func_801003C8_E8198_name_81, 0x1005U, 0, 0);
+    D_8010551C_ED2EC_name_81 = omAddPrcObj(func_801003C8_E8198_name_81, 0x1005, 0, 0);
     func_80100124_E7EF4_name_81(temp_s2, 1);
     return temp_s2;
 }
@@ -428,14 +428,14 @@ void func_80100CEC_E8ABC_name_81(s32 padIdx) {
     D_800CB99C_CC59C = 1;
     func_80049FB8_4ABB8();
     func_800E5964_CD734_name_81();
-    procObj = omAddPrcObj(func_80100CA0_E8A70_name_81, 0x1005U, 0, 0);
+    procObj = omAddPrcObj(func_80100CA0_E8A70_name_81, 0x1005, 0, 0);
     omPrcSetStatBit(procObj, 0x20);
     proc = HuPrcCurrentGet();
     HuPrcChildLink(proc, MBDCameraZoomMotStart(1.0f));
     HuPrcChildWait();
     omDelPrcObj(procObj);
     proc2 = HuPrcCurrentGet();
-    procObj = omAddPrcObj(func_801008E8_E86B8_name_81, 0x1005U, 0, 0);
+    procObj = omAddPrcObj(func_801008E8_E86B8_name_81, 0x1005, 0, 0);
     procObj->user_data = (void *)padIdx;
     omPrcSetStatBit(procObj, 0x80);
     HuPrcChildLink(proc2, procObj);

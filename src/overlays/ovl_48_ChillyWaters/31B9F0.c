@@ -666,7 +666,7 @@ void MB1Ev_ItemAfter5(void) {
     sp28[0] = 203.0f;
     sp28[1] = 44.0f;
     MB1Ev_After5ItemMove(temp_s4, 0xA, sp28);
-    temp_v0_4 = omAddPrcObj(MB1Ev_After5LineShow, 0x4002U, 0, 0);
+    temp_v0_4 = omAddPrcObj(MB1Ev_After5LineShow, 0x4002, 0, 0);
     temp_v0_4->user_data = NULL;
     HuPrcChildLink(HuPrcCurrentGet(), temp_v0_4);
     sp28[0] -= 76.0f;
@@ -674,7 +674,7 @@ void MB1Ev_ItemAfter5(void) {
     MB1Ev_After5ItemMove(temp_s4, 0xA, sp28);
     HuPrcChildWait();
     HuPrcSleep(0xA);
-    temp_v0_4 = omAddPrcObj(MB1Ev_After5LineShow, 0x4002U, 0, 0);
+    temp_v0_4 = omAddPrcObj(MB1Ev_After5LineShow, 0x4002, 0, 0);
     temp_v0_4->user_data = (void *)1;
     HuPrcChildLink(HuPrcCurrentGet(), temp_v0_4);
     sp28[1] += 64.0f;
@@ -694,7 +694,7 @@ void MB1Ev_ItemAfter5(void) {
         temp = var_v1 != 0;
         if (temp && var_s1 == 0) {
             var_s1 = 1;
-            temp_v0_4 = omAddPrcObj(MB1Ev_After5LineShow, 0x4002U, 0, 0);
+            temp_v0_4 = omAddPrcObj(MB1Ev_After5LineShow, 0x4002, 0, 0);
             temp_v0_4->user_data = (void *)2;
             HuPrcChildLink(HuPrcCurrentGet(), temp_v0_4);
         }
@@ -719,9 +719,9 @@ void MB1Ev_ItemAfter5(void) {
     HuSprAttrReset(D_8011FB8E_3356FE_ChillyWaters, 0, 0x8000U);
     func_80055458_56058(D_8011FB8E_3356FE_ChillyWaters, 0, 0xFFU);
     func_80054904_55504(D_8011FB8E_3356FE_ChillyWaters, 0, 0xA0, 0x78);
-    HuPrcChildLink(HuPrcCurrentGet(), omAddPrcObj(MB1Ev_After5NumFade, 0x4002U, 0, 0));
+    HuPrcChildLink(HuPrcCurrentGet(), omAddPrcObj(MB1Ev_After5NumFade, 0x4002, 0, 0));
     sp40 = 0;
-    omAddPrcObj(MB1Ev_After5Effect, 0x4002U, 0, 0)->user_data = &sp40;
+    omAddPrcObj(MB1Ev_After5Effect, 0x4002, 0, 0)->user_data = &sp40;
     HuPrcChildWait();
     HuAudFXPlay(0x14F);
     temp_s1_2 = MBPlayerVibrateObjCreate(-1, 4, 5);

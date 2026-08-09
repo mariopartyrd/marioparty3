@@ -53,7 +53,7 @@ u32 func_800EE884_1024A4_shared_board(Object *arg0, s16 arg1, s16 arg2) {
     }
 
     if (i != ARRAY_COUNT(D_80105718_119338_shared_board)) {
-        obj = omAddObj(0x2000, 0U, 0U, -1, func_800EE7AC_1023CC_shared_board);
+        obj = omAddObj(0x2000, 0, 0, -1, func_800EE7AC_1023CC_shared_board);
         temp_s1->unk_08 = obj;
         obj->work[0] = i;
         temp_s1->unk_04 = arg0;
@@ -356,7 +356,7 @@ UnkBoard8* MBPauseTurnNumCreate(void) {
         var_s0 = DataRead(D_80101504_115124_shared_board[GwSystem.current_game_length]);
     }
     temp_s2->unk_0C[0] = func_80055810_56410(var_s0);
-    func_80055024_55C24(temp_s2->unk_0A, 0, temp_s2->unk_0C[0], 0U);
+    func_80055024_55C24(temp_s2->unk_0A, 0, temp_s2->unk_0C[0], 0);
     HuSprPriSet(temp_s2->unk_0A, 0, 7);
     HuSprAttrSet(temp_s2->unk_0A, 0, 0x1000);
     func_80054904_55504(temp_s2->unk_0A, 0, 0xA0, 0x73);
@@ -364,7 +364,7 @@ UnkBoard8* MBPauseTurnNumCreate(void) {
     DataClose(var_s0);
     temp_v0_2 = DataRead(0x130088);
     temp_s2->unk_0C[1] = func_80055810_56410(temp_v0_2);
-    func_80055024_55C24(temp_s2->unk_0A, 1, temp_s2->unk_0C[1], 0U);
+    func_80055024_55C24(temp_s2->unk_0A, 1, temp_s2->unk_0C[1], 0);
     HuSprPriSet(temp_s2->unk_0A, 1, 7);
     HuSprAttrSet(temp_s2->unk_0A, 1, 0x1000);
     func_80054904_55504(temp_s2->unk_0A, 1, 0xA0, 0x90);
@@ -374,8 +374,8 @@ UnkBoard8* MBPauseTurnNumCreate(void) {
     func_800EF208_102E28_shared_board(temp_s2, 4, GwSystem.current_turn, 0xA1, 0x90);
     temp_v0_4 = DataRead(D_801014D0_1150F0_shared_board[GwSystem.current_board_index]);
     temp_s2->unk_0C[6] = func_80055810_56410(temp_v0_4);
-    func_80055024_55C24(temp_s2->unk_0A, 6, temp_s2->unk_0C[6], 0U);
-    HuSprPriSet(temp_s2->unk_0A, 6, 7U);
+    func_80055024_55C24(temp_s2->unk_0A, 6, temp_s2->unk_0C[6], 0);
+    HuSprPriSet(temp_s2->unk_0A, 6, 7);
     HuSprAttrSet(temp_s2->unk_0A, 6, 0x1000);
     func_80054904_55504(temp_s2->unk_0A, 6, 0xA0, 0x3C);
     DataClose(temp_v0_4);
@@ -392,9 +392,9 @@ s16 MBPauseMainScrExec(s32 arg0) {
     s16 var_s0;
     UnkBoard8* temp_s1;
 
-    temp_s3 = func_800E210C_F5D2C_shared_board(0xA, 0xAE, 0U);
-    temp_s2 = func_800E210C_F5D2C_shared_board(5, 0xBC, 0U);
-    temp_s1 = func_800EF3BC_102FDC_shared_board();
+    temp_s3 = func_800E210C_F5D2C_shared_board(0xA, 0xAE, 0);
+    temp_s2 = func_800E210C_F5D2C_shared_board(5, 0xBC, 0);
+    temp_s1 = MBPauseTurnNumCreate();
     HuPrcVSleep();
 
     while (1) {
@@ -414,7 +414,7 @@ s16 MBPauseMainScrExec(s32 arg0) {
     return var_s0;
 }
 
-void MBPauseMainScrExec(UnkBoard8* arg0, s16 arg1) {
+void func_800EF768_103388_shared_board(UnkBoard8* arg0, s16 arg1) {
     s32 i;
     Object* temp_v0;
     s16 temp_s2;
@@ -427,10 +427,10 @@ void MBPauseMainScrExec(UnkBoard8* arg0, s16 arg1) {
 
     for (i = 0; i < 14; i++) {
         temp = arg0->unk_0A;
-        func_800E6120_F9D40_shared_board(arg0, (temp + temp_s2), 8);
+        MBGuidePosSet(arg0, (temp + temp_s2), 8);
         HuPrcVSleep();        
     }
-    func_800E6120_F9D40_shared_board(arg0, arg1, 8);
+    MBGuidePosSet(arg0, arg1, 8);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseDlgMesSet);

@@ -142,7 +142,7 @@ extern ProfSampleBuff D_800B23E0_B2FE0;
 void func_8004D814_4E414(void) {
     u32 temp_s0;
 
-    temp_s0 = osSetIntMask(1U);
+    temp_s0 = osSetIntMask(1);
     bcopy(&D_800B2468_B3068, &D_800B23E0_B2FE0, sizeof(ProfSampleBuff));
     osSetIntMask(temp_s0);
 }

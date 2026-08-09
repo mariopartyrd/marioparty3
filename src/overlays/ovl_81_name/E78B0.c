@@ -62,7 +62,7 @@ void *func_800FFC2C_E79FC_name_81(s16 arg0, s16 arg1, s32 arg2) {
         unk->unk_00 = arg0;
         unk->unk_02 = arg1;
         unk->unk_04 = temp_s1 - 1;
-        process = omAddPrcObj(func_800FFBEC_E79BC_name_81, 0x1005U, 0, 0);
+        process = omAddPrcObj(func_800FFBEC_E79BC_name_81, 0x1005, 0, 0);
         unk->proc = process;
         process->user_data = unk;
     }

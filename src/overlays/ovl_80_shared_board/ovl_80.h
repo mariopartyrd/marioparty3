@@ -294,7 +294,8 @@ void func_800F91A4_10CDC4_shared_board(void);           /* extern */
 void func_800F93A4_10CFC4_shared_board(void);           /* extern */
 void func_800FF0F8_112D18_shared_board(void);           /* extern */
 void func_800FF158_112D78_shared_board(void);           /* extern */
-void func_800E6120_F9D40_shared_board(UnkBoard8*, s16, s32);
+void MBGuidePosSet(UnkBoard8*, s16, s32);
+Unk3 *func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2);
 extern s16 D_80105706_119326_shared_board;
 extern s16 D_80101482_1150A2_shared_board;
 extern s32 D_80102CB0_1168D0_shared_board;

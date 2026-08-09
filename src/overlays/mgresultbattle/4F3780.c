@@ -47,10 +47,10 @@ void func_801059A0_4F3780_mgresultbattle(void) {
     func_800142A0_14EA0(0x78);
     omInitObjMan(0x1E, 0x1E);
     func_8000B690_C290(1);
-    ScissorSet(0U, 0.0f, 0.0f, 320.0f, 240.0f);
-    ViewportSet(0U, 640.0f, 480.0f, 511.0f, 640.0f, 480.0f, 511.0f);
+    ScissorSet(0, 0.0f, 0.0f, 320.0f, 240.0f);
+    ViewportSet(0, 640.0f, 480.0f, 511.0f, 640.0f, 480.0f, 511.0f);
     Hu3DCamSetPerspective(0, 30.0f, 80.0f, 8000.0f);
-    omSetStatBit(omAddObj(0x7FDA, 0U, 0U, -1, omOutView), 0xA0);
+    omSetStatBit(omAddObj(0x7FDA, 0, 0, -1, omOutView), 0xA0);
     HmfLightColorSet(1, 0xFF, 0xFF, 0xFF);
 
     for (var_a0_2 = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
@@ -67,11 +67,11 @@ void func_801059A0_4F3780_mgresultbattle(void) {
         return;
     }
     func_801060A4_4F3E84_mgresultbattle();
-    omAddPrcObj(func_80108130_4F5F10_mgresultbattle, 0x1001U, 0x2000, 0);
-    omAddPrcObj(func_80107400_4F51E0_mgresultbattle, 0x1001U, 0x2000, 0);
-    omAddPrcObj(func_80107D10_4F5AF0_mgresultbattle, 0x1001U, 0x2000, 0);
-    omAddPrcObj(func_80106660_4F4440_mgresultbattle, 0x1001U, 0x2000, 0);
-    omAddPrcObj(func_80106BA0_4F4980_mgresultbattle, 0x1001U, 0x2000, 0);
+    omAddPrcObj(func_80108130_4F5F10_mgresultbattle, 0x1001, 0x2000, 0);
+    omAddPrcObj(func_80107400_4F51E0_mgresultbattle, 0x1001, 0x2000, 0);
+    omAddPrcObj(func_80107D10_4F5AF0_mgresultbattle, 0x1001, 0x2000, 0);
+    omAddPrcObj(func_80106660_4F4440_mgresultbattle, 0x1001, 0x2000, 0);
+    omAddPrcObj(func_80106BA0_4F4980_mgresultbattle, 0x1001, 0x2000, 0);
     omAddObj(0, 0, 0, -1, func_80105CAC_4F3A8C_mgresultbattle);
     omAddObj(0, 0, 0, -1, func_80105E64_4F3C44_mgresultbattle);
     func_80105EF4_4F3CD4_mgresultbattle();

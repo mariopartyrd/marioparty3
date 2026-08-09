@@ -76,15 +76,15 @@ void func_801059A0_4DEB60_inst(void) {
     omInitObjMan(0x1E, 0x1E);
     func_8005A6B0_5B2B0();
     func_8000B5F0_C1F0(1);
-    ScissorSet(0U, 0.0f, 0.0f, 320.0f, 240.0f);
-    ViewportSet(0U, 640.0f, 480.0f, 511.0f, 640.0f, 480.0f, 511.0f);
+    ScissorSet(0, 0.0f, 0.0f, 320.0f, 240.0f);
+    ViewportSet(0, 640.0f, 480.0f, 511.0f, 640.0f, 480.0f, 511.0f);
     Hu3DCamSetPerspective(0, 15.0f, 500.0f, 8000.0f);
-    omSetStatBit(omAddObj(0x7FDA, 0U, 0U, -1, func_8010674C_4DF90C_inst), 0xA0U);
+    omSetStatBit(omAddObj(0x7FDA, 0, 0, -1, func_8010674C_4DF90C_inst), 0xA0U);
     func_800142A0_14EA0(0x28);
     HmfLightColorSet(1, 0xFF, 0xFF, 0xFF);
-    omAddPrcObj(func_80107470_4E0630_inst, 0x1001U, 0x1000, 0);
-    omAddPrcObj(func_8010B990_4E4B50_inst, 0x1001U, 0x1000, 0);
-    omAddPrcObj(func_8010A1D0_4E3390_inst, 0x1001U, 0x1000, 0);
+    omAddPrcObj(func_80107470_4E0630_inst, 0x1001, 0x1000, 0);
+    omAddPrcObj(func_8010B990_4E4B50_inst, 0x1001, 0x1000, 0);
+    omAddPrcObj(func_8010A1D0_4E3390_inst, 0x1001, 0x1000, 0);
 
     switch (D_8010D40A_4E65CA_inst) {
         case 5:
@@ -116,7 +116,7 @@ void func_801059A0_4DEB60_inst(void) {
             break;
     }
 
-    omAddPrcObj(procFunc, 0x1001U, 0x800, 0);
+    omAddPrcObj(procFunc, 0x1001, 0x800, 0);
     omAddObj(0, 0, 0, -1, func_80105D9C_4DEF5C_inst);
     omAddObj(0, 0, 0, -1, func_80106310_4DF4D0_inst);
     func_80106388_4DF548_inst();

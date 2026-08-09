@@ -8,7 +8,7 @@ typedef struct RGB2 {
 } RGB2;
 
 void MBHelpWinKill(Unk3*);
-void* func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2);
+Unk3* func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2);
 void MBMapScrollExec(s32);
 s32 MBCameraStopCheck(void);
 void MBMoveMasuSet(s32, s32, s32);

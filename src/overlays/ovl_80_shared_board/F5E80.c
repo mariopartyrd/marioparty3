@@ -483,7 +483,7 @@ void MBItemSel(void) {
     if (MBItemFindEmpty(-1) == 0) {
         HuSprAttrSet(mbItemCursorGrpId, 0, 0x8000);
     } else {
-        omAddPrcObj(MBItemScaleEff, 0x1005U, 0, 0)->user_data = &D_80102CB4_1168D4_shared_board;
+        omAddPrcObj(MBItemScaleEff, 0x1005, 0, 0)->user_data = &D_80102CB4_1168D4_shared_board;
     }
 
     func_800F6848_10A468_shared_board(GwSystem.current_player_index, D_80102CB4_1168D4_shared_board, &sp10[0], &sp10[1]);

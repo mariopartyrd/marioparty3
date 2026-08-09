@@ -974,7 +974,7 @@ Process *func_800FAB68_E2938_name_81(s32 arg0, s32 arg1, s16 *arg2, f32 *arg3, f
     u8 *temp_a0;
     UnkBoard5 *temp_v0_2;
 
-    temp_v0 = omAddPrcObj(func_800FA120_E1EF0_name_81, 0U, 0, 0x40);
+    temp_v0 = omAddPrcObj(func_800FA120_E1EF0_name_81, 0, 0, 0x40);
     temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkBoard5));
     temp_v0->user_data = temp_v0_2;
     temp_a0 = D_80101980_E9750_name_81;
@@ -1196,7 +1196,7 @@ void func_800FB524_E32F4_name_81(void *arg0) {
     Process *newProcess;
 
     curProcess = HuPrcCurrentGet();
-    newProcess = omAddPrcObj(func_800FB160_E2F30_name_81, 0x1005U, 0, 0);
+    newProcess = omAddPrcObj(func_800FB160_E2F30_name_81, 0x1005, 0, 0);
     newProcess->user_data = arg0;
     omPrcSetStatBit(newProcess, 0x80);
     HuPrcChildLink(curProcess, newProcess);

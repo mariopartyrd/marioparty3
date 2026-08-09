@@ -43,7 +43,7 @@ void func_80106054_4F08A4_mgresultduel(void) {
 void func_80106080_4F08D0_mgresultduel(void) {
     omObjData *temp_v0;
 
-    temp_v0 = omAddObj(0x14, 5U, 8U, -1, NULL);
+    temp_v0 = omAddObj(0x14, 5, 8, -1, NULL);
     D_80109338_4F3B88_mgresultduel.unk_00 = temp_v0;
     temp_v0->model[1] = func_8000B108_BD08(0xA011B, 0x2B9);
     func_8001C814_1D414(temp_v0->model[1], 2, 2);
