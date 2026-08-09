@@ -21,11 +21,11 @@ void func_80106FC8_4E83E8_mgresultboard(void);
 void func_80107188_4E85A8_mgresultboard(void);
 void func_80107234_4E8654_mgresultboard(void);
 void func_800E6630_FA250_shared_board(Addr);
-void func_800E6720_FA340_shared_board(s32, s32);
+void MBBackCreate(s32, s32);
 void func_80107024_4E8444_mgresultboard(void);
 extern s32 D_8010AD0C_4EC12C_mgresultboard[];
-void func_800E66E0_FA300_shared_board(void);
-void func_800E69D8_FA5F8_shared_board(void);
+void MBBackClose(void);
+void MBBackKill(void);
 s32 func_80106A80_4E7EA0_mgresultboard(s8);
 s32 func_80106C80_4E80A0_mgresultboard(s8);
 s32 func_80106D50_4E8170_mgresultboard(s32, s32);
@@ -384,7 +384,7 @@ void func_80105CE8_4E7108_mgresultboard(omObjData *arg0) {
             break;
         case 17:
             for (i = 0; i < MB_MAX_PLAYERS; i++) {
-                AdjustPlayerCoins(i, 0);
+                MBPlayerCoinAdd(i, 0);
             }
             WipeCreateOut(0, 0x14);
             HuAudSeqFadeOut(0x1E);
@@ -393,8 +393,8 @@ void func_80105CE8_4E7108_mgresultboard(omObjData *arg0) {
         case 18:
             if (WipeStatGet() == 0) {
                 func_80037258_37E58();
-                func_800E69D8_FA5F8_shared_board();
-                func_800E66E0_FA300_shared_board();
+                MBBackKill();
+                MBBackClose();
                 omOvlReturnEx(1);
             }
             break;
@@ -448,9 +448,9 @@ void func_80106FC8_4E83E8_mgresultboard(void) {
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
 
     if (!(system->playMode & 2)) {
-        func_800E6720_FA340_shared_board(D_8010AD0C_4EC12C_mgresultboard[system->current_board_index], 0);
+        MBBackCreate(D_8010AD0C_4EC12C_mgresultboard[system->current_board_index], 0);
     } else {
-        func_800E6720_FA340_shared_board(0x17, 0);
+        MBBackCreate(0x17, 0);
     }
     func_80107024_4E8444_mgresultboard();
 }

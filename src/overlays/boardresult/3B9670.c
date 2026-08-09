@@ -23,7 +23,7 @@ void func_801059A0_3B9670_boardresult(void) {
     func_800D87DC_C05AC_name_81(700.0f);
     func_800D85A8_C0378_name_81(1.6f);
     func_8005A6B0_5B2B0();
-    omAddPrcObj(func_8010BA98_3BF768_boardresult, 0x300U, 0x2000, 0);
+    omAddPrcObj(func_8010BA98_3BF768_boardresult, 0x300, 0x2000, 0);
     omAddObj(0x1000, 0, 0, -1, func_8010BBF0_3BF8C0_boardresult);
 
     for (i = 1; i < 8; i++) {

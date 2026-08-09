@@ -68,10 +68,10 @@ void func_80108CC0_3CDB20_opboard(void) {
 
     Hu3DCamInit(1);
     func_800E6630_FA250_shared_board(hvq_data_ROM_START);
-    func_800E69BC_FA5DC_shared_board(sp10[GwSystem.current_board_index]);
+    MBBackLoad(sp10[GwSystem.current_board_index]);
 }
 
 void func_80108D44_3CDBA4_opboard() {
-    func_800E69D8_FA5F8_shared_board();
-    func_800E66E0_FA300_shared_board();
+    MBBackKill();
+    MBBackClose();
 }

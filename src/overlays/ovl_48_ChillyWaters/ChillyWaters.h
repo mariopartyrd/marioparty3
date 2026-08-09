@@ -8,112 +8,112 @@ typedef struct RGB2 {
 } RGB2;
 
 void MBHelpWinKill(Unk3*);
-Unk3 *func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2);
-void func_8010067C_11429C_shared_board(s32);
-s32 func_800E9AE0_FD700_shared_board(void);
-void func_800ED91C_10153C_shared_board(s32, s32, s32);
-void func_800F69F8_10A618_shared_board(s32, s32, s32);
+Unk3* func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2);
+void MBMapScrollExec(s32);
+s32 MBCameraStopCheck(void);
+void MBMoveMasuSet(s32, s32, s32);
+void MBStatusItemAttrSet(s32, s32, s32);
 void MB1Ev_StarShuffle(void);
 f32 MBVecAngleGet(Vec*);
 void MBComItemDecideHookSet(void*);
 void MBItemHookSet(s32, void*);
-void func_800EA660_FE280_shared_board(f32);
-void func_800EA6E0_FE300_shared_board(s32, s16);
-void MBMasuBlockTblExtSet(void*);
+void MBMasuArrowAngleAdd(f32);
+void MBMasuStarSet(s32, s16);
+void MBMasuBlockTblExtSet(s16*);
 void MBMasuBlockTblSet(void*);
 void func_800EBDAC_FF9CC_shared_board(void);
 void MBObjectSetup(s32 arg0, s16 arg1, s32 arg2, s32 unused);
 void MB1Ev_StarNextPos(void);
-void func_8010603C_31BBAC_ChillyWaters(void);
-void func_801065D0_31C140_ChillyWaters(void);
-void func_80108250_31DDC0_ChillyWaters(void);
-void func_8010841C_31DF8C_ChillyWaters(void);
-void func_801086E0_31E250_ChillyWaters(void);
+void MB1Ev_StarMasuInit(void);
+void MB1Ev_StarMapView(void);
+void MB1_StarGuideCreateAll(void);
+void MB1_TeresaGuideCreateAll(void);
+void MB1_BankCoinCreateAll(void);
 void func_801088B4_31E424_ChillyWaters(void);
 void func_80108B24_31E694_ChillyWaters(void);
 void func_80108BA4_31E714_ChillyWaters(void);
-void func_80108C1C_31E78C_ChillyWaters(s32, s32, s32);
+void MB1Ev_BranchMerge(s32, s32, s32);
 void func_80116AA0_32C610_ChillyWaters(void);
-void func_80118308_32DE78_ChillyWaters(void);
-void func_80118B7C_32E6EC_ChillyWaters(void);
-s32 func_80119924_32F494_ChillyWaters(s32);
-void func_8010DE7C_3239EC_ChillyWaters(void);
-void func_8010F2FC_324E6C_ChillyWaters(void);
-void func_8010F6C4_325234_ChillyWaters(void);
-void func_8010F730_3252A0_ChillyWaters(void);
-void func_8010FC24_325794_ChillyWaters(void);
-void func_80110194_325D04_ChillyWaters(void);
-void func_801104E0_326050_ChillyWaters(void);
-void func_8011093C_3264AC_ChillyWaters(void);
-void func_80110BC8_326738_ChillyWaters(void);
-void func_80111018_326B88_ChillyWaters(void);
-void func_801112D8_326E48_ChillyWaters(void);
-void func_80111678_3271E8_ChillyWaters(void);
-void func_80112074_327BE4_ChillyWaters(void);
-void func_80112BCC_32873C_ChillyWaters(void);
-void func_801138E4_329454_ChillyWaters(void);
-void func_80114B80_32A6F0_ChillyWaters(void);
-void ItemUseWackyWatch(void);
-void func_80116DAC_32C91C_ChillyWaters(void);
-void func_80116F5C_32CACC_ChillyWaters(void);
-void func_801176A4_32D214_ChillyWaters(void);
-void func_801177DC_32D34C_ChillyWaters(void);
-void func_80117C60_32D7D0_ChillyWaters(void);
-void func_8011C88C_3323FC_ChillyWaters(void);
-void func_800EBA60_FF680_shared_board(void*);
-void func_800F8D48_10C968_shared_board(void*);
+void MB1Ev_TuruturuMain(void);
+void MB1Ev_SnowmanObjMain(void);
+s32 MB1Ev_SnowmanPathGet(s32);
+void MB1Ev_Teresa(void);
+void MB1Ev_ItemMajinLamp(void);
+void MB1Ev_ItemMajinLampStar(void);
+void MB1Ev_ItemWarpBlock(void);
+void MB1Ev_ItemKinoko(void);
+void MB1Ev_ItemShake(void);
+void MB1Ev_ItemPhoneMove(void);
+void MB1Ev_KSuitStart(void);
+void MB1Ev_KSuitEnd(void);
+void MB1Ev_ItemShopPhone(void);
+void MB1Ev_ItemKoopaPhone(void);
+void MB1Ev_ItemStarYoke(void);
+void MB1Ev_ItemKeyManUse(void);
+void MB1Ev_ItemNullUse(void);
+void MB1Ev_ItemExchangeBox(void);
+void MB1Ev_ItemGambleCoin(void);
+void MB1Ev_ItemAfter5(void);
+void MB1Ev_ItemKoopaNKinoko(void);
+void MB1Ev_ItemNKinoko(void);
+void MB1Ev_ItemKoopaRKinoko(void);
+void MB1Ev_ItemRKinoko(void);
+void MB1Ev_ItemRobBox(void);
+void MB1_ComItemDecide(void);
+void MBMasuEventTblAdd(void*);
+void MBHatenaFuncSet(void*);
 void func_800F8D6C_10C98C_shared_board(s32);
 void MBStart(s32);
-void func_80107CC4_31D834_ChillyWaters(void);
-void func_8011A8D8_330448_ChillyWaters(void);
-void func_80108478_31DFE8_ChillyWaters(void);
-void func_80108574_31E0E4_ChillyWaters(s16);
-void func_80116484_32BFF4_ChillyWaters(void*, void*, void*);
-void func_800ED998_1015B8_shared_board(s32, s32, s32);
-void func_801155C4_32B134_ChillyWaters(omObjData*);
-void func_80115734_32B2A4_ChillyWaters(omObjData*);
-void func_801158FC_32B46C_ChillyWaters(omObjData*);
-void func_8011548C_32AFFC_ChillyWaters(s32, s32, f32*);
+void MB1_ObjectSetup(void);
+void MB1Ev_SnowmanStart(void);
+void MB1_BankCoinHide(void);
+void MB1_BankCoinCreate(s16);
+void MB1Ev_BranchMain(void*, void*, void*);
+void MBMoveNextMasuSet(s32, s32, s32);
+void MB1Ev_After5LineShow(omObjData*);
+void MB1Ev_After5NumFade(omObjData*);
+void MB1Ev_After5Effect(omObjData*);
+void MB1Ev_After5ItemMove(s32, s32, f32*);
 
-extern s32 D_800D41C0_D4DC0;
+extern s32 mbWalkNum;
 
 extern RGB D_8011E4B8_334028_ChillyWaters[2];
-extern s32 D_8011FB80_3356F0_ChillyWaters[4];
+extern s32 mb1_After5GrpId[4];
 extern void* D_8011FB90_335700_ChillyWaters;
 extern s16 D_8011FB8E_3356FE_ChillyWaters;
 
-//size based on func_80107CC4_31D834_ChillyWaters (calls to MBItemHookSet)
+//size based on MB1_ObjectSetup (calls to MBItemHookSet)
 //not really sure what to call this, it includes the boo event at index 0 for instance
 extern void (*MBItemSubFunctions[22])(void);
 
 extern Object *D_8011D314_332E84_ChillyWaters;
 extern Object *D_8011D318_332E88_ChillyWaters;
 
-extern char D_8011D77C_3332EC_ChillyWaters[];
-extern char D_8011DB5C_3336CC_ChillyWaters[];
-extern char D_8011DB70_3336E0_ChillyWaters[];
-extern char D_8011D578_3330E8_ChillyWaters[]; //ai
-extern char D_8011DA84_3335F4_ChillyWaters[]; //spaces
-extern char D_8011DA98_333608_ChillyWaters[]; //chain
-extern s32 D_8011FB10_335680_ChillyWaters;
-extern s32 D_8011FB18_335688_ChillyWaters[10];
+extern char mb1ev_Branch3RevComTree[];
+extern char mb1ev_Branch3RevMasu[];
+extern char mb1ev_Branch3RevLink[];
+extern char mb1ev_Branch2ComTree[]; //ai
+extern char mb1ev_Branch2Masu[]; //spaces
+extern char mb1ev_Branch2Link[]; //chain
+extern s32 mb1_BankCoinBaseMdl;
+extern s32 mb1_BankCoinMdl[10];
 extern s16 D_800CE194_CED94[];
 extern char D_8011E010_333B80_ChillyWaters[]; // spaces
 extern char D_8011E024_333B94_ChillyWaters[]; // chain
 extern char D_8011DA58_3335C8_ChillyWaters[]; // ai
-extern char D_8011E2CC_333E3C_ChillyWaters[]; //unknown type
-extern char D_8011E344_333EB4_ChillyWaters[]; //unknown type
-extern char D_8011E4D8_334048_ChillyWaters[]; //unknown type
-extern char D_8011E718_334288_ChillyWaters[]; //unknown type
+extern char mb1_CommonEventTbl[]; //unknown type
+extern char mb1_TeresaEventTbl[]; //unknown type
+extern char mb1_TurnStatusEventTbl[]; //unknown type
+extern char mb1_SpecialEventTbl[]; //unknown type
 extern RectF D_8011E8B8_334428_ChillyWaters;
-extern s16 D_8011D2C0_332E30_ChillyWaters[8];
+extern s16 mb1ev_StarGuideMasu[8];
 extern s16 D_8011D31C_332E8C_ChillyWaters; //unknown type
 extern s32 D_8011D320_332E90_ChillyWaters; //unknown type
 extern s16 mb1ev_StarFlag[8];
 extern s16 mb1ev_StarMasu[8];
-extern Unk3* D_8011FAC0_335630_ChillyWaters;           // used with direction arrows
-extern Unk3* D_8011FAC4_335634_ChillyWaters;           // used with direction arrows
-extern Unk3* D_8011FAC8_335638_ChillyWaters;           // used with direction arrows
-extern Unk3* D_8011FACC_33563C_ChillyWaters;           // used with direction arrows
-extern Unk3* D_8011FAD0_335640_ChillyWaters;           // used with direction arrows
+extern Unk3* mb1_BranchStickHelp;           // used with direction arrows
+extern Unk3* mb1_BranchBtnHelp;           // used with direction arrows
+extern Unk3* mb1_BranchMapScrollHelp;           // used with direction arrows
+extern Unk3* mb1_BranchMapOverheadHelp;           // used with direction arrows
+extern Unk3* mb1_BranchItemHelp;           // used with direction arrows
 extern Object *D_8011FAEC_33565C_ChillyWaters;

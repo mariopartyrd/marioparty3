@@ -53,7 +53,7 @@ u32 func_800EE884_1024A4_shared_board(Object *arg0, s16 arg1, s16 arg2) {
     }
 
     if (i != ARRAY_COUNT(D_80105718_119338_shared_board)) {
-        obj = omAddObj(0x2000, 0U, 0U, -1, func_800EE7AC_1023CC_shared_board);
+        obj = omAddObj(0x2000, 0, 0, -1, func_800EE7AC_1023CC_shared_board);
         temp_s1->unk_08 = obj;
         obj->work[0] = i;
         temp_s1->unk_04 = arg0;
@@ -70,7 +70,7 @@ void func_800EE94C_10256C_shared_board(Object *arg0, s16 arg1, s32 arg2) {
     MBMotionShiftSet(arg0, arg1, 0, 0xA, arg2);
 }
 
-void func_800EE97C_10259C_shared_board(Object *arg0) {
+void MBModelMotionWait(Object *arg0) {
     while (!(MBMotionCheck(arg0) & 1)) {
         HuPrcVSleep();
     }
@@ -82,7 +82,7 @@ s32 BoardPlayerRankCalc(s32 player) {
     s32 score[4];
 
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
-        score[i] = func_800EECB0_1028D0_shared_board(i);
+        score[i] = MBPlayerScoreGet(i);
     }
 
     for (rank = 0, i = 0; i < MB_MAX_PLAYERS; i++) {
@@ -93,7 +93,7 @@ s32 BoardPlayerRankCalc(s32 player) {
     return rank;
 }
 
-s32 func_800EEA58_102678_shared_board(s32 arg0) {
+s32 MBPlayerStealRankGet(s32 arg0) {
     s32 var_a0_2;
     s32 var_a0;
     s32 i;
@@ -104,7 +104,7 @@ s32 func_800EEA58_102678_shared_board(s32 arg0) {
     }
 
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
-        score[i] = func_800EECB0_1028D0_shared_board(i);
+        score[i] = MBPlayerScoreGet(i);
     }
 
     // calc what the highest mg coin total is
@@ -158,7 +158,7 @@ s32 func_800EEA58_102678_shared_board(s32 arg0) {
     return var_a0;
 }
 
-s32 func_800EECB0_1028D0_shared_board(s32 arg0) {
+s32 MBPlayerScoreGet(s32 arg0) {
     return GwPlayer[arg0].star * 1000 + GwPlayer[arg0].coin;
 }
 
@@ -251,7 +251,7 @@ s32 MBRand(f32 arg0) { // 800EFE20 in duel mode,
 }
 
 // is there some kind of macro at play here? the cast to u8 is weird because `work` used to be u8[] in mp1/mp2
-void func_800EEFEC_102C0C_shared_board(Object *arg0, s16 arg1, s16 arg2, s32 arg3) {
+void MBGuideFaceCreate(Object *arg0, s16 arg1, s16 arg2, s32 arg3) {
     arg0->omObj1->work[0] = (u8)func_80017790_18390(arg0->omObj1->model[0], arg1, arg2, arg3);
     arg0->omObj1->work[1] = (u8)arg1;
     arg0->omObj1->work[2] = (u8)arg2;
@@ -260,7 +260,7 @@ void func_800EEFEC_102C0C_shared_board(Object *arg0, s16 arg1, s16 arg2, s32 arg
 void func_800EF068_102C88_shared_board(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EF070_102C90_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBGuideFaceSet);
 
 s32 func_800EF0D8_102CF8_shared_board(s32 arg0) {
     s32 randVal;
@@ -304,7 +304,7 @@ s32 func_800EF0D8_102CF8_shared_board(s32 arg0) {
     return i;
 }
 
-s32 func_800EF200_102E20_shared_board(s32 arg0) {
+s32 MBPauseMesNumGet(s32 arg0) {
     return arg0;
 }
 
@@ -341,7 +341,7 @@ void func_800EF208_102E28_shared_board(UnkBoard8* arg0, s16 arg1, s16 arg2, s16 
     DataClose(temp_s5);
 }
 
-UnkBoard8* func_800EF3BC_102FDC_shared_board(void) {
+UnkBoard8* MBPauseTurnNumCreate(void) {
     UnkBoard8* temp_s2;
     void* temp_v0_2;
     void* temp_v0_4;
@@ -356,7 +356,7 @@ UnkBoard8* func_800EF3BC_102FDC_shared_board(void) {
         var_s0 = DataRead(D_80101504_115124_shared_board[GwSystem.current_game_length]);
     }
     temp_s2->unk_0C[0] = func_80055810_56410(var_s0);
-    func_80055024_55C24(temp_s2->unk_0A, 0, temp_s2->unk_0C[0], 0U);
+    func_80055024_55C24(temp_s2->unk_0A, 0, temp_s2->unk_0C[0], 0);
     HuSprPriSet(temp_s2->unk_0A, 0, 7);
     HuSprAttrSet(temp_s2->unk_0A, 0, 0x1000);
     func_80054904_55504(temp_s2->unk_0A, 0, 0xA0, 0x73);
@@ -364,7 +364,7 @@ UnkBoard8* func_800EF3BC_102FDC_shared_board(void) {
     DataClose(var_s0);
     temp_v0_2 = DataRead(0x130088);
     temp_s2->unk_0C[1] = func_80055810_56410(temp_v0_2);
-    func_80055024_55C24(temp_s2->unk_0A, 1, temp_s2->unk_0C[1], 0U);
+    func_80055024_55C24(temp_s2->unk_0A, 1, temp_s2->unk_0C[1], 0);
     HuSprPriSet(temp_s2->unk_0A, 1, 7);
     HuSprAttrSet(temp_s2->unk_0A, 1, 0x1000);
     func_80054904_55504(temp_s2->unk_0A, 1, 0xA0, 0x90);
@@ -374,8 +374,8 @@ UnkBoard8* func_800EF3BC_102FDC_shared_board(void) {
     func_800EF208_102E28_shared_board(temp_s2, 4, GwSystem.current_turn, 0xA1, 0x90);
     temp_v0_4 = DataRead(D_801014D0_1150F0_shared_board[GwSystem.current_board_index]);
     temp_s2->unk_0C[6] = func_80055810_56410(temp_v0_4);
-    func_80055024_55C24(temp_s2->unk_0A, 6, temp_s2->unk_0C[6], 0U);
-    HuSprPriSet(temp_s2->unk_0A, 6, 7U);
+    func_80055024_55C24(temp_s2->unk_0A, 6, temp_s2->unk_0C[6], 0);
+    HuSprPriSet(temp_s2->unk_0A, 6, 7);
     HuSprAttrSet(temp_s2->unk_0A, 6, 0x1000);
     func_80054904_55504(temp_s2->unk_0A, 6, 0xA0, 0x3C);
     DataClose(temp_v0_4);
@@ -386,15 +386,15 @@ void func_800EF67C_10329C_shared_board(UnkBoard8* arg0) {
     func_800F2CA4_1068C4_shared_board(arg0);
 }
 
-s16 func_800EF698_1032B8_shared_board(s32 arg0) {
+s16 MBPauseMainScrExec(s32 arg0) {
     Unk3* temp_s2;
     Unk3* temp_s3;
     s16 var_s0;
     UnkBoard8* temp_s1;
 
-    temp_s3 = func_800E210C_F5D2C_shared_board(0xA, 0xAE, 0U);
-    temp_s2 = func_800E210C_F5D2C_shared_board(5, 0xBC, 0U);
-    temp_s1 = func_800EF3BC_102FDC_shared_board();
+    temp_s3 = func_800E210C_F5D2C_shared_board(0xA, 0xAE, 0);
+    temp_s2 = func_800E210C_F5D2C_shared_board(5, 0xBC, 0);
+    temp_s1 = MBPauseTurnNumCreate();
     HuPrcVSleep();
 
     while (1) {
@@ -427,35 +427,34 @@ void func_800EF768_103388_shared_board(UnkBoard8* arg0, s16 arg1) {
 
     for (i = 0; i < 14; i++) {
         temp = arg0->unk_0A;
-        func_800E6120_F9D40_shared_board(arg0, (temp + temp_s2), 8);
+        MBGuidePosSet(arg0, (temp + temp_s2), 8);
         HuPrcVSleep();        
     }
-
-    func_800E6120_F9D40_shared_board(arg0, arg1, 8);
+    MBGuidePosSet(arg0, arg1, 8);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EF844_103464_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseDlgMesSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EF898_1034B8_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseHelpMesSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EF8F4_103514_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseHelpMesCreate);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EFA34_103654_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseMesMain);
 
 // draws a message?
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EFD8C_1039AC_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseMesCreate);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EFE0C_103A2C_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EFE58_103A78_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseQuitMesCreate);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EFEF4_103B14_shared_board);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EFFE8_103C08_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F01D0_103DF0_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseOptionExec);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F0ABC_1046DC_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseQuitWinExec);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F0BF8_104818_shared_board);
 
@@ -469,10 +468,10 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F0E3
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F0EF0_104B10_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F102C_104C4C_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPausePadCfgExec);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F1C94_1058B4_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseModeExec);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F1D34_105954_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseMain);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F1EC8_105AE8_shared_board);
+INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseCreate);

@@ -20,12 +20,12 @@ void func_801059D0_3D7180_ovl_boot(void) {
 
     if (D_80105F00_3D76B0_ovl_boot == 0) {
         GWContErrorSet();
-        D_80105F10_3D76C0_ovl_boot = omAddPrcObj(func_80105C80_3D7430_ovl_boot, 0xAU, 0, 0);
-        omAddObj(0x3E8, 0U, 0U, -1, func_80105AF0_3D72A0_ovl_boot);
+        D_80105F10_3D76C0_ovl_boot = omAddPrcObj(func_80105C80_3D7430_ovl_boot, 0xA, 0, 0);
+        omAddObj(0x3E8, 0, 0, -1, func_80105AF0_3D72A0_ovl_boot);
     } else {
-        D_80105F10_3D76C0_ovl_boot = omAddPrcObj(func_80105C80_3D7430_ovl_boot, 0xAU, 0, 0);
-        omAddObj(0x3E8, 0U, 0U, -1, func_80105AF0_3D72A0_ovl_boot);
-        omAddObj(0xA, 0U, 0U, -1, func_80105C14_3D73C4_ovl_boot);
+        D_80105F10_3D76C0_ovl_boot = omAddPrcObj(func_80105C80_3D7430_ovl_boot, 0xA, 0, 0);
+        omAddObj(0x3E8, 0, 0, -1, func_80105AF0_3D72A0_ovl_boot);
+        omAddObj(0xA, 0, 0, -1, func_80105C14_3D73C4_ovl_boot);
     }
 }
 
@@ -41,12 +41,12 @@ void func_80105ACC_3D727C_ovl_boot(void) {
 
 void func_80105AF0_3D72A0_ovl_boot(omObjData *arg0) {
     if (((D_800D530C_D5F0C != 0) || (D_80105F04_3D76B4_ovl_boot != 0)) && (WipeStatGet() == 0)) {
-        WipeColorSet(0U, 0U, 0U);
+        WipeColorSet(0, 0, 0U);
         WipeCreateOut(0xB, 9);
         arg0->func = &func_80105BA4_3D7354_ovl_boot;
 
         if ((D_800D530C_D5F0C != 0) && (WipeStatGet() == 0)) {
-            WipeColorSet(0U, 0U, 0U);
+            WipeColorSet(0, 0, 0U);
             WipeCreateOut(0xB, 9);
             arg0->func = &func_80105BA4_3D7354_ovl_boot;
         }

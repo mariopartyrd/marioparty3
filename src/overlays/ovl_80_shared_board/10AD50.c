@@ -261,11 +261,11 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
     void *temp_v0;
     s32 i;
 
-    player = MBGetPlayerStruct(CUR_PLAYER);
-    playerNo = GetCurrentPlayerIndex();
-    func_800F6BC4_10A7E4_shared_board(-1);
-    func_800F66DC_10A2FC_shared_board(1);
-    func_800F6ECC_10AAEC_shared_board(-1);
+    player = MBPlayerGet(CUR_PLAYER);
+    playerNo = MBPlayerTurnGet();
+    MBStatusShrink(-1);
+    MBStatusItemDispSetAll(1);
+    MBStatusGrow(-1);
 
     var_s4 = 0;
     if (arg0 == 0) {
@@ -274,7 +274,7 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
         var_f28 = 10.0f;
     }
 
-    while ((PlayerHasEmptyItemSlot(playerNo) != ITEM_NONE) && (D_80105630_119250_shared_board[var_s4] != -1)) {
+    while ((MBItemFindEmpty(playerNo) != ITEM_NONE) && (D_80105630_119250_shared_board[var_s4] != -1)) {
         if (D_80105654_119274_shared_board != 0) {
             D_80105628_119248_shared_board = MBModelCreate(0x22, NULL);
         } else {
@@ -285,7 +285,7 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
         func_8001C448_1D048(D_80105628_119248_shared_board->omObj1->model[0]);
         HuVecCopy3F(&D_80105628_119248_shared_board->coords, &player->player_obj->coords);
         D_80105628_119248_shared_board->coords.y += 25.0f;
-        func_800E9940_FD560_shared_board(&D_80105628_119248_shared_board->coords, sp20);
+        MBCamera3Dto2D(&D_80105628_119248_shared_board->coords, sp20);
         HuAudFXPlay(0x143);
         D_80105650_119270_shared_board = 0;
 
@@ -330,8 +330,8 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
         }
 
         func_800F2CA4_1068C4_shared_board(temp_s2);
-        GwPlayer[playerNo].itemNo[PlayerHasEmptyItemSlot(playerNo)] = temp_s6;
-        func_800F641C_10A03C_shared_board(playerNo);
+        GwPlayer[playerNo].itemNo[MBItemFindEmpty(playerNo)] = temp_s6;
+        MBStatusItemSprKill(playerNo);
 
         for (; var_f20 >= 1.0f; var_f20 -= 0.5) {
             HuVecCopyXYZ(&D_80105628_119248_shared_board->scale, var_f20, var_f20, var_f20);
@@ -342,9 +342,9 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
         MBModelKill(D_80105628_119248_shared_board);
     }
 
-    func_800F6BC4_10A7E4_shared_board(-1);
-    func_800F66DC_10A2FC_shared_board(0);
-    func_800F6ECC_10AAEC_shared_board(-1);
+    MBStatusShrink(-1);
+    MBStatusItemDispSetAll(0);
+    MBStatusGrow(-1);
 }
 
 // probably a file split here
@@ -454,7 +454,7 @@ void func_800F7FE8_10BC08_shared_board(void) {
     s32 var_v0_2;
     void (*dispatch_func)();
 
-    temp_s1 = MBGetPlayerStruct(CUR_PLAYER);
+    temp_s1 = MBPlayerGet(CUR_PLAYER);
 
     if (D_80105654_119274_shared_board != 0) {
         D_80105620_119240_shared_board = MBModelCreate(9, NULL);
@@ -487,7 +487,7 @@ void func_800F7FE8_10BC08_shared_board(void) {
         D_80105624_119244_shared_board->velocity.x -= 2.0f;
     }
 
-    temp_v0 = omAddObj(0x1F4, 0U, 0U, -1, func_800F7130_10AD50_shared_board);
+    temp_v0 = omAddObj(0x1F4, 0, 0, -1, func_800F7130_10AD50_shared_board);
     temp_v0->rot.x = 180.0f;
     var_s0 = 0;
 
@@ -531,7 +531,7 @@ void func_800F7FE8_10BC08_shared_board(void) {
                 } else if (temp_v1 >= 8) {
                     var_a0_2 = 1;
                 } else {
-                    if (PlayerHasEmptyItemSlot(GetCurrentPlayerIndex()) == 2) {
+                    if (MBItemFindEmpty(MBPlayerTurnGet()) == 2) {
                         var_a0_2 = 1;
                     } else {
                         var_a0_2 = 4;
@@ -559,7 +559,7 @@ void func_800F7FE8_10BC08_shared_board(void) {
             if (temp_v1 < 2) {
                 var_a0_2 = 0;
             } else if (temp_v1 < 6) {
-                if (PlayerHasEmptyItemSlot(GetCurrentPlayerIndex()) == 2) {
+                if (MBItemFindEmpty(MBPlayerTurnGet()) == 2) {
                     var_a0_2 = 2;
                 } else {
                     var_a0_2 = 1;

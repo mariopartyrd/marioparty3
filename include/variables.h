@@ -9,8 +9,8 @@ extern UnkDiceRelated D_800CDBC8_CE7C8[4];
 extern s32 D_800A12D4_A1ED4;
 extern s32 D_800A12D8_A1ED8;
 
-extern s16 D_800CDD58_CE958;
-extern s16 D_800D037C_D0F7C;
+extern s16 mbCameraBtnF;
+extern s16 mbItemBtnF;
 extern s16 D_800D51F8_D5DF8;
 extern UnkOvl81 D_800D1360;
 extern u8 D_800CD280_CDE80;
@@ -26,7 +26,7 @@ extern omOvlHisData omovlhis[12];
 extern omOvlHisData mbovlhis[5];
 // extern Unk800D6B48 D_800D6B48_D7748[2];
 
-extern s32 D_800D1240_D1E40;
+extern s32 mbGameMode;
 extern s16 D_800CC0B8_CCCB8;
 
 extern s16 mbovlhisidx;

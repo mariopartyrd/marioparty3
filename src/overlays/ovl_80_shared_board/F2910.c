@@ -3,9 +3,9 @@
 
 s32 func_800F482C_10844C_shared_board(s32);
 s32 func_800F5278_108E98_shared_board(void);
-void MBTelopMgCallCreate(s32, s32);
-void func_800F53B4_108FD4_shared_board(void);
-s32 func_800E5B80_F97A0_shared_board(void);
+void MBTelopMgTypeCreate(s32, s32);
+void MBVsSprCreate(void);
+s32 MBTelopMgTypeStatGet(void);
 void func_800F7114_10AD34_shared_board(s32, s32);
 
 extern u32 D_800D2094_D2C94;
@@ -113,7 +113,7 @@ void func_8005C154_5CD54(s16, s32, s32, s32);
 void func_8005D2D4_5DED4(s16);
 void MBMgCallClose(void);
 void MBMgCallCursorSprCreate(void);
-void func_800E5B90_F97B0_shared_board(void);
+void MBTelopMgTypeKill(void);
 
 void MBMgCallCursorFXPlay(void) {
     if (D_800D2094_D2C94 >= (D_80100EE8_114B08_shared_board + 4)) {
@@ -272,7 +272,7 @@ void MBMgCallListExec(omObjData *arg0) {
                 }
                 GWMgNoSet(D_80102C08_116828_shared_board[arg0->work[2]]);
                 if (GwSystem.current_board_index != 6) {
-                    func_800E5B90_F97B0_shared_board();
+                    MBTelopMgTypeKill();
                     MBMgCallClose();
                 }
             }
@@ -811,7 +811,7 @@ void MBMgCallExec(void) {
 
         switch (*temp_s2) {
             case 0:
-                func_800F4994_1085B4_shared_board(4);
+                MBStatusDispMoveSet(4);
                 *temp_s2 = 0xAU;
                 break;
             case 10:
@@ -843,7 +843,7 @@ void MBMgCallExec(void) {
                     for (k = 0; k < MB_MAX_PLAYERS; k++) {
                         s16 temp = sp10[k] != 0; // TODO: regalloc hack
                         if (temp) {
-                            func_800F4798_1083B8_shared_board(k, j + 5);
+                            MBStatusColorSet(k, j + 5);
                         }
                     }
                     HuPrcVSleep();
@@ -851,7 +851,7 @@ void MBMgCallExec(void) {
 
                 for (j = 0; j < MB_MAX_PLAYERS; j++) {
                     if (func_800F482C_10844C_shared_board(j) != spaceTypes[j]) {
-                        func_800F4798_1083B8_shared_board(j, spaceTypes[j]);
+                        MBStatusColorSet(j, spaceTypes[j]);
                     }
                 }
 
@@ -861,14 +861,14 @@ void MBMgCallExec(void) {
             case 1:
                 if (func_800F5278_108E98_shared_board() == 0) {
                     HuPrcSleep(1);
-                    MBTelopMgCallCreate(0, 0x25);
+                    MBTelopMgTypeCreate(0, 0x25);
                     HuPrcSleep(5);
                     *temp_s2 += 1;
                 }
                 break;
             case 2:
-                func_800F4994_1085B4_shared_board(2);
-                func_800F53B4_108FD4_shared_board();
+                MBStatusDispMoveSet(2);
+                MBVsSprCreate();
                 *temp_s2 = *temp_s2 + 1;
                 break;
             case 3:
@@ -891,7 +891,7 @@ void MBMgCallExec(void) {
                     }
                     if (func_800F52C4_108EE4_shared_board() != -1) {
                         func_800E00EC_F3D0C_shared_board();
-                        func_800F4994_1085B4_shared_board(5);
+                        MBStatusDispMoveSet(5);
                     } else {
                         GWMgNoSet(-1);
                     }
@@ -900,8 +900,8 @@ void MBMgCallExec(void) {
                 }
                 break;
             case 4:
-                if ((func_800F52C4_108EE4_shared_board() == -1) || (func_800E5B80_F97A0_shared_board() == 0)) {
-                    func_800F5644_109264_shared_board();
+                if ((func_800F52C4_108EE4_shared_board() == -1) || (MBTelopMgTypeStatGet() == 0)) {
+                    MBVsSprKill();
                     MBModelKill(temp_v0);
                     omDelPrcObj(NULL);
                 }
@@ -939,21 +939,21 @@ void MBMgCallBattleExec(void) {
     while (1) {
         switch (temp_s0->unk_00) {
             case 0:
-                func_800F4994_1085B4_shared_board(4);
+                MBStatusDispMoveSet(4);
                 HuPrcSleep(0x14);
                 temp_s0->unk_00++;
                 break;
             case 1:
                 if (func_800F5278_108E98_shared_board() == 0) {
                     HuPrcSleep(1);
-                    MBTelopMgCallCreate(temp_s0->curPlayerNo, 7);
+                    MBTelopMgTypeCreate(temp_s0->curPlayerNo, 7);
                     HuPrcSleep(5);
                     temp_s0->unk_00++;
                 }
                 /* fallthrough */
             case 2:
-                func_800F4994_1085B4_shared_board(2);
-                func_800F53B4_108FD4_shared_board();
+                MBStatusDispMoveSet(2);
+                MBVsSprCreate();
                 temp_s0->unk_00++;
                 break;
             case 3:
@@ -965,7 +965,7 @@ void MBMgCallBattleExec(void) {
                     }
                     if (i == MB_MAX_PLAYERS) {
                         func_800E00EC_F3D0C_shared_board();
-                        func_800F4994_1085B4_shared_board(5);
+                        MBStatusDispMoveSet(5);
                         temp_s0->unk_00++;
                         break;
                     } else {
@@ -978,7 +978,7 @@ void MBMgCallBattleExec(void) {
                         }
                         if (i != MB_MAX_PLAYERS) {
                             func_800E00EC_F3D0C_shared_board();
-                            func_800F4994_1085B4_shared_board(5);
+                            MBStatusDispMoveSet(5);
                             temp_s0->unk_00++;
                             break;
                         }
@@ -987,7 +987,7 @@ void MBMgCallBattleExec(void) {
                 break;
             case 4:
                 if (D_80102C0E_11682E_shared_board == -1) {
-                    func_800F5644_109264_shared_board();
+                    MBVsSprKill();
                     omDelPrcObj(NULL);
                 }
                 break;
@@ -1026,7 +1026,7 @@ void func_800E0C94_F48B4_shared_board(void) {
 
     temp_v0 = MBModelCreate(9, sp20);
     MBModelTempAllocFree(temp_v0);
-    HuVecCopy3F(&temp_v0->coords, &MBGetPlayerStruct(-1)->player_obj->coords);
+    HuVecCopy3F(&temp_v0->coords, &MBPlayerGet(-1)->player_obj->coords);
 
     temp_v0->velocity.x = 120.0f;
     MBMotionSet(temp_v0, 0, 0);
@@ -1073,15 +1073,15 @@ void func_800E0C94_F48B4_shared_board(void) {
 
         switch (temp_s2->unk_00) {
             case 0:
-                func_800F4994_1085B4_shared_board(temp_s2->curPlayerNo + 6);
-                MBTelopMgCallCreate(1, 0x1F);
+                MBStatusDispMoveSet(temp_s2->curPlayerNo + 6);
+                MBTelopMgTypeCreate(1, 0x1F);
                 temp_s2->unk_00++;
                 break;
             case 1:
                 if ((func_800F5278_108E98_shared_board() == 0) &&
                     (((D_800D5558_D6158[GwPlayer[temp_s2->curPlayerNo].pad] & 0x8000) && !(GwPlayer[temp_s2->curPlayerNo].stat & 1)) || (GwPlayer[temp_s2->curPlayerNo].stat & 1))) {
                     func_800E00EC_F3D0C_shared_board();
-                    func_800F4994_1085B4_shared_board(5);
+                    MBStatusDispMoveSet(5);
                     temp_s2->unk_00++;
                     break;
                 }
@@ -1101,7 +1101,7 @@ Process *func_800E0F84_F4BA4_shared_board(void) {
     Process *temp_v0;
     UnkSize10 *temp_v0_2;
 
-    temp_v0 = omAddPrcObj(func_800E0C94_F48B4_shared_board, 0U, 0x2000, 0x40);
+    temp_v0 = omAddPrcObj(func_800E0C94_F48B4_shared_board, 0, 0x2000, 0x40);
     temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkSize10));
     temp_v0->user_data = temp_v0_2;
     temp_v0_2->unk_00 = 0;
@@ -1126,24 +1126,24 @@ void func_800E0FE0_F4C00_shared_board(void) {
     while (1) {
         switch (temp_s0->unk_00) {
             case 0:
-                MBTelopMgCallCreate(3, 7);
+                MBTelopMgTypeCreate(3, 7);
                 func_800F7114_10AD34_shared_board(temp_s0->curPlayerNo, temp_s0->unk_08);
-                func_800F4994_1085B4_shared_board(0x1B);
-                func_800F53B4_108FD4_shared_board();
+                MBStatusDispMoveSet(0x1B);
+                MBVsSprCreate();
                 temp_s0->unk_00++;
                 break;
             case 1:
                 if ((func_800F5278_108E98_shared_board() == 0) &&
                     (((GwPlayer[temp_s0->curPlayerNo].stat & PLAYER_IS_CPU) && (GwPlayer[temp_s0->unk_08].stat & PLAYER_IS_CPU)) || ((D_800D5558_D6158[GwPlayer[temp_s0->curPlayerNo].pad] & A_BUTTON) && !(GwPlayer[temp_s0->curPlayerNo].stat & PLAYER_IS_CPU)) || ((D_800D5558_D6158[GwPlayer[temp_s0->unk_08].pad] & A_BUTTON) && !(GwPlayer[temp_s0->unk_08].stat & PLAYER_IS_CPU)))) {
                     func_800E00EC_F3D0C_shared_board();
-                    func_800F4994_1085B4_shared_board(5);
+                    MBStatusDispMoveSet(5);
                     temp_s0->unk_00++;
                     break;
                 }
                 break;
             case 2:
                 if (D_80102C0E_11682E_shared_board == -1) {
-                    func_800F5644_109264_shared_board();
+                    MBVsSprKill();
                     omDelPrcObj(NULL);
                 }
                 break;
@@ -1202,14 +1202,14 @@ void MBMgCallTutorialExec(void) {
                 for (i = 0; i < 24; i++) {
                     for (j = 0; j < MB_MAX_PLAYERS; j++) {
                         if (happeningPlayers[j] != 0) {
-                            func_800F4798_1083B8_shared_board(j, i + 5);
+                            MBStatusColorSet(j, i + 5);
                         }
                     }
                     HuPrcVSleep();
                 }
                 for (i = 0; i < MB_MAX_PLAYERS; i++) {
                     if (func_800F482C_10844C_shared_board(i) != spaceTypes[i]) {
-                        func_800F4798_1083B8_shared_board(i, spaceTypes[i]);
+                        MBStatusColorSet(i, spaceTypes[i]);
                     }
                 }
                 *temp_s3 = 1;

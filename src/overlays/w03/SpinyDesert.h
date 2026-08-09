@@ -14,7 +14,7 @@ void func_8010622C_34F09C_w03(void);
 void func_80107A04_350874_w03(void);
 void func_8011A704_363574_w03(void);
 
-void func_800EBA60_FF680_shared_board(void *);
-void func_800F8D48_10C968_shared_board(void *);
+void MBMasuEventTblAdd(void *);
+void MBHatenaFuncSet(void *);
 void func_800F8D6C_10C98C_shared_board(s32);
 void MBStart(s32);

@@ -8,3 +8,6 @@ ansiwrap
 watchdog
 python-Levenshtein
 cxxfilt
+n64img
+pygfxd
+crunch64

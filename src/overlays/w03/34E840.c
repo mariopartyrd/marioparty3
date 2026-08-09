@@ -60,11 +60,11 @@ void func_80107CA4_350B14_w03() {
     func_800F8D6C_10C98C_shared_board(0x1A);
     Hu3DCamInit(2);
     func_80107A04_350874_w03();
-    func_800EBA60_FF680_shared_board(&D_8011D1C4_366034_w03);
-    func_800EBA60_FF680_shared_board(&D_8011D478_3662E8_w03);
-    func_800F8D48_10C968_shared_board(func_8011A704_363574_w03);
-    func_800EBA60_FF680_shared_board(&D_8011D23C_3660AC_w03);
-    func_800EBA60_FF680_shared_board(&D_8011D3D0_366240_w03);
+    MBMasuEventTblAdd(&D_8011D1C4_366034_w03);
+    MBMasuEventTblAdd(&D_8011D478_3662E8_w03);
+    MBHatenaFuncSet(func_8011A704_363574_w03);
+    MBMasuEventTblAdd(&D_8011D23C_3660AC_w03);
+    MBMasuEventTblAdd(&D_8011D3D0_366240_w03);
     MBStart(0);
 }
 

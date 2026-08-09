@@ -12,9 +12,12 @@ void func_80052518_53118(HuSprite *arg0);
 void func_80056F80_57B80(s16 arg0);
 s16 func_8005630C_56F0C(HuSprAnm *arg0);
 void func_800563A4_56FA4(HuSprAnm *arg0);
-void func_800571C8_57DC8(HuSprAnmDesc *arg0);
+void func_800571C8_57DC8(HuSprAnmDesc **arg0);
 void func_80054218_54E18(Gfx **, s32, s32);
 void func_80054658_55258(Gfx **, s32, s32);
+void func_80055628_56228(void);
+void func_80056CD0_578D0(void);
+void func_80057158_57D58(void);
 
 extern s32 D_800A1EA0_A2AA0; // redraw?
 extern Mtx D_800BD7C0_BE3C0;
@@ -29,7 +32,7 @@ extern void *D_800CE1B8_CEDB8[3];
 extern u8 D_800D2008_D2C08;
 extern s32 D_800D1FDC_D2BDC;
 extern void *D_800D59F4_D65F4;
-extern s8 D_800D20B1_D2CB1;
+extern s8 HmfPauseF;
 extern HuSprGrp *HuSprGrpLast;
 extern HuSprGrp *HuSprGrpFirst;
 HuSprGrp *HuSprGrpData[HUSPR_GRP_MAX] __attribute__((aligned(16)));
@@ -726,7 +729,7 @@ void func_80056650_57250(HuSprite *sprite) {
             sprite->unk_68.unk04 |= 0x80;
         }
     } else {
-        if (D_800D20B1_D2CB1 == 0 || (sprite->unk_24 & 0x1000000)) {
+        if (HmfPauseF == 0 || (sprite->unk_24 & 0x1000000)) {
             func_800563A4_56FA4(anm);
         }
     }

@@ -14,8 +14,8 @@ void func_801059A0_3D76C0_sldebug(void) {
     func_800142A0_14EA0(0x2D);
     omInitObjMan(0x33, 0xA);
     func_8004A208_4AE08();
-    omSetStatBit(omAddObj(0x7FDA, 0U, 0U, -1, omOutView), 0xA0U);
-    omAddObj(0x2710, 0U, 0U, -1, func_801068D4_3D85F4_sldebug);
+    omSetStatBit(omAddObj(0x7FDA, 0, 0, -1, omOutView), 0xA0U);
+    omAddObj(0x2710, 0, 0, -1, func_801068D4_3D85F4_sldebug);
     HmfLightMaxSet(4);
     HmfLightColorSet(0, 0x78, 0x78, 0x78);
     HmfLightColorSet(1, 0x40, 0x40, 0x60);
@@ -28,8 +28,8 @@ void func_801059A0_3D76C0_sldebug(void) {
     D_80106C2C_3D894C_sldebug.y = 150.0f;
     gCameraList->fov[0] = 45.0f;
     func_80106850_3D8570_sldebug();
-    omAddObj(0x7D0, 0xAU, 0xAU, -1, func_80105B64_3D7884_sldebug);
-    omAddObj(0x7D0, 0U, 0U, -1, func_80106254_3D7F74_sldebug);
+    omAddObj(0x7D0, 0xA, 0xA, -1, func_80105B64_3D7884_sldebug);
+    omAddObj(0x7D0, 0, 0, -1, func_80106254_3D7F74_sldebug);
     WipeCreateIn(0, 0x10);
     D_800CD280_CDE80 = 1;
     func_80050ABC_516BC();

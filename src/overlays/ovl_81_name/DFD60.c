@@ -651,7 +651,7 @@ void func_800F924C_E101C_name_81(s32 arg0) {
 
         sp3C = MBDGetPlayerPartnerRef(curPlayerIndex, sp34);
         sp44 = MBDGetPlayerPartnerRef(opposingPlayerIndex, var_s5);
-        D_800D037C_D0F7C = 0;
+        mbItemBtnF = 0;
         var_s0 = 0x7F;
         HuPrcChildLink(temp_s6, MBDCameraZoomMotStart(1.0f));
 
@@ -942,7 +942,7 @@ void func_800F924C_E101C_name_81(s32 arg0) {
                 HuPrcChildLink(temp_s6, func_800EC1E4_D3FB4_name_81(&D_80105540_ED310_name_81, &player->player_obj->coords, &D_80105540_ED310_name_81, 4.0f));
                 HuPrcChildWait();
                 func_800FC888_E4658_name_81(1);
-                D_800D037C_D0F7C = 1;
+                mbItemBtnF = 1;
             }
         }
 
@@ -974,7 +974,7 @@ Process *func_800FAB68_E2938_name_81(s32 arg0, s32 arg1, s16 *arg2, f32 *arg3, f
     u8 *temp_a0;
     UnkBoard5 *temp_v0_2;
 
-    temp_v0 = omAddPrcObj(func_800FA120_E1EF0_name_81, 0U, 0, 0x40);
+    temp_v0 = omAddPrcObj(func_800FA120_E1EF0_name_81, 0, 0, 0x40);
     temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkBoard5));
     temp_v0->user_data = temp_v0_2;
     temp_a0 = D_80101980_E9750_name_81;
@@ -1196,7 +1196,7 @@ void func_800FB524_E32F4_name_81(void *arg0) {
     Process *newProcess;
 
     curProcess = HuPrcCurrentGet();
-    newProcess = omAddPrcObj(func_800FB160_E2F30_name_81, 0x1005U, 0, 0);
+    newProcess = omAddPrcObj(func_800FB160_E2F30_name_81, 0x1005, 0, 0);
     newProcess->user_data = arg0;
     omPrcSetStatBit(newProcess, 0x80);
     HuPrcChildLink(curProcess, newProcess);
