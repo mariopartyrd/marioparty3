@@ -16,7 +16,9 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_15_treadmill_grill/1B4F10", func_8010
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_15_treadmill_grill/1B4F10", func_80106DA0_1B6310_treadmill_grill);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_15_treadmill_grill/1B4F10", func_80107230_1B67A0_treadmill_grill);
+s32 func_80107230_1B67A0_treadmill_grill(void) {
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_15_treadmill_grill/1B4F10", func_80107238_1B67A8_treadmill_grill);
 

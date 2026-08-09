@@ -1,0 +1,32 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-asm-edits.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-sha1-edits.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-asm-edits.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-sha1-edits.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

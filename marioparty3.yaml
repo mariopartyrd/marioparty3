@@ -137,14 +137,19 @@ segments:
       - [0x6C3C0, c]
       - [0x6C9F0, c]
       - [0x6DBD0, c]
-      - [0x6DBF0, c, 2.0L/cspgetchlvol]
-      - [0x6DC10, c, 2.0L/seqpgetchlvol]
-      - [0x6DC30, c]
-      - [0x6DCD0, c]
-      - [0x6DCE0, c]
-      - [0x6DD10, c]
-      - [0x6DD40, c]
-      - [0x6DE50, c]
+      - [0x6DBF0, c, 2.0L/audio/cspgetchlvol]
+      - [0x6DC10, c, 2.0L/audio/cspgetfxmix]
+      - [0x6DC30, c, 2.0L/audio/cspgetpan]
+      - [0x6DC50, c, 2.0L/audio/cspgetprogram]
+      - [0x6DCD0, c, 2.0L/audio/cspgetstate]
+      - [0x6DCE0, c, 2.0L/audio/cspgettempo]
+      - [0x6DD10, c, 2.0L/audio/seqpplay]
+      - [0x6DD40, c, 2.0L/audio/seqpsetbank]
+      - [0x6DD70, c, 2.0L/audio/seqpsetseq]
+      - [0x6DDA0, c, 2.0L/audio/6DDA0]
+      - [0x6DDF0, c, 2.0L/audio/seqpsetvol]
+      - [0x6DE20, c, 2.0L/audio/seqpstop]
+      - [0x6DE50, c, 2.0L/audio/sndpallocate]
       - [0x6DF20, c, 2.0L/audio/sndpdeallocate]
       - [0x6DF70, c]
       - [0x6DFA0, c]
@@ -176,7 +181,8 @@ segments:
       - [0x72C20, c, 2.0L/io/conteepwrite]
       - [0x73020, c, 2.0L/io/conteepprobe]
       - [0x730A0, c, 2.0L/io/conteeplongwrite]
-      - [0x73190, c, 2.0L/io/conteeplongread] # TODO: split out 2.0L/os/setintmask and its rodata from this file
+      - [0x73190, c, 2.0L/io/conteeplongread]
+      - [0x73200, hasm, 2.0L/os/setintmask]
       - [0x732A0, c, 2.0L/io/pimgr]
       - [0x73550, c, 2.0L/io/epirawdma]
       - [0x73740, c, 2.0L/io/epidma]
@@ -202,7 +208,13 @@ segments:
       - [0x77E50, c, 2.0L/audio/heapinit]
       - [0x77E90, c, 2.0L/audio/heapalloc]
       - [0x77EE0, c, 2.0L/audio/copy]
-      - [0x77F20, c] # TODO: supposedly 2.0L/audio/cseq, but it conflicts with 0x6EC30
+      # Second (duplicate) copy of the ALCSeq module. The primary copy is the
+      # 0x6EC30 segment ("2.0L/audio/cseq"); alCSeqNew is byte-identical between
+      # the two modulo embedded addresses, so this is the same code rebased here.
+      # Left unnamed because splat can't have two segments named "cseq". This copy
+      # is the fuller build -- it has alCSeqGetTicks (0x8007792C), which the
+      # 0x6EC30 copy lacks entirely.
+      - [0x77F20, c]
       - [0x789E0, c, 2.0L/audio/synthesizer]
       - [0x79020, c, 2.0L/audio/syndelete]
       - [0x79030, c, 2.0L/audio/synaddplayer]
@@ -293,10 +305,11 @@ segments:
       - [0x7FCD0, c, 2.0L/os/initialize_kmc]
       - [0x800A0, c, 2.0L/os/initialize_msp]
       - [0x80460, c, 2.0L/os/initialize_emu]
-      - [0x804E0, c] # TODO: should be 2.0L/io/conteepread and 2.0L/os/exceptasm (issues with rodata)
+      - [0x804E0, c, 2.0L/io/conteepread]
+      - [0x80710, hasm, 2.0L/os/exceptasm]
       - [0x815D0, c, 2.0L/os/setglobalintmask]
       - [0x81610, c, 2.0L/os/resetglobalintmask]
-      - [0x81660, asm] # TODO: should be 2.0L/io/pirawdma (throwing internal compiler error)
+      - [0x81660, c, 2.0L/io/pirawdma]
       - [0x81730, c, 2.0L/io/pigetcmdq]
       - [0x81750, c, 2.0L/io/epirawread] # double check
       - [0x818C0, c, 2.0L/io/epirawwrite]
@@ -454,6 +467,8 @@ segments:
       - [0xA32D0, data, wipe]
       - [0xA3380, data, 6B050]
       - [0xA3480, data]
+      - [0xA3940, .data, 2.0L/audio/sl]
+      - [0xA3950, data]
       - [0xA4C50, .data, 2.0L/libc/xprintf]
       - [0xA4CA0, data]
       - [0xA4F30, .rodata, 8F1A0]
@@ -488,7 +503,7 @@ segments:
       - [0xA8CE0, .rodata, 6DFD0]
       - [0xA8D40, .rodata, 6F470]
       - [0xA8DB0, .rodata, 70C30]
-      - [0xA8E10, .rodata, 2.0L/io/conteeplongread] # TODO: this rodata belongs to 2.0L/os/setintmask
+      - [0xA8E10, rodata]
       - [0xA8E90, .rodata, 2.0L/io/devmgr]
       - [0xA8EB0, .rodata, 2.0L/io/aisetfreq]
       - [0xA8EC0, .rodata, 2.0L/audio/drvrnew]
@@ -506,7 +521,7 @@ segments:
       - [0xA91E0, .rodata, 2.0L/gu/perspective]
       - [0xA9228, .rodata, 2.0L/gu/sinf]
       - [0xA9280, .rodata, 2.0L/io/viswapcontext]
-      - [0xA9290, .rodata, 804E0]
+      - [0xA9290, rodata] # exceptasm
       - [0xA9300, rodata] #nan?
       - [0xA9310, .rodata, 2.0L/libc/xprintf]
       - [0xA9490, .rodata, 2.0L/libc/xldtob]
@@ -2293,8 +2308,9 @@ segments:
     bss_size: 0x240
     subsegments:
       - [0x4B29E0, c]
+      - [0x4B9A30, c]
       - [0x4C22A0, data, 4B29E0] #80115260
-      - [0x4C28C0, .rodata, 4B29E0] #80115880
+      - [0x4C28C0, .rodata, 4B9A30] #80115880
       - {0x4C2BD0, type: bss, vram: 0x80115B90, name: mstory3_bss}
 
   - type: code
@@ -2335,8 +2351,10 @@ segments:
     bss_size: 0x1F0
     subsegments:
       - [0x4DEB60, c]
+      - [0x4E2C50, c]
       - [0x4E65C0, data, 4DEB60] #8010D400
       - [0x4E6780, .rodata, 4DEB60] #8010D5C0
+      - [0x4E6B70, .rodata, 4E2C50] #8010D9B0
       - {0x4E6DC0, type: bss, vram: 0x8010DC00, name: inst_bss}
 
   - type: code
@@ -2349,9 +2367,11 @@ segments:
     bss_size: 0x2F0
     subsegments:
       - [0x4E6DC0, c]
+      - [0x4E9120, c]
       - [0x4EBD50, c]
       - [0x4EBF10, data, 4E6DC0] #8010AAF0
       - [0x4EC0E0, .rodata, 4E6DC0] #8010ACC0
+      - [0x4EC160, .rodata, 4E9120] #8010AD40
       - {0x4EC1B0, type: bss, vram: 0x8010AD90, name: mgresultboard_bss}
 
   - type: code
@@ -2447,8 +2467,10 @@ segments:
     bss_size: 0x1D0
     subsegments:
       - [0x501C00, c]
+      - [0x506F20, c]
       - [0x515670, data, 501C00] #80119410
       - [0x5167E0, .rodata, 501C00] #8011A580
+      - [0x516830, .rodata, 506F20] #8011A5D0
       - {0x516AE0, type: bss, vram: 0x8011A880, name: msetup_bss}
 
   - type: code

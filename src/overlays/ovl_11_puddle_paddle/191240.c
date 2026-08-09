@@ -1,5 +1,14 @@
 #include "common.h"
 
+typedef struct UnkPuddlePaddle {
+    /* 0x00 */ char pad00[8];
+    /* 0x08 */ u8 unk_08;
+    /* 0x09 */ char pad09[1];
+    /* 0x0A */ s16 unk_0A;
+    /* 0x0C */ s16 unk_0C;
+    /* 0x0E */ s16 unk_0E;
+} UnkPuddlePaddle; // size >= 0x10
+
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_11_puddle_paddle/191240", func_801059A0_191240_puddle_paddle);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_11_puddle_paddle/191240", func_801059BC_19125C_puddle_paddle);
@@ -70,7 +79,9 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_11_puddle_paddle/191240", func_801097
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_11_puddle_paddle/191240", func_80109804_1950A4_puddle_paddle);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_11_puddle_paddle/191240", func_80109814_1950B4_puddle_paddle);
+void func_80109814_1950B4_puddle_paddle(UnkPuddlePaddle *arg0, s16 arg1) {
+    arg0->unk_0E = arg1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_11_puddle_paddle/191240", func_8010981C_1950BC_puddle_paddle);
 

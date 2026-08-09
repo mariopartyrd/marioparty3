@@ -40,7 +40,8 @@ INCLUDE_ASM("asm/nonmatchings/overlays/majinlamp/3C7EC0", func_80107EA0_3CA3C0_m
 
 INCLUDE_ASM("asm/nonmatchings/overlays/majinlamp/3C7EC0", func_80107F54_3CA474_majinlamp);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/majinlamp/3C7EC0", func_801080C4_3CA5E4_majinlamp);
+void func_801080C4_3CA5E4_majinlamp(void) {
+}
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/majinlamp/3C7EC0", D_80108270_3CA790_majinlamp);
 

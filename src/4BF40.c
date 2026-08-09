@@ -7,6 +7,10 @@ extern f32 D_800CE17C_CED7C[];
 extern f32 D_800D04B8_D10B8[][6];
 extern f32 D_800D4198_D4D98[];
 extern f32 D_800D5210_D5E10;
+extern omObjData *D_800CE194_CED94;
+extern s32 D_800D6AB8_D76B8;
+
+void func_8004CF00_4DB00(omObjData *);
 
 void omOutView(omObjData *object) {
     Vec pos, at, up;
@@ -80,7 +84,11 @@ INCLUDE_ASM("asm/nonmatchings/4BF40", func_8004CB44_4D744);
 
 INCLUDE_ASM("asm/nonmatchings/4BF40", func_8004CD04_4D904);
 
-INCLUDE_ASM("asm/nonmatchings/4BF40", func_8004CEA4_4DAA4);
+void func_8004CEA4_4DAA4() {
+    D_800CE194_CED94 = omAddObj(0x7FD8, 0, 0, -1, func_8004CF00_4DB00);
+    omSetStatBit(D_800CE194_CED94, 0xA0);
+    D_800CE194_CED94->work[0] = D_800D6AB8_D76B8;
+}
 
 INCLUDE_ASM("asm/nonmatchings/4BF40", func_8004CF00_4DB00);
 

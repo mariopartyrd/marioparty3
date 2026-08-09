@@ -77,19 +77,44 @@ void GWBoardNoSet(s8 boardIndex) {
     GwSystem.current_board_index = boardIndex;
 }
 
-INCLUDE_ASM("asm/nonmatchings/save", GWBoardRecordGet);
+u8 *GWBoardRecordGet(s16 arg0) {
+    s16 idx = arg0;
 
-INCLUDE_ASM("asm/nonmatchings/save", GWPlayNumGet);
+    if (arg0 < 0) {
+        idx = GwSystem.current_board_index;
+    }
+
+    if (GwSystem.playMode & 1) {
+        return (u8 *)&GwCommon.unk_1D[2] + idx * 9;
+    }
+    return (u8 *)&GwCommon.unk_1D[0x38] + idx * 9;
+}
+
+u8 GWPlayNumGet(s16 arg0) {
+    return *GWBoardRecordGet(arg0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/save", GWPlayNumInc);
 
 INCLUDE_ASM("asm/nonmatchings/save", GWCharPlayNumInc);
 
-INCLUDE_ASM("asm/nonmatchings/save", func_80035E3C_36A3C);
+s32 func_80035E3C_36A3C(s16 arg0) {
+    // 0x18 of stack is reserved but unused in the original; the array keeps the frame.
+    s32 buf[6];
 
-INCLUDE_ASM("asm/nonmatchings/save", func_80035E60_36A60);
+    GWBoardRecordGet(arg0);
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/save", func_80035E88_36A88);
+void func_80035E60_36A60(s16 arg0) {
+    u8 *record = GWBoardRecordGet(arg0);
+    *record = *record;
+}
+
+void func_80035E88_36A88(s16 arg0) {
+    u8 *record = GWBoardRecordGet(arg0);
+    *record = *record;
+}
 
 s32 _CheckFlag(s32 flag) {
     return GwCommon.flag[flag / 8] & (1 << flag % 8);
@@ -123,4 +148,6 @@ void GWContErrorSet(void) {
     D_800B1A30_B2630 = FALSE;
 }
 
-INCLUDE_ASM("asm/nonmatchings/save", GWContErrorGet);
+s32 GWContErrorGet(void) {
+    return D_800B1A30_B2630;
+}

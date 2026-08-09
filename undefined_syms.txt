@@ -1,4 +1,5 @@
 osTvType = 0x80000300;
+osRomBase = 0x80000308;
 
 D_801155E0_2860B0_vine_with_me = 0x801155E0;
 D_801155E4_2860B4_vine_with_me = 0x801155E4;

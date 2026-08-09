@@ -205,7 +205,9 @@ INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002FC14_30814);
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002FC7C_3087C);
 
-INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002FD48_30948);
+void func_8002FD48_30948(HmfData *arg0) {
+    arg0->unkA0 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/22EB0", func_8002FD50_30950);
 
