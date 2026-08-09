@@ -211,26 +211,26 @@ void func_800EEE84_102AA4_shared_board(void) {
     s32 i;
 
     HuPrcSleep(2);
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (!(GwPlayer[i].stat & 1)) {
             break;
         }
     }
 
-    if (i == 4) {
+    if (i == MB_MAX_PLAYERS) {
         HuPrcSleep(30);
         return;
     }
 
     while (1) {
-        for (i = 0; i < 4; i++) {
+        for (i = 0; i < MB_MAX_PLAYERS; i++) {
             if (!(GwPlayer[i].stat & 1) &&
                 (D_800D5558_D6158[GwPlayer[i].pad] & (A_BUTTON | B_BUTTON))) {
                 break;
             }
         }
 
-        if (i == 4) {
+        if (i == MB_MAX_PLAYERS) {
             HuPrcVSleep();
         } else {
             break;
@@ -265,12 +265,12 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBGuideFaceS
 s32 func_800EF0D8_102CF8_shared_board(s32 arg0) {
     s32 randVal;
     s32 scoreIndex;
-    s32 score[4];
+    s32 score[MB_MAX_PLAYERS];
     s32 curPlayerScore;
     s32 i, j;
 
     for (i = 0, scoreIndex = 0; i < MB_MAX_PLAYERS; i++) {
-        for (j = 0; j < 4; j++) {
+        for (j = 0; j < MB_MAX_PLAYERS; j++) {
             if (BoardPlayerRankCalc(j) == i) {
                 score[scoreIndex++] = j;
             }
@@ -296,9 +296,9 @@ s32 func_800EF0D8_102CF8_shared_board(s32 arg0) {
 
     // for some reason this requires reassigning i
     i = score[i];
-    if (i >= 4) {
+    if (i >= MB_MAX_PLAYERS) {
         i = GwSystem.current_player_index + 1;
-        i = (i < 4) ? i : 0;
+        i = (i < MB_MAX_PLAYERS) ? i : 0;
     }
 
     return i;

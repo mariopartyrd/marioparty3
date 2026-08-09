@@ -661,14 +661,14 @@ segments:
       - [0x115640, .data, 10AD50] #80101A20
       - [0x115760, .data, 10C230] #80101B40
       - [0x115AB0, .data, 113750]
-
       - [0x115B50, .rodata, EA790]
       - [0x115B60, .rodata, EAB00]
       - [0x115B78, .rodata, EDDB0]
       - [0x115BD8, .rodata, EE3B0]
       - [0x115BF0, .rodata, EE660]
       - [0x115CB0, .rodata, F2910]
-      - [0x115DA0, .rodata, F5E80]
+      - [0x115DA0, .rodata, F5B90]
+      - [0x115DA8, .rodata, F5E80]
       - [0x115F00, .rodata, 1006F0]
       - [0x115F40, .rodata, 101840]
       - [0x116060, .rodata, 106A50]

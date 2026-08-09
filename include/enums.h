@@ -69,6 +69,8 @@ enum ITEM_FUNCTIONS {
     IFUNC_BOWSER_SUIT_BEGIN = 4,
     IFUNC_BOWSER_SUIT_END = 5,
     IFUNC_MUSHROOM = 6, //hand drag event when an item is selected and dragged to a player
+    IFUNC_KOOPA_KARD = 18,
+    IFUNC_EXHANGE_BOX = 19,
 };
 
 enum PARTNERS {

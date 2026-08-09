@@ -99,7 +99,7 @@ Unk3 *func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2) {
         } else {
             temp_v0_3 = HuMemMemoryAllocTemp(8);
             temp_v0->unk_0C = temp_v0_3;
-            sprintf(temp_v0_3, D_80102180_115DA0_shared_board, D_800D41C2_D4DC2);
+            sprintf(temp_v0_3, "\x03%2d\x08", D_800D41C2_D4DC2);
             return temp_v0;
         }
     }

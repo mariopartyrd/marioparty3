@@ -471,7 +471,7 @@ s32 func_801078CC_3C46EC_koopa(void) {
             var_s1 = i;
         }
     }
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         MBCoinTakeCreateSound(i, -temp_v0, i == var_s1);
         MBPlayerVibrate(i, 3);
     }
