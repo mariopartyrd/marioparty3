@@ -1227,13 +1227,111 @@ void MBTelopMgTypeMain(omObjData *obj) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopLast5Create);
+typedef struct SomeStruct {
+    u8 unk_00[10];
+} SomeStruct;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopPlayerCreate);
+extern SomeStruct D_80102250_115E70_shared_board;
+extern s32 D_80102D50_116970_shared_board;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopPlayerCheck);
+void MBTelopLast5Create(void) {
+    omObjData *obj;
+    void *data;
+    SomeStruct sp18 = D_80102250_115E70_shared_board;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopPlayerKill);
+    obj = omAddObj(-0x8000, 0, 0, -1, MBTelopLast5Main);
+    D_80102D44_116964_shared_board = obj;
+    obj->rot.x = 0.0f;
+
+    if (D_80102D50_116970_shared_board == 0) {
+        D_80102D48_116968_shared_board[0] = HuSprGrpCreate(1, 0);
+        data = DataRead(0x1301E0);
+        D_80102D4C_11696C_shared_board[0] = func_80055810_56410(data);
+        DataClose(data);
+        func_80055024_55C24(D_80102D48_116968_shared_board[0], 0,
+                            D_80102D4C_11696C_shared_board[0], 0);
+        HuSprPriSet(D_80102D48_116968_shared_board[0], 0, 0x10);
+        HuSprAttrSet(D_80102D48_116968_shared_board[0], 0, 0x1000);
+        func_80054904_55504(D_80102D48_116968_shared_board[0], 0, 0xA0, 0x32);
+        D_80102D4C_11696C_shared_board[1] = -1;
+        D_80102D48_116968_shared_board[1] = -1;
+        obj->work[0] = 1;
+        return;
+    }
+
+    D_80102D48_116968_shared_board[0] = HuSprGrpCreate(1, 0);
+    data = DataRead(0x1301DF);
+    D_80102D4C_11696C_shared_board[0] = func_80055810_56410(data);
+    DataClose(data);
+    func_80055024_55C24(D_80102D48_116968_shared_board[0], 0,
+                        D_80102D4C_11696C_shared_board[0],
+                        sp18.unk_00[D_80102D50_116970_shared_board]);
+    HuSprPriSet(D_80102D48_116968_shared_board[0], 0, 0x10);
+    HuSprAttrSet(D_80102D48_116968_shared_board[0], 0, 0x1000);
+    func_80054904_55504(D_80102D48_116968_shared_board[0], 0, 0xA0, 0x32);
+
+    D_80102D48_116968_shared_board[1] = HuSprGrpCreate(1, 0);
+    data = DataRead(0x1301DE);
+    D_80102D4C_11696C_shared_board[1] = func_80055810_56410(data);
+    DataClose(data);
+    func_80055024_55C24(D_80102D48_116968_shared_board[1], 0,
+                        D_80102D4C_11696C_shared_board[1], 0);
+    HuSprPriSet(D_80102D48_116968_shared_board[1], 0, 0x11);
+    HuSprAttrSet(D_80102D48_116968_shared_board[1], 0, 0x1000);
+    func_80054904_55504(D_80102D48_116968_shared_board[1], 0, 0xA0, 0x32);
+    obj->work[0] = 0;
+}
+
+typedef struct SomeStruct2 {
+    u16 unk_00[8];
+} SomeStruct2;
+
+extern SomeStruct2 D_8010225C_115E7C_shared_board;
+
+void MBTelopPlayerCreate(s32 arg0) {
+    omObjData* temp_v0_2;
+    void* temp_v0;
+    SomeStruct2 sp18 = D_8010225C_115E7C_shared_board;
+
+    D_80102D38_116958_shared_board = HuSprGrpCreate(1U, 0);
+    temp_v0 = DataRead(sp18.unk_00[GwPlayer[arg0].chr] | 0x130000);
+    D_80102D3A_11695A_shared_board[0] = func_80055810_56410(temp_v0);
+    DataClose(temp_v0);
+    func_80055024_55C24(D_80102D38_116958_shared_board, 0, D_80102D3A_11695A_shared_board[0], 0);
+    HuSprPriSet(D_80102D38_116958_shared_board, 0, 0x10);
+    HuSprAttrSet(D_80102D38_116958_shared_board, 0, 0x1000);
+    func_80054904_55504(D_80102D38_116958_shared_board, 0, 0xA0, 0x78);
+    temp_v0_2 = omAddObj(-0x8000, 0U, 0U, -1, MBTelopPlayerMain);
+    D_80102D40_116960_shared_board = temp_v0_2;
+    
+    temp_v0_2->scale.x = 0;
+    temp_v0_2->rot.x = 180.0f;
+    temp_v0_2->rot.y = 150.0f;
+    temp_v0_2->work[2] = 30;
+    temp_v0_2->work[0] = 0;
+    temp_v0_2->work[1] = 12;
+    
+    if (D_80102D44_116964_shared_board != 0) {
+        temp_v0_2->work[1] = 24;
+    }
+    temp_v0_2->work[3] = arg0;
+    if (arg0 >= 4) {
+        temp_v0_2->work[3] = 4;
+    }
+}
+
+s32 MBTelopPlayerCheck(void) {
+    return D_80102D36_116956_shared_board & 4;
+}
+
+void MBTelopPlayerKill(void) {
+    HuSprGrpKill(D_80102D38_116958_shared_board);
+    HuSprKill(D_80102D3A_11695A_shared_board[0]);
+    HuSprKill(D_80102D3A_11695A_shared_board[1]);
+    omDelObj(D_80102D40_116960_shared_board);
+    D_80102D40_116960_shared_board = 0;
+    D_80102D36_116956_shared_board &= ~(0x20 | 0x10 | 0x08 | 0x04);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopMgTypeCreate);
 
