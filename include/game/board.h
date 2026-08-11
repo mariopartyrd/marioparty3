@@ -3,6 +3,12 @@
 
 #include "ultra64.h"
 
+typedef struct LinkData {
+/* 0x00 */ s16 chainIndicies;
+/* 0x02 */ s16 unk2;
+/* 0x04 */ s16* spaces;
+} LinkData; //sizeof 0x08
+
 struct event_list_entry {
     s16 activation_type;
     s16 execution_type;

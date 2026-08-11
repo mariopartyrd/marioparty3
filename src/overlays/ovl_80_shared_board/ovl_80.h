@@ -46,12 +46,6 @@ typedef struct BoardStatus {
     /* 0x66 */ s16 counts[3]; //star count, coin count?
 } BoardStatus; //sizeof 0x6C
 
-typedef struct LinkData {
-/* 0x00 */ s16 chainIndicies;
-/* 0x02 */ s16 unk2;
-/* 0x04 */ s16* spaces;
-} LinkData; //sizeof 0x08
-
 typedef struct UnkBoard {
 /* 0x00 */ s16 unk_00;
 /* 0x02 */ s16 unk_02;
