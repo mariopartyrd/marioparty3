@@ -46,6 +46,13 @@ typedef struct BoardStatus {
     /* 0x66 */ s16 counts[3]; //star count, coin count?
 } BoardStatus; //sizeof 0x6C
 
+typedef struct UnkVibrateProcess {
+    s16 playerNo;
+    s16 vibrateStrength;
+    s16 sleepTime;
+    Process* proc;
+} UnkVibrateProcess;
+
 typedef struct UnkBoard {
 /* 0x00 */ s16 unk_00;
 /* 0x02 */ s16 unk_02;
@@ -84,13 +91,13 @@ typedef struct UnkBoard7 {
 typedef struct UnkBoard8 {
     struct UnkBoard8* unk_00; //double check this
     struct UnkBoard8* unk_04; //?
-    s16 unk_08;
-    s16 unk_0A;
-    s16* unk_0C;
-    f32* unk_10;
-    f32* unk_14;
-    s16* unk_18;
-    s16* unk_1C;
+    s16 amount; //number of entries for model, rot, scale, x/y positions
+    s16 spriteGroup;
+    s16* model;
+    f32* unk_10; //rot?
+    f32* unk_14; //scale?
+    s16* xPositions;
+    s16* yPositions;
 } UnkBoard8; //sizeof 0x20
 
 void MBModelAttrSetDispOff(Object*);
@@ -181,7 +188,7 @@ s16 MBMasuLinkMasuIdGet(u16 arg0, u16 arg1);
 s16 MBMasuLinkNumGet(u16);
 void MBPlayerVibrate(s16, s16);
 s16 MBPlayerTurnGet(void);
-void omVibrate(s16, s32, s32, s32);
+void omVibrate(s16 player, s16 duration, s16 off, s16 on);
 void func_800F7610_10B230_shared_board(void);
 void MBDlgWinExec(s32, s32);
 void func_800F74E4_10B104_shared_board(void);
@@ -240,9 +247,9 @@ void MBStatusShrink(s32 arg0);
 void MBStatusItemDispSetAll(s32 arg0);
 void MBStatusGrow(s32 arg0);
 s32 MBItemSelNoGet(void);
-void *MBPlayerVibrateObjCreate(s32, s32, s32);
+UnkVibrateProcess* MBPlayerVibrateObjCreate(s16 arg0, s16 arg1, s32 arg2);
 void MBDlgResultWinExec(s32);
-void MBPlayerVibrateObjKill(void *);
+void MBPlayerVibrateObjKill(UnkVibrateProcess *);
 void MBDlgWinInsertCreateY(s16 arg0, s32 arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg5, u32 arg6, s16 arg7);
 void func_800EBF48_FFB68_shared_board(s16, s32);
 s16 MBWinCreate(s16, s16*, s16);

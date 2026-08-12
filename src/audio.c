@@ -169,9 +169,9 @@ INCLUDE_ASM("asm/nonmatchings/audio", func_8004B0D4_4BCD4);
 INCLUDE_ASM("asm/nonmatchings/audio", func_8004B1AC_4BDAC);
 
 // Doesn't seem to be audio related? Maybe part of the next file.
-void omVibrate(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    if (!(GwPlayer[arg0].stat & PLAYER_IS_CPU)) {
-        RepeatVibrator(GwPlayer[arg0].pad, arg1, arg2, arg3);
+void omVibrate(s16 player, s16 duration, s16 off, s16 on) {
+    if (!(GwPlayer[player].stat & PLAYER_IS_CPU)) {
+        RepeatVibrator(GwPlayer[player].pad, duration, off, on);
     }
 }
 

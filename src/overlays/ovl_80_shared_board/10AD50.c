@@ -301,20 +301,20 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
         temp_s6 = D_80105630_119250_shared_board[var_s4++];
         temp_s2 = func_800F2C48_106868_shared_board(1, 0);
         temp_v0 = DataRead(D_8010197C_11559C_shared_board[temp_s6]);
-        temp_s2->unk_0C[0] = func_80055810_56410(temp_v0);
+        temp_s2->model[0] = func_80055810_56410(temp_v0);
         DataClose(temp_v0);
-        func_80055024_55C24(temp_s2->unk_0A, 0, temp_s2->unk_0C[0], 0);
-        HuSprAttrReset(temp_s2->unk_0A, 0, 0xFFFF);
-        HuSprAttrSet(temp_s2->unk_0A, 0, 0x1000);
-        HuSprPriSet(temp_s2->unk_0A, 0, 0x1000U);
-        func_80054904_55504(temp_s2->unk_0A, 0, sp20[0], sp20[1]);
+        func_80055024_55C24(temp_s2->spriteGroup, 0, temp_s2->model[0], 0);
+        HuSprAttrReset(temp_s2->spriteGroup, 0, 0xFFFF);
+        HuSprAttrSet(temp_s2->spriteGroup, 0, 0x1000);
+        HuSprPriSet(temp_s2->spriteGroup, 0, 0x1000U);
+        func_80054904_55504(temp_s2->spriteGroup, 0, sp20[0], sp20[1]);
 
         for (i = 0; i < 15; i++) {
-            func_80055458_56058(temp_s2->unk_0A, 0, ((i * 16) + i));
+            func_80055458_56058(temp_s2->spriteGroup, 0, ((i * 16) + i));
             HuPrcVSleep();
         }
 
-        func_80055458_56058(temp_s2->unk_0A, 0, 0xFF);
+        func_80055458_56058(temp_s2->spriteGroup, 0, 0xFF);
 
         if (arg0 == 1) {
             MBDlgWinInsertCreateY(-1, 0x3C0D, D_80101A94_1156B4_shared_board[D_8010565C_11927C_shared_board], 0, 0, 0, 0, 0x8C);
@@ -323,9 +323,9 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
         }
         for (i = 0; i < 70; i += 5) {
             // this sure is a line of code
-            func_80054904_55504(temp_s2->unk_0A, 0, (((HuMathSin(i) * (D_80101A74_115694_shared_board[playerNo][0] - sp20[0])) + sp20[0])), ((sp20[1] - (HuMathSin((i + 0x5A)) * (D_80101A74_115694_shared_board[playerNo][1] - sp20[1]))) + (D_80101A74_115694_shared_board[playerNo][1] - sp20[1])));
-            func_80055458_56058(temp_s2->unk_0A, 0, (256.0 - (i * 1.5)));
-            HuSprScaleSet(temp_s2->unk_0A, 0, (1.0f - (i / 200.0f)), (1.0f - (i / 200.0f)));
+            func_80054904_55504(temp_s2->spriteGroup, 0, (((HuMathSin(i) * (D_80101A74_115694_shared_board[playerNo][0] - sp20[0])) + sp20[0])), ((sp20[1] - (HuMathSin((i + 0x5A)) * (D_80101A74_115694_shared_board[playerNo][1] - sp20[1]))) + (D_80101A74_115694_shared_board[playerNo][1] - sp20[1])));
+            func_80055458_56058(temp_s2->spriteGroup, 0, (256.0 - (i * 1.5)));
+            HuSprScaleSet(temp_s2->spriteGroup, 0, (1.0f - (i / 200.0f)), (1.0f - (i / 200.0f)));
             HuPrcVSleep();
         }
 

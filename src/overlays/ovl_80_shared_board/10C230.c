@@ -2698,15 +2698,15 @@ void MBMain(void) {
 
                     // Handle passing over certain space types
                     switch (space->space_type) {
-                        case 1:  // Blue space
-                        case 2:  // Red space
-                        case 4:  // Happening space
-                        case 5:  // Event space
-                        case 6:  // Item space
-                        case 7:  // Bank space
-                        case 9:  // Battle space
-                        case 12: // Bowser space
-                        case 15: // Game guy space
+                        case SPACE_BLUE:
+                        case SPACE_RED:
+                        case SPACE_HAPPENING:
+                        case SPACE_CHANCE_TIME:
+                        case SPACE_ITEM:  // Item space
+                        case SPACE_BANK:  // Bank space
+                        case SPACE_BATTLE:  // Battle space
+                        case SPACE_BOWSER: // Bowser space
+                        case SPACE_GAME_GUY: // Game guy space
                             func_800DBFBC_EFBDC_shared_board(system->current_player_index);
                             mbWalkNum--;
                             func_800EB97C_FF59C_shared_board(var_s5);

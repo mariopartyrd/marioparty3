@@ -8,34 +8,136 @@ typedef struct UnkProcess {
     /* 0x1C */ s32 interpolationTime;
 } UnkProcess;
 
-void MBMasuPosGet(s16, s16, Vec *);
+f32 func_800D8DAC_EC9CC_shared_board(Vec*, Vec*);
 Process *MBPlayerPosMoveCreate(Vec *, Vec *, Vec *, s32);
 void MBVecNormalize(Vec *);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBMasuPosGet);
+void MBMasuPosGet(s16 playerNo, s16 spaceIdx, Vec* arg2) {
+    SpaceData* space;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBPlayerPosMasuSet);
+    space = MBMasuGet(spaceIdx);
+    arg2->x = space->coords.x;
+    arg2->y = space->coords.y;
+    arg2->z = space->coords.z;
+}
+
+void MBPlayerPosMasuSet(s16 playerNo, s16 arg1) {
+    MBMasuPosGet(playerNo, arg1, &GwPlayer[playerNo].player_obj->coords);
+}
 
 void MBVecDirGet(Vec *arg0, Vec *arg1, Vec *arg2) {
     HuVecSubtract(arg2, arg1, arg0);
     MBVecNormalize(arg2);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECB90_1007B0_shared_board);
+void func_800ECB90_1007B0_shared_board(s16 playerIdx, Vec* arg1) {
+    Object* playerObj;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECBD0_1007F0_shared_board);
+    playerObj = MBPlayerGet(playerIdx)->player_obj;
+    MBVecDirGet(&playerObj->coords, arg1, &playerObj->unk18);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBVecForwardSet);
+void func_800ECBD0_1007F0_shared_board(Object* arg0, s16 arg1) {
+    MBVecDirGet(&arg0->coords, &MBMasuGet(arg1)->coords, &arg0->unk18);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBPlayerForwardSet);
+void MBVecForwardSet(Vec* arg0) {
+    arg0->x = 0.0f;
+    arg0->y = 0.0f;
+    arg0->z = 1.0f;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECC54_100874_shared_board);
+void MBPlayerForwardSet(s16 arg0) {
+    MBVecForwardSet(&MBPlayerGet(arg0)->player_obj->unk18);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBPlayerMasuSwap);
+void func_800ECC54_100874_shared_board(Object* arg0) {
+    Vec sp10;
+    Vec sp20;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBPlayerMasuColorSet);
+    HuVecSubtract(&sp10, &gCameraList->pos, &arg0->coords);
+    HuVecCopyXYZ(&sp20, sp10.x, 0.0f, sp10.z);
+    arg0->omObj1->rot.x = -func_800D8DAC_EC9CC_shared_board(&sp10, &sp20);
+    MBVecDirGet(&arg0->coords, &gCameraList->pos, &sp10);
+    arg0->omObj1->rot.y = MBVecAngleGet(&sp10);
+    arg0->omObj1->rot.z = 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBTotalStarGet);
+void MBPlayerMasuSwap(s16 playerNoOne, s16 playerNoTwo) {
+    GW_PLAYER* playerOne;
+    GW_PLAYER* playerTwo;
+    u8 prevClink;
+    u8 prevCidx;
+    u8 prevNlink;
+    u8 prevNidx;
+    u8 prevBlink;
+    u8 prevBidx;
+    u8 prevRev;
+
+    playerOne = MBPlayerGet(playerNoOne);
+    playerTwo = MBPlayerGet(playerNoTwo);
+    prevClink = playerOne->clink;
+    playerOne->clink = playerTwo->clink;
+    playerTwo->clink = prevClink;
+    prevCidx = playerOne->cidx;
+    playerOne->cidx = playerTwo->cidx;
+    playerTwo->cidx = prevCidx;
+    prevNlink = playerOne->nlink;
+    playerOne->nlink = playerTwo->nlink;
+    playerTwo->nlink = prevNlink;
+    prevNidx = playerOne->nidx;
+    playerOne->nidx = playerTwo->nidx;
+    playerTwo->nidx = prevNidx;
+    prevBlink = playerOne->blink;
+    playerOne->blink = playerTwo->blink;
+    playerTwo->blink = prevBlink;
+    prevBidx = playerOne->bidx;
+    playerOne->bidx = playerTwo->bidx;
+    playerTwo->bidx = prevBidx;
+    prevRev = playerOne->rev;
+    playerOne->rev &= ~1;
+    playerOne->rev = (prevRev & ~1) | (playerTwo->rev & 1);
+    playerTwo->rev = (playerTwo->rev & ~1) | (prevRev & 1);
+}
+
+void MBPlayerMasuColorSet(s16 playerNo, s16 spaceType) {
+    GW_PLAYER* player;
+    u8 newColor;
+
+    player = MBPlayerGet(playerNo);
+    switch (spaceType) {
+    case SPACE_BLUE:
+        newColor = 1;
+        break;
+    case SPACE_RED:
+    case SPACE_BOWSER:
+        newColor = 2;
+        break;
+    case SPACE_NONE:
+    case SPACE_HAPPENING:
+    case SPACE_CHANCE_TIME:
+    case SPACE_ITEM:
+    case SPACE_BANK:
+    case SPACE_BATTLE:
+    case SPACE_GAME_GUY:
+        newColor = 4;
+        break;
+    default:
+        newColor = 0;
+        break;
+    }
+    player->color = newColor;
+}
+
+s16 MBTotalStarGet(void) {
+    s32 starTotal = 0;
+    s32 i;
+
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
+        starTotal += MBPlayerGet(i)->star;
+    }
+    return starTotal;
+}
 
 s32 MBRandCheck100(s8 arg0) {
     u8 randByte = rand8();
@@ -49,7 +151,21 @@ s16 MBTurnRemain(void) {
     return system->total_turns - system->current_turn + 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECF18_100B38_shared_board);
+s32 func_800ECF18_100B38_shared_board(s16 arg0, f32 arg1) {
+    Vec sp10;
+    s32 var_v0;
+
+    sp10.x = D_800CBB6E_CC76E[arg0];
+    sp10.y = 0.0f;
+    sp10.z = D_800D20A1_D2CA1[arg0];
+    
+    if (!(arg1 <= HuVecGetLength3F(&sp10))) {
+        var_v0 = 0;
+    } else {
+        var_v0 = 1;
+    }
+    return var_v0;
+}
 
 void func_800ECF9C_100BBC_shared_board(s16 arg0) {
     func_800EDC20_101840_shared_board(D_80101490_1150B0_shared_board[arg0]);

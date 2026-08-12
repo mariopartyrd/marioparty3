@@ -324,17 +324,17 @@ void func_800EF208_102E28_shared_board(UnkBoard8* arg0, s16 arg1, s16 arg2, s16 
     
     for (i = 0; i < 2; i++) {
         temp_s0 = D_800D5218_D5E18[i];
-        arg0->unk_0C[arg1] = func_80055810_56410(temp_s5);
+        arg0->model[arg1] = func_80055810_56410(temp_s5);
         if (temp_s0 != 0x20) {
-            func_80055024_55C24(arg0->unk_0A, arg1, arg0->unk_0C[arg1], temp_s0 - 0x30);
+            func_80055024_55C24(arg0->spriteGroup, arg1, arg0->model[arg1], temp_s0 - 0x30);
         } else {
-            func_80055024_55C24(arg0->unk_0A, arg1, arg0->unk_0C[arg1], 0xA);
+            func_80055024_55C24(arg0->spriteGroup, arg1, arg0->model[arg1], 0xA);
         }
         
-        HuSprPriSet(arg0->unk_0A, arg1, 7);
-        HuSprAttrSet(arg0->unk_0A, arg1, 0x01001000);
-        func_80054904_55504(arg0->unk_0A, arg1, arg3, arg4);
-        func_80055420_56020(arg0->unk_0A, arg1, D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][0], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][1], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][2]);
+        HuSprPriSet(arg0->spriteGroup, arg1, 7);
+        HuSprAttrSet(arg0->spriteGroup, arg1, 0x01001000);
+        func_80054904_55504(arg0->spriteGroup, arg1, arg3, arg4);
+        func_80055420_56020(arg0->spriteGroup, arg1, D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][0], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][1], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][2]);
         arg1 += 1;
         arg3 += 0xE;        
     }
@@ -355,29 +355,29 @@ UnkBoard8* MBPauseTurnNumCreate(void) {
     } else {
         var_s0 = DataRead(D_80101504_115124_shared_board[GwSystem.current_game_length]);
     }
-    temp_s2->unk_0C[0] = func_80055810_56410(var_s0);
-    func_80055024_55C24(temp_s2->unk_0A, 0, temp_s2->unk_0C[0], 0);
-    HuSprPriSet(temp_s2->unk_0A, 0, 7);
-    HuSprAttrSet(temp_s2->unk_0A, 0, 0x1000);
-    func_80054904_55504(temp_s2->unk_0A, 0, 0xA0, 0x73);
-    func_80055420_56020(temp_s2->unk_0A, 0, D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][0], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][1], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][2]);
+    temp_s2->model[0] = func_80055810_56410(var_s0);
+    func_80055024_55C24(temp_s2->spriteGroup, 0, temp_s2->model[0], 0);
+    HuSprPriSet(temp_s2->spriteGroup, 0, 7);
+    HuSprAttrSet(temp_s2->spriteGroup, 0, 0x1000);
+    func_80054904_55504(temp_s2->spriteGroup, 0, 0xA0, 0x73);
+    func_80055420_56020(temp_s2->spriteGroup, 0, D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][0], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][1], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][2]);
     DataClose(var_s0);
     temp_v0_2 = DataRead(0x130088);
-    temp_s2->unk_0C[1] = func_80055810_56410(temp_v0_2);
-    func_80055024_55C24(temp_s2->unk_0A, 1, temp_s2->unk_0C[1], 0);
-    HuSprPriSet(temp_s2->unk_0A, 1, 7);
-    HuSprAttrSet(temp_s2->unk_0A, 1, 0x1000);
-    func_80054904_55504(temp_s2->unk_0A, 1, 0xA0, 0x90);
-    func_80055420_56020(temp_s2->unk_0A, 1, D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][0], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][1], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][2]);
+    temp_s2->model[1] = func_80055810_56410(temp_v0_2);
+    func_80055024_55C24(temp_s2->spriteGroup, 1, temp_s2->model[1], 0);
+    HuSprPriSet(temp_s2->spriteGroup, 1, 7);
+    HuSprAttrSet(temp_s2->spriteGroup, 1, 0x1000);
+    func_80054904_55504(temp_s2->spriteGroup, 1, 0xA0, 0x90);
+    func_80055420_56020(temp_s2->spriteGroup, 1, D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][0], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][1], D_801014F4_115114_shared_board[D_801014F0_115110_shared_board][2]);
     DataClose(temp_v0_2);
     func_800EF208_102E28_shared_board(temp_s2, 2, GwSystem.total_turns, 0xCB, 0x90);
     func_800EF208_102E28_shared_board(temp_s2, 4, GwSystem.current_turn, 0xA1, 0x90);
     temp_v0_4 = DataRead(D_801014D0_1150F0_shared_board[GwSystem.current_board_index]);
-    temp_s2->unk_0C[6] = func_80055810_56410(temp_v0_4);
-    func_80055024_55C24(temp_s2->unk_0A, 6, temp_s2->unk_0C[6], 0);
-    HuSprPriSet(temp_s2->unk_0A, 6, 7);
-    HuSprAttrSet(temp_s2->unk_0A, 6, 0x1000);
-    func_80054904_55504(temp_s2->unk_0A, 6, 0xA0, 0x3C);
+    temp_s2->model[6] = func_80055810_56410(temp_v0_4);
+    func_80055024_55C24(temp_s2->spriteGroup, 6, temp_s2->model[6], 0);
+    HuSprPriSet(temp_s2->spriteGroup, 6, 7);
+    HuSprAttrSet(temp_s2->spriteGroup, 6, 0x1000);
+    func_80054904_55504(temp_s2->spriteGroup, 6, 0xA0, 0x3C);
     DataClose(temp_v0_4);
     return temp_s2;
 }
@@ -418,7 +418,7 @@ void func_800EF768_103388_shared_board(UnkBoard8* arg0, s16 arg1) {
     s32 i;
     Object* temp_v0;
     s16 temp_s2;
-    s16 temp = arg0->unk_0A;
+    s16 temp = arg0->spriteGroup;
     
     temp_v0 = arg0->unk_00; //TODO: this is wrong
     temp_v0->velocity.y = 4.0f;
@@ -426,7 +426,7 @@ void func_800EF768_103388_shared_board(UnkBoard8* arg0, s16 arg1) {
     temp_s2 = (arg1 - temp) / 14;
 
     for (i = 0; i < 14; i++) {
-        temp = arg0->unk_0A;
+        temp = arg0->spriteGroup;
         MBGuidePosSet(arg0, (temp + temp_s2), 8);
         HuPrcVSleep();        
     }
