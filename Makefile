@@ -169,7 +169,9 @@ build/src/2.0L/os/recvmesg.c.o: OPTFLAGS = -O2
 build/src/2.0L/os/sendmesg.c.o: OPTFLAGS = -O2
 build/src/88CF0.c.o: OPTFLAGS = -O2
 build/src/88CF0.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C
+
 # Files that must have -Wa,--vr4300mul-off disabled:
+build/src/overlays/ovl_80_shared_board/EC3B0.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -DOLD_GCC
 build/src/2.0L/gu/lookathil.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/gamemes.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/hmflight.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common

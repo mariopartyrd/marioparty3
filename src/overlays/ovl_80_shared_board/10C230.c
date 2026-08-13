@@ -1798,6 +1798,7 @@ void func_800ECA38_100658_shared_board(void); /* extern */
 extern u16 D_80101DE0_115A00_shared_board[];
 extern u16 D_80101E44_115A64_shared_board[];
 void func_800EC980_1005A0_shared_board(s32, s32, char *, s32, s32, s32, s32, s32);
+
 s32 func_800FB624_10F244_shared_board(GW_PLAYER* arg0) {
     char sp20[16];
     omObjData* sp34;

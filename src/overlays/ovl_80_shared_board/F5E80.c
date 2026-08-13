@@ -38,6 +38,11 @@ extern char D_80102CC0_1168E0_shared_board[0x20];
 extern s16 D_80102D48_116968_shared_board[];
 extern s16 D_80102D4C_11696C_shared_board[];
 
+extern s16 D_801052B8_118ED8_shared_board[];
+extern s16 D_801054B6_1190D6_shared_board;
+extern s16 D_801054B8_1190D8_shared_board[];
+extern s16 D_801054F8_119118_shared_board;
+
 // TODO: fix (u8*)arg1 hack
 void func_800E2260_F5E80_shared_board(s32 arg0, char *arg1) {
     if (arg0 == CUR_PLAYER) {
@@ -1935,9 +1940,25 @@ s16 MBMasuKakusiBlockGet(u8 arg0) {
     return MBMasuBlockGet((1 << SPACE_BLUE), arg0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBMasuBlockTblExtSet); // MBMasuBlockTblExtSet
+void MBMasuBlockTblExtSet(s16 *arg0) {
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBMasuBlockTblSet);
+    for (i = 0; *arg0 != -1; i++) {
+        D_801052B8_118ED8_shared_board[i] = *arg0++;
+    }
+    
+    D_801054B6_1190D6_shared_board = i;
+}
+
+void MBMasuBlockTblSet(s16 *arg0) {
+    s32 i;
+
+    for (i = 0; *arg0 != -1; i++) {
+        D_801054B8_1190D8_shared_board[i] = *arg0++;
+    }
+    
+    D_801054F8_119118_shared_board = i;
+}
 
 void func_800EBDAC_FF9CC_shared_board(void) {
     s32 var_s0;
@@ -1964,8 +1985,14 @@ void func_800EBDAC_FF9CC_shared_board(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EBEAC_FFACC_shared_board);
+u8 func_800EBEAC_FFACC_shared_board(s32 arg0, s32 arg1) {
+    return D_801012C4_114EE4_shared_board[arg0][arg1];
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBMasuDispOn);
+void MBMasuDispOn(void) {
+    D_80105262_118E82_shared_board = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBMasuDispOff);
+void MBMasuDispOff(void) {
+    D_80105262_118E82_shared_board = 0;
+}

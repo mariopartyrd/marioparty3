@@ -204,7 +204,7 @@ void MBDlgWinClose(void);
 void MBDlgWinKill(void);
 void MBDlgWinInsertCreate(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
 void MBVecForwardSet(Vec*);
-void func_800ED128_100D48_shared_board(Vec*, Vec*, Vec*, s32);
+Process* func_800ED128_100D48_shared_board(Vec*, Vec*, Vec*, s32);
 void MBCoinTakeCreate(s32, s32);
 void func_800E6CF8_FA918_shared_board(u8* input, u8* output, s32 compressedSize);
 s32 BoardGetTurnTier(s32);
@@ -392,6 +392,7 @@ extern s32 D_80101F30_115B50_shared_board[3];
 extern s32 D_80101944_115564_shared_board[]; //mainFS ids for character images
 extern s32 D_801019D0_1155F0_shared_board[];
 extern SpaceData* D_80105214_118E34_shared_board;
+void MBVecRotateY(Vec *arg0, f32 arg1);
 typedef struct Vec2s {
     s16 x;
     s16 y;

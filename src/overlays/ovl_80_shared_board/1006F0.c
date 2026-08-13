@@ -171,9 +171,69 @@ void func_800ECF9C_100BBC_shared_board(s16 arg0) {
     func_800EDC20_101840_shared_board(D_80101490_1150B0_shared_board[arg0]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ECFC8_100BE8_shared_board);
+typedef struct UnkVecStruct {
+    Vec unk_00;
+    Vec coords; //?
+    Vec* unk_18;
+    s32 unk_1C;
+    s32 unk_20;
+} UnkVecStruct; //sizeof 0x24
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED128_100D48_shared_board);
+void func_800ECFC8_100BE8_shared_board(void) {
+    UnkVecStruct* temp_s0;
+    f32 temp_f2;
+    f32 var_f20;
+    f32 var_f22;
+    s32 temp_s1;
+
+    temp_s0 = HuPrcCurrentGet()->user_data;
+    temp_s1 = temp_s0->unk_1C;
+    var_f22 = MBVecAngleGet(&temp_s0->unk_00);
+    var_f20 = MBVecAngleGet(&temp_s0->coords) - var_f22;
+    
+    if (var_f20 < -180.0f) {
+        var_f20 += 360.0f;
+    }
+    if (var_f20 > 180.0f) {
+        var_f20 -= 360.0f;
+    }
+    
+    temp_f2 = (f32) temp_s1;
+    var_f20 = var_f20 / temp_f2;
+    
+    if (temp_s0->unk_20 != 0) {
+        if (var_f20 >= 0.0f) {
+            var_f20 += 720.0f / temp_f2;
+        } else {
+            var_f20 -= 720.0f / temp_f2;
+        }
+    }
+
+    for (var_f22 = 0.0f; temp_s0->unk_1C != 0; ) {
+        HuVecCopy3F(temp_s0->unk_18, &temp_s0->unk_00);
+        var_f22 += var_f20;
+        MBVecRotateY(temp_s0->unk_18, var_f22);
+        temp_s0->unk_1C--;
+        HuPrcVSleep();        
+    }
+
+    omDelPrcObj(NULL);
+}
+
+Process* func_800ED128_100D48_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 arg3) {
+    Process* temp_v0;
+    UnkVecStruct* temp_v0_2;
+
+    temp_v0 = omAddPrcObj(func_800ECFC8_100BE8_shared_board, 0x4002U, 0, 0x80);
+    temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkVecStruct));
+    temp_v0->user_data = temp_v0_2;
+    HuVecCopyXYZ(&temp_v0_2->unk_00, arg0->x, 0.0f, arg0->z);
+    HuVecCopyXYZ(&temp_v0_2->coords, arg1->x, 0.0f, arg1->z);
+    temp_v0_2->unk_18 = arg2;
+    temp_v0_2->unk_1C = arg3;
+    temp_v0_2->unk_20 = 0;
+    return temp_v0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED1E4_100E04_shared_board);
 
