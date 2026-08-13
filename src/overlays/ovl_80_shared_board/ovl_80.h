@@ -225,7 +225,7 @@ u32 func_800EE884_1024A4_shared_board(Object* arg0, s16 arg1, s16 arg2);
 void MBBackLoad(s32);
 s32 func_800E9344_FCF64_shared_board(f32, f32);
 void func_800E6630_FA250_shared_board(Addr);
-f32 func_800D76D0_EB2F0_shared_board(s32);
+void func_800D76D0_EB2F0_shared_board(s32);
 void MBModelInit(void);
 void MBModelDispOn(Object*);
 void MBModelDispOff(Object*);

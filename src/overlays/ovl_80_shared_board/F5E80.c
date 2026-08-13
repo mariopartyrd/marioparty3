@@ -1716,7 +1716,10 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBMasuArrowAn
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EA694_FE2B4_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", func_800EA6B0_FE2D0_shared_board);
+void func_800EA6B0_FE2D0_shared_board(s16 arg0) {
+    MBMasuBmpKill();
+    MBMasuBmpCreate(arg0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBMasuStarSet);
 
