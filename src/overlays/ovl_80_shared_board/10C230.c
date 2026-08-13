@@ -525,8 +525,8 @@ void func_800F8864_10C484_shared_board(s16 arg0) {
 
     mbovlhis[mbovlhisidx].event = arg0;
     mbovlhisidx = temp_v0 + 1;
-    if (mbovlhisidx >= 5) {
-        mbovlhisidx = 4;
+    if (mbovlhisidx >= ARRAY_COUNT(mbovlhis)) {
+        mbovlhisidx = ARRAY_COUNT(mbovlhis) - 1;
     }
     MBOvlCall(-2, 3, 0x192);
     omOvlReturnEx(1);
@@ -1798,282 +1798,247 @@ void func_800ECA38_100658_shared_board(void); /* extern */
 extern u16 D_80101DE0_115A00_shared_board[];
 extern u16 D_80101E44_115A64_shared_board[];
 void func_800EC980_1005A0_shared_board(s32, s32, char *, s32, s32, s32, s32, s32);
-#ifdef NON_EQUIVALENT // close, but not quite matching in logic
-s32 func_800FB624_10F244_shared_board(GW_PLAYER *arg0) {
+s32 func_800FB624_10F244_shared_board(GW_PLAYER* arg0) {
     char sp20[16];
-    omObjData *sp34;
-    omObjData *kuriboObj;
+    omObjData* sp34;
+    omObjData* kuriboObj;
     s32 sp3C;
     s32 sp44;
     s32 sp4C;
-    Object *temp_v0;
-    Object *temp_v0_2;
-    f32 temp_f20;
-    f32 temp_f20_2;
-    f32 temp_f20_3;
-    f32 temp_f20_4;
+    Object* temp_v0;
+    Object* temp_v0_2;
     f32 var_f20;
-    f32 var_f20_2;
     f32 var_f22;
-    f32 var_f22_2;
-    omObjData *temp_v0_3;
-    s32 temp_a1;
-    s32 temp_s5;
-    s32 temp_v0_6;
-    s32 temp_v1;
-    s32 temp_v1_2;
+    omObjData* temp_v0_3;
     s32 var_a0;
-    s32 var_a0_2;
     s32 var_a1;
-    s32 var_s2_2;
-    s32 var_s4;
-    s32 temp_s0;
-    s32 temp_s1;
-    s32 temp_s2;
-    s32 turnTier;
-    s32 temp_s5_2;
-    s32 var_a2;
-    s32 var_s0;
-    s32 var_s0_2;
-    s32 var_s0_3;
-    s32 var_s0_4;
-    s32 var_s0_5;
-    s32 var_s0_6;
+    s32 turnTier; // s3
     s32 var_s1;
-    s32 var_s1_2;
     s32 var_s2;
     s32 var_s3;
-    s32 var_s3_2;
-    s32 var_s6;
-    s32 var_s6_2;
-    s32 var_v0;
-    s32 var_v0_2;
-    s32 var_v0_3;
-    s32 var_v0_4;
-    s32 var_v0_5;
-    s32 var_v0_6;
-    s32 var_v0_7;
-    s32 var_v0_8;
-    s32 var_s4_2;
-    void *temp_v0_4;
-    void *temp_v0_5;
-    s32 i, j;
-
+    s32 var_s4;
     s32 var_s5;
-
+    s32 var_s6;
+    void* temp_v0_4;
+    s32 i; // s0
+    s32 j;
+    u8 *table;
+    
     mbItemBtnF = 0;
     func_8004A670_4B270(0xF);
     HuPrcSleep(0x10);
     D_800C9930_CA530 = func_8004A5C4_4B1C4(0x3E);
     mbItemBtnF = 1;
-
-    mbBattleKuriboMdl = MBModelCreate(0xC, NULL);
+    
+    mbBattleKuriboMdl = MBModelCreate(0xCU, 0);
     Hu3DModelScaleSet(mbBattleKuriboMdl->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     func_8001FDE8_209E8(mbBattleKuriboMdl->omObj1->model[0]);
-
+    
     mbBattleKuriboMdl->flags |= 1;
-    mbBattleKuriboUpperMdl = MBModelCreate(0x1F, NULL);
-
+    mbBattleKuriboUpperMdl = MBModelCreate(0x1F, 0);
+    
     Hu3DModelScaleSet(mbBattleKuriboUpperMdl->omObj1->model[0], 0.0f, 0.0f, 0.0f);
     HuVecCopy3F(&mbBattleKuriboMdl->coords, &arg0->player_obj->coords);
     HuVecCopy3F(&mbBattleKuriboUpperMdl->coords, &arg0->player_obj->coords);
-
+    
     mbBattleKuriboMdl->velocity.x = 120.0f;
     mbBattleKuriboUpperMdl->velocity.x = 122.0f;
-
+    
     while (mbBattleKuriboMdl->velocity.x > 30.0f) {
         HuPrcVSleep();
         mbBattleKuriboMdl->velocity.x -= 1.0f;
         mbBattleKuriboUpperMdl->velocity.x -= 1.0f;
     }
-
+    
     kuriboObj = omAddObj(0x1F4, 0, 0, -1, MBBattleKuriboObjMain);
     kuriboObj->rot.x = 180.0f;
 
-    for (i = 0, var_s0 = 0; i < MB_MAX_PLAYERS; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (GwPlayer[i].coin >= 10) {
             break;
         }
     }
-
+    
     HuAudFXPlay(0x25B);
     var_s6 = 0;
-    if (i == 4) {
+    if (i == MB_MAX_PLAYERS) {
         func_800EC5EC_10020C_shared_board(6, 0x1301, 0x88);
     } else {
         turnTier = BoardGetTurnTier(-1);
-        var_s4 = 0;
-        for (i = 0; i < MB_MAX_PLAYERS; i++) {
+        for (i = 0, var_s4 = 0; i < MB_MAX_PLAYERS; i++) {
             if (var_s4 < GwPlayer[i].coin) {
                 var_s4 = GwPlayer[i].coin;
             }
         }
-
+        
         for (j = 0; j < 3; j++) {
             if (var_s4 < D_80101DE0_115A00_shared_board[j]) {
                 break;
             }
         }
 
-        temp_s2 = MBRand(100.0f);
-        for (i = 0; i < 5; i++) {
-            if (temp_s2 < (*D_80101E50_115A70_shared_board[j])[turnTier][i]) {
+        
+        
+        var_s2 = MBRand(100.0f);
+        
+        for (i = 0, table = D_80101E50_115A70_shared_board[j][0][0]; i < 5; i++) {
+            if (var_s2 < table[(turnTier * 5) + i]) {
                 break;
             }
         }
 
         var_s4 = D_80101E44_115A64_shared_board[i];
-        var_s6_2 = i;
-        sp3C = MBRandCheck100(0xA);
-        if ((turnTier == 0) && ((MBRandCheck100(0x1E)) != 0)) {
-            var_s6_2 = 0;
+        var_s6 = i;
+        sp3C = MBRandCheck100(10);
+        if ((turnTier == 0) && ((MBRandCheck100(30)) != 0)) {
+            var_s6 = 0;
             var_s4 = D_80101E44_115A64_shared_board[0];
         }
         func_800EC980_1005A0_shared_board(6, 0x1300, NULL, 0, 0, 0, 0, 0x88);
         func_800ECA38_100658_shared_board();
         MBDlgWinClose();
         MBDlgWinKill();
-        temp_s5 = HuSprGrpCreate(2, 2U);
+        var_s5 = HuSprGrpCreate(2U, 2U);
         temp_v0_4 = DataRead(0x130113);
         sp44 = func_80055810_56410(temp_v0_4);
         DataClose(temp_v0_4);
-        func_80055024_55C24(temp_s5, 0, sp44, 0);
-        HuSprPriSet(temp_s5, 0, 0x14U);
-        func_800550F4_55CF4(temp_s5, 0, 0);
-        HuSprAttrSet(temp_s5, 0, 0x1000);
-        func_80054904_55504(temp_s5, 0, 0xA0, 0x78);
-        func_800554C4_560C4(temp_s5, 0, -1);
-        temp_v0_5 = DataRead(0x130114);
-        sp4C = func_80055810_56410(temp_v0_5);
-        DataClose(temp_v0_5);
-        func_80055024_55C24(temp_s5, 1, sp4C, 0);
-        HuSprPriSet(temp_s5, 1, 0xAU);
-        func_800550F4_55CF4(temp_s5, 1, 1);
-        HuSprAttrSet(temp_s5, 1, 0x1000);
-        func_80054904_55504(temp_s5, 1, -0x28, 0x10);
-        func_800554C4_560C4(temp_s5, 1, 0);
-
+        func_80055024_55C24(var_s5, 0, sp44, 0);
+        HuSprPriSet(var_s5, 0, 0x14U);
+        func_800550F4_55CF4(var_s5, 0, 0);
+        HuSprAttrSet(var_s5, 0, 0x1000);
+        func_80054904_55504(var_s5, 0, 0xA0, 0x78);
+        func_800554C4_560C4(var_s5, 0, -1);
+        temp_v0_4 = DataRead(0x130114);
+        sp4C = func_80055810_56410(temp_v0_4);
+        DataClose(temp_v0_4);
+        func_80055024_55C24(var_s5, 1, sp4C, 0);
+        HuSprPriSet(var_s5, 1, 0xAU);
+        func_800550F4_55CF4(var_s5, 1, 1);
+        HuSprAttrSet(var_s5, 1, 0x1000);
+        func_80054904_55504(var_s5, 1, -0x28, 0x10);
+        func_800554C4_560C4(var_s5, 1, 0);
+        
         for (var_f20 = 0.0f; var_f20 < 1.0f; var_f20 += 0.1f) {
-            HuSprScaleSet(temp_s5, 0, var_f20, var_f20);
-            HuSprScaleSet(temp_s5, 1, var_f20, var_f20);
-            HuPrcVSleep();
+            HuSprScaleSet(var_s5, 0, var_f20, var_f20);
+            HuSprScaleSet(var_s5, 1, var_f20, var_f20);
+            HuPrcVSleep();            
         }
-
-        HuSprScaleSet(temp_s5, 0, 1.0f, 1.0f);
-        HuSprScaleSet(temp_s5, 1, 1.0f, 1.0f);
-        var_s0_4 = 0; /* current index */
-        var_s3 = 0;   /* tick counter */
-        var_s1_2 = 1; /* spin speed */
-        var_s2 = 0;   /* slowdown counter */
-
+        
+        HuSprScaleSet(var_s5, 0, 1.0f, 1.0f);
+        HuSprScaleSet(var_s5, 1, 1.0f, 1.0f);
+        i = 0;  /* current index */
+        var_s3 = 0;    /* tick counter */
+        var_s1 = 1;  /* spin speed */
+        var_s2 = 0;    /* slowdown counter */
+    
         for (;; HuPrcVSleep()) {
             /* Update sprite to current index */
-            func_80055024_55C24(temp_s5, 1, sp4C, var_s0_4);
-
+            func_80055024_55C24(var_s5, 1, sp4C, i);
+    
             /* Count frames before next tick */
             var_s3++;
-            if (var_s3 > var_s1_2) {
+            if (var_s3 > var_s1) {
                 var_s3 = 0;
                 HuAudFXPlay(0x116);
-
-                var_s0_4++;
-                if (var_s0_4 >= 5) {
-                    var_s0_4 = 0;
+    
+                i++;
+                if (i >= 5) {
+                    i = 0;
                 }
             }
-
+    
             /* Slow down the spinner gradually */
             var_s2++;
             if (var_s2 < 9) {
                 continue;
             }
             var_s2 = 0;
-            var_s1_2++;
-            if (var_s1_2 <= 6) {
+            var_s1++;
+            if (var_s1 <= 6) {
                 continue;
             }
-            var_s1_2 = 6;
-
+            var_s1 = 6;
+            
             /* Check stop conditions */
             if (sp3C != 0) {
                 /* Overshoot case (10% RNG) */
-                if (var_s6_2 != 4) {
-                    if (var_s0_4 == (var_s6_2 + 1)) {
+                if (var_s6 != 4) {
+                    if (i == (var_s6 + 1)) {
                         break;
                     }
                 } else {
-                    if (var_s0_4 == 0) {
+                    if (i == 0) {
                         break;
                     }
                 }
             } else {
                 /* Normal stop */
-                if (var_s0_4 == var_s6_2) {
+                if (i == var_s6) {
                     break;
                 }
             }
         }
-        func_80055024_55C24(temp_s5, 1, sp4C, var_s0_4);
+        func_80055024_55C24(var_s5, 1, sp4C, i);
         HuPrcSleep(0x14);
         if (sp3C != 0) {
             HuAudFXPlay(0x116);
-            func_80055024_55C24(temp_s5, 1, sp4C, var_s6_2);
+            func_80055024_55C24(var_s5, 1, sp4C, var_s6);
             HuPrcSleep(0xA);
         }
 
-        if (var_s6_2 != 0) {
+        if (var_s6 != 0) {
             HuAudFXPlay(0x117);
         } else {
             HuAudFXPlay(0x118);
         }
-
-        func_800F6A88_10A6A8_shared_board(temp_s5, 0);
-        func_80054904_55504(temp_s5, 1, 0x78, 0x88);
-        if (var_s6_2 == 4) {
-            for (var_f22_2 = 0.0f; var_f22_2 <= 1080.0f; var_f22_2 += 50.0f) {
-                temp_f20_3 = (HuMathSin(var_f22_2) * 0.5f) + 1.0f;
-                HuSprScaleSet(temp_s5, 1, temp_f20_3, temp_f20_3);
-                HuPrcVSleep();
+        
+        func_800F6A88_10A6A8_shared_board(var_s5, 0);
+        func_80054904_55504(var_s5, 1, 0x78, 0x88);
+        if (var_s6 == 4) {
+            for (var_f22 = 0.0f; var_f22 <= 1080.0f; var_f22 += 50.0f) {
+                var_f20 = (HuMathSin(var_f22) * 0.5f) + 1.0f;
+                HuSprScaleSet(var_s5, 1, var_f20, var_f20);
+                HuPrcVSleep();                
             }
 
-            for (; var_f22_2 <= 1440.0f; var_f22_2 += 40.0f) {
-                temp_f20_3 = (HuMathSin(var_f22_2) * 0.5f) + 1.0f;
-                HuSprScaleSet(temp_s5, 1, temp_f20_3, temp_f20_3);
-                HuPrcVSleep();
+            for (; var_f22 <= 1440.0f; var_f22 += 40.0f) {
+                var_f20 = (HuMathSin(var_f22) * 0.5f) + 1.0f;
+                HuSprScaleSet(var_s5, 1, var_f20, var_f20);
+                HuPrcVSleep();               
             }
         } else {
-            for (var_f22_2 = 0.0f; var_f22_2 <= 720.0f; var_f22_2 += 40.0f) {
-                temp_f20_3 = (HuMathSin(var_f22_2) * 0.5f) + 1.0f;
-                HuSprScaleSet(temp_s5, 1, temp_f20_3, temp_f20_3);
-                HuPrcVSleep();
+            for (var_f22 = 0.0f; var_f22 <= 720.0f; var_f22 += 40.0f) {
+                var_f20 = (HuMathSin(var_f22) * 0.5f) + 1.0f;
+                HuSprScaleSet(var_s5, 1, var_f20, var_f20);
+                HuPrcVSleep();                
             }
 
-            for (; var_f22_2 <= 1080.0f; var_f22_2 += 30.0f) {
-                temp_f20_3 = (HuMathSin(var_f22_2) * 0.5f) + 1.0f;
-                HuSprScaleSet(temp_s5, 1, temp_f20_3, temp_f20_3);
-                HuPrcVSleep();
+            for (; var_f22 <= 1080.0f; var_f22 += 30.0f) {
+                var_f20 = (HuMathSin(var_f22) * 0.5f) + 1.0f;
+                HuSprScaleSet(var_s5, 1, var_f20, var_f20);
+                HuPrcVSleep();               
             }
         }
-        HuSprScaleSet(temp_s5, 1, 1.0f, 1.0f);
-        func_800F6A88_10A6A8_shared_board(temp_s5, 2U);
-        func_80054904_55504(temp_s5, 1, -0x28, 0x10);
+        HuSprScaleSet(var_s5, 1, 1.0f, 1.0f);
+        func_800F6A88_10A6A8_shared_board(var_s5, 2U);
+        func_80054904_55504(var_s5, 1, -0x28, 0x10);
         HuPrcSleep(0x1E);
-
+        
         for (var_f20 = 1.0f; var_f20 > 0.0f; var_f20 -= 0.1f) {
-            HuSprScaleSet(temp_s5, 0, var_f20, var_f20);
-            HuSprScaleSet(temp_s5, 1, var_f20, var_f20);
-            HuPrcVSleep();
+            HuSprScaleSet(var_s5, 0, var_f20, var_f20);
+            HuSprScaleSet(var_s5, 1, var_f20, var_f20);
+            HuPrcVSleep();            
         }
 
-        HuSprScaleSet(temp_s5, 0, 0.0f, 0.0f);
-        HuSprScaleSet(temp_s5, 1, 0.0f, 0.0f);
-        HuSprGrpKill(temp_s5);
+        HuSprScaleSet(var_s5, 0, 0.0f, 0.0f);
+        HuSprScaleSet(var_s5, 1, 0.0f, 0.0f);
+        HuSprGrpKill(var_s5);
         HuSprKill(sp44);
         HuSprKill(sp4C);
         HuPrcSleep(3);
 
         if (var_s4 == 0) {
-            var_s3_2 = -1;
+            var_s3 = -1;
             var_s6 = 0;
             func_800EC980_1005A0_shared_board(6, 0x1304, NULL, 0, 0, 0, 0, 0x88);
             func_800ECA38_100658_shared_board();
@@ -2081,36 +2046,36 @@ s32 func_800FB624_10F244_shared_board(GW_PLAYER *arg0) {
             MBDlgWinKill();
         } else {
             var_s6 = 1;
-            var_s3_2 = -1;
-            var_a0_2 = 0;
+            var_s3 = -1;
+            var_a0 = 0;
             for (i = 0; i < MB_MAX_PLAYERS; i++) {
                 if (GwPlayer[i].coin >= var_s4) {
-                    var_s3_2 = i;
+                    var_s3 = i;
                     break;
                 } else {
-                    if (var_a0_2 < GwPlayer[i].coin) {
-                        var_s3_2 = i;
-                        var_a0_2 = GwPlayer[i].coin;
+                    if (var_a0 < GwPlayer[i].coin) {
+                        var_s3 = i;
+                        var_a0 = GwPlayer[i].coin;
                     }
                 }
             }
-
-            var_s2_2 = 0; // coin total
+            
+            var_s2 = 0; //coin total
             for (i = 0; i < MB_MAX_PLAYERS; i++) {
                 if (GwPlayer[i].coin < var_s4) {
                     GwPlayer[i].checkCoin = GwPlayer[i].coin;
-                    var_s2_2 += GwPlayer[i].coin;
+                    var_s2 += GwPlayer[i].coin;
                     MBCoinChangeStatusCreate(i, -GwPlayer[i].coin);
-                    if (i == var_s3_2) {
+                    if (i == var_s3) {
                         MBCoinTakeCreateSound(i, -GwPlayer[i].coin, 1);
                     } else {
                         MBCoinTakeCreateSound(i, -GwPlayer[i].coin, 0);
                     }
                 } else {
                     GwPlayer[i].checkCoin = var_s4;
-                    var_s2_2 += var_s4;
+                    var_s2 += var_s4;
                     MBCoinChangeStatusCreate(i, -var_s4);
-                    if (i == var_s3_2) {
+                    if (i == var_s3) {
                         MBCoinTakeCreateSound(i, -var_s4, 1);
                     } else {
                         MBCoinTakeCreateSound(i, -var_s4, 0);
@@ -2119,8 +2084,8 @@ s32 func_800FB624_10F244_shared_board(GW_PLAYER *arg0) {
             }
 
             HuPrcSleep(0x1E);
-            sprintf(sp20, D_801025D0_1161F0_shared_board, var_s2_2);
-            if (var_s2_2 < (var_s4 * 4)) {
+            sprintf(sp20, D_801025D0_1161F0_shared_board, var_s2);
+            if (var_s2 < (var_s4 * 4)) {
                 func_800EC980_1005A0_shared_board(6, 0x1303, sp20, 0, 0, 0, 0, 0x88);
                 func_800ECA38_100658_shared_board();
             } else {
@@ -2129,10 +2094,10 @@ s32 func_800FB624_10F244_shared_board(GW_PLAYER *arg0) {
             func_800ECA38_100658_shared_board();
             MBDlgWinClose();
             MBDlgWinKill();
-            D_800CC698_CD298 = var_s2_2;
+            D_800CC698_CD298 = var_s2;
         }
     }
-
+    
     if (var_s6 == 0) {
         omDelObj(kuriboObj);
         while (mbBattleKuriboMdl->velocity.x <= 120.0f) {
@@ -2149,16 +2114,13 @@ s32 func_800FB624_10F244_shared_board(GW_PLAYER *arg0) {
         mbItemBtnF = 1;
         D_800C9930_CA530 = -1;
         D_800CE206 = 0;
-        omPrcSetStatBit(omAddPrcObj(func_800F9C68_10D888_shared_board, 0, 0, 0), 0xA0);
+        omPrcSetStatBit(omAddPrcObj(func_800F9C68_10D888_shared_board, 0U, 0, 0), 0xA0);
         HuPrcSleep(2);
         return 0;
     } else {
         return 1;
     }
 }
-#else
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/10C230", func_800FB624_10F244_shared_board);
-#endif
 
 void func_800FC3D0_10FFF0_shared_board(void) {
     s32 var_a0;

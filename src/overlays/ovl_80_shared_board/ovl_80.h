@@ -169,7 +169,7 @@ void MBStatusRankSprCreate(s32);
 void MBStatusItemIconSprCreate(s32);
 void MBStatusItemSprCreate(s32, s32);
 void MBStatusSprBmpClear(s16 arg0, s16 arg1);
-void MBStatusDispMoveSet(s32);
+s32 MBStatusDispMoveSet(s32);
 void MBStatusAnimKill(void);
 void func_800F462C_10824C_shared_board(s32);
 void MBVsSprKill(void);
@@ -392,3 +392,7 @@ extern s32 D_80101F30_115B50_shared_board[3];
 extern s32 D_80101944_115564_shared_board[]; //mainFS ids for character images
 extern s32 D_801019D0_1155F0_shared_board[];
 extern SpaceData* D_80105214_118E34_shared_board;
+typedef struct Vec2s {
+    s16 x;
+    s16 y;
+} Vec2s;

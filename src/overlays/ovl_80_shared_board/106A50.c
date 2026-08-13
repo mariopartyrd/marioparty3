@@ -62,24 +62,24 @@ s16 PlayerBoardStatusRootPositionExtras[][2] = {
     { 0x01B0, 0x00BA }
 };
 
-s32 D_8010183C_11545C_shared_board[] = {
-    0x0028005C, 0x00A8005C, 0x002800B8, 0x00A800B8
+s16 D_8010183C_11545C_shared_board[4][2] = {
+    {0x0028, 0x005C}, {0x00A8, 0x005C}, {0x0028, 0x00B8}, {0x00A8, 0x00B8}
 };
 
-s32 D_8010184C_11546C_shared_board[] = {
-    0x0028005C, 0x00A8005C, 0x002800B8, 0x00A800B8
+s16 D_8010184C_11546C_shared_board[4][2] = {
+    {0x0028, 0x005C}, {0x00A8, 0x005C}, {0x0028, 0x00B8}, {0x00A8, 0x00B8}
 };
 
-s32 D_8010185C_11547C_shared_board[] = {
-    0x00A8005C, 0x00A8008A, 0x00A800B8, 0x0028008A
+s16 D_8010185C_11547C_shared_board[4][2] = {
+    {0x00A8, 0x005C}, {0x00A8, 0x008A}, {0x00A8, 0x00B8}, {0x0028, 0x008A}
 };
 
-s32 D_8010186C_11548C_shared_board[] = {
-    0x0028005C, 0x002800B8, 0x00A8005C, 0x00A800B8
+s16 D_8010186C_11548C_shared_board[4][2] = {
+    {0x0028, 0x005C}, {0x0028, 0x00B8}, {0x00A8, 0x005C}, {0x00A8, 0x00B8}
 };
 
-s32 D_8010187C_11549C_shared_board[] = {
-    0x0020008A, 0x00B0005C, 0x00B0008A, 0x00B000B8
+s16 D_8010187C_11549C_shared_board[4][2] = {
+    {0x0020, 0x008A}, {0x00B0, 0x005C}, {0x00B0, 0x008A}, {0x00B0, 0x00B8}
 };
 
 // TODO: this probably isn't all RGB data
@@ -143,7 +143,7 @@ s32 D_80101944_115564_shared_board[] = {
     0x00130107, 0x00130108, 0x00130109, 0x0013010A, 0x0013010B, 0x0013010C, 0x0013010D, 0x0013010E
 };
 
-s32 *D_80101964_115584_shared_board[] = {
+s16 (*D_80101964_115584_shared_board[])[2] = {
     D_8010184C_11546C_shared_board,
     D_8010187C_11549C_shared_board,
     D_8010186C_11548C_shared_board,
@@ -757,7 +757,214 @@ void MBStatusSideSet(s32 arg0, s32 arg1) {
     MBStatusPosSet(arg0, PlayerBoardStatusRootPosition[arg1][0], PlayerBoardStatusRootPosition[arg1][1]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/106A50", MBStatusDispMoveSet);
+// changed MBStatusDispMoveSet to return s32
+// should change D_80101964_115584_shared_board to be a Vec2s *[]
+// should change PlayerBoardStatusRootPosition to be Vec2s[]
+s32 MBStatusDispMoveSet(s32 arg0) {
+    u8 slot[8];
+    u8 group1[8];
+    u8 group2[8];
+    BoardStatus *sp;
+    s32 i;
+    u8 group1Count;
+    u8 group2Count;
+    u8 otherCount;
+
+    group1Count = 0;
+    group2Count = 0;
+
+    if (arg0 == 2) {
+        otherCount = 0;
+        group1Count = 0;
+        for (i = 0; i < 4; i++) {
+            switch (mbStatusData[i].spaceType) {
+            case 1:
+                group1[group1Count++] = i;
+                break;
+            case 2:
+                group2[group2Count++] = i;
+                break;
+            default:
+                otherCount++;
+                break;
+            }
+        }
+
+        if (otherCount != 0) {
+            for (i = 0; i < 5; i++) {
+                group1[i] = i;
+            }
+            group1Count = 5;
+            group2Count = 0;
+        }
+        otherCount = 0;
+        for (i = 0; i < group1Count; i++) {
+            slot[group1[i]] = otherCount++;
+        }
+        for (i = 0; i < group2Count; i++) {
+            slot[group2[i]] = otherCount++;
+        }
+    }
+
+    for (i = 0; i < 4; i++) {
+        sp = &mbStatusData[i];
+
+        /* Modes 10-13, 14-17 and 18-21 target one specific player only. */
+        if ((arg0 >= 10) && (arg0 <= 13) && (i != arg0 - 10)) continue;
+        if ((arg0 >= 14) && (arg0 <= 17) && (i != arg0 - 14)) continue;
+        if ((arg0 >= 18) && (arg0 <= 21) && (i != arg0 - 18)) continue;
+        if ((arg0 == 22) && (i != D_80101780_1153A0_shared_board)) continue;
+        if ((arg0 == 23) && (i != D_80101784_1153A4_shared_board)) continue;
+        if ((arg0 == 24) && (i != D_80101784_1153A4_shared_board)) continue;
+
+        switch (arg0) {
+        case 0:
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+            MBStatusPosSet(i, PlayerBoardStatusRootPosition[i + 4][0],
+                              PlayerBoardStatusRootPosition[i + 4][1]);
+            break;
+        case 22:
+            MBStatusPosSet(D_80101780_1153A0_shared_board,
+                           PlayerBoardStatusRootPosition[4][0],
+                           PlayerBoardStatusRootPosition[4][1] + 0x20);
+            break;
+        case 23:
+            MBStatusPosSet(D_80101784_1153A4_shared_board,
+                           PlayerBoardStatusRootPosition[5][0],
+                           PlayerBoardStatusRootPosition[5][1] + 0x20);
+            break;
+        case 24:
+            MBStatusPosSet(D_80101784_1153A4_shared_board,
+                           PlayerBoardStatusRootPosition[5][0],
+                           PlayerBoardStatusRootPosition[5][1]);
+            break;
+        }
+
+        sp->unkE = 19;
+        switch (arg0) {
+        case 25: // 0xCC
+        case 26: // 0xD0
+            sp->unkE = 5;
+            goto dummy;
+        case 6: // 0x80
+        case 7:
+        case 8:
+        case 9: // 0x8C
+            sp->unkE = 15;
+            goto dummy;
+        case 0: // 0x68
+        case 1: // 0x6C
+        case 3: // 0x74
+        case 4: // 0x78
+        case 10: // 0x90
+        case 11:
+        case 12:
+        case 13: // 0x9C
+            dummy:
+            sp->unk_18 = PlayerBoardStatusRootPosition[D_80101928_115548_shared_board[arg0] + i][0];
+            sp->unk_1C = PlayerBoardStatusRootPosition[D_80101928_115548_shared_board[arg0] + i][1];
+            break;
+        case 2: // 0x70
+            sp->unk_18 = D_80101964_115584_shared_board[group1Count][slot[i]][0];
+            sp->unk_1C = D_80101964_115584_shared_board[group1Count][slot[i]][1];
+            sp->unkE = 9;
+            break;
+        case 5:
+            /* Slide off whichever side of the screen it is already on. */
+            if (sp->xPos >= 160.0f) {
+                sp->unk_18 = sp->xPos + 1920.0f;
+            } else {
+                sp->unk_18 = sp->xPos - 1920.0f;
+            }
+            sp->unk_1C = sp->yPos;
+            sp->unkE = 19;
+            break;
+        case 14:
+        case 15:
+        case 16:
+        case 17:
+        case 18:
+        case 19:
+        case 20:
+        case 21:
+            sp->unk_18 = PlayerBoardStatusRootPosition[D_80101928_115548_shared_board[arg0] + i][0];
+            sp->unk_1C = sp->yPos;
+            break;
+        case 22:
+            sp->unk_18 = PlayerBoardStatusRootPosition[0][0];
+            sp->unk_1C = PlayerBoardStatusRootPosition[0][1] + 0x20;
+            break;
+        case 23:
+            sp->unk_18 = PlayerBoardStatusRootPosition[1][0];
+            sp->unk_1C = PlayerBoardStatusRootPosition[1][1] + 0x20;
+            break;
+        case 24:
+            sp->unk_18 = PlayerBoardStatusRootPosition[1][0];
+            sp->unk_1C = PlayerBoardStatusRootPosition[1][1];
+            break;
+        case 27:
+            if (i == D_80101788_1153A8_shared_board) {
+                sp->unk_18 = PlayerBoardStatusRootPosition[D_80101928_115548_shared_board[arg0]][0];
+                sp->unk_1C = PlayerBoardStatusRootPosition[D_80101928_115548_shared_board[arg0]][1];
+            } else if (i == D_8010178C_1153AC_shared_board) {
+                sp->unk_18 = PlayerBoardStatusRootPosition[D_80101928_115548_shared_board[arg0] + 1][0];
+                sp->unk_1C = PlayerBoardStatusRootPosition[D_80101928_115548_shared_board[arg0] + 1][1];
+            } else {
+                sp->unk_18 = PlayerBoardStatusRootPosition[D_80101928_115548_shared_board[arg0] + 2 + i][0];
+                sp->unk_1C = PlayerBoardStatusRootPosition[D_80101928_115548_shared_board[arg0] + 2 + i][1];
+            }
+            break;
+        }
+
+        sp->unk_20 = sp->unk_28 = (2.0f * (sp->unk_18 - sp->xPos)) / (f32) ((sp->unkE + 1) * (sp->unkE + 1));
+        sp->unk_24 = sp->unk_2C = (2.0f * (sp->unk_1C - sp->yPos)) / (f32) ((sp->unkE + 1) * (sp->unkE + 1));
+
+        if (arg0 == 5) {
+            D_801055D4_1191F4_shared_board.x = D_801055DC_1191FC_shared_board.x = 0.0f;
+            D_801055D4_1191F4_shared_board.y = D_801055DC_1191FC_shared_board.y = 2.0f;
+            D_801055E4_119204_shared_board = sp->unkE;
+        }
+    }
+
+    if ((arg0 == 2) && (group1Count != 5)) {
+        if ((group1Count == 4) || (group1Count == 0)) {
+            /* Free-for-all: everyone in their own group. */
+            for (i = 0; i < 4; i++) {
+                GwPlayer[i].group = i;
+            }
+        } else if (group1Count == 3) {
+            for (i = 0; i < group1Count; i++) {
+                GwPlayer[group1[i]].group = 1;
+            }
+            for (i = 0; i < group2Count; i++) {
+                GwPlayer[group2[i]].group = 0;
+            }
+        } else {
+            for (i = 0; i < group1Count; i++) {
+                GwPlayer[group1[i]].group = 0;
+            }
+            for (i = 0; i < group2Count; i++) {
+                GwPlayer[group2[i]].group = 1;
+            }
+        }
+    }
+
+    if ((arg0 == 6) || (arg0 == 7) || (arg0 == 8) || (arg0 == 9)) {
+        for (i = 0; i < 4; i++) {
+            if (i == arg0 - 6) {
+                GwPlayer[i].group = 0;
+            } else {
+                GwPlayer[i].group = 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
 
 s32 func_800F5278_108E98_shared_board(void) {
     s32 var_a0;
@@ -1445,3 +1652,6 @@ void func_800F7114_10AD34_shared_board(s32 arg0, s32 arg1) {
     D_80101788_1153A8_shared_board = arg0;
     D_8010178C_1153AC_shared_board = arg1;
 }
+
+//TODO: subsegment align issues. So many things point to rodata aligned to 16, but then certain places have issues at 8...confusing
+const u8 padRodata[] = "\0\0\0\0\0\0\0";

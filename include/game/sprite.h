@@ -172,7 +172,7 @@ void HuSprAttrReset(s16 group, s16 member, s32 attr);
 void HuSprAttrSet(s16 group, s16 member, s32 attr);
 void func_80055420_56020(s16, s16, u8, u8, u8);
 void func_80055458_56058(s16, s16, u16);
-void func_800554C4_560C4(s16 group, s16 member, u16 arg2);
+void func_800554C4_560C4(s16 group, s16 member, s16 arg2);
 HuSprite* HuSprGet(s16 group, s16 member);
 void HuSprKill(s16);
 s16 func_80055810_56410(void*);
