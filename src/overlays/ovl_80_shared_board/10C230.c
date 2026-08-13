@@ -2212,7 +2212,7 @@ void func_800FC7C8_1103E8_shared_board(void) {
     s32 var_s0 = 0xA0;
 
     if (D_80101E60_115A80_shared_board == NULL) {
-        D_80101E60_115A80_shared_board = func_800E210C_F5D2C_shared_board(2, 0xA0, 1);
+        D_80101E60_115A80_shared_board = func_800E210C_F5D2C_shared_board(2, var_s0, 1);
     }
     if ((D_80101E64_115A84_shared_board == NULL) && !(GwSystem.cur_player_used_item & 1)) {
         var_s0 += 14;

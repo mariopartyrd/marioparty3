@@ -11,6 +11,11 @@ typedef struct UnkProcess {
 f32 func_800D8DAC_EC9CC_shared_board(Vec*, Vec*);
 Process *MBPlayerPosMoveCreate(Vec *, Vec *, Vec *, s32);
 void MBVecNormalize(Vec *);
+void MBOvlCall(s32 id, s16 event, u16 stat);
+s16 func_800F8858_10C478_shared_board(void);
+void func_800FF7C4_1133E4_shared_board(s32, s32, s32);
+f32 HuVecDistance(Vec*, Vec*);
+void func_800ED518_101138_shared_board(void);
 
 void MBMasuPosGet(s16 playerNo, s16 spaceIdx, Vec* arg2) {
     SpaceData* space;
@@ -179,6 +184,13 @@ typedef struct UnkVecStruct {
     s32 unk_20;
 } UnkVecStruct; //sizeof 0x24
 
+typedef struct UnkVecStruct2 {
+    Vec unk_00;
+    Vec coords; //?
+    Vec* unk_18;
+    f32 unk_1C;
+} UnkVecStruct2; //sizeof 0x20
+
 void func_800ECFC8_100BE8_shared_board(void) {
     UnkVecStruct* temp_s0;
     f32 temp_f2;
@@ -235,9 +247,21 @@ Process* func_800ED128_100D48_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 
     return temp_v0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED1E4_100E04_shared_board);
+Process* func_800ED1E4_100E04_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 arg3) {
+    Process* proc = func_800ED128_100D48_shared_board(arg0, arg1, arg2, arg3);
+    ((UnkVecStruct*)(proc->user_data))->unk_20 = 1;
+    return proc;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED20C_100E2C_shared_board);
+void func_800ED20C_100E2C_shared_board(s16 playerNo, s32 arg1, s16 arg2) {
+    Vec sp10;
+    GW_PLAYER* player;
+
+    player = MBPlayerGet(playerNo);
+    HuVecSubtract(&sp10, &MBMasuGet(arg2)->coords, &player->player_obj->coords);
+    MBVecNormalize(&sp10);
+    func_800ED128_100D48_shared_board(&player->player_obj->unk18, &sp10, &player->player_obj->unk18, arg1);
+}
 
 void func_800ED290_100EB0_shared_board(omObjData *obj) {
     UnkProcess *temp_s0;
@@ -287,24 +311,203 @@ void MBPlayerPosMoveSet(s16 playerNo, s32 interpolationTime) {
     HuPrcChildWait();
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED518_101138_shared_board);
+void func_800ED518_101138_shared_board(void) {
+    UnkVecStruct2* temp_s0;
+    Vec* temp_s1;
+    f32 temp_f20;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED5E0_101200_shared_board);
+    temp_s0 = HuPrcCurrentGet()->user_data;
+    temp_f20 = temp_s0->unk_1C;
+    temp_s1 = &temp_s0->coords;
+    
+    while (!(HuVecDistance(&temp_s0->unk_00, temp_s1) < temp_f20)) {
+        HuVecSubtract(temp_s0->unk_18, temp_s1, &temp_s0->unk_00);
+        MBVecNormalize(temp_s0->unk_18);
+        HuVecMulScalar(temp_s0->unk_18, temp_f20, temp_s0->unk_18);
+        HuVecAdd(temp_s0->unk_18, temp_s0->unk_18, &temp_s0->unk_00);
+        HuVecCopy3F(&temp_s0->unk_00, temp_s0->unk_18);
+        HuPrcVSleep();
+    }
+    HuVecCopy3F(temp_s0->unk_18, &temp_s0->coords);
+    omDelPrcObj(NULL);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED694_1012B4_shared_board);
+Process* func_800ED5E0_101200_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3) {
+    Process* temp_v0;
+    UnkVecStruct2* temp_v0_2;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED75C_10137C_shared_board);
+    temp_v0 = omAddPrcObj(func_800ED518_101138_shared_board, 0x4002, 0, 0x50);
+    temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkVecStruct2));
+    temp_v0->user_data = temp_v0_2;
+    temp_v0_2->unk_00 = *arg0;
+    temp_v0_2->coords = *arg1;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800ED810_101430_shared_board);
+    temp_v0_2->unk_18 = arg2;
+    temp_v0_2->unk_1C = arg3;
+    return temp_v0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBMoveMasuSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBMoveNextMasuSet);
+void func_800ED694_1012B4_shared_board(void) {
+    UnkVecStruct2* temp_s0;
+    f32 temp_f20;
+    s32 var_s1;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", MBMoveBackMasuSet);
+    var_s1 = 0;
+    temp_s0 = HuPrcCurrentGet()->user_data;
+    temp_f20 = temp_s0->unk_1C;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800EDA58_101678_shared_board);
+    while (1) {
+        if (HuVecDistance(&temp_s0->unk_00, &temp_s0->coords) < temp_f20) {
+            var_s1 = 1;
+        }
+        HuVecSubtract(temp_s0->unk_18, &temp_s0->coords, &temp_s0->unk_00);
+        MBVecNormalize(temp_s0->unk_18);
+        HuVecMulScalar(temp_s0->unk_18, temp_f20, temp_s0->unk_18);
+        HuVecAdd(temp_s0->unk_18, temp_s0->unk_18, &temp_s0->unk_00);
+        HuVecCopy3F(&temp_s0->unk_00, temp_s0->unk_18);
+            
+        if (var_s1 != 0) {
+            break;
+        }
+        HuPrcVSleep();
+    }
+    
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800EDAF0_101710_shared_board);
+    omDelPrcObj(NULL);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/1006F0", func_800EDB98_1017B8_shared_board);
+Process* func_800ED75C_10137C_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3) {
+    Process* temp_v0;
+    UnkVecStruct2* temp_v0_2;
+
+    temp_v0 = omAddPrcObj(func_800ED694_1012B4_shared_board, 0x4002, 0, 0x50);
+    temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkVecStruct2));
+    temp_v0->user_data = temp_v0_2;
+    temp_v0_2->unk_00 = *arg0;
+    temp_v0_2->coords = *arg1;
+
+    temp_v0_2->unk_18 = arg2;
+    temp_v0_2->unk_1C = arg3;
+    return temp_v0;
+}
+
+void func_800ED810_101430_shared_board(s16 arg0, f32 arg1) {
+    Vec sp10;
+    Vec sp20;
+    GW_PLAYER* temp_v0;
+    Process* temp_s0;
+
+    temp_v0 = MBPlayerGet(arg0);
+    MBMasuPosGet(arg0, MBMasuLinkMasuIdGet(temp_v0->clink, temp_v0->cidx), &sp10);
+    MBMasuPosGet(arg0, MBMasuLinkMasuIdGet(temp_v0->nlink, temp_v0->nidx), &sp20);
+    MBVecDirGet(&sp10, &sp20, &temp_v0->player_obj->unk18);
+    temp_s0 = func_800ED5E0_101200_shared_board(&sp10, &sp20, &temp_v0->player_obj->coords, arg1);
+    HuPrcChildLink(HuPrcCurrentGet(), temp_s0);
+    HuPrcChildWait();
+}
+
+void MBMoveMasuSet(s16 playerNo, s16 link, s16 idx) {
+    GW_PLAYER* player;
+
+    player = MBPlayerGet(playerNo);
+    if (link > -1) {
+        player->clink = link;
+        player->nlink = link;
+        player->blink = link;
+    }
+    if (idx > -1) {
+        player->cidx = idx;
+        player->nidx = idx + 1;
+        player->bidx = idx - 1;
+    }
+}
+
+
+void MBMoveNextMasuSet(s16 playerNo, s16 arg1, s16 arg2) {
+    GW_PLAYER* player;
+
+    player = MBPlayerGet(playerNo);
+    if (arg1 > -1) {
+        player->nlink = arg1;
+    }
+    if (arg2> -1) {
+        player->nidx = arg2;
+    }
+}
+
+void MBMoveBackMasuSet(s16 playerNo, s16 arg1, s16 arg2) {
+    GW_PLAYER* player;
+
+    player = MBPlayerGet(playerNo);
+    if (arg1 > -1) {
+        player->blink = arg1;
+    }
+    if (arg2 > -1) {
+        player->bidx = arg2;
+    }
+}
+
+s32 func_800EDA58_101678_shared_board(void) {
+    s32 ret = 0;
+
+    GWBoardFlagSet(GwSystem.unk_0E);
+    GWBoardFlagSet(0xE);
+    if (func_800F8858_10C478_shared_board() == 1) {
+        if (GWBoardFlagCheck(3) != 0) {
+            MBOvlCall(-2, 4, 0x192);
+            ret = 1;
+        }
+    } else if (GWBoardFlagCheck(3) != 0) {
+        func_800FF7C4_1133E4_shared_board(-2, 4, 2);
+        ret = 1;
+    }
+    return ret;
+}
+
+typedef struct UnkUserData {
+    Object* obj;
+    f32 unk_04;
+    f32 unk_08;
+    f32 velocity;
+} UnkUserData;
+
+void func_800EDAF0_101710_shared_board(void) {
+    f32 temp_f0;
+    f32 temp_f24;
+    f32 temp_f26;
+    f32 temp_f28;
+    f32 var_f20;
+    Object* temp_s0;
+    UnkUserData* temp_v0;
+
+    temp_v0 = HuPrcCurrentGet()->user_data;
+    temp_s0 = temp_v0->obj;
+    temp_f28 = temp_v0->unk_04;
+    temp_f26 = temp_v0->unk_08;
+    temp_f24 = temp_v0->velocity;
+
+    for (var_f20 = 0.0f; ;) {
+        temp_f0 = temp_f24 - (HuMathSin(var_f20) * temp_f26);
+        var_f20 += temp_f28;
+        temp_s0->velocity.x = temp_f0;
+        if (var_f20 >= 360.0f) {
+            var_f20 -= 360.0f;
+        }
+        HuPrcVSleep();        
+    }
+}
+
+Process* func_800EDB98_1017B8_shared_board(Object* arg0, f32 arg1, f32 arg2) {
+    Process* temp_v0;
+    UnkUserData* temp_v0_2;
+
+    temp_v0 = omAddPrcObj(func_800EDAF0_101710_shared_board, 0xAU, 0, 0x40);
+    temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkUserData));
+    temp_v0->user_data = temp_v0_2;
+    temp_v0_2->obj = arg0;
+    temp_v0_2->unk_04 = arg1;
+    temp_v0_2->unk_08 = arg2;
+    temp_v0_2->velocity = arg0->velocity.x;
+    return temp_v0;
+}
