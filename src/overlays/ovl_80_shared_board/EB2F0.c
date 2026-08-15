@@ -155,7 +155,7 @@ void MBMapFullLineCreate(void) {
     void* temp_v0;
     void* temp_v0_2;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         temp_s0 = func_800F2C48_106868_shared_board(2, 0);
         temp_v0 = DataRead(0x1301CE);
         temp_s0->model[0] = func_80055810_56410(temp_v0);

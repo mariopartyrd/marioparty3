@@ -52,9 +52,17 @@ void func_800DA8BC_EE4DC_shared_board(u16 *arg0) {
     temp_v0_2->unk_00 = process;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE3B0", func_800DA91C_EE53C_shared_board);
+void func_800DA91C_EE53C_shared_board(Process* arg0) {
+    omDelPrcObj(arg0->next);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE3B0", func_800DA938_EE558_shared_board);
+s32 func_800DA938_EE558_shared_board(UnkData* arg0) {
+    if (~arg0->unk_08) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
 
 void func_800DA948_EE568_shared_board(void) {
 }

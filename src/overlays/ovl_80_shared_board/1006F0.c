@@ -39,11 +39,11 @@ void func_800ECB90_1007B0_shared_board(s16 playerIdx, Vec* arg1) {
     Object* playerObj;
 
     playerObj = MBPlayerGet(playerIdx)->player_obj;
-    MBVecDirGet(&playerObj->coords, arg1, &playerObj->unk18);
+    MBVecDirGet(&playerObj->coords, arg1, &playerObj->rot);
 }
 
 void func_800ECBD0_1007F0_shared_board(Object* arg0, s16 arg1) {
-    MBVecDirGet(&arg0->coords, &MBMasuGet(arg1)->coords, &arg0->unk18);
+    MBVecDirGet(&arg0->coords, &MBMasuGet(arg1)->coords, &arg0->rot);
 }
 
 void MBVecForwardSet(Vec* arg0) {
@@ -53,7 +53,7 @@ void MBVecForwardSet(Vec* arg0) {
 }
 
 void MBPlayerForwardSet(s16 arg0) {
-    MBVecForwardSet(&MBPlayerGet(arg0)->player_obj->unk18);
+    MBVecForwardSet(&MBPlayerGet(arg0)->player_obj->rot);
 }
 
 void func_800ECC54_100874_shared_board(Object* arg0) {
@@ -260,7 +260,7 @@ void func_800ED20C_100E2C_shared_board(s16 playerNo, s32 arg1, s16 arg2) {
     player = MBPlayerGet(playerNo);
     HuVecSubtract(&sp10, &MBMasuGet(arg2)->coords, &player->player_obj->coords);
     MBVecNormalize(&sp10);
-    func_800ED128_100D48_shared_board(&player->player_obj->unk18, &sp10, &player->player_obj->unk18, arg1);
+    func_800ED128_100D48_shared_board(&player->player_obj->rot, &sp10, &player->player_obj->rot, arg1);
 }
 
 void func_800ED290_100EB0_shared_board(omObjData *obj) {
@@ -305,7 +305,7 @@ void MBPlayerPosMoveSet(s16 playerNo, s32 interpolationTime) {
     temp_v0 = MBPlayerGet(playerNo);
     MBMasuPosGet(playerNo, MBMasuLinkMasuIdGet(temp_v0->clink, temp_v0->cidx), &sp10);     // get pos of current space
     MBMasuPosGet(playerNo, MBMasuLinkMasuIdGet(temp_v0->nlink, temp_v0->nidx), &sp20);     // get pos of next space
-    MBVecDirGet(&sp10, &sp20, &temp_v0->player_obj->unk18);                                            // interpolate player position from cur space to next space
+    MBVecDirGet(&sp10, &sp20, &temp_v0->player_obj->rot);                                            // interpolate player position from cur space to next space
     temp_s0 = MBPlayerPosMoveCreate(&sp10, &sp20, &temp_v0->player_obj->coords, interpolationTime); // start process, return process handle
     HuPrcChildLink(HuPrcCurrentGet(), temp_s0);                                                                 // wait on previous process to complete
     HuPrcChildWait();
@@ -401,7 +401,7 @@ void func_800ED810_101430_shared_board(s16 arg0, f32 arg1) {
     temp_v0 = MBPlayerGet(arg0);
     MBMasuPosGet(arg0, MBMasuLinkMasuIdGet(temp_v0->clink, temp_v0->cidx), &sp10);
     MBMasuPosGet(arg0, MBMasuLinkMasuIdGet(temp_v0->nlink, temp_v0->nidx), &sp20);
-    MBVecDirGet(&sp10, &sp20, &temp_v0->player_obj->unk18);
+    MBVecDirGet(&sp10, &sp20, &temp_v0->player_obj->rot);
     temp_s0 = func_800ED5E0_101200_shared_board(&sp10, &sp20, &temp_v0->player_obj->coords, arg1);
     HuPrcChildLink(HuPrcCurrentGet(), temp_s0);
     HuPrcChildWait();

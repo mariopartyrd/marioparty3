@@ -2486,8 +2486,8 @@ void MBMain(void) {
                 mbGameMode = 0xA;
                 MBItemMajinLampStarExec();
                 MBVecForwardSet(&sp20);
-                func_800ED128_100D48_shared_board(&temp_v0_4->player_obj->unk18, &sp20,
-                                                  &temp_v0_4->player_obj->unk18, 8);
+                func_800ED128_100D48_shared_board(&temp_v0_4->player_obj->rot, &sp20,
+                                                  &temp_v0_4->player_obj->rot, 8);
                 HuPrcSleep(8);
                 goto label654;
 
@@ -2801,8 +2801,8 @@ void MBMain(void) {
 
                 // Return player to space position
                 MBVecForwardSet(&sp20);
-                func_800ED1E4_100E04_shared_board(&temp_v0_4->player_obj->unk18, &sp20,
-                                                  &temp_v0_4->player_obj->unk18, 8);
+                func_800ED1E4_100E04_shared_board(&temp_v0_4->player_obj->rot, &sp20,
+                                                  &temp_v0_4->player_obj->rot, 8);
 
                 var_s5 = MBMasuLinkMasuIdGet(temp_v0_4->clink, temp_v0_4->cidx);
                 space = MBMasuGet(var_s5);

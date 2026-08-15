@@ -95,7 +95,7 @@ void func_800ED214_D4FE4_name_81(s32 playerIndex) {
         HuVecCopy3F(&partner->coords, &player->player_obj->coords);
         HuVecAdd(&partner->coords, &partner->coords, &sp10);
         func_800D7828_BF5F8_name_81(&sp10);
-        HuVecCopy3F(&partner->unk18, &sp10);
+        HuVecCopy3F(&partner->rot, &sp10);
     }
 
     if (player->stats.partners.backID != PARTNER_NONE) {
@@ -104,7 +104,7 @@ void func_800ED214_D4FE4_name_81(s32 playerIndex) {
         HuVecAdd(&partner->coords, &partner->coords, &sp20);
         func_800D7828_BF5F8_name_81(&sp20);
         func_800D7934_BF704_name_81(&sp20, 180.0f);
-        HuVecCopy3F(&partner->unk18, &sp20);
+        HuVecCopy3F(&partner->rot, &sp20);
     }
 }
 

@@ -42,7 +42,7 @@ typedef struct Object_s {
 /* 0x0A */ u16 flags;
 /* 0x0C */ Vec coords;
 // Three Vec groups (Scale?, Rotation?, Position?)
-/* 0x18 */ Vec unk18;
+/* 0x18 */ Vec rot;
 /* 0x24 */ Vec scale;
 /* 0x30 */ Vec velocity;
 /* 0x3C */ omObjData* omObj1;

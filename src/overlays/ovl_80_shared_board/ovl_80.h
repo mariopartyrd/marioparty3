@@ -14,6 +14,42 @@ enum BoardIndices {
 
 #define MINIGAME_ID(id) ((id) + 1)
 
+
+// typedef struct SomeStruct2 {
+//     /* 0x00 */ char pad0[2];
+//     /* 0x02 */ s16 unk_02;
+//     /* 0x04 */ UnkBoard2** unk_04;
+//     /* 0x08 */ Process* proc;
+//     /* 0x0C */ s16 unk_0C;
+//     /* 0x0E */ char padE[2];
+// } SomeStruct2; //sizeof 0x10
+
+
+typedef struct UnkBoard {
+/* 0x00 */ s16 unk_00;
+/* 0x02 */ s16 unk_02;
+/* 0x04 */ Object* unk_04;
+/* 0x08 */ omObjData* unk_08;
+} UnkBoard; //sizeof 0x0C
+
+typedef struct UnkBoard2 {
+/* 0x00 */ s16 unk_00;
+/* 0x04 */ Object* obj;
+} UnkBoard2;
+
+typedef struct UnkEA790Struct {
+    /* 0x00 */ s16 unk_00;
+    /* 0x02 */ s16 unk_02;
+    /* 0x04 */ UnkBoard2** unk_04;
+    /* 0x08 */ Process* proc;
+    /* 0x0C */ s16 unk_0C;
+    /* 0x0E */ s16 unkE;                            /* inferred */
+    /* 0x10 */ OSMesgQueue unk10;                   /* inferred */
+    /* 0x28 */ void* unk28;                         /* inferred */
+    /* 0x2C */ char pad2C[0x3C];                    /* maybe part of unk28[0x10]? */
+    /* 0x68 */ GW_PLAYER* player;
+} UnkEA790Struct;                                   /* size = 0x6C */
+
 typedef struct BoardStatus {
     /* 0x00 */ s8 uiUpdatePaused;
     /* 0x01 */ s8 unk1;
@@ -53,18 +89,6 @@ typedef struct UnkVibrateProcess {
     Process* proc;
 } UnkVibrateProcess;
 
-typedef struct UnkBoard {
-/* 0x00 */ s16 unk_00;
-/* 0x02 */ s16 unk_02;
-/* 0x04 */ Object* unk_04;
-/* 0x08 */ omObjData* unk_08;
-} UnkBoard; //sizeof 0x0C
-
-typedef struct UnkBoard2 {
-/* 0x00 */ s16 unk_00;
-/* 0x04 */ Object* obj;
-} UnkBoard2;
-
 typedef struct UnkCoinThing {
 /* 0x00 */ u8 digits[3];
 /* 0x03 */ char unk_03[5];
@@ -100,6 +124,7 @@ typedef struct UnkBoard8 {
     s16* yPositions;
 } UnkBoard8; //sizeof 0x20
 
+UnkBoard2 *func_800D6B70_EA790_shared_board(s32 arg0);
 void MBModelAttrSetDispOff(Object*);
 void MBModelMotionWait(Object* arg0);
 void MBStatusItemSprKill(s32 playerIndex);
@@ -109,7 +134,7 @@ void func_800F2CA4_1068C4_shared_board(UnkBoard8*);
 void MBStatusItemDispSetAll(s32);
 void MBStatusShrink(s32);
 void MBStatusGrow(s32);
-Object* MBModelFileCreate(s32, s32, f32, s32, s32);
+Object* MBModelFileCreate(s32, s32, f32, f32, u32*);
 s32 MBItemFindEmpty(s32 arg0);
 Object* func_800D912C_ECD4C_shared_board(s32, s32, f32, s32, s32);
 void MBModelKill(Object*);

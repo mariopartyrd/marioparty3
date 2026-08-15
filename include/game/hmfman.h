@@ -160,7 +160,7 @@ typedef struct HmfModel {
 
 void func_8001A070_1AC70(void* arg0, void* arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5);
 s16 Hu3DModelCreate(u8*, u32);
-s16 Hu3DModelLink(s16 linkMdlId);
+s32 Hu3DModelLink(s16 linkMdlId);
 s32 func_8001A894_1B494(s32, void*, s32); // unsure about second arg. Gfx*?
 s16 func_8001AC8C_1B88C(s32 arg0, void (*arg1)(Gfx**, s32, s32), u8 arg2);
 void func_8001ACDC_1B8DC(s16);

@@ -215,7 +215,7 @@ skip:
     return modelId;
 }
 
-s16 Hu3DModelLink(s16 linkMdlId) {
+s32 Hu3DModelLink(s16 linkMdlId) {
     HmfModel *modelP;
     s16 modelId;
 

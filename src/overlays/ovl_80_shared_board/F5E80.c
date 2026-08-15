@@ -911,7 +911,7 @@ void MBItemKSuitWalkExec(void) {
             sp4C = func_800DBEC0_EFAE0_shared_board(curPlayerIndex);
             MBKSuitMotionSet(-1, 2);
             MBVecForwardSet(&sp28);
-            func_800ED128_100D48_shared_board(&curPlayer->player_obj->unk18, &sp28, &curPlayer->player_obj->unk18, 8);
+            func_800ED128_100D48_shared_board(&curPlayer->player_obj->rot, &sp28, &curPlayer->player_obj->rot, 8);
             HuPrcSleep(8);
             totalCoinsToLose = 0;
 
