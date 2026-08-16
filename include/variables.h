@@ -5,7 +5,10 @@
 #include "common_structs.h"
 
 extern s16 omovlevtno;
-extern UnkDiceRelated D_800CDBC8_CE7C8[4];
+extern s16 D_800CDBC8_CE7C8;
+extern UnkDiceRelated D_800CDBD0_CE7D0[4];
+extern s16 D_800CDD64_CE964;
+extern u8 D_800CC0C0_CCCC0;
 extern s32 D_800A12D4_A1ED4;
 extern s32 D_800A12D8_A1ED8;
 extern s16 mbCameraBtnF;

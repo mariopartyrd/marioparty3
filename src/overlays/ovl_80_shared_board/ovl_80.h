@@ -113,7 +113,7 @@ typedef struct UnkBoard7 {
 
 //very closely resembles UnkBoard5, but member at offset 0x08 must be s16 here instead of s32?
 typedef struct UnkBoard8 {
-    struct UnkBoard8* unk_00; //double check this
+    Object* unk_00; //double check this
     struct UnkBoard8* unk_04; //?
     s16 amount; //number of entries for model, rot, scale, x/y positions
     s16 spriteGroup;
@@ -123,7 +123,6 @@ typedef struct UnkBoard8 {
     s16* xPositions;
     s16* yPositions;
 } UnkBoard8; //sizeof 0x20
-
 
 void MBCameraPos2DGet(f32 *);
 void MBCameraPos3DSet(Vec *);
@@ -146,7 +145,7 @@ s32 func_80061188_61D88(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 ar
 void func_80061A5C_6265C(s16, s16);
 void func_800DBFBC_EFBDC_shared_board(s8);
 s32 func_800DCD9C_F09BC_shared_board(s8);
-Process *func_800DD6C4_F12E4_shared_board(s8);
+Process *func_800DD6C4_F12E4_shared_board(s32);
 Process *func_800DDDD4_F19F4_shared_board(s8);
 void func_800DE414_F2034_shared_board(s8, u8);
 Process *func_800DE7E4_F2404_shared_board(s8);

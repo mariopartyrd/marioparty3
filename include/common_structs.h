@@ -30,37 +30,40 @@ typedef struct DiceInstance {
     s32 unk_4C;
 } DiceInstance; //unk size
 
-typedef struct UnkDiceRelatedInner {
-    /* 0x00 */ char pad0[2];
-    /* 0x02 */ s8 unk2;
-    /* 0x03 */ s8 unk3;
-    /* 0x04 */ s8 unk4;
-    /* 0x05 */ s8 unk5;
-    /* 0x06 */ s8 unk6;
-    /* 0x07 */ s8 unk7;
-    /* 0x08 */ s8 unk8;
-    /* 0x08 */ s8 unk9;
-    /* 0x08 */ s8 unkA;
-    /* 0x08 */ s8 unkB;
-    /* 0x08 */ s8 unkC;
-    /* 0x08 */ s8 unkD;
+typedef struct UnkDiceRelated {
+    /* 0x00 */ s16 unk_00;
+    /* 0x02 */ char pad2[2];                        /* maybe part of unk_00[2]? */
+    /* 0x04 */ s8 unk_04;
+    /* 0x05 */ s8 unk_05;
+    /* 0x06 */ s8 unk_06;
+    /* 0x07 */ s8 unk_07;
+    
+    /* 0x08 */ s8 unk_08;                             /* inferred */
+    /* 0x09 */ char unk_09[1];
+    /* 0x0A */ s8 unk_0A;
+    /* 0x0B */ s8 unk_0B;
+    /* 0x0C */ s8 unk_0C;
+    /* 0x0D */ s8 unk_0D;
     /* 0x0E */ s16 unk_0E;
     /* 0x10 */ s16 unk_10;
     /* 0x12 */ s16 unk_12;
-    /* 0x14 */ s16 unk_14;
-    /* 0x16 */ s16 unk16;                             /* inferred */
-    /* 0x16 */ char pad18[0x10];
-    /* 0x28 */ s16 unk_28;
-    /* 0x2A */ char pad2A[0xA];                     /* maybe part of unk_28[6]? */
+    /* 0x14 */ s8 unk_14;
+    /* 0x15 */ s8 unk_15;
+    /* 0x16*/ s16 unk_16;
+    /* 0x18 */ s16 unk_18;
+    /* 0x1A */ s16 unk_1A;
+    /* 0x1C */ s16 unk_1C;
+    /* 0x1E */ s16 unk1E;
+    /* 0x20 */ char pad20[8];                       /* maybe part of unk16[5]? */
+    /* 0x28 */ s16 unk28;
+    /* 0x2A */ char pad2A[6];                       /* maybe part of unk20[4]? */
+    /* 0x30 */ s16 unk_30;
+    /* 0x32 */ char pad32[2];
     /* 0x34 */ DiceInstance* dice;
-    /* 0x38 */ char pad38[0xC];                     /* maybe part of dice[4]? */
-} UnkDiceRelatedInner;                              /* size = 0x44 */
-
-typedef struct UnkDiceRelated {
-    /* 0x00 */ s16 unk_00;
-    /* 0x02 */ char unk_02[6];  
-    /* 0x08 */ UnkDiceRelatedInner UnkDiceInner;
-} UnkDiceRelated;
+    /* 0x38 */ char pad38[4];                    /* maybe part of dice[6]? */
+    /* 0x3C */ omObjData* omObj;
+    /* 0x40 */ char unk_40[12];
+} UnkDiceRelated;                                   /* size = 0x4C */
 
 typedef struct SpaceData {
 /* 0x00 */ s8 unk_00;

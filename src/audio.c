@@ -32,8 +32,6 @@ s16 D_800A190C_A250C = 1;
 s16 D_800A190E_A250E = 1;
 s16 D_800A1910_A2510[8] = { 0x0040 }; // single s16 + padding?
 
-// TODO: this only matches if D_800CDBC8_CE7C8 is declared as an s16. D_800CDBC8 BSS?
-/*
 s16 HuAudSeqPlay(s16 musId) {
     if (D_800A1900_A2500 == 0) {
         return 0;
@@ -44,15 +42,13 @@ s16 HuAudSeqPlay(s16 musId) {
     if (musId == 0) {
         return -1;
     }
-    func_800035E8_41E8(D_800CDBC8_CE7C8[0].unk_00);
+    func_800035E8_41E8(D_800CDBC8_CE7C8);
     D_800A1904_A2504 = musId;
     D_800A1906_A2506 |= 2;
     D_800A1906_A2506 &= ~(1 | 8);
-    D_800CDBC8_CE7C8[0].unk_00 = func_80003310_3F10(musId);
-    return D_800CDBC8_CE7C8[0].unk_00;
+    D_800CDBC8_CE7C8 = func_80003310_3F10(musId);
+    return D_800CDBC8_CE7C8;
 }
-*/
-INCLUDE_ASM("asm/nonmatchings/audio", HuAudSeqPlay);
 
 INCLUDE_ASM("asm/nonmatchings/audio", func_8004A5C4_4B1C4);
 
@@ -71,14 +67,14 @@ INCLUDE_ASM("asm/nonmatchings/audio", func_8004A918_4B518);
 // HuAudSeqStop?
 void func_8004A950_4B550(void) {
     D_800A1904_A2504 = -1;
-    func_800035E8_41E8(D_800CDBC8_CE7C8[0].unk_00);
+    func_800035E8_41E8(D_800CDBC8_CE7C8);
     D_800A1906_A2506 &= ~(2 | 8);
     D_800A1906_A2506 |= 1;
 }
 
 void HuAudSeqFadeOut(s16 speed) {
     D_800A1904_A2504 = -1;
-    func_800039A4_45A4(D_800CDBC8_CE7C8[0].unk_00, speed);
+    func_800039A4_45A4(D_800CDBC8_CE7C8, speed);
     D_800A1906_A2506 |= 8;
 }
 
