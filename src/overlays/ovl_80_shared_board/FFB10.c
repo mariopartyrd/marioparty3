@@ -18,7 +18,7 @@ void func_800EBF48_FFB68_shared_board(s16 arg0, s32 arg1) {
 }
 
 void func_800EBF98_FFBB8_shared_board(s16 arg0, s32 arg1) {
-    if ((GwSystem.current_player_index == 4) || (D_80101482_1150A2_shared_board != 0)) {
+    if ((GwSystem.current_player_index == MB_MAX_PLAYERS) || (D_80101482_1150A2_shared_board != 0)) {
         func_800EE2A4_101EC4_shared_board(arg0);
         return;
     }

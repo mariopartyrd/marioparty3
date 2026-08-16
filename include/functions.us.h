@@ -78,7 +78,7 @@ void func_8005B63C_5C23C(s16, s32, s32);
 s32 func_8005E1D8_5EDD8(s16, s16, s32);
 void func_8005F698_60298(s16, s16, s16, s16, u8);
 void func_8005F744_60344(s16, s16, s16, s16);
-void func_8005FE54_60A54(s16, u8);
+void func_8005FE54_60A54(s16, s16);
 void func_8006010C_60D0C(s16, s16);
 void Hu3DCam3DToScreen(s16 camIndex, Vec * worldPos, Vec * outPos);
 s32 func_80017BB8_187B8(s16, s16);

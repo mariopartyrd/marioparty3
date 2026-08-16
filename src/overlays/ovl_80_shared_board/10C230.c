@@ -2206,10 +2206,10 @@ void MBMain(void) {
     u8 temp_v1_3;
     s32 temp_v0_8;
     Process *temp_s1_2;
-    s32 temp_v0_9;
-    s32 temp_v0_10;
-    s32 temp_v0_13;
-    s32 temp_v0_14;
+    s16 temp_v0_9;
+    s16 temp_v0_10;
+    s16 temp_v0_13;
+    s16 temp_v0_14;
     s32 temp_v0_16;
     s32 var_v1;
     s32 var_s0;
