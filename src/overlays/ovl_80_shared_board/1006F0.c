@@ -13,7 +13,6 @@ Process *MBPlayerPosMoveCreate(Vec *, Vec *, Vec *, s32);
 void MBVecNormalize(Vec *);
 void MBOvlCall(s32 id, s16 event, u16 stat);
 s16 func_800F8858_10C478_shared_board(void);
-void func_800FF7C4_1133E4_shared_board(s32, s32, s32);
 f32 HuVecDistance(Vec*, Vec*);
 void func_800ED518_101138_shared_board(void);
 
@@ -144,7 +143,7 @@ s16 MBTotalStarGet(void) {
     return starTotal;
 }
 
-s32 MBRandCheck100(s8 arg0) {
+s16 MBRandCheck100(s8 arg0) {
     u8 randByte = rand8();
     s32 chance = arg0;
     return (randByte * 99 >> 8) < chance;

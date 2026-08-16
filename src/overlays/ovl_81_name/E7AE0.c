@@ -6,11 +6,6 @@
 extern s32 D_800D41B0_D4DB0[];
 extern u16 D_800D5546_D6146[];
 
-void func_80049FB8_4ABB8(void);
-void func_8004A0E0_4ACE0(void);
-void func_8004A9DC_4B5DC(s32);
-void func_8005F904_60504(void);
-
 extern omObjData *D_80105500_ED2D0_name_81;
 extern UnkBoard4 *D_80105504_ED2D4_name_81;
 extern s16 D_80105508_ED2D8_name_81[UNK_ARR_SIZE][2];

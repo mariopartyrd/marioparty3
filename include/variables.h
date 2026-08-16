@@ -8,13 +8,12 @@ extern s16 omovlevtno;
 extern UnkDiceRelated D_800CDBC8_CE7C8[4];
 extern s32 D_800A12D4_A1ED4;
 extern s32 D_800A12D8_A1ED8;
-
 extern s16 mbCameraBtnF;
 extern s16 mbItemBtnF;
 extern s16 D_800D51F8_D5DF8;
 extern UnkOvl81 D_800D1360;
 extern u8 D_800CD280_CDE80;
-
+extern s16 D_800C9930_CA530;
 extern char D_800D5218_D5E18[];
 extern u16 D_800D5558_D6158[4];
 extern u16 D_800D530C_D5F0C;

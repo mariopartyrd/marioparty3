@@ -229,10 +229,6 @@ extern s32 D_8010570C_ED4DC_name_81;
 extern s32 D_80105718_ED4E8_name_81;
 extern s32 D_8010571C_ED4EC_name_81;
 
-void func_800036E8_42E8(s16, s32);
-void func_80003A70_4670(s16);
-void func_80003B70_4770(s16, s32);
-s16 func_8004A5C4_4B1C4(s32);
 Process* func_800E415C_CBF2C_name_81(void);
 Process* func_800E47B8_CC588_name_81(s16, s8, Vec*, Vec*, s32);
 void func_800E5954_CD724_name_81(void);

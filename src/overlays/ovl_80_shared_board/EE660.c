@@ -19,7 +19,6 @@ void func_800DCBCC_F07EC_shared_board(s32);                 /* extern */
 void func_800DE9B8_F25D8_shared_board(s32, s32, s32, s32);  /* extern */
 void func_800EE688_1022A8_shared_board(Object *, f32, f32); /* extern */
 void MBPlayerMotionSet(s32 playerIndex, s16 arg1, u16 arg2);
-void func_800F2388_105FA8_shared_board(s32, s32, s32, s32, s32); /* extern */
 extern s8 D_80105704_119324_shared_board;
 extern u8 D_8010570E_11932E_shared_board;
 

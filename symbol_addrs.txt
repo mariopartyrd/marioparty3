@@ -1116,6 +1116,15 @@ D_80100E44_shared_board = 0x80100E44; //segment:shared_board
 
 MBVecRotateZ = 0x800D8A90; //rom:0xEC6B0 segment:shared_board
 
+
+D_80101E90_115AB0_shared_board = 0x80101E90; //rom:0x115AB0 segment:shared_board size:0x20
+D_80101EB0_115AD0_shared_board = 0x80101EB0; //rom:0x115AD0 segment:shared_board size:0x10
+D_80101EC0_115AE0_shared_board = 0x80101EC0; //rom:0x115AE0 segment:shared_board size:0x10
+D_80101ED0_115AF0_shared_board = 0x80101ED0; //rom:0x115AF0 segment:shared_board size:0x10
+D_80101EE0_115B00_shared_board = 0x80101EE0; //rom:0x115B00 segment:shared_board size:0x10
+D_80101EF0_115B10_shared_board = 0x80101EF0; //rom:0x115B10 segment:shared_board size:0x20
+D_80101F10_115B30_shared_board = 0x80101F10; //rom:0x115B30 segment:shared_board size:0x20
+
 //ovl_81
 D_80101BF8_E99C8_name_81 = 0x80101BF8; //rom:0xE99C8 type:f32 segment:name_81
 D_80101B20_E98F0_name_81 = 0x80101B20; //rom:0xE98F0 type:f32 segment:name_81

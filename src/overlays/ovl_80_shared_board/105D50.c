@@ -206,7 +206,7 @@ void func_800F244C_10606C_shared_board(s32 arg0, u8 arg1) {
     MBPlayerGet(arg0)->cpu_difficulty = D_80101630_115250_shared_board[arg1];
 }
 
-void func_800F2484_1060A4_shared_board(void) {
+void func_800F2484_1060A4_shared_board(s32 arg0) {
 }
 
 void func_800F248C_1060AC_shared_board(void) {

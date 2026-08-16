@@ -238,18 +238,6 @@ void MBMapFullLineFlash(void) {
     }
 }
 
-void MBCameraPos2DGet(f32 *arg0);
-void MBCameraPos2DSet(f32 *);
-
-f32 MBCameraZoomGet(void);                              /* extern */
-void MBCameraZoomSet(f32);                             /* extern */
-void MBStatusShowAll(void);                                /* extern */
-void func_8004A9DC_4B5DC(s32);                           /* extern */
-void func_800DC024_EFC44_shared_board(s32);            /* extern */
-void func_800DC08C_EFCAC_shared_board(s32);             /* extern */
-void func_800EA348_FDF68_shared_board(void);               /* extern */
-void func_800EA358_FDF78_shared_board(void);               /* extern */
-void func_800EA6B0_FE2D0_shared_board(s16 arg0);              /* extern */
 extern s32 D_801007A0_1143C0_shared_board[];
 extern s16 D_801007D4_1143F4_shared_board[][4];
 extern s32 D_80100804_114424_shared_board[];

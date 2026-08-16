@@ -1,11 +1,25 @@
 #include "common.h"
 #include "ovl_80.h"
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EDC20_101840_shared_board);
+void func_800EDC4C_10186C_shared_board(s32 arg0);
+u8 func_80017AD8_186D8(s32); //TODO: mismatches signature in 276470.c in vine with me
+void func_80017954_18554(s16, s16, s16, s16);
+void func_800333B0_33FB0(s16);
+extern s32 D_800A12C0_A1EC0;
+extern s32 D_800A12C4_A1EC4;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EDC40_101860_shared_board);
+void func_800EDC20_101840_shared_board(s32 arg0) {
+    D_800A12C4_A1EC4 = arg0;
+    func_800EDC4C_10186C_shared_board(arg0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EDC4C_10186C_shared_board);
+s32 func_800EDC40_101860_shared_board(void) {
+    return D_800A12C4_A1EC4;
+}
+
+void func_800EDC4C_10186C_shared_board(s32 arg0) {
+    D_800A12C0_A1EC0 = arg0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EDC58_101878_shared_board);
 
@@ -29,15 +43,55 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EE61
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EE688_1022A8_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EE694_1022B4_shared_board);
+s32 func_800EE694_1022B4_shared_board(Object* arg0) {
+    if (arg0->velocity.z == 0.0f) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EE6C0_1022E0_shared_board);
+void func_800EE6C0_1022E0_shared_board(Object* arg0) {
+    while (func_800EE694_1022B4_shared_board(arg0) != 0) {
+        HuPrcVSleep();
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EE700_102320_shared_board);
+void func_800EE700_102320_shared_board(void) {
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EE740_102360_shared_board);
+    for (i = 0; i < ARRAY_COUNT(D_80105718_119338_shared_board); i++) {
+        D_80105718_119338_shared_board[i].unk_04 = NULL;
+        D_80105718_119338_shared_board[i].unk_08 = NULL;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800EE7AC_1023CC_shared_board);
+void func_800EE740_102360_shared_board(void) {
+    UnkBoard* temp_s1;
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(D_80105718_119338_shared_board); i++) {
+        temp_s1 = &D_80105718_119338_shared_board[i];
+        if (temp_s1->unk_08 != NULL) {
+            omDelObj(temp_s1->unk_08);
+            temp_s1->unk_08 = NULL;
+        }
+    }
+}
+
+
+void func_800EE7AC_1023CC_shared_board(omObjData *func) {
+    UnkBoard *temp_s0;
+
+    temp_s0 = &D_80105718_119338_shared_board[func->work[0]];
+    if (HmfModelData[temp_s0->unk_04->omObj1->model[0]].unk40 ==
+        D_800CCF58_CDB58[HmfModelData[temp_s0->unk_04->omObj1->model[0]].unk02].unk02) {
+        MBMotionShiftSet(temp_s0->unk_04, temp_s0->unk_00, 0, 0xA, temp_s0->unk_02);
+        temp_s0->unk_04 = NULL;
+        temp_s0->unk_08 = NULL;
+        omDelObj(func);
+    }
+}
 
 u32 func_800EE884_1024A4_shared_board(Object *arg0, s16 arg1, s16 arg2) {
     omObjData *obj;
@@ -260,7 +314,11 @@ void MBGuideFaceCreate(Object *arg0, s16 arg1, s16 arg2, s32 arg3) {
 void func_800EF068_102C88_shared_board(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBGuideFaceSet);
+void MBGuideFaceSet(Object* arg0, s32 arg1) {
+    func_800333B0_33FB0(arg0->omObj1->work[0]);
+    arg0->omObj1->work[0] = func_80017AD8_186D8(arg1);
+    func_80017954_18554(arg0->omObj1->model[0], arg0->omObj1->work[1], arg0->omObj1->work[2], arg0->omObj1->work[0]);
+}
 
 s32 func_800EF0D8_102CF8_shared_board(s32 arg0) {
     s32 randVal;
