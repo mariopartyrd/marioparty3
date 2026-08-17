@@ -16,7 +16,10 @@ void MBPauseDlgMesSet(s16 arg0, s32 arg1);
 s32 MBPauseHelpMesCreate(s16 arg0, s16 arg1, s16 arg2);
 s32 MBPauseMesNumGet(s32 arg0);
 s16 func_8006014C_60D4C(s16);
-
+extern s16 D_80105564_119184_shared_board;
+extern s16 D_801015FC_11521C_shared_board[];
+extern s16 D_80101604_115224_shared_board[];
+extern s16 D_80105564_119184_shared_board;
 extern s16 D_80105560_119180_shared_board[];
 extern s32 D_80101514_115134_shared_board[];
 extern s32 D_800A12C0_A1EC0;
@@ -1312,18 +1315,480 @@ void func_800F0C64_104884_shared_board(GW_PLAYER* arg0, s16 arg1) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F0D14_104934_shared_board);
+s32 func_800F0D14_104934_shared_board(GW_PLAYER *arg0, s16 arg1) {
+    s32 count;
+    s32 port;
+    u32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F0E28_104A48_shared_board);
+    if (MBPlayerComCheck(arg0->turn) != 0) {
+        count = 4;
+        if (arg1 > 0) {
+            port = 0;
+        } else {
+            port = 3;
+        }
+        for (; count != 0; count--) {
+            if ((func_800F0BF8_104818_shared_board(port) == 0) &&
+                (CheckControllerRead(port) != 0)) {
+                return port;
+            }
+            port += arg1;
+        }
+        return 4;
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F0E34_104A54_shared_board);
+    //TODO: reg alloc hack
+    port = (arg1 - 1) >= 0;
+    if (port) {
+        i = arg0->pad + 1;
+    } else {
+        i = arg0->pad - 1;
+    }
+    
+    for (; i < 4; i += arg1) {
+        if ((func_800F0BF8_104818_shared_board(i) == 0)) {
+            if (CheckControllerRead(i) != 0) {
+                return i;
+            }
+            
+        }
+    }
+    return 4;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", func_800F0EF0_104B10_shared_board);
+void func_800F0E28_104A48_shared_board(s16 arg0) {
+    D_80105564_119184_shared_board = arg0;
+}
 
+void func_800F0E34_104A54_shared_board(UnkBoard8* arg0, s16 arg1) {
+    func_80054904_55504(arg0->spriteGroup, 0, (D_801015FC_11521C_shared_board[arg1] - 55), (D_80101604_115224_shared_board[arg1] - 8));
+    func_80054904_55504(arg0->spriteGroup, 1, (D_801015FC_11521C_shared_board[arg1] + 50), D_80101604_115224_shared_board[arg1]);
+    func_80054904_55504(arg0->spriteGroup, 2, (D_801015FC_11521C_shared_board[arg1] - 50), D_80101604_115224_shared_board[arg1]);
+}
+
+void func_800F0EF0_104B10_shared_board(void) {
+    f32 var_f20;
+    s32 var_v0;
+    UnkBoard8* temp_s1;
+
+    temp_s1 = HuPrcCurrentGet()->user_data;
+    var_f20 = 0.0f;
+    while (1) {
+        HuPrcVSleep();
+        if (D_80105564_119184_shared_board != 0) {
+            var_v0 = (s16) (HuMathSin(var_f20) * 255.0f); //TODO: s16 cast
+            if (var_v0 < 0) {
+                var_v0 = -var_v0;
+            }
+            var_f20 += 6.0f;
+            if (var_f20 > 360.0f) {
+                var_f20 -= 360.0f;
+            }
+            func_80055420_56020(temp_s1->spriteGroup, 1, 0xFFU, var_v0, 0U);
+            func_80055420_56020(temp_s1->spriteGroup, 2, 0xFFU, var_v0, 0U);
+            HuSprAttrReset(temp_s1->spriteGroup, 1, 0x8000);
+            HuSprAttrReset(temp_s1->spriteGroup, 2, 0x8000);
+        } else {
+            var_f20 = 0.0f;
+            HuSprAttrSet(temp_s1->spriteGroup, 1, 0x8000);
+            HuSprAttrSet(temp_s1->spriteGroup, 2, 0x8000);
+        }
+    }
+}
+
+extern s8 D_801015EC_11520C_shared_board[4][2];
+extern s8 D_801015F4_115214_shared_board[4][2];
+extern s16 D_801015FC_11521C_shared_board[4];
+extern s16 D_80101604_115224_shared_board[4];
+extern s16 D_8010160C_11522C_shared_board[4][4];
+extern UnkBoard8* D_80105550_119170_shared_board;
+extern s32 D_801015A8_1151C8_shared_board[];
+extern s32 D_801015C8_1151E8_shared_board[];
+s32 func_800F0D14_104934_shared_board(GW_PLAYER*, s16); /* extern */
+void func_800F244C_10606C_shared_board(s16, u8);      /* extern */
+s32 MBPausePadCfgExec(s32 arg0);
+s32 MBStatusHideCheck(void);
+
+#ifdef NON_MATCHING
+s32 MBPausePadCfgExec(s32 arg0) {
+    s16 sel;
+    UnkBoard8* panel;
+    UnkBoard8* chr;
+    UnkBoard8* icon;
+    UnkBoard8* cursor;
+    UnkBoard8* bg;
+    Process* proc;
+    GW_PLAYER* player;
+    void* data;
+    u16* trg;
+    u16* dwn;
+    s32 mess;
+    s32 setting;
+    s16 dir;
+    s32 i;
+    s32 diff;
+    s8 (*new_var)[2];
+    s8 (*new_var2)[2];
+    
+    mess = 0;
+    sel = 0;
+    for (i = 0; i < 4; i++) {
+        if ((MBPlayerComCheck(i) == 0) && (GwPlayer[i].pad == arg0)) {
+            sel = i;
+            break;
+        }
+    }
+
+    bg = func_800F2C48_106868_shared_board(1, 0);
+    data = DataRead(0x1300AA);
+    bg->model[0] = func_80055810_56410(data);
+    DataClose(data);
+    func_80055024_55C24(bg->spriteGroup, 0, bg->model[0], 0);
+    HuSprPriSet(bg->spriteGroup, 0, 8);
+    HuSprAttrSet(bg->spriteGroup, 0, 0x1000);
+    func_80054904_55504(bg->spriteGroup, 0, 0xAA, 0x58);
+
+    panel = func_800F2C48_106868_shared_board(4, 0);
+    for (i = 0; i < 4; i++) {
+        if (i == 0) {
+            data = DataRead(0x13010F);
+            panel->model[0] = func_80055810_56410(data);
+            DataClose(data);
+        }
+        func_80055024_55C24(panel->spriteGroup, i, panel->model[0], 0);
+        HuSprPriSet(panel->spriteGroup, i, 8);
+        HuSprAttrSet(panel->spriteGroup, i, 0x1000);
+        func_80054904_55504(panel->spriteGroup, i,
+                            D_801015FC_11521C_shared_board[i],
+                            D_80101604_115224_shared_board[i]);
+        func_80055420_56020(panel->spriteGroup, i, 0, 0, 0xFF);
+    }
+
+    chr = func_800F2C48_106868_shared_board(4, 0);
+    for (i = 0; i < 4; i++) {
+        data = DataRead(D_801015A8_1151C8_shared_board[MBPlayerGet(i)->chr]);
+        chr->model[i] = func_80055810_56410(data);
+        func_80055024_55C24(chr->spriteGroup, i, chr->model[i], 0);
+        HuSprPriSet(chr->spriteGroup, i, 7);
+        HuSprAttrSet(chr->spriteGroup, i, 0x1000);
+        func_80054904_55504(chr->spriteGroup, i,
+                            D_801015FC_11521C_shared_board[i],
+                            D_80101604_115224_shared_board[i]);
+        DataClose(data);
+    }
+    
+    new_var = D_801015F4_115214_shared_board;
+    icon = func_800F2C48_106868_shared_board(9, 0);
+    for (i = 0; i < 9; i++) {
+        data = DataRead(D_801015C8_1151E8_shared_board[i]);
+        icon->model[i] = func_80055810_56410(data);
+        DataClose(data);
+    }
+
+    for (i = 0; i < 4; i++) {
+        if (MBPlayerComCheck(i) != 0) {
+            func_80055024_55C24(icon->spriteGroup, i,
+                icon->model[new_var[GwPlayer[i].cpu_difficulty][0]], 0);
+            func_80055024_55C24(icon->spriteGroup, i + 4,
+                icon->model[new_var[GwPlayer[i].cpu_difficulty][1]], 0);
+            func_80054904_55504(icon->spriteGroup, i,
+                D_801015FC_11521C_shared_board[i] + 0x12,
+                D_80101604_115224_shared_board[i] - 0xA);
+        } else {
+            new_var2 = D_801015EC_11520C_shared_board;
+            func_80055024_55C24(icon->spriteGroup, i,
+                icon->model[new_var2[GwPlayer[i].pad][0]], 0);
+            func_80055024_55C24(icon->spriteGroup, i + 4,
+                icon->model[new_var2[GwPlayer[i].pad][0]], 0);
+            func_80054904_55504(icon->spriteGroup, i,
+                D_801015FC_11521C_shared_board[i] + 0x12,
+                D_80101604_115224_shared_board[i]);
+            HuSprAttrSet(icon->spriteGroup, i + 4, 0x8000);
+        }
+        HuSprPriSet(icon->spriteGroup, i, 7);
+        HuSprAttrSet(icon->spriteGroup, i, 0x01001000);
+        HuSprPriSet(icon->spriteGroup, i + 4, 7);
+        HuSprAttrSet(icon->spriteGroup, i + 4, 0x01001000);
+        func_80054904_55504(icon->spriteGroup, i + 4,
+            D_801015FC_11521C_shared_board[i] + 0x12,
+            D_80101604_115224_shared_board[i] + 6);
+    }
+
+    cursor = func_800F2C48_106868_shared_board(3, 0);
+    data = DataRead(0x13009C);
+    cursor->model[0] = func_80055810_56410(data);
+    func_80055024_55C24(cursor->spriteGroup, 0, cursor->model[0], 0);
+    HuSprAttrSet(cursor->spriteGroup, 0, 0x1808);
+    HuSprPriSet(cursor->spriteGroup, 0, 6);
+    DataClose(data);
+
+    data = DataRead(0x1300A9);
+    cursor->model[1] = func_80055810_56410(data);
+    func_80055024_55C24(cursor->spriteGroup, 1, cursor->model[1], 0);
+    HuSprAttrSet(cursor->spriteGroup, 1, 0x9808);
+    HuSprPriSet(cursor->spriteGroup, 1, 6);
+    func_80055420_56020(cursor->spriteGroup, 1, 0xFF, 0, 0);
+    HuSprAttrSet(cursor->spriteGroup, 1, 1);
+    DataClose(data);
+
+    data = DataRead(0x1300A9);
+    cursor->model[2] = func_80055810_56410(data);
+    func_80055024_55C24(cursor->spriteGroup, 2, cursor->model[2], 0);
+    HuSprAttrSet(cursor->spriteGroup, 2, 0x9808);
+    HuSprPriSet(cursor->spriteGroup, 2, 6);
+    func_80055420_56020(cursor->spriteGroup, 2, 0xFF, 0, 0);
+    DataClose(data);
+
+    func_800F0E34_104A54_shared_board(cursor, sel);
+    func_800F0E28_104A48_shared_board(0);
+    proc = omAddPrcObj(func_800F0EF0_104B10_shared_board, 0x1005, 0, 0);
+    proc->user_data = cursor;
+
+    do {
+        if (mess != 0x5112) {
+            mess = 0x5112;
+            MBPauseDlgMesSet(D_80105550_119170_shared_board->amount, 0x5112);
+        }
+        HuPrcVSleep();
+
+        dir = -1;
+        if (D_800C9520_CA120[arg0] & 0x800) dir = 0;
+        if (D_800C9520_CA120[arg0] & 0x400) dir = 1;
+        if (D_800C9520_CA120[arg0] & 0x200) dir = 2;
+        if (D_800C9520_CA120[arg0] & 0x100) dir = 3;
+
+        if (dir != -1) {
+            sel += D_8010160C_11522C_shared_board[sel][dir];
+            func_800F0E34_104A54_shared_board(cursor, sel);
+            HuAudFXPlay(1);
+        } else if (D_800D5558_D6158[arg0] & 0x8000) {
+            HuAudFXPlay(2);
+            player = MBPlayerGet(sel);
+            func_800F0E28_104A48_shared_board(1);
+            diff = player->cpu_difficulty;
+            setting = (MBPlayerComCheck(sel) != 0) ? 4 : -1;
+
+            while (1) {
+                HuPrcVSleep();
+                if (mess != 0x5113) {
+                    mess = 0x5113;
+                    MBPauseDlgMesSet(D_80105550_119170_shared_board->amount, 0x5113);
+                }
+
+                if (D_800C9520_CA120[arg0] & 0x200) {
+                    if ((setting != 4) || (diff == 0)) {
+                        setting = func_800F0D14_104934_shared_board(player, -1);
+                        if (setting == 4) {
+                            diff = _CheckFlag(0x2D) ? 3 : 2;
+                        }
+                    } else {
+                        diff--;
+                    }
+                    func_800F244C_10606C_shared_board(sel, diff);
+                    HuAudFXPlay(1);
+                } else if (D_800C9520_CA120[arg0] & 0x100) {
+                    if (_CheckFlag(0x2D) != 0) {
+                        if ((setting != 4) || (diff == 3)) {
+                            setting = func_800F0D14_104934_shared_board(player, 1);
+                            diff = -(setting != 4) & diff;
+                        } else {
+                            diff++;
+                        }
+                        
+                    } else if ((setting != 4) || (diff == 2)) {
+                        setting = func_800F0D14_104934_shared_board(player, 1);
+                        diff = -(setting != 4) & diff;
+                    } else {
+                        diff++;
+                    }
+                    func_800F244C_10606C_shared_board(sel, diff);
+                    HuAudFXPlay(1);
+                }
+
+                if (setting >= 0) {
+                    func_800F0C64_104884_shared_board(player, setting);
+                    if (MBPlayerComCheck(sel) != 0) {
+                        func_80055024_55C24(icon->spriteGroup, sel,
+                            icon->model[new_var[GwPlayer[sel].cpu_difficulty][0]], 0);
+                        func_80055024_55C24(icon->spriteGroup, sel + 4,
+                            icon->model[new_var[GwPlayer[sel].cpu_difficulty][1]], 0);
+                        func_80054904_55504(icon->spriteGroup, sel,
+                            D_801015FC_11521C_shared_board[sel] + 0x12,
+                            D_80101604_115224_shared_board[sel] - 0xA);
+                        HuSprAttrReset(icon->spriteGroup, sel + 4, 0x8000);
+                    } else {
+                        func_80055024_55C24(icon->spriteGroup, sel,
+                            icon->model[D_801015EC_11520C_shared_board[GwPlayer[sel].pad][0]], 0);
+                        func_80054904_55504(icon->spriteGroup, sel,
+                            D_801015FC_11521C_shared_board[sel] + 0x12,
+                            D_80101604_115224_shared_board[sel]);
+                        HuSprAttrSet(icon->spriteGroup, sel + 4, 0x8000);
+                    }
+                }
+
+                if (D_800C9520_CA120[arg0] & 0x8000) {
+                    HuAudFXPlay(2);
+                    func_800F244C_10606C_shared_board(sel, diff);
+                    break;
+                }
+                if (D_800C9520_CA120[arg0] & 0x4000) {
+                    HuAudFXPlay(4);
+                    break;
+                }
+            }
+
+            func_800F0E28_104A48_shared_board(0);
+            HuPrcVSleep();
+        }
+    } while (!(D_800D5558_D6158[arg0] & 0x4000));
+
+    HuAudFXPlay(4);
+    omDelPrcObj(proc);
+    func_800F2CA4_1068C4_shared_board(cursor);
+    func_800F2CA4_1068C4_shared_board(icon);
+    func_800F2CA4_1068C4_shared_board(chr);
+    func_800F2CA4_1068C4_shared_board(panel);
+    func_800F2CA4_1068C4_shared_board(bg);
+    return 4;
+}
+#else
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPausePadCfgExec);
+#endif
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseModeExec);
+s16 MBPauseModeExec(s16 arg0, s32 arg1) {
+    switch (arg0) {
+    case 1:
+        return MBPauseMainScrExec(arg1);
+    case 2:
+        return MBPausePadCfgExec(arg1);
+    case 4:
+        return MBPauseOptionExec(arg1);
+    case 9:
+        return MBPauseQuitWinExec(arg1);
+    default:
+        return 0;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseMain);
+void MBPauseMain(void) {
+    UnkBoard8* temp_s1;
+    s16 var_s2;
+    s16 temp_v0;
+    s32 temp_s3;
+    void* temp_v0_2;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPauseCreate);
+    temp_s3 = (s32)HuPrcCurrentGet()->user_data;
+    var_s2 = 1;
+    temp_v0 = MBStatusHideCheck();
+    
+    if (temp_v0 != 0) {
+        MBStatusHideAll();
+    }
+    
+    HuPrcVSleep();
+    HmfPauseF = 1;
+    temp_s1 = func_800F2C48_106868_shared_board(1, 0);
+    temp_v0_2 = DataRead(0x13025D);
+    temp_s1->model[0] = func_80055810_56410(temp_v0_2);
+    func_80055024_55C24(temp_s1->spriteGroup, 0, temp_s1->model[0], 0U);
+    HuSprPriSet(temp_s1->spriteGroup, 0, 9U);
+    HuSprAttrSet(temp_s1->spriteGroup, 0, 0x1000);
+    func_80054904_55504(temp_s1->spriteGroup, 0, 0xA0, 0x78);
+    HuSprScaleSet(temp_s1->spriteGroup, 0, 40.0f, 30.0f);
+    func_80055484_56084(temp_s1->spriteGroup, 0, 0, 0, 0, 0xC0);
+    DataClose(temp_v0_2);
+    
+    do {
+        HuPrcVSleep();
+        var_s2 = MBPauseModeExec(var_s2, temp_s3);
+    } while (var_s2 != 0);
+    
+    if (D_80105556_119176_shared_board == 0) {
+        HmfPauseF = 0;
+    }
+    
+    func_800F2CA4_1068C4_shared_board(temp_s1);
+    
+    if (temp_v0 != 0) {
+        MBStatusShowAll();
+    }
+    
+    omDelPrcObj(NULL);
+}
+
+extern s8 D_800A176D_A236D;
+extern s16 D_800C9930_CA530;
+extern s16 D_800D10F2_D1CF2;
+extern s16 D_80105554_119174_shared_board;
+void func_8001AC34_1B834(s16, s32);
+void MBPauseCreate(s32 arg0) {
+    Process* temp_s1_2;
+    Process* temp_v0;
+    s16 var_a0;
+    s32 temp_s1;
+    s32 temp_s2;
+    s32 var_v0;
+    s32 i;
+
+    func_800EA358_FDF78_shared_board();
+    D_800CB99C_CC59C = 1;
+    func_80049FB8_4ABB8();
+    temp_s2 = _CheckFlag(0x20) != 0;
+    
+    for (i = 0; i < 4; i++) {
+        if (CheckControllerRead(i) != 0) {
+            ResetVibrator(i);
+        }        
+    }
+
+    if (D_800C9930_CA530 != -1) {
+        func_800036E8_42E8(D_800C9930_CA530, 0x60);
+    } else {
+        func_8004A9DC_4B5DC(0x60);
+    }
+    
+    func_8001AC34_1B834(D_800D10F2_D1CF2, 2);
+    func_8001C8A8_1D4A8(D_800D10F2_D1CF2, 1);
+    D_80105550_119170_shared_board = 0;
+    D_80105554_119174_shared_board = 0;
+    D_80105556_119176_shared_board = 0;
+    temp_s1_2 = HuPrcCurrentGet();
+    temp_v0 = omAddPrcObj(MBPauseMain, 0xEFFFU, 0x1000, 0);
+    temp_v0->user_data = (void*)arg0;
+    omPrcSetStatBit(temp_v0, 0x80);
+    HuPrcChildLink(temp_s1_2, temp_v0);
+    HuPrcChildWait();
+    func_8001AC34_1B834(D_800D10F2_D1CF2, 6);
+    if (D_800C9930_CA530 != -1) {
+        func_800036E8_42E8(D_800C9930_CA530, 0x7F);
+    } else {
+        func_8004A9DC_4B5DC(0x7F);
+    }
+    if (((_CheckFlag(0x20) != 0) && (temp_s2 == 0)) || ((_CheckFlag(0x20) == 0) && (temp_s2 != 0))) {
+        MBMgCallHisInit();
+    }
+    if (D_80105556_119176_shared_board != 0) {
+        D_800A176D_A236D = 0;
+        HuAudSeqFadeOut(0x5A);
+        if (D_800C9930_CA530 != -1) {
+            func_800039A4_45A4(D_800C9930_CA530, 0x5A);
+            D_800C9930_CA530 = -1;
+            func_8004A950_4B550();
+        }
+        WipeCreateOut(0, 0x10);
+        HuPrcSleep(0x11);
+        MBExit();
+        func_800F884C_10C46C_shared_board();
+        if (GwSystem.playMode & 4) {
+            omOvlReturnEx(3);
+        } else {
+            omOvlReturnEx(1);
+        }
+        
+        omOvlKill();
+        HuPrcVSleep();
+    }
+    func_8004A0E0_4ACE0();
+    D_800CB99C_CC59C = 0;
+    func_800EA348_FDF68_shared_board();
+}

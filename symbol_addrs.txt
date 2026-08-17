@@ -1116,6 +1116,8 @@ D_80100E44_shared_board = 0x80100E44; //segment:shared_board
 
 MBVecRotateZ = 0x800D8A90; //rom:0xEC6B0 segment:shared_board
 
+D_800CDBC8_CE7C8 = 0x800CDBC8; //rom:0xCE7C8 type:s16 segment:main size:0x08
+
 
 D_80101E90_115AB0_shared_board = 0x80101E90; //rom:0x115AB0 segment:shared_board size:0x20
 D_80101EB0_115AD0_shared_board = 0x80101EB0; //rom:0x115AD0 segment:shared_board size:0x10

@@ -124,6 +124,7 @@ typedef struct UnkBoard8 {
     s16* yPositions;
 } UnkBoard8; //sizeof 0x20
 
+void func_80055484_56084(s16 group, s16 member, u8 arg2, u8 arg3, u8 arg4, u16 arg5);
 void MBCameraPos2DGet(f32 *);
 void MBCameraPos3DSet(Vec *);
 Process *MBPlayerPosMoveCreate(Vec *, Vec *, Vec *, s32);
@@ -224,10 +225,13 @@ f32 MBCameraSpeedGet(void);
 void func_800DE874_F2494_shared_board(s32);
 s32 MBComItemDecide(void);
 void MBPauseCreate(s32);
+void ResetVibrator(s16);
 void func_800DE8D8_F24F8_shared_board(s32);
 void MBItemSelExec(s32, s32);
 void MBItemViewExec(s32);
-
+void func_800EA348_FDF68_shared_board(void);               /* extern */
+void func_800EA358_FDF78_shared_board(void);               /* extern */
+void func_800F884C_10C46C_shared_board(void);              /* extern */
 UnkBoard2 *func_800D6B70_EA790_shared_board(s32 arg0);
 void MBModelAttrSetDispOff(Object*);
 void MBModelMotionWait(Object* arg0);
