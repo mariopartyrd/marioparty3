@@ -1396,8 +1396,8 @@ void func_800F0EF0_104B10_shared_board(void) {
     }
 }
 
-extern s8 D_801015EC_11520C_shared_board[4][2];
-extern s8 D_801015F4_115214_shared_board[4][2];
+extern s8 D_801015EC_11520C_shared_board[8];
+extern s8 D_801015F4_115214_shared_board[8];
 extern s16 D_801015FC_11521C_shared_board[4];
 extern s16 D_80101604_115224_shared_board[4];
 extern s16 D_8010160C_11522C_shared_board[4][4];
@@ -1409,7 +1409,6 @@ void func_800F244C_10606C_shared_board(s16, u8);      /* extern */
 s32 MBPausePadCfgExec(s32 arg0);
 s32 MBStatusHideCheck(void);
 
-#ifdef NON_MATCHING
 s32 MBPausePadCfgExec(s32 arg0) {
     s16 sel;
     UnkBoard8* panel;
@@ -1427,9 +1426,7 @@ s32 MBPausePadCfgExec(s32 arg0) {
     s16 dir;
     s32 i;
     s32 diff;
-    s8 (*new_var)[2];
-    s8 (*new_var2)[2];
-    
+
     mess = 0;
     sel = 0;
     for (i = 0; i < 4; i++) {
@@ -1476,30 +1473,27 @@ s32 MBPausePadCfgExec(s32 arg0) {
                             D_80101604_115224_shared_board[i]);
         DataClose(data);
     }
-    
-    new_var = D_801015F4_115214_shared_board;
+
     icon = func_800F2C48_106868_shared_board(9, 0);
     for (i = 0; i < 9; i++) {
         data = DataRead(D_801015C8_1151E8_shared_board[i]);
         icon->model[i] = func_80055810_56410(data);
         DataClose(data);
     }
-
     for (i = 0; i < 4; i++) {
         if (MBPlayerComCheck(i) != 0) {
             func_80055024_55C24(icon->spriteGroup, i,
-                icon->model[new_var[GwPlayer[i].cpu_difficulty][0]], 0);
+                icon->model[D_801015F4_115214_shared_board[GwPlayer[i].cpu_difficulty * 2 + 0]], 0);
             func_80055024_55C24(icon->spriteGroup, i + 4,
-                icon->model[new_var[GwPlayer[i].cpu_difficulty][1]], 0);
+                icon->model[D_801015F4_115214_shared_board[GwPlayer[i].cpu_difficulty * 2 + 1]], 0);
             func_80054904_55504(icon->spriteGroup, i,
                 D_801015FC_11521C_shared_board[i] + 0x12,
                 D_80101604_115224_shared_board[i] - 0xA);
         } else {
-            new_var2 = D_801015EC_11520C_shared_board;
             func_80055024_55C24(icon->spriteGroup, i,
-                icon->model[new_var2[GwPlayer[i].pad][0]], 0);
+                icon->model[D_801015EC_11520C_shared_board[GwPlayer[i].pad * 2]], 0);
             func_80055024_55C24(icon->spriteGroup, i + 4,
-                icon->model[new_var2[GwPlayer[i].pad][0]], 0);
+                icon->model[D_801015EC_11520C_shared_board[GwPlayer[i].pad * 2]], 0);
             func_80054904_55504(icon->spriteGroup, i,
                 D_801015FC_11521C_shared_board[i] + 0x12,
                 D_80101604_115224_shared_board[i]);
@@ -1566,7 +1560,7 @@ s32 MBPausePadCfgExec(s32 arg0) {
             player = MBPlayerGet(sel);
             func_800F0E28_104A48_shared_board(1);
             diff = player->cpu_difficulty;
-            setting = (MBPlayerComCheck(sel) != 0) ? 4 : -1;
+            i = (MBPlayerComCheck(sel) != 0) ? 4 : -1;
 
             while (1) {
                 HuPrcVSleep();
@@ -1576,9 +1570,9 @@ s32 MBPausePadCfgExec(s32 arg0) {
                 }
 
                 if (D_800C9520_CA120[arg0] & 0x200) {
-                    if ((setting != 4) || (diff == 0)) {
-                        setting = func_800F0D14_104934_shared_board(player, -1);
-                        if (setting == 4) {
+                    if ((i != 4) || (diff == 0)) {
+                        i = func_800F0D14_104934_shared_board(player, -1);
+                        if (i == 4) {
                             diff = _CheckFlag(0x2D) ? 3 : 2;
                         }
                     } else {
@@ -1588,16 +1582,16 @@ s32 MBPausePadCfgExec(s32 arg0) {
                     HuAudFXPlay(1);
                 } else if (D_800C9520_CA120[arg0] & 0x100) {
                     if (_CheckFlag(0x2D) != 0) {
-                        if ((setting != 4) || (diff == 3)) {
-                            setting = func_800F0D14_104934_shared_board(player, 1);
-                            diff = -(setting != 4) & diff;
+                        if ((i != 4) || (diff == 3)) {
+                            i = func_800F0D14_104934_shared_board(player, 1);
+                            diff = -(i != 4) & diff;
                         } else {
                             diff++;
                         }
                         
-                    } else if ((setting != 4) || (diff == 2)) {
-                        setting = func_800F0D14_104934_shared_board(player, 1);
-                        diff = -(setting != 4) & diff;
+                    } else if ((i != 4) || (diff == 2)) {
+                        i = func_800F0D14_104934_shared_board(player, 1);
+                        diff = -(i != 4) & diff;
                     } else {
                         diff++;
                     }
@@ -1605,20 +1599,20 @@ s32 MBPausePadCfgExec(s32 arg0) {
                     HuAudFXPlay(1);
                 }
 
-                if (setting >= 0) {
-                    func_800F0C64_104884_shared_board(player, setting);
+                if (i >= 0) {
+                    func_800F0C64_104884_shared_board(player, i);
                     if (MBPlayerComCheck(sel) != 0) {
                         func_80055024_55C24(icon->spriteGroup, sel,
-                            icon->model[new_var[GwPlayer[sel].cpu_difficulty][0]], 0);
+                            icon->model[D_801015F4_115214_shared_board[GwPlayer[sel].cpu_difficulty * 2 + 0]], 0);
                         func_80055024_55C24(icon->spriteGroup, sel + 4,
-                            icon->model[new_var[GwPlayer[sel].cpu_difficulty][1]], 0);
+                            icon->model[D_801015F4_115214_shared_board[GwPlayer[sel].cpu_difficulty * 2 + 1]], 0);
                         func_80054904_55504(icon->spriteGroup, sel,
                             D_801015FC_11521C_shared_board[sel] + 0x12,
                             D_80101604_115224_shared_board[sel] - 0xA);
                         HuSprAttrReset(icon->spriteGroup, sel + 4, 0x8000);
                     } else {
                         func_80055024_55C24(icon->spriteGroup, sel,
-                            icon->model[D_801015EC_11520C_shared_board[GwPlayer[sel].pad][0]], 0);
+                            icon->model[D_801015EC_11520C_shared_board[GwPlayer[sel].pad * 2]], 0);
                         func_80054904_55504(icon->spriteGroup, sel,
                             D_801015FC_11521C_shared_board[sel] + 0x12,
                             D_80101604_115224_shared_board[sel]);
@@ -1651,9 +1645,6 @@ s32 MBPausePadCfgExec(s32 arg0) {
     func_800F2CA4_1068C4_shared_board(bg);
     return 4;
 }
-#else
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/101840", MBPausePadCfgExec);
-#endif
 
 s16 MBPauseModeExec(s16 arg0, s32 arg1) {
     switch (arg0) {

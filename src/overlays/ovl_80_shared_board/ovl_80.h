@@ -3,6 +3,8 @@
 #include "game/board.h"
 #include "malloc.h"
 
+#define MINIGAME_ID(id) ((id) + 1)
+
 enum BoardIndices {
     CHILLY_WATERS = 0,
     DEEP_BLOOBER_SEA = 1,
@@ -12,7 +14,12 @@ enum BoardIndices {
     WALUIGIS_ISLAND = 5
 };
 
-#define MINIGAME_ID(id) ((id) + 1)
+typedef struct UnkMBGuideData {
+    Object* obj;
+    Process* unk_04;
+    s16 amount;
+    s16 spriteGroup;
+} UnkMBGuideData; //sizeof 0x0C
 
 
 // typedef struct SomeStruct2 {
@@ -160,7 +167,7 @@ void MBItemKoopaNKinokoExec(void);
 void MBItemKoopaRKinokoExec(void);
 void MBItemKSuitWalkExec(void);
 void MBItemMajinLampStarExec(void);
-Process *MBTelopCreate(s8);
+Process *MBTelopCreate(s32);
 void func_800E648C_FA0AC_shared_board(void);
 u16 MBCameraPos2DSet(f32* arg0);
 s16 func_800F8858_10C478_shared_board(void);
@@ -428,7 +435,7 @@ void func_800F91A4_10CDC4_shared_board(void);           /* extern */
 void func_800F93A4_10CFC4_shared_board(void);           /* extern */
 void func_800FF0F8_112D18_shared_board(void);           /* extern */
 void func_800FF158_112D78_shared_board(void);           /* extern */
-void MBGuidePosSet(UnkBoard8*, s16, s32);
+void MBGuidePosSet(UnkMBGuideData*, s16, s16);
 Unk3 *func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2);
 
 extern f32 D_801056E8_119308_shared_board;

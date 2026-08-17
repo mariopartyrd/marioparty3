@@ -1,6 +1,17 @@
 #include "common.h"
 #include "ovl_80.h"
 
+typedef struct UnkCam3DStruct {
+    Vec unk_00;
+    f32 unk_0C;
+} UnkCam3DStruct;
+
+typedef struct TelopData {
+    s32 unk_00;
+    s32 playerNo;
+    char unk_08[8];
+} TelopData;
+
 void func_80049FB8_4ABB8(void);
 void MBItemWarpBlockSwap(void);
 void MBItemWarpBlockSwapInit(void);
@@ -18,18 +29,22 @@ void MBMasuCurSet(s16);
 void MBStatusItemIconSprReinit(s32);
 void func_8003B128_3BD28(char*);
 void func_8005FBA4_607A4(u8 *, s32);
-
+void MBTelopMain(void);
+extern void MBGuideCameraCreate(void);
+extern void MBGuideMain(void);
+s32 func_80060880_61480(s32 arg0, s32 arg1, s32 arg2);
+extern void func_8008EBD0_8F7D0(f32, f32*, f32*);
+extern u8 D_80102D36_116956_shared_board;
+extern u8 D_8010124C_114E6C_shared_board;
 extern s16 D_80102C50_116870_shared_board;
 extern s16 D_80102C52_116872_shared_board;
 extern s32 D_801012C8_114EE8_shared_board[];
 extern s32 D_80101318_114F38_shared_board[];
 extern f32 D_801049F8_118618_shared_board[2];
-
 extern s32 D_80101060_114C80_shared_board[];
 extern s32 D_801010F8_114D18_shared_board[];
 extern s16 D_80101148_114D68_shared_board[];
 extern s16 D_80102D34_116954_shared_board;
-extern s8 D_80102D36_116956_shared_board;
 extern s16 D_80102D38_116958_shared_board;
 extern s16 D_80102D3A_11695A_shared_board[];
 extern omObjData* D_80102D40_116960_shared_board;
@@ -37,11 +52,15 @@ extern omObjData* D_80102D44_116964_shared_board;
 extern char D_80102CC0_1168E0_shared_board[0x20];
 extern s16 D_80102D48_116968_shared_board[];
 extern s16 D_80102D4C_11696C_shared_board[];
-
 extern s16 D_801052B8_118ED8_shared_board[];
 extern s16 D_801054B6_1190D6_shared_board;
 extern s16 D_801054B8_1190D8_shared_board[];
 extern s16 D_801054F8_119118_shared_board;
+extern Vec D_80102D60_116980_shared_board;
+extern Vec D_80102D6C_11698C_shared_board;
+extern Vec D_80102D78_116998_shared_board;
+extern Vec D_80102D84_1169A4_shared_board;
+extern Vec D_80102D90_1169B0_shared_board;
 
 // TODO: fix (u8*)arg1 hack
 void func_800E2260_F5E80_shared_board(s32 arg0, char *arg1) {
@@ -1338,21 +1357,231 @@ void MBTelopPlayerKill(void) {
     D_80102D36_116956_shared_board &= ~(0x20 | 0x10 | 0x08 | 0x04);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopMgTypeCreate);
+extern char* D_80101170_114D90_shared_board[];
+extern Vec D_8010125C_114E7C_shared_board;
+extern s8 D_80101194_114DB4_shared_board[];
+s16 func_8003A308_3AF08(char* arg0, char* arg1, s32 arg2, s16 arg3, u16 arg4);
+s32 func_800F52C4_108EE4_shared_board(void);
+void MBMgCallListCreate(s32);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopMgTypeStatGet);
+void MBTelopMgTypeCreate(s32 arg0, u32 arg1) {
+    f32 sp18[2];
+    Object* modelObj;
+    omObjData* temp_v0_2;
+    s32 i;
+    s32 var_a0;
+    s32 var_s1;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopMgTypeKill);
+    if (!((u8) D_80102D36_116956_shared_board & 4) && ((var_s1 = func_800F52C4_108EE4_shared_board(), (((~var_s1 == 0) | (arg0 != 0)) == 0)) || (var_s1 = arg0 + 2, (arg0 != 0)))) {
+        modelObj = MBModelFileCreate(0x130204, -1, 1.8f, 0, 0);
+        D_80102D54_116974_shared_board = modelObj;
+        func_8001C258_1CE58(modelObj->omObj1->model[0], 0x180, 0);
+        func_8001C8E4_1D4E4(D_80102D54_116974_shared_board->omObj1->model[0], 0x1800U);
+        func_8001C448_1D048(D_80102D54_116974_shared_board->omObj1->model[0]);
+        MBModelTempAllocFree(D_80102D54_116974_shared_board);
+        HuVecCopy3F(&D_80102D54_116974_shared_board->coords, &D_8010125C_114E7C_shared_board);
+        HuVecCopyXYZ(&D_80102D54_116974_shared_board->scale, 0.0f, 1.0f, 1.0f);
+        D_80102D54_116974_shared_board->coords.y += 56.0f;
+        D_80102D34_116954_shared_board = func_8003A308_3AF08(D_80102CC0_1168E0_shared_board, D_80101170_114D90_shared_board[var_s1], 0, 0, 0U);
+        MBCamera3Dto2D(&D_80102D54_116974_shared_board->coords, sp18);
+        D_80102D58_116978_shared_board = (sp18[1] - 14.0f);
+        D_80102D58_116978_shared_board = D_80102D58_116978_shared_board + ((1.3f - MBCameraZoomGet()) * 50.0f);
+        func_80054904_55504(D_80102CE0_116900_shared_board[D_80102D34_116954_shared_board], 0, (D_80101194_114DB4_shared_board[var_s1] + 0x50), D_80102D58_116978_shared_board);
+        
+        for (i = 1; D_8010118C_114DAC_shared_board[var_s1] >= i; i++) {
+            func_80055458_56058(D_80102CE0_116900_shared_board[D_80102D34_116954_shared_board], i, 0);
+        }
+        
+        temp_v0_2 = omAddObj(-0x8000, 0, 0, -1, MBTelopMgTypeMain);
+        D_80102D40_116960_shared_board = temp_v0_2;
+        temp_v0_2->scale.x = 0.0f;
+        temp_v0_2->trans.x = 400.0f;
+        temp_v0_2->trans.z = 0.0f;
+        temp_v0_2->rot.x = D_80101194_114DB4_shared_board[var_s1];
+        temp_v0_2->rot.y = 0.0f;
+        temp_v0_2->rot.z = 0.0f;
+        temp_v0_2->work[0] = var_s1;
+        temp_v0_2->work[1] = D_80102D34_116954_shared_board;
+        temp_v0_2->work[2] = arg1 + 8;
+        temp_v0_2->work[3] = arg1;
+        D_80102D36_116956_shared_board = 38;
+        if (var_s1 >= 3) {
+            MBMgCallListCreate(var_s1 - 3);
+        } else {
+            MBMgCallListCreate(-1);
+        }
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopMain);
+s32 MBTelopMgTypeStatGet(void) {
+    return D_80102D36_116956_shared_board & (8 | 4);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBTelopCreate);
+void MBTelopMgTypeKill(void) {
+    MBModelKill(D_80102D54_116974_shared_board);
+    omDelObj(D_80102D40_116960_shared_board);
+    D_80102D40_116960_shared_board = NULL;
+    func_8003B128_3BD28(D_80102CC0_1168E0_shared_board);
+    D_80102D36_116956_shared_board &= ~(0x20 | 0x10 | 0x08 | 0x04); 
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBGuideCameraCreate);
+void MBTelopMain(void) {
+    s32 temp_v0;
+    s32 temp_v1;
+    TelopData* temp_s0;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBGuideMain);
+    temp_s0 = HuPrcCurrentGet()->user_data;
+    while (1) {
+        temp_v0 = temp_s0->unk_00;
+        switch (temp_v0) {
+        case 0:
+            HuAudFXPlay(0x10C);
+            if (temp_s0->playerNo == 0) {
+                s32 turnsRemaining = GwSystem.total_turns - GwSystem.current_turn;
+                D_80102D50_116970_shared_board = turnsRemaining;
+                if (turnsRemaining >= 0) {
+                    if (turnsRemaining < 5) {
+                        MBTelopLast5Create();
+                    } else if (turnsRemaining == 9) {
+                        MBTelopLast5Create();
+                    }
+                }
+            }
+            MBTelopPlayerCreate(temp_s0->playerNo);
+            temp_s0->unk_00++;
+            break;
+        case 1:
+            if (D_80102D38_116958_shared_board == -1) {
+                omDelPrcObj(NULL);
+            }
+            break;
+        }
+        HuPrcVSleep();
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBGuideCreate);
+Process* MBTelopCreate(s32 playerNo) {
+    Process* proc;
+    TelopData* telopData;
+
+    proc = omAddPrcObj(MBTelopMain, 0, 0, 0x40);
+    telopData = HuMemMemoryAlloc(proc->heap, sizeof(TelopData));
+    proc->user_data = telopData;
+    telopData->unk_00 = 0;
+    telopData->playerNo = playerNo;
+    return proc;
+}
+
+void MBGuideCameraCreate(void) {
+    Hu3DCamSetPerspective(1, 40.0f, 80.0f, 8000.0f);
+    Hu3DCamSetPositionOrientation(1, &D_80102D60_116980_shared_board, &D_80102D6C_11698C_shared_board, &D_80102D78_116998_shared_board);
+    Hu3DCamUpdateMtx(1);
+    CameraViewportSet(1, &D_80102D84_1169A4_shared_board, &D_80102D90_1169B0_shared_board);
+}
+
+void MBGuideMain(void) {
+    while (1) {
+        MBGuideCameraCreate();
+        HuPrcVSleep();       
+    }
+}
+
+extern Vec D_80102D60_116980_shared_board;
+extern Vec D_80102D6C_11698C_shared_board;
+extern Vec D_80102D78_116998_shared_board;
+extern Vec D_80102D84_1169A4_shared_board;
+extern Vec D_80102D90_1169B0_shared_board;
+
+UnkMBGuideData* MBGuideCreate(u32* arg0, s32 arg1) {
+    s32 var_a0;
+    s32 var_a2;
+    s32 var_a1;
+    f32 var_f0;
+    f32 var_f1;
+    HmfModel* temp_a2;
+    HmfModel* temp_hmf;
+    Object* temp_v0_2;
+    Process* temp_v0_7;
+    UnkMBGuideData* temp_v0;
+    s32 temp;
+
+    temp_v0 = HuMemMemoryAllocTemp(sizeof(UnkMBGuideData));
+    if (temp_v0 != NULL) {
+        temp_v0_2 = MBModelCreate(0x3B, arg0);
+        temp_v0->obj = temp_v0_2;
+        temp_v0_2->flags |= 1;
+
+        func_8001C8A8_1D4A8(temp_v0->obj->omObj1->model[0], 2);
+
+        temp_a2 = &HmfModelData[temp_v0->obj->omObj1->model[0]];
+        func_8008EBD0_8F7D0(15.0f, &temp_a2->mtx[6], &temp_a2->mtx[5]);
+
+        HmfModelData[temp_v0->obj->omObj1->model[0]].mtx[9] = -HmfModelData[temp_v0->obj->omObj1->model[0]].mtx[6];
+
+        temp_hmf = &HmfModelData[temp_v0->obj->omObj1->model[0]];
+        temp_hmf->mtx[10] = temp_hmf->mtx[5];
+
+        temp_hmf = &HmfModelData[temp_v0->obj->omObj1->model[0]];
+        var_f0 = 0.0f;
+        temp_hmf->mtx[14] = var_f0;
+        temp_hmf->mtx[13] = var_f0;
+        temp_hmf->mtx[12] = var_f0;
+        temp_hmf->mtx[11] = var_f0;
+        temp_hmf->mtx[8] = var_f0;
+        temp_hmf->mtx[7] = var_f0;
+        temp_hmf->mtx[4] = var_f0;
+        temp_hmf->mtx[3] = var_f0;
+        temp_hmf->mtx[2] = var_f0;
+        temp_hmf->mtx[1] = var_f0;
+
+        temp_hmf = &HmfModelData[temp_v0->obj->omObj1->model[0]];
+        var_f1 = 1.0f;
+        temp_hmf->mtx[15] = var_f1;
+        temp_hmf->mtx[0] = var_f1;
+
+        temp_v0_7 = omAddPrcObj(MBGuideMain, 0x4000U, 0, 0);
+        temp_v0->unk_04 = temp_v0_7;
+        temp_v0_7->user_data = temp_v0;
+
+        temp_v0->spriteGroup = 0x69;
+
+        D_80102D60_116980_shared_board.x = var_f0;
+        D_80102D60_116980_shared_board.y = var_f0;
+        D_80102D60_116980_shared_board.z = 120.0f;
+
+        D_80102D6C_11698C_shared_board.x = var_f0;
+        D_80102D6C_11698C_shared_board.y = var_f0;
+        D_80102D6C_11698C_shared_board.z = var_f0;
+
+        D_80102D78_116998_shared_board.x = var_f0;
+        D_80102D78_116998_shared_board.y = var_f1;
+        D_80102D78_116998_shared_board.z = var_f0;
+
+        D_80102D84_1169A4_shared_board.x = 1280.0f;
+        D_80102D84_1169A4_shared_board.y = 960.0f;
+        D_80102D84_1169A4_shared_board.z = 511.0f;
+
+        D_80102D90_1169B0_shared_board.x = 240.0f;
+        D_80102D90_1169B0_shared_board.y =
+            (f32)temp_v0->spriteGroup * 4.0f + 480.0f;
+        D_80102D90_1169B0_shared_board.z = 511.5f;
+
+        MBGuideCameraCreate();
+
+        if (arg1 != 0) {
+            var_a1 = temp_v0->spriteGroup;
+            var_a1 = var_a1 + 0x5a + arg1;        
+            temp_v0->amount = func_80060880_61480(0x5b, var_a1, 0x11);
+            MBGuidePosSet(temp_v0, 0x69, arg1);
+        } else {
+            var_a1 = temp_v0->spriteGroup;
+            var_a1 = var_a1 + 0x5a + arg1;  
+            temp_v0->amount = func_80060880_61480(0x4b, var_a1, 0x10);
+            MBGuidePosSet(temp_v0, 0x69, arg1);
+        }
+    }
+    return temp_v0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBGuideKill);
 
@@ -1630,6 +1859,8 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBCameraPos3D
 
 extern f32 D_8010341C_11703C_shared_board;
 extern f32 D_801049F0_118610_shared_board[2];
+extern f32 D_80101250_114E70_shared_board;
+extern f32 D_801049F8_118618_shared_board[];
 
 u16 MBCameraPos2DSet(f32* arg0) {
     D_801049F0_118610_shared_board[0] = arg0[0] / D_8010341C_11703C_shared_board + 160.0f;
@@ -1644,9 +1875,30 @@ void MBCameraPos2DGet(f32 *arg0) {
     arg0[1] = -((D_801049F8_118618_shared_board[1] / 4.0f) - 120.0f);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBCamera3Dto2D);
+void MBCamera3Dto2D(Vec* arg0, f32* arg1) {
+    UnkCam3DStruct sp10;
+    f32 temp_f0;
+    f32 temp_f2;
+    f32 temp_f6;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBBackTPLvlSet);
+    Hu3DCam3DToScreen(0, arg0, &sp10.unk_00);
+    temp_f6 = 2.0f * D_8010341C_11703C_shared_board;
+    temp_f2 = 320.0f / temp_f6;
+    sp10.unk_00.x = (temp_f2 - (temp_f2 / D_80101250_114E70_shared_board)) + sp10.unk_00.x;
+    temp_f0 = 240.0f / temp_f6;
+    sp10.unk_00.y =  (temp_f0 - (temp_f0 / D_80101250_114E70_shared_board)) + sp10.unk_00.y;
+    sp10.unk_00.x = ((sp10.unk_00.x - 160.0f) * D_8010341C_11703C_shared_board) + 160.0f;
+    sp10.unk_00.y = ((sp10.unk_00.y - 120.0f) * D_8010341C_11703C_shared_board) + 120.0f;
+    sp10.unk_00.z = (D_801049F8_118618_shared_board[0] / 4.0f) - 160.0f;
+    sp10.unk_0C = (D_801049F8_118618_shared_board[1] / 4.0f) - 120.0f;
+    arg1[0] = sp10.unk_00.x + sp10.unk_00.z;
+    arg1[1] = sp10.unk_00.y + sp10.unk_0C;
+}
+
+void MBBackTPLvlSet(s8 arg0) {
+    D_8010124C_114E6C_shared_board = arg0;
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBBackInvertSet);
 
