@@ -34,6 +34,8 @@ extern void MBGuideCameraCreate(void);
 extern void MBGuideMain(void);
 s32 func_80060880_61480(s32 arg0, s32 arg1, s32 arg2);
 extern void func_8008EBD0_8F7D0(f32, f32*, f32*);
+void func_800610E0_61CE0(s16);
+
 extern u8 D_80102D36_116956_shared_board;
 extern u8 D_8010124C_114E6C_shared_board;
 extern s16 D_80102C50_116870_shared_board;
@@ -1583,11 +1585,29 @@ UnkMBGuideData* MBGuideCreate(u32* arg0, s32 arg1) {
     return temp_v0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBGuideKill);
+void MBGuideKill(UnkMBGuideData* arg0) {
+    if (arg0 != NULL) {
+        MBModelKill(arg0->obj);
+        omDelPrcObj(arg0->unk_04);
+        func_800610E0_61CE0(arg0->amount);
+        HuMemMemoryFreeTemp(arg0);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBGuidePosSet);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", MBKSuitMain);
+void MBKSuitMain(omObjData* arg0) {
+    GW_PLAYER* player;
+
+    player = MBPlayerGet(arg0->work[0]);
+    HuVecCopy3F(&D_801011FC_114E1C_shared_board->coords, &player->player_obj->coords);
+    HuVecCopy3F(&D_801011FC_114E1C_shared_board->rot, &player->player_obj->rot);
+    HuVecCopy3F(&D_801011FC_114E1C_shared_board->scale, &player->player_obj->scale);
+    D_801011FC_114E1C_shared_board->velocity.x = player->player_obj->velocity.x;
+    D_801011FC_114E1C_shared_board->flags &= ~1;
+    D_801011FC_114E1C_shared_board->flags = D_801011FC_114E1C_shared_board->flags | (player->player_obj->flags & 1);
+}
+
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_80_shared_board/F5E80", D_801021EC_115E0C_shared_board);
 

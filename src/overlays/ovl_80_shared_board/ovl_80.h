@@ -120,7 +120,7 @@ typedef struct UnkBoard7 {
 
 //very closely resembles UnkBoard5, but member at offset 0x08 must be s16 here instead of s32?
 typedef struct UnkBoard8 {
-    Object* unk_00; //double check this
+    struct UnkBoard8* unk_00; //double check this
     struct UnkBoard8* unk_04; //?
     s16 amount; //number of entries for model, rot, scale, x/y positions
     s16 spriteGroup;

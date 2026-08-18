@@ -75,7 +75,7 @@ void func_800F2CA4_1068C4_shared_board(UnkBoard8* arg0) {
     s32 i;
 
     if (arg0->unk_00 != NULL) {
-        arg0->unk_00->next = arg0->unk_04;
+        arg0->unk_00->unk_04 = arg0->unk_04;
     }
 
     if (arg0->unk_04 != NULL) {

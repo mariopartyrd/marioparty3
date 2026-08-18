@@ -16,6 +16,7 @@ void MBPauseDlgMesSet(s16 arg0, s32 arg1);
 s32 MBPauseHelpMesCreate(s16 arg0, s16 arg1, s16 arg2);
 s32 MBPauseMesNumGet(s32 arg0);
 s16 func_8006014C_60D4C(s16);
+UnkMBGuideData* MBGuideCreate(u32* arg0, s32 arg1);
 extern s16 D_80105564_119184_shared_board;
 extern s16 D_801015FC_11521C_shared_board[];
 extern s16 D_80101604_115224_shared_board[];
@@ -28,7 +29,7 @@ extern s16 D_801014EA_11510A_shared_board;
 extern s32 D_801014EC_11510C_shared_board;
 extern s16 D_8010555A_11917A_shared_board;
 extern s16 D_8010555E_11917E_shared_board;
-extern UnkBoard8* D_80105550_119170_shared_board;
+extern UnkMBGuideData* D_80105550_119170_shared_board;
 extern s32 D_80105558_119178_shared_board;
 extern s32 D_8010555C_11917C_shared_board;
 extern s32 D_80101560_115180_shared_board[];
@@ -38,17 +39,26 @@ extern s32 D_8010157C_11519C_shared_board[];
 extern s32 D_80101588_1151A8_shared_board[];
 extern s32 D_80101594_1151B4_shared_board;
 extern s32 D_80101598_1151B8_shared_board;
-
-UnkBoard8* MBGuideCreate(s32, s32);
-void MBGuideKill(UnkBoard8*);
-void func_80060C14_61814(s16, s32);
-void func_80060EA8_61AA8(s16, s32);
-void func_80061100_61D00(s16, s32);
+extern s8 D_801015EC_11520C_shared_board[8];
+extern s8 D_801015F4_115214_shared_board[8];
+extern s16 D_801015FC_11521C_shared_board[4];
+extern s16 D_80101604_115224_shared_board[4];
+extern s16 D_8010160C_11522C_shared_board[4][4];
+extern s32 D_801015A8_1151C8_shared_board[];
+extern s32 D_801015C8_1151E8_shared_board[];
 extern s32 D_80101520_115140_shared_board[];
 extern s32 D_80101540_115160_shared_board[];
 extern s32 D_8010159C_1151BC_shared_board;
 extern s16 D_80105556_119176_shared_board;
 
+s32 func_800F0D14_104934_shared_board(GW_PLAYER*, s16);
+void func_800F244C_10606C_shared_board(s16, u8);
+s32 MBPausePadCfgExec(s32 arg0);
+s32 MBStatusHideCheck(void);
+void MBGuideKill(UnkMBGuideData*);
+void func_80060C14_61814(s16, s32);
+void func_80060EA8_61AA8(s16, s32);
+void func_80061100_61D00(s16, s32);
 void func_800EDC4C_10186C_shared_board(s32 arg0);
 u8 func_80017AD8_186D8(s32);
 void func_80017954_18554(s16, s16, s16, s16);
@@ -72,7 +82,6 @@ extern s16 D_801014EA_11510A_shared_board;
 extern s32 D_801014EC_11510C_shared_board;
 extern s16 D_8010555A_11917A_shared_board;
 extern s16 D_8010555E_11917E_shared_board;
-extern UnkBoard8* D_80105550_119170_shared_board;
 extern s32 D_80105558_119178_shared_board;
 extern s32 D_8010555C_11917C_shared_board;
 extern s32 D_80101560_115180_shared_board[];
@@ -719,15 +728,15 @@ s16 MBPauseMainScrExec(s32 arg0) {
     return var_s0;
 }
 
-void func_800EF768_103388_shared_board(UnkBoard8* arg0, s16 arg1) {
+void func_800EF768_103388_shared_board(UnkMBGuideData* arg0, s16 arg1) {
     s32 i;
-    Object* temp_v0;
+    Object* obj;
     s16 temp_s2;
     s16 temp = arg0->spriteGroup;
     
-    temp_v0 = arg0->unk_00; //TODO: this is wrong
-    temp_v0->velocity.y = 4.0f;
-    temp_v0->velocity.z = -0.5f;
+    obj = arg0->obj;
+    obj->velocity.y = 4.0f;
+    obj->velocity.z = -0.5f;
     temp_s2 = (arg1 - temp) / 14;
 
     for (i = 0; i < 14; i++) {
@@ -1086,9 +1095,9 @@ s32 MBPauseOptionExec(s32 arg0) {
             HuPrcVSleep();
             D_80105550_119170_shared_board = MBGuideCreate(0, 8);
             func_8005E1A8_5EDA8(D_80105550_119170_shared_board->amount, 0x2D);
-            MBModelTempAllocFree(D_80105550_119170_shared_board->unk_00);
-            func_8001C258_1CE58(D_80105550_119170_shared_board->unk_00->omObj1->model[0], 0x8000, 0x8000);
-            D_80105550_119170_shared_board->unk_00->flags |= 0x10;
+            MBModelTempAllocFree(D_80105550_119170_shared_board->obj);
+            func_8001C258_1CE58(D_80105550_119170_shared_board->obj->omObj1->model[0], 0x8000, 0x8000);
+            D_80105550_119170_shared_board->obj->flags |= 0x10;
             MBGuidePosSet(D_80105550_119170_shared_board, 0x104, 8);
             func_800EF768_103388_shared_board(D_80105550_119170_shared_board, 0x69);
             func_80061100_61D00(D_80105550_119170_shared_board->amount, 5);
@@ -1395,19 +1404,6 @@ void func_800F0EF0_104B10_shared_board(void) {
         }
     }
 }
-
-extern s8 D_801015EC_11520C_shared_board[8];
-extern s8 D_801015F4_115214_shared_board[8];
-extern s16 D_801015FC_11521C_shared_board[4];
-extern s16 D_80101604_115224_shared_board[4];
-extern s16 D_8010160C_11522C_shared_board[4][4];
-extern UnkBoard8* D_80105550_119170_shared_board;
-extern s32 D_801015A8_1151C8_shared_board[];
-extern s32 D_801015C8_1151E8_shared_board[];
-s32 func_800F0D14_104934_shared_board(GW_PLAYER*, s16); /* extern */
-void func_800F244C_10606C_shared_board(s16, u8);      /* extern */
-s32 MBPausePadCfgExec(s32 arg0);
-s32 MBStatusHideCheck(void);
 
 s32 MBPausePadCfgExec(s32 arg0) {
     s16 sel;
