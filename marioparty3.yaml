@@ -641,6 +641,8 @@ segments:
       - [0xF5070, c]
       - [0xF5B90, c]
       - [0xF5E80, c]
+      - [0xF9DE0, c] #new file
+      - [0xFA250, c]
       - [0xFFB10, c]
       - [0x1006F0, c]
       - [0x101840, c]
@@ -655,6 +657,7 @@ segments:
       - [0x1143C0, data, EA790] #801007A0
       - [0x114B40, .data, F5B90]
       - [0x114BB0, data, F5E80]
+      - [0x114DC0, data, F9DE0]
       - [0x115250, .data, 105D50]
       - [0x115390, .data, 1063F0] #80101770
       - [0x1153A0, .data, 106A50] #80101780
@@ -669,6 +672,7 @@ segments:
       - [0x115CB0, .rodata, F2910]
       - [0x115DA0, .rodata, F5B90]
       - [0x115DA8, .rodata, F5E80]
+      - [0x115E10, .rodata, F9DE0]
       - [0x115F00, .rodata, 1006F0]
       - [0x115F40, .rodata, 101840]
       - [0x116060, .rodata, 106A50]

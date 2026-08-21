@@ -373,7 +373,7 @@ void func_800DB5DC_EF1FC_shared_board(void);
 void func_800DF854_F3474_shared_board(void);
 void MBCoinChangeInit(void);
 void MBTelopInit(void);
-void MBKSuitCreate(void);
+Object* MBKSuitCreate(void);
 void MBKSuitInit(void);
 void func_800E9EF4_FDB14_shared_board(void);
 void func_800ECAB4_1006D4_shared_board(void);
