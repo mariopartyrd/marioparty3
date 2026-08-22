@@ -51,7 +51,7 @@ typedef struct ESprite {
     ESprite2 *unk_10[4]; // unknown size
 } ESprite;               // unknown size
 
-void func_800555E8_561E8(s32, s32, s32, s32, s32, s32);
+void func_800555E8_561E8(s16 group, s16 member, u16 arg2, u16 arg3, u16 arg4, u16 arg5);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B540", func_80105A64_31B5D4_ChillyWaters);
 

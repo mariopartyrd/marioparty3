@@ -5,7 +5,7 @@
 
 void func_80049FB8_4ABB8(void);
 void func_8004A0E0_4ACE0(void);
-void func_8004A9DC_4B5DC(s32);
+void func_8004A9DC_4B5DC(s8);
 void func_8005F904_60504(void);
 void func_800036E8_42E8(s16, s32);
 void func_80003A70_4670(s16);
@@ -25,7 +25,6 @@ s16 func_80017790_18390(s16 model, s32 arg1, s16 arg2, s32 arg3);
 GW_PLAYER* MBPlayerGet(s32 playerIndex);
 void MBPlayerCoinAdd(s32 arg0, s32 arg1);
 s32 MBRand(f32);
-void func_8004A9DC_4B5DC(s32);
 void MBItemRemoveEmpty(s32 arg0);
 void func_800007FC_13FC(str800D5298* arg0);
 void func_80000EA8_1AA8(str800D5298* arg0);

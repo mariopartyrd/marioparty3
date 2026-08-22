@@ -114,9 +114,14 @@ typedef struct HvqUnk {
 } HvqUnk;
 
 typedef struct UnkBoard7 {
-    s8 unk_00;
-    char unk_01[0x1F];
-} UnkBoard7;
+    /* 0x00 */ s8  unk_00;
+    /* 0x01 */ s8  unk_01;
+    /* 0x02 */ s16 unk_02;
+    /* 0x04 */ s16 unk_04;
+    /* 0x06 */ s16 unk_06;
+    /* 0x08 */ Vec pos;
+    /* 0x14 */ Vec vel;
+} UnkBoard7; /* size 0x20 */
 
 //very closely resembles UnkBoard5, but member at offset 0x08 must be s16 here instead of s32?
 typedef struct UnkBoard8 {
@@ -173,7 +178,7 @@ void func_800DC024_EFC44_shared_board(s32);
 void func_800EB97C_FF59C_shared_board(s16);
 void MBCameraZoomSet(f32);
 Process *MBCameraZoomMotStart(f32);
-s32 MBMasuEventCall(s16, s32);
+s32 MBMasuEventCall(s16 arg0, s16 arg1);
 void MBMasuCurSet(s16);
 s16 MBMasuCurGet(void);
 void MBMasuDispOn(void);
@@ -349,7 +354,7 @@ s32 BoardGetTurnTier(s32);
 void func_800F5E24_109A44_shared_board(s32);
 void func_800D95C4_ED1E4_shared_board(f32);
 void func_800EA60C_FE22C_shared_board(void);
-void MBMasuCreate(s32, s32);
+s32 MBMasuCreate(s32, s32);
 void func_800F453C_10815C_shared_board(void);
 void MBStatusPosSet(s32, s16, s16);
 void MBBackKill(void);

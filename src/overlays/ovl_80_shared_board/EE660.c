@@ -15,6 +15,7 @@ typedef struct UnkSharedBoard {
 extern s16 D_80100D90_1149B0_shared_board[4][2];
 extern u8 D_801057D9_1193F9_shared_board;
 
+void func_800DEB50_F2770_shared_board(void);
 void func_8004A650_4B250(s32);                              /* extern */
 void func_8004A670_4B270(s32);                              /* extern */
 void func_8004A880_4B480(s32);                              /* extern */
@@ -32,6 +33,7 @@ void func_8000D044_DC44(s16);                          /* extern */
 void func_8008A2A0_8AEA0(f32*, f32);                   /* extern */
 void func_800ECC54_100874_shared_board(Object*);       /* extern */
 void func_800DD724_F1344_shared_board(void);
+void func_800DEBF0_F2810_shared_board(void);
 
 typedef struct UnkSharedBoard2 {
     char unk_00[0xC];
@@ -464,12 +466,43 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", func_800DEAA0
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", func_800DEB2C_F274C_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", func_800DEB50_F2770_shared_board);
+void func_800DEB50_F2770_shared_board(void) {
+    f32 var_f20 = 96.0f;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", func_800DEBF0_F2810_shared_board);
+    func_8004A9DC_4B5DC(0x60);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", func_800DEC90_F28B0_shared_board);
+    while (var_f20 < 127.0f) {
+        HuPrcVSleep();
+        var_f20 += 1.9375f;
+        if (var_f20 >= 127.0f) {
+            var_f20 = 127.0f;
+        }
+        func_8004A9DC_4B5DC(var_f20);        
+    }
+    omDelPrcObj(NULL);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", func_800DECBC_F28DC_shared_board);
+void func_800DEBF0_F2810_shared_board(void) {
+    f32 var_f20 = 127.0f;
+    
+    func_8004A9DC_4B5DC(0x7F);
+    while (var_f20 > 96.0f) {
+        HuPrcVSleep();
+        var_f20 -= 1.9375f;
+        if (var_f20 <= 96.0f) {
+            var_f20 = 96.0f;
+        }
+        func_8004A9DC_4B5DC(var_f20);
+    }
+    omDelPrcObj(NULL);
+}
+
+void func_800DEC90_F28B0_shared_board(void) {
+    omAddPrcObj(func_800DEBF0_F2810_shared_board, 0xEFFF, 0, 0);
+}
+
+void func_800DECBC_F28DC_shared_board(void) {
+    omAddPrcObj(func_800DEB50_F2770_shared_board, 0xEFFF, 0, 0);
+}
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", D_80102070_115C90_shared_board);
