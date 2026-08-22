@@ -23,7 +23,7 @@ s32 dmaStart(OSIoMesg *msg, u8 pri, s32 direction, u8 *src, u8 *dest, u32 size, 
     return osEPiStartDma(D_800CDD50_CE950, msg, direction);
 }
 
-s32 dmaRead(u8 *src, u8 *dest, s32 size) {
+s32 dmaRead(u32 src, u8 *dest, s32 size) {
     OSIoMesg msg;
     s32 curBlockOffset;
     u32 curBlockSize;
@@ -37,7 +37,7 @@ s32 dmaRead(u8 *src, u8 *dest, s32 size) {
         if (size > 0x4000) {
             curBlockSize = 0x4000;
         }
-        err = dmaStart(&msg, 0, 0, &src[curBlockOffset], &dest[curBlockOffset], curBlockSize, &D_800B29F0_B35F0);
+        err = dmaStart(&msg, 0, 0, &((u8*)src)[curBlockOffset], &dest[curBlockOffset], curBlockSize, &D_800B29F0_B35F0);
 
         if (err != 0) {
             return err;
@@ -50,7 +50,7 @@ s32 dmaRead(u8 *src, u8 *dest, s32 size) {
     return err;
 }
 
-s32 dmaReadOvl(u8 *src, u8 *dest, s32 size) {
+s32 dmaReadOvl(u32 src, u8 *dest, s32 size) {
     OSIoMesg msg;
     s32 curBlockOffset;
     u32 var_v1;
@@ -65,7 +65,7 @@ s32 dmaReadOvl(u8 *src, u8 *dest, s32 size) {
         if (size > 0x4000) {
             var_v1 = 0x4000;
         }
-        err = dmaStart(&msg, 0, 0, &src[curBlockOffset], &dest[curBlockOffset], var_v1, &D_800B29F0_B35F0);
+        err = dmaStart(&msg, 0, 0, &((u8*)src)[curBlockOffset], &dest[curBlockOffset], var_v1, &D_800B29F0_B35F0);
 
         if (err != 0) {
             return err;

@@ -4,14 +4,14 @@
 
 // string table parsing code.
 
-extern void *D_800B1A40_B2640; // strings ROM pointer
+extern u32 D_800B1A40_B2640; // strings ROM pointer
 extern s32 D_800B1A44_B2644;   // string directory count
-extern u8 *D_800B1A48_B2648;   // string directory table
+extern u32 *D_800B1A48_B2648;   // string directory table
 extern s32 D_800B1A4C_B264C;   // string directory table size
 
-void func_80036380_36F80(Addr stringsRomPtr) {
+void func_80036380_36F80(u32 stringsRomPtr) {
     s32 stringDirTableSize;
-    u8 *stringDirTable;
+    u32 *stringDirTable;
     u32 *stringsHeader;
 
     D_800B1A40_B2640 = stringsRomPtr;
@@ -23,16 +23,16 @@ void func_80036380_36F80(Addr stringsRomPtr) {
     D_800B1A4C_B264C = stringDirTableSize;
     stringDirTable = HuMemMemoryAllocPerm(stringDirTableSize);
     D_800B1A48_B2648 = stringDirTable;
-    dmaRead(stringsRomPtr + 4, stringDirTable, D_800B1A4C_B264C);
+    dmaRead(stringsRomPtr + 4, (u8*)stringDirTable, D_800B1A4C_B264C);
 }
 
-void func_80036414_37014(Addr ptr) {
+void func_80036414_37014(u32 ptr) {
     D_800B1A40_B2640 = ptr;
-    dmaRead(ptr + 4, D_800B1A48_B2648, D_800B1A4C_B264C);
+    dmaRead(ptr + 4, (u8*)D_800B1A48_B2648, D_800B1A4C_B264C);
 }
 
 struct str80036448 {
-    void *unk0;
+    u32 unk0;
     s32 unk4; // decompressed size
     s32 unk8; // compression type
 };
@@ -43,11 +43,11 @@ struct string_dir_header {
 };
 
 void func_80036448_37048(s32 arg0, struct str80036448 *arg1) {
-    u8 *temp_a0;
+    u32 temp_a0;
     struct string_dir_header *dirHeader;
 
     dirHeader = HuMemMemoryAllocPerm(16);
-    temp_a0 = ((u8 *)D_800B1A40_B2640) + *((u32 *)D_800B1A48_B2648 + arg0);
+    temp_a0 = D_800B1A40_B2640 + D_800B1A48_B2648[arg0];
     arg1->unk0 = temp_a0;
     dmaRead(temp_a0, (u8 *)dirHeader, 16);
     arg1->unk0 = arg1->unk0 + 8;

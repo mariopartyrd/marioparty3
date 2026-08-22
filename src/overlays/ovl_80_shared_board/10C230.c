@@ -469,7 +469,7 @@ void MBObjectSetup(s32 arg0, s16 arg1, s32 arg2, s32 unused) {
     GW_SYSTEM *system;
 
     func_800E9EF4_FDB14_shared_board();
-    func_800E6630_FA250_shared_board(hvq_data_ROM_START);
+    func_800E6630_FA250_shared_board((u32)hvq_data_ROM_START);
 
     if (arg0 >= 0) {
         MBBackLoad(arg0);

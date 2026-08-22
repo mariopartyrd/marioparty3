@@ -43,7 +43,7 @@ s32 func_801073B0_3C7D20_last5(void) {
     s32 sp10[] = { 4, 7, 0xA, 0xD, 0x10, 0x13 };
 
     Hu3DCamInit(1);
-    func_800E6630_FA250_shared_board(hvq_data_ROM_START);
+    func_800E6630_FA250_shared_board((u32)hvq_data_ROM_START);
     MBBackLoad(sp10[GwSystem.current_board_index]);
     return func_800E9344_FCF64_shared_board(1000.0f, 10000.0f);
 }

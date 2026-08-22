@@ -35,7 +35,7 @@ void func_80014A3C_1563C(u32 arg0);
 void func_800224BC_230BC(void);
 void GWInit(void); // save.h
 void GWMgRecordSet(s16 arg0, s16 arg1); // save.h
-void func_80036380_36F80(Addr stringsRomPtr);
+void func_80036380_36F80(u32 stringsRomPtr);
 void pfInit(void);
 void func_8004F290_4FE90(void);
 s32  func_8004FDC0_509C0(void);
@@ -59,7 +59,7 @@ f32 HuMathCos(f32);
 f32 HuMathSin(f32);
 void* HuMemMemoryAlloc(HeapNode* heap, s32 size);
 void func_8004CF30_4DB30(void);
-void func_80036414_37014(Addr);
+void func_80036414_37014(u32);
 void func_80033354_33F54(s16);
 void HuVecSubtract(Vec * dest, Vec * a, Vec * b);
 void HuVecAdd(Vec* out, Vec* a, Vec* b);

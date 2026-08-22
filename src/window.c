@@ -60,24 +60,24 @@ void func_8005A6B0_5B2B0(void) {
         }
         if (gLanguageIndex == LANGUAGE_JAPANESE) {
             D_800D1FE4_D2BE4 = DataReadTemp(0x0000002B);
-            func_80036414_37014(strings_japanese_ROM_START);
+            func_80036414_37014((u32)strings_japanese_ROM_START);
         } else {
             D_800D1FE4_D2BE4 = DataReadTemp(0x0000002C);
             switch (gLanguageIndex) {
                 case LANGUAGE_ENGLISH:
-                    func_80036414_37014(strings_english_ROM_START);
+                    func_80036414_37014((u32)strings_english_ROM_START);
                     break;
                 case LANGUAGE_FRENCH:
-                    func_80036414_37014(strings_french_ROM_START);
+                    func_80036414_37014((u32)strings_french_ROM_START);
                     break;
                 case LANGUAGE_GERMAN:
-                    func_80036414_37014(strings_german_ROM_START);
+                    func_80036414_37014((u32)strings_german_ROM_START);
                     break;
                 case LANGUAGE_SPANISH:
-                    func_80036414_37014(strings_spanish_ROM_START);
+                    func_80036414_37014((u32)strings_spanish_ROM_START);
                     break;
                 case LANGUAGE_ITALIAN:
-                    func_80036414_37014(strings_italian_ROM_START);
+                    func_80036414_37014((u32)strings_italian_ROM_START);
                     break;
             }
         }

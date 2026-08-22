@@ -83,7 +83,7 @@ void func_800354A0_360A0() {
 
     D_800CCF52_CDB52 = 3;
 
-    func_8000EA10_F610(D_800A1240_A1E40, 3, 2, &D_800A124C_A1E4C, &D_800A125C_A1E5C);
+    func_8000EA10_F610(D_800A1240_A1E40, 3, 2, (void*)&D_800A124C_A1E4C, (void*)&D_800A125C_A1E5C);
 
     if (osTvType == TV_TYPE_PAL) {
         while (TRUE) {}
@@ -96,16 +96,16 @@ void func_800354A0_360A0() {
     ContDataInit();
     dmaInit();
 
-    DataInit(mainfs_ROM_START);
+    DataInit((u32)mainfs_ROM_START);
 
     HuPrcSysInit();
 
     msgTempVar = &intrMesgBuf[4];
     osCreateMesgQueue(&D_800CCF38_CDB38, msgTempVar, INTR_MESG_BUF_SIZE);
-    AddSchedulerClient(&intrMesgBuf, &D_800CCF38_CDB38, 1);
+    AddSchedulerClient((void*)&intrMesgBuf, &D_800CCF38_CDB38, 1); //TODO: (void*) cast
     msgTempVar = &otherMesgBuf[4];
     osCreateMesgQueue(&D_800CCF60_CDB60, msgTempVar, OTHER_MESG_BUF_SIZE);
-    AddSchedulerClient(&otherMesgBuf, &D_800CCF60_CDB60, 2);
+    AddSchedulerClient((void*)&otherMesgBuf, &D_800CCF60_CDB60, 2); //TODO: (void*) cast
 
     FlushController();
     func_8007D740_7E340(2);

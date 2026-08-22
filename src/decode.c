@@ -419,10 +419,10 @@ void HuDecodeRLE(DecodeStruct *decode) {
     }
 }
 
-void DecodeData(void *src, void *dest, s32 len, EDecodeType decodeType) {
+void DecodeData(u32 src, void *dest, s32 len, EDecodeType decodeType) {
     DecodeStruct decodeStruct;
     DecodeStruct *decodePtr = &decodeStruct;
-    decodeStruct.src = (u8 *)src;
+    decodeStruct.src = src;
     decodeStruct.dest = (u8 *)dest;
     decodeStruct.len = len;
     decodeStruct.chunkLen = 1024;

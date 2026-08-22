@@ -7,7 +7,7 @@
 
 // -----------------------------------------------------------------
 
-void DataInit(u8 *fsRomPtr) {
+void DataInit(u32 fsRomPtr) {
     s32 dirTblSize;
     HuArchive *archiveHeader;
 
@@ -20,7 +20,7 @@ void DataInit(u8 *fsRomPtr) {
     dirTblSize = archiveHeader->count * 4;
     DataDirTbl = (s32 *)HuMemMemoryAllocPerm(dirTblSize);
 
-    dmaRead((u8 *)fsRomPtr + 4, (u8 *)DataDirTbl, dirTblSize);
+    dmaRead(fsRomPtr + 4, (u8 *)DataDirTbl, dirTblSize);
 
     DataFileRomAddr = DataRomAddr;
     DataFileMax = DataDirMax;
@@ -35,10 +35,10 @@ void DataInfoRead(EArchiveType type, s32 index, HuFileInfo *info) {
 
     switch (type) {
         case ARCHIVE_DIRECT:
-            info->bytes = (u8 *)DataRomAddr + DataDirTbl[index];
+            info->bytes = DataRomAddr + DataDirTbl[index];
             break;
         case ARCHIVE_CACHED:
-            info->bytes = (u8 *)DataFileRomAddr + DataFileTbl[index];
+            info->bytes = DataFileRomAddr + DataFileTbl[index];
             break;
     }
 
@@ -184,7 +184,7 @@ void DataCloseTemp(void *data) {
 
 typedef struct
 {
-    u8 *tablePtr;
+    u32 tablePtr;
     s32 unk0004; // not used
     s32 unk0008; // not used
     s32 unk000C; // not used
@@ -195,7 +195,7 @@ void DataDirInit(EArchiveType type, s32 dir) {
     HuArchive *fsHeader;
     HuDataInfo info;
 
-    info.tablePtr = &DataRomAddr[DataDirTbl[dir]];
+    info.tablePtr = DataRomAddr + DataDirTbl[dir];
 
     if (DataFileRomAddr != info.tablePtr) {
         if (DataFileRomAddr != DataRomAddr) {
@@ -258,7 +258,7 @@ s32 FileRead(HuFileInfoD *info) {
 
     if (info->unkE >= 0x400) {
         info->unkC = 1;
-        info->bytesCopy = (void *)(info->unkE + info->bytesCopy);
+        info->bytesCopy = info->unkE + info->bytesCopy;
         info->unkE = 0;
     }
 
@@ -304,26 +304,26 @@ s32 FileReadBuf(s8 *arg0, s32 arg1, s32 arg2, HuFileInfoD *arg3) {
 void FileSeek(HuFileInfoD *info, s32 arg1, s32 arg2) {
     switch (arg2) {
         case 0:
-            arg2 = (u32)(info->bytes + arg1);
+            arg2 = info->bytes + arg1;
             break;
         case 1:
-            arg2 = (u32)(info->bytesCopy + info->unkE + arg1);
+            arg2 = info->bytesCopy + info->unkE + arg1;
             break;
         case 2:
-            arg2 = (u32)(info->bytes + info->size + arg1);
+            arg2 = info->bytes + info->size + arg1;
             break;
         default:
             return;
     }
-    arg2 = ((u32)arg2 < (u32)info->bytes) ? (u32)info->bytes : (u32)arg2;
-    arg2 = ((u32)arg2 >= (u32)(info->bytes + info->size)) ? (u32)(info->bytes + info->size - 1) : (u32)arg2;
+    arg2 = (arg2 < info->bytes) ? info->bytes : arg2;
+    arg2 = (arg2 >= (info->bytes + info->size)) ? (info->bytes + info->size - 1) : arg2;
 
-    if (((u32)arg2 < (u32)info->bytesCopy) || ((u32)arg2 >= (u32)(info->bytesCopy + 0x400))) {
+    if ((arg2 < info->bytesCopy) || (arg2 >= (info->bytesCopy + 0x400))) {
         info->unkC = 1;
         info->unkE = arg2 & 1;
-        info->bytesCopy = (u8 *)(arg2 - info->unkE);
+        info->bytesCopy = arg2 - info->unkE;
     } else {
-        info->unkE = arg2 - (u32)info->bytesCopy;
+        info->unkE = arg2 - info->bytesCopy;
     }
 }
 

@@ -5,8 +5,8 @@
 #include "ultra64.h"
 
 typedef struct OverlayTable {
-/* 0x00 */ u8* romStart;
-/* 0x04 */ u8* romEnd;
+/* 0x00 */ u32 romStart;
+/* 0x04 */ u32 romEnd;
 /* 0x08 */ u8* vramStart;
 /* 0x0C */ u8* textVramStart;
 /* 0x10 */ u8* textVramEnd;

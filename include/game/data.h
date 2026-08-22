@@ -38,7 +38,7 @@ typedef struct {
 } HuArchive;
 
 typedef struct {
-    u8* bytes;
+    u32 bytes;
     s32 size;
     EDecodeType compType;
 } HuFileInfo;
@@ -51,21 +51,21 @@ typedef struct
     u8* block;
     s16 unkC;
     s16 unkE;
-    void* bytes;
-    void* bytesCopy;
+    u32 bytes;
+    u32 bytesCopy;
 } HuFileInfoD;
 
-extern u8* DataRomAddr; // FS ROM location
+extern u32 DataRomAddr; // FS ROM location
 extern u32 DataDirMax; // Directory count
 extern s32* DataDirTbl; // Directory offset table pointer.
 
-extern u8* DataFileRomAddr; // FS ROM location (copy)
+extern u32 DataFileRomAddr; // FS ROM location (copy)
 extern u32 DataFileMax; // Directory count (copy)
 extern s32* DataFileTbl; // Directory offset table pointer (copy)
 
 extern HuArchive gArchive;
 
-void DataInit(u8* fsRomPtr);
+void DataInit(u32 fsRomPtr);
 void DataInfoRead(EArchiveType type, s32 index, HuFileInfo* info);
 void* DataRead(s32 dirAndFile);
 void* DataReadTemp(s32 dirAndFile);

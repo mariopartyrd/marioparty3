@@ -192,7 +192,7 @@ void opDemoEventSetup(void) {
     func_80110F48_52F578_opening();
     CameraViewportSet(0, &D_80114BB8_5331E8_opening, &D_80114BC4_5331F4_opening);
     CameraScissorSet(0, &D_80114BD0_533200_opening);
-    func_800E6630_FA250_shared_board(hvq_data_ROM_START);
+    func_800E6630_FA250_shared_board((u32)hvq_data_ROM_START);
     func_80112944_530F74_opening();
     func_80110B90_52F1C0_opening();
     opContErrorCreate();

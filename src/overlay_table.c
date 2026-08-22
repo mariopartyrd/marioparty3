@@ -3,7 +3,7 @@
 u8 D_800962F0_96EF0[] = { 0, 0, 0, 0 };
 
 #define OVL_ENTRY(name)                              \
-    { name##_ROM_START, name##_ROM_END, name##_VRAM, \
+    { (u32)name##_ROM_START, (u32)name##_ROM_END, name##_VRAM, \
       name##_TEXT_START, name##_TEXT_END,            \
       name##_DATA_START, name##_RODATA_END,          \
       name##_BSS_START, name##_BSS_END }

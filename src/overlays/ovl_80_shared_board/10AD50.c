@@ -203,25 +203,21 @@ void func_800F7578_10B198_shared_board(void) {
 // TODO: cleanup this jank function
 void func_800F7578_10B198_shared_board(void) {
     s32 new_var;
-
+    
     while (1) {
-        new_var = D_80105630_119250_shared_board[0] =
-            D_80101A40_115660_shared_board[MBRand(ARRAY_COUNT(D_80101A40_115660_shared_board))];
-
-        if (new_var == 0x12) {
-            if (GwSystem.unk_52 == 0) {
-                if (new_var == 0x12) {
-                    GwSystem.unk_52 = 1;
-                    break;
-                }
-            } else {
-                do {
-                } while (0);
-                continue;
+        new_var = D_80105630_119250_shared_board[0] = D_80101A40_115660_shared_board[MBRand(4.0f)];
+        if (new_var != 0x12) {
+            break;
+        }
+        if (GwSystem.unk_52 == 0) {
+            if (new_var == 0x12) {
+                GwSystem.unk_52 = 1;
             }
             break;
         }
-        break;
+        if (new_var != 0x12) {
+            GwSystem.unk_52 = 1;
+        }
     }
 
     D_80105634_119254_shared_board = -1;

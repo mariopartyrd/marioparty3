@@ -1,4 +1,5 @@
 #include "common.h"
+#include "mallocblock.h"
 #include "ovl_80.h"
 
 typedef struct UnkCam3DStruct {
@@ -12,18 +13,63 @@ typedef struct UnkHvqStruct {
     s32 unk_04;
     u8* dest;
     s32 dmaSize;
-    u8* src;
+    u32 src;
 } UnkHvqStruct;
 
+typedef struct UnkFAC88 {
+    /* 0x00 */ u8 unk0;                             /* inferred */
+    /* 0x01 */ u8 unk1;                             /* inferred */
+    /* 0x02 */ s16 unk2;                            /* inferred */
+    /* 0x04 */ void* unk4;                          /* inferred */
+    /* 0x08 */ void* unk_08;
+    /* 0x0C */ char padC[8];                        /* maybe part of unk_08[3]? */
+} UnkFAC88;                                         /* size = 0x14 */
+
+typedef struct UnkMallocStruct {
+    s32 unk_00;
+    s32 unk_04;
+    s32 unk_08;
+    s32 unk_0C;
+} UnkMallocStruct;
+
+extern UnkMallocStruct* D_80102DB8_1169D8_shared_board;
+
+typedef struct UnkModelStruct {
+    /* 0x00 */ s32 unk0;                             /* inferred */
+    /* 0x04 */ s32 unk4;                            /* inferred */
+    /* 0x08 */ s32 unk8;                            /* inferred */
+    /* 0x0C */ s32 unkC;                            /* inferred */
+    /* 0x10 */ char pad10[4];                       /* maybe part of unkC[3]? */
+    /* 0x14 */ f32 unk14;                           /* inferred */
+    /* 0x18 */ f32 unk18;                           /* inferred */
+    /* 0x1C */ f32 unk1C;                           /* inferred */
+    /* 0x20 */ f32 unk20;                           /* inferred */
+    /* 0x24 */ f32 unk24;                           /* inferred */
+    /* 0x28 */ f32 unk28;                           /* inferred */
+    /* 0x2C */ f32 unk2C;                           /* inferred */
+    /* 0x30 */ char pad30[0xC];                     /* maybe part of unk2C[4]? */
+} UnkModelStruct;                                   /* size = 0x3C */
+
+extern UnkModelStruct* D_80101248_114E68_shared_board;
+
+typedef struct HVQHeader {
+    s32 allocSize;
+    u8* unk_04;
+    char unk_08[8];
+} HVQHeader; //TODO: there's like 3 of these, no idea if they are the same or not
+
+extern u16 D_80102DC0_1169E0_shared_board;
+extern u8 D_801030A8_116CC8_shared_board[144];
+extern UnkFAC88 D_80102DD8_1169F8_shared_board[36];
+extern OSMesgQueue D_80103468_117088_shared_board;
 extern u16 D_80105212_118E32_shared_board;
 extern u8 D_8010124C_114E6C_shared_board;
 extern s32 D_801012C8_114EE8_shared_board[];
 extern s32 D_80101318_114F38_shared_board[];
 extern s32* D_80101240_114E60_shared_board;
-extern s32* D_80101248_114E68_shared_board;
-extern u8* D_80102DB0_1169D0_shared_board;
+extern u32 D_80102DB0_1169D0_shared_board;
 extern s32 D_80102DB4_1169D4_shared_board;
-extern void* D_80101244_114E64_shared_board;
+extern u32* D_80101244_114E64_shared_board;
 extern u16 D_80102DC0_1169E0_shared_board;
 extern f32 D_8010341C_11703C_shared_board;
 extern f32 D_801049F0_118610_shared_board[2];
@@ -39,18 +85,23 @@ extern void* D_80104940_118560_shared_board;
 extern void* D_801049E8_118608_shared_board;
 extern OSThread D_80103EC0_117AE0_shared_board;
 extern s32 D_80104070_117C90_shared_board;
-
-s32 dmaRead(u8* src, u8* dest, s32 size);
-void func_8001F95C_2055C(s32, s32);
+extern s16 D_80102DC2_1169E2_shared_board;
+extern s16 D_80102DC4_1169E4_shared_board;
+extern s16 D_80102DC6_1169E6_shared_board;
+extern s16 D_80102DC8_1169E8_shared_board;
+extern f32 D_80101250_114E70_shared_board;
+void MBBackTPLvlSet(u8 arg0);
+s32 dmaRead(u32 src, u8 *dest, s32 size);
+void func_8001F95C_2055C(s32, void (*func)(void));
 void func_800E9328_FCF48_shared_board(void);
+void func_800E6EC8_FAAE8_shared_board(void);
+void func_800E7130_FAD50_shared_board(void);
+void func_800E7068_FAC88_shared_board(void);
+void func_800E71EC_FAE0C_shared_board(void);
+void func_800E86CC_FC2EC_shared_board(void);
+void func_800E90BC_FCCDC_shared_board(void);
 
-typedef struct HVQHeader {
-    s32 allocSize;
-    u8* unk_04;
-    char unk_08[8];
-} HVQHeader; //TODO: there's like 3 of these, no idea if they are the same or not
-
-void func_800E6630_FA250_shared_board(u8* arg0) {
+void func_800E6630_FA250_shared_board(u32 arg0) {
     HVQHeader* temp_v0;
     s32* temp_v0_2;
     u32 temp_s0;
@@ -63,7 +114,7 @@ void func_800E6630_FA250_shared_board(u8* arg0) {
     temp_s0 = D_80102DB4_1169D4_shared_board * 4;
     temp_v0_2 = HuMemMemoryAllocTemp(temp_s0);
     D_80101240_114E60_shared_board = temp_v0_2;
-    dmaRead(&arg0[4], (u8*)temp_v0_2, temp_s0);
+    dmaRead(arg0 + 4, (u8*)temp_v0_2, temp_s0);
     D_80102DCC_1169EC_shared_board = HuMemMemoryAllocTemp(0x300); //TODO: hardcoded size
     D_80101248_114E68_shared_board = NULL;
 }
@@ -80,8 +131,65 @@ void MBBackClose(void) {
     }
 }
 
+extern s32 D_80105990_1195B0_shared_board;
+extern s32* D_80101240_114E60_shared_board; //TODO: fix type
+extern Vec D_80103450_117070_shared_board;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBBackCreate);
+extern f32 D_80101254_114E74_shared_board;
+extern f32 D_80101258_114E78_shared_board;
+
+s32 func_800E7330_FAF50_shared_board(u16 arg0);
+
+void MBBackCreate(s32 arg0, s32 arg1) {
+    UnkModelStruct* temp_v0_3;
+    s32 temp_s2;
+    u32 temp_s0;
+    s32* temp_v0;
+    u32* temp_v0_2;
+
+    D_80105990_1195B0_shared_board = arg0;
+    D_80102DB8_1169D8_shared_board = (UnkMallocStruct*)(D_80102DB0_1169D0_shared_board + D_80101240_114E60_shared_board[arg0]); //TODO: odd
+    temp_v0 = HuMemMemoryAllocTemp(sizeof(HVQHeader));
+    dmaRead((u32)D_80102DB8_1169D8_shared_board, (u8*)temp_v0, sizeof(HVQHeader));
+    arg0 = *temp_v0;
+    HuMemMemoryFreeTemp(temp_v0);
+    arg0++;
+    temp_s0 = arg0 * 4;
+    temp_v0_2 = HuMemMemoryAllocTemp(temp_s0);
+    D_80101244_114E64_shared_board = temp_v0_2;
+    dmaRead((u32)&D_80102DB8_1169D8_shared_board->unk_04, (u8*)temp_v0_2, temp_s0);
+    temp_v0_3 = HuMemMemoryAllocTemp(sizeof(UnkModelStruct));
+    D_80101248_114E68_shared_board = temp_v0_3;
+    dmaRead((u32)D_80102DB8_1169D8_shared_board + D_80101244_114E64_shared_board[0], (u8*)&temp_v0_3->unk0, sizeof(UnkModelStruct));
+    D_80103450_117070_shared_board.x = D_80101248_114E68_shared_board->unk18;
+    D_80103450_117070_shared_board.y = D_80101248_114E68_shared_board->unk1C;
+    D_80103450_117070_shared_board.z = D_80101248_114E68_shared_board->unk20;
+    D_80101248_114E68_shared_board->unk18 *= 5.0f;
+    D_80101248_114E68_shared_board->unk1C *= 5.0f;
+    D_80101248_114E68_shared_board->unk20 *= 5.0f;
+    D_80101248_114E68_shared_board->unk24 *= 5.0f;
+    D_80101248_114E68_shared_board->unk28 *= 5.0f;
+    D_80101248_114E68_shared_board->unk2C *= 5.0f;
+    D_80103138_116D58_shared_board = HuMemMemoryAllocTemp(func_800E7330_FAF50_shared_board(0));
+    dmaRead((u32)D_80102DB8_1169D8_shared_board + D_80101244_114E64_shared_board[1], D_80103138_116D58_shared_board, func_800E7330_FAF50_shared_board(0));
+    D_80102DC4_1169E4_shared_board = 0;
+    D_80102DC2_1169E2_shared_board = 0;
+    D_80102DC6_1169E6_shared_board = D_80101248_114E68_shared_board->unk0 * D_80101248_114E68_shared_board->unk8 / 2;
+    D_80102DC8_1169E8_shared_board = D_80101248_114E68_shared_board->unk4 * D_80101248_114E68_shared_board->unkC / 2;
+    D_80102DC0_1169E0_shared_board = 1;
+    func_8001F95C_2055C(0, func_800E86CC_FC2EC_shared_board);
+    func_800E7254_FAE74_shared_board();
+    func_800E6FBC_FABDC_shared_board();
+    if (arg1 != 0) {
+        func_800E90BC_FCCDC_shared_board();
+    }
+    func_800E9730_FD350_shared_board(1.0f);
+    MBBackTPLvlSet(0xFF);
+    MBCameraSpeedSet(-1.0f);
+    D_80101254_114E74_shared_board = 0.0f;
+    D_80101258_114E78_shared_board = 0.0f;
+    MBCameraZoomSet(1.0f);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBBackLoad);
 
@@ -96,12 +204,6 @@ void MBBackKill(void) {
         func_800E9328_FCF48_shared_board();
     }
 }
-
-extern s16 D_80102DC2_1169E2_shared_board;
-extern s16 D_80102DC4_1169E4_shared_board;
-extern s16 D_80102DC6_1169E6_shared_board;
-extern s16 D_80102DC8_1169E8_shared_board;
-extern f32 D_80101250_114E70_shared_board;
 
 void MBBackOffsetSet(s16 arg0, s16 arg1) {
     D_80102DC2_1169E2_shared_board = arg0;
@@ -302,25 +404,101 @@ void func_800E7018_FAC38_shared_board(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E7068_FAC88_shared_board);
+void func_800E7068_FAC88_shared_board(void) {
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E7130_FAD50_shared_board);
+    osJamMesg(&D_80103468_117088_shared_board, NULL, OS_MESG_NOBLOCK);
+    osJamMesg(&D_80104880_1184A0_shared_board, NULL, OS_MESG_NOBLOCK);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E71A8_FADC8_shared_board);
+    func_800E6FBC_FABDC_shared_board();
+    func_800E6FDC_FABFC_shared_board();
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E71EC_FAE0C_shared_board);
+    osRecvMesg(&D_801049D0_1185F0_shared_board, NULL, OS_MESG_BLOCK);
+    osRecvMesg(&D_801049D0_1185F0_shared_board, NULL, OS_MESG_BLOCK);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E7254_FAE74_shared_board);
+    for (i = 0; i < ARRAY_COUNT(D_80102DD8_1169F8_shared_board); i++) {
+        UnkFAC88* temp = &D_80102DD8_1169F8_shared_board[i];
+        if (temp->unk_08 != NULL) {
+            HuMemMemoryFreePerm(temp->unk_08);
+            temp->unk_08 = NULL;
+        }
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E728C_FAEAC_shared_board);
+void func_800E7130_FAD50_shared_board(void) {
+    UnkFAC88* var_s0 = D_80102DD8_1169F8_shared_board;
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E72C4_FAEE4_shared_board);
+    for (i = 0; i < ARRAY_COUNT(D_80102DD8_1169F8_shared_board); i++, var_s0++) {
+        var_s0->unk0 = 0;
+        var_s0->unk1 = 0;
+        var_s0->unk2 = -1;
+        var_s0->unk4 = HuMemAlloc(0x1800);
+        var_s0->unk_08 = NULL;
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBBackMdlScaleGet);
+    bzero(D_801030A8_116CC8_shared_board, sizeof(D_801030A8_116CC8_shared_board));
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E7300_FAF20_shared_board);
+void func_800E71A8_FADC8_shared_board(void) {
+    UnkFAC88* var_v1 = D_80102DD8_1169F8_shared_board;
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E7330_FAF50_shared_board);
+    for (i = 0; i < ARRAY_COUNT(D_80102DD8_1169F8_shared_board); i++, var_v1++) {
+        if ((var_v1->unk_08 == NULL) && (var_v1->unk0 == 0)) {
+            var_v1->unk2 = -1;
+        }
+        var_v1->unk0 = 0;
+    }
+}
+
+void func_800E71EC_FAE0C_shared_board(void) {
+    UnkFAC88* var_s0 = D_80102DD8_1169F8_shared_board;
+    s32 i;
+
+    for (i = 0; i < ARRAY_COUNT(D_80102DD8_1169F8_shared_board); i++, var_s0++) {
+        var_s0->unk0 = 0;
+        var_s0->unk2 = -1;
+
+        if (var_s0->unk4 != NULL) {
+            HuMemFree(var_s0->unk4);
+            var_s0->unk4 = NULL;
+        }
+    }
+}
+
+void func_800E7254_FAE74_shared_board(void) {
+    func_800E7130_FAD50_shared_board();
+    func_800E6EC8_FAAE8_shared_board();
+    D_80102DC0_1169E0_shared_board |= 4;
+}
+
+void func_800E728C_FAEAC_shared_board(void) {
+    func_800E7068_FAC88_shared_board();
+    func_800E71EC_FAE0C_shared_board();
+    D_80102DC0_1169E0_shared_board &= ~4;
+}
+
+void func_800E72C4_FAEE4_shared_board(void) {
+    D_80102DC0_1169E0_shared_board &= ~4;
+}
+
+f32 MBBackMdlScaleGet(void) {
+    if (D_80101248_114E68_shared_board == NULL) {
+        return 1.0f;
+    } else {
+        return D_80101248_114E68_shared_board->unk14;
+    }
+}
+
+u16 func_800E7300_FAF20_shared_board(s32 arg0, s32 arg1) {
+    return ((((D_80101248_114E68_shared_board->unkC - arg1) - 1) * D_80101248_114E68_shared_board->unk8) + arg0 + 1);
+}
+
+s32 func_800E7330_FAF50_shared_board(u16 arg0) {
+    arg0++;
+    return D_80101244_114E64_shared_board[(arg0 + 1)] - D_80101244_114E64_shared_board[(arg0 + 0)];
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E7358_FAF78_shared_board);
 
@@ -393,7 +571,7 @@ void MBCamera3Dto2D(Vec* arg0, f32* arg1) {
     arg1[1] = sp10.unk_00.y + sp10.unk_0C;
 }
 
-void MBBackTPLvlSet(s8 arg0) {
+void MBBackTPLvlSet(u8 arg0) {
     D_8010124C_114E6C_shared_board = arg0;
 }
 
@@ -410,7 +588,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBCameraStopC
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E9AF0_FD710_shared_board);
 
 void func_800E9BB0_FD7D0_shared_board(void) {
-    func_800E6630_FA250_shared_board(hvq_data_ROM_START);
+    func_800E6630_FA250_shared_board((u32)hvq_data_ROM_START);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E9BD0_FD7F0_shared_board);

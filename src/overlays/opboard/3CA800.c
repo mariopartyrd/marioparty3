@@ -67,7 +67,7 @@ void func_80108CC0_3CDB20_opboard(void) {
     s32 sp10[] = { 3, 6, 9, 0xC, 0xF, 0x12 };
 
     Hu3DCamInit(1);
-    func_800E6630_FA250_shared_board(hvq_data_ROM_START);
+    func_800E6630_FA250_shared_board((u32)hvq_data_ROM_START);
     MBBackLoad(sp10[GwSystem.current_board_index]);
 }
 

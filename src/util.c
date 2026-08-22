@@ -50,7 +50,7 @@ u8 rand8(void) {
 void func_8000B1A0_BDA0(s32 arg0, u8 sectionFlags) {
     u8 *textVramEnd;
     u8 *textVramStart;
-    u8 *romStart;
+    u32 romStart;
     u8 *dataVramStart;
     u8 *dataVramEnd;
     u8 *bss_end;
@@ -96,8 +96,8 @@ void func_8000B1A0_BDA0(s32 arg0, u8 sectionFlags) {
 
 // copies in an overlay and clears bss region.
 void OvlLoad(s32 overlayIndex) {
-    u8 *rom_start;
-    u8 *rom_end;
+    u32 rom_start;
+    u32 rom_end;
     u8 *bss_start;
     u8 *bss_end;
     u8 *curBssAddr;

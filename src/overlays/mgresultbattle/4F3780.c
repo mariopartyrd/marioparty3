@@ -88,7 +88,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mgresultbattle/4F3780", func_80105E64_4F3
 void func_80105EF4_4F3CD4_mgresultbattle(void) {
     GW_SYSTEM *system = &GwSystem;
 
-    func_800E6630_FA250_shared_board(hvq_data_ROM_START);
+    func_800E6630_FA250_shared_board((u32)hvq_data_ROM_START);
 
     if (!(system->playMode & 2)) {
         MBBackCreate(D_80108908_4F66E8_mgresultbattle[system->current_board_index], 0);

@@ -20,7 +20,7 @@ void func_80106F40_4E8360_mgresultboard(omObjData *);
 void func_80106FC8_4E83E8_mgresultboard(void);
 void func_80107188_4E85A8_mgresultboard(void);
 void func_80107234_4E8654_mgresultboard(void);
-void func_800E6630_FA250_shared_board(Addr);
+void func_800E6630_FA250_shared_board(u32);
 void MBBackCreate(s32, s32);
 void func_80107024_4E8444_mgresultboard(void);
 extern s32 D_8010AD0C_4EC12C_mgresultboard[];
@@ -445,7 +445,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106F40_4E83
 void func_80106FC8_4E83E8_mgresultboard(void) {
     GW_SYSTEM *system = &GwSystem;
 
-    func_800E6630_FA250_shared_board(hvq_data_ROM_START);
+    func_800E6630_FA250_shared_board((u32)hvq_data_ROM_START);
 
     if (!(system->playMode & 2)) {
         MBBackCreate(D_8010AD0C_4EC12C_mgresultboard[system->current_board_index], 0);
