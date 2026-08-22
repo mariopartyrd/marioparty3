@@ -80,7 +80,7 @@ void func_8005F698_60298(s16, s16, s16, s16, u8);
 void func_8005F744_60344(s16, s16, s16, s16);
 void func_8005FE54_60A54(s16, s16);
 void func_8006010C_60D0C(s16, s16);
-void Hu3DCam3DToScreen(s16 camIndex, Vec * worldPos, f32 * outPos);
+void Hu3DCam3DToScreen(s16 camIndex, Vec * worldPos, Vec2f * outPos);
 s32 func_80017BB8_187B8(s16, s16);
 void func_800039A4_45A4(s16, s16);
 void func_8005FBA4_607A4(u8*, s32);

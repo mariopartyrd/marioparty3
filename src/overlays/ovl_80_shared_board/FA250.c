@@ -3,7 +3,7 @@
 #include "ovl_80.h"
 
 typedef struct UnkCam3DStruct {
-    f32 unk_00[2];
+    Vec2f unk_00;
     f32 unk_08;
     f32 unk_0C;
 } UnkCam3DStruct;
@@ -69,7 +69,7 @@ extern s32 D_80102DB4_1169D4_shared_board;
 extern u32* D_80101244_114E64_shared_board;
 extern u16 D_80102DC0_1169E0_shared_board;
 extern f32 D_8010341C_11703C_shared_board;
-extern f32 D_801049F0_118610_shared_board[2];
+extern Vec2f D_801049F0_118610_shared_board;
 extern f32 D_80101250_114E70_shared_board;
 extern f32 D_801049F8_118618_shared_board[];
 extern OSMesgQueue D_80103468_117088_shared_board;
@@ -229,24 +229,24 @@ f32 MBBackMaxYGet(void) {
     return ((D_80102DC8_1169E8_shared_board - 120.0f) / D_8010341C_11703C_shared_board) + 120.0f;
 }
 
-u16 MBBackPosClamp(f32* arg0, f32 arg1) {
+u16 MBBackPosClamp(Vec2f* arg0, f32 arg1) {
     s32 var_v1;
 
     var_v1 = 0;
-    if (arg0[0] <= (((-D_80102DC6_1169E6_shared_board + 160.0f) / arg1) + 160.0f)) {
-        arg0[0] = ((-D_80102DC6_1169E6_shared_board + 160.0f) / arg1) + 160.0f;
+    if (arg0->x <= (((-D_80102DC6_1169E6_shared_board + 160.0f) / arg1) + 160.0f)) {
+        arg0->x = ((-D_80102DC6_1169E6_shared_board + 160.0f) / arg1) + 160.0f;
         var_v1 = 1;
     }
-    if (((D_80102DC6_1169E6_shared_board - 160.0f) / arg1) + 160.0f + ((320.0f / arg1) - (320.0f / (arg1 * D_80101250_114E70_shared_board))) <= arg0[0]) {
-        arg0[0] = ((D_80102DC6_1169E6_shared_board - 160.0f) / arg1) + 160.0f + ((320.0f / arg1) - (320.0f / (arg1 * D_80101250_114E70_shared_board)));
+    if (((D_80102DC6_1169E6_shared_board - 160.0f) / arg1) + 160.0f + ((320.0f / arg1) - (320.0f / (arg1 * D_80101250_114E70_shared_board))) <= arg0->x) {
+        arg0->x = ((D_80102DC6_1169E6_shared_board - 160.0f) / arg1) + 160.0f + ((320.0f / arg1) - (320.0f / (arg1 * D_80101250_114E70_shared_board)));
         var_v1 |= 2;
     }
-    if (arg0[1] <= ((-D_80102DC8_1169E8_shared_board + 120.0f) / arg1) + 120.0f) {
-        arg0[1] = ((-D_80102DC8_1169E8_shared_board + 120.0f) / arg1) + 120.0f;
+    if (arg0->y <= ((-D_80102DC8_1169E8_shared_board + 120.0f) / arg1) + 120.0f) {
+        arg0->y = ((-D_80102DC8_1169E8_shared_board + 120.0f) / arg1) + 120.0f;
         var_v1 |= 4;
     }
-    if (((D_80102DC8_1169E8_shared_board - 120.0f) / arg1) + 120.0f + ((240.0f / arg1) - (240.0f / (arg1 * D_80101250_114E70_shared_board))) <= arg0[1]) {
-        arg0[1] = ((D_80102DC8_1169E8_shared_board - 120.0f) / arg1) + 120.0f + ((240.0f / arg1) - (240.0f / (arg1 * D_80101250_114E70_shared_board)));
+    if (((D_80102DC8_1169E8_shared_board - 120.0f) / arg1) + 120.0f + ((240.0f / arg1) - (240.0f / (arg1 * D_80101250_114E70_shared_board))) <= arg0->y) {
+        arg0->y = ((D_80102DC8_1169E8_shared_board - 120.0f) / arg1) + 120.0f + ((240.0f / arg1) - (240.0f / (arg1 * D_80101250_114E70_shared_board)));
         var_v1 |= 8;
     }
     return var_v1;
@@ -727,8 +727,8 @@ void func_800E90BC_FCCDC_shared_board(void) {
     D_80103444_117064_shared_board.z = 511.0f;
     D_801049F8_118618_shared_board[0] = 640.0f;
     D_801049F8_118618_shared_board[1] = 480.0f;
-    D_801049F0_118610_shared_board[0] = 159.5f;
-    D_801049F0_118610_shared_board[1] = 119.5f;
+    D_801049F0_118610_shared_board.x = 159.5f;
+    D_801049F0_118610_shared_board.y = 119.5f;
     D_80103418_117038_shared_board = 1.0f;
     temp_v0 = omAddPrcObj(func_800E9358_FCF78_shared_board, 0x1001U, 0, 0);
     D_80103410_117030_shared_board = temp_v0;
@@ -788,16 +788,16 @@ void func_800E9358_FCF78_shared_board(void) {
         Hu3DCamSetPositionOrientation(0, &D_80103420_117040_shared_board, &D_8010342C_11704C_shared_board, &D_80103438_117058_shared_board);
         Hu3DCamUpdateMtx(0);
 
-        sp38.x = ((((D_801049F0_118610_shared_board[0] - 160.0f) * D_8010341C_11703C_shared_board * -4.0f) + 640.0f) - D_801049F8_118618_shared_board[0]) / D_80103418_117038_shared_board;
-        sp38.y = ((((D_801049F0_118610_shared_board[1] - 120.0f) * D_8010341C_11703C_shared_board * -4.0f) + 480.0f) - D_801049F8_118618_shared_board[1]) / D_80103418_117038_shared_board;
+        sp38.x = ((((D_801049F0_118610_shared_board.x - 160.0f) * D_8010341C_11703C_shared_board * -4.0f) + 640.0f) - D_801049F8_118618_shared_board[0]) / D_80103418_117038_shared_board;
+        sp38.y = ((((D_801049F0_118610_shared_board.y - 120.0f) * D_8010341C_11703C_shared_board * -4.0f) + 480.0f) - D_801049F8_118618_shared_board[1]) / D_80103418_117038_shared_board;
         sp38.z = 0.0f;
 
         temp_f2 = HuVecGetLength3F(&sp38) / 4.0f;
 
         if (temp_f2 <= 1.0f) {
             D_80102DC0_1169E0_shared_board &= 0xFFFD;
-            D_801049F8_118618_shared_board[0] = ((D_801049F0_118610_shared_board[0] - 160.0f) * D_8010341C_11703C_shared_board * -4.0f) + 640.0f;
-            D_801049F8_118618_shared_board[1] = ((D_801049F0_118610_shared_board[1] - 120.0f) * D_8010341C_11703C_shared_board * -4.0f) + 480.0f;
+            D_801049F8_118618_shared_board[0] = ((D_801049F0_118610_shared_board.x - 160.0f) * D_8010341C_11703C_shared_board * -4.0f) + 640.0f;
+            D_801049F8_118618_shared_board[1] = ((D_801049F0_118610_shared_board.y - 120.0f) * D_8010341C_11703C_shared_board * -4.0f) + 480.0f;
         } else {
             D_80102DC0_1169E0_shared_board |= 2;
             if ((D_80102DBC_1169DC_shared_board >= 0.0f) && (D_80102DBC_1169DC_shared_board < temp_f2)) {
@@ -838,37 +838,40 @@ u16 MBCameraPos3DSet(Vec *arg0) {
     f32 scale;
     f32 halfW;
     f32 halfH;
-    f32* temp;
+    Vec2f* temp;
     
     D_8010125C_114E7C_shared_board.x = arg0->x;
     D_8010125C_114E7C_shared_board.y = arg0->y;
     D_8010125C_114E7C_shared_board.z = arg0->z;
 
     HuVecCopyXYZ(&sp10, arg0->x, arg0->y + 10.0f, arg0->z);
-    Hu3DCam3DToScreen(0, &sp10, D_801049F0_118610_shared_board);
+    Hu3DCam3DToScreen(0, &sp10, &D_801049F0_118610_shared_board);
 
-    temp = D_801049F0_118610_shared_board;
+    temp = &D_801049F0_118610_shared_board;
 
     halfW = 320.0f / (2.0f * D_8010341C_11703C_shared_board);
-    temp[0] += halfW - (halfW / D_80101250_114E70_shared_board);
+    temp->x += halfW - (halfW / D_80101250_114E70_shared_board);
 
     halfH = 240.0f / (2.0f * D_8010341C_11703C_shared_board);
-    D_801049F0_118610_shared_board[1] += halfH - (halfH / D_80101250_114E70_shared_board);
+    D_801049F0_118610_shared_board.y += halfH - (halfH / D_80101250_114E70_shared_board);
 
-    return MBBackPosClamp(D_801049F0_118610_shared_board, D_8010341C_11703C_shared_board);
+    return MBBackPosClamp(&D_801049F0_118610_shared_board, D_8010341C_11703C_shared_board);
 }
 
-u16 MBCameraPos2DSet(f32* arg0) {
-    D_801049F0_118610_shared_board[0] = arg0[0] / D_8010341C_11703C_shared_board + 160.0f;
-    D_801049F0_118610_shared_board[1] = arg0[1] / D_8010341C_11703C_shared_board + 120.0f;
-    return MBBackPosClamp(D_801049F0_118610_shared_board, D_8010341C_11703C_shared_board);
+u16 MBCameraPos2DSet(Vec2f* arg0) {
+    D_801049F0_118610_shared_board.x = arg0->x / D_8010341C_11703C_shared_board + 160.0f;
+    D_801049F0_118610_shared_board.y = arg0->y / D_8010341C_11703C_shared_board + 120.0f;
+    return MBBackPosClamp(&D_801049F0_118610_shared_board, D_8010341C_11703C_shared_board);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBCameraPos3DGet);
+void MBCameraPos3DGet(Vec2f* arg0) {
+    arg0->x = (D_801049F0_118610_shared_board.x - 160.0f) * D_8010341C_11703C_shared_board;
+    arg0->y = (D_801049F0_118610_shared_board.y - 120.0f) * D_8010341C_11703C_shared_board;
+}
 
-void MBCameraPos2DGet(f32 *arg0) {
-    arg0[0] = -((D_801049F8_118618_shared_board[0] / 4.0f) - 160.0f);
-    arg0[1] = -((D_801049F8_118618_shared_board[1] / 4.0f) - 120.0f);
+void MBCameraPos2DGet(Vec2f *arg0) {
+    arg0->x = -((D_801049F8_118618_shared_board[0] / 4.0f) - 160.0f);
+    arg0->y = -((D_801049F8_118618_shared_board[1] / 4.0f) - 120.0f);
 }
 
 void MBCamera3Dto2D(Vec* arg0, f32* arg1) {
@@ -877,18 +880,18 @@ void MBCamera3Dto2D(Vec* arg0, f32* arg1) {
     f32 temp_f2;
     f32 temp_f6;
 
-    Hu3DCam3DToScreen(0, arg0, sp10.unk_00);
+    Hu3DCam3DToScreen(0, arg0, &sp10.unk_00);
     temp_f6 = 2.0f * D_8010341C_11703C_shared_board;
     temp_f2 = 320.0f / temp_f6;
-    sp10.unk_00[0] = (temp_f2 - (temp_f2 / D_80101250_114E70_shared_board)) + sp10.unk_00[0];
+    sp10.unk_00.x = (temp_f2 - (temp_f2 / D_80101250_114E70_shared_board)) + sp10.unk_00.x;
     temp_f0 = 240.0f / temp_f6;
-    sp10.unk_00[1] =  (temp_f0 - (temp_f0 / D_80101250_114E70_shared_board)) + sp10.unk_00[1];
-    sp10.unk_00[0] = ((sp10.unk_00[0] - 160.0f) * D_8010341C_11703C_shared_board) + 160.0f;
-    sp10.unk_00[1] = ((sp10.unk_00[1] - 120.0f) * D_8010341C_11703C_shared_board) + 120.0f;
+    sp10.unk_00.y =  (temp_f0 - (temp_f0 / D_80101250_114E70_shared_board)) + sp10.unk_00.y;
+    sp10.unk_00.x = ((sp10.unk_00.x - 160.0f) * D_8010341C_11703C_shared_board) + 160.0f;
+    sp10.unk_00.y = ((sp10.unk_00.y - 120.0f) * D_8010341C_11703C_shared_board) + 120.0f;
     sp10.unk_08 = (D_801049F8_118618_shared_board[0] / 4.0f) - 160.0f;
     sp10.unk_0C = (D_801049F8_118618_shared_board[1] / 4.0f) - 120.0f;
-    arg1[0] = sp10.unk_00[0] + sp10.unk_08;
-    arg1[1] = sp10.unk_00[1] + sp10.unk_0C;
+    arg1[0] = sp10.unk_00.x + sp10.unk_08;
+    arg1[1] = sp10.unk_00.y + sp10.unk_0C;
 }
 
 void MBBackTPLvlSet(u8 arg0) {
@@ -922,7 +925,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E9C94
 void func_800E9EF4_FDB14_shared_board(void) {
     s32 i;
 
-    for (i = 0; i < 64; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80104A00_118620_shared_board); i++) {
         D_80104A00_118620_shared_board[i].unk_00 = 0;
     }
 
@@ -1005,7 +1008,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBMasuStarSet
 void MBMasuDraw(Gfx **arg0, Mtx *arg1, s32 arg2) {
     Gfx **gfxPos = arg0;
     Mtx sp10;
-    f32 sp50[2];
+    Vec2f sp50;
     Mtx *sp5C;
     u8 *sp64;
     u8 *sp6C;
@@ -1027,7 +1030,7 @@ void MBMasuDraw(Gfx **arg0, Mtx *arg1, s32 arg2) {
         gSPDisplayList((*gfxPos)++, D_801013D8_114FF8_shared_board);
         func_80012640_13240(0, gfxPos);
         func_800127C4_133C4(0, gfxPos);
-        MBCameraPos3DGet(sp50);
+        MBCameraPos3DGet(&sp50);
 
         if ((D_80105260_118E80_shared_board == 0) || (var_v0 = 8, (D_80105260_118E80_shared_board != 1))) {
             var_v0 = 0x10;

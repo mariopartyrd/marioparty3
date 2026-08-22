@@ -406,7 +406,7 @@ void func_800FC8DC_E46AC_name_81(UnkE3CD0 *arg0) {
 }
 
 void func_800FC8E8_E46B8_name_81(void) {
-    f32 sp10[2];
+    Vec2f sp10;
     Vec sp18;
 
     while (1) {
@@ -426,8 +426,8 @@ void func_800FC8E8_E46B8_name_81(void) {
                 MBDCameraPos3DSet(&sp18);
                 break;
             case 3:
-                MBDCameraPos2DGet(sp10);
-                MBDCameraPos2DSet(sp10);
+                MBDCameraPos2DGet(&sp10);
+                MBDCameraPos2DSet(&sp10);
                 break;
         }
         HuPrcVSleep();

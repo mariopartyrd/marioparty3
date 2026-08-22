@@ -215,7 +215,7 @@ void func_80100228_113E48_shared_board(void) {
 }
 
 void func_8010024C_113E6C_shared_board(void) {
-    f32 sp10[2];
+    Vec2f sp10;
     Unk3* temp_s6;
     Unk3* var_s4;
     UnkBoard8* temp_s3;
@@ -255,26 +255,26 @@ void func_8010024C_113E6C_shared_board(void) {
     while (1) {
         s16 temp2 = 16;
         HuPrcVSleep();
-        MBCameraPos2DGet(sp10);
-        temp = MBCameraPos2DSet(sp10);
+        MBCameraPos2DGet(&sp10);
+        temp = MBCameraPos2DSet(&sp10);
         func_800FFEC4_113AE4_shared_board(temp_s3, temp);
         if (D_800D5546_D6146[temp_s2] & 0x200) {
-            sp10[0] -= 16.0f;
+            sp10.x -= 16.0f;
             var_s1 = 0xF;
         }
         if (D_800D5546_D6146[temp_s2] & 0x100) {
-            sp10[0] += temp2;
+            sp10.x += temp2;
             var_s1 = 0xF;
         }
         if (D_800D5546_D6146[temp_s2] & 0x800) {
-            sp10[1] -= temp2;
+            sp10.y -= temp2;
             var_s1 = 0xF;
         }
         if (D_800D5546_D6146[temp_s2] & 0x400) {
-            sp10[1] += temp2;
+            sp10.y += temp2;
             var_s1 = 0xF;
         }
-        MBCameraPos2DSet(sp10);
+        MBCameraPos2DSet(&sp10);
         if (var_s1 != 0) {
             var_s1 -= 1;
             MBStatusHideAll();
@@ -309,7 +309,7 @@ void func_8010024C_113E6C_shared_board(void) {
         func_800E9730_FD350_shared_board(1.0f);
         func_800E6FBC_FABDC_shared_board();
         MBCameraZoomSet(D_801056E8_119308_shared_board);
-        MBCameraPos2DSet(D_801056EC_11930C_shared_board);
+        MBCameraPos2DSet(&D_801056EC_11930C_shared_board);
         HuPrcVSleep();
         func_800E9730_FD350_shared_board(temp_f20);
         
@@ -348,7 +348,7 @@ void MBMapScrollExec(s32 arg0) {
     Process* temp_v0;
 
     D_801056E8_119308_shared_board = MBCameraZoomGet();
-    MBCameraPos2DGet(D_801056EC_11930C_shared_board);
+    MBCameraPos2DGet(&D_801056EC_11930C_shared_board);
     D_800CB99C_CC59C = 1;
     func_80049FB8_4ABB8();
     func_800E6FCC_FABEC_shared_board();

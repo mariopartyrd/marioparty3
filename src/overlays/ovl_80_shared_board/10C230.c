@@ -739,7 +739,7 @@ void MBCameraFocusVecSet(Vec *arg0) {
 }
 
 void func_800F91A4_10CDC4_shared_board(void) {
-    f32 sp10[2];
+    Vec2f sp10;
 
     while (1) {
         switch (D_8010566E_11928E_shared_board) {
@@ -753,8 +753,8 @@ void func_800F91A4_10CDC4_shared_board(void) {
                 MBCameraPos3DSet(D_8010567C_11929C_shared_board);
                 break;
             case 3:
-                MBCameraPos2DGet(sp10);
-                MBCameraPos2DSet(sp10);
+                MBCameraPos2DGet(&sp10);
+                MBCameraPos2DSet(&sp10);
                 break;
         }
         HuPrcVSleep();
@@ -3385,7 +3385,7 @@ void func_800FF0F8_112D18_shared_board(void) {
 }
 
 void func_800FF158_112D78_shared_board(void) {
-    f32 sp10[2];
+    Vec2f sp10;
     s32 curPlayerNo;
     s32 i;
     s32 comDecision;
@@ -3406,8 +3406,8 @@ void func_800FF158_112D78_shared_board(void) {
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
             if ((D_800C9520_CA120[i] & START_BUTTON) && GwPlayer[GwSystem.current_player_index].itemTurn == 0) {
                 func_800DE874_F2494_shared_board(curPlayerNo);
-                MBCameraPos2DGet(sp10);
-                MBCameraPos2DSet(sp10);
+                MBCameraPos2DGet(&sp10);
+                MBCameraPos2DSet(&sp10);
                 MBPauseCreate(i);
                 func_800DE8D8_F24F8_shared_board(curPlayerNo);
                 break;

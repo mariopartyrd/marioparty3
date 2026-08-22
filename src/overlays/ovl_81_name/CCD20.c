@@ -108,22 +108,23 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", func_800E8578_D0348_n
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", MBDCameraPos3DSet);
 
-u16 MBDCameraPos2DSet(f32 *arg0) {
-    D_80104840_EC610_name_81[0] = arg0[0] / D_801031D0_EAFA0_name_81 + 160.0f;
-    D_80104840_EC610_name_81[1] = arg0[1] / D_801031D0_EAFA0_name_81 + 120.0f;
+u16 MBDCameraPos2DSet(Vec2f *arg0) {
+    D_80104840_EC610_name_81[0] = arg0->x / D_801031D0_EAFA0_name_81 + 160.0f;
+    D_80104840_EC610_name_81[1] = arg0->y / D_801031D0_EAFA0_name_81 + 120.0f;
     return MBDBackPosClamp(D_80104840_EC610_name_81, D_801031D0_EAFA0_name_81);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", MBDCameraPos3DGet);
 
-void MBDCameraPos2DGet(f32 *arg0) {
-    arg0[0] = -((D_80104848_EC618_name_81[0] / 4.0f) - 160.0f);
-    arg0[1] = -((D_80104848_EC618_name_81[1] / 4.0f) - 120.0f);
+void MBDCameraPos2DGet(Vec2f *arg0) {
+    arg0->x = -((D_80104848_EC618_name_81[0] / 4.0f) - 160.0f);
+    arg0->y = -((D_80104848_EC618_name_81[1] / 4.0f) - 120.0f);
 }
 
-void MBDCamera3Dto2D(Vec *arg0, f32 *arg1) {
+void MBDCamera3Dto2D(Vec *arg0, Vec2f *arg1) {
     typedef struct UnkData {
-        Vec vec;
+        Vec2f vec;
+        f32 unk_08;
         f32 unk_0C;
     } UnkData;
 
@@ -140,10 +141,10 @@ void MBDCamera3Dto2D(Vec *arg0, f32 *arg1) {
     sp10.vec.y = (temp_f0 - (temp_f0 / D_80101000_E8DD0_name_81)) + sp10.vec.y;
     sp10.vec.x = ((sp10.vec.x - 160.0f) * D_801031D0_EAFA0_name_81) + 160.0f;
     sp10.vec.y = ((sp10.vec.y - 120.0f) * D_801031D0_EAFA0_name_81) + 120.0f;
-    sp10.vec.z = (D_80104848_EC618_name_81[0] / 4.0f) - 160.0f;
+    sp10.unk_08 = (D_80104848_EC618_name_81[0] / 4.0f) - 160.0f;
     sp10.unk_0C = (D_80104848_EC618_name_81[1] / 4.0f) - 120.0f;
-    arg1[0] = sp10.vec.x + sp10.vec.z;
-    arg1[1] = sp10.vec.y + sp10.unk_0C;
+    arg1->x = sp10.vec.x + sp10.unk_08;
+    arg1->y = sp10.vec.y + sp10.unk_0C;
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/CCD20", MBDBackTPLvlSet);

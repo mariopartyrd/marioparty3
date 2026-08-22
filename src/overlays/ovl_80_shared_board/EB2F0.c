@@ -245,7 +245,7 @@ extern s32 D_80100824_114444_shared_board[];
 extern s32 D_80105990_1195B0_shared_board;
 
 void MBMapFullMain(void) {
-    f32 sp10[2];            /* MBCameraPos2DGet target (sp10/sp14) */
+    Vec2f sp10;
     f32 sp18[2];            /* MBCamera3Dto2D target (sp18/sp1C) */
     s32 userData;        /* sp24 */
     s32 savedBack;       /* sp2C */
@@ -279,7 +279,7 @@ void MBMapFullMain(void) {
 
     D_80102AA8_1166C8_shared_board = sel;
     savedZoom = MBCameraZoomGet();
-    MBCameraPos2DGet(sp10);
+    MBCameraPos2DGet(&sp10);
     WipeCreateOut(0, 8);
     HuPrcSleep(8);
     func_800EA358_FDF78_shared_board();
@@ -295,7 +295,7 @@ void MBMapFullMain(void) {
     MBBackLoad(D_80102700_116320_shared_board);
     iconGrp = func_800F2C48_106868_shared_board(0x20, 0);
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         player = MBPlayerGet(i);
         MBCamera3Dto2D(&MBMasuGet(MBMasuLinkMasuIdGet(player->clink, player->cidx))->coords, sp18);
         D_80102A88_1166A8_shared_board[i] = sp18[0];
@@ -303,7 +303,7 @@ void MBMapFullMain(void) {
     }
 
     
-    for (i = 0, j = 0; j < 0x20; i++, j++) {
+    for (i = 0, j = 0; j < ARRAY_COUNT(D_80102708_116328_shared_board); i++, j++) {
         entry = &D_80102708_116328_shared_board[j];
         if (entry->unk_00 >= 0) {
             data = DataRead(D_801007A0_1143C0_shared_board[entry->unk_00]);
@@ -394,7 +394,7 @@ void MBMapFullMain(void) {
     MBBackKill();
     MBBackLoad(savedBack);
     MBCameraZoomSet(savedZoom);
-    MBCameraPos2DSet(sp10);
+    MBCameraPos2DSet(&sp10);
     HuPrcVSleep();
     D_80105706_119326_shared_board |= 1;
     func_800DB884_EF4A4_shared_board(GwSystem.current_player_index);
