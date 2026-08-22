@@ -39,13 +39,13 @@ INCLUDE_RODATA("asm/nonmatchings/overlays/last5/3C6310", D_80107510_3C7E80_last5
 
 INCLUDE_RODATA("asm/nonmatchings/overlays/last5/3C6310", D_80107520_3C7E90_last5);
 
-s32 func_801073B0_3C7D20_last5(void) {
+void func_801073B0_3C7D20_last5(void) {
     s32 sp10[] = { 4, 7, 0xA, 0xD, 0x10, 0x13 };
 
     Hu3DCamInit(1);
     func_800E6630_FA250_shared_board((u32)hvq_data_ROM_START);
     MBBackLoad(sp10[GwSystem.current_board_index]);
-    return func_800E9344_FCF64_shared_board(1000.0f, 10000.0f);
+    func_800E9344_FCF64_shared_board(1000.0f, 10000.0f);
 }
 
 void func_80107450_3C7DC0_last5(void) {

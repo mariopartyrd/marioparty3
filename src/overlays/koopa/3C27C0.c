@@ -24,7 +24,7 @@ void func_8005A6B0_5B2B0(void);
 void func_80108D2C_3C5B4C_koopa(void);
 void func_80109220_3C6040_koopa(omObjData *);
 s32 func_8010926C_3C608C_koopa(void);
-s32 func_801092D4_3C60F4_koopa(void);
+void func_801092D4_3C60F4_koopa(void);
 void func_80107724_3C4544_koopa(void);
 s32 func_80107A9C_3C48BC_koopa(void);
 s32 func_80107DDC_3C4BFC_koopa(void);
@@ -511,11 +511,11 @@ INCLUDE_ASM("asm/nonmatchings/overlays/koopa/3C27C0", func_8010926C_3C608C_koopa
 
 INCLUDE_ASM("asm/nonmatchings/overlays/koopa/3C27C0", func_801092A0_3C60C0_koopa);
 
-s32 func_801092D4_3C60F4_koopa(void) {
+void func_801092D4_3C60F4_koopa(void) {
     Hu3DCamInit(1);
     func_800E6630_FA250_shared_board((u32)hvq_data_ROM_START);
     MBBackLoad(2);
-    return func_800E9344_FCF64_shared_board(100.0f, 10000.0f);
+    func_800E9344_FCF64_shared_board(100.0f, 10000.0f);
 }
 
 void func_80109320_3C6140_koopa(void) {

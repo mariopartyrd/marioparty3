@@ -3,7 +3,8 @@
 #include "ovl_80.h"
 
 typedef struct UnkCam3DStruct {
-    Vec unk_00;
+    f32 unk_00[2];
+    f32 unk_08;
     f32 unk_0C;
 } UnkCam3DStruct;
 
@@ -17,38 +18,34 @@ typedef struct UnkHvqStruct {
 } UnkHvqStruct;
 
 typedef struct UnkFAC88 {
-    /* 0x00 */ u8 unk0;                             /* inferred */
-    /* 0x01 */ u8 unk1;                             /* inferred */
-    /* 0x02 */ s16 unk2;                            /* inferred */
-    /* 0x04 */ void* unk4;                          /* inferred */
+    /* 0x00 */ u8 unk0;
+    /* 0x01 */ u8 unk1;
+    /* 0x02 */ s16 unk2;
+    /* 0x04 */ void* unk4;
     /* 0x08 */ void* unk_08;
-    /* 0x0C */ char padC[8];                        /* maybe part of unk_08[3]? */
-} UnkFAC88;                                         /* size = 0x14 */
+    /* 0x0C */ s32 unkC;
+    /* 0x10 */ s32 unk10;
+} UnkFAC88; //sizeof 0x14
 
-typedef struct UnkMallocStruct {
-    s32 unk_00;
-    s32 unk_04;
-    s32 unk_08;
-    s32 unk_0C;
-} UnkMallocStruct;
-
-extern UnkMallocStruct* D_80102DB8_1169D8_shared_board;
+extern s32 D_80102DB8_1169D8_shared_board;
 
 typedef struct UnkModelStruct {
-    /* 0x00 */ s32 unk0;                             /* inferred */
-    /* 0x04 */ s32 unk4;                            /* inferred */
-    /* 0x08 */ s32 unk8;                            /* inferred */
-    /* 0x0C */ s32 unkC;                            /* inferred */
-    /* 0x10 */ char pad10[4];                       /* maybe part of unkC[3]? */
-    /* 0x14 */ f32 unk14;                           /* inferred */
-    /* 0x18 */ f32 unk18;                           /* inferred */
-    /* 0x1C */ f32 unk1C;                           /* inferred */
-    /* 0x20 */ f32 unk20;                           /* inferred */
-    /* 0x24 */ f32 unk24;                           /* inferred */
-    /* 0x28 */ f32 unk28;                           /* inferred */
-    /* 0x2C */ f32 unk2C;                           /* inferred */
-    /* 0x30 */ char pad30[0xC];                     /* maybe part of unk2C[4]? */
-} UnkModelStruct;                                   /* size = 0x3C */
+    /* 0x00 */ s32 unk0;
+    /* 0x04 */ s32 unk4;
+    /* 0x08 */ s32 unk8;
+    /* 0x0C */ s32 unkC;
+    /* 0x10 */ f32 unk10;
+    /* 0x14 */ f32 unk14;
+    /* 0x18 */ f32 unk18;
+    /* 0x1C */ f32 unk1C;
+    /* 0x20 */ f32 unk20;
+    /* 0x24 */ f32 unk24;
+    /* 0x28 */ f32 unk28;
+    /* 0x2C */ f32 unk2C;
+    /* 0x30 */ f32 unk30;
+    /* 0x34 */ f32 unk34;
+    /* 0x38 */ f32 unk38;
+} UnkModelStruct; //sizeof 0x3C
 
 extern UnkModelStruct* D_80101248_114E68_shared_board;
 
@@ -59,7 +56,7 @@ typedef struct HVQHeader {
 } HVQHeader; //TODO: there's like 3 of these, no idea if they are the same or not
 
 extern u16 D_80102DC0_1169E0_shared_board;
-extern u8 D_801030A8_116CC8_shared_board[144];
+extern UnkFAC88 *D_801030A8_116CC8_shared_board[6][6];
 extern UnkFAC88 D_80102DD8_1169F8_shared_board[36];
 extern OSMesgQueue D_80103468_117088_shared_board;
 extern u16 D_80105212_118E32_shared_board;
@@ -90,6 +87,16 @@ extern s16 D_80102DC4_1169E4_shared_board;
 extern s16 D_80102DC6_1169E6_shared_board;
 extern s16 D_80102DC8_1169E8_shared_board;
 extern f32 D_80101250_114E70_shared_board;
+extern Process* D_80103414_117034_shared_board;
+extern Process* D_80103410_117030_shared_board;
+extern f32 D_80103418_117038_shared_board;
+extern Vec D_80103420_117040_shared_board;
+extern Vec D_8010342C_11704C_shared_board;
+extern Vec D_80103438_117058_shared_board;
+extern Vec D_80103444_117064_shared_board;
+extern Vec D_8010125C_114E7C_shared_board;
+
+void func_800E9358_FCF78_shared_board(void);            /* extern */
 void MBBackTPLvlSet(u8 arg0);
 s32 dmaRead(u32 src, u8 *dest, s32 size);
 void func_8001F95C_2055C(s32, void (*func)(void));
@@ -100,6 +107,7 @@ void func_800E7068_FAC88_shared_board(void);
 void func_800E71EC_FAE0C_shared_board(void);
 void func_800E86CC_FC2EC_shared_board(void);
 void func_800E90BC_FCCDC_shared_board(void);
+void func_800E8DE0_FCA00_shared_board(void);
 
 void func_800E6630_FA250_shared_board(u32 arg0) {
     HVQHeader* temp_v0;
@@ -148,7 +156,7 @@ void MBBackCreate(s32 arg0, s32 arg1) {
     u32* temp_v0_2;
 
     D_80105990_1195B0_shared_board = arg0;
-    D_80102DB8_1169D8_shared_board = (UnkMallocStruct*)(D_80102DB0_1169D0_shared_board + D_80101240_114E60_shared_board[arg0]); //TODO: odd
+    D_80102DB8_1169D8_shared_board = D_80102DB0_1169D0_shared_board + D_80101240_114E60_shared_board[arg0];
     temp_v0 = HuMemMemoryAllocTemp(sizeof(HVQHeader));
     dmaRead((u32)D_80102DB8_1169D8_shared_board, (u8*)temp_v0, sizeof(HVQHeader));
     arg0 = *temp_v0;
@@ -157,10 +165,10 @@ void MBBackCreate(s32 arg0, s32 arg1) {
     temp_s0 = arg0 * 4;
     temp_v0_2 = HuMemMemoryAllocTemp(temp_s0);
     D_80101244_114E64_shared_board = temp_v0_2;
-    dmaRead((u32)&D_80102DB8_1169D8_shared_board->unk_04, (u8*)temp_v0_2, temp_s0);
+    dmaRead(D_80102DB8_1169D8_shared_board + 4, (u8*)temp_v0_2, temp_s0);
     temp_v0_3 = HuMemMemoryAllocTemp(sizeof(UnkModelStruct));
     D_80101248_114E68_shared_board = temp_v0_3;
-    dmaRead((u32)D_80102DB8_1169D8_shared_board + D_80101244_114E64_shared_board[0], (u8*)&temp_v0_3->unk0, sizeof(UnkModelStruct));
+    dmaRead(D_80102DB8_1169D8_shared_board + D_80101244_114E64_shared_board[0], (u8*)&temp_v0_3->unk0, sizeof(UnkModelStruct));
     D_80103450_117070_shared_board.x = D_80101248_114E68_shared_board->unk18;
     D_80103450_117070_shared_board.y = D_80101248_114E68_shared_board->unk1C;
     D_80103450_117070_shared_board.z = D_80101248_114E68_shared_board->unk20;
@@ -171,7 +179,7 @@ void MBBackCreate(s32 arg0, s32 arg1) {
     D_80101248_114E68_shared_board->unk28 *= 5.0f;
     D_80101248_114E68_shared_board->unk2C *= 5.0f;
     D_80103138_116D58_shared_board = HuMemMemoryAllocTemp(func_800E7330_FAF50_shared_board(0));
-    dmaRead((u32)D_80102DB8_1169D8_shared_board + D_80101244_114E64_shared_board[1], D_80103138_116D58_shared_board, func_800E7330_FAF50_shared_board(0));
+    dmaRead(D_80102DB8_1169D8_shared_board + D_80101244_114E64_shared_board[1], D_80103138_116D58_shared_board, func_800E7330_FAF50_shared_board(0));
     D_80102DC4_1169E4_shared_board = 0;
     D_80102DC2_1169E2_shared_board = 0;
     D_80102DC6_1169E6_shared_board = D_80101248_114E68_shared_board->unk0 * D_80101248_114E68_shared_board->unk8 / 2;
@@ -191,7 +199,9 @@ void MBBackCreate(s32 arg0, s32 arg1) {
     MBCameraZoomSet(1.0f);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBBackLoad);
+void MBBackLoad(s32 arg0) {
+    MBBackCreate(arg0, 1);
+}
 
 void MBBackKill(void) {
     if (D_80101244_114E64_shared_board != NULL) {
@@ -500,43 +510,353 @@ s32 func_800E7330_FAF50_shared_board(u16 arg0) {
     return D_80101244_114E64_shared_board[(arg0 + 1)] - D_80101244_114E64_shared_board[(arg0 + 0)];
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E7358_FAF78_shared_board);
+s32 func_800E7358_FAF78_shared_board(u16 arg0) {
+    arg0++;
+    return D_80102DB8_1169D8_shared_board + D_80101244_114E64_shared_board[(arg0)];
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E7384_FAFA4_shared_board);
+extern s32 D_8010345C_11707C_shared_board;
+extern u16 D_8010345E_11707E_shared_board;
+extern s32 D_80103460_117080_shared_board;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E7514_FB134_shared_board);
+typedef struct UnkFAF78 {
+    /* 0x00 */ s32 unk_00;   /* count */
+    /* 0x04 */ s32 *unk_04;  /* id list */
+    /* 0x08 */ char pad08[4];
+} UnkFAF78; /* size = 0xC */
+
+extern UnkFAF78 *D_80103464_117084_shared_board;
+
+UnkFAC88 *func_800E7384_FAFA4_shared_board(u16 arg0) {
+    UnkFAC88 *entry;
+    UnkFAC88 *slot;
+    u16 bank;
+    s32 i;
+    s32 size;
+
+    slot = NULL;
+    entry = D_80102DD8_1169F8_shared_board;
+    bank = 0;
+
+    if (D_8010345C_11707C_shared_board != 0) {
+        for (i = 0; i < D_80103464_117084_shared_board[D_80103460_117080_shared_board].unk_00 - 1; i++) {
+            if (arg0 == D_80103464_117084_shared_board[D_80103460_117080_shared_board].unk_04[i]) {
+                bank = D_8010345C_11707C_shared_board;
+            }
+        }
+    }
+
+    for (i = 0; i < 36; i++, entry++) {
+        if (entry->unk2 == -1) {
+            slot = entry;
+        } else if (entry->unk2 == arg0) {
+            if (entry->unk1 == bank) {
+                entry->unk0 = 1;
+                return entry;
+            }
+        }
+    }
+
+    if (slot != NULL) {
+        slot->unk0 = 1;
+        slot->unk2 = arg0;
+        slot->unk1 = bank;
+        slot->unk10 = func_800E7358_FAF78_shared_board(arg0);
+        size = func_800E7330_FAF50_shared_board(arg0);
+        slot->unkC = size;
+        slot->unk_08 = HuMemMemoryAllocPerm(size);
+        osSendMesg(&D_80103468_117088_shared_board, slot, OS_MESG_NOBLOCK);
+    }
+    return slot;
+}
+
+void func_800E7514_FB134_shared_board(void) {
+    s32 tileX;
+    s32 tileY;
+    s32 x;
+    s32 y;
+
+    tileY = (s32)(((f32)((D_80102DC8_1169E8_shared_board + D_80102DC4_1169E4_shared_board) - 0x78) -
+                   ((240.0f - (240.0f / D_80101250_114E70_shared_board)) / 2.0f)) / 48.0f);
+
+    for (y = 0; y < 6; y++, tileY++) {
+        tileX = (s32)(((f32)((D_80102DC6_1169E6_shared_board + D_80102DC2_1169E2_shared_board) - 0xA0) -
+                       ((320.0f - (320.0f / D_80101250_114E70_shared_board)) / 2.0f)) / 64.0f);
+
+        for (x = 0; x < 6; x++, tileX++) {
+            if ((tileX < 0) || (tileY < 0) ||
+                (tileX >= D_80101248_114E68_shared_board->unk8) ||
+                (tileY >= D_80101248_114E68_shared_board->unkC)) {
+                D_801030A8_116CC8_shared_board[x][y] = NULL;
+            } else {
+                D_801030A8_116CC8_shared_board[x][y] =
+                    func_800E7384_FAFA4_shared_board(func_800E7300_FAF20_shared_board(tileX, tileY));
+            }
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E76EC_FB30C_shared_board);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E86CC_FC2EC_shared_board);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBCameraZoomGet);
+f32 MBCameraZoomGet(void) {
+    return D_80101250_114E70_shared_board;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBCameraZoomSet);
+void MBCameraZoomSet(f32 zoom) {
+    D_80101250_114E70_shared_board = zoom;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E8DE0_FCA00_shared_board);
+void func_800E8DE0_FCA00_shared_board(void) {
+    f32 target;
+    f32 diff;
+    f32 step;
+    f32 next;
+    f32 temp;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBCameraZoomMotStart);
+    target = *(f32 *)HuPrcCurrentGet()->user_data;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E8F54_FCB74_shared_board);
+    while (1) {
+        diff = D_80101250_114E70_shared_board - target;
+        step = (0.0f < diff) ? diff : 0.0f - (D_80101250_114E70_shared_board - target);
+        
+        if (step <= 0.005f) {
+            break;
+        }
+        
+        step /= 4.0f;
+        if (step < 0.005f) {
+            step = 0.005f;
+        }
+        if (target < D_80101250_114E70_shared_board) {
+            next = D_80101250_114E70_shared_board - step;
+        } else {
+            next = step + D_80101250_114E70_shared_board;
+        }
+        D_80101250_114E70_shared_board = next;
+        HuPrcVSleep();
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E9044_FCC64_shared_board);
+    D_80101250_114E70_shared_board = target;
+    D_80103414_117034_shared_board = NULL;
+    omDelPrcObj(NULL);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E90BC_FCCDC_shared_board);
+Process* MBCameraZoomMotStart(f32 arg0) {
+    Process* temp_v0;
+    f32* temp_v0_2;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E92D4_FCEF4_shared_board);
+    if (D_80103414_117034_shared_board != NULL) {
+        omDelPrcObj(D_80103414_117034_shared_board);
+    }
+    D_80103414_117034_shared_board = omAddPrcObj(func_800E8DE0_FCA00_shared_board, 1U, 0, 0x40);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E9328_FCF48_shared_board);
+    temp_v0_2 = HuMemMemoryAlloc(D_80103414_117034_shared_board->heap, 0x10);
+    D_80103414_117034_shared_board->user_data = temp_v0_2;
+    *temp_v0_2 = arg0;
+    return D_80103414_117034_shared_board;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E9344_FCF64_shared_board);
+void func_800E8F54_FCB74_shared_board(void) {
+    f32 temp_f22;
+    f32 temp_f2;
+    f32 var_f0;
+    f32 var_f20;
+    s32 var_s0;
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E9358_FCF78_shared_board);
+    temp_f22 = *(f32*)HuPrcCurrentGet()->user_data;
+    temp_f2 = D_80101250_114E70_shared_board - temp_f22;
+    if (temp_f2 > 0.0f) {
+        var_f20 = temp_f2 / 5.0f;
+    } else {
+        var_f20 = (0.0f - (D_80101250_114E70_shared_board - temp_f22)) / 5.0f;
+    }
+    for (i = 0; i < 5; i++, HuPrcVSleep()) {
+        if (temp_f22 < D_80101250_114E70_shared_board) {
+            D_80101250_114E70_shared_board = D_80101250_114E70_shared_board - var_f20;
+        } else {
+            D_80101250_114E70_shared_board = var_f20 + D_80101250_114E70_shared_board;
+        }
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E9730_FD350_shared_board);
+    D_80101250_114E70_shared_board = temp_f22;
+    D_80103414_117034_shared_board = NULL;
+    omDelPrcObj(NULL);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E973C_FD35C_shared_board);
+Process* func_800E9044_FCC64_shared_board(f32 arg0) {
+    Process* proc;
+    f32* temp_v0_2;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBCameraPos3DSet);
+    if (D_80103414_117034_shared_board != NULL) {
+        omDelPrcObj(D_80103414_117034_shared_board);
+    }
+
+    proc = omAddPrcObj(func_800E8F54_FCB74_shared_board, 1, 0, 0x40);
+    D_80103414_117034_shared_board = proc;
+    temp_v0_2 = HuMemMemoryAlloc(proc->heap, 0x10);
+    D_80103414_117034_shared_board->user_data = temp_v0_2;
+    *temp_v0_2 = arg0;
+    return D_80103414_117034_shared_board;
+}
+
+void func_800E90BC_FCCDC_shared_board(void) {
+    Process* temp_v0;
+    f32 temp_f2;
+    f32 temp_f4;
+
+    temp_f2 = (f32) (D_80101248_114E68_shared_board->unk4 * D_80101248_114E68_shared_board->unkC) / 240.0f;
+    D_8010341C_11703C_shared_board = temp_f2;
+    temp_f4 = (f32) (D_80101248_114E68_shared_board->unk0 * D_80101248_114E68_shared_board->unk8) / 320.0f;
+    if (temp_f2 < temp_f4) {
+        D_8010341C_11703C_shared_board = temp_f4;
+    }
+    D_80103420_117040_shared_board.x = D_80101248_114E68_shared_board->unk18;
+    D_80103420_117040_shared_board.y = D_80101248_114E68_shared_board->unk1C;
+    D_80103420_117040_shared_board.z = D_80101248_114E68_shared_board->unk20;
+    D_8010342C_11704C_shared_board.x = D_80101248_114E68_shared_board->unk24;
+    D_8010342C_11704C_shared_board.y = D_80101248_114E68_shared_board->unk28;
+    D_8010342C_11704C_shared_board.z = D_80101248_114E68_shared_board->unk2C;
+    D_80103438_117058_shared_board.x = D_80101248_114E68_shared_board->unk30;
+    D_80103438_117058_shared_board.y = D_80101248_114E68_shared_board->unk34;
+    D_80103438_117058_shared_board.z = D_80101248_114E68_shared_board->unk38;
+    D_80103444_117064_shared_board.x = (f32) (D_8010341C_11703C_shared_board * 640.0f);
+    D_80103444_117064_shared_board.y = (f32) (D_8010341C_11703C_shared_board * 480.0f);
+    D_80103444_117064_shared_board.z = 511.0f;
+    D_801049F8_118618_shared_board[0] = 640.0f;
+    D_801049F8_118618_shared_board[1] = 480.0f;
+    D_801049F0_118610_shared_board[0] = 159.5f;
+    D_801049F0_118610_shared_board[1] = 119.5f;
+    D_80103418_117038_shared_board = 1.0f;
+    temp_v0 = omAddPrcObj(func_800E9358_FCF78_shared_board, 0x1001U, 0, 0);
+    D_80103410_117030_shared_board = temp_v0;
+    omPrcSetStatBit(temp_v0, 0x80);
+    D_80103414_117034_shared_board = 0;
+    Hu3DCamSetPerspective(0, D_80101248_114E68_shared_board->unk10, 10.0f, 200.0f);
+    Hu3DCamSetPositionOrientation(0, &D_80103420_117040_shared_board, &D_8010342C_11704C_shared_board, &D_80103438_117058_shared_board);
+    Hu3DCamUpdateMtx(0);
+}
+
+void func_800E92D4_FCEF4_shared_board(void) {
+    if (D_80103410_117030_shared_board != NULL) {
+        omDelPrcObj(D_80103410_117030_shared_board);
+        D_80103410_117030_shared_board = NULL;
+    }
+    if (D_80103414_117034_shared_board != NULL) {
+        omDelPrcObj(D_80103414_117034_shared_board);
+        D_80103414_117034_shared_board = NULL;
+    }
+}
+
+void func_800E9328_FCF48_shared_board(void) {
+    func_800E92D4_FCEF4_shared_board();
+}
+
+void func_800E9344_FCF64_shared_board(f32 arg0, f32 arg1) {
+    D_80101258_114E78_shared_board = arg0;
+    D_80101254_114E74_shared_board = arg1;
+}
+
+extern f32 D_80102DBC_1169DC_shared_board;
+f32 HuVecDistance(Vec*, Vec*);
+void MBVecNormalize(Vec*);
+
+void func_800E9358_FCF78_shared_board(void) {
+    Vec sp10;
+    s16 sp20[2];
+    Vec sp28;
+    Vec sp38;
+    f32 temp_f2;
+    f32 temp_f4;
+    f32 var_f0;
+    f32 var_f0_2;
+    f32 var_f2;
+
+    while (1) {
+        temp_f4 = HuVecDistance(&D_80103420_117040_shared_board, &D_8010342C_11704C_shared_board);
+        var_f2 = D_80101254_114E74_shared_board;
+        if ((var_f2 == 0.0f) || (var_f0 = D_80101258_114E78_shared_board, (var_f0 == 0.0f))) {
+            var_f2 = temp_f4 + 1000.0f;
+            var_f0 = var_f2 - 2000.0f;
+        }
+        if (var_f0 < 10.0f) {
+            var_f0 = 10.0f;
+        }
+        Hu3DCamSetPerspective(0, D_80101248_114E68_shared_board->unk10, var_f0, var_f2);
+        Hu3DCamSetPositionOrientation(0, &D_80103420_117040_shared_board, &D_8010342C_11704C_shared_board, &D_80103438_117058_shared_board);
+        Hu3DCamUpdateMtx(0);
+
+        sp38.x = ((((D_801049F0_118610_shared_board[0] - 160.0f) * D_8010341C_11703C_shared_board * -4.0f) + 640.0f) - D_801049F8_118618_shared_board[0]) / D_80103418_117038_shared_board;
+        sp38.y = ((((D_801049F0_118610_shared_board[1] - 120.0f) * D_8010341C_11703C_shared_board * -4.0f) + 480.0f) - D_801049F8_118618_shared_board[1]) / D_80103418_117038_shared_board;
+        sp38.z = 0.0f;
+
+        temp_f2 = HuVecGetLength3F(&sp38) / 4.0f;
+
+        if (temp_f2 <= 1.0f) {
+            D_80102DC0_1169E0_shared_board &= 0xFFFD;
+            D_801049F8_118618_shared_board[0] = ((D_801049F0_118610_shared_board[0] - 160.0f) * D_8010341C_11703C_shared_board * -4.0f) + 640.0f;
+            D_801049F8_118618_shared_board[1] = ((D_801049F0_118610_shared_board[1] - 120.0f) * D_8010341C_11703C_shared_board * -4.0f) + 480.0f;
+        } else {
+            D_80102DC0_1169E0_shared_board |= 2;
+            if ((D_80102DBC_1169DC_shared_board >= 0.0f) && (D_80102DBC_1169DC_shared_board < temp_f2)) {
+                MBVecNormalize(&sp38);
+                HuVecMulScalar(&sp38, D_80102DBC_1169DC_shared_board * 4.0f, &sp38);
+            }
+            D_801049F8_118618_shared_board[0] += sp38.x;
+            D_801049F8_118618_shared_board[1] = D_801049F8_118618_shared_board[1] + sp38.y;
+        }
+
+        sp20[0] = D_801049F8_118618_shared_board[0] / 4.0f;
+        sp20[1] = D_801049F8_118618_shared_board[1] / 4.0f;
+
+        sp10.x = D_801049F8_118618_shared_board[0] * D_80101250_114E70_shared_board;
+        sp10.y = D_801049F8_118618_shared_board[1] * D_80101250_114E70_shared_board;
+        sp10.z = 511.5f;
+
+        sp28.x = D_8010341C_11703C_shared_board * 640.0f * D_80101250_114E70_shared_board;
+        sp28.y = D_8010341C_11703C_shared_board * 480.0f * D_80101250_114E70_shared_board;
+        sp28.z = 511.0f;
+
+        CameraViewportSet(0, &sp28, &sp10);
+        MBBackOffsetSet(-sp20[0] + 0xA0, -sp20[1] + 0x78);
+        HuPrcVSleep();
+    }
+}
+
+void func_800E9730_FD350_shared_board(f32 arg0) {
+    D_80103418_117038_shared_board = arg0;
+}
+
+f32 func_800E973C_FD35C_shared_board(void) {
+    return D_80103418_117038_shared_board;
+}
+
+u16 MBCameraPos3DSet(Vec *arg0) {
+    Vec sp10;
+    f32 scale;
+    f32 halfW;
+    f32 halfH;
+    f32* temp;
+    
+    D_8010125C_114E7C_shared_board.x = arg0->x;
+    D_8010125C_114E7C_shared_board.y = arg0->y;
+    D_8010125C_114E7C_shared_board.z = arg0->z;
+
+    HuVecCopyXYZ(&sp10, arg0->x, arg0->y + 10.0f, arg0->z);
+    Hu3DCam3DToScreen(0, &sp10, D_801049F0_118610_shared_board);
+
+    temp = D_801049F0_118610_shared_board;
+
+    halfW = 320.0f / (2.0f * D_8010341C_11703C_shared_board);
+    temp[0] += halfW - (halfW / D_80101250_114E70_shared_board);
+
+    halfH = 240.0f / (2.0f * D_8010341C_11703C_shared_board);
+    D_801049F0_118610_shared_board[1] += halfH - (halfH / D_80101250_114E70_shared_board);
+
+    return MBBackPosClamp(D_801049F0_118610_shared_board, D_8010341C_11703C_shared_board);
+}
 
 u16 MBCameraPos2DSet(f32* arg0) {
     D_801049F0_118610_shared_board[0] = arg0[0] / D_8010341C_11703C_shared_board + 160.0f;
@@ -557,18 +877,18 @@ void MBCamera3Dto2D(Vec* arg0, f32* arg1) {
     f32 temp_f2;
     f32 temp_f6;
 
-    Hu3DCam3DToScreen(0, arg0, &sp10.unk_00);
+    Hu3DCam3DToScreen(0, arg0, sp10.unk_00);
     temp_f6 = 2.0f * D_8010341C_11703C_shared_board;
     temp_f2 = 320.0f / temp_f6;
-    sp10.unk_00.x = (temp_f2 - (temp_f2 / D_80101250_114E70_shared_board)) + sp10.unk_00.x;
+    sp10.unk_00[0] = (temp_f2 - (temp_f2 / D_80101250_114E70_shared_board)) + sp10.unk_00[0];
     temp_f0 = 240.0f / temp_f6;
-    sp10.unk_00.y =  (temp_f0 - (temp_f0 / D_80101250_114E70_shared_board)) + sp10.unk_00.y;
-    sp10.unk_00.x = ((sp10.unk_00.x - 160.0f) * D_8010341C_11703C_shared_board) + 160.0f;
-    sp10.unk_00.y = ((sp10.unk_00.y - 120.0f) * D_8010341C_11703C_shared_board) + 120.0f;
-    sp10.unk_00.z = (D_801049F8_118618_shared_board[0] / 4.0f) - 160.0f;
+    sp10.unk_00[1] =  (temp_f0 - (temp_f0 / D_80101250_114E70_shared_board)) + sp10.unk_00[1];
+    sp10.unk_00[0] = ((sp10.unk_00[0] - 160.0f) * D_8010341C_11703C_shared_board) + 160.0f;
+    sp10.unk_00[1] = ((sp10.unk_00[1] - 120.0f) * D_8010341C_11703C_shared_board) + 120.0f;
+    sp10.unk_08 = (D_801049F8_118618_shared_board[0] / 4.0f) - 160.0f;
     sp10.unk_0C = (D_801049F8_118618_shared_board[1] / 4.0f) - 120.0f;
-    arg1[0] = sp10.unk_00.x + sp10.unk_00.z;
-    arg1[1] = sp10.unk_00.y + sp10.unk_0C;
+    arg1[0] = sp10.unk_00[0] + sp10.unk_08;
+    arg1[1] = sp10.unk_00[1] + sp10.unk_0C;
 }
 
 void MBBackTPLvlSet(u8 arg0) {
@@ -685,7 +1005,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", MBMasuStarSet
 void MBMasuDraw(Gfx **arg0, Mtx *arg1, s32 arg2) {
     Gfx **gfxPos = arg0;
     Mtx sp10;
-    char sp50[4]; // unknown type and size
+    f32 sp50[2];
     Mtx *sp5C;
     u8 *sp64;
     u8 *sp6C;

@@ -133,7 +133,7 @@ typedef struct UnkBoard8 {
 
 void func_80055484_56084(s16 group, s16 member, u8 arg2, u8 arg3, u8 arg4, u16 arg5);
 void MBCameraPos2DGet(f32 *);
-void MBCameraPos3DSet(Vec *);
+u16 MBCameraPos3DSet(Vec *arg0);
 Process *MBPlayerPosMoveCreate(Vec *, Vec *, Vec *, s32);
 void func_800035E8_41E8(s16);
 void func_800DB56C_EF18C_shared_board(void);
@@ -363,7 +363,7 @@ void func_800EC3C0_FFFE0_shared_board(s32);
 void func_800EC3E4_100004_shared_board(void);
 u32 func_800EE884_1024A4_shared_board(Object* arg0, s16 arg1, s16 arg2);
 void MBBackLoad(s32);
-s32 func_800E9344_FCF64_shared_board(f32, f32);
+void func_800E9344_FCF64_shared_board(f32, f32);
 void func_800E6630_FA250_shared_board(u32);
 void func_800D76D0_EB2F0_shared_board(s32);
 void MBModelInit(void);

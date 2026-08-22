@@ -132,7 +132,7 @@ void func_800128EC_134EC(s16 camIndex, void (*arg1)(s32)) {
     gCameraList[camIndex].unkAC = arg1;
 }
 
-void Hu3DCam3DToScreen(s16 camIndex, Vec *worldPos, Vec *outPos) {
+void Hu3DCam3DToScreen(s16 camIndex, Vec *worldPos, f32 *outPos) {
     f32 x;
     f32 y;
     f32 z;
@@ -166,8 +166,8 @@ void Hu3DCam3DToScreen(s16 camIndex, Vec *worldPos, Vec *outPos) {
     projectedZ = ((x * viewMtx[0][2]) + (y * viewMtx[1][2])) + (z * viewMtx[2][2]);
     x = HuMathSin(camera->fov[0] / 2.0f) / HuMathCos(camera->fov[0] / 2.0f) * projectedZ * ASPECT_RATIO;
     y = (HuMathSin(camera->fov[0] / 2.0f) / HuMathCos(camera->fov[0] / 2.0f)) * projectedZ;
-    outPos->x = (projectedX * (SCREEN_WIDTH_CENTER / (-x))) + SCREEN_WIDTH_CENTER;
-    outPos->y = ((projectedY * (SCREEN_HEIGHT_CENTER / y)) + SCREEN_HEIGHT_CENTER);
+    outPos[0] = (projectedX * (SCREEN_WIDTH_CENTER / (-x))) + SCREEN_WIDTH_CENTER;
+    outPos[1] = ((projectedY * (SCREEN_HEIGHT_CENTER / y)) + SCREEN_HEIGHT_CENTER);
 }
 
 void func_80012B14_13714(s16 camIndex, Vec *worldPos, Vec *outPos) {
