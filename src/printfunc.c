@@ -186,7 +186,7 @@ void func_8004DFD8_4EBD8(void) {
 void func_8004DFE4_4EBE4(s16 arg0, u8 *src) {
     u8 *dst;
 
-    if (strline[arg0].str != NULL) {
+    if (strline[arg0].str) {
         dst = strline[arg0].str;
         while (*src != '\0') {
             *dst++ = *src++;

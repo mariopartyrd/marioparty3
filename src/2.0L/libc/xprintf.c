@@ -103,7 +103,7 @@ int _Printf(outfun prout, char *arg, const char *fmt, va_list args) {
             if (!(x.flags & FLAGS_MINUS)) {
                 int i, j;
                 if (0 < (x.width)) {
-                    i, j = x.width;
+                    j = x.width;
                     for (; 0 < j; j -= i) {
                         i = MAX_PAD < (unsigned int)j ? (int)MAX_PAD : j;
                         PUT(spaces, i);
@@ -159,7 +159,7 @@ static void _Putfld(_Pft *x, va_list *args, char type, char *buff) {
                 buff[x->n0++] = ' ';
             }
 
-            x->s = (char *)&buff[x->n0];
+            x->s = (const char *)&buff[x->n0];
 
             _Litob(x, type);
             break;
@@ -189,7 +189,7 @@ static void _Putfld(_Pft *x, va_list *args, char type, char *buff) {
                 }
             }
 
-            x->s = (char *)&buff[x->n0];
+            x->s =  (const char *)&buff[x->n0];
             _Litob(x, type);
             break;
         case 'e':
@@ -207,7 +207,7 @@ static void _Putfld(_Pft *x, va_list *args, char type, char *buff) {
             else if (x->flags & FLAGS_SPACE)
                 buff[x->n0++] = ' ';
 
-            x->s = (char *)&buff[x->n0];
+            x->s =  (const char *)&buff[x->n0];
             _Ldtob(x, type);
             break;
 
@@ -225,7 +225,7 @@ static void _Putfld(_Pft *x, va_list *args, char type, char *buff) {
             break;
         case 'p':
             x->v.ll = (long)va_arg(*args, void *);
-            x->s = (char *)&buff[x->n0];
+            x->s =  (const char *)&buff[x->n0];
             _Litob(x, 'x');
             break;
         case 's':
