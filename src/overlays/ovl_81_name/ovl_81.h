@@ -77,6 +77,8 @@ extern s16 D_801019C8_E9798_name_81[];
 extern s16 D_8010555C_ED32C_name_81;
 extern s16 D_801011D0_E8FA0_name_81;
 
+void MBDBackKill(void);
+void MBDBackClose(void);
 void func_800EBAD4_D38A4_name_81(s32);
 void func_800FC5D8_E43A8_name_81(void);
 void func_800FC4E4_E42B4_name_81(void);

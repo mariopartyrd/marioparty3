@@ -1,19 +1,106 @@
 #include "ChillyWaters.h"
 #include "../ovl_80_shared_board/ovl_80.h"
 
+#define GET_STAR_MODEL() D_8011FA78_3355E8_ChillyWaters[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]]
+
+typedef struct UnkGuide {
+    /* 0x00 */ Object *unk_00;
+    /* 0x04 */ char pad04[4];
+    /* 0x08 */ s16 unk_08;
+    /* 0x0A */ char pad0A[2];
+} UnkGuide; //sizeof 0xC
+
+typedef struct UnkStar {
+/* 0x00 */ char unk_00[8];
+/* 0x08 */ Vec pos;
+} UnkStar; //sizeof?
+
+typedef struct UnkStarWork {
+    /* 0x00 */ char pad00[0xC];
+    /* 0x0C */ Vec unk_0C;
+} UnkStarWork; /* size >= 0x18 */
+
+void func_8004A918_4B518(s32);
+void func_800461B4_46DB4(s16 arg0);
+void MB1Ev_StarGuideIn(void);
+s32 MBCameraStopCheck(void);
+void* MBGuideCreate(s32, s32);
+void MBGuideFaceCreate(Object*, s32, s32, s32);
+void MBGuideFaceSet(Object*, s32);
+void MBGuideKill(void*);
+void func_80046558_47158(s16);
+void func_80060C14_61814(s16, s32);
+void func_80060EA8_61AA8(s16, s32);
+void func_800E6FCC_FABEC_shared_board(void);
+void func_800FFF44_113B64_shared_board(void);
+void func_80100130_113D50_shared_board(void);
+void func_80106544_31C0B4_ChillyWaters(void*);
+void func_8004A880_4B480(s32);
+extern s32 D_8011D2D0_332E40_ChillyWaters[];
+extern s32 D_8011D2EC_332E5C_ChillyWaters[];
+extern Object* D_8011FA78_3355E8_ChillyWaters[];
+extern Process* D_8011FAB8_335628_ChillyWaters;
+extern Object* D_8011FABC_33562C_ChillyWaters;
+extern s16 mb1ev_StarGuideMasu[];
+extern s32 D_8011D308_332E78_ChillyWaters;
+
 // Get toad space index for current start space index.
 s16 MB1Ev_StarGuideMasuGet(void) {
     return mb1ev_StarGuideMasu[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]];
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarShuffle);
+void MB1Ev_StarShuffle(void) {
+    s32 temp;
+    s32 a;
+    s32 b;
+    s32 i;
+    GW_SYSTEM* system = &GwSystem;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarNextPos);
+    for (i = 0; i < 60; i++) {
+        a = rand8() & (STAR_POSITIONS_TOTAL-1);
+        b = rand8() & (STAR_POSITIONS_TOTAL-1);
+        if (a != b) {
+            if (a >= D_8011D290_332E00_ChillyWaters[b]) {
+                if (b >= D_8011D290_332E00_ChillyWaters[a]) {
+                    temp = D_8011D280_332DF0_ChillyWaters[a];
+                    D_8011D280_332DF0_ChillyWaters[a] = D_8011D280_332DF0_ChillyWaters[b];
+                    D_8011D280_332DF0_ChillyWaters[b] = temp;
+
+                    temp = D_8011D290_332E00_ChillyWaters[a];
+                    D_8011D290_332E00_ChillyWaters[a] = D_8011D290_332E00_ChillyWaters[b];
+                    D_8011D290_332E00_ChillyWaters[b] = temp;
+                }
+            }
+        }
+    }
+
+    for (i = 0; i < STAR_POSITIONS_TOTAL; i++) {
+        system->star_spawn_indices[i] = D_8011D280_332DF0_ChillyWaters[i];
+    }
+}
+
+void MB1Ev_StarNextPos(void) {
+    s32 temp_s0;
+    s32 temp_v1;
+    GW_SYSTEM* system = &GwSystem;
+
+    if (++system->current_star_spawn >= STAR_POSITIONS_TOTAL) {
+        temp_s0 = system->star_spawn_indices[7];
+        system->current_star_spawn = 0;
+        GWBoardFlagSet(4);
+        MB1Ev_StarShuffle();
+        if (temp_s0 == system->star_spawn_indices[0]) {
+            temp_s0 = system->star_spawn_indices[0];
+            system->star_spawn_indices[0] = system->star_spawn_indices[7];
+            system->star_spawn_indices[7] = temp_s0;
+        }
+    }
+}
 
 void MB1Ev_StarMasuInit(void) {
     GW_SYSTEM *system = &GwSystem;
     s32 i;
-    for (i = 0; i < ARRAY_COUNT(mb1ev_StarFlag); i++) {
+    for (i = 0; i < STAR_POSITIONS_TOTAL; i++) {
         GWBoardFlagSet(mb1ev_StarFlag[i]);
     }
 
@@ -21,17 +108,309 @@ void MB1Ev_StarMasuInit(void) {
     GWBoardFlagClear(mb1ev_StarFlag[system->star_spawn_indices[system->current_star_spawn]]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarCheck);
+s32 MB1Ev_StarCheck(s16 arg0) {
+    s32 i;
+    GW_SYSTEM* system = &GwSystem;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarGuideIn);
+    for (i = 0; i < STAR_POSITIONS_TOTAL; i++) {
+        if (arg0 == mb1ev_StarMasu[i]) {
+            if (i == system->star_spawn_indices[system->current_star_spawn]) {
+                system->unk_0E = mb1ev_StarFlag[i];
+                return 1;
+            }
+            break;
+        }
+    }
+    return 0;
+}
+
+void MB1Ev_StarGuideIn(void) {
+    UnkStar *unkStar;
+    Object *star;
+    s32 light;
+    f32 scale;
+    f32 angle;
+    f32 speed;
+    s32 i;
+
+    unkStar = HuPrcCurrentGet()->user_data;
+
+    HuAudFXPlay(0x11B);
+    star = D_8011FABC_33562C_ChillyWaters = MBModelCreate(0x3A, NULL);
+    func_800461B4_46DB4(star->omObj1->model[0]);
+    star->flags |= 4;
+    func_800ECC54_100874_shared_board(star);
+    HuVecCopy3F(&star->coords, &unkStar->pos);
+    star->velocity.x = 50.0f;
+
+    light = func_8000CED8_DAD8(0xB0004, 0xAA9);
+    func_8000CD00_D900(light, 2.0f, 20.0f, 1.0f);
+    func_8000D018_DC18(light, 30.0f);
+    func_8000CFA4_DBA4(light, star->coords.x, star->coords.y + star->velocity.x, star->coords.z);
+    func_8001C8A8_1D4A8(light, 1);
+
+    scale = 0.0f;
+
+    for (i = 0; i < 6; i++) {
+        HuVecCopyXYZ(&star->scale, scale, scale, scale);
+        scale += 0.5f;
+        func_8000D018_DC18(light, scale * 30.0f);
+        HuPrcVSleep();
+    }
+
+    for (i = 0; i < 3; i++) {
+        HuVecCopyXYZ(&star->scale, scale, scale, scale);
+        scale -= 0.4f;
+        func_8000D018_DC18(light, scale * 30.0f);
+        HuPrcVSleep();
+    }
+
+    func_8000D018_DC18(light, scale * 30.0f);
+
+    HuPrcSleep(30);
+    HuAudFXPlay(0x132);
+
+    angle = 0.0f;
+    while (1) {
+        func_8008A2A0_8AEA0(HmfModelData[star->omObj1->model[0]].mtx, angle);
+        angle += 20.0f;
+        if (angle >= 360.0f) {
+            angle -= 360.0f;
+        }
+        if (scale > 0.6f) {
+            scale -= 0.04f;
+        }
+        HuVecCopyXYZ(&star->scale, scale, scale, scale);
+
+        if (star->velocity.x > 10.0f) {
+            star->velocity.x -= 1.2f;
+        }
+
+        func_8000D018_DC18(light, scale * 30.0f);
+        func_8000CFA4_DBA4(light, star->coords.x, star->coords.y + star->velocity.x, star->coords.z);
+
+        if ((star->velocity.x <= 10.0f) && (scale <= 0.6f) && (angle == 0.0f)) {
+            break;
+        }
+        HuPrcVSleep();
+    }
+
+    func_8008A2A0_8AEA0(HmfModelData[star->omObj1->model[0]].mtx, 0.0f);
+    func_8000D044_DC44(light);
+    D_8011FAB8_335628_ChillyWaters = 0;
+    omDelPrcObj(NULL);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80106544_31C0B4_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarMapView);
+void MB1Ev_StarMapView(void) {
+    UnkGuide *guide;
+    Process *proc;
+    SpaceData *space;
+    s32 face;
+    s32 mesNum;
+    GW_SYSTEM* system = &GwSystem;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_StarGet);
+    D_800A12D4_A1ED4 = 0;
+    guide = MBGuideCreate(0, 0);
+    HuAudSeqPlay(0x12);
+    MBGuideFaceCreate(guide->unk_00, 2, 0xF, D_8011D2D0_332E40_ChillyWaters[0]);
+    func_800FFF44_113B64_shared_board();
+    MBModelDispOff(GET_STAR_MODEL());
+    WipeCreateIn(2, 0x10);
+    while (WipeStatGet() != 0) {
+        HuPrcVSleep();
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80106EEC_31CA5C_ChillyWaters);
+    func_800E6FCC_FABEC_shared_board();
+    func_800E9730_FD350_shared_board(3.0f);
+    func_80106544_31C0B4_ChillyWaters(guide);
+
+    if ((system->current_star_spawn == 0) && (GWBoardFlagCheck(4) == 0)) {
+        if (system->current_board_index == 2) {
+            mesNum = 0x5E09;
+        } else {
+            mesNum = 0x5E00;
+        }
+    } else {
+        if (system->current_board_index == 2) {
+            mesNum = 0x5E09;
+        } else {
+            mesNum = 0x5E01;
+        }
+    }
+    func_8005B43C_5C03C(guide->unk_08, mesNum, -1, -1);
+    func_80060C14_61814(guide->unk_08, 1);
+    HuAudFXPlay(0x2A7);
+    func_800EE2C0_101EE0_shared_board(guide->unk_08);
+    MBMotionShiftSet(guide->unk_00, -1, 0, 6, 2);
+    func_80060EA8_61AA8(guide->unk_08, 1);
+    func_8001FDE8_209E8(guide->unk_00->omObj1->model[0]);
+
+    if ((system->current_board_index != SPINY_DESERT) || (rand8() & 1)) {
+        space = MBMasuGet(mb1ev_StarGuideMasu[system->star_spawn_indices[system->current_star_spawn]]);
+    }
+
+    //@bug: this can be unintialized
+    MBCameraPos3DSet(&space->coords);
+    MBCameraSpeedSet(5.0f);
+    HuPrcSleep(5);
+    while (MBCameraStopCheck() != 0) {
+        HuPrcVSleep();
+    }
+    HuPrcSleep(5);
+
+    face = MBRand(7.0f);
+    MBGuideFaceSet(guide->unk_00, D_8011D2D0_332E40_ChillyWaters[face]);
+    MBMotionSet(guide->unk_00, -1, 2);
+
+    if (system->current_board_index != 2) {
+        proc = omAddPrcObj(MB1Ev_StarGuideIn, 0x4800, 0, 0);
+        D_8011FAB8_335628_ChillyWaters = proc;
+        proc->user_data = space;
+        HuPrcSleep(30);
+    } else {
+        D_8011FAB8_335628_ChillyWaters = NULL;
+    }
+
+    func_8005B43C_5C03C(guide->unk_08, D_8011D2EC_332E5C_ChillyWaters[face], -1, -1);
+    func_80060C14_61814(guide->unk_08, 1);
+    func_800EE2C0_101EE0_shared_board(guide->unk_08);
+    MBMotionShiftSet(guide->unk_00, -1, 0, 6, 2);
+    func_80060EA8_61AA8(guide->unk_08, 1);
+
+    HuAudSeqFadeOut(0x5A);
+    HuPrcSleep(30);
+    WipeCreateOut(2, 0x10);
+    HuPrcSleep(0x11);
+    D_800A12D4_A1ED4 = 1;
+    func_80100130_113D50_shared_board();
+    func_80046558_47158(D_8011FABC_33562C_ChillyWaters->omObj1->model[0]);
+    MBModelKill(D_8011FABC_33562C_ChillyWaters);
+    MBModelDispOn(GET_STAR_MODEL());
+    MBGuideKill(guide);
+    MBExit();
+    omOvlReturnEx(1);
+    omOvlKill();
+    HuPrcVSleep();
+}
+
+void MB1Ev_StarGet(void) {
+    Vec sp10;
+    GW_PLAYER *player;
+    Object *star;
+    Object *playerObj;
+    Vec *coords;
+    UnkStarWork *work;
+    s32 light;
+    f32 scale;
+    f32 angle;
+    s32 i;
+
+    work = HuPrcCurrentGet()->user_data;
+    player = MBPlayerGet(-1);
+
+    HuAudFXPlay(0x11B);
+    star = MBModelCreate(0x1A, NULL);
+    star->flags |= 4;
+    func_800ECC54_100874_shared_board(star);
+
+    if (MBMasuLinkMasuIdGet(MBPlayerGet(-1)->clink, MBPlayerGet(-1)->cidx) == 0x92) {
+        HuVecCopyXYZ(&star->coords, work->unk_0C.x, work->unk_0C.y + 10.0f, work->unk_0C.z);
+        HuVecCopyXYZ(&sp10, gCameraList->pos.x, gCameraList->pos.y, gCameraList->pos.z);
+        star->velocity.x = 15.0f;
+    } else {
+        HuVecCopyXYZ(&star->coords, work->unk_0C.x, work->unk_0C.y + 10.0f, work->unk_0C.z + 30.0f);
+        HuVecCopyXYZ(&sp10, gCameraList->pos.x, gCameraList->pos.y, gCameraList->pos.z);
+        star->velocity.x = 35.0f;
+    }
+
+    light = func_8000CED8_DAD8(0xB0004, 0xAA9);
+    func_8000CD00_D900(light, 1.0f, 20.0f, 1.0f);
+    func_8000D018_DC18(light, 15.0f);
+    func_8001C8A8_1D4A8(light, 1);
+    func_8000CFA4_DBA4(light, star->coords.x, star->coords.y + star->velocity.x, star->coords.z);
+
+    scale = 0.0f;
+    for (i = 0; i < 6; i++) {
+        HuVecCopyXYZ(&star->scale, scale, scale, scale);
+        scale += 0.5f;
+        func_8000D018_DC18(light, scale * 15.0f);
+        HuPrcVSleep();
+    }
+    for (i = 0; i < 3; i++) {
+        HuVecCopyXYZ(&star->scale, scale, scale, scale);
+        scale -= 0.4f;
+        func_8000D018_DC18(light, scale * 15.0f);
+        HuPrcVSleep();
+    }
+    func_8000D018_DC18(light, scale * 15.0f);
+
+    HuPrcSleep(20);
+    HuAudFXPlay(0x132);
+
+    angle = 0.0f;
+    playerObj = player->player_obj;
+    HuVecCopyXYZ(&sp10, playerObj->coords.x, playerObj->coords.y - 10.0f, playerObj->coords.z);
+    coords = &star->coords;
+    MBPlayerPosMoveCreate(coords, &sp10, coords, 40);
+
+    for (i = 0; i < 40; i++) {
+        func_8008A2A0_8AEA0(HmfModelData[star->omObj1->model[0]].mtx, angle);
+        angle += 20.0f;
+        scale -= 0.05f;
+        if (scale < 0.0f) {
+            scale = 0.0f;
+        }
+        HuVecCopyXYZ(&star->scale, scale, scale, scale);
+        func_8000D018_DC18(light, scale * 15.0f);
+        func_8000CFA4_DBA4(light, star->coords.x, star->coords.y + star->velocity.x, star->coords.z);
+        HuPrcVSleep();
+    }
+
+    MBModelKill(star);
+    func_8000D044_DC44(light);
+    MBVecForwardSet(&player->player_obj->rot);
+    MBPlayerVibrate(-1, 5);
+
+    if (D_8011D308_332E78_ChillyWaters != 0) {
+        func_8004A670_4B270(0xE);
+    } else {
+        HuAudSeqPlay(0x6F);
+    }
+
+    GwPlayer[GwSystem.current_player_index].star++;
+    if (GwPlayer[GwSystem.current_player_index].star >= 100) {
+        GwPlayer[GwSystem.current_player_index].star = 99;
+    }
+
+    MBPlayerMotionSet(-1, 6, 0);
+    func_8004ACE0_4B8E0(0x262, GwSystem.current_player_index);
+
+    if (D_8011D308_332E78_ChillyWaters != 0) {
+        HuPrcSleep(0x10);
+        func_80003A70_4670(D_800CDBC8_CE7C8);
+        func_8004A918_4B518(0x6F);
+        func_8004A880_4B480(0);
+        HuPrcSleep(0x6E);
+        func_80003B70_4770(D_800CDBC8_CE7C8, 0);
+        func_8004A72C_4B32C(0xF);
+    } else {
+        HuPrcSleep(60);
+    }
+    omDelPrcObj(NULL);
+}
+
+void func_80106EEC_31CA5C_ChillyWaters(s32 arg0) {
+    Process* temp_v0;
+
+    mbItemBtnF = 0;
+    temp_v0 = omAddPrcObj(MB1Ev_StarGet, 0x4800U, 0, 0);
+    temp_v0->user_data = (void*)arg0;
+    HuPrcChildLink(HuPrcCurrentGet(), temp_v0);
+    HuPrcChildWait();
+    mbItemBtnF = 1;
+}
 
 // View board map
 void MB1_MapScroll(void) {

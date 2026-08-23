@@ -15,6 +15,8 @@
 #define    OS_K0_TO_PHYSICAL(x)    (u32)(((char *)(x)-0x80000000))
 #define    OS_PHYSICAL_TO_K0(x)    (void *)(((u32)(x)+0x80000000))
 
+#define STAR_POSITIONS_TOTAL 8
+
 typedef struct Vec2f {
 /* 0x00 */ f32 x;
 /* 0x04 */ f32 y;

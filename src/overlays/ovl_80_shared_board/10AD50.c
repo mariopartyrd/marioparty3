@@ -7,12 +7,6 @@ extern s32 D_80105654_119274_shared_board;
 extern s32 D_80105658_119278_shared_board;
 extern s32 D_8010565C_11927C_shared_board;
 
-void func_8000CD00_D900(s16, f32, f32, f32);
-s16 func_8000CED8_DAD8(s32, s32);
-void func_8000CFA4_DBA4(s16, f32, f32, f32);
-void func_8000D018_DC18(s16, f32);
-void func_8000D044_DC44(s16);
-
 // item ids
 s32 D_80101A20_115640_shared_board[] = {
     ITEM_MUSHROOM, ITEM_SKELETON_KEY, ITEM_BOO_REPELLENT,

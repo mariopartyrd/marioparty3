@@ -256,9 +256,6 @@ Object* MBModelFileCreate(s32, s32, f32, f32, u32*);
 s32 MBItemFindEmpty(s32 arg0);
 Object* func_800D912C_ECD4C_shared_board(s32, s32, f32, s32, s32);
 void MBModelKill(Object*);
-void MBDlgWinCreate(s32, s32);
-void MBDlgWinClose(void);
-void MBDlgWinKill(void);
 void func_800D7714_EB334_shared_board(void); 
 void MBModelClose(void); 
 void func_800DCB8C_F07AC_shared_board(void); 
@@ -333,7 +330,7 @@ void MBPlayerVibrate(s16, s16);
 s16 MBPlayerTurnGet(void);
 void omVibrate(s16 player, s16 duration, s16 off, s16 on);
 void func_800F7610_10B230_shared_board(void);
-void MBDlgWinExec(s32, s32);
+
 void func_800F74E4_10B104_shared_board(void);
 void func_800F76A4_10B2C4_shared_board(s32);
 void func_800F7578_10B198_shared_board(void);
@@ -346,6 +343,11 @@ void MBItemKSuitEnd(void);
 void MBDlgWinClose(void);
 void MBDlgWinKill(void);
 void MBDlgWinInsertCreate(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
+void MBDlgWinExec(s32, s32);
+void MBDlgWinCreate(s32, s32);
+void MBDlgWinClose(void);
+void MBDlgWinKill(void);
+
 void MBVecForwardSet(Vec*);
 Process* func_800ED128_100D48_shared_board(Vec*, Vec*, Vec*, s32);
 void MBCoinTakeCreate(s32, s32);
@@ -440,6 +442,14 @@ void func_800FF0F8_112D18_shared_board(void);           /* extern */
 void func_800FF158_112D78_shared_board(void);           /* extern */
 void MBGuidePosSet(UnkMBGuideData*, s16, s16);
 Unk3 *func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2);
+void func_800ECC54_100874_shared_board(Object* arg0);
+void MBVecDirGet(Vec*, Vec*, Vec*);
+GW_PLAYER* MBPlayerGet(s32 playerIndex);
+void MBPlayerCoinAdd(s32 arg0, s32 arg1);
+s32 MBRand(f32);
+void MBItemRemoveEmpty(s32 arg0);
+void MBMasuTypeSet(s16, s32);
+SpaceData* MBMasuGet(s16 arg0);
 
 extern f32 D_801056E8_119308_shared_board;
 extern Vec2f D_801056EC_11930C_shared_board;

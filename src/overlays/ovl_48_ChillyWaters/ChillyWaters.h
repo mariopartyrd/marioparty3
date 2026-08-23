@@ -109,8 +109,11 @@ extern RectF D_8011E8B8_334428_ChillyWaters;
 extern s16 mb1ev_StarGuideMasu[8];
 extern s16 D_8011D31C_332E8C_ChillyWaters; //unknown type
 extern s32 D_8011D320_332E90_ChillyWaters; //unknown type
-extern s16 mb1ev_StarFlag[8];
-extern s16 mb1ev_StarMasu[8];
+
+extern s16 mb1ev_StarFlag[STAR_POSITIONS_TOTAL];
+extern s16 mb1ev_StarMasu[STAR_POSITIONS_TOTAL];
+extern s16 D_8011D280_332DF0_ChillyWaters[STAR_POSITIONS_TOTAL];
+extern s16 D_8011D290_332E00_ChillyWaters[STAR_POSITIONS_TOTAL];
 extern Unk3* mb1_BranchStickHelp;           // used with direction arrows
 extern Unk3* mb1_BranchBtnHelp;           // used with direction arrows
 extern Unk3* mb1_BranchMapScrollHelp;           // used with direction arrows

@@ -1,5 +1,6 @@
 #include "common.h"
 #include "game/object.h"
+#include "../ovl_81_name/ovl_81.h"
 
 typedef struct UnkOmData {
     omObjData *unk_00;
