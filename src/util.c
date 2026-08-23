@@ -175,7 +175,7 @@ u16 SprModelRead(s32 arg0, s32 arg1, s32 arg2) {
     return temp_s0;
 }
 
-s16 HmfAnimRead(s32 arg0, s32 arg1, s32 arg2) {
+s16 HmfAnimRead(HmfData* arg0, s32 arg1, s32 arg2) {
     s32 temp_s0;
     void *temp_v0;
 

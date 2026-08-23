@@ -18,7 +18,7 @@ void func_80106850_4F10A0_mgresultduel(omObjData*, s32);
 void ovlEventCall(OvlEntrypoint*, s16);
 void HuMemMemoryFreePerm(void *ptr);
 s32 HmfSprModelCreate(void*, s32, u8);
-s32 HmfAnimCreate(s32, void*, s32, s32);
+s32 HmfAnimCreate(HmfData*, void*, s32, s32);
 void pfClsScr(void);
 s32 GWBoardFlagCheck(s32);
 s16 func_80017790_18390(s16 model, s32 arg1, s16 arg2, s32 arg3);

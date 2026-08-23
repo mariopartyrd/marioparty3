@@ -26,44 +26,40 @@ typedef struct objectIndirect3t {
 } objectIndirect3;
 
 typedef struct DiceInstance {
-    char unk_00[0x4C];
-    s32 unk_4C;
-} DiceInstance; //unk size
+    /* 0x00 */ char pad0[0x18];
+    /* 0x18 */ Vec  coords;
+    /* 0x24 */ char pad24[0x28];
+    /* 0x4C */ s32  unk_4C;     // state; 2 = settled
+} DiceInstance;                 /* size = 0x50 */
 
 typedef struct UnkDiceRelated {
-    /* 0x00 */ s16 unk_00;
-    /* 0x02 */ char pad2[2];                        /* maybe part of unk_00[2]? */
-    /* 0x04 */ s8 unk_04;
-    /* 0x05 */ s8 unk_05;
-    /* 0x06 */ s8 unk_06;
-    /* 0x07 */ s8 unk_07;
-    
-    /* 0x08 */ s8 unk_08;                             /* inferred */
-    /* 0x09 */ char unk_09[1];
-    /* 0x0A */ s8 unk_0A;
-    /* 0x0B */ s8 unk_0B;
-    /* 0x0C */ s8 unk_0C;
-    /* 0x0D */ s8 unk_0D;
-    /* 0x0E */ s16 unk_0E;
-    /* 0x10 */ s16 unk_10;
-    /* 0x12 */ s16 unk_12;
-    /* 0x14 */ s8 unk_14;
-    /* 0x15 */ s8 unk_15;
-    /* 0x16*/ s16 unk_16;
-    /* 0x18 */ s16 unk_18;
-    /* 0x1A */ s16 unk_1A;
-    /* 0x1C */ s16 unk_1C;
-    /* 0x1E */ s16 unk1E;
-    /* 0x20 */ char pad20[8];                       /* maybe part of unk16[5]? */
-    /* 0x28 */ s16 unk28;
-    /* 0x2A */ char pad2A[6];                       /* maybe part of unk20[4]? */
-    /* 0x30 */ s16 unk_30;
-    /* 0x32 */ char pad32[2];
-    /* 0x34 */ DiceInstance* dice;
-    /* 0x38 */ char pad38[4];                    /* maybe part of dice[6]? */
-    /* 0x3C */ omObjData* omObj;
-    /* 0x40 */ char unk_40[12];
-} UnkDiceRelated;                                   /* size = 0x4C */
+    /* 0x00 */ s16        unk_00;
+    /* 0x02 */ s8         unk_02[3];   // forced roll values, indexed by unk_08
+    /* 0x05 */ s8         unk_05[3];   // rolled values, indexed by unk_08
+    /* 0x08 */ s8         unk_08;      // current roll index (0-2)
+    /* 0x09 */ s8         unk_09;
+    /* 0x0A */ s8         unk_0A;      // dice mode; 5 = blank face
+    /* 0x0B */ s8         unk_0B;
+    /* 0x0C */ s8         unk_0C;
+    /* 0x0D */ s8         unk_0D;
+    /* 0x0E */ s16        unk_0E[3];   // sprite groups, indexed by unk_08
+    /* 0x14 */ s8         unk_14;
+    /* 0x15 */ s8         unk_15;
+    /* 0x16 */ s16        unk_16;      // model/anim handle, -1 = none
+    /* 0x18 */ s16        unk_18;      // model/anim handle, -1 = none
+    /* 0x1A */ s16        unk_1A[6];   // sub-handles, -1 = none
+    /* 0x26 */ s16        unk_26;      // handle, -1 = none
+    /* 0x28 */ s16        unk28;      // sound handle, -1 = none
+    /* 0x2A */ s16        unk2A;
+    /* 0x2C */ void      *unk_2C;      // DataRead blob
+    /* 0x30 */ void      *unk_30;      // DataRead blob
+    /* 0x34 */ DiceInstance *dice;
+    /* 0x38 */ omObjData *unk_38;
+    /* 0x3C */ omObjData *omObj;
+    /* 0x40 */ f32 unk40;                           /* inferred */
+    /* 0x44 */ f32 unk44;                           /* inferred */
+    /* 0x48 */ f32 unk48;                           /* inferred */
+} UnkDiceRelated;               /* size = 0x4C */
 
 typedef struct SpaceData {
 /* 0x00 */ s8 unk_00;

@@ -137,7 +137,7 @@ void func_800E71EC_FAE0C_shared_board(void);
 void func_800E86CC_FC2EC_shared_board(Gfx** arg0, s32 arg1, u8 arg2);
 void func_800E90BC_FCCDC_shared_board(void);
 void func_800E8DE0_FCA00_shared_board(void);
-void func_800E76EC_FB30C_shared_board(Gfx**, void*, s16, s16, s32);
+void func_800E76EC_FB30C_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg3, s16 arg4);
 
 void func_800E6630_FA250_shared_board(u32 arg0) {
     HVQHeader* temp_v0;
@@ -626,7 +626,83 @@ void func_800E7514_FB134_shared_board(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/FA250", func_800E76EC_FB30C_shared_board);
+void func_8003465C_3525C(Gfx**, void*, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
+
+#define gSPScisTextureRectangle_MP(pkt,xl,yl,xh,yh,tile,s,t,dsdx,dtdy) { \
+    Gfx *_g = (Gfx *)(pkt); \
+    _g->words.w0 = (_SHIFTL(G_TEXRECT, 24, 8) | \
+    _SHIFTL(MAX((s16)(xh),0), 12, 12) | \
+    _SHIFTL(MAX((s16)(yh),0), 0, 12)); \
+    _g->words.w1 = (_SHIFTL((tile), 24, 3) | \
+    _SHIFTL(MAX((s16)(xl),0), 12, 12) | \
+    _SHIFTL(MAX((s16)(yl),0), 0, 12)); \
+    gImmp1(pkt, G_RDPHALF_1, \
+    (_SHIFTL(((s) - (((s16)(xl) < 0) ? (((s16)(dsdx) < 0) ? (MAX((((s16)(xl)*(s16)(dsdx))>>7),0)) : (MIN((((s16)(xl)*(s16)(dsdx))>>7),0))) : 0)), 16, 16) |\
+    _SHIFTL(((t) - (((s32)(yl) < 0) ? (((s16)(dtdy) < 0) ? (MAX((((s16)(yl)*(s16)(dtdy))>>7),0)) : (MIN((((s16)(yl)*(s16)(dtdy))>>7),0))) : 0)), 0, 16))); \
+    gImmp1(pkt, G_RDPHALF_2, (_SHIFTL((s16)(dsdx), 16, 16) | _SHIFTL((s16)(dtdy), 0, 16))); \
+}
+
+void func_800E76EC_FB30C_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg3, s16 arg4) {
+    f32 temp_f0;
+    f32 temp_f20;
+    f32 temp_f22;
+
+    temp_f20 = ((f32) arg2 + (D_801049F8_118618_shared_board[0] / 4.0f)) - (f32) (s32) (D_801049F8_118618_shared_board[0] / 4.0f);
+    temp_f22 = ((f32) arg3 + (D_801049F8_118618_shared_board[1] / 4.0f)) - (f32) (s32) (D_801049F8_118618_shared_board[1] / 4.0f);
+    func_8003465C_3525C(arg0, arg1, 0, 2, 0x40, 0x20, 0, 0, 0x40, 0x20, 0, 1, 1, 6, 5, 0, 0);
+    if (!(D_80102DC0_1169E0_shared_board & 0x10)) {
+        gSPScisTextureRectangle_MP((*arg0)++,
+            /*xl*/(temp_f20 * D_80101250_114E70_shared_board * 4.0f),
+            /*yl*/((temp_f22 * D_80101250_114E70_shared_board * 4.0f) - (f32) (s16) arg4),
+            /*xh*/(temp_f20 + 64.0f) * D_80101250_114E70_shared_board * 4.0f,
+            /*yh*/(temp_f22 + 32.0f) * D_80101250_114E70_shared_board * 4.0f,
+            /*tile*/0,
+            /*s*/0,
+            /*t*/0,
+            /*dsdx*/(s16)(1024.0f / D_80101250_114E70_shared_board),
+            /*dtdy*/(s16)(1024.0f / D_80101250_114E70_shared_board)
+        );
+    } else {
+        gSPScisTextureRectangle_MP((*arg0)++,
+            /*xl*/((256.0f - temp_f20) * D_80101250_114E70_shared_board * 4.0f),
+            /*yl*/((temp_f22 * D_80101250_114E70_shared_board * 4.0f)),
+            /*xh*/((320.0f - temp_f20) * D_80101250_114E70_shared_board * 4.0f),
+            /*yh*/((temp_f22 + 32.0f) * D_80101250_114E70_shared_board * 4.0f),
+            /*tile*/0,
+            /*s*/0x7e0,
+            /*t*/0,
+            /*dsdx*/-(s16)(1024.0f / D_80101250_114E70_shared_board),
+            /*dtdy*/(s16)(1024.0f / D_80101250_114E70_shared_board)
+        );
+    }
+    func_8003465C_3525C(arg0, arg1 + 0x1000, 0, 2, 0x40, 0x10, 0, 0, 0x40, 0x10, 0, 1, 1, 6, 4, 0, 0);
+    if (!(D_80102DC0_1169E0_shared_board & 0x10)) {
+        gSPScisTextureRectangle_MP((*arg0)++,
+            /*xl*/(temp_f20 * D_80101250_114E70_shared_board * 4.0f),
+            /*yl*/((temp_f22 + 32.0f) * D_80101250_114E70_shared_board * 4.0f),
+            /*xh*/((temp_f20 + 64.0f) * D_80101250_114E70_shared_board * 4.0f),
+            /*yh*/((temp_f22 + 48.0f) * D_80101250_114E70_shared_board * 4.0f),
+            /*tile*/0,
+            /*s*/0,
+            /*t*/0,
+            /*dsdx*/(s16)(1024.0f / D_80101250_114E70_shared_board),
+            /*dtdy*/(s16)(1024.0f / D_80101250_114E70_shared_board)
+        );
+    } else {
+        gSPScisTextureRectangle_MP((*arg0)++,
+            /*xl*/((256.0f - temp_f20) * D_80101250_114E70_shared_board * 4.0f),
+            /*yl*/((temp_f22 + 32.0f) * D_80101250_114E70_shared_board * 4.0f),
+            /*xh*/((320.0f - temp_f20) * D_80101250_114E70_shared_board * 4.0f),
+            /*yh*/((temp_f22 + 48.0f) * D_80101250_114E70_shared_board * 4.0f),
+            /*tile*/0,
+            /*s*/0x7e0,
+            /*t*/0,
+            /*dsdx*/-(s16)(1024.0f / D_80101250_114E70_shared_board),
+            /*dtdy*/(s16)(1024.0f / D_80101250_114E70_shared_board)
+        );
+    }
+}
+
 
 void func_800E86CC_FC2EC_shared_board(Gfx** arg0, s32 arg1, u8 arg2) {
     u16 sp1E;
