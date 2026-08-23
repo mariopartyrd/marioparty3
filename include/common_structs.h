@@ -43,8 +43,7 @@ typedef struct UnkDiceRelated {
     /* 0x0C */ s8         unk_0C;
     /* 0x0D */ s8         unk_0D;
     /* 0x0E */ s16        unk_0E[3];   // sprite groups, indexed by unk_08
-    /* 0x14 */ s8         unk_14;
-    /* 0x15 */ s8         unk_15;
+    /* 0x14 */ s16         unk_14;
     /* 0x16 */ s16        unk_16;      // model/anim handle, -1 = none
     /* 0x18 */ s16        unk_18;      // model/anim handle, -1 = none
     /* 0x1A */ s16        unk_1A[6];   // sub-handles, -1 = none
