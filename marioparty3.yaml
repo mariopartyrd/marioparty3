@@ -1729,13 +1729,16 @@ segments:
     exclusive_ram_id: minigame # ovl_48
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x150
+    prioritized_segments:
+      - shared_board
     subsegments:
       - [0x31B510, c]
       - [0x31B540, c]
       - [0x31B9F0, c]
       - [0x332DC0, .data, 31B510] #8011D250
       - [0x332DF0, data, 31B9F0]
-      - [0x3354B0, .rodata, 31B9F0] #8011F940
+      - [0x335430, .rodata, 31B510]
+      - [0x335440, .rodata, 31B9F0] #8011F8D0
       - {0x3355E0, type: bss, vram: 0x8011FA70, name: ovl_48_bss}
 
   # Deep Bloober Sea
@@ -1747,6 +1750,8 @@ segments:
     exclusive_ram_id: minigame # ovl_49
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x140
+    prioritized_segments:
+      - shared_board
     subsegments:
       - [0x3355E0, c]
       - [0x335610, c]
@@ -1764,6 +1769,8 @@ segments:
     exclusive_ram_id: minigame # ovl_4A
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x150
+    prioritized_segments:
+      - shared_board
     subsegments:
       - [0x34E810, c]
       - [0x34E840, c]
@@ -1781,6 +1788,8 @@ segments:
     exclusive_ram_id: minigame # ovl_4B
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x130
+    prioritized_segments:
+      - shared_board
     subsegments:
       - [0x367930, c]
       - [0x367960, c]
@@ -1798,6 +1807,8 @@ segments:
     exclusive_ram_id: minigame # ovl_4C
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x160
+    prioritized_segments:
+      - shared_board
     subsegments:
       - [0x37FF80, c]
       - [0x37FFB0, c]
@@ -1815,6 +1826,8 @@ segments:
     exclusive_ram_id: minigame # ovl_4D
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x140
+    prioritized_segments:
+      - shared_board
     subsegments:
       - [0x39AD20, c]
       - [0x39AD50, c]
@@ -1831,6 +1844,8 @@ segments:
     exclusive_ram_id: minigame # ovl_4E
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0x80
+    prioritized_segments:
+      - shared_board
     subsegments:
       - [0x3B35F0, c]
       - [0x3B3620, c]
@@ -1846,6 +1861,8 @@ segments:
     exclusive_ram_id: minigame # ovl_4F
     symbol_name_format: $VRAM_$ROM_$SEG
     bss_size: 0xE0
+    #prioritized_segments: #TODO is this the correct overlay
+    #  - shared_board
     subsegments:
       - [0x3B9670, c]
       - [0x3BFA00, c]

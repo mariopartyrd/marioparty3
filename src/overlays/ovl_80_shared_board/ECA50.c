@@ -453,7 +453,7 @@ void MBMotionShiftSet(Object* arg0, s16 arg1, s32 arg2, s32 arg3, u16 arg4) {
     func_8001C624_1D224(arg0->omObj1->model[0], var, arg2, arg3, arg4);
 }
 
-s32 MBMotionCheck(Object* arg0) {
+u16 MBMotionCheck(Object* arg0) {
     u16 ret = 0;
     
     if (HmfModelData[arg0->omObj1->model[0]].unk40 == D_800CCF58_CDB58[HmfModelData[arg0->omObj1->model[0]].unk02].unk02) {
@@ -462,7 +462,7 @@ s32 MBMotionCheck(Object* arg0) {
     return ret;
 }
 
-s32 func_800D9E80_EDAA0_shared_board(Object* arg0) {
+u16 func_800D9E80_EDAA0_shared_board(Object* arg0) {
     u16 ret;
 
     ret = 0;

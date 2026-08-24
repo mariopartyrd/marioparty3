@@ -293,7 +293,7 @@ void func_800F43FC_10801C_shared_board(s32);
 void MBStatusColorSet(u32, s32);
 void MBStatusPosSet(s32, s16, s16);
 s32 MBPlayerScoreGet(s32);
-s32 MBMotionCheck(Object*);
+u16 MBMotionCheck(Object*);
 void MBMotionShiftSet(Object*, s16, s32, s32, u16);
 void func_800EE7AC_1023CC_shared_board(omObjData* func);
 s32 BoardPlayerRankCalc(s32 player);
