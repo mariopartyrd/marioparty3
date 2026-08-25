@@ -70,7 +70,7 @@ void func_80106120_335D60_w02(void) {
     func_80060EA8_61AA8(guide->amount, 1);
     func_8001FDE8_209E8(guide->obj->omObj1->model[0]);
 
-    if ((system->current_board_index != 2) || (rand8() & 1)) {
+    if ((system->current_board_index != SPINY_DESERT) || (rand8() & 1)) {
         space = MBMasuGet(D_8011C6A0_34C2E0_w02[system->star_spawn_indices[system->current_star_spawn]]);
     }
     MBCameraPos3DSet(&space->coords);

@@ -15,10 +15,10 @@ enum BoardIndices {
 };
 
 enum {
-	WATCH_NOT_FOUND = 0,
-	WATCH_GIVEN_FROM_TOAD = 1,
-	WATCH_USED = 2,
-	WATCH_CANNOT_SPAWN = 3,
+    WATCH_AVAILABLE = 0,   /* may still spawn */
+    WATCH_ISSUED    = 1,   /* handed out, not yet used */
+    WATCH_USED      = 2,   /* used; jump pending at end of round */
+    WATCH_SPENT     = 3,   /* jump applied */
 };
 
 typedef struct UnkMBGuideData {

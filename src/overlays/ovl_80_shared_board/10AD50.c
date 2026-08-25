@@ -196,7 +196,7 @@ void func_800F7578_10B198_shared_board(void) {
         itemID = temp2[MBRand(ARRAY_COUNT(D_80101A40_115660_shared_board))];
         D_80105630_119250_shared_board[0] = itemID;
 
-        if (itemID == ITEM_WACKY_WATCH && GwSystem.unk_52 == 0) {
+        if (itemID == ITEM_WACKY_WATCH && GwSystem.unk_52 == WATCH_AVAILABLE) {
             GwSystem.unk_52 = 1;
             break;
         }
@@ -219,14 +219,16 @@ void func_800F7578_10B198_shared_board(void) {
         if (itemID != ITEM_WACKY_WATCH) {
             break;
         }
-        if (GwSystem.wackyWatchUsedState == WATCH_NOT_FOUND) {
+
+        //is wacky watch to get here
+        if (GwSystem.wackyWatchUsedState == WATCH_AVAILABLE) {
             if (itemID == ITEM_WACKY_WATCH) {
-                GwSystem.wackyWatchUsedState = WATCH_GIVEN_FROM_TOAD;
+                GwSystem.wackyWatchUsedState = WATCH_ISSUED;
             }
             break;
         }
         if (itemID != ITEM_WACKY_WATCH) {
-            GwSystem.wackyWatchUsedState = WATCH_GIVEN_FROM_TOAD;
+            GwSystem.wackyWatchUsedState = WATCH_ISSUED;
         }
     }
 

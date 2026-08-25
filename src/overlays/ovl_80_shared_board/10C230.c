@@ -772,7 +772,7 @@ void MBNextPlayerTurn(void) {
             if (GwSystem.wackyWatchUsedState != WATCH_USED) {
                 system->current_turn++;
             } else {
-                GwSystem.wackyWatchUsedState = WATCH_CANNOT_SPAWN;
+                GwSystem.wackyWatchUsedState = WATCH_SPENT;
                 system->current_turn = system->total_turns - 4;
             }
             if (system->current_turn >= 99) {
@@ -2807,7 +2807,7 @@ void MBMain(void) {
                             var_s1++;
                         }
 
-                    } while (GwSystem.wackyWatchUsedState != WATCH_NOT_FOUND && D_80101E70_115A90_shared_board[var_s1][0] == ITEM_WACKY_WATCH);
+                    } while (GwSystem.wackyWatchUsedState != WATCH_AVAILABLE && D_80101E70_115A90_shared_board[var_s1][0] == ITEM_WACKY_WATCH);
 
                     HuPrcChildLink(telopProc, MBCameraZoomMotStart(1.6f));
                     func_800DE414_F2034_shared_board(system->current_player_index,
