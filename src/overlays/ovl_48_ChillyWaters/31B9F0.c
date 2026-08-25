@@ -3,13 +3,6 @@
 
 #define GET_STAR_MODEL() D_8011FA78_3355E8_ChillyWaters[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]]
 
-typedef struct UnkGuide {
-    /* 0x00 */ Object *unk_00;
-    /* 0x04 */ char pad04[4];
-    /* 0x08 */ s16 unk_08;
-    /* 0x0A */ char pad0A[2];
-} UnkGuide; //sizeof 0xC
-
 typedef struct UnkStar {
 /* 0x00 */ char unk_00[8];
 /* 0x08 */ Vec pos;
@@ -41,17 +34,11 @@ void func_8004A918_4B518(s32);
 void func_800461B4_46DB4(s16 arg0);
 void MB1Ev_StarGuideIn(void);
 s32 MBCameraStopCheck(void);
-void* MBGuideCreate(s32, s32);
-void MBGuideFaceCreate(Object*, s32, s32, s32);
 void MBGuideFaceSet(Object*, s32);
-void MBGuideKill(void*);
-void func_80046558_47158(s16);
-void func_80060C14_61814(s16, s32);
-void func_80060EA8_61AA8(s16, s32);
 void func_800E6FCC_FABEC_shared_board(void);
 void func_800FFF44_113B64_shared_board(void);
 void func_80100130_113D50_shared_board(void);
-void func_80106544_31C0B4_ChillyWaters(void*);
+void func_80106544_31C0B4_ChillyWaters(UnkMBGuideData*);
 void func_8004A880_4B480(s32);
 s32 MBPlayerStealRankGet(s32);
 void func_80107620_31D190_ChillyWaters(void);
@@ -228,10 +215,21 @@ void MB1Ev_StarGuideIn(void) {
     omDelPrcObj(NULL);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80106544_31C0B4_ChillyWaters);
+void func_80106544_31C0B4_ChillyWaters(UnkMBGuideData* arg0) {
+    Object* obj;
+
+    obj = arg0->obj;
+    obj->velocity.y = 4.0f;
+    obj->velocity.z = -0.6f;
+    
+    HuPrcSleep(3);
+    while (obj->velocity.z != 0.0f) {
+        HuPrcVSleep();
+    }
+}
 
 void MB1Ev_StarMapView(void) {
-    UnkGuide *guide;
+    UnkMBGuideData *guide;
     Process *proc;
     SpaceData *space;
     s32 face;
@@ -241,7 +239,7 @@ void MB1Ev_StarMapView(void) {
     D_800A12D4_A1ED4 = 0;
     guide = MBGuideCreate(0, 0);
     HuAudSeqPlay(0x12);
-    MBGuideFaceCreate(guide->unk_00, 2, 0xF, D_8011D2D0_332E40_ChillyWaters[0]);
+    MBGuideFaceCreate(guide->obj, 2, 0xF, D_8011D2D0_332E40_ChillyWaters[0]);
     func_800FFF44_113B64_shared_board();
     MBModelDispOff(GET_STAR_MODEL());
     WipeCreateIn(2, 0x10);
@@ -266,19 +264,19 @@ void MB1Ev_StarMapView(void) {
             mesNum = 0x5E01;
         }
     }
-    func_8005B43C_5C03C(guide->unk_08, mesNum, -1, -1);
-    func_80060C14_61814(guide->unk_08, 1);
+    func_8005B43C_5C03C(guide->amount, mesNum, -1, -1);
+    func_80060C14_61814(guide->amount, 1);
     HuAudFXPlay(0x2A7);
-    func_800EE2C0_101EE0_shared_board(guide->unk_08);
-    MBMotionShiftSet(guide->unk_00, -1, 0, 6, 2);
-    func_80060EA8_61AA8(guide->unk_08, 1);
-    func_8001FDE8_209E8(guide->unk_00->omObj1->model[0]);
+    func_800EE2C0_101EE0_shared_board(guide->amount);
+    MBMotionShiftSet(guide->obj, -1, 0, 6, 2);
+    func_80060EA8_61AA8(guide->amount, 1);
+    func_8001FDE8_209E8(guide->obj->omObj1->model[0]);
 
     if ((system->current_board_index != SPINY_DESERT) || (rand8() & 1)) {
         space = MBMasuGet(mb1ev_StarGuideMasu[system->star_spawn_indices[system->current_star_spawn]]);
     }
 
-    //@bug: this can be unintialized
+    //@bug: this can be unintialized (except not because SPINY_DESERT has different code for this)
     MBCameraPos3DSet(&space->coords);
     MBCameraSpeedSet(5.0f);
     HuPrcSleep(5);
@@ -288,8 +286,8 @@ void MB1Ev_StarMapView(void) {
     HuPrcSleep(5);
 
     face = MBRand(7.0f);
-    MBGuideFaceSet(guide->unk_00, D_8011D2D0_332E40_ChillyWaters[face]);
-    MBMotionSet(guide->unk_00, -1, 2);
+    MBGuideFaceSet(guide->obj, D_8011D2D0_332E40_ChillyWaters[face]);
+    MBMotionSet(guide->obj, -1, 2);
 
     if (system->current_board_index != 2) {
         proc = omAddPrcObj(MB1Ev_StarGuideIn, 0x4800, 0, 0);
@@ -300,11 +298,11 @@ void MB1Ev_StarMapView(void) {
         D_8011FAB8_335628_ChillyWaters = NULL;
     }
 
-    func_8005B43C_5C03C(guide->unk_08, D_8011D2EC_332E5C_ChillyWaters[face], -1, -1);
-    func_80060C14_61814(guide->unk_08, 1);
-    func_800EE2C0_101EE0_shared_board(guide->unk_08);
-    MBMotionShiftSet(guide->unk_00, -1, 0, 6, 2);
-    func_80060EA8_61AA8(guide->unk_08, 1);
+    func_8005B43C_5C03C(guide->amount, D_8011D2EC_332E5C_ChillyWaters[face], -1, -1);
+    func_80060C14_61814(guide->amount, 1);
+    func_800EE2C0_101EE0_shared_board(guide->amount);
+    MBMotionShiftSet(guide->obj, -1, 0, 6, 2);
+    func_80060EA8_61AA8(guide->amount, 1);
 
     HuAudSeqFadeOut(0x5A);
     HuPrcSleep(30);
@@ -671,7 +669,6 @@ void func_80107750_31D2C0_ChillyWaters(void) {
     }
 }
 
-//matches but pools rodata with other funcs
 s32 MB1_ComTeresaChoice(u8 *arg0, s32 arg1, s32 arg2) {
     s32 pct;
     s32 ret;
@@ -737,9 +734,13 @@ s32 MB1_ComTeresaChoice(u8 *arg0, s32 arg1, s32 arg2) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_ComTeresaTypeChoice);
+s32 MB1_ComTeresaTypeChoice(u8* arg0) {
+    return MB1_ComTeresaChoice(arg0, 0, 1);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_ComTeresaPlayerChoice);
+s32 MB1_ComTeresaPlayerChoice(u8* arg0) {
+    return MB1_ComTeresaChoice(arg0, 1, 0);
+}
 
 // entrypoint 0
 void MB1_BoardInit(void) {
@@ -1549,7 +1550,7 @@ void MB1Ev_ItemAfter5(void) {
     }
 
     MBDlgResultWinExec(0x3A23);
-    GwSystem.unk_52 = 2;
+    GwSystem.wackyWatchUsedState = WATCH_USED;
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_BranchMain);

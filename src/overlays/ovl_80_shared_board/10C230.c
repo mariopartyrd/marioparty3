@@ -766,13 +766,13 @@ void MBNextPlayerTurn(void) {
 
     system->current_player_index++;
 
-    if (system->current_player_index >= 4) {
+    if (system->current_player_index >= MB_MAX_PLAYERS) {
         system->current_player_index = 0;
         if (mbTurnOnF == 0) {
-            if (GwSystem.unk_52 != 2) {
+            if (GwSystem.wackyWatchUsedState != WATCH_USED) {
                 system->current_turn++;
             } else {
-                GwSystem.unk_52 = 3;
+                GwSystem.wackyWatchUsedState = WATCH_CANNOT_SPAWN;
                 system->current_turn = system->total_turns - 4;
             }
             if (system->current_turn >= 99) {
@@ -793,7 +793,7 @@ s32 MBLast5Check(void) {
             }
         }
 
-        if (GwSystem.unk_52 == 2) {
+        if (GwSystem.wackyWatchUsedState == WATCH_USED) {
             return 1;
         }
     }
@@ -2807,8 +2807,7 @@ void MBMain(void) {
                             var_s1++;
                         }
 
-                        // Reroll if Boo item and special flag is set
-                    } while (GwSystem.unk_52 != 0 && D_80101E70_115A90_shared_board[var_s1][0] == 0x12);
+                    } while (GwSystem.wackyWatchUsedState != WATCH_NOT_FOUND && D_80101E70_115A90_shared_board[var_s1][0] == ITEM_WACKY_WATCH);
 
                     HuPrcChildLink(telopProc, MBCameraZoomMotStart(1.6f));
                     func_800DE414_F2034_shared_board(system->current_player_index,
@@ -3323,7 +3322,7 @@ void MBMain(void) {
 
                         // Determine minigame type
                         if (system->total_turns >= 0 && system->current_turn >= system->total_turns) {
-                            if (GwSystem.unk_52 == 2) {
+                            if (GwSystem.wackyWatchUsedState == WATCH_USED) {
                                 D_80105664_119284_shared_board = 3;
                             } else {
                                 D_80105664_119284_shared_board = 0x23;

@@ -95,5 +95,16 @@ void func_8000CFA4_DBA4(s16, f32, f32, f32);
 void func_8000D018_DC18(s16, f32);
 void func_8000D044_DC44(s16);
 void func_8008A2A0_8AEA0(f32*, f32);
+void func_80060C14_61814(s16, s32);
+void func_80060EA8_61AA8(s16, s32);
+void func_80061100_61D00(s16, s32);
+s32 func_8005B68C_5C28C(s16);
+s16 func_8005E0C0_5ECC0(s16);
+u8 func_80017AD8_186D8(s32);
+void func_800333B0_33FB0(s16);
+s16 func_8006014C_60D4C(s32);
+void func_80046558_47158(s16);
+void func_80060C14_61814(s16, s32);
+void func_80060EA8_61AA8(s16, s32);
 
 #endif

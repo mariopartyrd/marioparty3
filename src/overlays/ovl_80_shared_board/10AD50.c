@@ -7,6 +7,19 @@ extern s32 D_80105654_119274_shared_board;
 extern s32 D_80105658_119278_shared_board;
 extern s32 D_8010565C_11927C_shared_board;
 
+void func_800F7CF0_10B910_shared_board(void);
+void func_800F7D10_10B930_shared_board(void);
+void func_800F7D4C_10B96C_shared_board(void);
+void func_800F7D98_10B9B8_shared_board(void);
+void func_800F7DD4_10B9F4_shared_board(void);
+void func_800F7E1C_10BA3C_shared_board(void);
+void func_800F7E64_10BA84_shared_board(void);
+void func_800F7EAC_10BACC_shared_board(void);
+void func_800F7EF4_10BB14_shared_board(void);
+void func_800F7F30_10BB50_shared_board(void);
+void func_800F7F7C_10BB9C_shared_board(void);
+void func_800F7FC8_10BBE8_shared_board(void);
+
 // item ids
 s32 D_80101A20_115640_shared_board[] = {
     ITEM_MUSHROOM, ITEM_SKELETON_KEY, ITEM_BOO_REPELLENT,
@@ -31,16 +44,26 @@ f32 D_80101A74_115694_shared_board[][2] = {
 };
 
 s32 D_80101A94_1156B4_shared_board[] = {
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0x00003C0E, 0x00003C10, 0x00003C11, 0x00003C0F
+    [ITEM_MUSHROOM] 0,
+    [ITEM_SKELETON_KEY] 0,
+    [ITEM_POISON_MUSHROOM] 0,
+    [ITEM_REVERSE_MUSHROOM] 0,
+    [ITEM_CELLULAR_SHOPPER] 0,
+    [ITEM_WARP_BLOCK] 0,
+    [ITEM_PLUNDER_CHEST] 0,
+    [ITEM_BOWSER_PHONE] 0,
+    [ITEM_DUEL_GLOVE] 0,
+    [ITEM_LUCKY_LAMP] 0,
+    [ITEM_GOLDEN_MUSHROOM] 0,
+    [ITEM_BOO_BELL] 0,
+    [ITEM_BOO_REPELLENT] 0,
+    [ITEM_BOWSER_SUIT] 0,
+    [ITEM_MAGIC_LAMP] 0,
+    [ITEM_KOOPA_KARD] 0x00003C0E,
+    [ITEM_BARTER_BOX] 0x00003C10,
+    [ITEM_LUCKY_CHARM] 0x00003C11,
+    [ITEM_WACKY_WATCH] 0x00003C0F
 };
-
-void func_800F7CF0_10B910_shared_board(void);
-void func_800F7D10_10B930_shared_board(void);
-void func_800F7D4C_10B96C_shared_board(void);
-void func_800F7D98_10B9B8_shared_board(void);
-void func_800F7DD4_10B9F4_shared_board(void);
-void func_800F7E1C_10BA3C_shared_board(void);
 
 void (*D_80101AE0_115700_shared_board[])(void) = {
     func_800F7CF0_10B910_shared_board,
@@ -50,13 +73,6 @@ void (*D_80101AE0_115700_shared_board[])(void) = {
     func_800F7DD4_10B9F4_shared_board,
     func_800F7E1C_10BA3C_shared_board
 };
-
-void func_800F7E64_10BA84_shared_board(void);
-void func_800F7EAC_10BACC_shared_board(void);
-void func_800F7EF4_10BB14_shared_board(void);
-void func_800F7F30_10BB50_shared_board(void);
-void func_800F7F7C_10BB9C_shared_board(void);
-void func_800F7FC8_10BBE8_shared_board(void);
 
 void (*D_80101AF8_115718_shared_board[])(void) = {
     func_800F7E64_10BA84_shared_board,
@@ -174,48 +190,48 @@ void func_800F74E4_10B104_shared_board(void) {
 // more readable version of the function as the matching version is very jank
 void func_800F7578_10B198_shared_board(void) {
     s32 *temp2 = D_80101A40_115660_shared_board;
-    s32 temp_v0;
+    s32 itemID;
 
     while (1) {
-        temp_v0 = temp2[MBRand(ARRAY_COUNT(D_80101A40_115660_shared_board))];
-        D_80105630_119250_shared_board[0] = temp_v0;
+        itemID = temp2[MBRand(ARRAY_COUNT(D_80101A40_115660_shared_board))];
+        D_80105630_119250_shared_board[0] = itemID;
 
-        if (temp_v0 == 0x12 && GwSystem.unk_52 == 0) {
+        if (itemID == ITEM_WACKY_WATCH && GwSystem.unk_52 == 0) {
             GwSystem.unk_52 = 1;
             break;
         }
 
-        if (temp_v0 != 0x12) {
+        if (itemID != ITEM_WACKY_WATCH) {
             break;
         }
     }
 
     D_80105634_119254_shared_board = -1;
-    D_8010565C_11927C_shared_board = temp_v0;
+    D_8010565C_11927C_shared_board = itemID;
 }
 #else
 // TODO: cleanup this jank function
 void func_800F7578_10B198_shared_board(void) {
-    s32 new_var;
+    s32 itemID;
     
     while (1) {
-        new_var = D_80105630_119250_shared_board[0] = D_80101A40_115660_shared_board[MBRand(4.0f)];
-        if (new_var != 0x12) {
+        itemID = D_80105630_119250_shared_board[0] = D_80101A40_115660_shared_board[MBRand(ARRAY_COUNT(D_80101A40_115660_shared_board))];
+        if (itemID != ITEM_WACKY_WATCH) {
             break;
         }
-        if (GwSystem.unk_52 == 0) {
-            if (new_var == 0x12) {
-                GwSystem.unk_52 = 1;
+        if (GwSystem.wackyWatchUsedState == WATCH_NOT_FOUND) {
+            if (itemID == ITEM_WACKY_WATCH) {
+                GwSystem.wackyWatchUsedState = WATCH_GIVEN_FROM_TOAD;
             }
             break;
         }
-        if (new_var != 0x12) {
-            GwSystem.unk_52 = 1;
+        if (itemID != ITEM_WACKY_WATCH) {
+            GwSystem.wackyWatchUsedState = WATCH_GIVEN_FROM_TOAD;
         }
     }
 
     D_80105634_119254_shared_board = -1;
-    D_8010565C_11927C_shared_board = new_var;
+    D_8010565C_11927C_shared_board = itemID;
 }
 #endif
 

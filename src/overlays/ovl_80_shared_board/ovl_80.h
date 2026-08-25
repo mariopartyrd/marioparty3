@@ -14,6 +14,13 @@ enum BoardIndices {
     WALUIGIS_ISLAND = 5
 };
 
+enum {
+	WATCH_NOT_FOUND = 0,
+	WATCH_GIVEN_FROM_TOAD = 1,
+	WATCH_USED = 2,
+	WATCH_CANNOT_SPAWN = 3,
+};
+
 typedef struct UnkMBGuideData {
     Object* obj;
     Process* unk_04;
@@ -347,7 +354,7 @@ void MBDlgWinExec(s32, s32);
 void MBDlgWinCreate(s32, s32);
 void MBDlgWinClose(void);
 void MBDlgWinKill(void);
-
+void MBGuideFaceSet(Object*, s32);
 void MBVecForwardSet(Vec*);
 Process* func_800ED128_100D48_shared_board(Vec*, Vec*, Vec*, s32);
 void MBCoinTakeCreate(s32, s32);
@@ -450,6 +457,13 @@ s32 MBRand(f32);
 void MBItemRemoveEmpty(s32 arg0);
 void MBMasuTypeSet(s16, s32);
 SpaceData* MBMasuGet(s16 arg0);
+void func_800FFF44_113B64_shared_board(void);
+void func_800E6FCC_FABEC_shared_board(void);
+s32 MBCameraStopCheck(void);
+void func_80100130_113D50_shared_board(void);
+UnkMBGuideData* MBGuideCreate(u32* arg0, s32 arg1);
+void MBGuideFaceCreate(Object *arg0, s16 arg1, s16 arg2, s32 arg3);
+void MBGuideKill(UnkMBGuideData* arg0);
 
 extern f32 D_801056E8_119308_shared_board;
 extern Vec2f D_801056EC_11930C_shared_board;

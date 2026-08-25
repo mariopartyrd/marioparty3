@@ -1,4 +1,14 @@
 #include "common.h"
+#include "../ovl_80_shared_board/ovl_80.h"
+
+void func_80105CA4_3358E4_w02(void); 
+void func_80106094_335CD4_w02(void*);
+extern s32 D_8011C6B0_34C2F0_w02[];
+extern s32 D_8011C6CC_34C30C_w02[];
+extern Object* D_8011EBD8_34E818_w02[];
+extern Process* D_8011EC18_34E858_w02;
+extern Object* D_8011EC1C_34E85C_w02;
+extern s16 D_8011C6A0_34C2E0_w02[]; //mb2ev_StarGuideMasu
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w02/335610", func_801059D0_335610_w02);
 
@@ -14,7 +24,98 @@ INCLUDE_ASM("asm/nonmatchings/overlays/w02/335610", func_80105CA4_3358E4_w02);
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w02/335610", func_80106094_335CD4_w02);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/w02/335610", func_80106120_335D60_w02);
+#define GET_STAR_MODEL() D_8011EBD8_34E818_w02[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]]
+//MB3Ev_StarMapView
+void func_80106120_335D60_w02(void) {
+    UnkMBGuideData *guide;
+    Process *proc;
+    SpaceData *space;
+    s32 face;
+    s32 mesNum;
+    GW_SYSTEM* system = &GwSystem;
+
+    D_800A12D4_A1ED4 = 0;
+    guide = MBGuideCreate(0, 0);
+    HuAudSeqPlay(0x12);
+    MBGuideFaceCreate(guide->obj, 2, 0xF, D_8011C6B0_34C2F0_w02[0]);
+    func_800FFF44_113B64_shared_board();
+    MBModelDispOff(GET_STAR_MODEL());
+    WipeCreateIn(2, 0x10);
+    while (WipeStatGet() != 0) {
+        HuPrcVSleep();
+    }
+
+    func_800E6FCC_FABEC_shared_board();
+    func_800E9730_FD350_shared_board(3.0f);
+    func_80106094_335CD4_w02(guide);
+
+    if ((system->current_star_spawn == 0) && (GWBoardFlagCheck(4) == 0)) {
+        if (system->current_board_index == 2) {
+            mesNum = 0x5E09;
+        } else {
+            mesNum = 0x5E00;
+        }
+    } else {
+        if (system->current_board_index == 2) {
+            mesNum = 0x5E09;
+        } else {
+            mesNum = 0x5E01;
+        }
+    }
+    func_8005B43C_5C03C(guide->amount, mesNum, -1, -1);
+    func_80060C14_61814(guide->amount, 1);
+    HuAudFXPlay(0x2A7);
+    func_800EE2C0_101EE0_shared_board(guide->amount);
+    MBMotionShiftSet(guide->obj, -1, 0, 6, 2);
+    func_80060EA8_61AA8(guide->amount, 1);
+    func_8001FDE8_209E8(guide->obj->omObj1->model[0]);
+
+    if ((system->current_board_index != 2) || (rand8() & 1)) {
+        space = MBMasuGet(D_8011C6A0_34C2E0_w02[system->star_spawn_indices[system->current_star_spawn]]);
+    }
+    MBCameraPos3DSet(&space->coords);
+    MBCameraSpeedSet(5.0f);
+    HuPrcSleep(5);
+    while (MBCameraStopCheck() != 0) {
+        HuPrcVSleep();
+    }
+    HuPrcSleep(5);
+
+    face = MBRand(7.0f);
+    MBGuideFaceSet(guide->obj, D_8011C6B0_34C2F0_w02[face]);
+    MBMotionSet(guide->obj, -1, 2);
+
+    if (system->current_board_index != 2) {
+        proc = omAddPrcObj(func_80105CA4_3358E4_w02, 0x4800, 0, 0);
+        D_8011EC18_34E858_w02 = proc;
+        proc->user_data = space;
+        HuPrcSleep(30);
+    } else {
+        D_8011EC18_34E858_w02 = NULL;
+    }
+
+    func_8005B43C_5C03C(guide->amount, D_8011C6CC_34C30C_w02[face], -1, -1);
+    func_80060C14_61814(guide->amount, 1);
+    func_800EE2C0_101EE0_shared_board(guide->amount);
+    MBMotionShiftSet(guide->obj, -1, 0, 6, 2);
+    func_80060EA8_61AA8(guide->amount, 1);
+
+    HuAudSeqFadeOut(0x5A);
+    HuPrcSleep(30);
+    WipeCreateOut(2, 0x10);
+    HuPrcSleep(0x11);
+    D_800A12D4_A1ED4 = 1;
+    func_80100130_113D50_shared_board();
+    func_80046558_47158(D_8011EC1C_34E85C_w02->omObj1->model[0]);
+    MBModelKill(D_8011EC1C_34E85C_w02);
+    MBModelDispOn(GET_STAR_MODEL());
+    MBGuideKill(guide);
+    MBExit();
+    omOvlReturnEx(1);
+    omOvlKill();
+    HuPrcVSleep();
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w02/335610", func_801064DC_33611C_w02);
 

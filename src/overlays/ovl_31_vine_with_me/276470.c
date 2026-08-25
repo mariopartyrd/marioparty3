@@ -34,7 +34,7 @@ s32 func_80016784_17384(s32, s32);
 void func_80016FB4_17BB4(s32, s32, s16);
 void func_80017320_17F20(s32);
 s16 func_80017790_18390(s16 model, s32 arg1, s16 arg2, s32 arg3);
-void func_80017954_18554(s32, s32, s16, s32);
+void func_80017954_18554(s16, s16, s16, s16);
 s16 func_80017AD8_186D8(s32);
 s32 func_80017BB8_187B8(s16, s16);
 

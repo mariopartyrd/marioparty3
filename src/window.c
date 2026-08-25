@@ -342,7 +342,7 @@ void func_80060144_60D44(s16 obj) {
 #endif
 }
 
-s8 func_8006014C_60D4C(s32 winId) {
+s16 func_8006014C_60D4C(s32 winId) {
     return D_800CC69C_CD29C[winId].unk_31;
 }
 

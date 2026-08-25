@@ -1,6 +1,14 @@
 #include "SpinyDesert.h"
 #include "common.h"
 #include "game/object.h"
+#include "../ovl_80_shared_board/ovl_80.h"
+
+void func_80105DB0_34EC20_w03(void);
+void func_801061A0_34F010_w03(UnkMBGuideData*);
+extern s16 D_8011C150_364FC0_w03[];
+extern Object* D_8011EAC8_367938_w03[];
+extern Process* D_8011EB08_367978_w03;
+extern Object* D_8011EB0C_36797C_w03;
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_801059D0_34E840_w03);
 
@@ -17,7 +25,115 @@ INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_80105DB0_34EC20_w03);
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_801061A0_34F010_w03);
 
 // Star tour.
-INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_8010622C_34F09C_w03);
+void func_8010622C_34F09C_w03(void) {
+    UnkMBGuideData *guide;
+    Process *proc;
+    SpaceData *first;
+    SpaceData *second;
+    SpaceData *temp;
+    s32 mesNum;
+    GW_SYSTEM* system = &GwSystem;
+
+    D_800A12D4_A1ED4 = 0;
+    guide = MBGuideCreate(0, 0);
+    HuAudSeqPlay(0x12);
+    MBGuideFaceCreate(guide->obj, 2, 0xF, 0xA007E);
+    func_800FFF44_113B64_shared_board();
+    MBModelDispOff(D_8011EAC8_367938_w03[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]]);
+    MBModelDispOff(D_8011EAC8_367938_w03[GwSystem.boardData.halfWordBytes[0]]);
+    WipeCreateIn(2, 0x10);
+    while (WipeStatGet() != 0) {
+        HuPrcVSleep();
+    }
+
+    func_800E6FCC_FABEC_shared_board();
+    func_800E9730_FD350_shared_board(3.0f);
+    func_801061A0_34F010_w03(guide);
+
+    first = MBMasuGet(D_8011C150_364FC0_w03[system->star_spawn_indices[system->current_star_spawn]]);
+    second = MBMasuGet(D_8011C150_364FC0_w03[GwSystem.boardData.halfWordBytes[0]]);
+
+    if (MBRandCheck100(50) != 0) {
+        temp = first;
+        first = second;
+        second = temp;
+    }
+    
+    if ((system->current_star_spawn == 0) && (GWBoardFlagCheck(4) == 0)) {
+        mesNum = 0x5E09;
+    } else {
+        mesNum = 0x5E0A;
+    }
+
+    
+    func_8005B43C_5C03C(guide->amount, mesNum, -1, -1);
+    func_80060C14_61814(guide->amount, 1);
+    HuAudFXPlay(0x2A7);
+    temp = first;
+    func_800EE2C0_101EE0_shared_board(guide->amount);
+    MBMotionShiftSet(guide->obj, -1, 0, 6, 2);
+    func_80060EA8_61AA8(guide->amount, 1);
+    func_8001FDE8_209E8(guide->obj->omObj1->model[0]);
+
+    MBCameraPos3DSet(&temp->coords);
+    MBCameraSpeedSet(5.0f);
+    HuPrcSleep(5);
+    while (MBCameraStopCheck() != 0) {
+        HuPrcVSleep();
+    }
+    HuPrcSleep(5);
+
+    MBMotionSet(guide->obj, -1, 2);
+    proc = omAddPrcObj(func_80105DB0_34EC20_w03, 0x4800, 0, 0);
+    D_8011EB08_367978_w03 = proc;
+    proc->user_data = temp;
+    HuPrcSleep(30);
+    D_800CC69C_CD29C[guide->amount].unk20 = 1;
+    HuPrcVSleep();
+    func_80060C14_61814(guide->amount, 1);
+    func_800EE2C0_101EE0_shared_board(guide->amount);
+    MBMotionShiftSet(guide->obj, -1, 0, 6, 2);
+    func_80060EA8_61AA8(guide->amount, 1);
+
+    while (D_8011EB08_367978_w03 != NULL) {
+        HuPrcVSleep();
+    }
+    temp = second;
+    MBCameraPos3DSet(&temp->coords);
+    MBCameraSpeedSet(5.0f);
+    HuPrcSleep(5);
+    while (MBCameraStopCheck() != 0) {
+        HuPrcVSleep();
+    }
+    HuPrcSleep(5);
+
+    proc = omAddPrcObj(func_80105DB0_34EC20_w03, 0x4800, 0, 0);
+    D_8011EB08_367978_w03 = proc;
+    proc->user_data = temp;
+    HuPrcSleep(30);
+    D_800CC69C_CD29C[guide->amount].unk20 = 1;
+    HuPrcVSleep();
+    func_80060C14_61814(guide->amount, 1);
+    func_800EE2C0_101EE0_shared_board(guide->amount);
+    func_80060EA8_61AA8(guide->amount, 1);
+
+    HuAudSeqFadeOut(0x5A);
+    HuPrcSleep(30);
+    WipeCreateOut(2, 0x10);
+    HuPrcSleep(0x11);
+    D_800A12D4_A1ED4 = 1;
+    func_80100130_113D50_shared_board();
+    func_80046558_47158(D_8011EB0C_36797C_w03->omObj1->model[0]);
+    MBModelKill(D_8011EB0C_36797C_w03);
+    MBModelDispOn(D_8011EAC8_367938_w03[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]]);
+    MBModelDispOn(D_8011EAC8_367938_w03[GwSystem.boardData.halfWordBytes[0]]);
+    MBGuideKill(guide);
+    MBExit();
+    omOvlReturnEx(1);
+    omOvlKill();
+    HuPrcVSleep();
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_801066CC_34F53C_w03);
 
