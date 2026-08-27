@@ -114,29 +114,29 @@ s16 MBPlayerTurnGet(void) {
     return GwSystem.current_player_index;
 }
 
-GW_PLAYER *MBPlayerGet(s32 playerIndex) {
-    if (playerIndex < 0) {
-        playerIndex = MBPlayerTurnGet();
+GW_PLAYER *MBPlayerGet(s32 playerNo) {
+    if (playerNo < 0) {
+        playerNo = MBPlayerTurnGet();
     }
-    return &GwPlayer[playerIndex];
+    return &GwPlayer[playerNo];
 }
 
-s32 MBPlayerCurrentCheck(s16 playerIndex) {
-    if (playerIndex == GwSystem.current_player_index) {
+s32 MBPlayerCurrentCheck(s16 playerNo) {
+    if (playerNo == GwSystem.current_player_index) {
         return TRUE;
     } else {
         return FALSE;
     }
 }
 
-s32 MBPlayerComCheck(s16 playerIndex) {
-    return MBPlayerGet(playerIndex)->stat & PLAYER_IS_CPU;
+s32 MBPlayerComCheck(s16 playerNo) {
+    return MBPlayerGet(playerNo)->stat & PLAYER_IS_CPU;
 }
 
-void MBPlayerCoinAdd(s32 playerIndex, s32 amount) {
+void MBPlayerCoinAdd(s32 playerNo, s32 amount) {
     GW_PLAYER *player;
 
-    player = MBPlayerGet(playerIndex);
+    player = MBPlayerGet(playerNo);
     player->coin = player->coin + amount;
     if (player->coin > 999) {
         player->coin = 999;
@@ -149,16 +149,16 @@ void MBPlayerCoinAdd(s32 playerIndex, s32 amount) {
     }
 }
 
-s32 MBPlayerCoinCheck(s32 playerIndex, s32 requiredCoins) {
-    if (MBPlayerGet(playerIndex)->coin >= requiredCoins) {
+s32 MBPlayerCoinCheck(s32 playerNo, s32 requiredCoins) {
+    if (MBPlayerGet(playerNo)->coin >= requiredCoins) {
         return TRUE;
     } else {
         return FALSE;
     }
 }
 
-void MBPlayerSpeedSet(s32 playerIndex, f32 arg1) {
-    GW_PLAYER *player = MBPlayerGet(playerIndex);
+void MBPlayerSpeedSet(s32 playerNo, f32 arg1) {
+    GW_PLAYER *player = MBPlayerGet(playerNo);
 
     if (player->itemTurn != 0) {
         func_8001C92C_1D52C(D_801011FC_114E1C_shared_board->omObj1->model[0], arg1);
@@ -168,9 +168,8 @@ void MBPlayerSpeedSet(s32 playerIndex, f32 arg1) {
 }
 
 void MBPlayerMotionWait(s32 playerNo) {
-    GW_PLAYER *player;
+    GW_PLAYER *player = MBPlayerGet(playerNo);
 
-    player = MBPlayerGet(playerNo);
     if (player->itemTurn != 0) {
         MBModelMotionWait(D_801011FC_114E1C_shared_board);
     } else {
@@ -178,10 +177,9 @@ void MBPlayerMotionWait(s32 playerNo) {
     }
 }
 
-void MBPlayerMotionSet(s32 playerIndex, s16 arg1, u16 arg2) {
-    GW_PLAYER *player;
+void MBPlayerMotionSet(s32 playerNo, s16 arg1, u16 arg2) {
+    GW_PLAYER *player = MBPlayerGet(playerNo);
 
-    player = MBPlayerGet(playerIndex);
     if (player == MBPlayerGet(CUR_PLAYER)) {
         MBMotionSet(player->player_obj, arg1, arg2);
         if ((player->itemTurn != 0) & (arg1 < 7)) {
@@ -190,10 +188,9 @@ void MBPlayerMotionSet(s32 playerIndex, s16 arg1, u16 arg2) {
     }
 }
 
-void func_800F2388_105FA8_shared_board(s32 playerIndex, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
-    GW_PLAYER *player;
+void func_800F2388_105FA8_shared_board(s32 playerNo, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
+    GW_PLAYER *player = MBPlayerGet(playerNo);
 
-    player = MBPlayerGet(playerIndex);
     if (player == MBPlayerGet(CUR_PLAYER)) {
         MBMotionShiftSet(player->player_obj, arg1, arg2, arg3, arg4);
         if ((player->itemTurn != 0) & (arg1 < 7)) {
@@ -202,32 +199,31 @@ void func_800F2388_105FA8_shared_board(s32 playerIndex, s16 arg1, s16 arg2, s16 
     }
 }
 
-void func_800F244C_10606C_shared_board(s32 arg0, u8 arg1) {
-    MBPlayerGet(arg0)->cpu_difficulty = D_80101630_115250_shared_board[arg1];
+void func_800F244C_10606C_shared_board(s32 playerNo, u8 arg1) {
+    MBPlayerGet(playerNo)->cpu_difficulty = D_80101630_115250_shared_board[arg1];
 }
 
 void func_800F2484_1060A4_shared_board(s32 arg0) {
 }
 
 void func_800F248C_1060AC_shared_board(void) {
-    GW_PLAYER *curPlayer = HuPrcCurrentGet()->user_data;
+    GW_PLAYER *player = HuPrcCurrentGet()->user_data;
 
     while (1) {
         HuPrcVSleep();
-        if (curPlayer->stat & 4) {
+        if (player->stat & PLAYER_UNK_04) {
             continue;
         }
-        HuVecCopyXYZ(&curPlayer->player_obj->scale, 1.0f, 1.0f, 1.0f);
+        HuVecCopyXYZ(&player->player_obj->scale, 1.0f, 1.0f, 1.0f);
     }
 }
 
 // create player sprite
 void MBPlayerModelCreate(s16 playerNo, u32 *arg1, s32 arg2) {
-    GW_PLAYER *player;
+    GW_PLAYER *player = MBPlayerGet(playerNo);
     Process *proc;
     u8 chr;
 
-    player = MBPlayerGet(playerNo);
     player->turn = playerNo;
     chr = player->chr;
 

@@ -437,10 +437,8 @@ void MBStatusCharSprCreate(s32 playerIndex) {
 }
 
 void MBStatusIconSprCreate(s32 arg0) {
-    s16 temp_s2;
     s32 i;
-
-    temp_s2 = mbStatusData[arg0].playerIndex;
+    s16 temp_s2 = mbStatusData[arg0].playerIndex;
 
     for (i = 0; i < 2; i++) {
         func_80055024_55C24(temp_s2, i + 2, D_80105588_1191A8_shared_board[i + 5], 0);
@@ -455,12 +453,11 @@ void MBStatusIconSprCreate(s32 arg0) {
 }
 
 void MBStatusNumSprCreate(s32 arg0) {
-    BoardStatus *temp_s4;
+    BoardStatus *temp_s4 = &mbStatusData[arg0];
     s16 temp_s2;
     void *temp_v0;
     s32 i;
 
-    temp_s4 = &mbStatusData[arg0];
     temp_s4->prevCoins = -1;
     temp_s4->prevStars = -1;
     temp_v0 = DataRead(0x1300CF);
@@ -470,79 +467,75 @@ void MBStatusNumSprCreate(s32 arg0) {
         func_80055024_55C24(temp_s2, i + 4, temp_s4->unk_3A, 0);
         func_800550F4_55CF4(temp_s2, i + 4, 1);
         func_80055140_55D40(temp_s2, i + 4, 0xA, 0);
-        HuSprPriSet(temp_s2, i + 4, ((arg0 * 5) + 0x4790) & 0xFFFF);
-        HuSprAttrReset(temp_s2, i + 4, 0xFFFFU);
-        HuSprAttrSet(temp_s2, i + 4, 0U);
+        HuSprPriSet(temp_s2, i + 4, ((arg0 * 5) + 0x4790));
+        HuSprAttrReset(temp_s2, i + 4, 0xFFFF);
+        HuSprAttrSet(temp_s2, i + 4, 0);
         func_80054904_55504(temp_s2, i + 4, D_801018E4_115504_shared_board[i + 4][0], D_801018E4_115504_shared_board[i + 4][1]);
         func_80055420_56020(temp_s2, i + 4, 0xFF, 0xFF, 0xFF);
-        func_80055458_56058(temp_s2, i + 4, 0x100U);
+        func_80055458_56058(temp_s2, i + 4, 0x100);
         func_800552DC_55EDC(temp_s2, i + 4, 0.0f);
     }
     DataClose(temp_v0);
 }
 
-void MBStatusBackSprCreate(s32 arg0) {
-    BoardStatus *temp_s0;
-    s16 temp_v0;
+void MBStatusBackSprCreate(s32 playerNo) {
+    BoardStatus *temp_s0 = &mbStatusData[playerNo];
+    s16 temp_v0 = HuSprGrpCreate(0xE, 2);
 
-    temp_s0 = &mbStatusData[arg0];
-    temp_v0 = HuSprGrpCreate(0xE, 2);
     temp_s0->playerIndex = temp_v0;
     func_80055024_55C24(temp_v0, 0, D_80105588_1191A8_shared_board[0], 0);
-    HuSprPriSet(temp_v0, 0, ((arg0 * 5) + 0x4790));
+    HuSprPriSet(temp_v0, 0, ((playerNo * 5) + 0x4790));
     HuSprAttrSet(temp_v0, 0, 0x1000);
     func_80054904_55504(temp_v0, 0, 0, 0);
 }
 
-void MBStatusRankSprCreate(s32 arg0) {
-    BoardStatus *temp_v0;
+void MBStatusRankSprCreate(s32 playerNo) {
+    BoardStatus *temp_v0 = &mbStatusData[playerNo];
     s16 temp_s0;
 
-    temp_v0 = &mbStatusData[arg0];
     temp_v0->prevRank = -1;
     temp_s0 = temp_v0->playerIndex;
     func_80055024_55C24(temp_s0, 0xA, D_80105588_1191A8_shared_board[8], 0);
     func_800550F4_55CF4(temp_s0, 0xA, 1);
     func_80055140_55D40(temp_s0, 0xA, 0, 0);
-    HuSprPriSet(temp_s0, 0xA, ((arg0 * 5) + 0x478F) & 0xFFFF);
+    HuSprPriSet(temp_s0, 0xA, ((playerNo * 5) + 0x478F));
     HuSprAttrSet(temp_s0, 0xA, 0);
     func_80054904_55504(temp_s0, 0xA, D_801018E4_115504_shared_board[10][0], D_801018E4_115504_shared_board[10][1]);
 }
 
-void MBStatusComSprCreate(s32 playerIndex) {
+void MBStatusComSprCreate(s32 playerNo) {
     s16 temp_s2;
 
-    temp_s2 = mbStatusData[playerIndex].playerIndex;
+    temp_s2 = mbStatusData[playerNo].playerIndex;
     func_80055024_55C24(temp_s2, 9, D_80105588_1191A8_shared_board[9], 0);
     func_800550F4_55CF4(temp_s2, 9, 0);
-    HuSprPriSet(temp_s2, 9, ((playerIndex * 5) + 0x478E) & 0xFFFF);
+    HuSprPriSet(temp_s2, 9, ((playerNo * 5) + 0x478E));
     HuSprAttrSet(temp_s2, 9, 0);
     func_80054904_55504(temp_s2, 9, D_801018E4_115504_shared_board[9][0], D_801018E4_115504_shared_board[9][1]);
-    if (!(GwPlayer[playerIndex].stat & 1)) {
+    if (!(GwPlayer[playerNo].stat & 1)) {
         HuSprAttrSet(temp_s2, 9, 0x8000);
     }
 }
 
-void MBStatusItemIconSprCreate(s32 arg0) {
-    s32 temp_s3;
+void MBStatusItemIconSprCreate(s32 playerNo) {
+    s32 temp_s3 = mbStatusData[playerNo].playerIndex;
     s16 var_s1;
     s32 i;
     s32 curItem;
-    temp_s3 = mbStatusData[arg0].playerIndex;
 
     for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
-        curItem = GwPlayer[arg0].itemNo[i];
+        curItem = GwPlayer[playerNo].itemNo[i];
         curItem = (curItem == -1) ? 0 : curItem;
         func_80055024_55C24(temp_s3, i + 0xB, D_80105588_1191A8_shared_board[curItem + 10], 0);
         func_800550F4_55CF4(temp_s3, i + 0xB, 0);
-        HuSprPriSet(temp_s3, i + 0xB, ((arg0 * 5) + 0x478E));
+        HuSprPriSet(temp_s3, i + 0xB, ((playerNo * 5) + 0x478E));
         HuSprAttrSet(temp_s3, i + 0xB, 0);
         var_s1 = i + 0xB;
-        if (arg0 >= 2) {
+        if (playerNo >= 2) {
             var_s1 = i + 0xE;
         }
         func_80054904_55504(temp_s3, i + 0xB, D_801018E4_115504_shared_board[var_s1][0], D_801018E4_115504_shared_board[var_s1][1]);
-        if (GwPlayer[arg0].itemNo[i] == -1) {
+        if (GwPlayer[playerNo].itemNo[i] == -1) {
             HuSprAttrSet(temp_s3, i + 0xB, 0x8000);
         }
     }
@@ -614,35 +607,33 @@ void MBStatusAnimKill(void) {
     }
 }
 
-void func_800F43FC_10801C_shared_board(s32 arg0) {
-    BoardStatus *temp_s2;
+void func_800F43FC_10801C_shared_board(s32 playerNo) {
+    BoardStatus *temp_s2 = &mbStatusData[playerNo];
     s32 i;
-
-    temp_s2 = &mbStatusData[arg0];
 
     for (i = 0; i < ARRAY_COUNT(temp_s2->unk2); i++) {
         temp_s2->unk2[i] = 0;
     }
 
-    temp_s2->counts[0] = GwPlayer[arg0].coin;
-    temp_s2->counts[1] = GwPlayer[arg0].star;
+    temp_s2->counts[0] = GwPlayer[playerNo].coin;
+    temp_s2->counts[1] = GwPlayer[playerNo].star;
     temp_s2->uiVisible = 0;
     temp_s2->unk1 = -1;
     temp_s2->prevCoins = -1;
     temp_s2->prevStars = -1;
     temp_s2->prevRank = -1;
     temp_s2->uiUpdatePaused = FALSE;
-    MBStatusBackSprCreate(arg0);
-    MBStatusColorSet(arg0, 0);
-    MBStatusPosSet(arg0, PlayerBoardStatusRootPosition[arg0][0], PlayerBoardStatusRootPosition[arg0][1]);
-    MBStatusCharSprCreate(arg0);
-    MBStatusIconSprCreate(arg0);
-    MBStatusNumSprCreate(arg0);
-    MBStatusRankSprCreate(arg0);
-    MBStatusComSprCreate(arg0);
-    MBStatusItemIconSprCreate(arg0);
-    MBStatusNumUpdate(arg0);
-    D_801055E8_119208_shared_board[arg0] = NULL;
+    MBStatusBackSprCreate(playerNo);
+    MBStatusColorSet(playerNo, 0);
+    MBStatusPosSet(playerNo, PlayerBoardStatusRootPosition[playerNo][0], PlayerBoardStatusRootPosition[playerNo][1]);
+    MBStatusCharSprCreate(playerNo);
+    MBStatusIconSprCreate(playerNo);
+    MBStatusNumSprCreate(playerNo);
+    MBStatusRankSprCreate(playerNo);
+    MBStatusComSprCreate(playerNo);
+    MBStatusItemIconSprCreate(playerNo);
+    MBStatusNumUpdate(playerNo);
+    D_801055E8_119208_shared_board[playerNo] = NULL;
     temp_s2->unk30 = 0;
 }
 
@@ -671,11 +662,10 @@ void func_800F453C_10815C_shared_board(void) {
     }
 }
 
-void func_800F462C_10824C_shared_board(s32 arg0) {
-    BoardStatus *temp_s2;
+void func_800F462C_10824C_shared_board(s32 playerNo) {
+    BoardStatus *temp_s2 = &mbStatusData[playerNo];
     s32 i;
 
-    temp_s2 = &mbStatusData[arg0];
     HuSprGrpKill(temp_s2->playerIndex);
 
     switch (temp_s2->uiUpdatePaused) {
@@ -696,9 +686,9 @@ void func_800F462C_10824C_shared_board(s32 arg0) {
         temp_s2->unk30 = 0;
     }
 
-    if (D_801055E8_119208_shared_board[arg0] != NULL) {
-        omDelObj(D_801055E8_119208_shared_board[arg0]);
-        D_801055E8_119208_shared_board[arg0] = NULL;
+    if (D_801055E8_119208_shared_board[playerNo] != NULL) {
+        omDelObj(D_801055E8_119208_shared_board[playerNo]);
+        D_801055E8_119208_shared_board[playerNo] = NULL;
     }
 }
 
@@ -716,19 +706,19 @@ void func_800F4730_108350_shared_board(void) {
     D_80101784_1153A4_shared_board = -1;
 }
 
-void MBStatusColorSet(u32 playerIndex, s32 turnStatus) {
-    if (playerIndex < MB_MAX_PLAYERS) {
-        func_80055420_56020(mbStatusData[playerIndex].playerIndex, 0, D_8010188C_1154AC_shared_board[turnStatus].r, D_8010188C_1154AC_shared_board[turnStatus].g, D_8010188C_1154AC_shared_board[turnStatus].b);
-        mbStatusData[playerIndex].spaceType = turnStatus;
+void MBStatusColorSet(u32 playerNo, s32 turnStatus) {
+    if (playerNo < MB_MAX_PLAYERS) {
+        func_80055420_56020(mbStatusData[playerNo].playerIndex, 0, D_8010188C_1154AC_shared_board[turnStatus].r, D_8010188C_1154AC_shared_board[turnStatus].g, D_8010188C_1154AC_shared_board[turnStatus].b);
+        mbStatusData[playerNo].spaceType = turnStatus;
     }
 }
 
-s32 func_800F482C_10844C_shared_board(s32 arg0) {
-    return mbStatusData[arg0].spaceType;
+s32 func_800F482C_10844C_shared_board(s32 playerNo) {
+    return mbStatusData[playerNo].spaceType;
 }
 
-void func_800F4850_108470_shared_board(s32 arg0, s32 arg1) {
-    mbStatusData[arg0].unk1 = arg1;
+void func_800F4850_108470_shared_board(s32 playerNo, s32 arg1) {
+    mbStatusData[playerNo].unk1 = arg1;
 }
 
 // initialize player UIs
@@ -748,13 +738,13 @@ void MBStatusPosSet(s32 playerIndex, s16 arg1, s16 arg2) {
 }
 
 //?
-void MBStatusDispSideSet(s32 arg0, s32 arg1) {
-    s32 index = (arg1 * 4) + arg0;
-    MBStatusPosSet(arg0, PlayerBoardStatusRootPosition[index][0], PlayerBoardStatusRootPosition[index][1]);
+void MBStatusDispSideSet(s32 playerNo, s32 arg1) {
+    s32 index = (arg1 * 4) + playerNo;
+    MBStatusPosSet(playerNo, PlayerBoardStatusRootPosition[index][0], PlayerBoardStatusRootPosition[index][1]);
 }
 
-void MBStatusSideSet(s32 arg0, s32 arg1) {
-    MBStatusPosSet(arg0, PlayerBoardStatusRootPosition[arg1][0], PlayerBoardStatusRootPosition[arg1][1]);
+void MBStatusSideSet(s32 playerNo, s32 arg1) {
+    MBStatusPosSet(playerNo, PlayerBoardStatusRootPosition[arg1][0], PlayerBoardStatusRootPosition[arg1][1]);
 }
 
 // changed MBStatusDispMoveSet to return s32
@@ -967,11 +957,10 @@ s32 MBStatusDispMoveSet(s32 arg0) {
 
 
 s32 func_800F5278_108E98_shared_board(void) {
-    s32 var_a0;
+    s32 var_a0 = FALSE;
     s32 i;
 
-    var_a0 = FALSE;
-    for (i = 0; i < MB_MAX_PLAYERS; i++) { // TODO: should this be MB_MAX_PLAYERS?
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if (mbStatusData[i].unkE != -2) {
             var_a0 = TRUE;
         }
@@ -1078,12 +1067,11 @@ void MBVsSprKill(void) {
 }
 
 void func_800F56A8_1092C8_shared_board(omObjData *arg0) {
-    BoardStatus *temp_s2;
+    BoardStatus *temp_s2 = &mbStatusData[arg0->work[0]];
     f32 var_f0;
     f32 var_f0_2;
     s32 i;
 
-    temp_s2 = &mbStatusData[arg0->work[0]];
     for (i = 0; i < 0xE; i++) {
         if ((HuMathSin(arg0->rot.x) * 0.15f) > 0.0f) {
             var_f0 = (HuMathSin(arg0->rot.x) * 0.15f) + 1.0f;
@@ -1106,11 +1094,10 @@ void func_800F56A8_1092C8_shared_board(omObjData *arg0) {
 }
 
 void func_800F5828_109448_shared_board(s32 arg0) {
-    BoardStatus *temp_s1;
+    BoardStatus *temp_s1 = &mbStatusData[arg0];
     omObjData *temp_v0;
     s32 i, j;
 
-    temp_s1 = &mbStatusData[arg0];
     if (temp_s1->unk30 == NULL) {
         temp_v0 = omAddObj(-0x8000, 0, 0, -1, func_800F56A8_1092C8_shared_board);
         temp_s1->unk30 = temp_v0;
@@ -1125,10 +1112,9 @@ void func_800F5828_109448_shared_board(s32 arg0) {
 }
 
 void func_800F591C_10953C_shared_board(s32 arg0) {
-    BoardStatus *temp_s1;
+    BoardStatus *temp_s1 = &mbStatusData[arg0];
     s32 i;
 
-    temp_s1 = &mbStatusData[arg0];
     if (temp_s1->unk30 != NULL) {
         omDelObj((omObjData *)temp_s1->unk30);
         temp_s1->unk30 = 0;
@@ -1139,9 +1125,8 @@ void func_800F591C_10953C_shared_board(s32 arg0) {
 }
 
 void func_800F59B4_1095D4_shared_board(omObjData *arg0) {
-    s32 var_s1;
+    s32 var_s1 = 0;
 
-    var_s1 = 0;
     while (arg0->scale.y <= 0.0f) {
         if (arg0->trans.x > 0.0f) {
             MBPlayerCoinAdd(arg0->work[0], 1);
@@ -1202,12 +1187,12 @@ void MBCoinTakeCreateSound(s32 playerIndex, s32 coinAmount, s32 arg2) {
     }
 }
 
-void MBCoinTakeCreate(s32 arg0, s32 arg1) {
-    MBCoinTakeCreateSound(arg0, arg1, 1);
+void MBCoinTakeCreate(s32 playerNo, s32 arg1) {
+    MBCoinTakeCreateSound(playerNo, arg1, 1);
 }
 
-s32 MBCoinTakeCheck(s32 arg0) {
-    if (D_801055E8_119208_shared_board[arg0]) {
+s32 MBCoinTakeCheck(s32 playerNo) {
+    if (D_801055E8_119208_shared_board[playerNo]) {
         return TRUE;
     } else {
         return FALSE;
@@ -1283,21 +1268,18 @@ void func_800F5F7C_109B9C_shared_board(void) {
     MBStatusDispMoveSet(0x17);
 }
 
-void MBStatusItemSprCreate(s32 arg0, s32 arg1) {
+void MBStatusItemSprCreate(s32 playerNo, s32 arg1) {
+    BoardStatus *temp_s7 = &mbStatusData[playerNo];
+    s16 temp_s5 = temp_s7->playerIndex;
+    void *var_s2 = NULL;
     s32 sp10;
     s32 sp14;
-    BoardStatus *temp_s7;
-    s16 temp_s5;
     s16 i;
-    void *var_s2;
-
-    temp_s7 = &mbStatusData[arg0];
-    temp_s5 = temp_s7->playerIndex;
-    var_s2 = NULL;
+    
     for (i = 0; i < ARRAY_COUNT(GwPlayer->itemNo); i++) {
         var_s2 = NULL;
-        if (GwPlayer[arg0].itemNo[i] != -1) {
-            var_s2 = DataRead(D_8010197C_11559C_shared_board[GwPlayer[arg0].itemNo[i]]);
+        if (GwPlayer[playerNo].itemNo[i] != ITEM_NONE) {
+            var_s2 = DataRead(D_8010197C_11559C_shared_board[GwPlayer[playerNo].itemNo[i]]);
         } else {
             if (i == 0) {
                 var_s2 = DataRead(0x13025E);
@@ -1309,16 +1291,16 @@ void MBStatusItemSprCreate(s32 arg0, s32 arg1) {
             DataClose(var_s2);
             func_80055024_55C24(temp_s5, i + 2, temp_s7->unk_40[i], 0);
             if (i != 0) {
-                HuSprPriSet(temp_s5, i + 2, (arg0 * 5) + 0x4790);
+                HuSprPriSet(temp_s5, i + 2, (playerNo * 5) + 0x4790);
             } else {
-                HuSprPriSet(temp_s5, i + 2, ((arg0 * 5) + 0x478F) & 0xFFFF);
+                HuSprPriSet(temp_s5, i + 2, ((playerNo * 5) + 0x478F) & 0xFFFF);
             }
             HuSprAttrSet(temp_s5, i + 2, 0x180C);
             HuSprAttrReset(temp_s5, i + 2, 0x8000);
             func_800552DC_55EDC(temp_s5, i + 2, 0.0f);
-            if (GwPlayer[arg0].itemNo[0] != ITEM_NONE) {
+            if (GwPlayer[playerNo].itemNo[0] != ITEM_NONE) {
                 if (arg1 != 0) {
-                    MBStatusItemPosGet(arg0, i, &sp10, &sp14);
+                    MBStatusItemPosGet(playerNo, i, &sp10, &sp14);
                     func_80054904_55504(temp_s7->playerIndex, i + 2, sp10, sp14);
                 } else {
                     switch (i) {
@@ -1336,8 +1318,8 @@ void MBStatusItemSprCreate(s32 arg0, s32 arg1) {
             } else {
                 if (arg1 != 0) {
                     f32 xPos, yPos;
-                    xPos = (PlayerBoardStatusRootPosition[arg0][0] + 0x38);
-                    yPos = (PlayerBoardStatusRootPosition[arg0][1] + 0x13);
+                    xPos = (PlayerBoardStatusRootPosition[playerNo][0] + 0x38);
+                    yPos = (PlayerBoardStatusRootPosition[playerNo][1] + 0x13);
                     xPos = xPos + 22.0f;
                     xPos = xPos - 4.0f;
 
@@ -1348,7 +1330,7 @@ void MBStatusItemSprCreate(s32 arg0, s32 arg1) {
             }
             HuSprScaleSet(temp_s5, i + 2, 1.0f, 1.0f);
             func_800550B4_55CB4(temp_s5, i + 2, 0.0f);
-            if (arg0 == GwSystem.current_player_index) {
+            if (playerNo == GwSystem.current_player_index) {
                 func_80055458_56058(temp_s5, i + 2, 0x100);
             } else {
                 func_80055458_56058(temp_s5, i + 2, 0x80);
@@ -1440,13 +1422,14 @@ void MBStatusItemDispSet(s32 arg0, s32 arg1) {
 
 void MBStatusItemDispSetAll(s32 arg0) {
     s32 i;
+
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
         MBStatusItemDispSet(i, arg0);
     }
 }
 
-s32 MBStatusItemDispGet(s32 arg0) {
-    return mbStatusData[arg0].uiUpdatePaused;
+s32 MBStatusItemDispGet(s32 playerNo) {
+    return mbStatusData[playerNo].uiUpdatePaused;
 }
 
 void MBStatusSprPosGet(s16 arg0, s16 arg1, f32 *arg2, f32 *arg3) {
@@ -1456,48 +1439,48 @@ void MBStatusSprPosGet(s16 arg0, s16 arg1, f32 *arg2, f32 *arg3) {
     *arg3 = sprite->unk_4C;
 }
 
-void MBStatusItemOfsApply(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
+void MBStatusItemOfsApply(s32 playerNo, s32 arg1, f32 arg2, f32 arg3) {
     f32 temp_f20;
     f32 temp_f22;
     s32 temp_s1;
 
-    temp_s1 = mbStatusData[arg0].playerIndex;
+    temp_s1 = mbStatusData[playerNo].playerIndex;
     MBStatusSprPosGet(temp_s1, arg1 + 2, &temp_f20, &temp_f22);
     temp_f20 += arg2;
     temp_f22 += arg3;
     func_80054904_55504(temp_s1, arg1 + 2, temp_f20, temp_f22);
 }
 
-void func_800F6848_10A468_shared_board(s32 arg0, s32 arg1, f32 *arg2, f32 *arg3) {
-    MBStatusSprPosGet(mbStatusData[arg0].playerIndex, (arg1 + 2), arg2, arg3);
+void func_800F6848_10A468_shared_board(s32 playerNo, s32 arg1, f32 *arg2, f32 *arg3) {
+    MBStatusSprPosGet(mbStatusData[playerNo].playerIndex, (arg1 + 2), arg2, arg3);
 }
 
-void MBStatusItemPosSet(s32 arg0, s32 arg1, s16 arg2, s16 arg3) {
-    func_80054904_55504(mbStatusData[arg0].playerIndex, (arg1 + 2), arg2, arg3);
+void MBStatusItemPosSet(s32 playerNo, s32 arg1, s16 arg2, s16 arg3) {
+    func_80054904_55504(mbStatusData[playerNo].playerIndex, (arg1 + 2), arg2, arg3);
 }
 
-void MBStatusItemTPLvlSet(s32 arg0, s32 arg1, s16 arg2) {
-    func_80055458_56058(mbStatusData[arg0].playerIndex, (arg1 + 2), arg2);
+void MBStatusItemTPLvlSet(s32 playerNo, s32 arg1, s16 arg2) {
+    func_80055458_56058(mbStatusData[playerNo].playerIndex, (arg1 + 2), arg2);
 }
 
-void MBStatusItemRotSet(s32 arg0, s32 arg1, f32 arg2) {
-    func_800552DC_55EDC(mbStatusData[arg0].playerIndex, (arg1 + 2), arg2);
+void MBStatusItemRotSet(s32 playerNo, s32 arg1, f32 arg2) {
+    func_800552DC_55EDC(mbStatusData[playerNo].playerIndex, (arg1 + 2), arg2);
 }
 
-void MBStatusItemScaleSet(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
-    HuSprScaleSet(mbStatusData[arg0].playerIndex, arg1 + 2, arg2, arg3);
+void MBStatusItemScaleSet(s32 playerNo, s32 arg1, f32 arg2, f32 arg3) {
+    HuSprScaleSet(mbStatusData[playerNo].playerIndex, arg1 + 2, arg2, arg3);
 }
 
-void MBStatusItemPriSet(s32 arg0, s32 arg1, u16 arg2) {
-    HuSprPriSet(mbStatusData[arg0].playerIndex, arg1 + 2, arg2);
+void MBStatusItemPriSet(s32 playerNo, s32 arg1, u16 arg2) {
+    HuSprPriSet(mbStatusData[playerNo].playerIndex, arg1 + 2, arg2);
 }
 
-void MBStatusItemAttrSet(s32 arg0, s32 arg1, u16 arg2) {
-    HuSprAttrSet(mbStatusData[arg0].playerIndex, arg1 + 2, arg2);
+void MBStatusItemAttrSet(s32 playerNo, s32 arg1, u16 arg2) {
+    HuSprAttrSet(mbStatusData[playerNo].playerIndex, arg1 + 2, arg2);
 }
 
-void MBStatusItemAttrReset(s32 arg0, s32 arg1, u16 arg2) {
-    HuSprAttrReset(mbStatusData[arg0].playerIndex, arg1 + 2, arg2);
+void MBStatusItemAttrReset(s32 playerNo, s32 arg1, u16 arg2) {
+    HuSprAttrReset(mbStatusData[playerNo].playerIndex, arg1 + 2, arg2);
 }
 
 void func_800F6A88_10A6A8_shared_board(s16 arg0, u16 arg1) {
@@ -1509,10 +1492,9 @@ void MBStatusSprBmpClear(s16 arg0, s16 arg1) {
 }
 
 void MBStatusScaleSet(s32 arg0, f32 xScale, f32 yScale) {
-    BoardStatus *temp_s1;
+    BoardStatus *temp_s1 = &mbStatusData[arg0];
     s32 i;
 
-    temp_s1 = &mbStatusData[arg0];
     switch (temp_s1->uiUpdatePaused) {
         case FALSE:
             for (i = 0; i < 14; i++) {

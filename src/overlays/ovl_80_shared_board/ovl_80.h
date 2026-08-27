@@ -325,7 +325,7 @@ void MBStatusBackSprCreate(s32);
 void MBStatusComSprCreate(s32);
 void func_800F59B4_1095D4_shared_board(omObjData*);
 s32 MBPlayerComCheck(s16);
-void func_800DC128_EFD48_shared_board(s32);
+s32 func_800DC128_EFD48_shared_board(s32);
 void func_800DCA64_F0684_shared_board(s32);
 void MBStatusItemScaleSet(s32, s32, f32, f32);
 s32 func_800DEB2C_F274C_shared_board(s32);
@@ -556,7 +556,7 @@ extern Process* D_80105580_1191A0_shared_board;
 extern s16 D_801055C2_1191E2_shared_board;
 extern s16 D_801055C4_1191E4_shared_board;
 extern s32 D_80101784_1153A4_shared_board;
-extern BoardStatus mbStatusData[];
+extern BoardStatus mbStatusData[MB_MAX_PLAYERS]; //TODO: this is 4 right? not 5?
 extern UnkBoard D_80105718_119338_shared_board[16];
 extern omObjData* D_801055E8_119208_shared_board[];
 extern s32 D_80101F30_115B50_shared_board[3];

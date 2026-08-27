@@ -19,12 +19,13 @@ typedef struct UnkCoinProc {
     /* 0x0C */ char unk_0C[4];
 } UnkCoinProc;
 
-extern s16 D_80100D90_1149B0_shared_board[4][2];
+extern s32 D_80100D90_1149B0_shared_board;
+extern s16 D_80100D94_1149B4_shared_board[3][2];
 extern u8 D_801057D9_1193F9_shared_board;
 extern f32 D_800A0A7C_A167C;
 extern u8 D_80105700_119320_shared_board;
 
-s16 func_80032694_33294(HmfData*, u16, s32, s32);
+s16 func_80032694_33294(HmfData*, u16, s32, char*);
 void func_800DAAAC_EE6CC_shared_board(omObjData*);
 void func_80033430_34030(s16);
 void func_800DC9F8_F0618_shared_board(s32);
@@ -191,23 +192,23 @@ void func_800DAF1C_EEB3C_shared_board(omObjData *arg0) {
         }
     }
 
-    HuSprScaleSet(entry->unk_0E[arg0->work[1]], 0, arg0->scale.x / 2.0f, arg0->scale.x / 2.0f);
-    HuSprScaleSet(entry->unk_0E[arg0->work[1]], 1, arg0->scale.x / 2.0f, arg0->scale.x / 2.0f);
+    HuSprScaleSet(entry->sprites[arg0->work[1]], 0, arg0->scale.x / 2.0f, arg0->scale.x / 2.0f);
+    HuSprScaleSet(entry->sprites[arg0->work[1]], 1, arg0->scale.x / 2.0f, arg0->scale.x / 2.0f);
 
     roll = arg0->work[1];
-    func_80055140_55D40(entry->unk_0E[roll], 0, entry->unk_05[roll] % 10, 0);
-    func_800550F4_55CF4(entry->unk_0E[arg0->work[1]], 0, 1);
+    func_80055140_55D40(entry->sprites[roll], 0, entry->rollValue[roll] % 10, 0);
+    func_800550F4_55CF4(entry->sprites[arg0->work[1]], 0, 1);
 
     roll = arg0->work[1];
-    func_80055140_55D40(entry->unk_0E[roll], 1, entry->unk_05[roll] / 10, 0);
-    func_800550F4_55CF4(entry->unk_0E[arg0->work[1]], 1, 1);
+    func_80055140_55D40(entry->sprites[roll], 1, entry->rollValue[roll] / 10, 0);
+    func_800550F4_55CF4(entry->sprites[arg0->work[1]], 1, 1);
 
     pos.x = GwPlayer[arg0->work[3]].player_obj->coords.x;
     pos.y = GwPlayer[arg0->work[3]].player_obj->coords.y + D_80105708_119328_shared_board + arg0->trans.y;
     pos.z = GwPlayer[arg0->work[3]].player_obj->coords.z;
     MBCamera3Dto2D(&pos, pos2d);
 
-    func_80054904_55504(entry->unk_0E[arg0->work[1]], 0, pos2d[0], pos2d[1] - 8.0f);
+    func_80054904_55504(entry->sprites[arg0->work[1]], 0, pos2d[0], pos2d[1] - 8.0f);
 
     if ((pos2d[0] >= 0.0f) && (pos2d[0] <= 320.0f) &&
         (pos2d[1] >= 0.0f) && (pos2d[1] <= 240.0f)) {
@@ -240,18 +241,18 @@ void func_800DB318_EEF38_shared_board(omObjData *arg0) {
         }
     }
 
-    HuSprScaleSet(entry->unk_0E[entry->unk_08], 0, arg0->scale.x, arg0->scale.x);
+    HuSprScaleSet(entry->sprites[entry->rollValueIdx], 0, arg0->scale.x, arg0->scale.x);
 
-    roll = entry->unk_08;
-    func_80055140_55D40(entry->unk_0E[roll], 0, entry->unk_05[roll], 0);
-    func_800550F4_55CF4(entry->unk_0E[entry->unk_08], 0, 1);
+    roll = entry->rollValueIdx;
+    func_80055140_55D40(entry->sprites[roll], 0, entry->rollValue[roll], 0);
+    func_800550F4_55CF4(entry->sprites[entry->rollValueIdx], 0, 1);
 
     pos.x = GwPlayer[arg0->work[3]].player_obj->coords.x;
     pos.y = GwPlayer[arg0->work[3]].player_obj->coords.y + D_80105708_119328_shared_board + arg0->trans.y;
     pos.z = GwPlayer[arg0->work[3]].player_obj->coords.z;
     MBCamera3Dto2D(&pos, pos2d);
 
-    func_80054904_55504(entry->unk_0E[entry->unk_08], 0, pos2d[0], pos2d[1]);
+    func_80054904_55504(entry->sprites[entry->rollValueIdx], 0, pos2d[0], pos2d[1]);
 }
 
 void func_800DB56C_EF18C_shared_board(void) {
@@ -259,9 +260,9 @@ void func_800DB56C_EF18C_shared_board(void) {
     s32 j;
 
     for (i = 0; i < 5; i++) {
-        for (j = 0; j < 3; j++) {
-            D_800CDBD0_CE7D0[i].unk_05[j] = 0;
-            D_800CDBD0_CE7D0[i].unk_02[j] = 0;
+        for (j = 0; j < DICE_TOTAL; j++) {
+            D_800CDBD0_CE7D0[i].rollValue[j] = 0;
+            D_800CDBD0_CE7D0[i].predecidedRollValue[j] = 0;
         }
     }
     D_800CC0C0_CCCC0 = 0;
@@ -275,12 +276,12 @@ void func_800DB5DC_EF1FC_shared_board(void) {
     for (i = 0; i < 5; i++) {
         entry = &D_800CDBD0_CE7D0[i];
 
-        for (j = 0; j < 3; j++) {
-            entry->unk_0E[j] = -1;
-            entry->unk_02[j] = 0;
+        for (j = 0; j < DICE_TOTAL; j++) {
+            entry->sprites[j] = -1;
+            entry->predecidedRollValue[j] = 0;
         }
 
-        entry->unk_08 = 0;
+        entry->rollValueIdx = 0;
         entry->unk_16 = -1;
         entry->unk_18 = -1;
         entry->unk_30 = NULL;
@@ -313,23 +314,23 @@ void func_800DB6A8_EF2C8_shared_board(s32 arg0) {
     if ((arg0 != 0) && (D_800CDBD0_CE7D0[0].unk_14 != -1)) {
         entry->unk_14 = D_800CDBD0_CE7D0[0].unk_14;
         D_800CDBD0_CE7D0[0].unk_0C++;
-    } else if ((entry->unk_08 == 0) || (D_8010570E_11932E_shared_board == 1)) {
+    } else if ((entry->rollValueIdx == 0) || (D_8010570E_11932E_shared_board == 1)) {
         data = DataRead(0x13020D);
         entry->unk_14 = func_80055810_56410(data);
         entry->unk_0C = 1;
         DataClose(data);
     }
 
-    entry->unk_0E[entry->unk_08] = HuSprGrpCreate(2, 5);
+    entry->sprites[entry->rollValueIdx] = HuSprGrpCreate(2, 5);
 
     for (i = 0; i < 2; i++) {
-        func_80055024_55C24(entry->unk_0E[entry->unk_08], i, entry->unk_14, 0);
-        HuSprPriSet(entry->unk_0E[entry->unk_08], i, 0x4000);
-        HuSprAttrSet(entry->unk_0E[entry->unk_08], i, 0x9000);
-        func_800550B4_55CB4(entry->unk_0E[entry->unk_08], i, 0.0f);
-        HuSprScaleSet(entry->unk_0E[entry->unk_08], i, 0.0f, 0.0f);
-        func_80055140_55D40(entry->unk_0E[entry->unk_08], i, 0, 0);
-        func_800550F4_55CF4(entry->unk_0E[entry->unk_08], i, 1);
+        func_80055024_55C24(entry->sprites[entry->rollValueIdx], i, entry->unk_14, 0);
+        HuSprPriSet(entry->sprites[entry->rollValueIdx], i, 0x4000);
+        HuSprAttrSet(entry->sprites[entry->rollValueIdx], i, 0x9000);
+        func_800550B4_55CB4(entry->sprites[entry->rollValueIdx], i, 0.0f);
+        HuSprScaleSet(entry->sprites[entry->rollValueIdx], i, 0.0f, 0.0f);
+        func_80055140_55D40(entry->sprites[entry->rollValueIdx], i, 0, 0);
+        func_800550F4_55CF4(entry->sprites[entry->rollValueIdx], i, 1);
     }
 
     entry->unk_0B = 1;
@@ -344,43 +345,43 @@ void func_800DB884_EF4A4_shared_board(s32 arg0) {
 
     entry = &D_800CDBD0_CE7D0[arg0];
 
-    if (entry->unk_05[entry->unk_08] != 0) {
+    if (entry->rollValue[entry->rollValueIdx] != 0) {
         if ((entry->dice == NULL) || (entry->dice->unk_4C == 2)) {
             pos.x = GwPlayer[arg0].player_obj->coords.x;
             pos.y = GwPlayer[arg0].player_obj->coords.y + D_80105708_119328_shared_board;
             pos.z = GwPlayer[arg0].player_obj->coords.z;
             MBCamera3Dto2D(&pos, pos2d);
 
-            if (entry->unk_0E[entry->unk_08] == -1) {
+            if (entry->sprites[entry->rollValueIdx] == -1) {
                 func_800DB6A8_EF2C8_shared_board(arg0);
                 entry->unk_0B = 0;
             } else {
-                roll = entry->unk_08;
-                func_80055140_55D40(entry->unk_0E[roll], 0, entry->unk_05[roll], 0);
-                HuSprPriSet(entry->unk_0E[entry->unk_08], 0, 0x4000);
-                func_800550F4_55CF4(entry->unk_0E[entry->unk_08], 0, 1);
+                roll = entry->rollValueIdx;
+                func_80055140_55D40(entry->sprites[roll], 0, entry->rollValue[roll], 0);
+                HuSprPriSet(entry->sprites[entry->rollValueIdx], 0, 0x4000);
+                func_800550F4_55CF4(entry->sprites[entry->rollValueIdx], 0, 1);
             }
 
             if ((func_800F8858_10C478_shared_board() == 0) && (D_8010570F_11932F_shared_board == 0)) {
-                func_800DE9B8_F25D8_shared_board(arg0, entry->unk_08, pos2d[0], pos2d[1] - 8.0f);
+                func_800DE9B8_F25D8_shared_board(arg0, entry->rollValueIdx, pos2d[0], pos2d[1] - 8.0f);
             } else {
-                func_80054904_55504(entry->unk_0E[entry->unk_08], 0, pos2d[0], pos2d[1]);
+                func_80054904_55504(entry->sprites[entry->rollValueIdx], 0, pos2d[0], pos2d[1]);
             }
 
             if ((pos2d[0] >= 0.0f) && (pos2d[0] <= 320.0f) &&
                 (pos2d[1] >= 0.0f) && (pos2d[1] <= 240.0f)) {
-                func_80054904_55504(entry->unk_0E[entry->unk_08], 0, 160,
+                func_80054904_55504(entry->sprites[entry->rollValueIdx], 0, 160,
                                     120 - (s32)(MBCameraZoomGet() * 24.0f));
             }
 
-            HuSprAttrReset(entry->unk_0E[entry->unk_08], 0, 0x8000);
+            HuSprAttrReset(entry->sprites[entry->rollValueIdx], 0, 0x8000);
 
             if (entry->omObj == NULL) {
                 if ((func_800F8858_10C478_shared_board() == 0) && (D_8010570F_11932F_shared_board == 0)) {
                     obj = omAddObj(-0x8000, 0, 0, -1, func_800DAF1C_EEB3C_shared_board);
                     entry->omObj = obj;
                     obj->scale.z = 3.0f;
-                    obj->work[1] = entry->unk_08;
+                    obj->work[1] = entry->rollValueIdx;
                 } else {
                     obj = omAddObj(-0x8000, 0, 0, -1, func_800DB318_EEF38_shared_board);
                     entry->omObj = obj;
@@ -397,14 +398,12 @@ void func_800DB884_EF4A4_shared_board(s32 arg0) {
 }
 
 void func_800DBC2C_EF84C_shared_board(s32 arg0) {
-    UnkDiceRelated *entry;
-    s8 forced;
+    UnkDiceRelated *entry = &D_800CDBD0_CE7D0[arg0];
+    s8 forcedRoll;
     s32 i;
 
-    entry = &D_800CDBD0_CE7D0[arg0];
-
     if ((entry->unk_0B == 0) ) {
-        if ((entry->unk_08 == 0)) {
+        if ((entry->rollValueIdx == 0)) {
             func_800DBEC0_EFAE0_shared_board(arg0);
         }
     }
@@ -413,18 +412,18 @@ void func_800DBC2C_EF84C_shared_board(s32 arg0) {
 
     if (D_8010570F_11932F_shared_board == 1) {
         do {
-            if (entry->unk_02[entry->unk_08] != 0) {
-                entry->unk_05[entry->unk_08] = entry->unk_02[entry->unk_08];
-                entry->unk_02[entry->unk_08] = 0;
+            if (entry->predecidedRollValue[entry->rollValueIdx] != 0) {
+                entry->rollValue[entry->rollValueIdx] = entry->predecidedRollValue[entry->rollValueIdx];
+                entry->predecidedRollValue[entry->rollValueIdx] = 0;
             } else {
-                entry->unk_05[entry->unk_08] = (rand8() % 10) + 1;
+                entry->rollValue[entry->rollValueIdx] = (rand8() % 10) + 1;
             }
 
             for (i = 0; i < 5; i++) {
                 if (i == arg0) {
                     continue;
                 }
-                if (D_800CDBD0_CE7D0[i].unk_05[D_800CDBD0_CE7D0[i].unk_08] == entry->unk_05[entry->unk_08]) {
+                if (D_800CDBD0_CE7D0[i].rollValue[D_800CDBD0_CE7D0[i].rollValueIdx] == entry->rollValue[entry->rollValueIdx]) {
                     break;
                 }
             }
@@ -435,21 +434,21 @@ void func_800DBC2C_EF84C_shared_board(s32 arg0) {
             case 1:
             case 2:
             case 4:
-                forced = entry->unk_02[entry->unk_08];
-                if (forced != 0) {
-                    entry->unk_05[entry->unk_08] = forced;
-                    entry->unk_02[entry->unk_08] = 0;
+                forcedRoll = entry->predecidedRollValue[entry->rollValueIdx];
+                if (forcedRoll != 0) {
+                    entry->rollValue[entry->rollValueIdx] = forcedRoll;
+                    entry->predecidedRollValue[entry->rollValueIdx] = 0;
                 } else {
-                    entry->unk_05[entry->unk_08] = (rand8() % 10) + 1;
+                    entry->rollValue[entry->rollValueIdx] = (rand8() % 10) + 1;
                 }
                 break;
 
             case 3:
-                entry->unk_05[entry->unk_08] = (rand8() % 3) + 1;
+                entry->rollValue[entry->rollValueIdx] = (rand8() % 3) + 1;
                 break;
 
             case 5:
-                entry->unk_05[entry->unk_08] = 0;
+                entry->rollValue[entry->rollValueIdx] = 0;
                 break;
         }
     }
@@ -458,28 +457,24 @@ void func_800DBC2C_EF84C_shared_board(s32 arg0) {
 }
 
 void func_800DBE6C_EFA8C_shared_board(s32 arg0) {
-    UnkDiceRelated* temp_s0;
+    UnkDiceRelated* dice = &D_800CDBD0_CE7D0[arg0];
 
-    temp_s0 = &D_800CDBD0_CE7D0[arg0];
-    if (temp_s0->omObj != NULL) {
-        omDelObj(temp_s0->omObj);
-        temp_s0->omObj = NULL;
+    if (dice->omObj != NULL) {
+        omDelObj(dice->omObj);
+        dice->omObj = NULL;
     }
 }
 
 s32 func_800DBEC0_EFAE0_shared_board(s32 arg0) {
-    UnkDiceRelated *entry;
-    s32 count;
+    s32 count = 0;
+    UnkDiceRelated *entry = &D_800CDBD0_CE7D0[arg0];
     s32 i;
 
-    count = 0;
-    entry = &D_800CDBD0_CE7D0[arg0];
-
-    for (i = 0; i < 3; i++) {
-        if (entry->unk_0E[i] != -1) {
+    for (i = 0; i < DICE_TOTAL; i++) {
+        if (entry->sprites[i] != -1) {
             count++;
-            HuSprGrpKill(entry->unk_0E[i]);
-            entry->unk_0E[i] = -1;
+            HuSprGrpKill(entry->sprites[i]);
+            entry->sprites[i] = -1;
         }
     }
 
@@ -504,11 +499,10 @@ s32 func_800DBEC0_EFAE0_shared_board(s32 arg0) {
 }
 
 void func_800DBFBC_EFBDC_shared_board(s32 arg0) {
-    UnkDiceRelated* temp_v0;
+    UnkDiceRelated* dice = &D_800CDBD0_CE7D0[arg0];
 
-    temp_v0 = &D_800CDBD0_CE7D0[arg0];
-    temp_v0->unk_05[temp_v0->unk_08] = (u8) temp_v0->unk_05[temp_v0->unk_08] - 1;
-    if (temp_v0->unk_05[temp_v0->unk_08] <= 0) {
+    dice->rollValue[dice->rollValueIdx]--;
+    if (dice->rollValue[dice->rollValueIdx] <= 0) {
         func_800DBEC0_EFAE0_shared_board(arg0);
     }
 }
@@ -540,10 +534,170 @@ void func_800DC0E0_EFD00_shared_board(s32 arg0) {
 void func_800DC104_EFD24_shared_board(s32 arg0, s8 arg1) {
     D_800CDBD0_CE7D0[arg0].unk_09 = arg1;
 }
+extern s32 D_80100D60_114980_shared_board[6];
+extern s32 D_80100D78_114998_shared_board[6];
+void func_80032FF8_33BF8(s32, u8);
+void func_8003302C_33C2C(s32, u8);
+void func_800DAAAC_EE6CC_shared_board(omObjData*);
+s32 func_800DBEC0_EFAE0_shared_board(s32);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", func_800DC128_EFD48_shared_board);
+//TODO: requires hacky D_80100D90_1149B0_shared_board s32 write
+s32 func_800DC128_EFD48_shared_board(s32 arg0) {
+    UnkDiceRelated *entry;
+    omObjData *dice;
+    f32 chance;
+    s8 mode;
+    s8 val;
+    s16 sound;
+    s32 rot;
+    s32 tile;
+    s32 i;
+    s16 ret;
+    s32* temp;
 
-void func_800DC718_F0338_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 *arg3) {
+    D_80105700_119320_shared_board = 0;
+    entry = &D_800CDBD0_CE7D0[arg0];
+    
+    if (entry->unk_16 != -1) {
+        return -1;
+    }
+    
+    if (entry->rollValueIdx == 0) {
+        func_800DBEC0_EFAE0_shared_board(arg0);
+    }
+
+    if (entry->unk_09 != -1) {
+        entry->unk_0A = entry->unk_09;
+        entry->unk_09 = -1;
+    } else {
+        entry->unk_0A = 0;
+        if (GWBoardFlagCheck(0x10) != 0) {
+            entry->unk_0A = 3;
+            GWBoardFlagClear(0x10);
+        }
+        if (D_8010570E_11932E_shared_board == 2) {
+            entry->unk_0A = 2;
+        } else if (D_8010570E_11932E_shared_board == 3) {
+            entry->unk_0A = 4;
+            if (entry->rollValueIdx == 0) {
+                if (D_800CC0C0_CCCC0 != 0) {
+                    chance = 6.0f;
+                } else {
+                    chance = 10.0f;
+                }
+                if (MBRand(chance) == 0) {
+                    val = (rand8() % 10) + 1;
+                    entry->predecidedRollValue[1] = val;
+                    entry->predecidedRollValue[0] = val;
+                    D_80105700_119320_shared_board = 1;
+                }
+            }
+        }
+        if (GWBoardFlagCheck(0x11) != 0) {
+            entry->unk_0A = 5;
+        }
+    }
+
+    entry->unk_16 = Hu3DModelCreate(DataRead(D_80100D60_114980_shared_board[entry->unk_0A]), 0x6A9);
+    func_8001C8A8_1D4A8(entry->unk_16, 1);
+    Hu3DModelScaleSet(entry->unk_16, 0.0f, 0.0f, 0.0f);
+    func_8001C2FC_1CEFC(entry->unk_16, 0x20000, 0x20000);
+
+    if (entry->unk_0A != 5) {
+        entry->unk_2C = DataRead(D_80100D78_114998_shared_board[entry->unk_0A]);
+        entry->unk_1A[0] = HmfAnimCreate(HmfModelData[entry->unk_16].hmf, entry->unk_2C, 0, "tile01_DEF");
+        entry->unk_1A[1] = func_80032694_33294(HmfModelData[entry->unk_16].hmf, entry->unk_1A[0], 0, "tile02_DEF");
+        entry->unk_1A[2] = func_80032694_33294(HmfModelData[entry->unk_16].hmf, entry->unk_1A[0], 0, "tile03_DEF");
+        entry->unk_1A[3] = func_80032694_33294(HmfModelData[entry->unk_16].hmf, entry->unk_1A[0], 0, "tile04_DEF");
+        entry->unk_1A[4] = func_80032694_33294(HmfModelData[entry->unk_16].hmf, entry->unk_1A[0], 0, "tile06_DEF");
+        entry->unk_1A[5] = func_80032694_33294(HmfModelData[entry->unk_16].hmf, entry->unk_1A[0], 0, "tile10_DEF");
+
+        tile = rand8() % 10;
+        rot = rand8() & 3;
+        for (i = 0; i < 6; i++) {
+            if ((entry->unk_0A < 3)) {
+                if ((entry->unk_0A >= 0)) {
+                    func_80032FF8_33BF8(entry->unk_1A[i], rot);
+                }
+            }
+            func_8003302C_33C2C(entry->unk_1A[i], tile);
+        }
+    } else {
+        entry->unk_2C = NULL;
+        for (i = 0; i < 6; i++) {
+            entry->unk_1A[i] = -1;
+        }
+        func_8001C814_1D414(entry->unk_16, 0, 2);
+    }
+
+    func_8001C448_1D048(entry->unk_16);
+    func_8001C954_1D554(entry->unk_16);
+
+    dice = omAddObj(-0x8000, 1, 1, -1, func_800DAAAC_EE6CC_shared_board);
+    entry->dice = dice;
+    *dice->model = entry->unk_16;
+    omSetStatBit(dice, 0xA0);
+
+    dice->trans.x = GwPlayer[arg0].player_obj->coords.x;
+    dice->trans.y = GwPlayer[arg0].player_obj->coords.y + D_80105708_119328_shared_board;
+    dice->trans.z = GwPlayer[arg0].player_obj->coords.z;
+
+    if (D_80105700_119320_shared_board == 0) {
+        dice->rot.y = -90.0f;
+    } else {
+        dice->rot.y = 90.0f;
+    }
+    dice->scale.z =
+    dice->scale.y =
+    dice->scale.x =
+    dice->rot.x =
+    dice->rot.z = 0.0f;
+    dice->work[0] = 0;
+    dice->work[1] = 0x87;
+    dice->work[2] = 0;
+    dice->work[3] = arg0;
+
+    entry->unk48 = 1.0f;
+    entry->unk40 = 0.0f;
+    entry->unk44 = 1.0f;
+
+    D_8010570F_11932F_shared_board = 0;
+    ret = -1;
+    if (D_80100D90_1149B0_shared_board != 0) {
+        switch (entry->unk_0A) {
+            case 0:
+                if (D_8010570F_11932F_shared_board != 2) {
+                    ret = HuAudFXPlay(0x102);
+                } else {
+                    HuAudFXPlay(0x10E);
+                }
+                break;
+            case 1:
+                HuAudFXPlay(0x102);
+                break;
+            case 2:
+                HuAudFXPlay(0x111);
+                break;
+            case 3:
+                HuAudFXPlay(0x102);
+                break;
+            case 4:
+                HuAudFXPlay(0x110);
+                break;
+            case 5:
+                HuAudFXPlay(0x10F);
+                break;
+            default:
+                HuAudFXPlay(0x10E);
+                break;
+        }
+    }
+    D_80100D90_1149B0_shared_board = 1;
+    
+    return ret;
+}
+
+void func_800DC718_F0338_shared_board(s32 arg0, s32 arg1, s32 arg2, char *arg3[]) {
     UnkDiceRelated *entry;
     omObjData *dice;
     f32 height;
@@ -616,7 +770,7 @@ void func_800DC718_F0338_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 *arg3) {
 }
 
 void func_800DC9F8_F0618_shared_board(s32 arg0) {
-    s32 anims[6] =  {0, 0, 0, 0, 0, 0};
+    char* anims[6] =  {NULL, NULL, NULL, NULL, NULL, NULL}; //TODO: is this right?
 
     func_800DC718_F0338_shared_board(arg0, 0x1301FB, -1, anims);
     D_8010570F_11932F_shared_board = 2;
@@ -625,11 +779,9 @@ void func_800DC9F8_F0618_shared_board(s32 arg0) {
 s32 const pad2[2] = {0 , 0};
 
 void func_800DCA64_F0684_shared_board(s32 arg0) {
-    UnkDiceRelated *entry;
+    UnkDiceRelated *entry = &D_800CDBD0_CE7D0[arg0];
     s16 id;
     s32 i;
-
-    entry = &D_800CDBD0_CE7D0[arg0];
 
     if (entry->unk_16 != -1) {
         func_8001ACDC_1B8DC(entry->unk_16);
@@ -731,15 +883,15 @@ s32 func_800DCD00_F0920_shared_board(s32 arg0) {
 }
 
 void func_800DCD2C_F094C_shared_board(s32 arg0, s32 arg1) {
-    D_800CDBD0_CE7D0[arg0].unk_05[D_800CDBD0_CE7D0[arg0].unk_08] = arg1;
+    D_800CDBD0_CE7D0[arg0].rollValue[D_800CDBD0_CE7D0[arg0].rollValueIdx] = arg1;
 }
 
 void func_800DCD64_F0984_shared_board(s32 arg0, s32 arg1) {
-    D_800CDBD0_CE7D0[arg0].unk_02[D_800CDBD0_CE7D0[arg0].unk_08] = arg1;
+    D_800CDBD0_CE7D0[arg0].predecidedRollValue[D_800CDBD0_CE7D0[arg0].rollValueIdx] = arg1;
 }
 
 s32 func_800DCD9C_F09BC_shared_board(s32 arg0) {
-    return D_800CDBD0_CE7D0[arg0].unk_05[D_800CDBD0_CE7D0[arg0].unk_08];
+    return D_800CDBD0_CE7D0[arg0].rollValue[D_800CDBD0_CE7D0[arg0].rollValueIdx];
 }
 
 void func_800DCDD4_F09F4_shared_board(void) {
@@ -795,32 +947,33 @@ void func_800DCDD4_F09F4_shared_board(void) {
                 break;
             case 3:
                 HuPrcSleep(20);
-                if (++var_s5 != D_8010570E_11932E_shared_board) {
+                var_s5++;
+                if (var_s5 != D_8010570E_11932E_shared_board) {
                     HuPrcSleep(10);
                     var_s1 = 0;
                     func_800DBE6C_EFA8C_shared_board(temp_s3->unk0);
                     {
-                        s16 *temp0 = &D_80100D90_1149B0_shared_board[var_s5][0];
-                        s16 *temp1 = &D_80100D90_1149B0_shared_board[var_s5][1];
-                        func_800DE9B8_F25D8_shared_board(temp_s3->unk0, temp_s4->unk_08, *temp0, *temp1);
+                        s16 *temp0 = &D_80100D94_1149B4_shared_board[var_s5-1][0];
+                        s16 *temp1 = &D_80100D94_1149B4_shared_board[var_s5-1][1];
+                        func_800DE9B8_F25D8_shared_board(temp_s3->unk0, temp_s4->rollValueIdx, *temp0, *temp1);
                     }
-                    temp_s4->unk_08++;
+                    temp_s4->rollValueIdx++;
                     temp_s3->unk4 = 0;
                 } else {
                     if (D_8010570E_11932E_shared_board != 1) {
                         HuPrcSleep(10);
                         func_800DBE6C_EFA8C_shared_board(temp_s3->unk0);
                         {
-                            s16 *temp0 = &D_80100D90_1149B0_shared_board[var_s5][0];
-                            s16 *temp1 = &D_80100D90_1149B0_shared_board[var_s5][1];
-                            func_800DE9B8_F25D8_shared_board(temp_s3->unk0, temp_s4->unk_08, *temp0, *temp1);
+                            s16 *temp0 = &D_80100D94_1149B4_shared_board[var_s5-1][0];
+                            s16 *temp1 = &D_80100D94_1149B4_shared_board[var_s5-1][1];
+                            func_800DE9B8_F25D8_shared_board(temp_s3->unk0, temp_s4->rollValueIdx, *temp0, *temp1);
                         }
                         HuPrcSleep(20);
                         if (D_8010570E_11932E_shared_board == 2) {
-                            if (temp_s4->unk_05[0] != temp_s4->unk_05[1]) {
+                            if (temp_s4->rollValue[0] != temp_s4->rollValue[1]) {
                             } else {
                                 HuAudFXPlay(0x15D);
-                                if (temp_s4->unk_05[0] == 7) {
+                                if (temp_s4->rollValue[0] == 7) {
                                     MBPlayerVibrate(-1, 3);
                                 } else {
                                     MBPlayerVibrate(-1, 2);
@@ -828,18 +981,18 @@ void func_800DCDD4_F09F4_shared_board(void) {
                                 for (j = 0; j < 37; j++) {
                                     temp_f22 = (f32)(((j * 4) + j) * 4);
                                     temp_f20 = (HuMathSin(temp_f22) * 0.5f) + 1.0f;
-                                    HuSprScaleSet(temp_s4->unk_0E[0], 0, temp_f20, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
+                                    HuSprScaleSet(temp_s4->sprites[0], 0, temp_f20, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
                                     temp_f20_2 = (HuMathSin(temp_f22) * 0.5f) + 1.0f;
-                                    HuSprScaleSet(temp_s4->unk_0E[1], 0, temp_f20_2, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
-                                    if (temp_s4->unk_05[0] == 0xA) {
+                                    HuSprScaleSet(temp_s4->sprites[1], 0, temp_f20_2, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
+                                    if (temp_s4->rollValue[0] == 0xA) {
                                         temp_f20_3 = (HuMathSin(temp_f22) * 0.5f) + 1.0f;
-                                        HuSprScaleSet(temp_s4->unk_0E[0], 1, temp_f20_3, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
+                                        HuSprScaleSet(temp_s4->sprites[0], 1, temp_f20_3, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
                                         temp_f20_4 = (HuMathSin(temp_f22) * 0.5f) + 1.0f;
-                                        HuSprScaleSet(temp_s4->unk_0E[1], 1, temp_f20_4, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
+                                        HuSprScaleSet(temp_s4->sprites[1], 1, temp_f20_4, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
                                     }
                                     HuPrcVSleep();
                                 }
-                                if (temp_s4->unk_05[0] == 7) {
+                                if (temp_s4->rollValue[0] == 7) {
                                     MBDlgWinExec(0x16, 0x3A24);
                                     MBCoinChangeCreate(temp_s3->unk0, 20);
                                     MBCoinTakeCreate(temp_s3->unk0, 20);
@@ -855,8 +1008,8 @@ void func_800DCDD4_F09F4_shared_board(void) {
                             }
                         } else {
                             if (D_8010570E_11932E_shared_board == 3) {
-                                if ((temp_s4->unk_05[0] == temp_s4->unk_05[1]) && (temp_s4->unk_05[0] == temp_s4->unk_05[2])) {
-                                    if (temp_s4->unk_05[0] == 7) {
+                                if ((temp_s4->rollValue[0] == temp_s4->rollValue[1]) && (temp_s4->rollValue[0] == temp_s4->rollValue[2])) {
+                                    if (temp_s4->rollValue[0] == 7) {
                                         mbItemBtnF = 0;
                                         HuAudFXPlay(0x15E);
                                         func_8004A670_4B270(0);
@@ -873,21 +1026,21 @@ void func_800DCDD4_F09F4_shared_board(void) {
                                         temp_s0 = (i * 4) + var_s1;
                                         temp_f24 = (f32)(temp_s0 * 4);
                                         temp_f20_5 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                        HuSprScaleSet(temp_s4->unk_0E[0], 0, temp_f20_5, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
+                                        HuSprScaleSet(temp_s4->sprites[0], 0, temp_f20_5, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
                                         temp_f20_6 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                        HuSprScaleSet(temp_s4->unk_0E[1], 0, temp_f20_6, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
+                                        HuSprScaleSet(temp_s4->sprites[1], 0, temp_f20_6, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
                                         temp_f20_7 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                        HuSprScaleSet(temp_s4->unk_0E[2], 0, temp_f20_7, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
-                                        if (temp_s4->unk_05[0] == 0xA) {
+                                        HuSprScaleSet(temp_s4->sprites[2], 0, temp_f20_7, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
+                                        if (temp_s4->rollValue[0] == 0xA) {
                                             temp_f20_8 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                            HuSprScaleSet(temp_s4->unk_0E[0], 1, temp_f20_8, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
+                                            HuSprScaleSet(temp_s4->sprites[0], 1, temp_f20_8, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
                                             temp_f20_9 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                            HuSprScaleSet(temp_s4->unk_0E[1], 1, temp_f20_9, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
+                                            HuSprScaleSet(temp_s4->sprites[1], 1, temp_f20_9, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
                                             temp_f20_10 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                            HuSprScaleSet(temp_s4->unk_0E[2], 1, temp_f20_10, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
+                                            HuSprScaleSet(temp_s4->sprites[2], 1, temp_f20_10, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
                                         }
                                     }
-                                    if (temp_s4->unk_05[0] == 7) {
+                                    if (temp_s4->rollValue[0] == 7) {
                                         MBDlgWinExec(0x16, 0x3A25);
                                         MBCoinChangeCreate(temp_s3->unk0, 0x32);
                                         MBCoinTakeCreate(temp_s3->unk0, 0x32);
@@ -900,7 +1053,7 @@ void func_800DCDD4_F09F4_shared_board(void) {
                                     func_8004ACE0_4B8E0(0x274, temp_s3->unk0);
                                     MBPlayerMotionSet(temp_s3->unk0, 5, 0);
                                     HuPrcSleep(0x1E);
-                                    if (temp_s4->unk_05[0] == 7) {
+                                    if (temp_s4->rollValue[0] == 7) {
                                         mbItemBtnF = 1;
                                     }
                                     MBPlayerMotionSet(temp_s3->unk0, -1, 2);
@@ -908,10 +1061,10 @@ void func_800DCDD4_F09F4_shared_board(void) {
                             }
                         }
                         for (var_s1 = 0; var_s1 < 50; HuPrcVSleep(), var_s1 += 2) {
-                            func_800DE9B8_F25D8_shared_board(temp_s3->unk0, 0, D_80100D90_1149B0_shared_board[1][0] + var_s1, D_80100D90_1149B0_shared_board[1][1] + (var_s1 / 2));
-                            func_800DE9B8_F25D8_shared_board(temp_s3->unk0, 1, D_80100D90_1149B0_shared_board[2][0] - var_s1, D_80100D90_1149B0_shared_board[2][1] + (var_s1 / 2));
+                            func_800DE9B8_F25D8_shared_board(temp_s3->unk0, 0, D_80100D94_1149B4_shared_board[0][0] + var_s1, D_80100D94_1149B4_shared_board[0][1] + (var_s1 / 2));
+                            func_800DE9B8_F25D8_shared_board(temp_s3->unk0, 1, D_80100D94_1149B4_shared_board[1][0] - var_s1, D_80100D94_1149B4_shared_board[1][1] + (var_s1 / 2));
                             if (D_8010570E_11932E_shared_board == 3) {
-                                func_800DE9B8_F25D8_shared_board(temp_s3->unk0, 2, D_80100D90_1149B0_shared_board[3][0], D_80100D90_1149B0_shared_board[3][1] + (var_s1 / 2));
+                                func_800DE9B8_F25D8_shared_board(temp_s3->unk0, 2, D_80100D94_1149B4_shared_board[2][0], D_80100D94_1149B4_shared_board[2][1] + (var_s1 / 2));
                             }
                         }
                         if (D_8010570E_11932E_shared_board == 2) {
@@ -920,10 +1073,10 @@ void func_800DCDD4_F09F4_shared_board(void) {
                             HuAudFXPlay(0x146);
                         }
                         D_8010570E_11932E_shared_board = 1;
-                        temp_s4->unk_08 = 0;
-                        temp_s4->unk_05[0] += temp_s4->unk_05[1] + temp_s4->unk_05[2];
-                        temp_s4->unk_05[2] = 0;
-                        temp_s4->unk_05[1] = 0;
+                        temp_s4->rollValueIdx = 0;
+                        temp_s4->rollValue[0] += temp_s4->rollValue[1] + temp_s4->rollValue[2];
+                        temp_s4->rollValue[2] = 0;
+                        temp_s4->rollValue[1] = 0;
                         func_800DBEC0_EFAE0_shared_board(temp_s3->unk0);
                         func_800DB884_EF4A4_shared_board(temp_s3->unk0);
                         HuPrcSleep(0x14);
@@ -1392,7 +1545,7 @@ void func_800DE97C_F259C_shared_board(s8 arg0) {
 }
 
 void func_800DE988_F25A8_shared_board(s32 arg0, s32 arg1) {
-    D_800CDBD0_CE7D0[arg0].unk_08 = arg1;
+    D_800CDBD0_CE7D0[arg0].rollValueIdx = arg1;
 }
 
 void func_800DE9AC_F25CC_shared_board(s32 arg0, s32 arg1) {
@@ -1404,13 +1557,13 @@ void func_800DE9B8_F25D8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 
     entry = &D_800CDBD0_CE7D0[arg0];
 
-    if (entry->unk_05[arg1] >= 10) {
-        HuSprAttrReset(entry->unk_0E[arg1], 1, 0x8000);
-        func_80054904_55504(entry->unk_0E[arg1], 0, arg2 + 10, arg3);
-        func_80054904_55504(entry->unk_0E[arg1], 1, -0x1C, 0);
+    if (entry->rollValue[arg1] >= 10) {
+        HuSprAttrReset(entry->sprites[arg1], 1, 0x8000);
+        func_80054904_55504(entry->sprites[arg1], 0, arg2 + 10, arg3);
+        func_80054904_55504(entry->sprites[arg1], 1, -0x1C, 0);
     } else {
-        HuSprAttrSet(entry->unk_0E[arg1], 1, 0x8000);
-        func_80054904_55504(entry->unk_0E[arg1], 0, arg2, arg3);
+        HuSprAttrSet(entry->sprites[arg1], 1, 0x8000);
+        func_80054904_55504(entry->sprites[arg1], 0, arg2, arg3);
     }
 }
 

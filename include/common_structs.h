@@ -17,6 +17,8 @@
 
 #define STAR_POSITIONS_TOTAL 8
 
+#define DICE_TOTAL 3
+
 typedef struct Vec2f {
 /* 0x00 */ f32 x;
 /* 0x04 */ f32 y;
@@ -36,16 +38,16 @@ typedef struct DiceInstance {
 
 typedef struct UnkDiceRelated {
     /* 0x00 */ s16        unk_00;
-    /* 0x02 */ s8         unk_02[3];   // forced roll values, indexed by unk_08
-    /* 0x05 */ s8         unk_05[3];   // rolled values, indexed by unk_08
-    /* 0x08 */ s8         unk_08;      // current roll index (0-2)
+    /* 0x02 */ s8         predecidedRollValue[DICE_TOTAL];   // forced roll values, indexed by unk_08
+    /* 0x05 */ s8         rollValue[DICE_TOTAL];   // rolled values, indexed by unk_08
+    /* 0x08 */ s8         rollValueIdx;      // current roll index (0-2)
     /* 0x09 */ s8         unk_09;
     /* 0x0A */ s8         unk_0A;      // dice mode; 5 = blank face
     /* 0x0B */ s8         unk_0B;
     /* 0x0C */ s8         unk_0C;
     /* 0x0D */ s8         unk_0D;
-    /* 0x0E */ s16        unk_0E[3];   // sprite groups, indexed by unk_08
-    /* 0x14 */ s16         unk_14;
+    /* 0x0E */ s16        sprites[DICE_TOTAL];   // sprite groups, indexed by unk_08
+    /* 0x14 */ s16        unk_14;
     /* 0x16 */ s16        unk_16;      // model/anim handle, -1 = none
     /* 0x18 */ s16        unk_18;      // model/anim handle, -1 = none
     /* 0x1A */ s16        unk_1A[6];   // sub-handles, -1 = none

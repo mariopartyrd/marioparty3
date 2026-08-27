@@ -49,7 +49,11 @@ void MB1_StarGuideCreate(s16);
 void MBKinokoEffKillHookSet(void*);
 void MB1_StarGuideKill(void);
 void func_800D771C_EB33C_shared_board(s32, Object*, s16, s16);
-
+void func_800D7790_EB3B0_shared_board(s8 arg0, Vec* arg1, s16 arg2, s16 arg3);
+extern s16 D_8011D364_332ED4_ChillyWaters[][2];
+extern s16 D_8011D508_333078_ChillyWaters[];
+extern s16 D_8011D35C_332ECC_ChillyWaters[][2];
+extern s16 D_8011D504_333074_ChillyWaters[];
 extern s32 D_8011D498_333008_ChillyWaters[];
 extern s32 D_8011D4BC_33302C_ChillyWaters[];
 extern s32 D_8011D474_332FE4_ChillyWaters[];
@@ -1078,11 +1082,9 @@ void func_80108970_31E4E0_ChillyWaters(s32 arg0, s32 arg1) {
 }
 
 void func_80108A38_31E5A8_ChillyWaters(void) {
-    s32 temp_s0;
     GW_SYSTEM* system = &GwSystem;
+    s32 temp_s0 = (s32)HuPrcCurrentGet()->user_data;
     s32 sleepTime;
-
-    temp_s0 = (s32)HuPrcCurrentGet()->user_data;
 
     switch (system->walk_speed) {
     case 0:
@@ -1109,11 +1111,30 @@ void func_80108AE8_31E658_ChillyWaters(s32 arg0) {
     omAddPrcObj(func_80108A38_31E5A8_ChillyWaters, 0x1000, 0, 0)->user_data = (void*)arg0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108B24_31E694_ChillyWaters);
+void func_80108B24_31E694_ChillyWaters(void) {
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108BA4_31E714_ChillyWaters);
+    D_8011FB40_3356B0_ChillyWaters = NULL;
+    for (i = 0; i < 2; i++) {
+        func_800D7790_EB3B0_shared_board(8, &MBMasuGet(D_8011D504_333074_ChillyWaters[i])->coords, D_8011D35C_332ECC_ChillyWaters[i][0], D_8011D35C_332ECC_ChillyWaters[i][1]);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_BranchMerge);
+void func_80108BA4_31E714_ChillyWaters(void) {
+    s32 i;
+
+    for (i = 0; i < 2; i++) {
+        func_800D7790_EB3B0_shared_board(9, &MBMasuGet(D_8011D508_333078_ChillyWaters[i])->coords, D_8011D364_332ED4_ChillyWaters[i][0], D_8011D364_332ED4_ChillyWaters[i][1]);
+    }
+}
+
+void MB1Ev_BranchMerge(s32 masuAbsIndex, s16 arg1, s16 arg2) {
+    GW_PLAYER* player = MBPlayerGet(CUR_PLAYER);
+
+    if (MBMasuLinkMasuIdGet(player->blink, player->bidx) == masuAbsIndex) {
+        MBMoveNextMasuSet(-1, arg1, arg2);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch1);
 

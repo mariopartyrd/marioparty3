@@ -1193,6 +1193,8 @@ MBStatusNumUpdate = 0x800F2E30; //rom:0x106A50 segment:shared_board
 MB1Ev_ItemAfter5 = 0x80115B80; //rom:0x32B6F0 segment:ChillyWaters
 D_80100F94_114BB4_shared_board = 0x80100F94; //rom:0x114BB4 segment:shared_board size:0x14
 MBDlgWinInsertCreate = 0x800EC8EC; //rom:0x10050C segment:shared_board
+D_8011D41C_332F8C_ChillyWaters = 0x8011D41C; //rom:0x332F8C segment:ChillyWaters size:0x4
+D_8011D420_332F90_ChillyWaters = 0x8011D420; //rom:0x332F90 segment:ChillyWaters size:0xC
 
 m254_CreateSystem = 0x8010DDC0; //rom:0x2A9850
 m254_SetFunc = 0x8010DF68; //rom:0x2A99F8
@@ -1587,3 +1589,5 @@ mb1_BranchItemHelp = 0x8011FAD0; //rom:0x335640 segment:ChillyWaters
 mb1_BankCoinBaseMdl = 0x8011FB10; //rom:0x335680 segment:ChillyWaters
 mb1_BankCoinMdl = 0x8011FB18; //rom:0x335688 segment:ChillyWaters
 mb1_After5GrpId = 0x8011FB80; //rom:0x3356F0 segment:ChillyWaters
+D_8011D498_333008_ChillyWaters = 0x8011D498; //rom:0x333008 type:s32 segment:ChillyWaters
+D_8011D4BC_33302C_ChillyWaters = 0x8011D4BC; //rom:0x33302C type:s32 segment:ChillyWaters

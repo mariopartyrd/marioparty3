@@ -70,6 +70,7 @@ typedef struct GW_SYSTEM {
 
 enum PlayerFlags {
     PLAYER_IS_CPU = 1,
+    PLAYER_UNK_04 = 4
 };
 
 typedef struct PartnerStats {
