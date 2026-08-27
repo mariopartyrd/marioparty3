@@ -44,9 +44,29 @@ s32 MBPlayerStealRankGet(s32);
 void func_80107620_31D190_ChillyWaters(void);
 s32 func_800EF0D8_102CF8_shared_board(s32 arg0);
 s16 MBComTreeExec(DecisionTreeNonLeafNode *arg0);
-Object* MBModelLinkCreate(s32); //unsure if correct signature
+Object* MBModelLinkCreate(Object*); //unsure if correct signature
+void MB1_StarGuideCreate(s16);
+void MBKinokoEffKillHookSet(void*);
+void MB1_StarGuideKill(void);
+void func_800D771C_EB33C_shared_board(s32, Object*, s16, s16);
 
-extern s32 D_8011FB58_3356C8_ChillyWaters;
+extern s32 D_8011D498_333008_ChillyWaters[];
+extern s32 D_8011D4BC_33302C_ChillyWaters[];
+extern s32 D_8011D474_332FE4_ChillyWaters[];
+extern s32 D_8011D4E0_333050_ChillyWaters[];
+extern s16 D_8011D36C_332EDC_ChillyWaters[][2];
+extern s16 D_8011D374_332EE4_ChillyWaters[][2];
+extern s16 D_8011D41C_332F8C_ChillyWaters[];
+extern u8 D_8011D420_332F90_ChillyWaters[][2];
+extern u32 *D_8011D45C_332FCC_ChillyWaters[];
+extern Object *D_8011FB40_3356B0_ChillyWaters;
+extern Object *D_8011FB44_3356B4_ChillyWaters[];
+extern Process* D_8011FA98_335608_ChillyWaters[8];
+extern Object* D_8011FA70_3355E0_ChillyWaters;
+extern s16 D_8011D38C_332EFC_ChillyWaters[8];
+extern s16 D_8011D334_332EA4_ChillyWaters[][2];
+extern s16 D_8011D37C_332EEC_ChillyWaters[];
+extern Object* D_8011FB58_3356C8_ChillyWaters;
 extern s32 D_8011FAD4_335644_ChillyWaters;
 extern s32 D_8011FAD8_335648_ChillyWaters;
 extern s32 D_8011D2D0_332E40_ChillyWaters[];
@@ -57,6 +77,13 @@ extern Object* D_8011FABC_33562C_ChillyWaters;
 extern s16 mb1ev_StarGuideMasu[];
 extern s32 D_8011D308_332E78_ChillyWaters;
 extern s16 mbDlgWinId;
+extern Object* D_8011FB0C_33567C_ChillyWaters[];
+extern Object* D_8011FB08_335678_ChillyWaters;
+extern s16 D_8011D39C_332F0C_ChillyWaters[];
+extern s16 D_8011D354_332EC4_ChillyWaters[][2];
+extern s16 D_8011D3A0_332F10_ChillyWaters[];
+extern Vec D_8011D3A4_332F14_ChillyWaters[5];
+extern Vec D_8011D3E0_332F50_ChillyWaters[];
 
 // Get toad space index for current start space index.
 s16 MB1Ev_StarGuideMasuGet(void) {
@@ -853,24 +880,139 @@ void MB1_BoardReload(void) {
     MBStart(1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_StarGuideCreate);
+void MB1_StarGuideCreate(s16 arg0) {
+    Object* temp_v0;
+    s32 temp_s1;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_StarGuideKill);
+    if (D_8011FA78_3355E8_ChillyWaters[arg0] == 0) {
+        
+        temp_v0 = MBModelCreate(0x3A, NULL);
+        func_800461B4_46DB4(temp_v0->omObj1->model[0]);
+        if (D_8011FA70_3355E0_ChillyWaters == NULL) {
+            D_8011FA70_3355E0_ChillyWaters = temp_v0;
+        }
+        
+        D_8011FA78_3355E8_ChillyWaters[arg0] = temp_v0;
+        temp_v0->flags |= 2;
+        HuVecCopyXYZ(&temp_v0->scale, 0.6f, 0.6f, 0.6f);
+        temp_v0->velocity.x = 10.0f;
+        D_8011FA98_335608_ChillyWaters[arg0] = func_800EDB98_1017B8_shared_board(temp_v0, 6.0f, 2.0f);
+        HuVecCopy3F(&temp_v0->coords, &MBMasuGet(D_8011D37C_332EEC_ChillyWaters[arg0])->coords);
+        func_800D771C_EB33C_shared_board(0xB, temp_v0, D_8011D334_332EA4_ChillyWaters[arg0][0], D_8011D334_332EA4_ChillyWaters[arg0][1]);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_StarGuideCreateAll);
+void MB1_StarGuideKill(void) {
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_TeresaGuideCreate);
+    for (i = 0; i < ARRAY_COUNT(D_8011FA98_335608_ChillyWaters); i++) {
+        if (D_8011FA98_335608_ChillyWaters[i] != NULL) {
+            omDelPrcObj(D_8011FA98_335608_ChillyWaters[i]);
+            D_8011FA98_335608_ChillyWaters[i] = NULL;            
+        }
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_TeresaGuideCreateAll);
+void MB1_StarGuideCreateAll(void) {
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_BankCoinHide);
+    D_8011FA70_3355E0_ChillyWaters = NULL;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1_BankCoinCreate);
+    for (i = 0; i < ARRAY_COUNT(D_8011D38C_332EFC_ChillyWaters); i++) {
+        D_8011FA78_3355E8_ChillyWaters[i] = 0;
+        D_8011FA98_335608_ChillyWaters[i] = 0;
+        MBKinokoEffKillHookSet(&MB1_StarGuideKill);
+        if (GWBoardFlagCheck(D_8011D38C_332EFC_ChillyWaters[i]) == 0) {
+            MB1_StarGuideCreate(i);
+        }
+    }
+}
+
+void MB1_TeresaGuideCreate(s16 arg0) {
+    Object *teresa;
+
+    if (D_8011FB0C_33567C_ChillyWaters[arg0] == NULL) {
+        if (D_8011FB08_335678_ChillyWaters == NULL) {
+            teresa = MBModelCreate(0xA, NULL);
+            func_8001FA68_20668(teresa->omObj1->model[0]);
+            func_8001FA68_20668(teresa->omObj2->model[0]);
+            D_8011FB08_335678_ChillyWaters = teresa;
+        } else {
+            teresa = MBModelLinkCreate(D_8011FB08_335678_ChillyWaters);
+        }
+        MBModelDispOff(teresa);
+        D_8011FB0C_33567C_ChillyWaters[arg0] = teresa;
+        teresa->flags |= 2;
+        teresa->velocity.x = 15.0f;
+        HuVecCopy3F(&teresa->coords, &MBMasuGet(D_8011D39C_332F0C_ChillyWaters[arg0])->coords);
+        func_800D771C_EB33C_shared_board(0xA, teresa,
+                                         D_8011D354_332EC4_ChillyWaters[arg0][0],
+                                         D_8011D354_332EC4_ChillyWaters[arg0][1]);
+    }
+}
+
+void MB1_TeresaGuideCreateAll(void) {
+    s32 i;
+
+    D_8011FB08_335678_ChillyWaters = 0;
+    for (i = 0; i < 1; i++) {
+        D_8011FB0C_33567C_ChillyWaters[i] = 0;
+        MB1_TeresaGuideCreate(i);
+    }
+}
+
+void MB1_BankCoinHide(void) {
+    s32 count;
+    s32 i;
+    s32 bank;
+
+    for (bank = 0; bank < 2; bank++) {
+        count = (GwSystem.bank_coins + 9) / 10;
+        if (count > 5) {
+            count = 5;
+        }
+        for (i = 0; i < count; i++) {
+            MBModelDispOn(mb1_BankCoinMdl[(bank * 5) + i]);
+        }
+        for (; i < 5; i++) {
+            MBModelDispOff(mb1_BankCoinMdl[(bank * 5) + i]);
+        }
+    }
+}
+
+void MB1_BankCoinCreate(s16 arg0) {
+    Object *coin;
+    Vec *pos;
+    s32 bank;
+    s16 slot;
+
+    if (mb1_BankCoinMdl[arg0] == NULL) {
+        if (mb1_BankCoinBaseMdl == NULL) {
+            coin = MBModelCreate(0x1E, NULL);
+            MBModelTempAllocFree(coin);
+            mb1_BankCoinBaseMdl = coin;
+        } else {
+            coin = MBModelLinkCreate(mb1_BankCoinBaseMdl);
+        }
+        mb1_BankCoinMdl[arg0] = coin;
+        coin->flags |= 2;
+
+        bank = arg0 / 5;
+        pos = &coin->coords;
+        HuVecCopy3F(pos, &MBMasuGet(D_8011D3A0_332F10_ChillyWaters[bank])->coords);
+
+        slot = arg0 % ARRAY_COUNT(D_8011D3A4_332F14_ChillyWaters);
+        HuVecAdd(pos, &D_8011D3A4_332F14_ChillyWaters[slot], pos);
+        coin->omObj1->rot.x = D_8011D3E0_332F50_ChillyWaters[slot].x;
+        coin->omObj1->rot.z = D_8011D3E0_332F50_ChillyWaters[slot].z;
+        MBModelDispOff(coin);
+    }
+}
 
 void MB1_BankCoinCreateAll(void) {
     s32 i;
 
-    mb1_BankCoinBaseMdl = 0;
+    mb1_BankCoinBaseMdl = NULL;
     for (i = 0; i < ARRAY_COUNT(mb1_BankCoinMdl); i++) {
         mb1_BankCoinMdl[i] = 0;
         MB1_BankCoinCreate(i);
@@ -878,17 +1020,94 @@ void MB1_BankCoinCreateAll(void) {
     MB1_BankCoinHide();
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108748_31E2B8_ChillyWaters);
+void func_80108748_31E2B8_ChillyWaters(s16 arg0) {
+    Object *obj;
+    SpaceData *space;
+    char pad[4];
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801088B4_31E424_ChillyWaters);
+    if (D_8011FB44_3356B4_ChillyWaters[arg0] == NULL) {
+        if (D_8011FB40_3356B0_ChillyWaters == NULL) {
+            obj = MBModelCreate(D_8011D420_332F90_ChillyWaters[GwSystem.current_board_index][1],
+                                D_8011D45C_332FCC_ChillyWaters[GwSystem.current_board_index]);
+            MBModelTempAllocFree(obj);
+            D_8011FB40_3356B0_ChillyWaters = obj;
+        } else {
+            obj = MBModelLinkCreate(D_8011FB40_3356B0_ChillyWaters);
+        }
+        D_8011FB44_3356B4_ChillyWaters[arg0] = obj;
+        obj->flags |= 2;
+        func_8001C814_1D414(obj->omObj1->model[0], 2, 1);
+        HuVecCopy3F(&obj->coords, &MBMasuGet(D_8011D41C_332F8C_ChillyWaters[arg0])->coords);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108914_31E484_ChillyWaters);
+        space = MBMasuGet(D_8011D374_332EE4_ChillyWaters[arg0][0]);
+        MBVecDirGet(&MBMasuGet(D_8011D374_332EE4_ChillyWaters[arg0][1])->coords,
+                    &space->coords, &obj->rot);
+        func_800D771C_EB33C_shared_board(0xC, obj,
+                                         D_8011D36C_332EDC_ChillyWaters[arg0][0],
+                                         D_8011D36C_332EDC_ChillyWaters[arg0][1]);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108970_31E4E0_ChillyWaters);
+void func_801088B4_31E424_ChillyWaters(void) {
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108A38_31E5A8_ChillyWaters);
+    D_8011FB40_3356B0_ChillyWaters = NULL;
+    for (i = 0; i < 2; i++) {
+        D_8011FB44_3356B4_ChillyWaters[i] = 0;
+        func_80108748_31E2B8_ChillyWaters(i);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108AE8_31E658_ChillyWaters);
+void func_80108914_31E484_ChillyWaters(void) {
+    HuPrcSleep(D_8011D4BC_33302C_ChillyWaters[GwSystem.current_board_index]);
+    HuAudFXPlay(D_8011D498_333008_ChillyWaters[GwSystem.current_board_index]);
+    omDelPrcObj(NULL);
+}
+
+void func_80108970_31E4E0_ChillyWaters(s32 arg0, s32 arg1) {
+    MBMotionSet(D_8011FB44_3356B4_ChillyWaters[arg0], (arg1 - 1), 0);
+    func_8001C814_1D414(D_8011FB44_3356B4_ChillyWaters[arg0]->omObj1->model[0], 5, 0);
+    
+    if (D_8011D474_332FE4_ChillyWaters[GwSystem.current_board_index] != -1) {
+        HuAudFXPlay(D_8011D474_332FE4_ChillyWaters[GwSystem.current_board_index]);
+    }
+    
+    if (D_8011D498_333008_ChillyWaters[GwSystem.current_board_index] != -1) {
+        omAddPrcObj(func_80108914_31E484_ChillyWaters, 0x1000U, 0, 0);
+    }
+}
+
+void func_80108A38_31E5A8_ChillyWaters(void) {
+    s32 temp_s0;
+    GW_SYSTEM* system = &GwSystem;
+    s32 sleepTime;
+
+    temp_s0 = (s32)HuPrcCurrentGet()->user_data;
+
+    switch (system->walk_speed) {
+    case 0:
+        HuPrcSleep(5);
+        break;
+    case 1:
+        HuPrcSleep(10);
+        break;
+    default:
+        HuPrcSleep(15);
+        break;
+    }
+    
+    func_8001C814_1D414(D_8011FB44_3356B4_ChillyWaters[temp_s0]->omObj1->model[0], 1, 4);
+    
+    if (D_8011D4E0_333050_ChillyWaters[GwSystem.current_board_index] != -1) {
+        HuAudFXPlay(D_8011D4E0_333050_ChillyWaters[GwSystem.current_board_index]);
+    }
+    
+    omDelPrcObj(NULL);
+}
+
+void func_80108AE8_31E658_ChillyWaters(s32 arg0) {
+    omAddPrcObj(func_80108A38_31E5A8_ChillyWaters, 0x1000, 0, 0)->user_data = (void*)arg0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80108B24_31E694_ChillyWaters);
 
