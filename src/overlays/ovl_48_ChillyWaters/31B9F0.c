@@ -29,7 +29,7 @@ typedef struct DecisionTreeNonLeafNode {
         u8 data_u8[4];
     } node_data2;
 } DecisionTreeNonLeafNode;
-
+void MBMoveBackMasuSet(s16 playerNo, s16 arg1, s16 arg2);
 void func_8004A918_4B518(s32);
 void func_800461B4_46DB4(s16 arg0);
 void MB1Ev_StarGuideIn(void);
@@ -50,6 +50,7 @@ void MBKinokoEffKillHookSet(void*);
 void MB1_StarGuideKill(void);
 void func_800D771C_EB33C_shared_board(s32, Object*, s16, s16);
 void func_800D7790_EB3B0_shared_board(s8 arg0, Vec* arg1, s16 arg2, s16 arg3);
+
 extern s16 D_8011D364_332ED4_ChillyWaters[][2];
 extern s16 D_8011D508_333078_ChillyWaters[];
 extern s16 D_8011D35C_332ECC_ChillyWaters[][2];
@@ -88,6 +89,27 @@ extern s16 D_8011D354_332EC4_ChillyWaters[][2];
 extern s16 D_8011D3A0_332F10_ChillyWaters[];
 extern Vec D_8011D3A4_332F14_ChillyWaters[5];
 extern Vec D_8011D3E0_332F50_ChillyWaters[];
+extern char D_8011D7F4_333364_ChillyWaters[];
+extern char D_8011DC00_333770_ChillyWaters[];
+extern char D_8011DC14_333784_ChillyWaters[];
+extern char D_8011D854_3333C4_ChillyWaters[];
+extern char D_8011DC48_3337B8_ChillyWaters[];
+extern char D_8011DC5C_3337CC_ChillyWaters[];
+extern char D_8011D884_3333F4_ChillyWaters[];
+extern char D_8011DC90_333800_ChillyWaters[];
+extern char D_8011DCA4_333814_ChillyWaters[];
+extern char D_8011D8B4_333424_ChillyWaters[];
+extern char D_8011DCD8_333848_ChillyWaters[];
+extern char D_8011DCEC_33385C_ChillyWaters[];
+extern char D_8011D8E4_333454_ChillyWaters[];
+extern char D_8011DD20_333890_ChillyWaters[];
+extern char D_8011DD34_3338A4_ChillyWaters[];
+extern char D_8011D914_333484_ChillyWaters[];
+extern char D_8011DD68_3338D8_ChillyWaters[];
+extern char D_8011DD7C_3338EC_ChillyWaters[];
+extern char D_8011D944_3334B4_ChillyWaters[];
+extern char D_8011DDB0_333920_ChillyWaters[];
+extern char D_8011DDC4_333934_ChillyWaters[];
 
 // Get toad space index for current start space index.
 s16 MB1Ev_StarGuideMasuGet(void) {
@@ -364,14 +386,14 @@ void MB1Ev_StarGet(void) {
     s32 i;
 
     work = HuPrcCurrentGet()->user_data;
-    player = MBPlayerGet(-1);
+    player = MBPlayerGet(CUR_PLAYER);
 
     HuAudFXPlay(0x11B);
     star = MBModelCreate(0x1A, NULL);
     star->flags |= 4;
     func_800ECC54_100874_shared_board(star);
 
-    if (MBMasuLinkMasuIdGet(MBPlayerGet(-1)->clink, MBPlayerGet(-1)->cidx) == 0x92) {
+    if (MBMasuLinkMasuIdGet(MBPlayerGet(CUR_PLAYER)->clink, MBPlayerGet(CUR_PLAYER)->cidx) == 0x92) {
         HuVecCopyXYZ(&star->coords, work->unk_0C.x, work->unk_0C.y + 10.0f, work->unk_0C.z);
         HuVecCopyXYZ(&sp10, gCameraList->pos.x, gCameraList->pos.y, gCameraList->pos.z);
         star->velocity.x = 15.0f;
@@ -1136,18 +1158,38 @@ void MB1Ev_BranchMerge(s32 masuAbsIndex, s16 arg1, s16 arg2) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch1);
+void MB1Ev_Branch1(void) {
+    MBMoveNextMasuSet(-1, 1, 6);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch1Rev);
+void MB1Ev_Branch1Rev(void) {
+    GW_PLAYER* temp_v0 = MBPlayerGet(CUR_PLAYER);
+
+    if (MBMasuLinkMasuIdGet(temp_v0->blink, temp_v0->bidx) == 0x6B) {
+        MBMoveBackMasuSet(-1, 1, 6);
+    }
+}
+
 
 void MB1Ev_Branch2(void) {
     MB1Ev_BranchMain(&mb1ev_Branch2Masu, &mb1ev_Branch2Link, &mb1ev_Branch2ComTree);
     omDelPrcObj(0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch2Rev);
+void MB1Ev_Branch2Rev(void) {
+    MB1Ev_BranchMain(D_8011DACC_33363C_ChillyWaters, D_8011DAE0_333650_ChillyWaters, D_8011D5F0_333160_ChillyWaters);
+    omDelPrcObj(NULL);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch3);
+extern char D_8011D668_3331D8_ChillyWaters[]; //ai
+extern char D_8011DB14_333684_ChillyWaters[]; //spaces
+extern char D_8011DB28_333698_ChillyWaters[]; //links
+
+void MB1Ev_Branch3(void) {
+    MB1Ev_BranchMain(D_8011DB14_333684_ChillyWaters, D_8011DB28_333698_ChillyWaters, D_8011D668_3331D8_ChillyWaters);
+    omDelPrcObj(NULL);
+}
+
 
 void MB1Ev_Branch3Rev(void) {
     GW_PLAYER *player;
@@ -1162,47 +1204,293 @@ void MB1Ev_Branch3Rev(void) {
     omDelPrcObj(0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Branch4);
+void func_800D6CA0_EA8C0_shared_board(UnkEA790Struct* arg0);
+s32 func_800D7250_EAE70_shared_board(UnkEA790Struct*, s32);
+s32 func_800D742C_EB04C_shared_board(UnkEA790Struct* arg0, s16 playerNo, s32 arg2);
+s32 func_800D7518_EB138_shared_board(UnkEA790Struct* arg0);
+UnkEA790Struct* func_800D76A0_EB2C0_shared_board(s16 arg0, s16* arg1);
+extern DecisionTreeNonLeafNode D_8011D788_3332F8_ChillyWaters;
+extern s16 D_8011DBA4_333714_ChillyWaters[];
+extern s16 D_8011DBAC_33371C_ChillyWaters[];
+extern s16 D_8011DBB4_333724_ChillyWaters[];
+extern s16 D_8011DBC0_333730_ChillyWaters[];
+extern s16 D_8011DBCC_33373C_ChillyWaters[];
+extern s16 D_8011DBD8_333748_ChillyWaters[];
+extern s16 D_8011DBE4_333754_ChillyWaters[];
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109390_31EF00_ChillyWaters);
+void MB1Ev_Branch4(void) {
+    GW_PLAYER *player;
+    DecisionTreeNonLeafNode *tree;
+    UnkEA790Struct* win;
+    s32 sel;
+    s32 sel2;
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801093C8_31EF38_ChillyWaters);
+    player = MBPlayerGet(CUR_PLAYER);
+    MBPlayerMotionSet(-1, -1, 2);
+    HuPrcVSleep();
+    MB1_BranchHelpStart();
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109400_31EF70_ChillyWaters);
+    if (!(player->rev & 0x80)) {
+        if (MBMasuLinkMasuIdGet(player->blink, player->bidx) == 0x3D) {
+            player->rev &= ~1;
+            win = func_800D76A0_EB2C0_shared_board(GwSystem.current_player_index, D_8011DBAC_33371C_ChillyWaters);
+        } else {
+            win = func_800D76A0_EB2C0_shared_board(GwSystem.current_player_index, D_8011DBA4_333714_ChillyWaters);
+        }
+    } else {
+        switch (MBMasuLinkMasuIdGet(player->blink, player->bidx)) {
+        case 0x3C:
+            win = func_800D76A0_EB2C0_shared_board(GwSystem.current_player_index, D_8011DBB4_333724_ChillyWaters);
+            break;
+        case 0x57:
+            win = func_800D76A0_EB2C0_shared_board(GwSystem.current_player_index, D_8011DBC0_333730_ChillyWaters);
+            break;
+        case 0x46:
+            win = func_800D76A0_EB2C0_shared_board(GwSystem.current_player_index, D_8011DBCC_33373C_ChillyWaters);
+            break;
+        case 0x3D:
+            win = func_800D76A0_EB2C0_shared_board(GwSystem.current_player_index, D_8011DBD8_333748_ChillyWaters);
+            break;
+        default:
+            win = func_800D76A0_EB2C0_shared_board(GwSystem.current_player_index, D_8011DBE4_333754_ChillyWaters);
+            break;
+        }
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109430_31EFA0_ChillyWaters);
+    func_800D742C_EB04C_shared_board(win, GwSystem.current_player_index, 0);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109474_31EFE4_ChillyWaters);
+    if (MBPlayerComCheck(-1) != 0) {
+        sel = MBComTreeExec(&D_8011D788_3332F8_ChillyWaters);
+        for (i = 0; i < sel; i++) {
+            func_800D7250_EAE70_shared_board(win, -2);
+        }
+        func_800D7250_EAE70_shared_board(win, -4);
+    }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801094A4_31F014_ChillyWaters);
+    sel2 = func_800D7518_EB138_shared_board(win);
+    func_800D6CA0_EA8C0_shared_board(win);
+    MB1_BranchHelpEnd();
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801094E8_31F058_ChillyWaters);
+    if (!(player->rev & 0x80)) {
+        if (MBMasuLinkMasuIdGet(player->blink, player->bidx) == 0x3D) {
+            if (sel2 == 0) {
+                MBMoveNextMasuSet(-1, 7, 0);
+            } else {
+                MBMoveNextMasuSet(-1, 8, 0);
+            }
+        } else {
+            switch (sel2) {
+            case 0:
+                MBMoveNextMasuSet(-1, 7, 0);
+                break;
+            case 1:
+                MBMoveNextMasuSet(-1, 8, 0);
+                break;
+            default:
+                MBMoveNextMasuSet(-1, 9, 0);
+                break;
+            }
+        }
+    } else {
+        switch (MBMasuLinkMasuIdGet(player->blink, player->bidx)) {
+        case 0x3C:
+            switch (sel2) {
+            case 0:
+                MBMoveNextMasuSet(-1, 7, 0);
+                break;
+            case 1:
+                MBMoveNextMasuSet(-1, 8, 0);
+                break;
+            case 2:
+                MBMoveNextMasuSet(-1, 9, 0);
+                break;
+            default:
+                MBMoveNextMasuSet(-1, 0xB, 7);
+                player->rev |= 1;
+                break;
+            }
+            break;
+        case 0x57:
+            switch (sel2) {
+            case 0:
+                MBMoveNextMasuSet(-1, 2, 6);
+                break;
+            case 1:
+                MBMoveNextMasuSet(-1, 8, 0);
+                player->rev &= ~1;
+                break;
+            case 2:
+                MBMoveNextMasuSet(-1, 9, 0);
+                player->rev &= ~1;
+                break;
+            default:
+                MBMoveNextMasuSet(-1, 0xB, 7);
+                break;
+            }
+            break;
+        case 0x46:
+            switch (sel2) {
+            case 0:
+                MBMoveNextMasuSet(-1, 2, 6);
+                break;
+            case 1:
+                MBMoveNextMasuSet(-1, 7, 0);
+                player->rev &= ~1;
+                break;
+            case 2:
+                MBMoveNextMasuSet(-1, 9, 0);
+                player->rev &= ~1;
+                break;
+            default:
+                MBMoveNextMasuSet(-1, 0xB, 7);
+                break;
+            }
+            break;
+        case 0x3D:
+            switch (sel2) {
+            case 0:
+                MBMoveNextMasuSet(-1, 2, 6);
+                break;
+            case 1:
+                MBMoveNextMasuSet(-1, 7, 0);
+                player->rev &= ~1;
+                break;
+            case 2:
+                MBMoveNextMasuSet(-1, 8, 0);
+                player->rev &= ~1;
+                break;
+            default:
+                MBMoveNextMasuSet(-1, 0xB, 7);
+                break;
+            }
+            break;
+        default:
+            switch (sel2) {
+            case 0:
+                MBMoveNextMasuSet(-1, 2, 6);
+                player->rev |= 1;
+                break;
+            case 1:
+                MBMoveNextMasuSet(-1, 7, 0);
+                break;
+            case 2:
+                MBMoveNextMasuSet(-1, 8, 0);
+                break;
+            default:
+                MBMoveNextMasuSet(-1, 9, 0);
+                break;
+            }
+            break;
+        }
+    }
+    omDelPrcObj(NULL);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109518_31F088_ChillyWaters);
+void func_80109390_31EF00_ChillyWaters(void) {
+    MB1Ev_BranchMain(D_8011DC00_333770_ChillyWaters, D_8011DC14_333784_ChillyWaters, D_8011D7F4_333364_ChillyWaters);
+    omDelPrcObj(NULL);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010955C_31F0CC_ChillyWaters);
+void func_801093C8_31EF38_ChillyWaters(void) {
+    MB1Ev_BranchMain(D_8011DC48_3337B8_ChillyWaters, D_8011DC5C_3337CC_ChillyWaters, D_8011D854_3333C4_ChillyWaters);
+    omDelPrcObj(NULL);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010958C_31F0FC_ChillyWaters);
+void func_80109400_31EF70_ChillyWaters(void) {
+    MB1Ev_BranchMain(D_8011DC90_333800_ChillyWaters, D_8011DCA4_333814_ChillyWaters, D_8011D884_3333F4_ChillyWaters);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801095D0_31F140_ChillyWaters);
+void func_80109430_31EFA0_ChillyWaters(void) {
+    if ((MBPlayerGet(CUR_PLAYER)->rev & FLAG_UNK_80) && (mbWalkNum != 0)) {
+        func_80109400_31EF70_ChillyWaters();
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109600_31F170_ChillyWaters);
+void func_80109474_31EFE4_ChillyWaters(void) {
+    MB1Ev_BranchMain(&D_8011DCD8_333848_ChillyWaters, &D_8011DCEC_33385C_ChillyWaters, &D_8011D8B4_333424_ChillyWaters);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109644_31F1B4_ChillyWaters);
+void func_801094A4_31F014_ChillyWaters(void) {
+    if ((MBPlayerGet(CUR_PLAYER)->rev & FLAG_UNK_80) && (mbWalkNum != 0)) {
+        func_80109474_31EFE4_ChillyWaters();
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109674_31F1E4_ChillyWaters);
+void func_801094E8_31F058_ChillyWaters(void) {
+    MB1Ev_BranchMain(D_8011DD20_333890_ChillyWaters, D_8011DD34_3338A4_ChillyWaters, D_8011D8E4_333454_ChillyWaters);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801096B8_31F228_ChillyWaters);
+void func_80109518_31F088_ChillyWaters(void) {
+    if ((MBPlayerGet(CUR_PLAYER)->rev & FLAG_UNK_80) && (mbWalkNum != 0)) {
+        func_801094E8_31F058_ChillyWaters();
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109718_31F288_ChillyWaters);
+void func_8010955C_31F0CC_ChillyWaters(void) {
+    MB1Ev_BranchMain(D_8011DD68_3338D8_ChillyWaters, D_8011DD7C_3338EC_ChillyWaters, D_8011D914_333484_ChillyWaters);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010973C_31F2AC_ChillyWaters);
+void func_8010958C_31F0FC_ChillyWaters(void) {
+    if ((MBPlayerGet(CUR_PLAYER)->rev & FLAG_UNK_80) && (mbWalkNum != 0)) {
+        func_8010955C_31F0CC_ChillyWaters();
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109760_31F2D0_ChillyWaters);
+void func_801095D0_31F140_ChillyWaters(void) {
+    MB1Ev_BranchMain(D_8011DDB0_333920_ChillyWaters, D_8011DDC4_333934_ChillyWaters, D_8011D944_3334B4_ChillyWaters);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109784_31F2F4_ChillyWaters);
+void func_80109600_31F170_ChillyWaters(void) {
+    if ((MBPlayerGet(CUR_PLAYER)->rev & FLAG_UNK_80) && (mbWalkNum != 0)) {
+        func_801095D0_31F140_ChillyWaters();
+    }
+}
+extern char D_8011D974_3334E4_ChillyWaters[];
+extern char D_8011DDF8_333968_ChillyWaters[];
+extern char D_8011DE0C_33397C_ChillyWaters[];
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801097E4_31F354_ChillyWaters);
+void func_80109644_31F1B4_ChillyWaters(void) {
+    MB1Ev_BranchMain(D_8011DDF8_333968_ChillyWaters, D_8011DE0C_33397C_ChillyWaters, D_8011D974_3334E4_ChillyWaters);
+}
+
+void func_80109674_31F1E4_ChillyWaters(void) {
+    if ((MBPlayerGet(-1)->rev & 0x80) && (mbWalkNum != 0)) {
+        func_80109644_31F1B4_ChillyWaters();
+    }
+}
+
+void func_801096B8_31F228_ChillyWaters(void) {
+    GW_PLAYER* player = MBPlayerGet(-1);
+
+    if (MBMasuLinkMasuIdGet(player->blink, player->bidx) == 0x36) {
+        MBMoveNextMasuSet(-1, 1, 0xD);
+    }
+}
+
+void func_80109718_31F288_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x2E, 0xF, 0xA);
+}
+
+void func_8010973C_31F2AC_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x34, 3, 6);
+}
+
+void func_80109760_31F2D0_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x33, 15, 2);
+}
+
+void func_80109784_31F2F4_ChillyWaters(void) {
+    GW_PLAYER* player = MBPlayerGet(-1);
+
+    if (MBMasuLinkMasuIdGet(player->blink, player->bidx) != 0x8D) {
+        MBMoveNextMasuSet(-1, 5, 0xB);
+    }
+}
+
+void func_801097E4_31F354_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x4C, 7, 6);
+}
 
 void func_80109808_31F378_ChillyWaters() {
     MB1Ev_BranchMerge(0x59, 2, 7);
@@ -1216,35 +1504,71 @@ void func_80109850_31F3C0_ChillyWaters() {
     MB1Ev_BranchMerge(0x7C, 10, 2);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109874_31F3E4_ChillyWaters);
+void func_80109874_31F3E4_ChillyWaters(void) {
+    GW_PLAYER* player = MBPlayerGet(-1);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801098D4_31F444_ChillyWaters);
+    if (MBMasuLinkMasuIdGet(player->blink, player->bidx) != 0x7D) {
+        MBMoveNextMasuSet(-1, 2, 7);
+    }
+}
+
+void func_801098D4_31F444_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x3F, 0xE, 3);
+}
 
 void func_801098F8_31F468_ChillyWaters() {
     MB1Ev_BranchMerge(0x15, 5, 11);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010991C_31F48C_ChillyWaters);
+void func_8010991C_31F48C_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x50, 0xA, 0xB);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109940_31F4B0_ChillyWaters);
+void func_80109940_31F4B0_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x55, 2, 7);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109964_31F4D4_ChillyWaters);
+void func_80109964_31F4D4_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x60, 0xC, 4);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109988_31F4F8_ChillyWaters);
+void func_80109988_31F4F8_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x60, 0xB, 4);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801099AC_31F51C_ChillyWaters);
+void func_801099AC_31F51C_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x24, 0xC, 4);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801099D0_31F540_ChillyWaters);
+void func_801099D0_31F540_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x44, 1, 8);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_801099F4_31F564_ChillyWaters);
+void func_801099F4_31F564_ChillyWaters(void) {
+    GW_PLAYER* player = MBPlayerGet(-1);
+    if (player->rev & 1) {
+        player->rev &= ~1;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109A28_31F598_ChillyWaters);
+void func_80109A28_31F598_ChillyWaters(void) {
+    GW_PLAYER* player = MBPlayerGet(-1);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109A6C_31F5DC_ChillyWaters);
+    MBMoveNextMasuSet(-1, 0x10, 1);
+    player->rev &= ~1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109A90_31F600_ChillyWaters);
+void func_80109A6C_31F5DC_ChillyWaters(void) {
+    MB1Ev_BranchMerge(9, 0xF, 0xA);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80109AB4_31F624_ChillyWaters);
+void func_80109A90_31F600_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x27, 0xE, 3);
+}
+
+void func_80109AB4_31F624_ChillyWaters(void) {
+    MB1Ev_BranchMerge(0x20, 0xA, 0xB);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_KeyManMasu);
 
@@ -1262,7 +1586,7 @@ void func_8010A068_31FBD8_ChillyWaters() {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010A098_31FC08_ChillyWaters);
 
-void MB1Ev_YesNoChoiceGet(DecisionTreeNonLeafNode *arg0, s32 arg1) {
+s32 MB1Ev_YesNoChoiceGet(DecisionTreeNonLeafNode *arg0, s32 arg1) {
     s32 count = 0;
     s16 sp18[MB_MAX_PLAYERS];
     u8 sp20[MB_MAX_PLAYERS] = {1, 2, 4, 8};
@@ -1314,7 +1638,7 @@ void MB1Ev_YesNoChoiceGet(DecisionTreeNonLeafNode *arg0, s32 arg1) {
         func_8005F744_60344(sp18[0], sp18[1], sp18[2], sp18[3]);
     }
 
-    func_8005E1D8_5EDD8(mbDlgWinId, 0, 1);
+    return func_8005E1D8_5EDD8(mbDlgWinId, 0, 1);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8010A3B8_31FF28_ChillyWaters);
@@ -1842,7 +2166,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_Turutu
 void MB1Ev_Turuturu() {
     GW_PLAYER *player;
 
-    player = MBPlayerGet(-1);
+    player = MBPlayerGet(CUR_PLAYER);
     if (mbWalkNum != 0) {
         if ((player->rev & 1) == 0) {
             HuPrcSleep(0xA);

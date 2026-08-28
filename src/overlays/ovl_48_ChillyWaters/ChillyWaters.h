@@ -95,6 +95,11 @@ extern char mb1ev_Branch3RevLink[];
 extern char mb1ev_Branch2ComTree[]; //ai
 extern char mb1ev_Branch2Masu[]; //spaces
 extern char mb1ev_Branch2Link[]; //chain
+
+extern char D_8011DACC_33363C_ChillyWaters[]; //spaces
+extern char D_8011DAE0_333650_ChillyWaters[]; //chain
+extern char D_8011D5F0_333160_ChillyWaters[]; //ai
+
 extern Object* mb1_BankCoinBaseMdl;
 extern Object* mb1_BankCoinMdl[10];
 extern s16 D_800CE194_CED94[];

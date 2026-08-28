@@ -58,6 +58,12 @@ extern Vec D_80102D78_116998_shared_board;
 extern Vec D_80102D84_1169A4_shared_board;
 extern Vec D_80102D90_1169B0_shared_board;
 
+// s32 D_80100F90_114BB0_shared_board = -1;
+// s8 D_80100F94_114BB4_shared_board[] = {5, 5, 5, 5, 5, 5, 10, 10, 10, 10, 10, 15, 10, 10, 20, -1, -1, -1, -1, 30};
+// s32 D_80100FA8_114BC8_shared_board[] = {3, 1, 2, 4, 3, 2, 4, 2, 3, 5, 5, 6, 3, 3, 7, 4, 6, 6, 6};
+// s32 D_80100FF4_114C14_shared_board[] = {3, 1, 2, 4, 3, 2, 4, 2, 3, 5, 5, 8, 1, 3, 10, 1, 7, 6, 9};
+// s32 D_80101040_114C60_shared_board[] = {0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70, 0x71};
+
 // TODO: fix (u8*)arg1 hack
 void func_800E2260_F5E80_shared_board(s32 arg0, char *arg1) {
     if (arg0 == CUR_PLAYER) {

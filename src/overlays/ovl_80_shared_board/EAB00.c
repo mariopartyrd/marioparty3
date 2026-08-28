@@ -188,7 +188,7 @@ s32 func_800D742C_EB04C_shared_board(UnkEA790Struct* arg0, s16 playerNo, s32 arg
     Process* proc;
 
     if (arg0->proc == NULL) {
-        proc = omAddPrcObj(func_800D6EE0_EAB00_shared_board, 0xEFFFU, 0x1000, 0);
+        proc = omAddPrcObj(func_800D6EE0_EAB00_shared_board, 0xEFFF, 0x1000, 0);
         arg0->proc = proc;
         proc->user_data = arg0;
         osCreateMesgQueue(&arg0->unk10, &arg0->unk28, 0x10);
@@ -199,7 +199,7 @@ s32 func_800D742C_EB04C_shared_board(UnkEA790Struct* arg0, s16 playerNo, s32 arg
             func_800D7250_EAE70_shared_board(arg0, -1);
         } else {
             arg0->unkE = player->pad;
-            omAddPrcObj(func_800D7280_EAEA0_shared_board, 0xEFFFU, 0x1000, 0)->user_data = arg0;
+            omAddPrcObj(func_800D7280_EAEA0_shared_board, 0xEFFF, 0x1000, 0)->user_data = arg0;
         }
         return player->stat & 1;
     }
