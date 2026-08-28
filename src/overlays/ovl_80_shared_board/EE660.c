@@ -24,7 +24,13 @@ extern s16 D_80100D94_1149B4_shared_board[3][2];
 extern u8 D_801057D9_1193F9_shared_board;
 extern f32 D_800A0A7C_A167C;
 extern u8 D_80105700_119320_shared_board;
+extern s32 D_80100D60_114980_shared_board[6];
+extern s32 D_80100D78_114998_shared_board[6];
 
+void func_80032FF8_33BF8(s32, u8);
+void func_8003302C_33C2C(s32, u8);
+void func_800DAAAC_EE6CC_shared_board(omObjData*);
+s32 func_800DBEC0_EFAE0_shared_board(s32);
 s16 func_80032694_33294(HmfData*, u16, s32, char*);
 void func_800DAAAC_EE6CC_shared_board(omObjData*);
 void func_80033430_34030(s16);
@@ -75,7 +81,6 @@ void func_800DAA40_EE660_shared_board(s32 arg0) {
     }
 }
 
-#ifdef NOP_FIX
 void func_800DAAAC_EE6CC_shared_board(omObjData *arg0) {
     UnkDiceRelated *entry;
     f32 base;
@@ -165,9 +170,6 @@ void func_800DAAAC_EE6CC_shared_board(omObjData *arg0) {
             break;
     }
 }
-#else
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", func_800DAAAC_EE6CC_shared_board);
-#endif
 
 void func_800DAF1C_EEB3C_shared_board(omObjData *arg0) {
     UnkDiceRelated *entry;
@@ -534,14 +536,7 @@ void func_800DC0E0_EFD00_shared_board(s32 arg0) {
 void func_800DC104_EFD24_shared_board(s32 arg0, s8 arg1) {
     D_800CDBD0_CE7D0[arg0].unk_09 = arg1;
 }
-extern s32 D_80100D60_114980_shared_board[6];
-extern s32 D_80100D78_114998_shared_board[6];
-void func_80032FF8_33BF8(s32, u8);
-void func_8003302C_33C2C(s32, u8);
-void func_800DAAAC_EE6CC_shared_board(omObjData*);
-s32 func_800DBEC0_EFAE0_shared_board(s32);
 
-//TODO: requires hacky D_80100D90_1149B0_shared_board s32 write
 s32 func_800DC128_EFD48_shared_board(s32 arg0) {
     UnkDiceRelated *entry;
     omObjData *dice;
@@ -692,18 +687,16 @@ s32 func_800DC128_EFD48_shared_board(s32 arg0) {
                 break;
         }
     }
+
     D_80100D90_1149B0_shared_board = 1;
-    
     return ret;
 }
 
 void func_800DC718_F0338_shared_board(s32 arg0, s32 arg1, s32 arg2, char *arg3[]) {
-    UnkDiceRelated *entry;
+    UnkDiceRelated *entry = &D_800CDBD0_CE7D0[arg0];
     omObjData *dice;
     f32 height;
     s32 i;
-
-    entry = &D_800CDBD0_CE7D0[arg0];
 
     if (entry->unk_16 == -1) {
         if (D_8010570F_11932F_shared_board == 1) {
@@ -1090,11 +1083,9 @@ void func_800DCDD4_F09F4_shared_board(void) {
 }
 
 Process* func_800DD6C4_F12E4_shared_board(s32 playerNo) {
-    Process* proc;
-    UnkSharedBoard* temp_v0_2;
+    Process* proc = omAddPrcObj(func_800DCDD4_F09F4_shared_board, 0U, 0, 0x40);
+    UnkSharedBoard* temp_v0_2 = HuMemMemoryAlloc(proc->heap, sizeof(UnkSharedBoard));
 
-    proc = omAddPrcObj(func_800DCDD4_F09F4_shared_board, 0U, 0, 0x40);
-    temp_v0_2 = HuMemMemoryAlloc(proc->heap, sizeof(UnkSharedBoard));
     proc->user_data = temp_v0_2;
     temp_v0_2->playerNo = playerNo;
     temp_v0_2->unk_04 = 0;
@@ -1275,8 +1266,6 @@ Process* func_800DDDD4_F19F4_shared_board(s32 arg0) {
     return temp_v0;
 }
 
-void func_800DDE3C_F1A5C_shared_board(void);
-#ifdef NOP_FIX //only issue is nops
 void func_800DDE3C_F1A5C_shared_board(void) {
     UnkCoinProc *work;
     f32 scale, amp, angle;
@@ -1331,7 +1320,6 @@ void func_800DDE3C_F1A5C_shared_board(void) {
                 func_80055458_56058(grp, 0, 0);
 
                 amp = 1.0f / HuMathSin(20.0f);
-                //for (angle = 0.0f; angle < 90.0f; HuSprScaleSet(grp, 0, HuMathSin(angle) * amp * 0.8f + 0.2f, HuMathSin(angle) * amp * 0.8f + 0.2f), func_80055458_56058(grp, 0, 0x100), HuPrcVSleep(), angle += 11.25f) {}
                 
                 for (angle = 0.0f; angle < 90.0f; angle += 11.25f) {
                     //temp variables seem to not impact codegen?
@@ -1342,7 +1330,6 @@ void func_800DDE3C_F1A5C_shared_board(void) {
                     HuPrcVSleep();
                 }
                 
-                //for (; angle > 20.0f; HuSprScaleSet(grp, 0, HuMathSin(angle) * amp * 0.8f + 0.2f, HuMathSin(angle) * amp * 0.8f + 0.2f), HuPrcVSleep(), angle -= 11.25f) {}
                 while (angle > 20.0f) {
                     f32 temp1 = HuMathSin(angle) * amp * 0.8f + 0.2f;
                     f32 temp2 = HuMathSin(angle) * amp * 0.8f + 0.2f;
@@ -1393,9 +1380,6 @@ void func_800DDE3C_F1A5C_shared_board(void) {
         HuPrcVSleep();
     }
 }
-#else
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", func_800DDE3C_F1A5C_shared_board);
-#endif
 
 Process* func_800DE414_F2034_shared_board(s32 arg0, s32 arg1) {
     Process* temp_v0;

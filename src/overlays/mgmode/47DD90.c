@@ -205,6 +205,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mgmode/47DD90", func_80116ED4_47E144_mgmo
 #endif
 
 #ifdef NON_MATCHING
+f32 _atan2d(f32, f32);
 void func_801177BC_47EA2C_mgmode(Vec* arg0, Vec* arg1) {
     f32 temp_f0;
     f32 temp_f22;

@@ -89,7 +89,7 @@ ENDLINE := \n'
 ### Compiler Options ###
 
 ASFLAGS        := -G 0 -I include -mips3 -mabi=32
-CFLAGS         := -G0 -mips3 -mgp32 -mfp32 -Wa,--vr4300mul-off -D_LANGUAGE_C -DOLD_GCC
+CFLAGS         := -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -DOLD_GCC
 CPPFLAGS     := -I include -I $(BUILD_DIR)/include -I src -DF3DEX_GBI_2 -D_LANGUAGE_C
 LDFLAGS        := -T undefined_syms.txt -T undefined_funcs_auto.txt -T undefined_syms_auto.txt -T $(LD_SCRIPT) -Map $(LD_MAP) --no-check-sections
 CHECK_WARNINGS := -Wall -Wextra -Wunused-but-set-variable -Wno-format-security -Wno-unused-parameter -Wno-sign-compare -Wno-unused-variable -Wno-pointer-to-int-cast -Wno-int-to-pointer-cast -m32
@@ -170,10 +170,7 @@ build/src/2.0L/os/sendmesg.c.o: OPTFLAGS = -O2
 build/src/88CF0.c.o: OPTFLAGS = -O2
 build/src/88CF0.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C
 
-# Files that must have -Wa,--vr4300mul-off disabled:
-build/src/overlays/ovl_80_shared_board/FA250.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -DOLD_GCC
-build/src/overlays/ovl_80_shared_board/EC3B0.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -DOLD_GCC
-build/src/34DD0.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -DOLD_GCC
+# Files that have scommon
 build/src/2.0L/gu/lookathil.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/gamemes.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/hmflight.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
@@ -183,6 +180,41 @@ build/src/overlays/ovl_36_motor_rooter/system.c.o: CFLAGS = -G0 -mips3 -mgp32 -m
 build/src/overlays/ovl_37_silly_screws/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/overlays/ovl_39_tick_tock_hop/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/overlays/ovl_80_shared_board/ECA50.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
+
+# after function calls, we emit these instructions in the .s file including the blank new line
+#    .set    macro
+#    .set    reorder
+#
+# by stripping the blank newline, this will cause functions with nop issues to match
+NOP_OBJECTS := \
+	build/src/overlays/ovl_80_shared_board/EC3B0.c.o \
+	build/src/overlays/ovl_80_shared_board/EE660.c.o \
+	build/src/overlays/mgmode/46CC10.c.o \
+	build/src/4BF40.c.o \
+	build/src/overlays/ovl_80_shared_board/F5E80.c.o \
+	build/src/overlays/ovl_80_shared_board/106A50.c.o \
+	build/src/overlays/ovl_80_shared_board/1006F0.c.o \
+	build/src/overlays/ovl_80_shared_board/10C230.c.o
+
+NOP_ASM := $(NOP_OBJECTS:.o=.s)
+
+.PRECIOUS: $(NOP_ASM)
+-include $(NOP_ASM:=.d)
+
+# .c -> .s  (plus the nop strip)
+$(NOP_ASM): $(BUILD_DIR)/%.c.s: %.c tools/strip_nop.py
+	@$(PRINT)$(YELLOW)Generating asm: $(ENDYELLOW)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	@mkdir -p $(dir $@)
+	@$(CC_HOST) $(CFLAGS_CHECK) $(CPPFLAGS) -MMD -MP -MT $@ -MF $@.d $<
+	$(V)export COMPILER_PATH=tools/gcc_2.7.2/$(DETECTED_OS) && $(CC) $(OPTFLAGS) $(CFLAGS) $(CPPFLAGS) -S $< -o $@
+	$(V)$(PYTHON) tools/strip_nop.py $@
+
+# .s -> .o
+$(NOP_OBJECTS): $(BUILD_DIR)/%.c.o: $(BUILD_DIR)/%.c.s
+	@$(PRINT)$(YELLOW)Assembling: $(ENDYELLOW)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	@mkdir -p $(dir $@)
+	$(V)export COMPILER_PATH=tools/gcc_2.7.2/$(DETECTED_OS) && $(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	@$(STRIP) $@ -N dummy-symbol-name
 
 # Compile .c files with kmc gcc (use strip to fix objects so that they can be linked with modern gnu ld) 
 $(BUILD_DIR)/src/%.c.o: src/%.c

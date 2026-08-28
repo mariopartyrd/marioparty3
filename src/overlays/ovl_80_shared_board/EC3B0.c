@@ -107,9 +107,6 @@ void func_800D8B2C_EC74C_shared_board(Vec* arg0, Vec* arg1, f32 arg2) {
               ((arg1->z * arg1->z + (1.0f - arg1->z * arg1->z) * HuMathCos(arg2)) * origPos.z);
 }
 
-
-
-#ifdef NON_MATCHING //matches, but nop memes
 f32 func_800D8DAC_EC9CC_shared_board(Vec *vec_1, Vec *vec_2) {
     f32 length;
     f32 dot;
@@ -120,6 +117,3 @@ f32 func_800D8DAC_EC9CC_shared_board(Vec *vec_1, Vec *vec_2) {
         return func_8008D800_8E400(dot / length);
     }
 }
-#else
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_80_shared_board/EC3B0", func_800D8DAC_EC9CC_shared_board);
-#endif
