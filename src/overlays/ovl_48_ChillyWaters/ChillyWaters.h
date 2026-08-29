@@ -102,7 +102,7 @@ extern char D_8011D5F0_333160_ChillyWaters[]; //ai
 
 extern Object* mb1_BankCoinBaseMdl;
 extern Object* mb1_BankCoinMdl[10];
-extern s16 D_800CE194_CED94[];
+extern omObjData *D_800CE194_CED94;
 extern char D_8011E010_333B80_ChillyWaters[]; // spaces
 extern char D_8011E024_333B94_ChillyWaters[]; // chain
 extern char D_8011DA58_3335C8_ChillyWaters[]; // ai

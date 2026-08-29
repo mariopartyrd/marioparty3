@@ -194,7 +194,8 @@ NOP_OBJECTS := \
 	build/src/overlays/ovl_80_shared_board/F5E80.c.o \
 	build/src/overlays/ovl_80_shared_board/106A50.c.o \
 	build/src/overlays/ovl_80_shared_board/1006F0.c.o \
-	build/src/overlays/ovl_80_shared_board/10C230.c.o
+	build/src/overlays/ovl_80_shared_board/10C230.c.o \
+	build/src/overlays/ovl_48_ChillyWaters/31B9F0.c.o
 
 NOP_ASM := $(NOP_OBJECTS:.o=.s)
 

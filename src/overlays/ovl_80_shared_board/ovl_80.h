@@ -464,7 +464,7 @@ void func_80100130_113D50_shared_board(void);
 UnkMBGuideData* MBGuideCreate(u32* arg0, s32 arg1);
 void MBGuideFaceCreate(Object *arg0, s16 arg1, s16 arg2, s32 arg3);
 void MBGuideKill(UnkMBGuideData* arg0);
-
+extern s16 D_800CE198_CED98;
 extern f32 D_801056E8_119308_shared_board;
 extern Vec2f D_801056EC_11930C_shared_board;
 extern s32 mbWalkNum;

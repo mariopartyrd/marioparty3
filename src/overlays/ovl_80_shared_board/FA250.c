@@ -1857,7 +1857,7 @@ void func_800EB8BC_FF4DC_shared_board(void) {
     f32 var_f20;
     Process* proc =  HuPrcCurrentGet();
 
-    temp_v0 = MBMasuGet((s16)proc->user_data); //TODO: is this warning even fixable
+    temp_v0 = MBMasuGet((s16)proc->user_data);
     temp_f22 = temp_v0->rot.x;
     var_f20 = temp_f22 + 0.03f;
     if (D_801012C0_114EE0_shared_board != 0) {
@@ -1881,7 +1881,7 @@ void func_800EB8BC_FF4DC_shared_board(void) {
 }
 
 void func_800EB97C_FF59C_shared_board(s16 arg0) {
-    omAddPrcObj(func_800EB8BC_FF4DC_shared_board, 0xEF00U, 0, 0)->user_data = (void* ) arg0; //TODO: is this warning even fixable
+    omAddPrcObj(func_800EB8BC_FF4DC_shared_board, 0xEF00U, 0, 0)->user_data = (void* ) arg0;
 }
 
 

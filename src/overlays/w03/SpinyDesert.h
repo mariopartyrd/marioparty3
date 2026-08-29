@@ -1,7 +1,7 @@
 #include "common.h"
 #include "game/board.h"
 
-extern s16 D_800CE194_CED94[];
+extern omObjData *D_800CE194_CED94;
 
 extern RectF D_8011D598_366408_w03;
 

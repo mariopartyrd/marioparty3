@@ -172,7 +172,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/w03/34E840", func_80107A04_350874_w03);
 // entrypoint 2
 void func_80107CA4_350B14_w03() {
     HuAudSeqPlay(0x1A);
-    D_800CE194_CED94[2] = 0x1A;
+    D_800CE198_CED98 = 0x1A;
     func_800F8D6C_10C98C_shared_board(0x1A);
     Hu3DCamInit(2);
     func_80107A04_350874_w03();

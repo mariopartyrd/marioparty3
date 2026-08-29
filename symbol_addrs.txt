@@ -153,6 +153,7 @@ MBBlockMasuUpdate = 0x800FC594; //rom:0x1101B4 segment:shared_board
 MBStart = 0x800FF41C; //rom:0x11303C segment:shared_board
 mbDlgWinId = 0x80105702; //segment:shared_board type:s16
 mbWinId = 0x80105714; //segment:shared_board type:s16
+D_800CE194_CED94 = 0x800CE194; //segment:main size:0x04
 
 // hmfman
 Hu3DModelCreate = 0x8001A150; //rom:0x1AD50
