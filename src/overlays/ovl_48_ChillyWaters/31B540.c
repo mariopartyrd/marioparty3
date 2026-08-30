@@ -3,6 +3,16 @@
 #define X_OFFSET 66
 #define Y_OFFSET 44
 
+typedef struct IceWork {
+    /* 0x00 */ f32 unk0;       /* sprite X */
+    /* 0x04 */ f32 unk4;       /* sprite Y */
+    /* 0x08 */ s16 unk8;       /* sprite id  */
+    /* 0x0A */ s16 unkA;       /* sprite group id */
+    /* 0x0C */ u8 *imgData;    /* revealed-pixel buffer */
+    /* 0x10 */ u8 *unk10;      /* original image data */
+    /* 0x14 */ Process *unk14;
+} IceWork; /* size 0x18 */
+
 typedef struct unkfunc_801059D0 {
     f32 unk0;
     f32 unk4;
@@ -52,18 +62,6 @@ void func_801059D0_31B540_ChillyWaters(s16 arg0, s16 arg1) {
     temp_v0->unk0 = arg0;
     temp_v0->unk4 = arg1;
 }
-
-// INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B540", func_80105A64_31B5D4_ChillyWaters);
-
-typedef struct IceWork {
-    /* 0x00 */ f32 unk0;       /* sprite X */
-    /* 0x04 */ f32 unk4;       /* sprite Y */
-    /* 0x08 */ s16 unk8;       /* sprite id  */
-    /* 0x0A */ s16 unkA;       /* sprite group id */
-    /* 0x0C */ u8 *imgData;    /* revealed-pixel buffer */
-    /* 0x10 */ u8 *unk10;      /* original image data */
-    /* 0x14 */ Process *unk14;
-} IceWork; /* size 0x18 */
 
 void func_80105A64_31B5D4_ChillyWaters(void) {
     HuSprite *spr;
@@ -125,7 +123,7 @@ void func_80105A64_31B5D4_ChillyWaters(void) {
                 dst++;
             }
         }
-        radius += growth[frame & 7];
+        radius += growth[frame & (ARRAY_COUNT(growth)-1)];
         frame++;
         HuPrcSleep(2);
     }
@@ -137,6 +135,17 @@ void func_80105A64_31B5D4_ChillyWaters(void) {
 
 const s32 pad4[] = {0,0};
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B540", func_80105DB8_31B928_ChillyWaters);
+void func_80105DB8_31B928_ChillyWaters(IceWork* arg0) {
+    HuSprGet(arg0->unkA, 0)->unk_84->unk00->unk00 = arg0->unk10;
+    HuSprGrpKill(arg0->unkA);
+    HuSprKill(arg0->unk8);
+    HuMemFree(arg0->imgData);
+    HuMemFree(arg0);
+    omDelPrcObj(arg0->unk14);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B540", func_80105E20_31B990_ChillyWaters);
+void func_80105E20_31B990_ChillyWaters(IceWork* arg0, f32 x, f32 y) {
+    arg0->unk0 = x;
+    arg0->unk4 = y;
+    func_80054904_55504(arg0->unkA, 0, arg0->unk0, arg0->unk4);
+}

@@ -3556,7 +3556,7 @@ void func_800FF7C4_1133E4_shared_board(s32 arg0, s16 arg1, s16 arg2) {
     func_800FF794_1133B4_shared_board(arg0, arg1, arg2, 0);
 }
 
-void func_800FF7F0_113410_shared_board(void) {
+void func_800FF7F0_113410_shared_board(s32 arg0) {
     D_800D530C_D5F0C = 1;
 }
 

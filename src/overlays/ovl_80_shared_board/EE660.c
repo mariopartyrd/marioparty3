@@ -537,7 +537,7 @@ void func_800DC104_EFD24_shared_board(s32 arg0, s8 arg1) {
     D_800CDBD0_CE7D0[arg0].unk_09 = arg1;
 }
 
-s32 func_800DC128_EFD48_shared_board(s32 arg0) {
+s16 func_800DC128_EFD48_shared_board(s32 arg0) {
     UnkDiceRelated *entry;
     omObjData *dice;
     f32 chance;
@@ -1035,13 +1035,13 @@ void func_800DCDD4_F09F4_shared_board(void) {
                                     }
                                     if (temp_s4->rollValue[0] == 7) {
                                         MBDlgWinExec(0x16, 0x3A25);
-                                        MBCoinChangeCreate(temp_s3->unk0, 0x32);
-                                        MBCoinTakeCreate(temp_s3->unk0, 0x32);
+                                        MBCoinChangeCreate(temp_s3->unk0, 50);
+                                        MBCoinTakeCreate(temp_s3->unk0, 50);
                                         D_800CC0C0_CCCC0 = 1;
                                     } else {
                                         MBDlgWinExec(0x16, 0x3A24);
-                                        MBCoinChangeCreate(temp_s3->unk0, 0x14);
-                                        MBCoinTakeCreate(temp_s3->unk0, 0x14);
+                                        MBCoinChangeCreate(temp_s3->unk0, 20);
+                                        MBCoinTakeCreate(temp_s3->unk0, 20);
                                     }
                                     func_8004ACE0_4B8E0(0x274, temp_s3->unk0);
                                     MBPlayerMotionSet(temp_s3->unk0, 5, 0);
@@ -1083,7 +1083,7 @@ void func_800DCDD4_F09F4_shared_board(void) {
 }
 
 Process* func_800DD6C4_F12E4_shared_board(s32 playerNo) {
-    Process* proc = omAddPrcObj(func_800DCDD4_F09F4_shared_board, 0U, 0, 0x40);
+    Process* proc = omAddPrcObj(func_800DCDD4_F09F4_shared_board, 0, 0, 0x40);
     UnkSharedBoard* temp_v0_2 = HuMemMemoryAlloc(proc->heap, sizeof(UnkSharedBoard));
 
     proc->user_data = temp_v0_2;
