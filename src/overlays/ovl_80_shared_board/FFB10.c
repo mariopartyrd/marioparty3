@@ -1,5 +1,8 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "game/board.h"
+
+extern s16 D_80101480_1150A0_shared_board;
+extern s16 D_80101482_1150A2_shared_board;
 
 static void func_800EBEF0_FFB10_shared_board(s16 arg0) {
     if ((GwSystem.current_player_index == 4) || (D_80101482_1150A2_shared_board != 0)) {

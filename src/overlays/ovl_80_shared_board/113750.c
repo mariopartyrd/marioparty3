@@ -1,5 +1,8 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "FA250.h"
+#include "106A50.h"
+#include "F5B90.h"
+#include "10C230.h"
 
 void func_800E6FCC_FABEC_shared_board(void);
 extern omObjData* D_801056C0_1192E0_shared_board;
@@ -62,6 +65,7 @@ s32 D_80101F10_115B30_shared_board[] = {
 
 extern UnkBoard8* D_801056C4_1192E4_shared_board;
 extern s16 D_801056C8_1192E8_shared_board[][2];
+extern Vec2f D_801056EC_11930C_shared_board;
 
 static void func_800FFB30_113750_shared_board(omObjData* arg0) {
     s32 i;

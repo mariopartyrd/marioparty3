@@ -758,7 +758,6 @@ void func_8004ADDC_4B9DC(s32);
 void func_80007D2C_892C(s32, s32);
 void func_8004AA04_4B604(s32);
 void func_801059A0(void);
-s16 func_8004D6AC_4E2AC(s32, s32, s32);
 void func_8004D6E8_4E2E8(s16);
 
 void omMain(void) {

@@ -1,5 +1,8 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "EE660.h"
+#include "101840.h"
+#include "105D50.h"
+#include "1006F0.h"
 
 typedef struct UnkDice2 {
     s32 unk0;
@@ -19,6 +22,11 @@ typedef struct UnkCoinProc {
     /* 0x0C */ char unk_0C[4];
 } UnkCoinProc;
 
+typedef struct UnkSharedBoard2 {
+    char unk_00[0xC];
+    Vec unk_0C;
+} UnkSharedBoard2;
+
 extern s32 D_80100D90_1149B0_shared_board;
 extern s16 D_80100D94_1149B4_shared_board[3][2];
 extern u8 D_801057D9_1193F9_shared_board;
@@ -26,25 +34,13 @@ extern f32 D_800A0A7C_A167C;
 extern u8 D_80105700_119320_shared_board;
 extern s32 D_80100D60_114980_shared_board[6];
 extern s32 D_80100D78_114998_shared_board[6];
-
-s32 func_800DBEC0_EFAE0_shared_board(s32);
-void func_800EE6C0_1022E0_shared_board(Object*);
-void func_800DEB50_F2770_shared_board(void);
-static void func_800DE9B8_F25D8_shared_board(s32, s32, s32, s32);
-void func_800EE688_1022A8_shared_board(Object *, f32, f32);
-void MBPlayerMotionSet(s32 playerIndex, s16 arg1, u16 arg2);
-void func_800ECC54_100874_shared_board(Object*);
-
-typedef struct UnkSharedBoard2 {
-    char unk_00[0xC];
-    Vec unk_0C;
-} UnkSharedBoard2;
-
 extern s8 D_80105704_119324_shared_board;
 extern u8 D_8010570E_11932E_shared_board;
 extern f32 D_80105708_119328_shared_board;
 extern u8 D_8010570F_11932F_shared_board;
 extern u8 D_801057D8_1193F8_shared_board;
+
+static void func_800DE9B8_F25D8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_800DAA40_EE660_shared_board(s32 arg0) {
     UnkDiceRelated* temp_s0;
@@ -1084,7 +1080,7 @@ static void func_800DD724_F1344_shared_board(void) {
     s32 i;
 
     temp_s0 = HuPrcCurrentGet()->user_data;
-    temp_s4 = MBPlayerGet(-1);
+    temp_s4 = MBPlayerGet(CUR_PLAYER);
     HuAudFXPlay(0x11B);
     temp_v0 = MBModelCreate(0x1AU, NULL);
     temp_v0->flags |= 4;
@@ -1540,7 +1536,7 @@ s32 func_800DEB2C_F274C_shared_board(s32 arg0) {
     return D_800CDBD0_CE7D0[arg0].unk_0A;
 }
 
-void func_800DEB50_F2770_shared_board(void) {
+static void func_800DEB50_F2770_shared_board(void) {
     f32 var_f20 = 96.0f;
 
     func_8004A9DC_4B5DC(0x60);

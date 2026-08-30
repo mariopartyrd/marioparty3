@@ -3,100 +3,6 @@
 #include "game/board.h"
 #include "malloc.h"
 
-#define MINIGAME_ID(id) ((id) + 1)
-
-enum BoardIndices {
-    CHILLY_WATERS = 0,
-    DEEP_BLOOBER_SEA = 1,
-    SPINY_DESERT = 2,
-    WOODY_WOODS = 3,
-    CREEPY_CAVERN = 4,
-    WALUIGIS_ISLAND = 5
-};
-
-enum {
-    WATCH_AVAILABLE = 0,   /* may still spawn */
-    WATCH_ISSUED    = 1,   /* handed out, not yet used */
-    WATCH_USED      = 2,   /* used; jump pending at end of round */
-    WATCH_SPENT     = 3,   /* jump applied */
-};
-
-
-// typedef struct SomeStruct2 {
-//     /* 0x00 */ char pad0[2];
-//     /* 0x02 */ s16 unk_02;
-//     /* 0x04 */ UnkBoard2** unk_04;
-//     /* 0x08 */ Process* proc;
-//     /* 0x0C */ s16 unk_0C;
-//     /* 0x0E */ char padE[2];
-// } SomeStruct2; //sizeof 0x10
-
-typedef struct BoardStatus {
-    /* 0x00 */ s8 uiUpdatePaused;
-    /* 0x01 */ s8 unk1;
-    /* 0x02 */ u8 unk2[2];
-    /* 0x04 */ u8 spaceType;
-    /* 0x05 */ u8 uiVisible;
-    /* 0x06 */ s8 prevStars;
-    /* 0x07 */ s8 prevRank;
-    /* 0x08 */ s16 prevCoins;
-    /* 0x0A */ s16 playerIndex;
-    /* 0x0C */ char unk_0C[2];
-    /* 0x0E */ s16 unkE;
-    /* 0x10 */ f32 xPos;
-    /* 0x14 */ f32 yPos;
-    /* 0x18 */ f32 unk_18;
-    /* 0x1C */ f32 unk_1C;
-    /* 0x20 */ f32 unk_20;
-    /* 0x24 */ f32 unk_24;
-    /* 0x28 */ f32 unk_28;
-    /* 0x2C */ f32 unk_2C;
-    /* 0x30 */ omObjData* unk30;
-    /* 0x34 */ char pad34[2];
-    /* 0x36 */ s16 unk_36;
-    /* 0x38 */ char unk_38[2];
-    /* 0x3A */ s16 unk_3A;
-    /* 0x3C */ char unk_3C[4];
-    /* 0x40 */ s16 unk_40[3];
-    /* 0x46 */ s16 unk_46;
-    /* 0x48 */ char pad48[0x1E];
-    /* 0x66 */ s16 counts[3]; //star count, coin count?
-} BoardStatus; //sizeof 0x6C
-
-typedef struct UnkVibrateProcess {
-    s16 playerNo;
-    s16 vibrateStrength;
-    s16 sleepTime;
-    Process* proc;
-} UnkVibrateProcess;
-
-typedef struct UnkCoinThing {
-/* 0x00 */ u8 digits[3];
-/* 0x03 */ char unk_03[5];
-/* 0x08 */ s16 unk_08[2];
-} UnkCoinThing;
-
-typedef struct HvqHeader {
-    s32 magic;
-    u8* unk4;
-} HvqHeader;
-
-typedef struct HvqUnk {
-    s32 unk0;
-    u8* unk4;
-    HvqHeader* unk8;
-} HvqUnk;
-
-typedef struct UnkBoard7 {
-    /* 0x00 */ s8  unk_00;
-    /* 0x01 */ s8  unk_01;
-    /* 0x02 */ s16 unk_02;
-    /* 0x04 */ s16 unk_04;
-    /* 0x06 */ s16 unk_06;
-    /* 0x08 */ Vec pos;
-    /* 0x14 */ Vec vel;
-} UnkBoard7; /* size 0x20 */
-
 //very closely resembles UnkBoard5, but member at offset 0x08 must be s16 here instead of s32?
 //this needs to be removed, already exist in 106640.h
 
@@ -443,7 +349,6 @@ typedef struct UnkBoard7 {
 // extern s32 D_80101490_1150B0_shared_board[];
 // extern Object* D_801011FC_114E1C_shared_board;
 // extern s16 D_80101480_1150A0_shared_board;
-// extern s16 D_80101482_1150A2_shared_board;
 // extern s16 mbItemCursorGrpId;
 // extern void (*D_80101B64_115784_shared_board)(void);
 // extern void (*D_80101B68_115788_shared_board)(void);

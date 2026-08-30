@@ -9,14 +9,14 @@ typedef struct UnkData {
     s16 unk_08;
 } UnkData;
 
-void func_800DA790_EE3B0_shared_board(u16 arg0, u16 arg1, char *arg2, u8 arg3, u8 arg4) {
+static void func_800DA790_EE3B0_shared_board(u16 arg0, u16 arg1, char *arg2, u8 arg3, u8 arg4) {
     fontcolor = arg4;
     print8((arg0 + 1), (arg1 + 1), arg2);
     fontcolor = arg3;
     print8(arg0, arg1, arg2);
 }
 
-void func_800DA810_EE430_shared_board(void) {
+static void func_800DA810_EE430_shared_board(void) {
     s16 temp_v0;
     s16 temp_v0_2;
     UnkData *temp_s0;

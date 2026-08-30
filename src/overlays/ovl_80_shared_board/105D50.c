@@ -1,5 +1,7 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "105D50.h"
+#include "101840.h"
+#include "ECA50.h"
 
 u8 D_80101630_115250_shared_board[] = { 0, 1, 2, 3 };
 

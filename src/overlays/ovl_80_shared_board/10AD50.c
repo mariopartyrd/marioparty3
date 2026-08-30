@@ -1,8 +1,14 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "101840.h"
 
 extern Object *D_80105620_119240_shared_board;
 extern Object *D_80105624_119244_shared_board;
+extern Object* D_80105628_119248_shared_board;
+
+extern s32 D_80105630_119250_shared_board[3];
+extern s32 D_80105634_119254_shared_board; //TODO: fake symbol
+extern s32 D_80105638_119258_shared_board; //TODO: fake symbol
+extern f32 D_80105650_119270_shared_board;
 extern s32 D_80105654_119274_shared_board;
 extern s32 D_80105658_119278_shared_board;
 extern s32 D_8010565C_11927C_shared_board;
@@ -19,6 +25,7 @@ static void func_800F7EF4_10BB14_shared_board(void);
 static void func_800F7F30_10BB50_shared_board(void);
 static void func_800F7F7C_10BB9C_shared_board(void);
 static void func_800F7FC8_10BBE8_shared_board(void);
+
 
 // item ids
 s32 D_80101A20_115640_shared_board[] = {

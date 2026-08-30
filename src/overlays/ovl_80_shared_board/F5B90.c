@@ -1,5 +1,5 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "malloc.h"
 
 extern u8 D_800D6A90_D7690;
 extern char D_80102180_115DA0_shared_board[];

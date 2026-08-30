@@ -1,12 +1,8 @@
 #include "common.h"
-#include "ovl_80.h"
-
-s32 func_800F482C_10844C_shared_board(s32);
-s32 func_800F5278_108E98_shared_board(void);
-void MBTelopMgTypeCreate(s32, s32);
-void MBVsSprCreate(void);
-s32 MBTelopMgTypeStatGet(void);
-void func_800F7114_10AD34_shared_board(s32, s32);
+#include "F2910.h"
+#include "106A50.h"
+#include "F5E80.h"
+#include "105D50.h"
 
 extern u32 D_800D2094_D2C94;
 extern u32 D_80100EE8_114B08_shared_board;
@@ -87,7 +83,6 @@ typedef struct Unk800CC3DC {
 } Unk800CC3DC;
 
 extern Unk800CC3DC D_800CC3DC_CCFDC;
-
 extern UnkData_CD0A0 D_800CC4A0_CD0A0;
 extern omObjData *D_80102C04_116824_shared_board;
 extern s16 D_80102C0E_11682E_shared_board;
@@ -103,26 +98,17 @@ extern s8 D_80100E94_114AB4_shared_board[][2];
 extern u16 D_80102BD4_1167F4_shared_board;
 extern s16 D_80102C12_116832_shared_board;
 
-void MBMgCallListExec(omObjData *);
-void MBMgCallListBgSprCreate(void);
-s32 func_800F52C4_108EE4_shared_board(void);
-void GWMgNoSet(s8);
-void func_8005BA90_5C690(s16, s16, s16);
-void func_8005BB18_5C718(s16, f32, f32);
-void func_8005C154_5CD54(s16, s32, s32, s32);
-void func_8005D2D4_5DED4(s16);
-void MBMgCallClose(void);
-void MBMgCallCursorSprCreate(void);
-void MBTelopMgTypeKill(void);
+static void MBMgCallCursorSprCreate(void);
 
-void MBMgCallCursorFXPlay(void) {
+
+static void MBMgCallCursorFXPlay(void) {
     if (D_800D2094_D2C94 >= (D_80100EE8_114B08_shared_board + 4)) {
         HuAudFXPlay(0x104);
         D_80100EE8_114B08_shared_board = D_800D2094_D2C94;
     }
 }
 
-void MBMgCallListExec(omObjData *arg0) {
+static void MBMgCallListExec(omObjData *arg0) {
     ItemSlotEntry *entry = NULL;
     s32 i;
     s16 new_var;
@@ -356,7 +342,7 @@ void MBMgCallClose(void) {
     }
 }
 
-void MBMgCallListBgSprCreate(void) {
+static void MBMgCallListBgSprCreate(void) {
     void *data;
 
     if (D_80102C0E_11682E_shared_board == -1) {
@@ -371,7 +357,7 @@ void MBMgCallListBgSprCreate(void) {
     }
 }
 
-void MBMgCallCursorSprCreate(void) {
+static void MBMgCallCursorSprCreate(void) {
     void *data;
 
     if (D_80102C12_116832_shared_board == -1) {
@@ -531,12 +517,12 @@ void MBMgCallListCreate(s32 arg0) {
                         D_80100E30_114A50_shared_board[D_80102C0D_11682D_shared_board][2]);
 }
 
-void func_800E00EC_F3D0C_shared_board(void) {
+static void func_800E00EC_F3D0C_shared_board(void) {
     D_80102C04_116824_shared_board->work[0] = 0;
 }
 
 // Fisher–Yates shuffle via selection with removal
-void MBArrayShuffle(u8 *output, s32 count) {
+static void MBArrayShuffle(u8 *output, s32 count) {
     s8 pool[256];
     s32 i;
     s32 j;
@@ -557,7 +543,7 @@ void MBArrayShuffle(u8 *output, s32 count) {
     }
 }
 
-void MBMgCallColorGet(u8 *outSpaceTypes) {
+static void MBMgCallColorGet(u8 *outSpaceTypes) {
     s32 redAssignmentFlags[MB_MAX_PLAYERS];
     u8 shuffledOrder[MB_MAX_PLAYERS];
     s32 greenCount;
@@ -738,7 +724,7 @@ DefinitelyNotItemRectTable const D_801020E0_115D00_shared_board = {
       (DefinitelyNotItemRect *)D_80100E10_shared_board }
 };
 
-void MBMgCallExec(void) {
+static void MBMgCallExec(void) {
     u8 sp10[MB_MAX_PLAYERS];
     u8 spaceTypes[MB_MAX_PLAYERS];
     u32 sp20[2];
@@ -930,7 +916,7 @@ Process *MBMgCallCreate(void) {
     return proc;
 }
 
-void MBMgCallBattleExec(void) {
+static void MBMgCallBattleExec(void) {
     UnkSize10 *temp_s0;
     s32 i;
 
@@ -1008,7 +994,7 @@ Process *MBMgCallBattleCreate(void) {
     return temp_v0;
 }
 
-void func_800E0C94_F48B4_shared_board(void) {
+static void func_800E0C94_F48B4_shared_board(void) {
     u32 sp20[2];
     Object *temp_v0;
     Process *process;
@@ -1026,7 +1012,7 @@ void func_800E0C94_F48B4_shared_board(void) {
 
     temp_v0 = MBModelCreate(9, sp20);
     MBModelTempAllocFree(temp_v0);
-    HuVecCopy3F(&temp_v0->coords, &MBPlayerGet(-1)->player_obj->coords);
+    HuVecCopy3F(&temp_v0->coords, &MBPlayerGet(CUR_PLAYER)->player_obj->coords);
 
     temp_v0->velocity.x = 120.0f;
     MBMotionSet(temp_v0, 0, 0);
@@ -1116,7 +1102,7 @@ typedef struct UnkSize10_2 {
     char unk_0C[4];
 } UnkSize10_2;
 
-void func_800E0FE0_F4C00_shared_board(void) {
+static void func_800E0FE0_F4C00_shared_board(void) {
     s32 temp_v1;
     s32 temp_v1_2;
     s32 temp_v1_3;
@@ -1165,7 +1151,7 @@ Process *func_800E11C0_F4DE0_shared_board(s32 arg0, s32 arg1) {
     return temp_v0;
 }
 
-void MBMgCallTutorialExec(void) {
+static void MBMgCallTutorialExec(void) {
     u8 happeningPlayers[MB_MAX_PLAYERS];
     u8 spaceTypes[MB_MAX_PLAYERS];
     s32 i;

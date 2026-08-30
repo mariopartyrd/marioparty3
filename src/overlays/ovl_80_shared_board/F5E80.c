@@ -1,5 +1,5 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "F2910.h"
 
 typedef struct TelopData {
     s32 unk_00;
@@ -34,7 +34,6 @@ void func_800FC7C8_1103E8_shared_board(void);
 static void MBItemKSuitEnd(void);
 s16 func_8003A308_3AF08(char* arg0, char* arg1, s32 arg2, s16 arg3, u16 arg4);
 s32 func_800F52C4_108EE4_shared_board(void);
-void MBMgCallListCreate(s32);
 
 extern char* D_80101170_114D90_shared_board[];
 extern Vec D_8010125C_114E7C_shared_board;
@@ -116,7 +115,7 @@ static void func_800E22DC_F5EFC_shared_board(s16 arg0, s16 arg1) {
 }
 
 s32 MBItemWarpBlockSwapPlayerSet(s16 arg0) {
-    func_800E22DC_F5EFC_shared_board(MBPlayerGet(-1)->turn, arg0);
+    func_800E22DC_F5EFC_shared_board(MBPlayerGet(CUR_PLAYER)->turn, arg0);
     return 1;
 }
 

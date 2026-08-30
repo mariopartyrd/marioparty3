@@ -1,6 +1,7 @@
 #include "common.h"
 #include "mallocblock.h"
-#include "ovl_80.h"
+#include "1006F0.h"
+#include "malloc.h"
 
 #define BG_TEXEL(entry, off) (*(u16 *)((u8 *)(entry)->unk4 + (off)))
 #define BG_TEX_SIZE (64 * 48 * 2)
@@ -133,22 +134,38 @@ extern s32 D_8010345C_11707C_shared_board;
 extern u16 D_8010345E_11707E_shared_board;
 extern s32 D_80103460_117080_shared_board;
 extern UnkFAF78 *D_80103464_117084_shared_board;
+extern u8* D_80102DCC_1169EC_shared_board;
+extern u8* D_80103138_116D58_shared_board;
+extern OSMesgQueue D_80104880_1184A0_shared_board;
+extern OSMesgQueue D_80104928_118548_shared_board;
+extern OSMesgQueue D_801049D0_1185F0_shared_board;
+extern HvqHeader* D_80102DD0_1169F0_shared_board;
+extern UnkBoard7 D_80104A00_118620_shared_board[64];
+extern s32 D_80105200_118E20_shared_board;
+extern s16 D_80105260_118E80_shared_board;
+extern u8* D_80105220_118E40_shared_board[]; //space form images
+extern s32 D_801052B0_118ED0_shared_board;
+extern f32 D_80105290_118EB0_shared_board[];
+extern s16 MTXBufNum;
+extern Mtx* MTXBuf;
+extern u16 gTotalSpaces;
+extern SpaceData* D_80105214_118E34_shared_board;
+extern LinkData* D_80105218_118E38_shared_board;
 
-static void func_8003465C_3525C(Gfx**, void*, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
-void MBMoveMasuSet(s16 playerNo, s16 link, s16 idx);
-void func_8001F95C_2055C(s32, void*);
-u16* func_800EAE00_FEA20_shared_board(u16*, s32);
-f32 HuVecDistance(Vec*, Vec*);
-void MBVecNormalize(Vec*);
-void func_800555E8_561E8(s16 group, s16 member, u16 arg2, u16 arg3, u16 arg4, u16 arg5);
-static void func_800E9358_FCF78_shared_board(void);
-static void MBBackTPLvlSet(u8 arg0);
-s32 dmaRead(u32 src, u8 *dest, s32 size);
-void func_8001F95C_2055C(s32, void* func);
-static void func_800E9328_FCF48_shared_board(void);
-void func_800E86CC_FC2EC_shared_board(Gfx** arg0, s32 arg1, u8 arg2);
-static void func_800E90BC_FCCDC_shared_board(void);
-static s32 func_800E7330_FAF50_shared_board(u16 arg0);
+// void MBMoveMasuSet(s16 playerNo, s16 link, s16 idx);
+// void func_8001F95C_2055C(s32, void*);
+// u16* func_800EAE00_FEA20_shared_board(u16*, s32);
+// f32 HuVecDistance(Vec*, Vec*);
+// void MBVecNormalize(Vec*);
+// void func_800555E8_561E8(s16 group, s16 member, u16 arg2, u16 arg3, u16 arg4, u16 arg5);
+// static void func_800E9358_FCF78_shared_board(void);
+// static void MBBackTPLvlSet(u8 arg0);
+// s32 dmaRead(u32 src, u8 *dest, s32 size);
+// void func_8001F95C_2055C(s32, void* func);
+// static void func_800E9328_FCF48_shared_board(void);
+// void func_800E86CC_FC2EC_shared_board(Gfx** arg0, s32 arg1, u8 arg2);
+// static void func_800E90BC_FCCDC_shared_board(void);
+// static s32 func_800E7330_FAF50_shared_board(u16 arg0);
 
 void func_800E6630_FA250_shared_board(u32 arg0) {
     HVQHeader* temp_v0;
@@ -1473,6 +1490,16 @@ void MBMasuStarSet(s32 arg0, s16 arg1) {
     D_80105540_119160_shared_board[arg0] = arg1;
 }
 
+extern s16 D_80105260_118E80_shared_board;
+extern u16 D_80105262_118E82_shared_board;
+extern u8 (*D_801012C4_114EE4_shared_board)[SPACES_MAX];
+extern Gfx D_801013D8_114FF8_shared_board[];
+extern Addr D_101358;
+extern Addr D_101398;
+extern u8 D_80101308_114F28_shared_board[]; //u8 array that links space type to render type
+void func_80017CD0_188D0(Mtx*, f32, f32, f32);
+void func_80089980_8A580(Mtx*, Mtx*);
+
 static void MBMasuDraw(Gfx **arg0, Mtx *arg1, s32 arg2) {
     Gfx **gfxPos = arg0;
     Mtx sp10;
@@ -1609,7 +1636,7 @@ s32 MBMasuCreate(s32 arg0, s32 arg1) {
         for (var_s2 = 0; var_s2 < D_80105212_118E32_shared_board; var_s2++) {
             var_s0_2 = func_800EAE00_FEA20_shared_board(temp_s3, var_s2 * 2);
             var_s1_2->chainIndicies = *var_s0_2++;
-            var_s1_2->spaces = HuMemMemoryAllocTemp(((var_s1_2->chainIndicies << 0x10) >> 0xF));
+            var_s1_2->spaces = HuMemMemoryAllocTemp(((var_s1_2->chainIndicies << 1)));
             temp_v0_3 = var_s1_2->spaces;
             for (var_v1 = 0; var_v1 < var_s1_2->chainIndicies; var_v1++) {
                 *temp_v0_3++ = *var_s0_2++;

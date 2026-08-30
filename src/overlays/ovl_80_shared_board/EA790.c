@@ -1,5 +1,7 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "game/board.h"
+#include "ECA50.h"
+#include "malloc.h"
 
 //this file matches BE940.c in ovl_81
 

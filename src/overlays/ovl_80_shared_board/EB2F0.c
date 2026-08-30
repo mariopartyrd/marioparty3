@@ -1,8 +1,9 @@
 #include "common.h"
-#include "ovl_80.h"
-
-extern s32 D_80102700_116320_shared_board;
-extern s16 D_80102704_116324_shared_board;
+#include "game/board.h"
+#include "EC3B0.h"
+#include "FA250.h"
+#include "106A50.h"
+#include "106640.h"
 
 typedef struct UnkBoard6 {
     /* 0x00 */ s8 unk_00;
@@ -19,17 +20,20 @@ typedef struct StarGlowData {
 } StarGlowData; //sizeof 0x4
 
 
-void func_80055484_56084(s16 group, s16 member, u8 arg2, u8 arg3, u8 arg4, u16 arg5);
-void func_8004A0E0_4ACE0(void);
-void func_80049FB8_4ABB8(void);
-
-extern UnkBoard6 D_80102708_116328_shared_board[32];
-extern s16 D_80102704_116324_shared_board;
 extern s16 D_801007F4_114414_shared_board[];
 extern s16 D_801007FC_11441C_shared_board[];
+extern s32 D_80102700_116320_shared_board;
+extern s16 D_80102704_116324_shared_board;
+extern UnkBoard6 D_80102708_116328_shared_board[32];
 extern s16 D_80102A88_1166A8_shared_board[];
 extern s16 D_80102A90_1166B0_shared_board[];
 extern UnkBoard8* D_80102A98_1166B8_shared_board[];
+extern s16 D_80102AA8_1166C8_shared_board;
+extern s32 D_801007A0_1143C0_shared_board[];
+extern s16 D_801007D4_1143F4_shared_board[][4];
+extern s32 D_80100804_114424_shared_board[];
+extern s32 D_80100824_114444_shared_board[];
+extern s32 D_80105990_1195B0_shared_board;
 
 void func_800D76D0_EB2F0_shared_board(s32 arg0) {
     s32 i;
@@ -183,9 +187,6 @@ void func_800D7D00_EB920_shared_board(void) {
     }
 }
 
-extern UnkBoard8* D_80102A98_1166B8_shared_board[];
-extern s16 D_80102AA8_1166C8_shared_board;
-
 static void MBMapFullLineFlash(void) {
     UnkBoard8 *entry;
     s16 sel;
@@ -236,12 +237,6 @@ static void MBMapFullLineFlash(void) {
         func_80055484_56084(entry->spriteGroup, 1, 0xFF, alpha, 0, 0xFF);
     }
 }
-
-extern s32 D_801007A0_1143C0_shared_board[];
-extern s16 D_801007D4_1143F4_shared_board[][4];
-extern s32 D_80100804_114424_shared_board[];
-extern s32 D_80100824_114444_shared_board[];
-extern s32 D_80105990_1195B0_shared_board;
 
 static void MBMapFullMain(void) {
     Vec2f sp10;

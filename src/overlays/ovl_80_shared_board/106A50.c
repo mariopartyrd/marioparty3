@@ -1,5 +1,5 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "game/board.h"
 
 #define HUNDREDS 0
 #define TENS 1
@@ -197,6 +197,21 @@ s32 D_801019D0_1155F0_shared_board[] = {
     0x001301B4,
     0x001301B5,
 };
+
+extern s16 D_80105588_1191A8_shared_board[];
+extern RGB D_8010188C_1154AC_shared_board[];
+extern s16 D_801055C2_1191E2_shared_board;
+extern s16 D_801055C4_1191E4_shared_board;
+extern f32 D_801055C8_1191E8_shared_board;
+extern s16 D_801055E4_119204_shared_board;
+extern Vec2f D_801055CC_1191EC_shared_board;
+extern Vec2f D_801055DC_1191FC_shared_board;
+extern Vec2f D_801055D4_1191F4_shared_board;
+extern Process* D_80105580_1191A0_shared_board;
+
+#define SHARED_BOARD_UNK_SIZE_0 4
+extern s16 D_801055FC_11921C_shared_board[SHARED_BOARD_UNK_SIZE_0];
+extern s16 D_80105608_119228_shared_board[SHARED_BOARD_UNK_SIZE_0][3];
 
 static void MBStatusNumUpdate(s32 playerIndex) {
     UnkCoinThing coinDigits;
@@ -1576,7 +1591,7 @@ void MBStatusItemPosGet(s32 playerIndex, s32 itemIndex, s32 *xPos, s32 *yPos) {
     }
 }
 
-void MBStatusGrow(s32 arg0) {
+void MBStatusGrow(s32 playerNo) {
     s32 sp10;
     s32 sp14;
     BoardStatus *temp_s2;
@@ -1585,7 +1600,7 @@ void MBStatusGrow(s32 arg0) {
 
     for (var_f20 = 90.0f; var_f20 >= 0.0f; var_f20 -= 15.0f) {
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            if (arg0 == CUR_PLAYER || arg0 == i) {
+            if (playerNo == CUR_PLAYER || playerNo == i) {
                 MBStatusScaleSet(i, HuMathCos(var_f20), 1.0f);
             }
         }
@@ -1593,7 +1608,7 @@ void MBStatusGrow(s32 arg0) {
     }
 
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
-        if (arg0 == CUR_PLAYER || arg0 == i) {
+        if (playerNo == CUR_PLAYER || playerNo == i) {
             MBStatusScaleSet(i, 1.0f, 1.0f);
             temp_s2 = &mbStatusData[i];
             if (temp_s2->uiUpdatePaused == TRUE) {

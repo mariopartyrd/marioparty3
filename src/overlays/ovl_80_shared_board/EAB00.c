@@ -1,13 +1,15 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "105D50.h"
+#include "EA790.h"
+#include "FA250.h"
 
-UnkBoard2* func_800D6B70_EA790_shared_board(s32);
-UnkEA790Struct* func_800D6C6C_EA88C_shared_board(void);
-void func_800D6D2C_EA94C_shared_board(void*, UnkBoard2*, s32);
-s32 func_800D7250_EAE70_shared_board(UnkEA790Struct*, s32);
-UnkBoard2* func_800D6EC8_EAAE8_shared_board(UnkEA790Struct*, s16);
-f32 func_800D8DAC_EC9CC_shared_board(Vec*, Vec*);
-s16 func_800ECF18_100B38_shared_board(s16, f32);
+// UnkBoard2* func_800D6B70_EA790_shared_board(s32);
+// UnkEA790Struct* func_800D6C6C_EA88C_shared_board(void);
+// void func_800D6D2C_EA94C_shared_board(void*, UnkBoard2*, s32);
+// s32 func_800D7250_EAE70_shared_board(UnkEA790Struct*, s32);
+// UnkBoard2* func_800D6EC8_EAAE8_shared_board(UnkEA790Struct*, s16);
+// f32 func_800D8DAC_EC9CC_shared_board(Vec*, Vec*);
+// s16 func_800ECF18_100B38_shared_board(s16, f32);
 
 static void func_800D6EE0_EAB00_shared_board(void) {
     s32 mesg;

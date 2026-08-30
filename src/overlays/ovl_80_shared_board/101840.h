@@ -4,6 +4,7 @@
 #include "common.h"
 #include "game/board.h"
 
+void func_800EE6C0_1022E0_shared_board(Object*);
 void func_800EDC20_101840_shared_board(s32 arg0);
 s32 func_800EDC40_101860_shared_board(void);
 void func_800EDC58_101878_shared_board(s32 arg0, s32 arg1);

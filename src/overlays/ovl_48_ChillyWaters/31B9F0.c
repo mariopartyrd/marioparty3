@@ -1553,13 +1553,13 @@ void func_80109644_31F1B4_ChillyWaters(void) {
 }
 
 void func_80109674_31F1E4_ChillyWaters(void) {
-    if ((MBPlayerGet(-1)->rev & 0x80) && (mbWalkNum != 0)) {
+    if ((MBPlayerGet(CUR_PLAYER)->rev & 0x80) && (mbWalkNum != 0)) {
         func_80109644_31F1B4_ChillyWaters();
     }
 }
 
 void func_801096B8_31F228_ChillyWaters(void) {
-    GW_PLAYER* player = MBPlayerGet(-1);
+    GW_PLAYER* player = MBPlayerGet(CUR_PLAYER);
 
     if (MBMasuLinkMasuIdGet(player->blink, player->bidx) == 0x36) {
         MBMoveNextMasuSet(-1, 1, 0xD);
@@ -1579,7 +1579,7 @@ void func_80109760_31F2D0_ChillyWaters(void) {
 }
 
 void func_80109784_31F2F4_ChillyWaters(void) {
-    GW_PLAYER* player = MBPlayerGet(-1);
+    GW_PLAYER* player = MBPlayerGet(CUR_PLAYER);
 
     if (MBMasuLinkMasuIdGet(player->blink, player->bidx) != 0x8D) {
         MBMoveNextMasuSet(-1, 5, 0xB);
@@ -1603,7 +1603,7 @@ void func_80109850_31F3C0_ChillyWaters() {
 }
 
 void func_80109874_31F3E4_ChillyWaters(void) {
-    GW_PLAYER* player = MBPlayerGet(-1);
+    GW_PLAYER* player = MBPlayerGet(CUR_PLAYER);
 
     if (MBMasuLinkMasuIdGet(player->blink, player->bidx) != 0x7D) {
         MBMoveNextMasuSet(-1, 2, 7);
@@ -1643,7 +1643,7 @@ void func_801099D0_31F540_ChillyWaters(void) {
 }
 
 void func_801099F4_31F564_ChillyWaters(void) {
-    GW_PLAYER* player = MBPlayerGet(-1);
+    GW_PLAYER* player = MBPlayerGet(CUR_PLAYER);
 
     if (player->rev & 1) {
         player->rev &= ~1;
@@ -1651,7 +1651,7 @@ void func_801099F4_31F564_ChillyWaters(void) {
 }
 
 void func_80109A28_31F598_ChillyWaters(void) {
-    GW_PLAYER* player = MBPlayerGet(-1);
+    GW_PLAYER* player = MBPlayerGet(CUR_PLAYER);
 
     MBMoveNextMasuSet(-1, 0x10, 1);
     player->rev &= ~1;
@@ -1683,7 +1683,7 @@ void MB1Ev_KeyManMasu(void) {
     s32 blocked = 1;
     GW_SYSTEM* system = &GwSystem;
 
-    player = MBPlayerGet(-1);
+    player = MBPlayerGet(CUR_PLAYER);
     masu = MBMasuLinkMasuIdGet(player->clink, player->cidx);
 
     if ((((masu == 0x7B) | (masu == 0x79)) == 0 || !(player->rev & 1)) &&
@@ -1785,13 +1785,13 @@ void func_80109E84_31F9F4_ChillyWaters(void) {
 }
 
 void func_80109EB4_31FA24_ChillyWaters(void) {
-    if ((MBPlayerGet(-1)->rev & 0x80) && (mbWalkNum != 0)) {
+    if ((MBPlayerGet(CUR_PLAYER)->rev & 0x80) && (mbWalkNum != 0)) {
         func_80109E84_31F9F4_ChillyWaters();
     }
 }
 
 void func_80109EF8_31FA68_ChillyWaters(void) {
-    GW_PLAYER* player = MBPlayerGet(-1);
+    GW_PLAYER* player = MBPlayerGet(CUR_PLAYER);
 
     if (MBMasuLinkMasuIdGet(player->clink, player->cidx) == 0x17) {
         func_80109EB4_31FA24_ChillyWaters();
@@ -1799,7 +1799,7 @@ void func_80109EF8_31FA68_ChillyWaters(void) {
 }
 
 void func_80109F54_31FAC4_ChillyWaters(void) {
-    GW_PLAYER* temp_v0 = MBPlayerGet(-1);
+    GW_PLAYER* temp_v0 = MBPlayerGet(CUR_PLAYER);
     s16 temp_v0_2 = MBMasuLinkMasuIdGet(temp_v0->clink, temp_v0->cidx);
 
     switch (temp_v0_2) {
@@ -1827,7 +1827,7 @@ void func_8010A068_31FBD8_ChillyWaters(void) {
 }
 
 void func_8010A098_31FC08_ChillyWaters(void) {
-    GW_PLAYER* player = MBPlayerGet(-1);
+    GW_PLAYER* player = MBPlayerGet(CUR_PLAYER);
 
     if (MBMasuLinkMasuIdGet(player->clink, player->cidx) == 0x92) {
         if (player->rev & 0x80) {
@@ -2206,7 +2206,7 @@ void MB1Ev_BankMasu(void) {
         MBCoinTakeCreate(system->current_player_index, GwSystem.bank_coins);
         GwSystem.bank_coins = 0;
         MB1_BankCoinHide();
-        MBVecForwardSet(&MBPlayerGet(-1)->player_obj->rot);
+        MBVecForwardSet(&MBPlayerGet(CUR_PLAYER)->player_obj->rot);
         MBPlayerMotionSet(-1, 5, 0);
         func_8004ACE0_4B8E0(0x274, system->current_player_index);
         HuPrcSleep(30);
@@ -2923,7 +2923,7 @@ void func_801106A4_326214_ChillyWaters(s32 arg0, s32 arg1, s32 arg2, f32* arg3, 
 }
 
 void MB1Ev_KSuitStart(void) {
-    GW_PLAYER* player = MBPlayerGet(-1);
+    GW_PLAYER* player = MBPlayerGet(CUR_PLAYER);
     Object* obj;
     f32 var_f20;
     f32 var_f22;
@@ -3569,7 +3569,7 @@ void MB1Ev_ItemGambleCoin(void) {
     func_8001C448_1D048(temp_v0_2->omObj1->model[0]);
     func_8001C954_1D554(temp_v0_2->omObj1->model[0]);
     func_8001C514_1D114(temp_v0_2->omObj1->model[0]);
-    HuVecCopy3F(&temp_v0_2->coords, &MBPlayerGet(-1)->player_obj->coords);
+    HuVecCopy3F(&temp_v0_2->coords, &MBPlayerGet(CUR_PLAYER)->player_obj->coords);
     func_8001C814_1D414(temp_v0_2->omObj1->model[0], 2, 1);
     temp_v0_2->velocity.x = 100.0f;
     HuAudFXPlay(0x14B);
@@ -3665,7 +3665,7 @@ loop:
         WipeCreateOut(9, 0x10);
         HuPrcSleep(0x11);
         MBCameraFocusModeSet(1);
-        MBCameraPos3DSet(&MBPlayerGet(-1)->player_obj->coords);
+        MBCameraPos3DSet(&MBPlayerGet(CUR_PLAYER)->player_obj->coords);
         HuPrcSleep(5);
         WipeCreateIn(9, 0x10);
         HuPrcSleep(0x11);
@@ -3708,7 +3708,7 @@ loop:
         WipeCreateOut(9, 0x10);
         HuPrcSleep(0x11);
         MBCameraFocusModeSet(1);
-        MBCameraPos3DSet(&MBPlayerGet(-1)->player_obj->coords);
+        MBCameraPos3DSet(&MBPlayerGet(CUR_PLAYER)->player_obj->coords);
         HuPrcSleep(5);
         WipeCreateIn(9, 0x10);
         HuPrcSleep(0x11);

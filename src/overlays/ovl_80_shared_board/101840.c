@@ -1,5 +1,8 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "F5E80.h"
+#include "105D50.h"
+#include "106A50.h"
+#include "F2910.h"
 
 typedef struct UnkPauseMesWork {
     /* 0x00 */ s32 *mes;
@@ -67,25 +70,14 @@ extern s8 D_800A176D_A236D;
 extern s16 D_800C9930_CA530;
 extern s16 D_800D10F2_D1CF2;
 extern s16 D_80105554_119174_shared_board;
+extern UnkBoard D_80105718_119338_shared_board[16];
+extern u8 D_801014C0_1150E0_shared_board[];
 
-void func_8001AC34_1B834(s16, s32);
 u8 func_80017AD8_186D8(s32); //TODO: mismatches signature in 276470.c in vine with me
-void func_80017954_18554(s16, s16, s16, s16);
-void func_800333B0_33FB0(s16);
-s32 func_8005B68C_5C28C(s16);
-s16 func_8005E0C0_5ECC0(s16);
-void func_8005FE54_60A54(s16, s16);
-s16 func_8006014C_60D4C(s32 winId);
-UnkMBGuideData* MBGuideCreate(u32* arg0, s32 arg1);
-void func_800F244C_10606C_shared_board(s16, u8);
-s32 MBStatusHideCheck(void);
-void MBGuideKill(UnkMBGuideData*);
-void func_800EDC4C_10186C_shared_board(s32 arg0);
-void func_800EDC90_1018B0_shared_board(s32, s32, s32);
-void func_800EDFC8_101BE8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-void func_800EE2DC_101EFC_shared_board(s32 arg0, s32 arg1);
-s32 MBPauseHelpMesCreate(s16 arg0, s16 arg1, s16 arg2);
-s32 MBPauseMesNumGet(s32 arg0);
+static void func_800EDC4C_10186C_shared_board(s32 arg0);
+static void func_800EDC90_1018B0_shared_board(s32, s32, s32);
+static void func_800EDFC8_101BE8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+static void func_800EE2DC_101EFC_shared_board(s32 arg0, s32 arg1);
 
 void func_800EDC20_101840_shared_board(s32 arg0) {
     D_800A12C4_A1EC4 = arg0;
@@ -96,7 +88,7 @@ s32 func_800EDC40_101860_shared_board(void) {
     return D_800A12C4_A1EC4;
 }
 
-void func_800EDC4C_10186C_shared_board(s32 arg0) {
+static void func_800EDC4C_10186C_shared_board(s32 arg0) {
     D_800A12C0_A1EC0 = arg0;
 }
 
@@ -165,7 +157,7 @@ void func_800EDFAC_101BCC_shared_board(s32 arg0, s32 arg1, s32 arg2) {
     func_800EDFC8_101BE8_shared_board(arg0, arg1, arg2, 1);
 }
 
-void func_800EDFC8_101BE8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+static void func_800EDFC8_101BE8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s16 sp18[MB_MAX_PLAYERS];
     u8 sp20[MB_MAX_PLAYERS] = {1, 2, 4, 8};
     u8 mask;
@@ -221,7 +213,7 @@ void func_800EE2C0_101EE0_shared_board(s32 arg0) {
     func_800EE2DC_101EFC_shared_board(arg0, 1);
 }
 
-void func_800EE2DC_101EFC_shared_board(s32 arg0, s32 arg1) {
+static void func_800EE2DC_101EFC_shared_board(s32 arg0, s32 arg1) {
     s16 sp18[MB_MAX_PLAYERS];
     u8 sp20[MB_MAX_PLAYERS] = {1, 2, 4, 8};
     u8 mask;

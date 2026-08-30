@@ -1,7 +1,9 @@
 #include "common.h"
-#include "ovl_80.h"
 #include "game/object.h"
 #include "game/board.h"
+#include "FFB10.h"
+#include "105D50.h"
+#include "FA250.h"
 
 enum DIFFICULTIES {
     EASY = 0,
@@ -49,12 +51,12 @@ extern u16 D_800CDD68_CE968;
 extern s16 kakusiMasuItemHis[10];
 extern s16 kakusiMasuCoinHis[10];
 extern s16 kakusiMasuStarHis[10];
-
 extern u16 D_80101DE0_115A00_shared_board[];
 extern u16 D_80101E44_115A64_shared_board[];
 extern s16 D_800CC698_CD298;
-void func_800ECA38_100658_shared_board(void); /* extern */
-void func_800EC980_1005A0_shared_board(s32, s32, char *, s32, s32, s32, s32, s32);
+extern s16 D_80105664_119284_shared_board;
+extern s16 D_80105666_119286_shared_board;
+
 static void func_800FF840_113460_shared_board(Vec *arg0);
 
 s32 D_80101B40_115760_shared_board[] = {
@@ -860,8 +862,8 @@ static void func_800F93A4_10CFC4_shared_board(void) {
         }
 
         if (D_80105664_119284_shared_board & 2) {
-            for (i = 0; i < 4; i++) {
-                if (mbStatusData[i].spaceType == 1) {
+            for (i = 0; i < MB_MAX_PLAYERS; i++) {
+                if (mbStatusData[i].spaceType == SPACE_BLUE) {
                     D_800CB8B1_CC4B1[i] = 0;
                 } else {
                     D_800CB8B1_CC4B1[i] = 1;
@@ -944,7 +946,7 @@ void MBPlayerPosFixSet(s32 playerNo, s32 arg1) {
     GW_SYSTEM *system = &GwSystem;
 
     player = MBPlayerGet(playerNo);
-    space = GET_SPACE_FROM_LINK(player->clink, player->cidx);
+    space = MBMasuGet(MBMasuLinkMasuIdGet(player->clink, player->cidx));
     if (system->current_player_index == playerNo) {
         HuVecCopy3F(&player->player_obj->coords, &space->coords);
         return;
@@ -1026,8 +1028,8 @@ static s32 func_800F9A68_10D688_shared_board(s32 arg0) {
         }
     }
 
-    space = GET_SPACE_FROM_LINK(curPlayer->clink, curPlayer->cidx);
-    HuVecSubtract(&sp10, &GET_SPACE_FROM_LINK(curPlayer->nlink, curPlayer->nidx)->coords, &space->coords);
+    space = MBMasuGet(MBMasuLinkMasuIdGet(curPlayer->clink, curPlayer->cidx));
+    HuVecSubtract(&sp10, &MBMasuGet(MBMasuLinkMasuIdGet(curPlayer->nlink, curPlayer->nidx))->coords, &space->coords);
     var_f4 = MBVecAngleGet(&sp10);
     if ((var_s4 == 0) || (!(D_80101D5C_11597C_shared_board[var_s4][0] < var_f4)) || (!(var_f4 <= D_80101D5C_11597C_shared_board[var_s4][1]))) {
         if (var_s2 != 0) {
@@ -2946,8 +2948,8 @@ static void MBMain(void) {
                             goto label2444;
                         }
                         GwSystem.unk_58 = temp_v0_18;
-                        GwSystem.playerIndexVisitingBowser = (1 << MBPlayerGet(-1)->turn); //?
-                        MBPlayerVibrate(MBPlayerGet(-1)->turn, 3);
+                        GwSystem.playerIndexVisitingBowser = (1 << MBPlayerGet(CUR_PLAYER)->turn); //?
+                        MBPlayerVibrate(MBPlayerGet(CUR_PLAYER)->turn, 3);
 
                         temp_v0_16 = MBKettouExec(temp_v0_4, 1);
 

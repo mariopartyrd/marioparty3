@@ -1,5 +1,8 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "105D50.h"
+#include "FA250.h"
+#include "EC3B0.h"
+#include "10C230.h"
 
 typedef struct UnkProcess {
     /* 0x00 */ Vec vec1;
@@ -8,13 +11,7 @@ typedef struct UnkProcess {
     /* 0x1C */ s32 interpolationTime;
 } UnkProcess;
 
-f32 func_800D8DAC_EC9CC_shared_board(Vec*, Vec*);
-Process *MBPlayerPosMoveCreate(Vec *, Vec *, Vec *, s32);
-void MBVecNormalize(Vec *);
-void MBOvlCall(s32 id, s16 event, u16 stat);
-s16 func_800F8858_10C478_shared_board(void);
-f32 HuVecDistance(Vec*, Vec*);
-void func_800ED518_101138_shared_board(void);
+extern s32 D_80101490_1150B0_shared_board[];
 
 void MBMasuPosGet(s16 playerNo, s16 spaceIdx, Vec* out) {
     SpaceData* space = MBMasuGet(spaceIdx);
