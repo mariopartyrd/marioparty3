@@ -1,22 +1,11 @@
 #include "common.h"
 #include "ovl_80.h"
 
-void func_800EDC4C_10186C_shared_board(s32 arg0);
-u8 func_80017AD8_186D8(s32); //TODO: mismatches signature in 276470.c in vine with me
-void func_80017954_18554(s16, s16, s16, s16);
-void func_800333B0_33FB0(s16);
-void func_800EDC90_1018B0_shared_board(s32, s32, s32);
-s32 func_8005B68C_5C28C(s16);
-s16 func_8005E0C0_5ECC0(s16);
-void func_8005FE54_60A54(s16, s16);
-void func_800EDFC8_101BE8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-void func_800EE2DC_101EFC_shared_board(s32 arg0, s32 arg1);
-void MBPauseHelpMesSet(s32 arg0, s16 arg1);
-void MBPauseDlgMesSet(s16 arg0, s32 arg1);
-s32 MBPauseHelpMesCreate(s16 arg0, s16 arg1, s16 arg2);
-s32 MBPauseMesNumGet(s32 arg0);
-s16 func_8006014C_60D4C(s32 winId);
-UnkMBGuideData* MBGuideCreate(u32* arg0, s32 arg1);
+typedef struct UnkPauseMesWork {
+    /* 0x00 */ s32 *mes;
+    /* 0x04 */ u16 unk_04;
+} UnkPauseMesWork;
+
 extern s16 D_80105564_119184_shared_board;
 extern s16 D_801015FC_11521C_shared_board[];
 extern s16 D_80101604_115224_shared_board[];
@@ -50,21 +39,7 @@ extern s32 D_80101520_115140_shared_board[];
 extern s32 D_80101540_115160_shared_board[];
 extern s32 D_8010159C_1151BC_shared_board;
 extern s16 D_80105556_119176_shared_board;
-
-s32 func_800F0D14_104934_shared_board(GW_PLAYER*, s16);
-void func_800F244C_10606C_shared_board(s16, u8);
-s32 MBPausePadCfgExec(s32 arg0);
-s32 MBStatusHideCheck(void);
-void MBGuideKill(UnkMBGuideData*);
-void func_800EDC4C_10186C_shared_board(s32 arg0);
-void func_800EDC90_1018B0_shared_board(s32, s32, s32);
-void func_800EDFC8_101BE8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-void func_800EE2DC_101EFC_shared_board(s32 arg0, s32 arg1);
-void MBPauseHelpMesSet(s32 arg0, s16 arg1);
-void MBPauseDlgMesSet(s16 arg0, s32 arg1);
-s32 MBPauseHelpMesCreate(s16 arg0, s16 arg1, s16 arg2);
-s32 MBPauseMesNumGet(s32 arg0);
-
+extern s32 D_801015A0_1151C0_shared_board;
 extern s16 D_80105560_119180_shared_board[];
 extern s32 D_80101514_115134_shared_board[];
 extern s32 D_800A12C0_A1EC0;
@@ -83,6 +58,34 @@ extern s32 D_8010157C_11519C_shared_board[];
 extern s32 D_80101588_1151A8_shared_board[];
 extern s32 D_80101594_1151B4_shared_board;
 extern s32 D_80101598_1151B8_shared_board;
+extern u16 D_800D5558_D6158[];
+extern s32 D_801014F0_115110_shared_board;
+extern u8 D_801014F4_115114_shared_board[][3];
+extern s32 D_801014D0_1150F0_shared_board[];
+extern s32 D_80101504_115124_shared_board[];
+extern s8 D_800A176D_A236D;
+extern s16 D_800C9930_CA530;
+extern s16 D_800D10F2_D1CF2;
+extern s16 D_80105554_119174_shared_board;
+
+void func_8001AC34_1B834(s16, s32);
+u8 func_80017AD8_186D8(s32); //TODO: mismatches signature in 276470.c in vine with me
+void func_80017954_18554(s16, s16, s16, s16);
+void func_800333B0_33FB0(s16);
+s32 func_8005B68C_5C28C(s16);
+s16 func_8005E0C0_5ECC0(s16);
+void func_8005FE54_60A54(s16, s16);
+s16 func_8006014C_60D4C(s32 winId);
+UnkMBGuideData* MBGuideCreate(u32* arg0, s32 arg1);
+void func_800F244C_10606C_shared_board(s16, u8);
+s32 MBStatusHideCheck(void);
+void MBGuideKill(UnkMBGuideData*);
+void func_800EDC4C_10186C_shared_board(s32 arg0);
+void func_800EDC90_1018B0_shared_board(s32, s32, s32);
+void func_800EDFC8_101BE8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+void func_800EE2DC_101EFC_shared_board(s32 arg0, s32 arg1);
+s32 MBPauseHelpMesCreate(s16 arg0, s16 arg1, s16 arg2);
+s32 MBPauseMesNumGet(s32 arg0);
 
 void func_800EDC20_101840_shared_board(s32 arg0) {
     D_800A12C4_A1EC4 = arg0;
@@ -105,7 +108,7 @@ void func_800EDC74_101894_shared_board(s32 arg0, s32 arg1) {
     func_800EDC90_1018B0_shared_board(arg0, arg1, 1);
 }
 
-void func_800EDC90_1018B0_shared_board(s32 arg0, s32 arg1, s32 arg2) {
+static void func_800EDC90_1018B0_shared_board(s32 arg0, s32 arg1, s32 arg2) {
     s16 sp18[MB_MAX_PLAYERS];
     s32 hasCom = 0;
     u8 sp20[MB_MAX_PLAYERS] = {1, 2, 4, 8};
@@ -292,7 +295,7 @@ void func_800EE688_1022A8_shared_board(Object* arg0, f32 arg1, f32 arg2) {
     arg0->velocity.z = arg2;
 }
 
-s32 func_800EE694_1022B4_shared_board(Object* arg0) {
+static s32 func_800EE694_1022B4_shared_board(Object* arg0) {
     if (arg0->velocity.z == 0.0f) {
         return 0;
     } else {
@@ -306,6 +309,7 @@ void func_800EE6C0_1022E0_shared_board(Object* arg0) {
     }
 }
 
+//unused
 void func_800EE700_102320_shared_board(void) {
     s32 i;
 
@@ -315,6 +319,7 @@ void func_800EE700_102320_shared_board(void) {
     }
 }
 
+//unused
 void func_800EE740_102360_shared_board(void) {
     UnkBoard* temp_s1;
     s32 i;
@@ -328,7 +333,7 @@ void func_800EE740_102360_shared_board(void) {
     }
 }
 
-void func_800EE7AC_1023CC_shared_board(omObjData *func) {
+static void func_800EE7AC_1023CC_shared_board(omObjData *func) {
     UnkBoard *temp_s0;
 
     temp_s0 = &D_80105718_119338_shared_board[func->work[0]];
@@ -368,6 +373,7 @@ u32 func_800EE884_1024A4_shared_board(Object *arg0, s16 arg1, s16 arg2) {
     return ret;
 }
 
+//unused
 void func_800EE94C_10256C_shared_board(Object *arg0, s16 arg1, s32 arg2) {
     MBMotionShiftSet(arg0, arg1, 0, 0xA, arg2);
 }
@@ -464,6 +470,7 @@ s32 MBPlayerScoreGet(s32 arg0) {
     return GwPlayer[arg0].star * 1000 + GwPlayer[arg0].coin;
 }
 
+//unused
 s32 func_800EECF0_102910_shared_board(s32 arg0) {
     s32 var_a0_2;
     s32 i;
@@ -507,8 +514,7 @@ s32 func_800EECF0_102910_shared_board(s32 arg0) {
     return playerBaseScore;
 }
 
-extern u16 D_800D5558_D6158[];
-
+//unused
 void func_800EEE84_102AA4_shared_board(void) {
     s32 i;
 
@@ -614,13 +620,7 @@ s32 MBPauseMesNumGet(s32 arg0) {
     return arg0;
 }
 
-// const u8 D_80102320_115F40_shared_board[] = {1, 2, 4, 8, 0, 0, 0, 0}; //0s are padding maybe?
-
-extern s32 D_801014F0_115110_shared_board;
-extern u8 D_801014F4_115114_shared_board[][3];
-extern s32 D_801014D0_1150F0_shared_board[];
-extern s32 D_80101504_115124_shared_board[];
-void func_800EF208_102E28_shared_board(UnkBoard8* arg0, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
+static void func_800EF208_102E28_shared_board(UnkBoard8* arg0, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
     u8 temp_s0;
     void* temp_s5;
     s32 i;
@@ -647,7 +647,7 @@ void func_800EF208_102E28_shared_board(UnkBoard8* arg0, s16 arg1, s16 arg2, s16 
     DataClose(temp_s5);
 }
 
-UnkBoard8* MBPauseTurnNumCreate(void) {
+static UnkBoard8* MBPauseTurnNumCreate(void) {
     UnkBoard8* temp_s2;
     void* temp_v0_2;
     void* temp_v0_4;
@@ -688,11 +688,11 @@ UnkBoard8* MBPauseTurnNumCreate(void) {
     return temp_s2;
 }
 
-void func_800EF67C_10329C_shared_board(UnkBoard8* arg0) {
+static void func_800EF67C_10329C_shared_board(UnkBoard8* arg0) {
     func_800F2CA4_1068C4_shared_board(arg0);
 }
 
-s16 MBPauseMainScrExec(s32 arg0) {
+static s16 MBPauseMainScrExec(s32 arg0) {
     Unk3* temp_s2;
     Unk3* temp_s3;
     s16 var_s0;
@@ -720,7 +720,7 @@ s16 MBPauseMainScrExec(s32 arg0) {
     return var_s0;
 }
 
-void func_800EF768_103388_shared_board(UnkMBGuideData* arg0, s16 arg1) {
+static void func_800EF768_103388_shared_board(UnkMBGuideData* arg0, s16 arg1) {
     s32 i;
     Object* obj;
     s16 temp_s2;
@@ -739,17 +739,17 @@ void func_800EF768_103388_shared_board(UnkMBGuideData* arg0, s16 arg1) {
     MBGuidePosSet(arg0, arg1, 8);
 }
 
-void MBPauseDlgMesSet(s16 arg0, s32 arg1) {
+static void MBPauseDlgMesSet(s16 arg0, s32 arg1) {
     func_8005D294_5DE94(arg0);
     func_8005B43C_5C03C(arg0, MBPauseMesNumGet(arg1), -1, -1);
 }
 
-void MBPauseHelpMesSet(s32 arg0, s16 arg1) {
+static void MBPauseHelpMesSet(s32 arg0, s16 arg1) {
     func_8005D294_5DE94(arg0);
     func_8005B43C_5C03C(arg0, D_80101514_115134_shared_board[arg1], -2, -2);
 }
 
-s32 MBPauseHelpMesCreate(s16 arg0, s16 arg1, s16 arg2) {
+static s32 MBPauseHelpMesCreate(s16 arg0, s16 arg1, s16 arg2) {
     s16 sp18[2];
     s16 sp20[2];
     s32 win;
@@ -774,12 +774,7 @@ s32 MBPauseHelpMesCreate(s16 arg0, s16 arg1, s16 arg2) {
     return win;
 }
 
-typedef struct UnkPauseMesWork {
-    /* 0x00 */ s32 *mes;
-    /* 0x04 */ u16 unk_04;
-} UnkPauseMesWork;
-
-void MBPauseMesMain(void) {
+static void MBPauseMesMain(void) {
     UnkPauseMesWork *work;
     s32 *mes;
     s16 sel;
@@ -911,7 +906,7 @@ void MBPauseMesMain(void) {
 }
 
 // draws a message?
-Process* MBPauseMesCreate(s32* arg0, s32 arg1, s16 arg2) {
+static Process* MBPauseMesCreate(s32* arg0, s32 arg1, s16 arg2) {
     Process* proc;
     UnkPauseMesWork* temp_v0_2;
 
@@ -924,7 +919,7 @@ Process* MBPauseMesCreate(s32* arg0, s32 arg1, s16 arg2) {
     return proc;
 }
 
-void func_800EFE0C_103A2C_shared_board(Process* arg0) {
+static void func_800EFE0C_103A2C_shared_board(Process* arg0) {
     if (D_801014EC_11510C_shared_board != 0) {
         func_8005F364_5FF64(D_8010555A_11917A_shared_board);
         func_8005F364_5FF64(D_8010555E_11917E_shared_board);
@@ -932,7 +927,7 @@ void func_800EFE0C_103A2C_shared_board(Process* arg0) {
     omDelPrcObj(arg0);
 }
 
-s16 MBPauseQuitMesCreate(s32 arg0, s16 arg1) {
+static s16 MBPauseQuitMesCreate(s32 arg0, s16 arg1) {
     s16 sp18[2];
     s16 temp_v0;
 
@@ -942,7 +937,7 @@ s16 MBPauseQuitMesCreate(s32 arg0, s16 arg1) {
     return temp_v0;
 }
 
-s16 func_800EFEF4_103B14_shared_board(void) {
+static s16 func_800EFEF4_103B14_shared_board(void) {
     s16 var_t0;
     s16 var_a1;
 
@@ -961,7 +956,7 @@ s16 func_800EFEF4_103B14_shared_board(void) {
     return var_t0;
 }
 
-void func_800EFFE8_103C08_shared_board(UnkBoard8 *arg0, s32 arg1) {
+static void func_800EFFE8_103C08_shared_board(UnkBoard8 *arg0, s32 arg1) {
     void *data;
     s32 dataNum;
     GW_SYSTEM* system = &GwSystem;
@@ -1007,7 +1002,7 @@ void func_800EFFE8_103C08_shared_board(UnkBoard8 *arg0, s32 arg1) {
 }
 
 
-s32 MBPauseOptionExec(s32 arg0) {
+static s32 MBPauseOptionExec(s32 arg0) {
     void *data;
     Process *mesProc;
     UnkBoard8 *icons;
@@ -1249,11 +1244,7 @@ s32 MBPauseOptionExec(s32 arg0) {
     return ret;
 }
 
-s32 MBPauseMesNumGet(s32);
-s16 func_8005E0C0_5ECC0(s16);
-extern s32 D_801015A0_1151C0_shared_board;
-
-s32 MBPauseQuitWinExec(s32 arg0) {
+static s32 MBPauseQuitWinExec(s32 arg0) {
     Process* temp_s3;
     s16 temp_v0;
     s16 temp;
@@ -1279,7 +1270,7 @@ s32 MBPauseQuitWinExec(s32 arg0) {
     return 4;
 }
 
-s32 func_800F0BF8_104818_shared_board(s16 arg0) {
+static s32 func_800F0BF8_104818_shared_board(s16 arg0) {
     GW_PLAYER* player;
     s32 i;
 
@@ -1294,7 +1285,7 @@ s32 func_800F0BF8_104818_shared_board(s16 arg0) {
     return 0;
 }
 
-void func_800F0C64_104884_shared_board(GW_PLAYER* arg0, s16 arg1) {
+static void func_800F0C64_104884_shared_board(GW_PLAYER* arg0, s16 arg1) {
     GW_PLAYER* player;
     s32 i;
     u8 pad;
@@ -1316,7 +1307,7 @@ void func_800F0C64_104884_shared_board(GW_PLAYER* arg0, s16 arg1) {
     }
 }
 
-s32 func_800F0D14_104934_shared_board(GW_PLAYER *arg0, s16 arg1) {
+static s32 func_800F0D14_104934_shared_board(GW_PLAYER *arg0, s16 arg1) {
     s32 count;
     s32 port;
     u32 i;
@@ -1357,17 +1348,17 @@ s32 func_800F0D14_104934_shared_board(GW_PLAYER *arg0, s16 arg1) {
     return 4;
 }
 
-void func_800F0E28_104A48_shared_board(s16 arg0) {
+static void func_800F0E28_104A48_shared_board(s16 arg0) {
     D_80105564_119184_shared_board = arg0;
 }
 
-void func_800F0E34_104A54_shared_board(UnkBoard8* arg0, s16 arg1) {
+static void func_800F0E34_104A54_shared_board(UnkBoard8* arg0, s16 arg1) {
     func_80054904_55504(arg0->spriteGroup, 0, (D_801015FC_11521C_shared_board[arg1] - 55), (D_80101604_115224_shared_board[arg1] - 8));
     func_80054904_55504(arg0->spriteGroup, 1, (D_801015FC_11521C_shared_board[arg1] + 50), D_80101604_115224_shared_board[arg1]);
     func_80054904_55504(arg0->spriteGroup, 2, (D_801015FC_11521C_shared_board[arg1] - 50), D_80101604_115224_shared_board[arg1]);
 }
 
-void func_800F0EF0_104B10_shared_board(void) {
+static void func_800F0EF0_104B10_shared_board(void) {
     f32 var_f20;
     s32 var_v0;
     UnkBoard8* temp_s1;
@@ -1397,7 +1388,7 @@ void func_800F0EF0_104B10_shared_board(void) {
     }
 }
 
-s32 MBPausePadCfgExec(s32 arg0) {
+static s32 MBPausePadCfgExec(s32 arg0) {
     s16 sel;
     UnkBoard8* panel;
     UnkBoard8* chr;
@@ -1634,7 +1625,7 @@ s32 MBPausePadCfgExec(s32 arg0) {
     return 4;
 }
 
-s16 MBPauseModeExec(s16 arg0, s32 arg1) {
+static s16 MBPauseModeExec(s16 arg0, s32 arg1) {
     switch (arg0) {
     case 1:
         return MBPauseMainScrExec(arg1);
@@ -1649,7 +1640,7 @@ s16 MBPauseModeExec(s16 arg0, s32 arg1) {
     }
 }
 
-void MBPauseMain(void) {
+static void MBPauseMain(void) {
     UnkBoard8* temp_s1;
     s16 var_s2;
     s16 temp_v0;
@@ -1695,11 +1686,6 @@ void MBPauseMain(void) {
     omDelPrcObj(NULL);
 }
 
-extern s8 D_800A176D_A236D;
-extern s16 D_800C9930_CA530;
-extern s16 D_800D10F2_D1CF2;
-extern s16 D_80105554_119174_shared_board;
-void func_8001AC34_1B834(s16, s32);
 void MBPauseCreate(s32 arg0) {
     Process* temp_s1_2;
     Process* temp_v0;

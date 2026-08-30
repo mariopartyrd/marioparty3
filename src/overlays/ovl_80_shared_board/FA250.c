@@ -58,6 +58,12 @@ typedef struct HVQHeader {
     char unk_08[8];
 } HVQHeader; //TODO: there's like 3 of these, no idea if they are the same or not
 
+typedef struct UnkFAF78 {
+    /* 0x00 */ s32 unk_00;   /* count */
+    /* 0x04 */ s32 *unk_04;  /* id list */
+    /* 0x08 */ char pad08[4];
+} UnkFAF78; /* size = 0xC */
+
 extern u16 D_80102DC0_1169E0_shared_board;
 extern OverlayBgEntry *D_801030A8_116CC8_shared_board[6][6];
 extern OverlayBgEntry D_80102DD8_1169F8_shared_board[36];
@@ -118,26 +124,31 @@ extern void* D_8010527C_118E9C_shared_board;
 extern void* D_80105280_118EA0_shared_board;
 extern void* D_80105284_118EA4_shared_board;
 extern s32 D_80105288_118EA8_shared_board;
+extern s32 D_80105990_1195B0_shared_board;
+extern s32* D_80101240_114E60_shared_board; //TODO: fix type
+extern Vec D_80103450_117070_shared_board;
+extern f32 D_80101254_114E74_shared_board;
+extern f32 D_80101258_114E78_shared_board;
+extern s32 D_8010345C_11707C_shared_board;
+extern u16 D_8010345E_11707E_shared_board;
+extern s32 D_80103460_117080_shared_board;
+extern UnkFAF78 *D_80103464_117084_shared_board;
 
+static void func_8003465C_3525C(Gfx**, void*, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
 void MBMoveMasuSet(s16 playerNo, s16 link, s16 idx);
 void func_8001F95C_2055C(s32, void*);
 u16* func_800EAE00_FEA20_shared_board(u16*, s32);
 f32 HuVecDistance(Vec*, Vec*);
 void MBVecNormalize(Vec*);
 void func_800555E8_561E8(s16 group, s16 member, u16 arg2, u16 arg3, u16 arg4, u16 arg5);
-void func_800E9358_FCF78_shared_board(void);
-void MBBackTPLvlSet(u8 arg0);
+static void func_800E9358_FCF78_shared_board(void);
+static void MBBackTPLvlSet(u8 arg0);
 s32 dmaRead(u32 src, u8 *dest, s32 size);
 void func_8001F95C_2055C(s32, void* func);
-void func_800E9328_FCF48_shared_board(void);
-void func_800E6EC8_FAAE8_shared_board(void);
-void func_800E7130_FAD50_shared_board(void);
-void func_800E7068_FAC88_shared_board(void);
-void func_800E71EC_FAE0C_shared_board(void);
+static void func_800E9328_FCF48_shared_board(void);
 void func_800E86CC_FC2EC_shared_board(Gfx** arg0, s32 arg1, u8 arg2);
-void func_800E90BC_FCCDC_shared_board(void);
-void func_800E8DE0_FCA00_shared_board(void);
-void func_800E76EC_FB30C_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg3, s16 arg4);
+static void func_800E90BC_FCCDC_shared_board(void);
+static s32 func_800E7330_FAF50_shared_board(u16 arg0);
 
 void func_800E6630_FA250_shared_board(u32 arg0) {
     HVQHeader* temp_v0;
@@ -168,15 +179,6 @@ void MBBackClose(void) {
         HuMemMemoryFreeTemp(D_80102DCC_1169EC_shared_board);
     }
 }
-
-extern s32 D_80105990_1195B0_shared_board;
-extern s32* D_80101240_114E60_shared_board; //TODO: fix type
-extern Vec D_80103450_117070_shared_board;
-
-extern f32 D_80101254_114E74_shared_board;
-extern f32 D_80101258_114E78_shared_board;
-
-s32 func_800E7330_FAF50_shared_board(u16 arg0);
 
 void MBBackCreate(s32 arg0, s32 arg1) {
     UnkModelStruct* temp_v0_3;
@@ -245,21 +247,21 @@ void MBBackKill(void) {
     }
 }
 
-void MBBackOffsetSet(s16 arg0, s16 arg1) {
+static void MBBackOffsetSet(s16 arg0, s16 arg1) {
     D_80102DC2_1169E2_shared_board = arg0;
     D_80102DC4_1169E4_shared_board = arg1;
 }
 
 
-f32 MBBackMaxXGet(void) {
+static f32 MBBackMaxXGet(void) {
     return ((D_80102DC6_1169E6_shared_board - 160.0f) / D_8010341C_11703C_shared_board) + 160.0f;
 }
 
-f32 MBBackMaxYGet(void) {
+static f32 MBBackMaxYGet(void) {
     return ((D_80102DC8_1169E8_shared_board - 120.0f) / D_8010341C_11703C_shared_board) + 120.0f;
 }
 
-u16 MBBackPosClamp(Vec2f* arg0, f32 arg1) {
+static u16 MBBackPosClamp(Vec2f* arg0, f32 arg1) {
     s32 var_v1;
 
     var_v1 = 0;
@@ -290,7 +292,7 @@ void MBBackDispSet(u16 arg0) {
     }
 }
 
-void func_800E6C80_FA8A0_shared_board(void) {
+static void func_800E6C80_FA8A0_shared_board(void) {
     UnkHvqStruct* sp10;
 
     while (1) {
@@ -314,7 +316,7 @@ void func_800E6C80_FA8A0_shared_board(void) {
         (buffer) += (*src++);         \
     } while (0)
 
-void func_800E6CF8_FA918_shared_board(u8 *input, u8 *output, s32 compressedSize) {
+static void func_800E6CF8_FA918_shared_board(u8 *input, u8 *output, s32 compressedSize) {
     u8 *src = input + 4;       // Skip metadata
     s32 flagLen = 0;           // Remaining bits in the bit buffer
     s32 flag = 0;              // Buffer holding bits for control decisions
@@ -375,7 +377,7 @@ void func_800E6CF8_FA918_shared_board(u8 *input, u8 *output, s32 compressedSize)
 }
 
 // decodes HVQ board image tile?
-void func_800E6DEC_FAA0C_shared_board(void) {
+static void func_800E6DEC_FAA0C_shared_board(void) {
     HvqUnk *sp10;
     HvqHeader *temp_a0;
 
@@ -403,7 +405,7 @@ void func_800E6DEC_FAA0C_shared_board(void) {
     osDestroyThread(NULL);
 }
 
-void func_800E6EC8_FAAE8_shared_board(void) {
+static void func_800E6EC8_FAAE8_shared_board(void) {
     osCreateMesgQueue(&D_80103468_117088_shared_board, &D_80103480_1170A0_shared_board, 0x24);
     osCreateMesgQueue(&D_80104880_1184A0_shared_board, &D_80104898_1184B8_shared_board, 0x24);
     osCreateMesgQueue(&D_80104928_118548_shared_board, &D_80104940_118560_shared_board, 0x24);
@@ -423,14 +425,13 @@ void func_800E6FCC_FABEC_shared_board(void) {
     D_80104070_117C90_shared_board = 1;
 }
 
-void func_800E6FDC_FABFC_shared_board(void) {
+static void func_800E6FDC_FABFC_shared_board(void) {
     if (osGetThreadPri(&D_80103EC0_117AE0_shared_board) != D_80104070_117C90_shared_board) {
         osSetThreadPri(&D_80103EC0_117AE0_shared_board, D_80104070_117C90_shared_board);
     }
 }
 
-
-void func_800E7018_FAC38_shared_board(void) {
+static void func_800E7018_FAC38_shared_board(void) {
     UnkHvqStruct* sp10;
 
     while (1) {
@@ -444,7 +445,7 @@ void func_800E7018_FAC38_shared_board(void) {
     }
 }
 
-void func_800E7068_FAC88_shared_board(void) {
+static void func_800E7068_FAC88_shared_board(void) {
     s32 i;
 
     osJamMesg(&D_80103468_117088_shared_board, NULL, OS_MESG_NOBLOCK);
@@ -465,7 +466,7 @@ void func_800E7068_FAC88_shared_board(void) {
     }
 }
 
-void func_800E7130_FAD50_shared_board(void) {
+static void func_800E7130_FAD50_shared_board(void) {
     OverlayBgEntry* var_s0 = D_80102DD8_1169F8_shared_board;
     s32 i;
 
@@ -480,7 +481,7 @@ void func_800E7130_FAD50_shared_board(void) {
     bzero(D_801030A8_116CC8_shared_board, sizeof(D_801030A8_116CC8_shared_board));
 }
 
-void func_800E71A8_FADC8_shared_board(void) {
+static void func_800E71A8_FADC8_shared_board(void) {
     OverlayBgEntry* var_v1 = D_80102DD8_1169F8_shared_board;
     s32 i;
 
@@ -492,7 +493,7 @@ void func_800E71A8_FADC8_shared_board(void) {
     }
 }
 
-void func_800E71EC_FAE0C_shared_board(void) {
+static void func_800E71EC_FAE0C_shared_board(void) {
     OverlayBgEntry* var_s0 = D_80102DD8_1169F8_shared_board;
     s32 i;
 
@@ -531,33 +532,21 @@ f32 MBBackMdlScaleGet(void) {
     }
 }
 
-u16 func_800E7300_FAF20_shared_board(s32 arg0, s32 arg1) {
+static u16 func_800E7300_FAF20_shared_board(s32 arg0, s32 arg1) {
     return ((((D_80101248_114E68_shared_board->unkC - arg1) - 1) * D_80101248_114E68_shared_board->unk8) + arg0 + 1);
 }
 
-s32 func_800E7330_FAF50_shared_board(u16 arg0) {
+static s32 func_800E7330_FAF50_shared_board(u16 arg0) {
     arg0++;
     return D_80101244_114E64_shared_board[(arg0 + 1)] - D_80101244_114E64_shared_board[(arg0 + 0)];
 }
 
-s32 func_800E7358_FAF78_shared_board(u16 arg0) {
+static s32 func_800E7358_FAF78_shared_board(u16 arg0) {
     arg0++;
     return D_80102DB8_1169D8_shared_board + D_80101244_114E64_shared_board[(arg0)];
 }
 
-extern s32 D_8010345C_11707C_shared_board;
-extern u16 D_8010345E_11707E_shared_board;
-extern s32 D_80103460_117080_shared_board;
-
-typedef struct UnkFAF78 {
-    /* 0x00 */ s32 unk_00;   /* count */
-    /* 0x04 */ s32 *unk_04;  /* id list */
-    /* 0x08 */ char pad08[4];
-} UnkFAF78; /* size = 0xC */
-
-extern UnkFAF78 *D_80103464_117084_shared_board;
-
-OverlayBgEntry *func_800E7384_FAFA4_shared_board(u16 arg0) {
+static OverlayBgEntry *func_800E7384_FAFA4_shared_board(u16 arg0) {
     OverlayBgEntry *entry;
     OverlayBgEntry *slot;
     u16 bank;
@@ -600,7 +589,7 @@ OverlayBgEntry *func_800E7384_FAFA4_shared_board(u16 arg0) {
     return slot;
 }
 
-void func_800E7514_FB134_shared_board(void) {
+static void func_800E7514_FB134_shared_board(void) {
     s32 tileX;
     s32 tileY;
     s32 x;
@@ -626,8 +615,6 @@ void func_800E7514_FB134_shared_board(void) {
     }
 }
 
-void func_8003465C_3525C(Gfx**, void*, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
-
 #define gSPScisTextureRectangle_MP(pkt,xl,yl,xh,yh,tile,s,t,dsdx,dtdy) { \
     Gfx *_g = (Gfx *)(pkt); \
     _g->words.w0 = (_SHIFTL(G_TEXRECT, 24, 8) | \
@@ -642,7 +629,7 @@ void func_8003465C_3525C(Gfx**, void*, s32, s32, s32, s32, s32, s32, s32, s32, s
     gImmp1(pkt, G_RDPHALF_2, (_SHIFTL((s16)(dsdx), 16, 16) | _SHIFTL((s16)(dtdy), 0, 16))); \
 }
 
-void func_800E76EC_FB30C_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg3, s16 arg4) {
+static void func_800E76EC_FB30C_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg3, s16 arg4) {
     f32 temp_f0;
     f32 temp_f20;
     f32 temp_f22;
@@ -703,8 +690,7 @@ void func_800E76EC_FB30C_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg3
     }
 }
 
-
-void func_800E86CC_FC2EC_shared_board(Gfx** arg0, s32 arg1, u8 arg2) {
+static void func_800E86CC_FC2EC_shared_board(Gfx** arg0, s32 arg1, u8 arg2) {
     u16 sp1E;
     u16 sp26;
     s16 spY; // sp34
@@ -818,7 +804,7 @@ void MBCameraZoomSet(f32 zoom) {
     D_80101250_114E70_shared_board = zoom;
 }
 
-void func_800E8DE0_FCA00_shared_board(void) {
+static void func_800E8DE0_FCA00_shared_board(void) {
     f32 target;
     f32 diff;
     f32 step;
@@ -868,7 +854,7 @@ Process* MBCameraZoomMotStart(f32 arg0) {
     return D_80103414_117034_shared_board;
 }
 
-void func_800E8F54_FCB74_shared_board(void) {
+static void func_800E8F54_FCB74_shared_board(void) {
     f32 temp_f22;
     f32 temp_f2;
     f32 var_f0;
@@ -912,7 +898,7 @@ Process* func_800E9044_FCC64_shared_board(f32 arg0) {
     return D_80103414_117034_shared_board;
 }
 
-void func_800E90BC_FCCDC_shared_board(void) {
+static void func_800E90BC_FCCDC_shared_board(void) {
     Process* temp_v0;
     f32 temp_f2;
     f32 temp_f4;
@@ -940,7 +926,7 @@ void func_800E90BC_FCCDC_shared_board(void) {
     D_801049F0_118610_shared_board.x = 159.5f;
     D_801049F0_118610_shared_board.y = 119.5f;
     D_80103418_117038_shared_board = 1.0f;
-    temp_v0 = omAddPrcObj(func_800E9358_FCF78_shared_board, 0x1001U, 0, 0);
+    temp_v0 = omAddPrcObj(func_800E9358_FCF78_shared_board, 0x1001, 0, 0);
     D_80103410_117030_shared_board = temp_v0;
     omPrcSetStatBit(temp_v0, 0x80);
     D_80103414_117034_shared_board = 0;
@@ -949,7 +935,7 @@ void func_800E90BC_FCCDC_shared_board(void) {
     Hu3DCamUpdateMtx(0);
 }
 
-void func_800E92D4_FCEF4_shared_board(void) {
+static void func_800E92D4_FCEF4_shared_board(void) {
     if (D_80103410_117030_shared_board != NULL) {
         omDelPrcObj(D_80103410_117030_shared_board);
         D_80103410_117030_shared_board = NULL;
@@ -960,7 +946,7 @@ void func_800E92D4_FCEF4_shared_board(void) {
     }
 }
 
-void func_800E9328_FCF48_shared_board(void) {
+static void func_800E9328_FCF48_shared_board(void) {
     func_800E92D4_FCEF4_shared_board();
 }
 
@@ -969,7 +955,7 @@ void func_800E9344_FCF64_shared_board(f32 arg0, f32 arg1) {
     D_80101254_114E74_shared_board = arg1;
 }
 
-void func_800E9358_FCF78_shared_board(void) {
+static void func_800E9358_FCF78_shared_board(void) {
     Vec sp10;
     s16 sp20[2];
     Vec sp28;
@@ -1100,7 +1086,7 @@ void MBCamera3Dto2D(Vec* arg0, f32* arg1) {
     arg1[1] = sp10.unk_00.y + sp10.unk_0C;
 }
 
-void MBBackTPLvlSet(u8 arg0) {
+static void MBBackTPLvlSet(u8 arg0) {
     D_8010124C_114E6C_shared_board = arg0;
 }
 
@@ -1178,7 +1164,7 @@ void func_800E9C28_FD848_shared_board(s16 arg0, s16 arg1) {
 }
 
 
-void func_800E9C94_FD8B4_shared_board(void) {
+static void func_800E9C94_FD8B4_shared_board(void) {
     UnkBoard7 *obj;
     f32 pos[2];
     f32 maxX, maxY;
@@ -1294,30 +1280,30 @@ s32 func_800E9F24_FDB44_shared_board(s32 arg0, Vec *arg1) {
 }
 
 s32 func_800EA0B8_FDCD8_shared_board(s32 arg0, Vec *arg1) {
-    UnkBoard7 *obj;
+    UnkBoard7 *unkBoard7;
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_80104A00_118620_shared_board); i++) {
-        obj = &D_80104A00_118620_shared_board[i];
-        if (obj->unk_00 & 1) {
+        unkBoard7 = &D_80104A00_118620_shared_board[i];
+        if (unkBoard7->unk_00 & 1) {
             continue;
         }
 
-        obj->unk_00 = 3;
-        obj->unk_06 = 0x100;
-        obj->unk_01 = 0;
+        unkBoard7->unk_00 = 3;
+        unkBoard7->unk_06 = 0x100;
+        unkBoard7->unk_01 = 0;
 
-        HuVecCopy3F(&obj->pos, arg1);
-        HuVecCopyXYZ(&obj->vel, 0, 0, 0);
+        HuVecCopy3F(&unkBoard7->pos, arg1);
+        HuVecCopyXYZ(&unkBoard7->vel, 0, 0, 0);
 
-        obj->unk_02 = HuSprGrpCreate(1, 0);
+        unkBoard7->unk_02 = HuSprGrpCreate(1, 0);
 
-        func_80055024_55C24(obj->unk_02, 0,
+        func_80055024_55C24(unkBoard7->unk_02, 0,
                             D_80104A00_118620_shared_board[arg0].unk_04, 0);
-        func_800550F4_55CF4(obj->unk_02, 0, 1);
-        HuSprPriSet(obj->unk_02, 0, 0x8000);
-        HuSprAttrSet(obj->unk_02, 0, 0x9000);
-        func_800555E8_561E8(obj->unk_02, 0, 0x10, 0xC, 0x130, 0xE4);
+        func_800550F4_55CF4(unkBoard7->unk_02, 0, 1);
+        HuSprPriSet(unkBoard7->unk_02, 0, 0x8000);
+        HuSprAttrSet(unkBoard7->unk_02, 0, 0x9000);
+        func_800555E8_561E8(unkBoard7->unk_02, 0, 0x10, 0xC, 0x130, 0xE4);
 
         D_80105200_118E20_shared_board++;
         return i;
@@ -1325,10 +1311,9 @@ s32 func_800EA0B8_FDCD8_shared_board(s32 arg0, Vec *arg1) {
     return -1;
 }
 
-void func_800EA200_FDE20_shared_board(s32 arg0) {
-    UnkBoard7* temp_s0;
+static void func_800EA200_FDE20_shared_board(s32 arg0) {
+    UnkBoard7* temp_s0 = &D_80104A00_118620_shared_board[arg0];
 
-    temp_s0 = &D_80104A00_118620_shared_board[arg0];
     if (temp_s0->unk_00 & 1) {
         if (!(temp_s0->unk_00 & 2)) {
             HuSprKill(temp_s0->unk_04);
@@ -1421,7 +1406,7 @@ void func_800EA4CC_FE0EC_shared_board(void) {
     }
 }
 
-void MBMasuBmpCreate(s16 arg0) {
+static void MBMasuBmpCreate(s16 arg0) {
     s32 *var_s2;
     s32 i;
 
@@ -1446,7 +1431,7 @@ void MBMasuBmpCreate(s16 arg0) {
     }
 }
 
-void MBMasuBmpKill(void) {
+static void MBMasuBmpKill(void) {
     s32 i;
 
     for (i = 0; i < SPACE_TYPES_TOTAL; i++) {
@@ -1488,7 +1473,7 @@ void MBMasuStarSet(s32 arg0, s16 arg1) {
     D_80105540_119160_shared_board[arg0] = arg1;
 }
 
-void MBMasuDraw(Gfx **arg0, Mtx *arg1, s32 arg2) {
+static void MBMasuDraw(Gfx **arg0, Mtx *arg1, s32 arg2) {
     Gfx **gfxPos = arg0;
     Mtx sp10;
     Vec2f sp50;
@@ -1664,6 +1649,7 @@ void func_800EB09C_FECBC_shared_board(void) {
     }
 }
 
+//file split?
 
 SpaceData *MBMasuGet(s16 arg0) {
     return &D_80105214_118E34_shared_board[arg0];
@@ -1677,7 +1663,7 @@ s16 MBMasuLinkNumGet(u16 arg0) {
     return D_80105218_118E38_shared_board[arg0].chainIndicies;
 }
 
-s16 func_800EB1CC_FEDEC_shared_board(s16 arg0, s16 arg1) {
+static s16 func_800EB1CC_FEDEC_shared_board(s16 arg0, s16 arg1) {
     s32 i;
 
     for (i = 0; i < MBMasuLinkNumGet(arg1); i++) {
@@ -1774,7 +1760,7 @@ s16 func_800EB4F0_FF110_shared_board(u16 arg0, u16 arg1) {
     return i;
 }
 
-s16 MBMasuBlockGet(u16 arg0, u8 arg1) {
+static s16 MBMasuBlockGet(u16 arg0, u8 arg1) {
     u8 var_s1;
     SpaceData *space;
     s32 i, j;
@@ -1851,7 +1837,7 @@ void func_800EB820_FF440_shared_board(u16 linkNo, u16 curSpaceType, u8 newSpaceT
     }
 }
 
-void func_800EB8BC_FF4DC_shared_board(void) {
+static void func_800EB8BC_FF4DC_shared_board(void) {
     SpaceData* temp_v0;
     f32 temp_f22;
     f32 var_f20;
@@ -1881,12 +1867,10 @@ void func_800EB8BC_FF4DC_shared_board(void) {
 }
 
 void func_800EB97C_FF59C_shared_board(s16 arg0) {
-    omAddPrcObj(func_800EB8BC_FF4DC_shared_board, 0xEF00U, 0, 0)->user_data = (void* ) arg0;
+    omAddPrcObj(func_800EB8BC_FF4DC_shared_board, 0xEF00, 0, 0)->user_data = (void* ) arg0;
 }
 
-
-
-void MBMasuEventSet(s16 arg0, void *arg1) {
+static void MBMasuEventSet(s16 arg0, void *arg1) {
     switch (arg0) {
         case -2:
             D_80105278_118E98_shared_board = arg1;

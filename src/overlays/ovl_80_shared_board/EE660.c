@@ -27,39 +27,13 @@ extern u8 D_80105700_119320_shared_board;
 extern s32 D_80100D60_114980_shared_board[6];
 extern s32 D_80100D78_114998_shared_board[6];
 
-void func_80032FF8_33BF8(s32, u8);
-void func_8003302C_33C2C(s32, u8);
-void func_800DAAAC_EE6CC_shared_board(omObjData*);
 s32 func_800DBEC0_EFAE0_shared_board(s32);
-s16 func_80032694_33294(HmfData*, u16, s32, char*);
-void func_800DAAAC_EE6CC_shared_board(omObjData*);
-void func_80033430_34030(s16);
-void func_800DC9F8_F0618_shared_board(s32);
 void func_800EE6C0_1022E0_shared_board(Object*);
 void func_800DEB50_F2770_shared_board(void);
-void func_8004A650_4B250(s32);
-void func_8004A670_4B270(s32);
-void func_8004A880_4B480(s32);
-void func_8004A918_4B518(s32);
-void func_800DBE6C_EFA8C_shared_board(s32);
-void func_800DCBCC_F07EC_shared_board(s32);
-void func_800DE9B8_F25D8_shared_board(s32, s32, s32, s32);
+static void func_800DE9B8_F25D8_shared_board(s32, s32, s32, s32);
 void func_800EE688_1022A8_shared_board(Object *, f32, f32);
 void MBPlayerMotionSet(s32 playerIndex, s16 arg1, u16 arg2);
-void func_8000CD00_D900(s16, f32, f32, f32);
-s16 func_8000CED8_DAD8(s32, s32);
-void func_8000CFA4_DBA4(s16, f32, f32, f32);
-void func_8000D018_DC18(s16, f32);
-void func_8000D044_DC44(s16);
-void func_8008A2A0_8AEA0(f32*, f32);
 void func_800ECC54_100874_shared_board(Object*);
-void func_800DD724_F1344_shared_board(void);
-void func_800DEBF0_F2810_shared_board(void);
-void func_800DBC2C_EF84C_shared_board(s32);
-void func_800DAF1C_EEB3C_shared_board(omObjData*);
-void func_800DB318_EEF38_shared_board(omObjData*);
-void func_800DB6A8_EF2C8_shared_board(s32);
-void func_8001D558_1E158(s16, f32, f32, s32);
 
 typedef struct UnkSharedBoard2 {
     char unk_00[0xC];
@@ -81,7 +55,7 @@ void func_800DAA40_EE660_shared_board(s32 arg0) {
     }
 }
 
-void func_800DAAAC_EE6CC_shared_board(omObjData *arg0) {
+static void func_800DAAAC_EE6CC_shared_board(omObjData *arg0) {
     UnkDiceRelated *entry;
     f32 base;
     f32 scale;
@@ -171,7 +145,7 @@ void func_800DAAAC_EE6CC_shared_board(omObjData *arg0) {
     }
 }
 
-void func_800DAF1C_EEB3C_shared_board(omObjData *arg0) {
+static void func_800DAF1C_EEB3C_shared_board(omObjData *arg0) {
     UnkDiceRelated *entry;
     Vec pos;
     f32 pos2d[2];
@@ -219,7 +193,7 @@ void func_800DAF1C_EEB3C_shared_board(omObjData *arg0) {
     }
 }
 
-void func_800DB318_EEF38_shared_board(omObjData *arg0) {
+static void func_800DB318_EEF38_shared_board(omObjData *arg0) {
     UnkDiceRelated *entry;
     Vec pos;
     f32 pos2d[2];
@@ -306,7 +280,7 @@ void func_800DB5DC_EF1FC_shared_board(void) {
     D_8010570E_11932E_shared_board = 1;
 }
 
-void func_800DB6A8_EF2C8_shared_board(s32 arg0) {
+static void func_800DB6A8_EF2C8_shared_board(s32 arg0) {
     UnkDiceRelated *entry;
     void *data;
     s32 i;
@@ -399,7 +373,7 @@ void func_800DB884_EF4A4_shared_board(s32 arg0) {
     }
 }
 
-void func_800DBC2C_EF84C_shared_board(s32 arg0) {
+static void func_800DBC2C_EF84C_shared_board(s32 arg0) {
     UnkDiceRelated *entry = &D_800CDBD0_CE7D0[arg0];
     s8 forcedRoll;
     s32 i;
@@ -458,7 +432,7 @@ void func_800DBC2C_EF84C_shared_board(s32 arg0) {
     func_800DB884_EF4A4_shared_board(arg0);
 }
 
-void func_800DBE6C_EFA8C_shared_board(s32 arg0) {
+static void func_800DBE6C_EFA8C_shared_board(s32 arg0) {
     UnkDiceRelated* dice = &D_800CDBD0_CE7D0[arg0];
 
     if (dice->omObj != NULL) {
@@ -692,7 +666,7 @@ s16 func_800DC128_EFD48_shared_board(s32 arg0) {
     return ret;
 }
 
-void func_800DC718_F0338_shared_board(s32 arg0, s32 arg1, s32 arg2, char *arg3[]) {
+static void func_800DC718_F0338_shared_board(s32 arg0, s32 arg1, s32 arg2, char *arg3[]) {
     UnkDiceRelated *entry = &D_800CDBD0_CE7D0[arg0];
     omObjData *dice;
     f32 height;
@@ -762,7 +736,7 @@ void func_800DC718_F0338_shared_board(s32 arg0, s32 arg1, s32 arg2, char *arg3[]
     }
 }
 
-void func_800DC9F8_F0618_shared_board(s32 arg0) {
+static void func_800DC9F8_F0618_shared_board(s32 arg0) {
     char* anims[6] =  {NULL, NULL, NULL, NULL, NULL, NULL}; //TODO: is this right?
 
     func_800DC718_F0338_shared_board(arg0, 0x1301FB, -1, anims);
@@ -887,7 +861,7 @@ s32 func_800DCD9C_F09BC_shared_board(s32 arg0) {
     return D_800CDBD0_CE7D0[arg0].rollValue[D_800CDBD0_CE7D0[arg0].rollValueIdx];
 }
 
-void func_800DCDD4_F09F4_shared_board(void) {
+static void func_800DCDD4_F09F4_shared_board(void) {
     f32 temp_f20;
     f32 temp_f20_2;
     f32 temp_f20_3;
@@ -1072,7 +1046,7 @@ void func_800DCDD4_F09F4_shared_board(void) {
                         temp_s4->rollValue[1] = 0;
                         func_800DBEC0_EFAE0_shared_board(temp_s3->unk0);
                         func_800DB884_EF4A4_shared_board(temp_s3->unk0);
-                        HuPrcSleep(0x14);
+                        HuPrcSleep(20);
                     }
                     omDelPrcObj(0);
                 }
@@ -1092,7 +1066,7 @@ Process* func_800DD6C4_F12E4_shared_board(s32 playerNo) {
     return proc;
 }
 
-void func_800DD724_F1344_shared_board(void) {
+static void func_800DD724_F1344_shared_board(void) {
     Vec sp10;
     GW_PLAYER* temp_s4;
     Object* temp_v0;
@@ -1197,7 +1171,7 @@ void func_800DD724_F1344_shared_board(void) {
     omDelPrcObj(NULL);
 }
 
-void func_800DDBC8_F17E8_shared_board(void* arg0) {
+static void func_800DDBC8_F17E8_shared_board(void* arg0) {
     Process* temp_v0;
 
     mbItemBtnF = 0;
@@ -1208,7 +1182,7 @@ void func_800DDBC8_F17E8_shared_board(void* arg0) {
     mbItemBtnF = 1;
 }
 
-void func_800DDC3C_F185C_shared_board(void) {
+static void func_800DDC3C_F185C_shared_board(void) {
     UnkCoinProc *work;
     s32 timer;
 
@@ -1266,7 +1240,7 @@ Process* func_800DDDD4_F19F4_shared_board(s32 arg0) {
     return temp_v0;
 }
 
-void func_800DDE3C_F1A5C_shared_board(void) {
+static void func_800DDE3C_F1A5C_shared_board(void) {
     UnkCoinProc *work;
     f32 scale, amp, angle;
     s32 grp, anim, motion;
@@ -1385,8 +1359,8 @@ Process* func_800DE414_F2034_shared_board(s32 arg0, s32 arg1) {
     Process* temp_v0;
     UnkCoinProc* temp_v0_2;
 
-    temp_v0 = omAddPrcObj(func_800DDE3C_F1A5C_shared_board, 0U, 0, 0x40);
-    temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, 0x10);
+    temp_v0 = omAddPrcObj(func_800DDE3C_F1A5C_shared_board, 0, 0, 0x40);
+    temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkCoinProc));
     temp_v0->user_data = temp_v0_2;
     temp_v0_2->playerNo = arg0;
     temp_v0_2->state = 0;
@@ -1395,7 +1369,7 @@ Process* func_800DE414_F2034_shared_board(s32 arg0, s32 arg1) {
     return temp_v0;
 }
 
-void func_800DE48C_F20AC_shared_board(void) {
+static void func_800DE48C_F20AC_shared_board(void) {
     Object* temp_v0;
     Object* temp_s0;
     f32 var_f20;
@@ -1419,11 +1393,11 @@ void func_800DE48C_F20AC_shared_board(void) {
     omDelPrcObj(NULL);
 }
 
-void func_800DE5B0_F21D0_shared_board(void* arg0) {
-    omAddPrcObj(func_800DE48C_F20AC_shared_board, 0x4800U, 0, 0)->user_data = arg0;
+static void func_800DE5B0_F21D0_shared_board(void* arg0) {
+    omAddPrcObj(func_800DE48C_F20AC_shared_board, 0x4800, 0, 0)->user_data = arg0;
 }
 
-void func_800DE5EC_F220C_shared_board(void) {
+static void func_800DE5EC_F220C_shared_board(void) {
     UnkCoinProc *work;
     s32 i;
 
@@ -1528,6 +1502,7 @@ void func_800DE97C_F259C_shared_board(s8 arg0) {
     D_8010570F_11932F_shared_board = arg0;
 }
 
+//unused
 void func_800DE988_F25A8_shared_board(s32 arg0, s32 arg1) {
     D_800CDBD0_CE7D0[arg0].rollValueIdx = arg1;
 }
@@ -1536,7 +1511,7 @@ void func_800DE9AC_F25CC_shared_board(s32 arg0, s32 arg1) {
     D_8010570E_11932E_shared_board = arg1;
 }
 
-void func_800DE9B8_F25D8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+static void func_800DE9B8_F25D8_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     UnkDiceRelated *entry;
 
     entry = &D_800CDBD0_CE7D0[arg0];
@@ -1581,7 +1556,7 @@ void func_800DEB50_F2770_shared_board(void) {
     omDelPrcObj(NULL);
 }
 
-void func_800DEBF0_F2810_shared_board(void) {
+static void func_800DEBF0_F2810_shared_board(void) {
     f32 var_f20 = 127.0f;
     
     func_8004A9DC_4B5DC(0x7F);
@@ -1603,5 +1578,3 @@ void func_800DEC90_F28B0_shared_board(void) {
 void func_800DECBC_F28DC_shared_board(void) {
     omAddPrcObj(func_800DEB50_F2770_shared_board, 0xEFFF, 0, 0);
 }
-
-// INCLUDE_RODATA("asm/nonmatchings/overlays/ovl_80_shared_board/EE660", D_80102070_115C90_shared_board);

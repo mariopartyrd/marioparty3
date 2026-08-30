@@ -8,8 +8,6 @@ typedef struct TelopData {
 } TelopData;
 
 void func_80049FB8_4ABB8(void);
-void MBItemWarpBlockSwap(void);
-void MBItemWarpBlockSwapInit(void);
 void func_800E9AF0_FD710_shared_board(Vec *, s32);
 void MBPlayerPosMasuSet(s16, s16);
 void MBPlayerMasuSwap(s16, s16);
@@ -24,18 +22,27 @@ void MBMasuCurSet(s16);
 void MBStatusItemIconSprReinit(s32);
 void func_8003B128_3BD28(char*);
 void func_8005FBA4_607A4(u8 *, s32);
-void MBTelopMain(void);
-extern void MBGuideCameraCreate(void);
-extern void MBGuideMain(void);
 s32 func_80060880_61480(s32 arg0, s32 arg1, s32 arg2);
 extern void func_8008EBD0_8F7D0(f32, f32*, f32*);
 void func_800610E0_61CE0(s16);
+void func_800FC938_110558_shared_board(void);
+f32 HuMathSin(f32);
+void MBStatusItemScaleSet(s32, s32, f32, f32);
+void func_800DC06C_EFC8C_shared_board(void);
+void func_800DC0E0_EFD00_shared_board(s32 playerNo);
+void func_800FC7C8_1103E8_shared_board(void);
+static void MBItemKSuitEnd(void);
+s16 func_8003A308_3AF08(char* arg0, char* arg1, s32 arg2, s16 arg3, u16 arg4);
+s32 func_800F52C4_108EE4_shared_board(void);
+void MBMgCallListCreate(s32);
 
+extern char* D_80101170_114D90_shared_board[];
+extern Vec D_8010125C_114E7C_shared_board;
+extern s8 D_80101194_114DB4_shared_board[];
 extern f32 D_80102D94_1169B4_shared_board;
 extern u8 D_80102D36_116956_shared_board;
 extern s16 D_80102C50_116870_shared_board;
 extern s16 D_80102C52_116872_shared_board;
-
 extern f32 D_801049F8_118618_shared_board[2];
 extern s32 D_80101060_114C80_shared_board[];
 extern s32 D_801010F8_114D18_shared_board[];
@@ -57,6 +64,23 @@ extern Vec D_80102D6C_11698C_shared_board;
 extern Vec D_80102D78_116998_shared_board;
 extern Vec D_80102D84_1169A4_shared_board;
 extern Vec D_80102D90_1169B0_shared_board;
+extern Object* D_80102D54_116974_shared_board;
+extern s16 D_80102CE0_116900_shared_board[];
+extern s32 D_80102D58_116978_shared_board;
+extern s8 D_8010118C_114DAC_shared_board[];
+
+typedef struct SomeStruct {
+    u8 unk_00[10];
+} SomeStruct;
+
+extern SomeStruct D_80102250_115E70_shared_board;
+extern s32 D_80102D50_116970_shared_board;
+
+typedef struct SomeStruct2 {
+    u16 unk_00[8];
+} SomeStruct2;
+
+extern SomeStruct2 D_8010225C_115E7C_shared_board;
 
 // s32 D_80100F90_114BB0_shared_board = -1;
 // s8 D_80100F94_114BB4_shared_board[] = {5, 5, 5, 5, 5, 5, 10, 10, 10, 10, 10, 15, 10, 10, 20, -1, -1, -1, -1, 30};
@@ -81,7 +105,7 @@ s16 func_800E22CC_F5EEC_shared_board(s32 arg0, s32 arg1) {
     return ((arg1 ^ arg0) << 0x10) != 0;
 }
 
-void func_800E22DC_F5EFC_shared_board(s16 arg0, s16 arg1) {
+static void func_800E22DC_F5EFC_shared_board(s16 arg0, s16 arg1) {
     if (arg1 == MBPlayerTurnGet()) {
         D_80102C50_116870_shared_board = arg1;
         D_80102C52_116872_shared_board = arg0;
@@ -96,7 +120,7 @@ s32 MBItemWarpBlockSwapPlayerSet(s16 arg0) {
     return 1;
 }
 
-void MBItemWarpBlockSwap(void) {
+static void MBItemWarpBlockSwap(void) {
     GW_PLAYER *temp_s4;
     GW_PLAYER *temp_s5;
     GW_PLAYER *playerCopy;
@@ -355,8 +379,6 @@ s32 MBItemKettouExec(void) {
     return 1;
 }
 
-void func_800FC938_110558_shared_board(void);
-
 s32 MBItemWarpBlockExec(void) {
     GW_PLAYER *temp_s0;
     GW_SYSTEM *system = &GwSystem;
@@ -518,7 +540,7 @@ extern Unk3* D_801010DC_114CFC_shared_board;
 extern Unk3* D_801010E0_114D00_shared_board;
 extern Unk3* D_801010E4_114D04_shared_board;
 
-void MBItemHelpCreate(void) {
+static void MBItemHelpCreate(void) {
     D_801010E4_114D04_shared_board = func_800E210C_F5D2C_shared_board(0, 0x84, 0);
     D_801010D0_114CF0_shared_board = func_800E210C_F5D2C_shared_board(0xE, 0x92, 0);
     D_801010D4_114CF4_shared_board = func_800E210C_F5D2C_shared_board(4, 0xA0, 0);
@@ -527,7 +549,7 @@ void MBItemHelpCreate(void) {
     D_801010E0_114D00_shared_board = func_800E210C_F5D2C_shared_board(0xF, 0xCA, 0);
 }
 
-void func_800E3584_F71A4_shared_board(void) {
+static void func_800E3584_F71A4_shared_board(void) {
     if (D_801010D0_114CF0_shared_board != NULL) {
         MBHelpWinKill(D_801010E4_114D04_shared_board);
         MBHelpWinKill(D_801010D0_114CF0_shared_board);
@@ -539,11 +561,8 @@ void func_800E3584_F71A4_shared_board(void) {
     }
 }
 
-f32 HuMathSin(f32);
-void MBStatusItemScaleSet(s32, s32, f32, f32);
-
 // does pulsing effect of item when hovering over it as an item to use
-void MBItemScaleEff(void) {
+static void MBItemScaleEff(void) {
     f32 temp_f0;
     f32 var_f20;
     s32 *temp_s0;
@@ -570,7 +589,7 @@ void MBItemScaleEff(void) {
     omDelPrcObj(0);
 }
 
-void MBItemScaleEffCreate(void) {
+static void MBItemScaleEffCreate(void) {
     if (MBItemFindEmpty(-1) != 0) {
         HuSprAttrReset(mbItemCursorGrpId, 0, 0x8000);
         omAddPrcObj(MBItemScaleEff, 0x1005U, 0, 0)->user_data = &D_80102CB4_1168D4_shared_board;
@@ -578,7 +597,7 @@ void MBItemScaleEffCreate(void) {
 }
 
 // function that runs immediately when pressing "B" to use an item
-void MBItemSel(void) {
+static void MBItemSel(void) {
     f32 sp10[2];
     s32 sp1C;
     s32 prevSelectedItemSlot;
@@ -734,10 +753,6 @@ void MBItemSel(void) {
     omDelPrcObj(NULL);
 }
 
-void func_800DC06C_EFC8C_shared_board(void);
-void func_800DC0E0_EFD00_shared_board(s32 playerNo);
-void func_800FC7C8_1103E8_shared_board(void);
-
 void MBItemSelExec(s32 playerNo, s32 arg1) {
     Process* temp_s2;
     Process* temp_v0;
@@ -763,7 +778,7 @@ void MBItemSelExec(s32 playerNo, s32 arg1) {
     func_800FC7C8_1103E8_shared_board();
 }
 
-void MBItemView(void) {
+static void MBItemView(void) {
     s32 playerIdx;
     s32 padNo;
 
@@ -813,7 +828,7 @@ void MBItemViewExec(s32 playerNo) {
     D_800CB99C_CC59C = 0;
 }
 
-void MBItemDesc(void) {
+static void MBItemDesc(void) {
     s16 sp18[2];
     s16 temp_v0_2;
     s32 playerNo;
@@ -979,7 +994,7 @@ void MBItemKSuitWalkExec(void) {
     }
 }
 
-void MBItemKSuitEnd(void) {
+static void MBItemKSuitEnd(void) {
     s32 curPlayerIndex = GwSystem.current_player_index;
     if (GwPlayer[curPlayerIndex].itemTurn) {
         MBItemSubFunctions[IFUNC_BOWSER_SUIT_END]();
@@ -1104,7 +1119,7 @@ void MBTelopClose(void) {
 }
 
 
-void MBTelopLast5Main(omObjData *obj) {
+static void MBTelopLast5Main(omObjData *obj) {
     s32 i;
     f32 scale;
 
@@ -1136,7 +1151,7 @@ void MBTelopLast5Main(omObjData *obj) {
     }
 }
 
-void MBTelopPlayerMain(omObjData* arg0) {
+static void MBTelopPlayerMain(omObjData* arg0) {
     GW_PLAYER* player;
     s32 i;
 
@@ -1207,12 +1222,7 @@ void MBTelopPlayerMain(omObjData* arg0) {
     }
 }
 
-extern Object* D_80102D54_116974_shared_board;
-extern s16 D_80102CE0_116900_shared_board[];
-extern s32 D_80102D58_116978_shared_board;
-extern s8 D_8010118C_114DAC_shared_board[];
-
-void MBTelopMgTypeMain(omObjData *obj) {
+static void MBTelopMgTypeMain(omObjData *obj) {
     s32 i;
 
     if (obj->work[3] != 0) {
@@ -1253,14 +1263,7 @@ void MBTelopMgTypeMain(omObjData *obj) {
     }
 }
 
-typedef struct SomeStruct {
-    u8 unk_00[10];
-} SomeStruct;
-
-extern SomeStruct D_80102250_115E70_shared_board;
-extern s32 D_80102D50_116970_shared_board;
-
-void MBTelopLast5Create(void) {
+static void MBTelopLast5Create(void) {
     omObjData *obj;
     void *data;
     SomeStruct sp18 = D_80102250_115E70_shared_board;
@@ -1308,13 +1311,7 @@ void MBTelopLast5Create(void) {
     obj->work[0] = 0;
 }
 
-typedef struct SomeStruct2 {
-    u16 unk_00[8];
-} SomeStruct2;
-
-extern SomeStruct2 D_8010225C_115E7C_shared_board;
-
-void MBTelopPlayerCreate(s32 arg0) {
+static void MBTelopPlayerCreate(s32 arg0) {
     omObjData* temp_v0_2;
     void* temp_v0;
     SomeStruct2 sp18 = D_8010225C_115E7C_shared_board;
@@ -1358,13 +1355,6 @@ void MBTelopPlayerKill(void) {
     D_80102D40_116960_shared_board = 0;
     D_80102D36_116956_shared_board &= ~(0x20 | 0x10 | 0x08 | 0x04);
 }
-
-extern char* D_80101170_114D90_shared_board[];
-extern Vec D_8010125C_114E7C_shared_board;
-extern s8 D_80101194_114DB4_shared_board[];
-s16 func_8003A308_3AF08(char* arg0, char* arg1, s32 arg2, s16 arg3, u16 arg4);
-s32 func_800F52C4_108EE4_shared_board(void);
-void MBMgCallListCreate(s32);
 
 void MBTelopMgTypeCreate(s32 arg0, u32 arg1) {
     f32 sp18[2];
@@ -1427,7 +1417,7 @@ void MBTelopMgTypeKill(void) {
     D_80102D36_116956_shared_board &= ~(0x20 | 0x10 | 0x08 | 0x04); 
 }
 
-void MBTelopMain(void) {
+static void MBTelopMain(void) {
     s32 temp_v0;
     s32 temp_v1;
     TelopData* temp_s0;
@@ -1474,25 +1464,19 @@ Process* MBTelopCreate(s32 playerNo) {
     return proc;
 }
 
-void MBGuideCameraCreate(void) {
+static void MBGuideCameraCreate(void) {
     Hu3DCamSetPerspective(1, 40.0f, 80.0f, 8000.0f);
     Hu3DCamSetPositionOrientation(1, &D_80102D60_116980_shared_board, &D_80102D6C_11698C_shared_board, &D_80102D78_116998_shared_board);
     Hu3DCamUpdateMtx(1);
     CameraViewportSet(1, &D_80102D84_1169A4_shared_board, &D_80102D90_1169B0_shared_board);
 }
 
-void MBGuideMain(void) {
+static void MBGuideMain(void) {
     while (1) {
         MBGuideCameraCreate();
         HuPrcVSleep();       
     }
 }
-
-extern Vec D_80102D60_116980_shared_board;
-extern Vec D_80102D6C_11698C_shared_board;
-extern Vec D_80102D78_116998_shared_board;
-extern Vec D_80102D84_1169A4_shared_board;
-extern Vec D_80102D90_1169B0_shared_board;
 
 UnkMBGuideData* MBGuideCreate(u32* arg0, s32 arg1) {
     s32 var_a0;

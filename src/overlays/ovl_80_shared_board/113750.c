@@ -1,7 +1,6 @@
 #include "common.h"
 #include "ovl_80.h"
 
-void func_800FFB30_113750_shared_board(omObjData*);
 void func_800E6FCC_FABEC_shared_board(void);
 extern omObjData* D_801056C0_1192E0_shared_board;
 extern UnkBoard8* D_801056C4_1192E4_shared_board;
@@ -14,28 +13,28 @@ f32 D_80101E90_115AB0_shared_board[] = {
     0.9f, 0.9f, 1.2f, 1.1f, 1.1f, 1.5f, 0.9f, 1.2f,
 };
 
-s16 D_80101EB0_115AD0_shared_board[][2] = {
+s16 D_80101EB0_115AD0_shared_board[MB_MAX_PLAYERS][2] = {
     { 34, 128 },
     { 286, 128 },
     { 160, 24 },
     { 160, 216 }
 };
 
-s16 D_80101EC0_115AE0_shared_board[][2] = {
+s16 D_80101EC0_115AE0_shared_board[MB_MAX_PLAYERS][2] = {
     {0x0092, 0x0080},
     {0x00AE, 0x0080},
     {0x00A0, 0x006C},
     {0x00A0, 0x0084}
 };
 
-s16 D_80101ED0_115AF0_shared_board[][2] = {
+s16 D_80101ED0_115AF0_shared_board[MB_MAX_PLAYERS][2] = {
     { -16, 0 },
     { 16, 0 },
     { 0, -12 },
     { 0, 12 }
 };
 
-f32 D_80101EE0_115B00_shared_board[] = {
+f32 D_80101EE0_115B00_shared_board[MB_MAX_PLAYERS] = {
     90.0f, -90.0f, 0.0f, 180.0f
 };
 
@@ -64,7 +63,7 @@ s32 D_80101F10_115B30_shared_board[] = {
 extern UnkBoard8* D_801056C4_1192E4_shared_board;
 extern s16 D_801056C8_1192E8_shared_board[][2];
 
-void func_800FFB30_113750_shared_board(omObjData* arg0) {
+static void func_800FFB30_113750_shared_board(omObjData* arg0) {
     s32 i;
     for (i = 0; i < 4; i++) {
         D_801056C8_1192E8_shared_board[i][0] += D_80101ED0_115AF0_shared_board[i][0];
@@ -97,7 +96,7 @@ void func_800FFB30_113750_shared_board(omObjData* arg0) {
     }
 }
 
-UnkBoard8* func_800FFD0C_11392C_shared_board(void) {
+static UnkBoard8* func_800FFD0C_11392C_shared_board(void) {
     UnkBoard8* temp_v0;
     s32 i;
     void* temp_s4;
@@ -106,7 +105,7 @@ UnkBoard8* func_800FFD0C_11392C_shared_board(void) {
     D_801056C4_1192E4_shared_board = temp_v0;
     temp_s4 = DataRead(0x1301D4);
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         temp_v0->model[i] = func_80055810_56410(temp_s4);
         func_80055024_55C24(temp_v0->spriteGroup, i, temp_v0->model[i], 0);
         HuSprPriSet(temp_v0->spriteGroup, i, 0U);
@@ -123,15 +122,15 @@ UnkBoard8* func_800FFD0C_11392C_shared_board(void) {
     return temp_v0;
 }
 
-void func_800FFE90_113AB0_shared_board(UnkBoard8* arg0) {
+static void func_800FFE90_113AB0_shared_board(UnkBoard8* arg0) {
     omDelObj(D_801056C0_1192E0_shared_board);
     func_800F2CA4_1068C4_shared_board(arg0);
 }
 
-void func_800FFEC4_113AE4_shared_board(UnkBoard8* arg0, u16 arg1) {
+static void func_800FFEC4_113AE4_shared_board(UnkBoard8* arg0, u16 arg1) {
     s32 i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         if ((arg1 >> i) & 1) {
             HuSprAttrSet(arg0->spriteGroup, i, 0x8000);
         } else {
@@ -145,7 +144,7 @@ void func_800FFF44_113B64_shared_board(void) {
     s32 i;
     Object* temp_a0_2;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         temp_a1 = MBPlayerGet(i);
         if (GwPlayer[i].itemTurn != 0) {
             D_801056D8_1192F8_shared_board[i] = MBModelFileCreate(D_80101F10_115B30_shared_board[temp_a1->chr], 9, 1.0f, D_80101E90_115AB0_shared_board[temp_a1->chr], NULL);
@@ -157,14 +156,14 @@ void func_800FFF44_113B64_shared_board(void) {
         Hu3DModelScaleSet(D_801056D8_1192F8_shared_board[i]->omObj2->model[0], 0.0f, 0.0f, 0.0f);
     }
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         temp_a1 = MBPlayerGet(i);
         temp_a0_2 = temp_a1->player_obj;
         temp_a1->player_obj = D_801056D8_1192F8_shared_board[i];
         D_801056D8_1192F8_shared_board[i] = temp_a0_2; 
     }
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
         MBPlayerPosFixSet(i, 1);
     }
 
@@ -175,7 +174,7 @@ void func_800FFF44_113B64_shared_board(void) {
         MBModelDispOff(D_801011FC_114E1C_shared_board);
     }
     
-    for (i = 0; i < 4; i++){
+    for (i = 0; i < MB_MAX_PLAYERS; i++){
         MBModelDispOff(D_801056D8_1192F8_shared_board[i]);
     }
 }
@@ -205,16 +204,16 @@ void func_80100130_113D50_shared_board(void) {
     }
 }
 
-void func_8010020C_113E2C_shared_board(void) {
+static void func_8010020C_113E2C_shared_board(void) {
     func_800FFF44_113B64_shared_board();
 }
 
-void func_80100228_113E48_shared_board(void) {
+static void func_80100228_113E48_shared_board(void) {
     func_80100130_113D50_shared_board();
     MBStatusShowAll();
 }
 
-void func_8010024C_113E6C_shared_board(void) {
+static void func_8010024C_113E6C_shared_board(void) {
     Vec2f sp10;
     Unk3* temp_s6;
     Unk3* var_s4;
@@ -336,7 +335,7 @@ void func_8010024C_113E6C_shared_board(void) {
 }
 
 
-void func_80100630_114250_shared_board(void) {
+static void func_80100630_114250_shared_board(void) {
     while (1) {
         MBCameraPos3DSet(&GwPlayer[GwSystem.current_player_index].player_obj->coords);
         HuPrcVSleep();        

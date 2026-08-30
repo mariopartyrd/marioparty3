@@ -13,23 +13,6 @@ typedef struct UnkStarWork {
     /* 0x0C */ Vec unk_0C;
 } UnkStarWork; /* size >= 0x18 */
 
-typedef struct DecisionTreeNonLeafNode {
-    u8 type;
-    union {
-        s32 (*func) ();
-        u32 data;
-        s32 signed_data;
-        u16 data_u16[2];
-        u8 data_u8[4];
-        s8 data_s8[4];
-    } node_data1;
-    union {
-        u32 data;
-        struct DecisionTreeNonLeafNode *node_data;
-        u8 data_u8[4];
-    } node_data2;
-} DecisionTreeNonLeafNode;
-
 typedef struct UnkChillyWaters {
     Vec coords;
     f32 unk_0C;
@@ -78,11 +61,9 @@ void func_800D7790_EB3B0_shared_board(s8 arg0, Vec* arg1, s16 arg2, s16 arg3);
 void func_80109E84_31F9F4_ChillyWaters(void);
 void func_80109EB4_31FA24_ChillyWaters(void);
 void func_800EBF98_FFBB8_shared_board(s16, s32);
-s32 MBItemFind(s32 playerNo, s32 itemID);
 void MBStatusItemIconSprReinit(s32);
 void func_800ED20C_100E2C_shared_board(s16 playerNo, s32 arg1, s16 masuAbsIndex);
 s32 MB1Ev_YesNoChoiceGet(DecisionTreeNonLeafNode *arg0, s32 arg1);
-s32 MBItemFind(s32, s32);
 void func_801127D8_328348_ChillyWaters(void);
 void func_8010F1E4_324D54_ChillyWaters(omObjData*);
 void func_800D9A40_ED660_shared_board(Object* arg0);
@@ -110,7 +91,7 @@ void MB1Ev_ShopMasu(void);
 void func_80110E08_326978_ChillyWaters(void);
 void func_8010A474_31FFE4_ChillyWaters(void);
 s32 MB1Ev_YesNoChoiceGet(DecisionTreeNonLeafNode *arg0, s32 arg1);
-s32 MBItemFind(s32 player, s32 item);
+s32 MBItemFind(s32 playerNo, s32 item);
 void MBStatusItemIconSprReinit(s32 player);
 void MBVecNormalize(Vec *arg0);
 void func_800D9A40_ED660_shared_board(Object *arg0);
@@ -133,10 +114,23 @@ void MBDlgWinClose(void);
 void MBDlgWinKill(void);
 void func_8001C92C_1D52C(s16 model, f32 arg1);
 void func_8001C6A8_1D2A8(s32 model, f32 arg1);
-void func_800FCA4C_11066C_shared_board(void);
 void func_800DA778_EE398_shared_board(s32);
 void func_800DA778_EE398_shared_board(s32);
+void MBCameraFocusModeSet(s16 arg0);
+void MBCameraFocusStaticPosSet(Vec *arg0);
+void MBStatusItemIconSprReinit(s32);
+void func_800D9A40_ED660_shared_board(Object* arg0);
+void func_800FC998_1105B8_shared_board(void);
+void func_800FF7F0_113410_shared_board(s32 unusedArg0);
+void func_8010A3B8_31FF28_ChillyWaters(s16 arg0, s32 arg1, s16 arg2, s32 arg3);
+void func_8010FE54_3259C4_ChillyWaters(void);
+void func_80114650_32A1C0_ChillyWaters(void);
 
+extern u16 D_8011E49C_33400C_ChillyWaters[][2];
+extern Object* D_8011FB78_3356E8_ChillyWaters;
+extern u8 D_8011E494_334004_ChillyWaters[];
+extern u8 D_8011E498_334008_ChillyWaters[];
+extern s32 D_8011E490_334000_ChillyWaters;
 extern DecisionTreeNonLeafNode D_8011F2F4_334E64_ChillyWaters;
 extern DecisionTreeNonLeafNode D_8011F600_335170_ChillyWaters;
 extern DecisionTreeNonLeafNode D_8011F0E4_334C54_ChillyWaters;
@@ -3544,7 +3538,208 @@ void func_80114590_32A100_ChillyWaters(void) {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80114650_32A1C0_ChillyWaters);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ItemGambleCoin);
+void MB1Ev_ItemGambleCoin(void) {
+    s32 sp20;
+    GW_SYSTEM* system = &GwSystem;
+    Object* temp_s3;
+    Object* temp_v0;
+    Object* temp_v0_2;
+    Process* temp_s4;
+    s32 temp_a0;
+    s32 var_s1;
+    s32 sel;
+    s32 i;
+    u32 var_v1_3;
+
+    func_8010FE54_3259C4_ChillyWaters();
+    GwPlayer[system->current_player_index].itemNo[MBItemFind(-1, 0x11)] = -1;
+    MBItemRemoveEmpty(system->current_player_index);
+    MBStatusItemIconSprReinit(system->current_player_index);
+    MBStatusShrink(-1);
+    MBStatusItemDispSetAll(0);
+    MBStatusGrow(-1);
+    temp_v0 = MBModelCreate(0x3EU, NULL);
+    Hu3DModelScaleSet(temp_v0->omObj1->model[0], 0.0f, 0.0f, 0.0f);
+    MBModelTempAllocFree(temp_v0);
+    temp_v0->velocity.x = 30.0f;
+    MBModelDispOff(temp_v0);
+    temp_v0_2 = MBModelCreate(0x43U, NULL);
+    D_8011FB78_3356E8_ChillyWaters = temp_v0_2;
+    func_8001C2FC_1CEFC(temp_v0_2->omObj1->model[0], 0x20000, 0x20000);
+    func_8001C448_1D048(temp_v0_2->omObj1->model[0]);
+    func_8001C954_1D554(temp_v0_2->omObj1->model[0]);
+    func_8001C514_1D114(temp_v0_2->omObj1->model[0]);
+    HuVecCopy3F(&temp_v0_2->coords, &MBPlayerGet(-1)->player_obj->coords);
+    func_8001C814_1D414(temp_v0_2->omObj1->model[0], 2, 1);
+    temp_v0_2->velocity.x = 100.0f;
+    HuAudFXPlay(0x14B);
+    while (temp_v0_2->velocity.x > 30.0f) {
+        temp_v0_2->velocity.x -= 1.0f;
+        HuPrcVSleep();
+    } 
+loop:
+    MBDlgWinInsertCreate(-1, 0x5C00, GwPlayer[0].chr + 0x1C00, GwPlayer[1].chr + 0x1C00, GwPlayer[2].chr + 0x1C00, GwPlayer[3].chr + 0x1C00, 0);
+    sel = MB1Ev_YesNoChoiceGet(NULL, 0);
+    MBDlgWinClose();
+    MBDlgWinKill();
+
+    switch(sel) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+            break;
+        case 4:
+            sel = func_800EF0D8_102CF8_shared_board(0);
+            break;
+        default:
+            MB1_MapScrollCancel();
+            D_800CB99C_CC59C = 1;
+            func_80049FB8_4ABB8();
+            goto loop;
+    }
+
+    sp20 = 1;
+    omAddPrcObj(func_80114650_32A1C0_ChillyWaters, 0x4002U, 0, 0)->user_data = &sp20;
+    while(sp20) {
+        HuPrcVSleep();
+    }
+    
+    if (sel != system->current_player_index) {
+        WipeCreateOut(0, 0x10);
+        HuPrcSleep(0x10);
+        D_8011E490_334000_ChillyWaters = sel;
+        MBCameraFocusModeSet(2);
+        MBCameraFocusStaticPosSet(&MBPlayerGet(sel)->player_obj->coords);
+        MBCameraPos3DSet(&MBPlayerGet(sel)->player_obj->coords);
+        HuPrcVSleep();
+        HuPrcSleep(0xA);
+        WipeCreateIn(0, 0x10);
+        HuPrcSleep(0x10);
+    } else {
+        HuPrcSleep(0x1E);
+        D_8011E490_334000_ChillyWaters = sel;
+    }
+    sp20 = 1;
+    while (sp20) {
+        HuPrcVSleep();
+    }
+    
+    temp_s3 = MBPlayerGet(sel)->player_obj;
+    temp_s4 = func_800EDB98_1017B8_shared_board(temp_v0, 5.0f, 2.0f);
+    HuVecCopy3F(&temp_v0->coords, &temp_s3->coords);
+    func_800D9A40_ED660_shared_board(temp_v0);
+    temp_v0->scale.x = temp_v0->scale.y = temp_v0->scale.z = 0.0f;
+    while (temp_v0->scale.x < 1.0f) {
+        temp_v0->scale.x = temp_v0->scale.y = temp_v0->scale.z += 0.2f;
+        HuPrcVSleep();
+    }
+    MBPlayerVibrate(sel, 4);
+    HuAudFXPlay(0x2A1);
+    if (GwPlayer[sel].coin != 0) {
+        func_8010A3B8_31FF28_ChillyWaters(0xA, 0x2F00, -1, sel);
+        GwPlayer[sel].gameCoin = GwPlayer[sel].coin;
+        MBCoinChangeCreate(sel, -GwPlayer[sel].coin);
+        MBCoinTakeCreate(sel, -GwPlayer[sel].coin);
+        HuPrcSleep(0x1E);
+        func_8010A3B8_31FF28_ChillyWaters(0xA, 0x2F02, -1, sel);
+        omDelPrcObj(temp_s4);
+        while(10.0f <= temp_v0->velocity.x) {
+            temp_v0->velocity.x -= 2.0f;
+            HuPrcVSleep();
+        }
+        HuPrcSleep(0x1E);
+        while (temp_v0->velocity.x < 100.0f) {
+            temp_v0->velocity.x += 4.0f;
+            temp_s3->velocity.x += 4.0f;
+            HuPrcVSleep();
+        }
+    } else {
+        func_8010A3B8_31FF28_ChillyWaters(0xA, 0x2F01, -1, sel);
+        omDelPrcObj(temp_s4);
+            while (temp_v0->velocity.x <= 100.0f) {
+                temp_v0->velocity.x += 4.0f;
+                HuPrcVSleep();
+            } 
+        MBModelKill(temp_v0);
+        WipeCreateOut(9, 0x10);
+        HuPrcSleep(0x11);
+        MBCameraFocusModeSet(1);
+        MBCameraPos3DSet(&MBPlayerGet(-1)->player_obj->coords);
+        HuPrcSleep(5);
+        WipeCreateIn(9, 0x10);
+        HuPrcSleep(0x11);
+        return;
+    }
+    
+    if ((MBPlayerComCheck(sel) != 0) && (system->show_com_minigames != 0)) {
+        WipeCreateOut(9, 0x10);
+        HuPrcSleep(0x11);
+        MBModelKill(temp_v0);
+        func_800EE688_1022A8_shared_board(temp_s3, 0.0f, 0.0f);
+        temp_s3->velocity.x = 0.0f;
+        HuPrcSleep(5);
+        WipeCreateIn(9, 0x10);
+        HuPrcSleep(0x11);
+        temp_a0 = MBRand(100.0f) + 1;
+        for (i = 0; i < 7; i++) {
+            if (D_8011E49C_33400C_ChillyWaters[i][1] >= temp_a0) {
+                break;
+            }
+        }
+        if (D_8011E49C_33400C_ChillyWaters[i][0] != 0) {
+            char sp28[16]; // required to be here or the codegen changes(?!)
+            
+            var_s1 = GwPlayer[sel].gameCoin * D_8011E49C_33400C_ChillyWaters[i][0];
+            if (var_s1 >= 1000) {
+                var_s1 = 999;
+            }
+            sprintf(sp28, D_8011F8D4_335444_ChillyWaters, var_s1);
+            MBDlgWinInsertCreate(-1, 0x2F03, (s32)sp28, 0, 0, 0, 0);
+            MBDlgWinClose();
+            MBDlgWinKill();
+            MBCoinChangeCreate(sel, var_s1);
+            MBCoinTakeCreate(sel, var_s1);
+            HuPrcSleep(0x14);
+        } else {
+            MBDlgWinExec(-1, 0x2F04);
+        }
+        HuPrcSleep(0xA);
+        WipeCreateOut(9, 0x10);
+        HuPrcSleep(0x11);
+        MBCameraFocusModeSet(1);
+        MBCameraPos3DSet(&MBPlayerGet(-1)->player_obj->coords);
+        HuPrcSleep(5);
+        WipeCreateIn(9, 0x10);
+        HuPrcSleep(0x11);
+    } else {
+        if (func_800DEB2C_F274C_shared_board(system->current_player_index) == 3) {
+            GWBoardFlagSet(0x17);
+        } else {
+            GWBoardFlagClear(0x17);
+        }
+        for (i = 0; i < 4; i++) {
+            GwPlayer[i].group = 1;
+        }
+        MBPlayerGet(sel)->group = 0;
+        temp_a0 = MBRand(100.0f);
+        for(var_v1_3 = 0; var_v1_3 < 3; var_v1_3++) {
+            if (temp_a0 < D_8011E498_334008_ChillyWaters[var_v1_3]) {
+                break;
+            }
+        }
+    
+        if (var_v1_3 == 3) {
+            var_v1_3 = 2;
+        }
+        system->minigame_index = D_8011E494_334004_ChillyWaters[var_v1_3];
+        GwSystem.playerIndexVisitingBowser = sel;
+        func_800FC998_1105B8_shared_board();
+        func_8004A0E0_4ACE0();
+        func_800FF7F0_113410_shared_board(2);
+        HuPrcSleep(-1);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_After5ItemMove);
 

@@ -4,15 +4,12 @@
 UnkBoard2* func_800D6B70_EA790_shared_board(s32);
 UnkEA790Struct* func_800D6C6C_EA88C_shared_board(void);
 void func_800D6D2C_EA94C_shared_board(void*, UnkBoard2*, s32);
-void func_800D7568_EB188_shared_board(UnkBoard2*, Vec*, Vec*, f32);
-void func_800D6EE0_EAB00_shared_board(void);
 s32 func_800D7250_EAE70_shared_board(UnkEA790Struct*, s32);
-void func_800D7280_EAEA0_shared_board(void);
 UnkBoard2* func_800D6EC8_EAAE8_shared_board(UnkEA790Struct*, s16);
 f32 func_800D8DAC_EC9CC_shared_board(Vec*, Vec*);
 s16 func_800ECF18_100B38_shared_board(s16, f32);
 
-void func_800D6EE0_EAB00_shared_board(void) {
+static void func_800D6EE0_EAB00_shared_board(void) {
     s32 mesg;
     s32 ret;
     UnkEA790Struct *work;
@@ -135,7 +132,7 @@ s32 func_800D7250_EAE70_shared_board(UnkEA790Struct* arg0, s32 arg1) {
     return - 1;
 }
 
-void func_800D7280_EAEA0_shared_board(void) {
+static void func_800D7280_EAEA0_shared_board(void) {
     Vec stick;
     Vec diff;
     UnkEA790Struct *work;
@@ -224,7 +221,7 @@ void func_800D7568_EB188_shared_board(UnkBoard2* arg0, Vec* arg1, Vec* arg2, f32
     HuVecAdd(&arg0->obj->coords, &sp10, arg1);
 }
 
-UnkEA790Struct* func_800D75E8_EB208_shared_board(s16 arg0, s16* arg1, s32 arg2) {
+static UnkEA790Struct* func_800D75E8_EB208_shared_board(s16 arg0, s16* arg1, s32 arg2) {
     GW_PLAYER* player;
     UnkBoard2* temp_s0;
     UnkEA790Struct* temp_v0;

@@ -12,13 +12,12 @@ extern s16 D_80102DA0_1169C0_shared_board;
 extern Object* D_80105710_119330_shared_board;
 
 void MBKSuitKill(void);
-void MBKSuitMain(omObjData*);
 void func_80017358_17F58(s16, s32, s16, const char*);
 void func_800EB24C_FEE6C_shared_board(s16 arg0, s8 *chainOut, s8 *linkOut);
 void MBMotionKill(s16 arg0);
 s16 func_800D8E88_ECAA8_shared_board(s32);
 
-void MBKSuitMain(omObjData* arg0) {
+static void MBKSuitMain(omObjData* arg0) {
     GW_PLAYER* player;
 
     player = MBPlayerGet(arg0->work[0]);

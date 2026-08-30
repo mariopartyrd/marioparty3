@@ -15,7 +15,7 @@ void func_800F2A34_106654_shared_board(void) {
     }
 }
 
-UnkBoard8 *func_800F2A74_106694_shared_board(s16 amount) {
+static UnkBoard8 *func_800F2A74_106694_shared_board(s16 amount) {
     UnkBoard8 *temp_v0;
     s32 i;
 
@@ -101,6 +101,7 @@ void func_800F2CA4_1068C4_shared_board(UnkBoard8* arg0) {
     D_80105574_119194_shared_board--;
 }
 
+//unused
 void func_800F2D8C_1069AC_shared_board(UnkBoard8* arg0, s16 member, s16 x, s16 y) {
     arg0->xPositions[member] = x;
     arg0->yPositions[member] = y;

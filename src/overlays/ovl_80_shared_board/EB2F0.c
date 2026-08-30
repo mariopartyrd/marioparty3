@@ -18,12 +18,18 @@ typedef struct StarGlowData {
     s16 y;
 } StarGlowData; //sizeof 0x4
 
-extern UnkBoard6 D_80102708_116328_shared_board[32];
-extern s16 D_80102704_116324_shared_board;
+
 void func_80055484_56084(s16 group, s16 member, u8 arg2, u8 arg3, u8 arg4, u16 arg5);
-void MBMapFullMain(void);
 void func_8004A0E0_4ACE0(void);
 void func_80049FB8_4ABB8(void);
+
+extern UnkBoard6 D_80102708_116328_shared_board[32];
+extern s16 D_80102704_116324_shared_board;
+extern s16 D_801007F4_114414_shared_board[];
+extern s16 D_801007FC_11441C_shared_board[];
+extern s16 D_80102A88_1166A8_shared_board[];
+extern s16 D_80102A90_1166B0_shared_board[];
+extern UnkBoard8* D_80102A98_1166B8_shared_board[];
 
 void func_800D76D0_EB2F0_shared_board(s32 arg0) {
     s32 i;
@@ -65,7 +71,7 @@ void func_800D7790_EB3B0_shared_board(s8 arg0, Vec* arg1, s16 arg2, s16 arg3) {
     HuVecCopy3F(&temp_v1->unk10, arg1);
 }
 
-void MBMapFullStarGlowKill(void) {
+static void MBMapFullStarGlowKill(void) {
     UnkBoard6 *entry;
     s32 i;
     
@@ -80,7 +86,7 @@ void MBMapFullStarGlowKill(void) {
     }
 }
 
-void MBMapFullStarGrow(void) {
+static void MBMapFullStarGrow(void) {
     f32 temp_f0;
     f32 var_f20;
     f32 var_f22;
@@ -116,7 +122,7 @@ void MBMapFullStarGrow(void) {
     }
 }
 
-Process* MBMapFullStarGlowCreate(s16 xPos, s16 yPos) {
+static Process* MBMapFullStarGlowCreate(s16 xPos, s16 yPos) {
     StarGlowData* starGlowData;
     Process* starGlowProc;
 
@@ -128,12 +134,7 @@ Process* MBMapFullStarGlowCreate(s16 xPos, s16 yPos) {
     return starGlowProc;
 }
 
-extern s16 D_801007F4_114414_shared_board[];
-extern s16 D_801007FC_11441C_shared_board[];
-extern s16 D_80102A88_1166A8_shared_board[];
-extern s16 D_80102A90_1166B0_shared_board[];
-
-void MBMapFullLinePosFix(UnkBoard8* arg0, s16 arg1) {
+static void MBMapFullLinePosFix(UnkBoard8* arg0, s16 arg1) {
     Vec sp10;
     f32 vecAngle;
 
@@ -146,8 +147,6 @@ void MBMapFullLinePosFix(UnkBoard8* arg0, s16 arg1) {
     HuSprScaleSet(arg0->spriteGroup, 0, 0.25f, HuSqrtf((sp10.x * sp10.x) + (sp10.z * sp10.z)) / 32.0f);
     func_800552DC_55EDC(arg0->spriteGroup, 0, vecAngle);
 }
-
-extern UnkBoard8* D_80102A98_1166B8_shared_board[];
 
 void MBMapFullLineCreate(void) {
     UnkBoard8* temp_s0;
@@ -187,7 +186,7 @@ void func_800D7D00_EB920_shared_board(void) {
 extern UnkBoard8* D_80102A98_1166B8_shared_board[];
 extern s16 D_80102AA8_1166C8_shared_board;
 
-void MBMapFullLineFlash(void) {
+static void MBMapFullLineFlash(void) {
     UnkBoard8 *entry;
     s16 sel;
     s32 i;
@@ -244,7 +243,7 @@ extern s32 D_80100804_114424_shared_board[];
 extern s32 D_80100824_114444_shared_board[];
 extern s32 D_80105990_1195B0_shared_board;
 
-void MBMapFullMain(void) {
+static void MBMapFullMain(void) {
     Vec2f sp10;
     f32 sp18[2];            /* MBCamera3Dto2D target (sp18/sp1C) */
     s32 userData;        /* sp24 */

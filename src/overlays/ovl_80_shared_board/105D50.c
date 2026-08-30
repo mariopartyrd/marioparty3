@@ -206,7 +206,7 @@ void func_800F244C_10606C_shared_board(s32 playerNo, u8 arg1) {
 void func_800F2484_1060A4_shared_board(s32 arg0) {
 }
 
-void func_800F248C_1060AC_shared_board(void) {
+static void func_800F248C_1060AC_shared_board(void) {
     GW_PLAYER *player = HuPrcCurrentGet()->user_data;
 
     while (1) {
@@ -219,7 +219,7 @@ void func_800F248C_1060AC_shared_board(void) {
 }
 
 // create player sprite
-void MBPlayerModelCreate(s16 playerNo, u32 *arg1, s32 arg2) {
+static void MBPlayerModelCreate(s16 playerNo, u32 *arg1, s32 arg2) {
     GW_PLAYER *player = MBPlayerGet(playerNo);
     Process *proc;
     u8 chr;

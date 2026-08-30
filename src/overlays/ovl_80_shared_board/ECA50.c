@@ -19,12 +19,11 @@ extern Object* D_80102AB0_1166D0_shared_board;
 extern u16 D_80102AB4_1166D4_shared_board;
 extern u8 D_800D6A90_D7690;
 extern s16 D_80102AB8_1166D8_shared_board[128];
-Object* func_800D9004_ECC24_shared_board(void);         /* extern */
-void func_800D93C0_ECFE0_shared_board(omObjData*);  /* extern */
-void func_800D95D0_ED1F0_shared_board(omObjData*);  /* extern */
 void MBKSuitMotionLoad(s32, s32);
+static void func_800D93C0_ECFE0_shared_board(omObjData *playerObj);
+static void func_800D95D0_ED1F0_shared_board(omObjData* arg0);
 
-void func_800D8E30_ECA50_shared_board(void) {
+static void func_800D8E30_ECA50_shared_board(void) {
     s32 i;
     
     for (i = 0; i < ARRAY_COUNT(D_80102AB8_1166D8_shared_board); i++) {
@@ -32,7 +31,7 @@ void func_800D8E30_ECA50_shared_board(void) {
     }
 }
 
-s16 MBMotionLock(s16 arg0) {
+static s16 MBMotionLock(s16 arg0) {
     D_80102AB8_1166D8_shared_board[arg0]++;
     return arg0;
 }
@@ -54,7 +53,7 @@ void MBMotionKill(s16 arg0) {
     }
 }
 
-s16 func_800D8F30_ECB50_shared_board(s16 arg0) {
+static s16 func_800D8F30_ECB50_shared_board(s16 arg0) {
     if (D_80102AB8_1166D8_shared_board[arg0] != 0){
         D_80102AB8_1166D8_shared_board[arg0]++;
         return arg0;
@@ -76,7 +75,7 @@ void MBModelClose(void) {
     }
 }
 
-Object *func_800D9004_ECC24_shared_board(void) {
+static Object *func_800D9004_ECC24_shared_board(void) {
     Object *temp_v0;
 
     temp_v0 = HuMemMemoryAllocTemp(sizeof(Object));
@@ -178,7 +177,7 @@ Object *MBModelFileCreate(s32 arg0, s32 arg1, f32 arg2, f32 arg3, u32 *arg4) {
     return object;
 }
 
-void func_800D93C0_ECFE0_shared_board(omObjData *playerObj) {
+static void func_800D93C0_ECFE0_shared_board(omObjData *playerObj) {
     f32 sp10[2];
     Object *temp_s0;
     UnkObj *temp_s2;
@@ -241,7 +240,7 @@ void func_800D95C4_ED1E4_shared_board(f32 arg0) {
     D_80100D40_114960_shared_board = arg0;
 }
 
-void func_800D95D0_ED1F0_shared_board(omObjData* arg0) {
+static void func_800D95D0_ED1F0_shared_board(omObjData* arg0) {
     f32 var_f20;
     Object* temp_s0;
     UnkObj* temp_s2;
@@ -410,6 +409,7 @@ void MBModelKill(Object* arg0) {
 }
 
 //return 1 if object is found in linked list, 0 if we step the whole linked list and never find it
+//unused
 s32 func_800D9CB0_ED8D0_shared_board(Object* arg0) {
     Object* var_v0;
 
@@ -472,7 +472,7 @@ u16 func_800D9E80_EDAA0_shared_board(Object* arg0) {
     return ret;
 }
 
-void func_800D9ED0_EDAF0_shared_board(omObjData* arg0) {
+static void func_800D9ED0_EDAF0_shared_board(omObjData* arg0) {
     Object* temp_s1;
 
     temp_s1 = arg0->data;
@@ -492,6 +492,7 @@ void func_800D9ED0_EDAF0_shared_board(omObjData* arg0) {
     temp_s1->rot.z = HuMathCos(arg0->scale.y);
 }
 
+//unused
 omObjData* func_800D9F5C_EDB7C_shared_board(Object* arg0, Vec* arg1, s32 arg2) {
     Vec sp18;
     f32 var_f20;

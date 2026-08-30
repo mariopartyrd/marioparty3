@@ -18,7 +18,7 @@ UnkBoard2 *func_800D6B70_EA790_shared_board(s32 arg0) {
     return temp_v0;
 }
 
-void func_800D6C3C_EA85C_shared_board(UnkBoard2* arg0) {
+static void func_800D6C3C_EA85C_shared_board(UnkBoard2* arg0) {
     MBModelKill(arg0->obj);
     HuMemMemoryFreeTemp(arg0);
 }
@@ -88,7 +88,7 @@ void func_800D6D2C_EA94C_shared_board(UnkEA790Struct *arg0, UnkBoard2 *arg1, u16
     }
 }
 
-//Unused?
+//unused
 void func_800D6E00_EAA20_shared_board(UnkEA790Struct *arg0, UnkBoard2* arg1) {
     UnkBoard2 **newList;
     UnkBoard2 **dst;

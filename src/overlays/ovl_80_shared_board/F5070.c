@@ -1,10 +1,6 @@
 #include "common.h"
 #include "ovl_80.h"
 
-void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1);
-void MBCoinChangeKill(s32);
-void MBCoinChangeKill(s32);
-
 #define UNK_SIZE 4
 #define UNK_SIZE2 2
 
@@ -14,7 +10,9 @@ extern u8 D_80102C48_116868_shared_board;
 extern s16 D_80102C28_116848_shared_board[UNK_SIZE][UNK_SIZE2];
 extern omObjData *D_80102C38_116858_shared_board[UNK_SIZE];
 
-void func_800E1450_F5070_shared_board(omObjData *arg0) {
+static void MBCoinChangeKill(s32 arg0);
+
+static void func_800E1450_F5070_shared_board(omObjData *arg0) {
     Vec sp10;
     f32 sp20[2];
     s32 i;
@@ -81,7 +79,7 @@ void MBCoinChangeInit(void) {
     }
 }
 
-void MBCoinChangeKill(s32 arg0) {
+static void MBCoinChangeKill(s32 arg0) {
     s32 i;
 
     if (D_80102C20_116840_shared_board[arg0] != -1) {
@@ -109,7 +107,7 @@ void func_800E18FC_F551C_shared_board(void) {
     }
 }
 
-void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
+static void func_800E1934_F5554_shared_board(s32 arg0, s32 arg1) {
     Vec sp18;
     f32 sp28[2];
     omObjData *temp_v0;

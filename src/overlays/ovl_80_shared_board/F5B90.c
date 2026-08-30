@@ -1,7 +1,6 @@
 #include "common.h"
 #include "ovl_80.h"
 
-void func_800E1F70_F5B90_shared_board(Unk3 *);
 extern u8 D_800D6A90_D7690;
 extern char D_80102180_115DA0_shared_board[];
 extern s16 D_800D41C2_D4DC2;
@@ -35,7 +34,7 @@ s32 D_80100F20_114B40_shared_board[] = {
     0x0000301B
 };
 
-void func_800E1F70_F5B90_shared_board(Unk3 *arg0) {
+static void func_800E1F70_F5B90_shared_board(Unk3 *arg0) {
     s16 sp18[2];
 
     if (arg0->unk_0C != NULL) {
@@ -61,12 +60,12 @@ void func_800E1F70_F5B90_shared_board(Unk3 *arg0) {
     func_8005B43C_5C03C(arg0->winID, D_80100F20_114B40_shared_board[arg0->unk_00], -1, -1);
 }
 
-void func_800E2074_F5C94_shared_board(Unk3 *arg0) {
+static void func_800E2074_F5C94_shared_board(Unk3 *arg0) {
     func_8005F364_5FF64(arg0->winID);
     arg0->winID = -1;
 }
 
-void func_800E20A4_F5CC4_shared_board(omObjData *arg0) {
+static void func_800E20A4_F5CC4_shared_board(omObjData *arg0) {
     Unk3 *temp_a0;
 
     temp_a0 = (Unk3 *)arg0->data;

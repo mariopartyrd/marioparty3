@@ -24,8 +24,8 @@ void MBMasuPosGet(s16 playerNo, s16 spaceIdx, Vec* out) {
     out->z = space->coords.z;
 }
 
-void MBPlayerPosMasuSet(s16 playerNo, s16 arg1) {
-    MBMasuPosGet(playerNo, arg1, &GwPlayer[playerNo].player_obj->coords);
+void MBPlayerPosMasuSet(s16 playerNo, s16 spaceIdx) {
+    MBMasuPosGet(playerNo, spaceIdx, &GwPlayer[playerNo].player_obj->coords);
 }
 
 void MBVecDirGet(Vec *arg0, Vec *arg1, Vec *arg2) {
@@ -50,20 +50,20 @@ void MBVecForwardSet(Vec* out) {
     out->z = 1.0f;
 }
 
-void MBPlayerForwardSet(s16 arg0) {
-    MBVecForwardSet(&MBPlayerGet(arg0)->player_obj->rot);
+void MBPlayerForwardSet(s16 playerNo) {
+    MBVecForwardSet(&MBPlayerGet(playerNo)->player_obj->rot);
 }
 
-void func_800ECC54_100874_shared_board(Object* arg0) {
+void func_800ECC54_100874_shared_board(Object* obj) {
     Vec sp10;
     Vec sp20;
 
-    HuVecSubtract(&sp10, &gCameraList->pos, &arg0->coords);
+    HuVecSubtract(&sp10, &gCameraList->pos, &obj->coords);
     HuVecCopyXYZ(&sp20, sp10.x, 0.0f, sp10.z);
-    arg0->omObj1->rot.x = -func_800D8DAC_EC9CC_shared_board(&sp10, &sp20);
-    MBVecDirGet(&arg0->coords, &gCameraList->pos, &sp10);
-    arg0->omObj1->rot.y = MBVecAngleGet(&sp10);
-    arg0->omObj1->rot.z = 0;
+    obj->omObj1->rot.x = -func_800D8DAC_EC9CC_shared_board(&sp10, &sp20);
+    MBVecDirGet(&obj->coords, &gCameraList->pos, &sp10);
+    obj->omObj1->rot.y = MBVecAngleGet(&sp10);
+    obj->omObj1->rot.z = 0;
 }
 
 void MBPlayerMasuSwap(s16 playerNoOne, s16 playerNoTwo) {
@@ -186,7 +186,7 @@ typedef struct UnkVecStruct2 {
     f32 unk_1C;
 } UnkVecStruct2; //sizeof 0x20
 
-void func_800ECFC8_100BE8_shared_board(void) {
+static void func_800ECFC8_100BE8_shared_board(void) {
     UnkVecStruct* temp_s0 = HuPrcCurrentGet()->user_data;
     s32 temp_s1 = temp_s0->unk_1C;
     f32 var_f22 = MBVecAngleGet(&temp_s0->unk_00);
@@ -278,7 +278,7 @@ Process *MBPlayerPosMoveCreate(Vec *arg0, Vec *arg1, Vec *outVec, s32 interpolat
 }
 
 // given a playerNo and interpolation time, walks a player to the next space
-void MBPlayerPosMoveSet(s16 playerNo, s32 interpolationTime) {
+void MBPlayerPosMoveSet(s16 playerNo, s32 interpolationFrameTotal) {
     Vec sp10;
     Vec sp20;
     Process *temp_s0;
@@ -287,12 +287,12 @@ void MBPlayerPosMoveSet(s16 playerNo, s32 interpolationTime) {
     MBMasuPosGet(playerNo, MBMasuLinkMasuIdGet(player->clink, player->cidx), &sp10);
     MBMasuPosGet(playerNo, MBMasuLinkMasuIdGet(player->nlink, player->nidx), &sp20);
     MBVecDirGet(&sp10, &sp20, &player->player_obj->rot);
-    temp_s0 = MBPlayerPosMoveCreate(&sp10, &sp20, &player->player_obj->coords, interpolationTime);
+    temp_s0 = MBPlayerPosMoveCreate(&sp10, &sp20, &player->player_obj->coords, interpolationFrameTotal);
     HuPrcChildLink(HuPrcCurrentGet(), temp_s0);
     HuPrcChildWait();
 }
 
-void func_800ED518_101138_shared_board(void) {
+static void func_800ED518_101138_shared_board(void) {
     UnkVecStruct2* temp_s0 = HuPrcCurrentGet()->user_data;
     f32 temp_f20 = temp_s0->unk_1C;
     Vec* temp_s1 = &temp_s0->coords;
@@ -310,7 +310,7 @@ void func_800ED518_101138_shared_board(void) {
     omDelPrcObj(NULL);
 }
 
-Process* func_800ED5E0_101200_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3) {
+static Process* func_800ED5E0_101200_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3) {
     Process* temp_v0 = omAddPrcObj(func_800ED518_101138_shared_board, 0x4002, 0, 0x50);
     UnkVecStruct2* temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkVecStruct2));
 
@@ -323,7 +323,7 @@ Process* func_800ED5E0_101200_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 
 }
 
 
-void func_800ED694_1012B4_shared_board(void) {
+static void func_800ED694_1012B4_shared_board(void) {
     UnkVecStruct2* temp_s0 = HuPrcCurrentGet()->user_data;
     f32 temp_f20 = temp_s0->unk_1C;
     s32 var_s1 = 0;
@@ -438,7 +438,7 @@ typedef struct UnkUserData {
     f32 velocity;
 } UnkUserData;
 
-void func_800EDAF0_101710_shared_board(void) {
+static void func_800EDAF0_101710_shared_board(void) {
     UnkUserData* temp_v0 = HuPrcCurrentGet()->user_data;
     Object* temp_s0 = temp_v0->obj;
     f32 temp_f28 = temp_v0->unk_04;

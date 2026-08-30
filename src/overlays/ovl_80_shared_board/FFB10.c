@@ -1,7 +1,7 @@
 #include "common.h"
 #include "ovl_80.h"
 
-void func_800EBEF0_FFB10_shared_board(s16 arg0) {
+static void func_800EBEF0_FFB10_shared_board(s16 arg0) {
     if ((GwSystem.current_player_index == 4) || (D_80101482_1150A2_shared_board != 0)) {
         func_800EE2A4_101EC4_shared_board(arg0);
         return;
@@ -9,7 +9,7 @@ void func_800EBEF0_FFB10_shared_board(s16 arg0) {
     func_800EDC58_101878_shared_board(arg0, GwSystem.current_player_index);
 }
 
-void func_800EBF48_FFB68_shared_board(s16 arg0, s32 arg1) {
+static void func_800EBF48_FFB68_shared_board(s16 arg0, s32 arg1) {
     if ((GwSystem.current_player_index == 4) || (D_80101482_1150A2_shared_board != 0)) {
         func_800EE2C0_101EE0_shared_board(arg0);
         return;

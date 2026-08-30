@@ -1,7 +1,6 @@
 #include "common.h"
 #include "ovl_80.h"
 
-void func_800FFA0C_11362C_shared_board(void);
 extern s8 D_80101E80_115AA0_shared_board[];
 
 void MBPlayerVibrate(s16 playerIndex, s16 vibrationStrength) {
@@ -32,7 +31,7 @@ void MBPlayerVibrate(s16 playerIndex, s16 vibrationStrength) {
     }
 }
 
-void func_800FFA0C_11362C_shared_board(void) {
+static void func_800FFA0C_11362C_shared_board(void) {
     UnkVibrateProcess* temp_s0;
 
     temp_s0 = HuPrcCurrentGet()->user_data;

@@ -198,7 +198,7 @@ s32 D_801019D0_1155F0_shared_board[] = {
     0x001301B5,
 };
 
-void MBStatusNumUpdate(s32 playerIndex) {
+static void MBStatusNumUpdate(s32 playerIndex) {
     UnkCoinThing coinDigits;
     BoardStatus *playerBoardStatus;
     s32 var_v1;
@@ -298,7 +298,7 @@ void func_800F3370_106F90_shared_board(void) {
     }
 }
 
-void MBStatusMain(omObjData *arg0) {
+static void MBStatusMain(omObjData *obj) {
     BoardStatus *temp_s2;
     s32 var_v1;
     s32 i, j;
@@ -425,7 +425,7 @@ void MBStatusMain(omObjData *arg0) {
     }
 }
 
-void MBStatusCharSprCreate(s32 playerIndex) {
+static void MBStatusCharSprCreate(s32 playerIndex) {
     s16 temp_s1;
 
     temp_s1 = mbStatusData[playerIndex].playerIndex;
@@ -436,7 +436,7 @@ void MBStatusCharSprCreate(s32 playerIndex) {
     func_80054904_55504(temp_s1, 1, D_801018E4_115504_shared_board[1][0], D_801018E4_115504_shared_board[1][1]);
 }
 
-void MBStatusIconSprCreate(s32 arg0) {
+static void MBStatusIconSprCreate(s32 arg0) {
     s32 i;
     s16 temp_s2 = mbStatusData[arg0].playerIndex;
 
@@ -452,7 +452,7 @@ void MBStatusIconSprCreate(s32 arg0) {
     }
 }
 
-void MBStatusNumSprCreate(s32 arg0) {
+static void MBStatusNumSprCreate(s32 arg0) {
     BoardStatus *temp_s4 = &mbStatusData[arg0];
     s16 temp_s2;
     void *temp_v0;
@@ -478,7 +478,7 @@ void MBStatusNumSprCreate(s32 arg0) {
     DataClose(temp_v0);
 }
 
-void MBStatusBackSprCreate(s32 playerNo) {
+static void MBStatusBackSprCreate(s32 playerNo) {
     BoardStatus *temp_s0 = &mbStatusData[playerNo];
     s16 temp_v0 = HuSprGrpCreate(0xE, 2);
 
@@ -489,7 +489,7 @@ void MBStatusBackSprCreate(s32 playerNo) {
     func_80054904_55504(temp_v0, 0, 0, 0);
 }
 
-void MBStatusRankSprCreate(s32 playerNo) {
+static void MBStatusRankSprCreate(s32 playerNo) {
     BoardStatus *temp_v0 = &mbStatusData[playerNo];
     s16 temp_s0;
 
@@ -503,7 +503,7 @@ void MBStatusRankSprCreate(s32 playerNo) {
     func_80054904_55504(temp_s0, 0xA, D_801018E4_115504_shared_board[10][0], D_801018E4_115504_shared_board[10][1]);
 }
 
-void MBStatusComSprCreate(s32 playerNo) {
+static void MBStatusComSprCreate(s32 playerNo) {
     s16 temp_s2;
 
     temp_s2 = mbStatusData[playerNo].playerIndex;
@@ -517,7 +517,7 @@ void MBStatusComSprCreate(s32 playerNo) {
     }
 }
 
-void MBStatusItemIconSprCreate(s32 playerNo) {
+static void MBStatusItemIconSprCreate(s32 playerNo) {
     s32 temp_s3 = mbStatusData[playerNo].playerIndex;
     s16 var_s1;
     s32 i;
@@ -542,7 +542,7 @@ void MBStatusItemIconSprCreate(s32 playerNo) {
 }
 
 // create sprite IDs for hud elements
-void MBStatusAnimCreate(void) {
+static void MBStatusAnimCreate(void) {
     void *temp_v0;
     s32 i;
     s16 *spriteIDs;
@@ -586,7 +586,7 @@ void MBStatusAnimCreate(void) {
     }
 }
 
-void MBStatusAnimKill(void) {
+static void MBStatusAnimKill(void) {
     s32 i;
     s16 *spriteIDs = D_80105588_1191A8_shared_board;
 
@@ -607,7 +607,7 @@ void MBStatusAnimKill(void) {
     }
 }
 
-void func_800F43FC_10801C_shared_board(s32 playerNo) {
+static void func_800F43FC_10801C_shared_board(s32 playerNo) {
     BoardStatus *temp_s2 = &mbStatusData[playerNo];
     s32 i;
 
@@ -662,7 +662,7 @@ void func_800F453C_10815C_shared_board(void) {
     }
 }
 
-void func_800F462C_10824C_shared_board(s32 playerNo) {
+static void func_800F462C_10824C_shared_board(s32 playerNo) {
     BoardStatus *temp_s2 = &mbStatusData[playerNo];
     s32 i;
 
@@ -721,7 +721,6 @@ void func_800F4850_108470_shared_board(s32 playerNo, s32 arg1) {
     mbStatusData[playerNo].unk1 = arg1;
 }
 
-// initialize player UIs
 void MBStatusPosSet(s32 playerIndex, s16 arg1, s16 arg2) {
     BoardStatus *boardStatus;
     f32 temp_f0;
@@ -737,7 +736,6 @@ void MBStatusPosSet(s32 playerIndex, s16 arg1, s16 arg2) {
     func_80054904_55504(boardStatus->playerIndex, 0, arg1 + ITEMS_POS_OFFSET_X, arg2 + ITEMS_POS_OFFSET_Y);
 }
 
-//?
 void MBStatusDispSideSet(s32 playerNo, s32 arg1) {
     s32 index = (arg1 * 4) + playerNo;
     MBStatusPosSet(playerNo, PlayerBoardStatusRootPosition[index][0], PlayerBoardStatusRootPosition[index][1]);
@@ -747,9 +745,6 @@ void MBStatusSideSet(s32 playerNo, s32 arg1) {
     MBStatusPosSet(playerNo, PlayerBoardStatusRootPosition[arg1][0], PlayerBoardStatusRootPosition[arg1][1]);
 }
 
-// changed MBStatusDispMoveSet to return s32
-// should change D_80101964_115584_shared_board to be a Vec2s *[]
-// should change PlayerBoardStatusRootPosition to be Vec2s[]
 s32 MBStatusDispMoveSet(s32 arg0) {
     u8 slot[8];
     u8 group1[8];
@@ -1066,7 +1061,7 @@ void MBVsSprKill(void) {
     }
 }
 
-void func_800F56A8_1092C8_shared_board(omObjData *arg0) {
+static void func_800F56A8_1092C8_shared_board(omObjData *arg0) {
     BoardStatus *temp_s2 = &mbStatusData[arg0->work[0]];
     f32 var_f0;
     f32 var_f0_2;
@@ -1124,44 +1119,44 @@ void func_800F591C_10953C_shared_board(s32 arg0) {
     }
 }
 
-void func_800F59B4_1095D4_shared_board(omObjData *arg0) {
+static void func_800F59B4_1095D4_shared_board(omObjData *obj) {
     s32 var_s1 = 0;
 
-    while (arg0->scale.y <= 0.0f) {
-        if (arg0->trans.x > 0.0f) {
-            MBPlayerCoinAdd(arg0->work[0], 1);
-            if (((arg0->work[3] != 0) & (var_s1 == 0)) && (arg0->scale.z >= 3.0f)) {
+    while (obj->scale.y <= 0.0f) {
+        if (obj->trans.x > 0.0f) {
+            MBPlayerCoinAdd(obj->work[0], 1);
+            if (((obj->work[3] != 0) & (var_s1 == 0)) && (obj->scale.z >= 3.0f)) {
                 HuAudFXPlay(0x106);
                 var_s1 = 1;
-                arg0->scale.z -= 3.0f;
+                obj->scale.z -= 3.0f;
             }
-            arg0->trans.x -= 1.0f;
+            obj->trans.x -= 1.0f;
 
         } else {
-            MBPlayerCoinAdd(arg0->work[0], -1);
-            arg0->trans.x += 1.0f;
-            if (arg0->work[3] != 0) {
-                if ((var_s1 == 0) && (arg0->scale.z >= 3.0f)) {
+            MBPlayerCoinAdd(obj->work[0], -1);
+            obj->trans.x += 1.0f;
+            if (obj->work[3] != 0) {
+                if ((var_s1 == 0) && (obj->scale.z >= 3.0f)) {
                     HuAudFXPlay(0x109);
                     var_s1 = 1;
-                    arg0->scale.z -= 3.0f;
+                    obj->scale.z -= 3.0f;
                 }
-                if ((arg0->trans.x == 0.0f) || (GwPlayer[arg0->work[0]].coin == 0)) {
+                if ((obj->trans.x == 0.0f) || (GwPlayer[obj->work[0]].coin == 0)) {
                     HuAudFXPlay(0x10A);
                 }
             }
         }
 
-        if ((arg0->trans.x == 0.0f) || (GwPlayer[arg0->work[0]].coin == 0)) {
-            D_801055E8_119208_shared_board[arg0->work[0]] = NULL;
-            omDelObj(arg0);
+        if ((obj->trans.x == 0.0f) || (GwPlayer[obj->work[0]].coin == 0)) {
+            D_801055E8_119208_shared_board[obj->work[0]] = NULL;
+            omDelObj(obj);
             return;
         }
-        arg0->scale.y += arg0->scale.x;
+        obj->scale.y += obj->scale.x;
     }
 
-    arg0->scale.y -= 1.0f;
-    arg0->scale.z += 2.0f;
+    obj->scale.y -= 1.0f;
+    obj->scale.z += 2.0f;
 }
 
 void MBCoinTakeCreateSound(s32 playerIndex, s32 coinAmount, s32 arg2) {
@@ -1239,7 +1234,7 @@ void func_800F5E30_109A50_shared_board(void) {
         MBStatusColorSet(i, GwPlayer[i].color);
     }
 
-    D_80105580_1191A0_shared_board = omAddPrcObj(&MBStatusMain, 0, 0x2000, 0);
+    D_80105580_1191A0_shared_board = omAddPrcObj(MBStatusMain, 0, 0x2000, 0);
     omPrcSetStatBit(D_80105580_1191A0_shared_board, 0x80);
     D_801055C4_1191E4_shared_board = -1;
     D_801055C2_1191E2_shared_board = -1;
@@ -1268,7 +1263,7 @@ void func_800F5F7C_109B9C_shared_board(void) {
     MBStatusDispMoveSet(0x17);
 }
 
-void MBStatusItemSprCreate(s32 playerNo, s32 arg1) {
+static void MBStatusItemSprCreate(s32 playerNo, s32 arg1) {
     BoardStatus *temp_s7 = &mbStatusData[playerNo];
     s16 temp_s5 = temp_s7->playerIndex;
     void *var_s2 = NULL;
@@ -1370,11 +1365,11 @@ void MBStatusItemSprKill(s32 playerIndex) {
     MBStatusItemSprCreate(playerIndex, 1);
 }
 
-void MBStatusItemDispSet(s32 arg0, s32 arg1) {
+void MBStatusItemDispSet(s32 playerNo, s32 arg1) {
     BoardStatus *temp_s2;
     s32 i;
 
-    temp_s2 = &mbStatusData[arg0];
+    temp_s2 = &mbStatusData[playerNo];
     if (temp_s2->uiUpdatePaused != arg1) {
         temp_s2->uiUpdatePaused = arg1;
         switch (arg1) {
@@ -1387,10 +1382,10 @@ void MBStatusItemDispSet(s32 arg0, s32 arg1) {
                     }
                 }
 
-                MBStatusIconSprCreate(arg0);
-                MBStatusNumSprCreate(arg0);
-                MBStatusRankSprCreate(arg0);
-                MBStatusItemIconSprCreate(arg0);
+                MBStatusIconSprCreate(playerNo);
+                MBStatusNumSprCreate(playerNo);
+                MBStatusRankSprCreate(playerNo);
+                MBStatusItemIconSprCreate(playerNo);
                 break;
 
             case TRUE:
@@ -1414,7 +1409,7 @@ void MBStatusItemDispSet(s32 arg0, s32 arg1) {
                     HuSprAttrSet(temp_s2->playerIndex, i + 0x0B, 0x8000);
                     func_800550F4_55CF4(temp_s2->playerIndex, i + 0x0B, 0);
                 }
-                MBStatusItemSprCreate(arg0, 0);
+                MBStatusItemSprCreate(playerNo, 0);
                 break;
         }
     }
@@ -1510,13 +1505,13 @@ void MBStatusScaleSet(s32 arg0, f32 xScale, f32 yScale) {
     }
 }
 
-void MBStatusShrink(s32 arg0) {
+void MBStatusShrink(s32 playerNo) {
     BoardStatus *temp_s2;
     f32 var_f20;
     s32 i, j;
 
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
-        if (arg0 == CUR_PLAYER || arg0 == i) {
+        if (playerNo == CUR_PLAYER || playerNo == i) {
             temp_s2 = &mbStatusData[i];
             if (temp_s2->uiUpdatePaused == TRUE) {
                 func_800F6A88_10A6A8_shared_board(temp_s2->playerIndex, 2);
@@ -1545,14 +1540,14 @@ void MBStatusShrink(s32 arg0) {
 
     for (var_f20 = 0.0f; var_f20 <= 90.0f; var_f20 += 15.0f) {
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
-            if (arg0 == CUR_PLAYER || arg0 == i) {
+            if (playerNo == CUR_PLAYER || playerNo == i) {
                 MBStatusScaleSet(i, HuMathCos(var_f20), 1.0f);
             }
         }
         HuPrcVSleep();
     }
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
-        if (arg0 == CUR_PLAYER || arg0 == i) {
+        if (playerNo == CUR_PLAYER || playerNo == i) {
             MBStatusScaleSet(i, 0.0f, 0);
         }
     }

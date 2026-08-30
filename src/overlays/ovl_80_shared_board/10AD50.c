@@ -7,18 +7,18 @@ extern s32 D_80105654_119274_shared_board;
 extern s32 D_80105658_119278_shared_board;
 extern s32 D_8010565C_11927C_shared_board;
 
-void func_800F7CF0_10B910_shared_board(void);
-void func_800F7D10_10B930_shared_board(void);
-void func_800F7D4C_10B96C_shared_board(void);
-void func_800F7D98_10B9B8_shared_board(void);
-void func_800F7DD4_10B9F4_shared_board(void);
-void func_800F7E1C_10BA3C_shared_board(void);
-void func_800F7E64_10BA84_shared_board(void);
-void func_800F7EAC_10BACC_shared_board(void);
-void func_800F7EF4_10BB14_shared_board(void);
-void func_800F7F30_10BB50_shared_board(void);
-void func_800F7F7C_10BB9C_shared_board(void);
-void func_800F7FC8_10BBE8_shared_board(void);
+static void func_800F7CF0_10B910_shared_board(void);
+static void func_800F7D10_10B930_shared_board(void);
+static void func_800F7D4C_10B96C_shared_board(void);
+static void func_800F7D98_10B9B8_shared_board(void);
+static void func_800F7DD4_10B9F4_shared_board(void);
+static void func_800F7E1C_10BA3C_shared_board(void);
+static void func_800F7E64_10BA84_shared_board(void);
+static void func_800F7EAC_10BACC_shared_board(void);
+static void func_800F7EF4_10BB14_shared_board(void);
+static void func_800F7F30_10BB50_shared_board(void);
+static void func_800F7F7C_10BB9C_shared_board(void);
+static void func_800F7FC8_10BBE8_shared_board(void);
 
 // item ids
 s32 D_80101A20_115640_shared_board[] = {
@@ -92,13 +92,13 @@ s32 D_80101B24_115744_shared_board[] = {
     0x00003C18, 0x00003C19, 0x00003C1A
 };
 
-void func_800F7130_10AD50_shared_board(omObjData *arg0) {
+static void func_800F7130_10AD50_shared_board(omObjData *arg0) {
     D_80105620_119240_shared_board->coords.y = -HuMathSin(arg0->rot.x) * 3.0f;
     D_80105624_119244_shared_board->coords.y = -HuMathSin(arg0->rot.x) * 3.0f;
     arg0->rot.x += 3.0f;
 }
 
-void func_800F71A8_10ADC8_shared_board(omObjData *obj) {
+static void func_800F71A8_10ADC8_shared_board(omObjData *obj) {
     D_80105650_119270_shared_board += 20.0f;
     if (D_80105650_119270_shared_board >= 360.0f) {
         D_80105650_119270_shared_board -= 360.0f;
@@ -107,7 +107,7 @@ void func_800F71A8_10ADC8_shared_board(omObjData *obj) {
     func_8008A430_8B030(&HmfModelData[D_80105628_119248_shared_board->omObj1->model[0]].mtx, D_80105650_119270_shared_board);
 }
 
-s32 func_800F7240_10AE60_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+static s32 func_800F7240_10AE60_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s16 sp18[MB_MAX_PLAYERS];
     u8 sp20[MB_MAX_PLAYERS] = { 1, 2, 4, 8 };
     s32 var_v0;
@@ -356,11 +356,11 @@ void func_800F76A4_10B2C4_shared_board(s32 arg0) {
 }
 
 // probably a file split here
-void func_800F7CF0_10B910_shared_board(void) {
+static void func_800F7CF0_10B910_shared_board(void) {
     MBDlgWinExec(CHAR_TOAD, 0x3C08);
 }
 
-void func_800F7D10_10B930_shared_board(void) {
+static void func_800F7D10_10B930_shared_board(void) {
     MBDlgWinExec(CHAR_TOAD, 0x3C09);
     func_800F74E4_10B104_shared_board();
     func_800F76A4_10B2C4_shared_board(0);
@@ -368,7 +368,7 @@ void func_800F7D10_10B930_shared_board(void) {
 }
 
 // Toad gives all skeleton keys
-void func_800F7D4C_10B96C_shared_board(void) {
+static void func_800F7D4C_10B96C_shared_board(void) {
     MBDlgWinExec(CHAR_TOAD, 0x3C0B);
     D_80105630_119250_shared_board[0] =
         D_80105630_119250_shared_board[1] =
@@ -377,14 +377,14 @@ void func_800F7D4C_10B96C_shared_board(void) {
     MBDlgWinExec(CHAR_TOAD, 0x3C0A);
 }
 
-void func_800F7D98_10B9B8_shared_board(void) {
+static void func_800F7D98_10B9B8_shared_board(void) {
     MBDlgWinExec(CHAR_TOAD, 0x3C0C);
     func_800F7578_10B198_shared_board();
     func_800F76A4_10B2C4_shared_board(1);
     MBDlgWinExec(CHAR_TOAD, 0x3C0A);
 }
 
-void func_800F7DD4_10B9F4_shared_board(void) {
+static void func_800F7DD4_10B9F4_shared_board(void) {
     MBDlgWinExec(CHAR_TOAD, 0x3C12);
     func_800F74E4_10B104_shared_board();
     D_80105638_119258_shared_board = -1;
@@ -392,7 +392,7 @@ void func_800F7DD4_10B9F4_shared_board(void) {
     MBDlgWinExec(CHAR_TOAD, 0x3C0A);
 }
 
-void func_800F7E1C_10BA3C_shared_board(void) {
+static void func_800F7E1C_10BA3C_shared_board(void) {
     MBDlgWinExec(CHAR_TOAD, 0x3C13);
     D_80105630_119250_shared_board[0] =
         D_80105630_119250_shared_board[1] =
@@ -401,7 +401,7 @@ void func_800F7E1C_10BA3C_shared_board(void) {
     MBDlgWinExec(CHAR_TOAD, 0x3C0A);
 }
 
-void func_800F7E64_10BA84_shared_board(void) {
+static void func_800F7E64_10BA84_shared_board(void) {
     MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1C);
     func_800F7610_10B230_shared_board();
     D_80105634_119254_shared_board = -1;
@@ -409,7 +409,7 @@ void func_800F7E64_10BA84_shared_board(void) {
     MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1D);
 }
 
-void func_800F7EAC_10BACC_shared_board(void) {
+static void func_800F7EAC_10BACC_shared_board(void) {
     MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1E);
     func_800F7610_10B230_shared_board();
     D_80105638_119258_shared_board = -1;
@@ -417,7 +417,7 @@ void func_800F7EAC_10BACC_shared_board(void) {
     MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1D);
 }
 
-void func_800F7EF4_10BB14_shared_board(void) {
+static void func_800F7EF4_10BB14_shared_board(void) {
     MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1F);
     func_800F7610_10B230_shared_board();
     func_800F76A4_10B2C4_shared_board(0);
@@ -425,7 +425,7 @@ void func_800F7EF4_10BB14_shared_board(void) {
 }
 
 // Baby bowser gives all skeleton keys
-void func_800F7F30_10BB50_shared_board(void) {
+static void func_800F7F30_10BB50_shared_board(void) {
     MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C20);
     D_80105630_119250_shared_board[0] =
         D_80105630_119250_shared_board[1] =
@@ -435,7 +435,7 @@ void func_800F7F30_10BB50_shared_board(void) {
 }
 
 // Baby bowser gives warp blocks from item space
-void func_800F7F7C_10BB9C_shared_board(void) {
+static void func_800F7F7C_10BB9C_shared_board(void) {
     MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C21);
     D_80105630_119250_shared_board[0] =
         D_80105630_119250_shared_board[1] =
@@ -444,11 +444,11 @@ void func_800F7F7C_10BB9C_shared_board(void) {
     MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1D);
 }
 
-void func_800F7FC8_10BBE8_shared_board(void) {
+static void func_800F7FC8_10BBE8_shared_board(void) {
     MBDlgWinExec(CHAR_BABY_BOWSER, 0x3C1B);
 }
 
-void func_800F7FE8_10BC08_shared_board(void) {
+static void func_800F7FE8_10BC08_shared_board(void) {
     GW_PLAYER *temp_s1;
     Object *temp_a0;
     f32 var_f12;
