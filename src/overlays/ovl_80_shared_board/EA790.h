@@ -2,6 +2,7 @@
 #define _ovl_80_EA790
 
 #include "common.h"
+#include "game/board.h"
 
 typedef struct UnkBoard2 {
 /* 0x00 */ s16 unk_00;

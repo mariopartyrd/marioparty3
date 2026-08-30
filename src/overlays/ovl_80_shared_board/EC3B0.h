@@ -2,6 +2,7 @@
 #define _ovl_80_EC3B0
 
 #include "common.h"
+#include "game/board.h"
 
 f32 MBVecAngleGet(Vec *arg0);
 void MBVecNormalize(Vec *vec);

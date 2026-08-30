@@ -2,7 +2,7 @@
 #define _ovl_80_EAB00
 
 #include "common.h"
-#include "ovl_80.h"
+#include "game/board.h"
 
 s32 func_800D7250_EAE70_shared_board(UnkEA790Struct* arg0, s32 arg1);
 s32 func_800D742C_EB04C_shared_board(UnkEA790Struct* arg0, s16 playerNo, s32 arg2);

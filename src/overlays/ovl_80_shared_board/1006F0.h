@@ -2,6 +2,7 @@
 #define _ovl_80_1006F0
 
 #include "common.h"
+#include "game/board.h"
 
 void MBPlayerPosMasuSet(s16 playerNo, s16 spaceIdx);
 void MBVecDirGet(Vec *arg0, Vec *arg1, Vec *arg2);

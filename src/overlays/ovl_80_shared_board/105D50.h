@@ -2,6 +2,7 @@
 #define _ovl_80_105D50
 
 #include "common.h"
+#include "game/board.h"
 
 s16 MBPlayerTurnGet(void);
 GW_PLAYER *MBPlayerGet(s32 playerNo);

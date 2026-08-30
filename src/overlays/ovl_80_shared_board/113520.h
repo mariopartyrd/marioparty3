@@ -2,6 +2,7 @@
 #define _ovl_80_113520
 
 #include "common.h"
+#include "game/board.h"
 
 typedef struct UnkVibrateProcess {
     s16 playerNo;

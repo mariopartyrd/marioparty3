@@ -2,6 +2,7 @@
 #define _ovl_80_106A50
 
 #include "common.h"
+#include "game/board.h"
 
 void func_800F453C_10815C_shared_board(void); //start MBStatusMain process
 void func_800F4730_108350_shared_board(void);

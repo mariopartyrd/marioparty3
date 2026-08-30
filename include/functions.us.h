@@ -104,7 +104,14 @@ u8 func_80017AD8_186D8(s32);
 void func_800333B0_33FB0(s16);
 s16 func_8006014C_60D4C(s32);
 void func_80046558_47158(s16);
-void func_80060C14_61814(s16, s32);
-void func_80060EA8_61AA8(s16, s32);
+void func_80032FF8_33BF8(s32, u8);
+void func_8003302C_33C2C(s32, u8);
+s16 func_80032694_33294(HmfData*, u16, s32, char*);
+void func_80033430_34030(s16);
+void func_8001D558_1E158(s16, f32, f32, s32);
+void func_8004A650_4B250(s32);
+void func_8004A670_4B270(s32);
+void func_8004A880_4B480(s32);
+void func_8004A918_4B518(s32);
 
 #endif

@@ -2,6 +2,7 @@
 #define _ovl_80_EB2F0
 
 #include "common.h"
+#include "game/board.h"
 
 void func_800D76D0_EB2F0_shared_board(s32 arg0);
 void func_800D7714_EB334_shared_board(void);

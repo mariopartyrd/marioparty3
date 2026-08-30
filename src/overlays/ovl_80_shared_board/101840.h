@@ -2,6 +2,7 @@
 #define _ovl_80_101840
 
 #include "common.h"
+#include "game/board.h"
 
 void func_800EDC20_101840_shared_board(s32 arg0);
 s32 func_800EDC40_101860_shared_board(void);
