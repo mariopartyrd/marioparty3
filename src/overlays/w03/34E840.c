@@ -1,7 +1,13 @@
 #include "SpinyDesert.h"
 #include "common.h"
 #include "game/object.h"
-#include "../ovl_80_shared_board/ovl_80.h"
+#include "../ovl_80_shared_board/FA250.h"
+#include "../ovl_80_shared_board/F5E80.h"
+#include "../ovl_80_shared_board/101840.h"
+#include "../ovl_80_shared_board/113750.h"
+#include "../ovl_80_shared_board/ECA50.h"
+#include "../ovl_80_shared_board/1006F0.h"
+#include "../ovl_80_shared_board/10C230.h"
 
 void func_80105DB0_34EC20_w03(void);
 void func_801061A0_34F010_w03(UnkMBGuideData*);
@@ -176,11 +182,11 @@ void func_80107CA4_350B14_w03() {
     func_800F8D6C_10C98C_shared_board(0x1A);
     Hu3DCamInit(2);
     func_80107A04_350874_w03();
-    MBMasuEventTblAdd(&D_8011D1C4_366034_w03);
-    MBMasuEventTblAdd(&D_8011D478_3662E8_w03);
+    MBMasuEventTblAdd(D_8011D1C4_366034_w03);
+    MBMasuEventTblAdd(D_8011D478_3662E8_w03);
     MBHatenaFuncSet(func_8011A704_363574_w03);
-    MBMasuEventTblAdd(&D_8011D23C_3660AC_w03);
-    MBMasuEventTblAdd(&D_8011D3D0_366240_w03);
+    MBMasuEventTblAdd(D_8011D23C_3660AC_w03);
+    MBMasuEventTblAdd(D_8011D3D0_366240_w03);
     MBStart(0);
 }
 

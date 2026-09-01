@@ -1,5 +1,6 @@
 #include "common.h"
-#include "../ovl_80_shared_board/ovl_80.h"
+#include "../ovl_80_shared_board/105D50.h"
+#include "../ovl_80_shared_board/FA250.h"
 
 void func_801183D4_37A364_w04(void);
 void func_801191B8_37B148_w04(void);

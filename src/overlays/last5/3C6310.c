@@ -1,5 +1,5 @@
 #include "common.h"
-#include "../ovl_80_shared_board/ovl_80.h"
+#include "../ovl_80_shared_board/FA250.h"
 
 INCLUDE_ASM("asm/nonmatchings/overlays/last5/3C6310", func_801059A0_3C6310_last5);
 

@@ -16,7 +16,7 @@ void MBPlayerMasuColorSet(s16 playerNo, s16 spaceType);
 s16 MBTotalStarGet(void);
 s16 MBRandCheck100(s8 arg0);
 s16 MBTurnRemain(void);
-s32 func_800ECF18_100B38_shared_board(s16 arg0, f32 arg1);
+s16 func_800ECF18_100B38_shared_board(s16 arg0, f32 arg1);
 void func_800ECF9C_100BBC_shared_board(s16 arg0);
 Process* func_800ED128_100D48_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 arg3);
 Process* func_800ED1E4_100E04_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 arg3);
