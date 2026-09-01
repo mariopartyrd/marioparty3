@@ -1,5 +1,5 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "FA250.h"
 
 #define UNK_SIZE 4
 #define UNK_SIZE2 2

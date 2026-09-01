@@ -16,6 +16,7 @@ void MBPlayerMotionSet(s32 playerNo, s16 arg1, u16 arg2) ;
 void func_800F2388_105FA8_shared_board(s32 playerNo, s16 arg1, s16 arg2, s16 arg3, u16 arg4) ;
 void func_800F244C_10606C_shared_board(s32 playerNo, u8 arg1);
 void func_800F2484_1060A4_shared_board(s32 arg0);
+void MBPlayerModelCreate(s16 playerNo, u32 *arg1, s32 arg2);
 void func_800F25B4_1061D4_shared_board(s16 arg0, u32 *arg1); //unused
 void func_800F25D8_1061F8_shared_board(s16 playerNo);
 void func_800F2624_106244_shared_board(s16 playerNo); //unused

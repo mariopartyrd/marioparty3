@@ -1,5 +1,5 @@
 #include "common.h"
-#include "../ovl_80_shared_board/ovl_80.h"
+#include "../ovl_80_shared_board/105D50.h"
 
 typedef struct PlayerResult {
     /* 0x00 */ s8 idx;

@@ -3,6 +3,7 @@
 #include "FA250.h"
 #include "EC3B0.h"
 #include "10C230.h"
+#include "101840.h"
 
 typedef struct UnkProcess {
     /* 0x00 */ Vec vec1;
@@ -307,7 +308,7 @@ static void func_800ED518_101138_shared_board(void) {
     omDelPrcObj(NULL);
 }
 
-static Process* func_800ED5E0_101200_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3) {
+Process* func_800ED5E0_101200_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3) {
     Process* temp_v0 = omAddPrcObj(func_800ED518_101138_shared_board, 0x4002, 0, 0x50);
     UnkVecStruct2* temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkVecStruct2));
 

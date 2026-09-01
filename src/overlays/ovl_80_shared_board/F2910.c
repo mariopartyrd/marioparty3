@@ -3,6 +3,10 @@
 #include "106A50.h"
 #include "F5E80.h"
 #include "105D50.h"
+#include "1006F0.h"
+#include "101840.h"
+#include "10C230.h"
+#include "ECA50.h"
 
 extern u32 D_800D2094_D2C94;
 extern u32 D_80100EE8_114B08_shared_board;
@@ -517,12 +521,12 @@ void MBMgCallListCreate(s32 arg0) {
                         D_80100E30_114A50_shared_board[D_80102C0D_11682D_shared_board][2]);
 }
 
-static void func_800E00EC_F3D0C_shared_board(void) {
+void func_800E00EC_F3D0C_shared_board(void) {
     D_80102C04_116824_shared_board->work[0] = 0;
 }
 
 // Fisher–Yates shuffle via selection with removal
-static void MBArrayShuffle(u8 *output, s32 count) {
+void MBArrayShuffle(u8 *output, s32 count) {
     s8 pool[256];
     s32 i;
     s32 j;

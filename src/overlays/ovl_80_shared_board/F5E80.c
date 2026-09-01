@@ -1,5 +1,23 @@
 #include "common.h"
 #include "F2910.h"
+#include "ECA50.h"
+#include "FA250.h"
+#include "105D50.h"
+#include "106A50.h"
+#include "10C230.h"
+#include "1006F0.h"
+#include "113520.h"
+#include "FFB10.h"
+#include "EE660.h"
+#include "F5E80.h"
+#include "F5B90.h"
+#include "113750.h"
+#include "EB2F0.h"
+#include "101840.h"
+#include "F9DE0.h"
+#include "F5070.h"
+#include "mallocblock.h"
+#include "malloc.h"
 
 typedef struct TelopData {
     s32 unk_00;
@@ -7,33 +25,33 @@ typedef struct TelopData {
     char unk_08[8];
 } TelopData;
 
-void func_80049FB8_4ABB8(void);
-void func_800E9AF0_FD710_shared_board(Vec *, s32);
-void MBPlayerPosMasuSet(s16, s16);
-void MBPlayerMasuSwap(s16, s16);
-void MBCameraFocusModeSet(s32);
-void MBPlayerPosFixSet(s32, s32);
-void func_8004A0E0_4ACE0(void);
-void MBKettouResultExec(void);
-void MBKettouComResultSet(void);
-s32 MBKettouExec(GW_PLAYER *);
-void func_800FC968_110588_shared_board(void);
-void MBMasuCurSet(s16);
-void MBStatusItemIconSprReinit(s32);
-void func_8003B128_3BD28(char*);
-void func_8005FBA4_607A4(u8 *, s32);
-s32 func_80060880_61480(s32 arg0, s32 arg1, s32 arg2);
-extern void func_8008EBD0_8F7D0(f32, f32*, f32*);
-void func_800610E0_61CE0(s16);
-void func_800FC938_110558_shared_board(void);
-f32 HuMathSin(f32);
-void MBStatusItemScaleSet(s32, s32, f32, f32);
-void func_800DC06C_EFC8C_shared_board(void);
-void func_800DC0E0_EFD00_shared_board(s32 playerNo);
-void func_800FC7C8_1103E8_shared_board(void);
-static void MBItemKSuitEnd(void);
-s16 func_8003A308_3AF08(char* arg0, char* arg1, s32 arg2, s16 arg3, u16 arg4);
-s32 func_800F52C4_108EE4_shared_board(void);
+// void func_80049FB8_4ABB8(void);
+// void func_800E9AF0_FD710_shared_board(Vec *, s32);
+// void MBPlayerPosMasuSet(s16, s16);
+// void MBPlayerMasuSwap(s16, s16);
+// void MBCameraFocusModeSet(s32);
+// void MBPlayerPosFixSet(s32, s32);
+// void func_8004A0E0_4ACE0(void);
+// void MBKettouResultExec(void);
+// void MBKettouComResultSet(void);
+// s32 MBKettouExec(GW_PLAYER *);
+// void func_800FC968_110588_shared_board(void);
+// void MBMasuCurSet(s16);
+// void MBStatusItemIconSprReinit(s32);
+// void func_8003B128_3BD28(char*);
+// void func_8005FBA4_607A4(u8 *, s32);
+// s32 func_80060880_61480(s32 arg0, s32 arg1, s32 arg2);
+// extern void func_8008EBD0_8F7D0(f32, f32*, f32*);
+// void func_800610E0_61CE0(s16);
+// void func_800FC938_110558_shared_board(void);
+// f32 HuMathSin(f32);
+// void MBStatusItemScaleSet(s32, s32, f32, f32);
+// void func_800DC06C_EFC8C_shared_board(void);
+// void func_800DC0E0_EFD00_shared_board(s32 playerNo);
+// void func_800FC7C8_1103E8_shared_board(void);
+// static void MBItemKSuitEnd(void);
+// s16 func_8003A308_3AF08(char* arg0, char* arg1, s32 arg2, s16 arg3, u16 arg4);
+// s32 func_800F52C4_108EE4_shared_board(void);
 
 extern char* D_80101170_114D90_shared_board[];
 extern Vec D_8010125C_114E7C_shared_board;
@@ -67,6 +85,13 @@ extern Object* D_80102D54_116974_shared_board;
 extern s16 D_80102CE0_116900_shared_board[];
 extern s32 D_80102D58_116978_shared_board;
 extern s8 D_8010118C_114DAC_shared_board[];
+extern s32 D_80100F90_114BB0_shared_board;
+extern s32 D_80102CB4_1168D4_shared_board;
+extern s32 D_80101040_114C60_shared_board[];
+extern s16 D_801010E8_114D08_shared_board[][2];
+extern s32 D_80102CB0_1168D0_shared_board;
+extern s32 (*MBItemFunctions[])(void);
+extern s32 D_800D41B0_D4DB0[];
 
 typedef struct SomeStruct {
     u8 unk_00[10];
@@ -363,7 +388,7 @@ s32 MBItemKettouExec(void) {
 
     GwSystem.unk_58 = ~(1 << MBPlayerTurnGet());
     GwSystem.playerIndexVisitingBowser = ((1 << MBPlayerTurnGet()) | 0x8000);
-    temp_v0 = MBKettouExec(MBPlayerGet(CUR_PLAYER));
+    temp_v0 = MBKettouExec(MBPlayerGet(CUR_PLAYER)); //intentionally implicit; required (this is supposed to have 2 args)
 
     if (temp_v0 != 0) {
         if (temp_v0 == 1) {
@@ -756,23 +781,19 @@ void MBItemSelExec(s32 playerNo, s32 arg1) {
     Process* temp_s2;
     Process* temp_v0;
 
-    func_800DC06C_EFC8C_shared_board();
+    func_800DC06C_EFC8C_shared_board(playerNo);
     
     D_800CB99C_CC59C = 1;
     func_80049FB8_4ABB8();
     D_80102CB0_1168D0_shared_board = arg1;
     temp_s2 = HuPrcCurrentGet();
     temp_v0 = omAddPrcObj(MBItemSel, 0x1005, 0x1000, 0);
-    do {
     temp_v0->user_data = (void*)playerNo;
     omPrcSetStatBit(temp_v0, 0x80);
     HuPrcChildLink(temp_s2, temp_v0);
     HuPrcChildWait();
-    } while (0);
     func_8004A0E0_4ACE0();
-        
     D_800CB99C_CC59C = 0;
-    
     func_800DC0E0_EFD00_shared_board(playerNo);
     func_800FC7C8_1103E8_shared_board();
 }
@@ -993,7 +1014,7 @@ void MBItemKSuitWalkExec(void) {
     }
 }
 
-static void MBItemKSuitEnd(void) {
+void MBItemKSuitEnd(void) {
     s32 curPlayerIndex = GwSystem.current_player_index;
     if (GwPlayer[curPlayerIndex].itemTurn) {
         MBItemSubFunctions[IFUNC_BOWSER_SUIT_END]();

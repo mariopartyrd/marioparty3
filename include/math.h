@@ -31,4 +31,7 @@ void HuVecCopy3F(Vec * out, Vec * a);
 f32 HuVecGetLengthSqr3F(Vec * vec);
 f32 HuVecGetLength3F(Vec * vec);
 
+f32 HuVecDistanceSqr(Vec *a, Vec *b);
+f32 HuVecDistance(Vec *a, Vec *b);
+
 #endif

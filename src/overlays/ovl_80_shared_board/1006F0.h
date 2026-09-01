@@ -23,6 +23,7 @@ Process* func_800ED1E4_100E04_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 
 void func_800ED20C_100E2C_shared_board(s16 playerNo, s32 arg1, s16 masuAbsIndex);
 Process *MBPlayerPosMoveCreate(Vec *arg0, Vec *arg1, Vec *outVec, s32 interpolationTime);
 void MBPlayerPosMoveSet(s16 playerNo, s32 interpolationFrameTotal);
+Process* func_800ED5E0_101200_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3);
 void MBMoveMasuSet(s16 playerNo, s16 link, s16 idx);
 void MBMoveNextMasuSet(s16 playerNo, s16 arg1, s16 arg2);
 void MBMoveBackMasuSet(s16 playerNo, s16 arg1, s16 arg2);

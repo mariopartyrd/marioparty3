@@ -1,5 +1,7 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "105D50.h"
+#include "ECA50.h"
+#include "FA250.h"
 
 //TODO: properly split data/rodata in F5E80.c and F9DE0.c
 
@@ -11,11 +13,11 @@ extern omObjData* D_80101200_114E20_shared_board;
 extern s16 D_80102DA0_1169C0_shared_board;
 extern Object* D_80105710_119330_shared_board;
 
-void MBKSuitKill(void);
-void func_80017358_17F58(s16, s32, s16, const char*);
-void func_800EB24C_FEE6C_shared_board(s16 arg0, s8 *chainOut, s8 *linkOut);
-void MBMotionKill(s16 arg0);
-s16 func_800D8E88_ECAA8_shared_board(s32);
+// void MBKSuitKill(void);
+// void func_80017358_17F58(s16, s32, s16, const char*);
+// void func_800EB24C_FEE6C_shared_board(s16 arg0, s8 *chainOut, s8 *linkOut);
+// void MBMotionKill(s16 arg0);
+// s16 func_800D8E88_ECAA8_shared_board(s32);
 
 static void MBKSuitMain(omObjData* arg0) {
     GW_PLAYER* player;
@@ -152,11 +154,13 @@ void MBKSuitMotionLoad(s32 arg0, s32 arg1) {
             break;
         }
     }
-    dataNum = D_80101204_114E24_shared_board[i+1] | 0xA0000;
 
+    dataNum = D_80101204_114E24_shared_board[i+1] | 0x000A0000;
     motion = objData->motion[arg0];
+
     if ((motion != -1) && (obj->unk46 != arg0)) {
         MBMotionKill(motion);
     }
+
     objData->motion[arg0] = func_800D8E88_ECAA8_shared_board(dataNum);
 }

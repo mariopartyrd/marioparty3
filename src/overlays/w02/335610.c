@@ -1,5 +1,10 @@
 #include "common.h"
-#include "../ovl_80_shared_board/ovl_80.h"
+#include "../ovl_80_shared_board/F5E80.h"
+#include "../ovl_80_shared_board/101840.h"
+#include "../ovl_80_shared_board/113750.h"
+#include "../ovl_80_shared_board/ECA50.h"
+#include "../ovl_80_shared_board/FA250.h"
+#include "../ovl_80_shared_board/10C230.h"
 
 void func_80105CA4_3358E4_w02(void); 
 void func_80106094_335CD4_w02(void*);

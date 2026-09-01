@@ -4,6 +4,7 @@
 #include "common.h"
 #include "game/board.h"
 
+Object* MBKSuitCreate(void);
 void MBKSuitKill(void);
 void MBKSuitInit(void);
 void MBKSuitClose(void);

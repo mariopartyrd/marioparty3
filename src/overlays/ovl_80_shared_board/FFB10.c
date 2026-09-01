@@ -1,5 +1,6 @@
 #include "common.h"
 #include "game/board.h"
+#include "101840.h"
 
 extern s16 D_80101480_1150A0_shared_board;
 extern s16 D_80101482_1150A2_shared_board;

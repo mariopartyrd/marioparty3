@@ -2,7 +2,7 @@
 #include "game/gamework_data.h"
 #include "game/object.h"
 #include "game/wipe.h"
-#include "../ovl_80_shared_board/ovl_80.h"
+#include "../ovl_80_shared_board/FA250.h"
 
 void func_80105E0C_4F3BEC_mgresultbattle(void);
 void func_80105EF4_4F3CD4_mgresultbattle(void);

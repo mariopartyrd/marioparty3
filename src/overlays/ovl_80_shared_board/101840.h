@@ -13,8 +13,8 @@ void func_800EDF90_101BB0_shared_board(s32 arg0, s32 arg1, s32 arg2); //unused
 void func_800EDFAC_101BCC_shared_board(s32 arg0, s32 arg1, s32 arg2); //unused
 void func_800EE2A4_101EC4_shared_board(s32 arg0);
 void func_800EE2C0_101EE0_shared_board(s32 arg0);
-void func_800EE2DC_101EFC_shared_board(s32 arg0, s32 arg1);
 void func_800EE688_1022A8_shared_board(Object* arg0, f32 arg1, f32 arg2);
+s32 func_800EE694_1022B4_shared_board(Object* arg0);
 u32 func_800EE884_1024A4_shared_board(Object* arg0, s16 arg1, s16 arg2);
 void func_800EE94C_10256C_shared_board(Object *arg0, s16 arg1, s32 arg2); //unused
 void MBModelMotionWait(Object *arg0);

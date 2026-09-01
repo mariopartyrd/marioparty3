@@ -3,6 +3,13 @@
 #include "105D50.h"
 #include "106A50.h"
 #include "F2910.h"
+#include "ECA50.h"
+#include "101840.h"
+#include "106640.h"
+#include "F5B90.h"
+#include "1006F0.h"
+#include "FA250.h"
+#include "10C230.h"
 
 typedef struct UnkPauseMesWork {
     /* 0x00 */ s32 *mes;
@@ -287,7 +294,7 @@ void func_800EE688_1022A8_shared_board(Object* arg0, f32 arg1, f32 arg2) {
     arg0->velocity.z = arg2;
 }
 
-static s32 func_800EE694_1022B4_shared_board(Object* arg0) {
+s32 func_800EE694_1022B4_shared_board(Object* arg0) {
     if (arg0->velocity.z == 0.0f) {
         return 0;
     } else {

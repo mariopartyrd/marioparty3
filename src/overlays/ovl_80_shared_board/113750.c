@@ -3,12 +3,14 @@
 #include "106A50.h"
 #include "F5B90.h"
 #include "10C230.h"
+#include "106640.h"
+#include "105D50.h"
+#include "ECA50.h"
+#include "EE660.h"
 
-void func_800E6FCC_FABEC_shared_board(void);
 extern omObjData* D_801056C0_1192E0_shared_board;
 extern UnkBoard8* D_801056C4_1192E4_shared_board;
 extern Object* D_801056D8_1192F8_shared_board[];
-
 extern f32 D_801056E8_119308_shared_board;
 
 // start of 113750 .data section

@@ -1,5 +1,12 @@
 #include "common.h"
 #include "101840.h"
+#include "105D50.h"
+#include "106A50.h"
+#include "F5E80.h"
+#include "ECA50.h"
+#include "FA250.h"
+#include "106640.h"
+#include "FFB10.h"
 
 extern Object *D_80105620_119240_shared_board;
 extern Object *D_80105624_119244_shared_board;

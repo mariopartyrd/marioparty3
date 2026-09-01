@@ -2,6 +2,7 @@
 #include "process.h"
 #include "common_structs.h"
 #include "malloc.h"
+#include "game/board.h"
 
 typedef struct unkStruct {
 /* 0x00 */ s16 unk_00;

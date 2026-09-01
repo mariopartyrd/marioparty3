@@ -2,6 +2,8 @@
 #include "105D50.h"
 #include "EA790.h"
 #include "FA250.h"
+#include "1006F0.h"
+#include "EC3B0.h"
 
 // UnkBoard2* func_800D6B70_EA790_shared_board(s32);
 // UnkEA790Struct* func_800D6C6C_EA88C_shared_board(void);

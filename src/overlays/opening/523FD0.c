@@ -1,5 +1,5 @@
 #include "common.h"
-#include "../ovl_80_shared_board/ovl_80.h"
+#include "../ovl_80_shared_board/FA250.h"
 
 void func_801061F0_524820_opening(void);
 void func_80110B90_52F1C0_opening(void);

@@ -11,8 +11,6 @@ extern s16 D_800CDD64_CE964;
 extern u8 D_800CC0C0_CCCC0;
 extern s32 D_800A12D4_A1ED4;
 extern s32 D_800A12D8_A1ED8;
-extern s16 mbCameraBtnF;
-extern s16 mbItemBtnF;
 extern s16 D_800D51F8_D5DF8;
 extern UnkOvl81 D_800D1360;
 extern u8 D_800CD280_CDE80;
@@ -23,15 +21,12 @@ extern u16 D_800D530C_D5F0C;
 extern s8 D_800D6A58_D7658;
 extern MinigameTable D_800A6D44_A7944[];
 extern s16 omovlhisidx;
-
 extern omOvlHisData omovlhis[12];
-extern omOvlHisData mbovlhis[5];
+
 // extern Unk800D6B48 D_800D6B48_D7748[2];
 
-extern s32 mbGameMode;
 extern s16 D_800CC0B8_CCCB8;
-
-extern s16 mbovlhisidx;
+extern s16 D_800D6A48_D7648;
 
 //pause
 extern u8 D_800CB99C_CC59C;

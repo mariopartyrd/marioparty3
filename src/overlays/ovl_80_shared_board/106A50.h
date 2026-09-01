@@ -13,6 +13,7 @@ void MBStatusPosSet(s32 playerIndex, s16 arg1, s16 arg2);
 void MBStatusDispSideSet(s32 playerNo, s32 arg1);
 void MBStatusSideSet(s32 playerNo, s32 arg1);
 s32 MBStatusDispMoveSet(s32 arg0);
+s32 MBStatusItemDispGet(s32 playerNo);
 s32 func_800F5278_108E98_shared_board(void);
 s32 func_800F52C4_108EE4_shared_board(void);
 void MBVsSprCreate(void);

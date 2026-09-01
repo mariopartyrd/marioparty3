@@ -1,5 +1,7 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "105D50.h"
+#include "malloc.h"
+#include "mallocblock.h"
 
 extern s8 D_80101E80_115AA0_shared_board[];
 

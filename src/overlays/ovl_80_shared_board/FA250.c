@@ -2,6 +2,10 @@
 #include "mallocblock.h"
 #include "1006F0.h"
 #include "malloc.h"
+#include "rom.h"
+#include "FA250.h"
+#include "EC3B0.h"
+#include "101840.h"
 
 #define BG_TEXEL(entry, off) (*(u16 *)((u8 *)(entry)->unk4 + (off)))
 #define BG_TEX_SIZE (64 * 48 * 2)
@@ -151,21 +155,13 @@ extern Mtx* MTXBuf;
 extern u16 gTotalSpaces;
 extern SpaceData* D_80105214_118E34_shared_board;
 extern LinkData* D_80105218_118E38_shared_board;
+extern u8 D_80105268_118E88_shared_board[];
 
-// void MBMoveMasuSet(s16 playerNo, s16 link, s16 idx);
-// void func_8001F95C_2055C(s32, void*);
-// u16* func_800EAE00_FEA20_shared_board(u16*, s32);
-// f32 HuVecDistance(Vec*, Vec*);
-// void MBVecNormalize(Vec*);
-// void func_800555E8_561E8(s16 group, s16 member, u16 arg2, u16 arg3, u16 arg4, u16 arg5);
-// static void func_800E9358_FCF78_shared_board(void);
-// static void MBBackTPLvlSet(u8 arg0);
-// s32 dmaRead(u32 src, u8 *dest, s32 size);
-// void func_8001F95C_2055C(s32, void* func);
-// static void func_800E9328_FCF48_shared_board(void);
-// void func_800E86CC_FC2EC_shared_board(Gfx** arg0, s32 arg1, u8 arg2);
-// static void func_800E90BC_FCCDC_shared_board(void);
-// static s32 func_800E7330_FAF50_shared_board(u16 arg0);
+static void func_800E86CC_FC2EC_shared_board(Gfx** arg0, s32 arg1, u8 arg2);
+static s32 func_800E7330_FAF50_shared_board(u16 arg0);
+static void func_800E90BC_FCCDC_shared_board(void);
+static void func_800E9328_FCF48_shared_board(void);
+static void func_800E9358_FCF78_shared_board(void);
 
 void func_800E6630_FA250_shared_board(u32 arg0) {
     HVQHeader* temp_v0;
@@ -952,7 +948,7 @@ static void func_800E90BC_FCCDC_shared_board(void) {
     Hu3DCamUpdateMtx(0);
 }
 
-static void func_800E92D4_FCEF4_shared_board(void) {
+void func_800E92D4_FCEF4_shared_board(void) {
     if (D_80103410_117030_shared_board != NULL) {
         omDelPrcObj(D_80103410_117030_shared_board);
         D_80103410_117030_shared_board = NULL;
@@ -1103,7 +1099,7 @@ void MBCamera3Dto2D(Vec* arg0, f32* arg1) {
     arg1[1] = sp10.unk_00.y + sp10.unk_0C;
 }
 
-static void MBBackTPLvlSet(u8 arg0) {
+void MBBackTPLvlSet(u8 arg0) {
     D_8010124C_114E6C_shared_board = arg0;
 }
 

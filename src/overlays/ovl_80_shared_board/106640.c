@@ -1,5 +1,7 @@
 #include "common.h"
-#include "ovl_80.h"
+#include "106640.h"
+#include "malloc.h"
+#include "mallocblock.h"
 
 extern UnkBoard8 *D_80105570_119190_shared_board;
 extern u16 D_80105574_119194_shared_board;

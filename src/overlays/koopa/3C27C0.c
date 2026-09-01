@@ -1,5 +1,13 @@
 #include "common.h"
-#include "../ovl_80_shared_board/ovl_80.h"
+#include "../ovl_80_shared_board/ECA50.h"
+#include "../ovl_80_shared_board/106A50.h"
+#include "../ovl_80_shared_board/FA250.h"
+#include "../ovl_80_shared_board/F5B90.h"
+#include "../ovl_80_shared_board/101840.h"
+#include "../ovl_80_shared_board/105D50.h"
+#include "../ovl_80_shared_board/10C230.h"
+#include "../ovl_80_shared_board/FFB10.h"
+#include "../ovl_80_shared_board/113520.h"
 
 typedef struct UnkBowser {
     s16 unk_00;

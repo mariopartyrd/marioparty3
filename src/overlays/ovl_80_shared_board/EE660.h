@@ -7,10 +7,13 @@
 void func_800DAA40_EE660_shared_board(s32 arg0);
 void func_800DB56C_EF18C_shared_board(void);
 void func_800DB5DC_EF1FC_shared_board(void);
+void func_800DB6A8_EF2C8_shared_board(s32 arg0);
 void func_800DB884_EF4A4_shared_board(s32 arg0);
+void func_800DBE6C_EFA8C_shared_board(s32 arg0);
 s32 func_800DBEC0_EFAE0_shared_board(s32 arg0);
 void func_800DBFBC_EFBDC_shared_board(s32 arg0);
 void func_800DC024_EFC44_shared_board(s32 arg0);
+void func_800DC06C_EFC8C_shared_board(s32 arg0);
 void func_800DC08C_EFCAC_shared_board(s32 arg0);
 void func_800DC0E0_EFD00_shared_board(s32 arg0);
 s16 func_800DC128_EFD48_shared_board(s32 arg0);

@@ -1,5 +1,8 @@
 #include "common.h"
 #include "game/board.h"
+#include "101840.h"
+#include "106A50.h"
+#include "105D50.h"
 
 #define HUNDREDS 0
 #define TENS 1

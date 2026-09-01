@@ -21,7 +21,9 @@ void MBCameraFocusVecSet(Vec *arg0);
 void MBPlayerPosFixSet(s32 playerNo, s32 arg1);
 void MBKettouResultExec(void);
 void MBKettouComResultSet(void);
-s32 MBKettouExec(GW_PLAYER *arg0, s32 arg1);
+s32 MBKettouPlayerBitGet(s32 arg0);
+s32 func_800F9A68_10D688_shared_board(s32 arg0);
+// s32 MBKettouExec(GW_PLAYER *arg0, s32 arg1); //this has to be implicit as it gets called with the wrong number of args in F5E80.c
 s32 BoardGetTurnTier(s32 turn);
 void func_800FC7C8_1103E8_shared_board(void);
 void func_800FC8A4_1104C4_shared_board(void);
@@ -37,5 +39,6 @@ void func_800FF7C4_1133E4_shared_board(s32 arg0, s16 arg1, s16 arg2);
 void func_800FF7F0_113410_shared_board(s32 arg0);
 void func_800FF800_113420_shared_board(s16 arg0, s16 arg1); //unused
 s16 func_800FF834_113454_shared_board(void);
+void func_800FF840_113460_shared_board(Vec *arg0);
 
 #endif //_ovl_80_10C230

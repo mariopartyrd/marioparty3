@@ -2,6 +2,7 @@
 #include "105D50.h"
 #include "101840.h"
 #include "ECA50.h"
+#include "F9DE0.h"
 
 u8 D_80101630_115250_shared_board[] = { 0, 1, 2, 3 };
 
@@ -221,7 +222,7 @@ static void func_800F248C_1060AC_shared_board(void) {
 }
 
 // create player sprite
-static void MBPlayerModelCreate(s16 playerNo, u32 *arg1, s32 arg2) {
+void MBPlayerModelCreate(s16 playerNo, u32 *arg1, s32 arg2) {
     GW_PLAYER *player = MBPlayerGet(playerNo);
     Process *proc;
     u8 chr;

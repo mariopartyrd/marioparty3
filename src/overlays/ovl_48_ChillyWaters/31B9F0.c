@@ -1,5 +1,22 @@
 #include "ChillyWaters.h"
-#include "../ovl_80_shared_board/ovl_80.h"
+#include "../ovl_80_shared_board/FA250.h"
+#include "../ovl_80_shared_board/ECA50.h"
+#include "../ovl_80_shared_board/1006F0.h"
+#include "../ovl_80_shared_board/F5E80.h"
+#include "../ovl_80_shared_board/113750.h"
+#include "../ovl_80_shared_board/101840.h"
+#include "../ovl_80_shared_board/10C230.h"
+#include "../ovl_80_shared_board/105D50.h"
+#include "../ovl_80_shared_board/113520.h"
+#include "../ovl_80_shared_board/F5B90.h"
+#include "../ovl_80_shared_board/EC3B0.h"
+#include "../ovl_80_shared_board/EDDB0.h"
+#include "../ovl_80_shared_board/EB2F0.h"
+#include "../ovl_80_shared_board/EE660.h"
+#include "../ovl_80_shared_board/FFB10.h"
+#include "../ovl_80_shared_board/106A50.h"
+#include "../ovl_80_shared_board/F5070.h"
+#include "../ovl_80_shared_board/F9DE0.h"
 
 #define GET_STAR_MODEL() D_8011FA78_3355E8_ChillyWaters[GwSystem.star_spawn_indices[GwSystem.current_star_spawn]]
 
@@ -33,98 +50,98 @@ typedef struct UnkThing {
     s32 unk_0C;
 } UnkThing;
 
-void func_800EB24C_FEE6C_shared_board(s16, u8*, u8*);
-void func_800FC9E0_110600_shared_board(void);
-omObjData* func_8010F088_324BF8_ChillyWaters(Vec* arg0, f32 arg1, f32 arg2, s16 arg3, Vec* arg4, s32 arg5);
-void func_8010FE54_3259C4_ChillyWaters(void);
-void MBMoveBackMasuSet(s16 playerNo, s16 arg1, s16 arg2);
-void func_8004A918_4B518(s32);
-void func_800461B4_46DB4(s16 arg0);
-void MB1Ev_StarGuideIn(void);
-s32 MBCameraStopCheck(void);
-void MBGuideFaceSet(Object*, s32);
-void func_800E6FCC_FABEC_shared_board(void);
-void func_800FFF44_113B64_shared_board(void);
-void func_80100130_113D50_shared_board(void);
-void func_80106544_31C0B4_ChillyWaters(UnkMBGuideData*);
-void func_8004A880_4B480(s32);
-s32 MBPlayerStealRankGet(s32);
-void func_80107620_31D190_ChillyWaters(void);
-s32 func_800EF0D8_102CF8_shared_board(s32 arg0);
-s16 MBComTreeExec(DecisionTreeNonLeafNode *arg0);
-Object* MBModelLinkCreate(Object*); //unsure if correct signature
-void MB1_StarGuideCreate(s16);
-void MBKinokoEffKillHookSet(void*);
-void MB1_StarGuideKill(void);
-void func_800D771C_EB33C_shared_board(s32, Object*, s16, s16);
-void func_800D7790_EB3B0_shared_board(s8 arg0, Vec* arg1, s16 arg2, s16 arg3);
-void func_80109E84_31F9F4_ChillyWaters(void);
-void func_80109EB4_31FA24_ChillyWaters(void);
-void func_800EBF98_FFBB8_shared_board(s16, s32);
-void MBStatusItemIconSprReinit(s32);
-void func_800ED20C_100E2C_shared_board(s16 playerNo, s32 arg1, s16 masuAbsIndex);
-s32 MB1Ev_YesNoChoiceGet(DecisionTreeNonLeafNode *arg0, s32 arg1);
-void func_801127D8_328348_ChillyWaters(void);
-void func_8010F1E4_324D54_ChillyWaters(omObjData*);
-void func_800D9A40_ED660_shared_board(Object* arg0);
-void MBVecNormalize(Vec *);
-void MBCameraFocusModeSet(s16 arg0);
-void MBCameraFocusVecSet(Vec *arg0);
-void func_800EDA58_101678_shared_board(void);
-void func_800FF7F0_113410_shared_board(s32);
-void func_800FCA14_110634_shared_board(void);
-s32 func_8011CE94_332A04_ChillyWaters(void);
-s32 func_8011D1F8_332D68_ChillyWaters(void);
-s16 func_800FF834_113454_shared_board(void);
-void MBItemWarpBlockSwapCreate(void);
-void MBItemWarpBlockSwapInit(void);
-void MBItemWarpBlockSwapPlayerSet(s16);
-void func_800DAA40_EE660_shared_board(s32);
-void func_800DC06C_EFC8C_shared_board(s32);
-void func_800DCBCC_F07EC_shared_board(s32);
-void func_800DCD2C_F094C_shared_board(s32 arg0, s32 arg1);
-s16 func_800FF834_113454_shared_board(void);
-void func_8010FE54_3259C4_ChillyWaters(void);
-void MBStatusItemRotSet(s32 playerNo, s32 arg1, f32 arg2);
-void MBKSuitKill(void);
-void MB1Ev_ShopMasu(void);
-void func_80110E08_326978_ChillyWaters(void);
-void func_8010A474_31FFE4_ChillyWaters(void);
-s32 MB1Ev_YesNoChoiceGet(DecisionTreeNonLeafNode *arg0, s32 arg1);
-s32 MBItemFind(s32 playerNo, s32 item);
-void MBStatusItemIconSprReinit(s32 player);
-void MBVecNormalize(Vec *arg0);
-void func_800D9A40_ED660_shared_board(Object *arg0);
-u16 func_800D9E80_EDAA0_shared_board(Object* arg0);
-void func_800EC6A8_1002C8_shared_board(void);
-void func_800EC9DC_1005FC_shared_board(void);
-void func_80109EF8_31FA68_ChillyWaters(void);
-void func_80112FA8_328B18_ChillyWaters(void);
-s32 func_800DCD9C_F09BC_shared_board(s32 player);
-s32 func_800DBEC0_EFAE0_shared_board(s32);
-void func_800DB884_EF4A4_shared_board(s32 player);
-void MB1_BankCoinHide(void);
-void MB1_MapScroll(void);
-void MBCoinChangeCreate(s32 player, s32 amount);
-void MBCoinTakeCreate(s32 player, s32 amount);
-void MBItemRemoveEmpty(s32 player);
-void MBDlgWinInsertCreate(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
-void MBDlgWinExec(s32 arg0, s32 mesNum);
-void MBDlgWinClose(void);
-void MBDlgWinKill(void);
-void func_8001C92C_1D52C(s16 model, f32 arg1);
-void func_8001C6A8_1D2A8(s32 model, f32 arg1);
-void func_800DA778_EE398_shared_board(s32);
-void func_800DA778_EE398_shared_board(s32);
-void MBCameraFocusModeSet(s16 arg0);
-void MBCameraFocusStaticPosSet(Vec *arg0);
-void MBStatusItemIconSprReinit(s32);
-void func_800D9A40_ED660_shared_board(Object* arg0);
-void func_800FC998_1105B8_shared_board(void);
-void func_800FF7F0_113410_shared_board(s32 unusedArg0);
-void func_8010A3B8_31FF28_ChillyWaters(s16 arg0, s32 arg1, s16 arg2, s32 arg3);
-void func_8010FE54_3259C4_ChillyWaters(void);
-void func_80114650_32A1C0_ChillyWaters(void);
+
+
+// void func_800EB24C_FEE6C_shared_board(s16, u8*, u8*);
+// void func_800FC9E0_110600_shared_board(void);
+// omObjData* func_8010F088_324BF8_ChillyWaters(Vec* arg0, f32 arg1, f32 arg2, s16 arg3, Vec* arg4, s32 arg5);
+// void func_8010FE54_3259C4_ChillyWaters(void);
+// void MBMoveBackMasuSet(s16 playerNo, s16 arg1, s16 arg2);
+
+// void MB1Ev_StarGuideIn(void);
+// s32 MBCameraStopCheck(void);
+// void MBGuideFaceSet(Object*, s32);
+// void func_800E6FCC_FABEC_shared_board(void);
+// void func_800FFF44_113B64_shared_board(void);
+// void func_80100130_113D50_shared_board(void);
+// void func_80106544_31C0B4_ChillyWaters(UnkMBGuideData*);
+
+// s32 MBPlayerStealRankGet(s32);
+// void func_80107620_31D190_ChillyWaters(void);
+// s32 func_800EF0D8_102CF8_shared_board(s32 arg0);
+// s16 MBComTreeExec(DecisionTreeNonLeafNode *arg0);
+// Object* MBModelLinkCreate(Object*); //unsure if correct signature
+// void MB1_StarGuideCreate(s16);
+// void MBKinokoEffKillHookSet(void*);
+// void MB1_StarGuideKill(void);
+// void func_800D771C_EB33C_shared_board(s32, Object*, s16, s16);
+// void func_800D7790_EB3B0_shared_board(s8 arg0, Vec* arg1, s16 arg2, s16 arg3);
+// void func_80109E84_31F9F4_ChillyWaters(void);
+// void func_80109EB4_31FA24_ChillyWaters(void);
+// void func_800EBF98_FFBB8_shared_board(s16, s32);
+// void MBStatusItemIconSprReinit(s32);
+// void func_800ED20C_100E2C_shared_board(s16 playerNo, s32 arg1, s16 masuAbsIndex);
+// s32 MB1Ev_YesNoChoiceGet(DecisionTreeNonLeafNode *arg0, s32 arg1);
+// void func_801127D8_328348_ChillyWaters(void);
+// void func_8010F1E4_324D54_ChillyWaters(omObjData*);
+// void func_800D9A40_ED660_shared_board(Object* arg0);
+// void MBVecNormalize(Vec *);
+// void MBCameraFocusModeSet(s16 arg0);
+// void MBCameraFocusVecSet(Vec *arg0);
+// void func_800EDA58_101678_shared_board(void);
+// void func_800FF7F0_113410_shared_board(s32);
+// void func_800FCA14_110634_shared_board(void);
+// s32 func_8011CE94_332A04_ChillyWaters(void);
+// s32 func_8011D1F8_332D68_ChillyWaters(void);
+// s16 func_800FF834_113454_shared_board(void);
+// void MBItemWarpBlockSwapCreate(void);
+// void MBItemWarpBlockSwapInit(void);
+// void MBItemWarpBlockSwapPlayerSet(s16);
+// void func_800DAA40_EE660_shared_board(s32);
+// void func_800DC06C_EFC8C_shared_board(s32);
+// void func_800DCBCC_F07EC_shared_board(s32);
+// void func_800DCD2C_F094C_shared_board(s32 arg0, s32 arg1);
+// s16 func_800FF834_113454_shared_board(void);
+// void func_8010FE54_3259C4_ChillyWaters(void);
+// void MBStatusItemRotSet(s32 playerNo, s32 arg1, f32 arg2);
+// void MBKSuitKill(void);
+// void MB1Ev_ShopMasu(void);
+// void func_80110E08_326978_ChillyWaters(void);
+// void func_8010A474_31FFE4_ChillyWaters(void);
+// s32 MB1Ev_YesNoChoiceGet(DecisionTreeNonLeafNode *arg0, s32 arg1);
+// s32 MBItemFind(s32 playerNo, s32 item);
+// void MBStatusItemIconSprReinit(s32 player);
+// void MBVecNormalize(Vec *arg0);
+// void func_800D9A40_ED660_shared_board(Object *arg0);
+// u16 func_800D9E80_EDAA0_shared_board(Object* arg0);
+// void func_800EC6A8_1002C8_shared_board(void);
+// void func_800EC9DC_1005FC_shared_board(void);
+// void func_80109EF8_31FA68_ChillyWaters(void);
+// void func_80112FA8_328B18_ChillyWaters(void);
+// s32 func_800DCD9C_F09BC_shared_board(s32 player);
+// s32 func_800DBEC0_EFAE0_shared_board(s32);
+// void func_800DB884_EF4A4_shared_board(s32 player);
+// void MB1_BankCoinHide(void);
+// void MB1_MapScroll(void);
+// void MBCoinChangeCreate(s32 player, s32 amount);
+// void MBCoinTakeCreate(s32 player, s32 amount);
+// void MBItemRemoveEmpty(s32 player);
+// void MBDlgWinInsertCreate(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
+// void MBDlgWinExec(s32 arg0, s32 mesNum);
+// void MBDlgWinClose(void);
+// void MBDlgWinKill(void);
+
+// void func_800DA778_EE398_shared_board(s32);
+// void func_800DA778_EE398_shared_board(s32);
+// void MBCameraFocusModeSet(s16 arg0);
+// void MBCameraFocusStaticPosSet(Vec *arg0);
+// void MBStatusItemIconSprReinit(s32);
+// void func_800D9A40_ED660_shared_board(Object* arg0);
+// void func_800FC998_1105B8_shared_board(void);
+// void func_800FF7F0_113410_shared_board(s32 unusedArg0);
+// void func_8010A3B8_31FF28_ChillyWaters(s16 arg0, s32 arg1, s16 arg2, s32 arg3);
+// void func_8010FE54_3259C4_ChillyWaters(void);
+// void func_80114650_32A1C0_ChillyWaters(void);
 
 extern u16 D_8011E49C_33400C_ChillyWaters[][2];
 extern Object* D_8011FB78_3356E8_ChillyWaters;
@@ -212,6 +229,13 @@ extern char D_8011DDC4_333934_ChillyWaters[];
 extern char D_8011D9A4_333514_ChillyWaters[];
 extern char D_8011DFD8_333B48_ChillyWaters[];
 extern char D_8011DFEC_333B5C_ChillyWaters[];
+
+void func_80112FA8_328B18_ChillyWaters(void);
+void func_801127D8_328348_ChillyWaters(void);
+void func_8010F1E4_324D54_ChillyWaters(omObjData*);
+void func_8010FE54_3259C4_ChillyWaters(void);
+void MB1Ev_ShopMasu(void);
+void func_80114650_32A1C0_ChillyWaters(void);
 
 // Get toad space index for current start space index.
 s16 MB1Ev_StarGuideMasuGet(void) {
@@ -927,7 +951,7 @@ void MB1_ObjectSetup(void) {
     HmfLightColorSet(2, 0xC8, 0xC8, 0xC8);
     MBObjectSetup(3, 0x23A, 5, 0);
     MBMasuBlockTblExtSet(&D_8011D31C_332E8C_ChillyWaters);
-    MBMasuBlockTblSet(&D_8011D320_332E90_ChillyWaters);
+    MBMasuBlockTblSet(D_8011D320_332E90_ChillyWaters);
     space = MBMasuGet(0x77);
     MBVecDirGet(&space->coords, &MBMasuGet(0x73)->coords, &sp10);
     MBMasuArrowAngleAdd(MBVecAngleGet(&sp10) + 180.0f);
@@ -989,11 +1013,11 @@ void MB1_Create(void) {
     func_800F8D6C_10C98C_shared_board(0x18);
     Hu3DCamInit(2);
     MB1_ObjectSetup();
-    MBMasuEventTblAdd(&mb1_CommonEventTbl);
-    MBMasuEventTblAdd(&mb1_SpecialEventTbl);
+    MBMasuEventTblAdd(mb1_CommonEventTbl);
+    MBMasuEventTblAdd(mb1_SpecialEventTbl);
     MBHatenaFuncSet(&MB1Ev_SnowmanStart);
-    MBMasuEventTblAdd(&mb1_TeresaEventTbl);
-    MBMasuEventTblAdd(&mb1_TurnStatusEventTbl);
+    MBMasuEventTblAdd(mb1_TeresaEventTbl);
+    MBMasuEventTblAdd(mb1_TurnStatusEventTbl);
     MBStart(0);
 }
 
@@ -2510,8 +2534,8 @@ void func_8010F1E4_324D54_ChillyWaters(omObjData* arg0) {
 
 void MB1Ev_ItemMajinLamp(void) {
     Vec pos;
-    u8 link;
-    u8 idx;
+    s8 link;
+    s8 idx;
     GW_PLAYER *player;
     Object *lamp;
     UnkVibrateProcess *vib;

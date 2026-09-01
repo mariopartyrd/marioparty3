@@ -1,6 +1,11 @@
 #include "common.h"
 #include "malloc.h"
 #include "F9DE0.h"
+#include "105D50.h"
+#include "FA250.h"
+#include "ECA50.h"
+#include "EC3B0.h"
+#include "1006F0.h"
 
 typedef struct UnkObj {
     Object *unk_00;
@@ -19,6 +24,9 @@ extern Object* D_80102AB0_1166D0_shared_board;
 extern u16 D_80102AB4_1166D4_shared_board;
 extern u8 D_800D6A90_D7690;
 extern s16 D_80102AB8_1166D8_shared_board[128];
+
+static void func_800D93C0_ECFE0_shared_board(omObjData *playerObj);
+static void func_800D95D0_ED1F0_shared_board(omObjData* arg0);
 
 static void func_800D8E30_ECA50_shared_board(void) {
     s32 i;

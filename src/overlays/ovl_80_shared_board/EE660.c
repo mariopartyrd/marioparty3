@@ -3,6 +3,14 @@
 #include "101840.h"
 #include "105D50.h"
 #include "1006F0.h"
+#include "FA250.h"
+#include "10C230.h"
+#include "113520.h"
+#include "FFB10.h"
+#include "F5070.h"
+#include "106A50.h"
+#include "ECA50.h"
+#include "F5E80.h"
 
 typedef struct UnkDice2 {
     s32 unk0;
@@ -276,7 +284,7 @@ void func_800DB5DC_EF1FC_shared_board(void) {
     D_8010570E_11932E_shared_board = 1;
 }
 
-static void func_800DB6A8_EF2C8_shared_board(s32 arg0) {
+void func_800DB6A8_EF2C8_shared_board(s32 arg0) {
     UnkDiceRelated *entry;
     void *data;
     s32 i;
@@ -428,7 +436,7 @@ static void func_800DBC2C_EF84C_shared_board(s32 arg0) {
     func_800DB884_EF4A4_shared_board(arg0);
 }
 
-static void func_800DBE6C_EFA8C_shared_board(s32 arg0) {
+void func_800DBE6C_EFA8C_shared_board(s32 arg0) {
     UnkDiceRelated* dice = &D_800CDBD0_CE7D0[arg0];
 
     if (dice->omObj != NULL) {

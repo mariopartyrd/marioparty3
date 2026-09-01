@@ -4,6 +4,9 @@
 #include "FA250.h"
 #include "106A50.h"
 #include "106640.h"
+#include "105D50.h"
+#include "EE660.h"
+#include "F5B90.h"
 
 typedef struct UnkBoard6 {
     /* 0x00 */ s8 unk_00;

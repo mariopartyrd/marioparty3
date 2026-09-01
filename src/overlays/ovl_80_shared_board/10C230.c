@@ -4,6 +4,25 @@
 #include "FFB10.h"
 #include "105D50.h"
 #include "FA250.h"
+#include "1006F0.h"
+#include "EB2F0.h"
+#include "ECA50.h"
+#include "F9DE0.h"
+#include "106640.h"
+#include "F2910.h"
+#include "F5070.h"
+#include "F5E80.h"
+#include "106A50.h"
+#include "EE660.h"
+#include "1063F0.h"
+#include "10C230.h"
+#include "EC3B0.h"
+#include "101840.h"
+#include "113520.h"
+#include "113750.h"
+#include "F5B90.h"
+#include "10AD50.h"
+#include "EDDB0.h"
 
 enum DIFFICULTIES {
     EASY = 0,
@@ -57,7 +76,7 @@ extern s16 D_800CC698_CD298;
 extern s16 D_80105664_119284_shared_board;
 extern s16 D_80105666_119286_shared_board;
 
-static void func_800FF840_113460_shared_board(Vec *arg0);
+static void MBSaveInit(void);
 
 s32 D_80101B40_115760_shared_board[] = {
     ChillyWaters,
@@ -999,7 +1018,7 @@ void MBPlayerPosFixSet(s32 playerNo, s32 arg1) {
 }
 
 // if player should jump to next space
-static s32 func_800F9A68_10D688_shared_board(s32 arg0) {
+s32 func_800F9A68_10D688_shared_board(s32 arg0) {
     Vec sp10;
     GW_PLAYER *curPlayer;
     GW_PLAYER *player;
@@ -1279,7 +1298,7 @@ void MBBattleKuriboStart(GW_PLAYER *arg0, s32 arg1) {
     mbBattleKuriboObj->rot.x = 180.0f;
 }
 
-static s32 MBKettouPlayerBitGet(s32 arg0) {
+s32 MBKettouPlayerBitGet(s32 arg0) {
     GW_SYSTEM *system = &GwSystem;
     GW_PLAYER *player;
     s16 temp_s3;
@@ -1994,10 +2013,10 @@ static s32 func_800FB624_10F244_shared_board(GW_PLAYER* arg0) {
             HuPrcSleep(0x1E);
             sprintf(sp20, "%d", var_s2);
             if (var_s2 < (var_s4 * 4)) {
-                func_800EC980_1005A0_shared_board(6, 0x1303, sp20, 0, 0, 0, 0, 0x88);
+                func_800EC980_1005A0_shared_board(6, 0x1303, (u32)sp20, 0, 0, 0, 0, 0x88);
                 func_800ECA38_100658_shared_board();
             } else {
-                func_800EC980_1005A0_shared_board(6, 0x1302, sp20, 0, 0, 0, 0, 0x88);
+                func_800EC980_1005A0_shared_board(6, 0x1302, (u32)sp20, 0, 0, 0, 0, 0x88);
             }
             func_800ECA38_100658_shared_board();
             MBDlgWinClose();
@@ -3571,7 +3590,7 @@ s16 func_800FF834_113454_shared_board(void) {
     return D_80105664_119284_shared_board;
 }
 
-static void func_800FF840_113460_shared_board(Vec *arg0) {
+void func_800FF840_113460_shared_board(Vec *arg0) {
     f32 temp_f20;
     f32 temp_f22;
 
