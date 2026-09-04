@@ -254,11 +254,11 @@ static void MBStatusNumUpdate(s32 playerIndex) {
     }
 
     if (playerBoardStatus->prevStars != GwPlayer[playerIndex].star) {
-        if (GwPlayer[playerIndex].star > 99) {
+        if (GwPlayer[playerIndex].star > STARS_MAX) {
             func_80055140_55D40(playerBoardStatus->playerIndex, STARS_TENS_DIGIT, 9, 0);
             func_80055140_55D40(playerBoardStatus->playerIndex, STARS_ONES_DIGIT, 9, 0);
         } else {
-            if (GwPlayer[playerIndex].star > 9) {
+            if (GwPlayer[playerIndex].star > (STARS_MAX % 10)) {
                 func_80055140_55D40(playerBoardStatus->playerIndex, STARS_TENS_DIGIT, (GwPlayer[playerIndex].star / 10), 0);
             } else {
                 func_80055140_55D40(playerBoardStatus->playerIndex, STARS_TENS_DIGIT, DIGIT_X, 0);

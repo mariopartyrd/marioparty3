@@ -2,32 +2,12 @@
 #include "mallocblock.h"
 #include "game/board.h"
 
+
 typedef struct RGB2 {
     s32 r;
     s32 g;
     s32 b;
 } RGB2;
-
-// void MBHelpWinKill(Unk3*);
-// Unk3* func_800E210C_F5D2C_shared_board(s16 arg0, s16 arg1, u8 arg2);
-// void MBMapScrollExec(s32);
-// s32 MBCameraStopCheck(void);
-// void MBMoveMasuSet(s32, s32, s32);
-// void MBStatusItemAttrSet(s32, s32, s32);
-// f32 MBVecAngleGet(Vec*);
-// void MBComItemDecideHookSet(void*);
-// void MBItemHookSet(s32, void*);
-// void MBMasuArrowAngleAdd(f32);
-// void MBMasuStarSet(s32, s16);
-// void MBMasuBlockTblExtSet(s16*);
-// void MBMasuBlockTblSet(s16*);
-// void func_800EBDAC_FF9CC_shared_board(void);
-// void MBObjectSetup(s32 arg0, s16 arg1, s32 arg2, s32 unused);
-// void MBMasuEventTblAdd(event_table_entry*);
-// void MBHatenaFuncSet(void*);
-// void func_800F8D6C_10C98C_shared_board(s32);
-// void MBStart(s32);
-// void MBMoveNextMasuSet(s16 playerNo, s16 arg1, s16 arg2);
 
 void MB1Ev_StarShuffle(void);
 void MB1Ev_StarNextPos(void);

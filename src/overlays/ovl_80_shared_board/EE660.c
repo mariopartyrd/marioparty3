@@ -1158,8 +1158,8 @@ static void func_800DD724_F1344_shared_board(void) {
 
     GwPlayer[GwSystem.current_player_index].star++;
 
-    if (GwPlayer[GwSystem.current_player_index].star > 99) {
-        GwPlayer[GwSystem.current_player_index].star = 99;
+    if (GwPlayer[GwSystem.current_player_index].star > STARS_MAX) {
+        GwPlayer[GwSystem.current_player_index].star = STARS_MAX;
     }
     
     MBVecForwardSet(&temp_s4->player_obj->rot);

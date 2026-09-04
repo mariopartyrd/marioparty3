@@ -5,6 +5,9 @@
 
 #define MINIGAME_ID(id) ((id) + 1)
 
+#define COINS_MAX 999
+#define STARS_MAX 99
+
 typedef struct LinkData {
 /* 0x00 */ s16 chainIndicies;
 /* 0x02 */ s16 unk2;
