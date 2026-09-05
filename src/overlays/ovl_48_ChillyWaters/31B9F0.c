@@ -28,7 +28,7 @@
          (cnt) != 0;                                                     \
          (cnt)--, (tmp) += 2) {                                          \
     }                                                                    \
-    motId = (u16 *)(s32)(tmp)[1];
+    motId = tmp[1];
 
 typedef struct UnkStar {
 /* 0x00 */ char unk_00[8];
@@ -50,8 +50,6 @@ typedef struct UnkChillyWaters {
     char unk_1E[2];
 } UnkChillyWaters; //sizeof 0x20
 
-void func_800D9A40_ED660_shared_board(Object*);
-
 typedef struct UnkThing {
     Object* unk_00;
     Object* unk_04;
@@ -60,6 +58,15 @@ typedef struct UnkThing {
     char unk_10[0x10];
 } UnkThing;
 
+typedef struct SnowmanMoveWork {
+    /* 0x00 */ Vec pos;
+    /* 0x0C */ Vec dest;
+    /* 0x18 */ Vec *out;
+    /* 0x1C */ f32 speed;
+} SnowmanMoveWork;
+
+extern f32 D_8011FADC_33564C_ChillyWaters;
+extern f32 D_8011FAE0_335650_ChillyWaters;
 extern u16 D_8011E49C_33400C_ChillyWaters[][2];
 extern Object* D_8011FB78_3356E8_ChillyWaters;
 extern u8 D_8011E494_334004_ChillyWaters[];
@@ -181,6 +188,14 @@ extern s32 D_8011FB74_3356E4_ChillyWaters;
 extern Object *D_8011FB98_335708_ChillyWaters[];
 extern omObjData *D_8011FBA8_335718_ChillyWaters[];
 extern s32 D_8011FBB8_335728_ChillyWaters;
+extern s16 *D_8011E63C_3341AC_ChillyWaters[];
+extern s32 D_8011FAF8_335668_ChillyWaters[];
+extern s32 D_8011D30C_332E7C_ChillyWaters;
+extern Object *D_8011FAE8_335658_ChillyWaters;
+extern f32 D_8011D310_332E80_ChillyWaters;
+extern f32 D_8011FADC_33564C_ChillyWaters;
+extern s32 D_8011E6CC_33423C_ChillyWaters[][2];
+extern f32 D_8011E6AC_33421C_ChillyWaters[][2];
 
 s16 MB1Ev_StarGuideMasuGet(void);
 s32 MB1Ev_YesNoChoiceGet(DecisionTreeNonLeafNode *arg0, s32 arg1);
@@ -5433,7 +5448,7 @@ void MB1Ev_ItemRobBox(void) {
     s32 i;
     s32 j;
     u16* temp;
-    u16* motId;
+    u16 motId;
     char pad[8];
     s32 target = 0;
     
@@ -5568,9 +5583,63 @@ void MB1Ev_Turuturu() {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80118AE8_32E658_ChillyWaters);
+void func_80118AE8_32E658_ChillyWaters(void) {
+    GW_PLAYER *player = MBPlayerGet(CUR_PLAYER);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_SnowmanObjMain);
+    if (!(player->rev & FLAG_REV)) {
+        switch (MBMasuLinkMasuIdGet(player->clink, player->cidx)) {
+        case 0x3E:
+        case 0x47:
+        case 0x5A:
+            MB1Ev_TuruturuMain();
+            break;
+        }
+    }
+}
+
+void MB1Ev_SnowmanObjMain(void) {
+    Object *obj;
+    SpaceData *space;
+    f32 baseZ;
+    f32 angle;
+
+    obj = MBModelCreate(0x2F, NULL);
+    D_8011FAE8_335658_ChillyWaters = obj;
+    space = MBMasuGet(0x83);
+
+    D_8011D314_332E84_ChillyWaters = MBModelCreate(0x2D, NULL);
+    HuVecCopy3F(&D_8011D314_332E84_ChillyWaters->coords, &MBMasuGet(0x81)->coords);
+    D_8011D314_332E84_ChillyWaters->coords.x += 1.0f;
+    D_8011D314_332E84_ChillyWaters->coords.z -= 20.0f;
+    D_8011D314_332E84_ChillyWaters->scale.x = 1.2f;
+    D_8011D314_332E84_ChillyWaters->scale.z = 1.2f;
+    MBModelDispOn(D_8011D314_332E84_ChillyWaters);
+
+    while (1) {
+        func_8001C814_1D414(obj->omObj1->model[0], 1, 1);
+        HuVecCopy3F(&obj->coords, &space->coords);
+        obj->coords.x -= 10.0f;
+        MBModelDispOn(obj);
+
+        while (D_8011D30C_332E7C_ChillyWaters == 0) {
+            HuPrcVSleep();
+        }
+
+        for (angle = 0.0f, baseZ = obj->coords.z; angle < 720.0f; angle += 40.0f) {
+            obj->coords.z = baseZ + (2.0f * HuMathSin(angle));
+            HuPrcVSleep();
+        }
+        obj->coords.z = baseZ;
+        HuAudFXPlay(0x189);
+
+        while (D_8011D30C_332E7C_ChillyWaters != 0) {
+            obj->coords.y += 10.0f;
+            HuPrcVSleep();
+        }
+
+        MBModelDispOff(obj);
+    }
+}
 
 void func_80118D6C_32E8DC_ChillyWaters() {
     Object *temp_a0;
@@ -5620,7 +5689,32 @@ void func_80118E2C_32E99C_ChillyWaters() {
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_SnowmanRoll);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_SnowmanPathGet);
+s32 MB1Ev_SnowmanPathGet(s32 path) {
+    GW_PLAYER *player;
+    s16 *list;
+    s32 count;
+    s32 i;
+
+    list = D_8011E63C_3341AC_ChillyWaters[path];
+    count = 0;
+
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
+        D_8011FAF8_335668_ChillyWaters[i] = 0;
+    }
+
+    do {
+        for (i = 0; i < MB_MAX_PLAYERS; i++) {
+            player = MBPlayerGet(i);
+            if (*list == MBMasuLinkMasuIdGet(player->clink, player->cidx)) {
+                D_8011FAF8_335668_ChillyWaters[i] = 1;
+                count++;
+            }
+        }
+        list++;
+    } while (*list != -1);
+
+    return count;
+}
 
 s32 func_80119A20_32F590_ChillyWaters(s32 arg0) {
     s32 temp_s1;
@@ -5629,11 +5723,72 @@ s32 func_80119A20_32F590_ChillyWaters(s32 arg0) {
     return temp_s1 + MB1Ev_SnowmanPathGet(arg0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80119A60_32F5D0_ChillyWaters);
+void func_80119A60_32F5D0_ChillyWaters(s32 arg0) {
+    f32 var_f0;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80119B3C_32F6AC_ChillyWaters);
+    if (arg0 == -1) {
+        do {
+            arg0 = rand8() % 4;
+        } while (D_8011D310_332E80_ChillyWaters == (f32) arg0);
+        D_8011D310_332E80_ChillyWaters = (f32) arg0;
+    }
+    switch (arg0) {
+    case 0:
+        D_8011FADC_33564C_ChillyWaters = 2.0f;
+        break;
+    case 1:
+        D_8011FADC_33564C_ChillyWaters = 2.3f;
+        break;
+    case 2:
+        D_8011FADC_33564C_ChillyWaters = 2.5f;
+        break;
+    default:
+        D_8011FADC_33564C_ChillyWaters = 2.7f;
+        break;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_80119C54_32F7C4_ChillyWaters);
+void func_80119B3C_32F6AC_ChillyWaters(void) {
+    SnowmanMoveWork *work;
+    f32 speed;
+
+    work = HuPrcCurrentGet()->user_data;
+    speed = work->speed;
+
+    while (!(speed > HuVecDistance(&work->pos, &work->dest))) {
+        HuVecSubtract(work->out, &work->dest, &work->pos);
+        MBVecNormalize(work->out);
+        HuVecMulScalar(work->out, speed, work->out);
+        HuVecAdd(work->out, work->out, &work->pos);
+        HuVecCopy3F(&work->pos, work->out);
+
+        if (speed < D_8011FADC_33564C_ChillyWaters) {
+            speed += 0.05f;
+        }
+        if (D_8011FADC_33564C_ChillyWaters < speed) {
+            speed = D_8011FADC_33564C_ChillyWaters;
+        }
+        D_8011FAE0_335650_ChillyWaters = speed;
+        HuPrcVSleep();
+    }
+
+    HuVecCopy3F(work->out, &work->dest);
+    omDelPrcObj(NULL);
+}
+
+Process* func_80119C54_32F7C4_ChillyWaters(Vec* arg0, Vec* arg1, Vec* out, f32 speed) {
+    Process* temp_v0;
+    SnowmanMoveWork* temp_v0_2;
+
+    temp_v0 = omAddPrcObj(func_80119B3C_32F6AC_ChillyWaters, 0x4002, 0, 0x50);
+    temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(SnowmanMoveWork));
+    temp_v0->user_data = temp_v0_2;
+    temp_v0_2->pos = *arg0;
+    temp_v0_2->dest = *arg1;
+    temp_v0_2->out = out;
+    temp_v0_2->speed = speed;
+    return temp_v0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", MB1Ev_ActionTimeSpr);
 
@@ -5645,10 +5800,49 @@ void func_8011A764_3302D4_ChillyWaters() {
     MBModelDispOff(temp_v0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011A794_330304_ChillyWaters);
+void func_8011A794_330304_ChillyWaters(void) {
+    UnkThing *work;
+    Object *obj;
+    Object *src;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011A838_3303A8_ChillyWaters);
+    //TODO: matching hack
+    if (work) {
+        work = HuPrcCurrentGet()->user_data;
+        src = work->unk_04;
+        obj = MBModelLinkCreate(D_8011FAEC_33565C_ChillyWaters);
+        MBMotionSet(obj, -1, work->unk_08);
+        HuVecCopy3F(&obj->coords, &src->coords);        
+    } else {
+        work = HuPrcCurrentGet()->user_data;
+        src = work->unk_04;
+        obj = MBModelLinkCreate(D_8011FAEC_33565C_ChillyWaters);
+        MBMotionSet(obj, -1, work->unk_08);
+        HuVecCopy3F(&obj->coords, &src->coords);
+    }
 
+
+
+    while ((MBMotionCheck(obj) == 0) && (work->unk_0C == 0)) {
+        HuPrcVSleep();
+    }
+
+    MBModelKill(obj);
+    omDelPrcObj(NULL);
+}
+
+Process* func_8011A838_3303A8_ChillyWaters(Object* arg0, Object* arg1, s32 arg2) {
+    Process* temp_v0;
+    UnkThing* temp_v0_2;
+
+    temp_v0 = omAddPrcObj(func_8011A794_330304_ChillyWaters, 0x4800U, 0, 0x40);
+    temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkThing));
+    temp_v0->user_data = temp_v0_2;
+    temp_v0_2->unk_00 = arg0;
+    temp_v0_2->unk_04 = arg1;
+    temp_v0_2->unk_08 = arg2;
+    temp_v0_2->unk_0C = 0;
+    return temp_v0;
+}
 void func_8011A8B8_330428_ChillyWaters() {
     MBModelKill(D_8011FAEC_33565C_ChillyWaters);
 }
@@ -5704,11 +5898,109 @@ void MB1Ev_Snowman(void) {
     omDelPrcObj(NULL);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011BBA4_331714_ChillyWaters);
+void func_8011BBA4_331714_ChillyWaters(void) {
+    SpaceData *space;
+    f32 scale;
+    s32 model;
+    s32 idx;
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011BD48_3318B8_ChillyWaters);
+    idx = (s32)HuPrcCurrentGet()->user_data;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_48_ChillyWaters/31B9F0", func_8011BD8C_3318FC_ChillyWaters);
+    HuPrcSleep(D_8011E6CC_33423C_ChillyWaters[idx][1]);
+    model = func_8000B0A0_BCA0(0x130165, 0x689);
+    func_8001C2FC_1CEFC(model, 0x20000, 0x20000);
+    func_8001C448_1D048(model);
+    func_8001C954_1D554(model);
+    func_8001C514_1D114(model);
+    Hu3DModelScaleSet(model, MBBackMdlScaleGet(), MBBackMdlScaleGet(), MBBackMdlScaleGet());
+    func_8001C8A8_1D4A8(model, 1);
+
+    space = MBMasuGet(D_8011E6CC_33423C_ChillyWaters[idx][0]);
+    Hu3DModelScaleSet(model, MBBackMdlScaleGet(), MBBackMdlScaleGet(), MBBackMdlScaleGet());
+    Hu3DModelPosSet(model, space->coords.x, space->coords.y, space->coords.z);
+
+    for (i = 0, scale = 0.1f; i < 0x1E; i++) {
+        scale += 0.03f;
+        func_8001D558_1E158(model, scale, scale * 10.0f, 1);
+        HuPrcVSleep();
+    }
+
+    func_8001ACDC_1B8DC(model);
+    omDelPrcObj(NULL);
+}
+
+s32 func_8011BD48_3318B8_ChillyWaters(s32 arg0) {
+    s32 var_v1 = 1;
+
+    switch (arg0) {
+    case 0x46:
+    case 0x47:
+    case 0x57:
+    case 0x5A:
+        var_v1 = 1;
+        break;
+    case 0x3A:
+    case 0x3B:
+    case 0x3C:
+    case 0x54:
+    case 0x55:
+    case 0x56:
+        var_v1 = 0x14;
+        break;
+    case 0x3D:
+    case 0x3E:
+        var_v1 = 0x28;
+        break;
+    }
+    return var_v1;
+}
+
+void func_8011BD8C_3318FC_ChillyWaters(void) {
+    Vec dest;
+    GW_PLAYER *player;
+    Object *obj;
+    Vec *coords;
+    s32 other;
+    s32 playerNo;
+    s32 side;
+    GW_SYSTEM* system = &GwSystem;
+
+    playerNo = (s32)HuPrcCurrentGet()->user_data;
+    player = MBPlayerGet(playerNo);
+    obj = player->player_obj;
+
+    HuPrcSleep(func_8011BD48_3318B8_ChillyWaters(
+        MBMasuLinkMasuIdGet(player->clink, player->cidx)));
+    func_800ED20C_100E2C_shared_board(playerNo, 8, 0x8E);
+    HuPrcSleep(8);
+    func_800EE688_1022A8_shared_board(obj, 5.0f, -1.0f);
+    HuPrcSleep(0xA);
+    func_800ED20C_100E2C_shared_board(playerNo, 1, 0x78);
+    MBPlayerMotionLoad(playerNo, 5, 0x1A);
+    MBMotionSet(obj, 1, 2);
+
+    if (playerNo == GwSystem.current_player_index) {
+        player = MBPlayerGet(GwSystem.boardData.halfWordBytes[0]);
+    } else {
+        player = MBPlayerGet(-1);
+    }
+
+    if (obj->coords.x < player->player_obj->coords.x) {
+        side = 0;
+    } else {
+        side = 1;
+    }
+
+    func_8004ACE0_4B8E0(0x286, playerNo);
+    HuVecCopy3F(&dest, &MBMasuGet(0x78)->coords);
+    dest.x += D_8011E6AC_33421C_ChillyWaters[side][0];
+    dest.z += D_8011E6AC_33421C_ChillyWaters[side][1];
+    HuPrcChildLink(HuPrcCurrentGet(),
+                   func_800ED5E0_101200_shared_board(&obj->coords, &dest, &obj->coords, 2.0f));
+    HuPrcChildWait();
+    omDelPrcObj(NULL);
+}
 
 void func_8011BF3C_331AAC_ChillyWaters(void) {
     Vec pos;

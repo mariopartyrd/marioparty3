@@ -152,5 +152,5 @@ void func_800461B4_46DB4(s16 arg0);
 void func_8001C92C_1D52C(s16 model, f32 arg1);
 void func_8001C6A8_1D2A8(s32 model, f32 arg1);
 s32 func_800037C4_43C4(s16);
-
+u16 func_8000B0A0_BCA0(s32 arg0, s32 arg1);
 #endif
