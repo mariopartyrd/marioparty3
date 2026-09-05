@@ -12,6 +12,7 @@ s16 func_800F8858_10C478_shared_board(void);
 void MBObjectSetup(s32 arg0, s16 arg1, s32 arg2, s32 unused);
 void MBExit(void);
 void MBHatenaFuncSet(void (*arg0)(void));
+void func_800F8D54_10C974_shared_board(void (*arg0)(void));
 void MBKinokoEffKillHookSet(void (*arg0)());
 void func_800F8D6C_10C98C_shared_board(s32 arg0);
 void MBCameraFocusModeSet(s16 arg0);

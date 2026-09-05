@@ -51,10 +51,20 @@ void MB1_ObjectSetup(void);
 void MB1Ev_SnowmanStart(void);
 void MB1_BankCoinHide(void);
 void MB1_BankCoinCreate(s16);
-void MB1Ev_BranchMain(void*, void*, void*);
+
+typedef struct BranchLink {
+    /* 0x00 */ s16 link;
+    /* 0x02 */ s16 idx;
+    /* 0x04 */ s16 rev;
+} BranchLink; /* size 6 */
+
+s16 MBComTreeExec(DecisionTreeNonLeafNode *arg0);
+void MB1_BranchHelpEnd(void);
+void MB1Ev_BranchMain(s16 (*masu)[3], BranchLink (*links)[2], DecisionTreeNonLeafNode **trees);
+
 void MB1Ev_After5LineShow(omObjData*);
 void MB1Ev_After5NumFade(omObjData*);
-void MB1Ev_After5Effect(omObjData*);
+void MB1Ev_After5Effect(void);
 void MB1Ev_After5ItemMove(s32, s32, f32*);
 s32 func_8011CE94_332A04_ChillyWaters(void);
 s32 func_8011D1F8_332D68_ChillyWaters(void);
@@ -68,23 +78,9 @@ extern s16 D_8011FB8E_3356FE_ChillyWaters;
 extern Object *D_8011D314_332E84_ChillyWaters;
 extern Object *D_8011D318_332E88_ChillyWaters;
 
-extern char mb1ev_Branch3RevComTree[];
-extern char mb1ev_Branch3RevMasu[];
-extern char mb1ev_Branch3RevLink[];
-extern char mb1ev_Branch2ComTree[]; //ai
-extern char mb1ev_Branch2Masu[]; //spaces
-extern char mb1ev_Branch2Link[]; //chain
-
-extern char D_8011DACC_33363C_ChillyWaters[]; //spaces
-extern char D_8011DAE0_333650_ChillyWaters[]; //chain
-extern char D_8011D5F0_333160_ChillyWaters[]; //ai
-
 extern Object* mb1_BankCoinBaseMdl;
 extern Object* mb1_BankCoinMdl[10];
 extern omObjData *D_800CE194_CED94;
-extern char D_8011E010_333B80_ChillyWaters[]; // spaces
-extern char D_8011E024_333B94_ChillyWaters[]; // chain
-extern char D_8011DA58_3335C8_ChillyWaters[]; // ai
 extern event_table_entry mb1_CommonEventTbl[]; //unknown type
 extern event_table_entry mb1_TeresaEventTbl[]; //unknown type
 extern event_table_entry mb1_TurnStatusEventTbl[]; //unknown type
@@ -104,3 +100,27 @@ extern Unk3* mb1_BranchMapScrollHelp;
 extern Unk3* mb1_BranchMapOverheadHelp;
 extern Unk3* mb1_BranchItemHelp;
 extern Object *D_8011FAEC_33565C_ChillyWaters;
+
+
+
+extern DecisionTreeNonLeafNode *mb1ev_Branch3RevComTree[];  // ai
+extern s16 mb1ev_Branch3RevMasu[][3];                       // spaces
+extern BranchLink mb1ev_Branch3RevLink[][2];                // chain
+extern DecisionTreeNonLeafNode *mb1ev_Branch2ComTree[];     // ai
+extern s16 mb1ev_Branch2Masu[][3];                          // spaces
+extern BranchLink mb1ev_Branch2Link[][2];                   // chain
+
+extern s16 D_8011DACC_33363C_ChillyWaters[][3];             // spaces
+extern BranchLink D_8011DAE0_333650_ChillyWaters[][2];      // chain
+extern DecisionTreeNonLeafNode *D_8011D5F0_333160_ChillyWaters[];  // ai
+
+extern s16 D_8011E010_333B80_ChillyWaters[][3];             // spaces
+extern BranchLink D_8011E024_333B94_ChillyWaters[][2];      // chain
+extern DecisionTreeNonLeafNode *D_8011DA58_3335C8_ChillyWaters[];  // ai
+
+extern DecisionTreeNonLeafNode *D_8011D668_3331D8_ChillyWaters[];  // ai
+extern s16 D_8011DB14_333684_ChillyWaters[][3];                    // spaces
+extern BranchLink D_8011DB28_333698_ChillyWaters[][2];             // links
+extern DecisionTreeNonLeafNode *D_8011D974_3334E4_ChillyWaters[];
+extern s16 D_8011DDF8_333968_ChillyWaters[][3];
+extern BranchLink D_8011DE0C_33397C_ChillyWaters[][2];

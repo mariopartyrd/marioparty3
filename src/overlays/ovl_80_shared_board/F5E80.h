@@ -19,6 +19,7 @@ s32 MBItemFind(s32 playerNo, s32 item);
 s32 MBItemFindEmpty(s32 arg0);
 void MBItemRemoveEmpty(s32 arg0);
 s32 MBItemSelNoGet(void);
+void MBItemSelNoSet(s32 arg0);
 void MBTelopInit(void);
 void MBTelopClose(void);
 void MBTelopMgTypeCreate(s32 arg0, u32 arg1);

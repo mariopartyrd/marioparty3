@@ -207,7 +207,7 @@ s32 func_800D742C_EB04C_shared_board(UnkEA790Struct* arg0, s16 playerNo, s32 arg
     return -1;
 }
 
-s16 func_800D7518_EB138_shared_board(UnkEA790Struct* arg0) {
+s32 func_800D7518_EB138_shared_board(UnkEA790Struct* arg0) {
     if (arg0->proc != NULL) {
         HuPrcChildLink(HuPrcCurrentGet(), arg0->proc);
         HuPrcChildWait();
