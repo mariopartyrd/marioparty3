@@ -4,6 +4,9 @@
 #include "common.h"
 #include "game/board.h"
 
+extern s32 D_8010197C_11559C_shared_board[];
+extern s16 mbItemCursorGrpId;
+
 void func_800F453C_10815C_shared_board(void); //start MBStatusMain process
 void func_800F4730_108350_shared_board(void);
 void MBStatusColorSet(u32 playerNo, s32 turnStatus);

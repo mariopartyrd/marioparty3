@@ -690,7 +690,6 @@ _Genld = 0x80084484;
 guPerspectiveF = 0x8007AE60;
 guPerspective = 0x8007B010;
 guNormalize = 0x80082B00;
-//gCurrentPlayerIndex = 0x800CD067;
 guLookAtF = 0x80088210;
 guLookAt = 0x80079800;
 HuSqrtf = 0x800880E0;
@@ -783,9 +782,6 @@ MBMgCallBattleExec = 0x800E0A64; //rom:0xF4684 segment:shared_board
 MBMgCallBattleCreate = 0x800E0C3C; //rom:0xF485C segment:shared_board
 MBMgCallTutorialExec = 0x800E1230; //rom:0xF4E50 segment:shared_board
 MBMgCallTutorialCreate = 0x800E13F0; //rom:0xF5010 segment:shared_board
-
-//gTotalTurns = 0x800CD05A;
-//gCurrentTurn = 0x800CD05B;
 
 MBMapFullStarGlowKill = 0x800D77F0; //rom:0xEB410 segment:shared_board
 MBMapFullStarGrow = 0x800D786C; //rom:0xEB48C segment:shared_board
@@ -1592,3 +1588,4 @@ mb1_BankCoinMdl = 0x8011FB18; //rom:0x335688 segment:ChillyWaters
 mb1_After5GrpId = 0x8011FB80; //rom:0x3356F0 segment:ChillyWaters
 D_8011D498_333008_ChillyWaters = 0x8011D498; //rom:0x333008 type:s32 segment:ChillyWaters
 D_8011D4BC_33302C_ChillyWaters = 0x8011D4BC; //rom:0x33302C type:s32 segment:ChillyWaters
+D_8011E6CC_33423C_ChillyWaters = 0x8011E6CC; //rom:0x33423C type:s32 segment:ChillyWaters

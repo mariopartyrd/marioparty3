@@ -87,7 +87,6 @@ extern s32 D_80102D58_116978_shared_board;
 extern s8 D_8010118C_114DAC_shared_board[];
 extern s32 D_80100F90_114BB0_shared_board;
 extern s32 D_80102CB4_1168D4_shared_board;
-extern s32 D_80101040_114C60_shared_board[];
 extern s16 D_801010E8_114D08_shared_board[][2];
 extern s32 D_80102CB0_1168D0_shared_board;
 extern s32 (*MBItemFunctions[])(void);
@@ -1617,4 +1616,3 @@ void MBGuidePosSet(UnkMBGuideData* arg0, s16 arg1, s16 arg2) {
 
 //this should not be alone; probably belongs with strings like D_801021F0_115E10_shared_board " 1 VS 1 GAME";
 const char D_801021EC_115E0C_shared_board[] = "";
-
