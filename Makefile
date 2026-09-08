@@ -152,6 +152,7 @@ test: $(ROM)
 	$(V)$(EMULATOR) $<
 
 # Flags for individual files. TODO: move these to a common directory and make this a directory thing instead
+build/src/lib/hvq.c.o: OPTFLAGS = -O2
 build/src/2.0L/audio/%.c.o: OPTFLAGS = -O2
 build/src/2.0L/audio/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_MIPS_SZLONG=32 -D_LANGUAGE_C -DF3DEX_GBI -D__MIPSEB__
 build/src/2.0L/audio/%.c.o: CPPFLAGS = -I include -I include/PR -I include/gcc -I $(BUILD_DIR)/include -I src -DNDEBUG -D_MIPS_SZLONG=32 -DF3DEX_GBI_2
