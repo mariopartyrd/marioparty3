@@ -403,7 +403,7 @@ static void func_800E6DEC_shared_board(void) {
             D_80102DD0_shared_board = sp10->unk8;
             if (temp_a0->magic == 0x48565153) { //"HVQS"
                                                 // is HVQS, decode it
-                func_800698E8_main(&temp_a0->unk4, sp10->unk4, 0x40, D_80102DCC_shared_board);
+                func_800698E8_main((HvqImageHeader *)&temp_a0->unk4, (u16 *)sp10->unk4, 0x40, D_80102DCC_shared_board);
             } else {
                 // 0x1800 size for decoded tile
                 func_800E6CF8_shared_board((u8 *)&D_80102DD0_shared_board->unk4, sp10->unk4, 0x1800);

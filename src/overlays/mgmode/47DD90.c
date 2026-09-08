@@ -53,7 +53,7 @@ void func_80116C18_mgmode(s16 arg0) {
     func_8006A370_main(0xFF);
     func_80069E68_main(palData);
     buf = HuMemMemoryAllocPerm(0xC00);
-    func_800698E8_main(sprData, D_8011B654_mgmode[D_8011B652_mgmode], 0x80, buf);
+    func_800698E8_main((HvqImageHeader *)sprData, (u16 *)D_8011B654_mgmode[D_8011B652_mgmode], 0x80, buf);
     HuMemMemoryFreePerm(buf);
     DataClose(sprData);
     DataClose(palData);
