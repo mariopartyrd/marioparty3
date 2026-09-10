@@ -542,6 +542,8 @@ segments:
       - { start: 0xA96F0, type: bss, vram: 0x800AC7F0, name: main_after_decode }
       - { start: 0xA96F0, type: .bss, vram: 0x800BD860, name: vibrator }
       - { start: 0xA96F0, type: bss, vram: 0x800BDA50, name: main_after_vibrator }
+      - { start: 0xA96F0, type: .bss, vram: 0x800BDA90, name: lib/hvq }
+      - { start: 0xA96F0, type: bss, vram: 0x800C1560, name: main_after_hvq }
       - { start: 0xA96F0, type: .bss, vram: 0x800CDD70, name: sprman }
       - { start: 0xA96F0, type: bss, vram: 0x800CE170, name: main_after_sprman }
 
