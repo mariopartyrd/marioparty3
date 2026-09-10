@@ -538,6 +538,9 @@ segments:
       - [0xA96B0, .rodata, 8F830]
       - [0xA96E0, .rodata, libhmath/sin]
       - { start: 0xA96F0, type: bss, vram: 0x800A8AF0 }
+      - { start: 0xA96F0, type: .bss, vram: 0x800BDA90, name: lib/hvq }
+      # Preserve the unsplit BSS symbol suffixes in the remaining assembly.
+      - { start: 0xA96F0, type: bss_legacy, vram: 0x800C1560, name: main_after_hvq }
 
   - type: code
     start: 0xA96F0

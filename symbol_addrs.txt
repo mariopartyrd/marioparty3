@@ -1589,3 +1589,6 @@ mb1_After5GrpId = 0x8011FB80; //rom:0x3356F0 segment:ChillyWaters
 D_8011D498_333008_ChillyWaters = 0x8011D498; //rom:0x333008 type:s32 segment:ChillyWaters
 D_8011D4BC_33302C_ChillyWaters = 0x8011D4BC; //rom:0x33302C type:s32 segment:ChillyWaters
 D_8011E6CC_33423C_ChillyWaters = 0x8011E6CC; //rom:0x33423C type:s32 segment:ChillyWaters
+
+// RSP lb instruction at ROM 0x93DF4 and 0x942C4, not a pointer into HVQ BSS.
+D_800C02AE_C0EAE = 0x800C02AE; // ignore:True

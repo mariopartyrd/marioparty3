@@ -43,57 +43,54 @@ static const char D_800A7F50_A8B50[] = "HVQ-MPS 1.1";
 /* Preserve the original string storage, including its trailing zero padding. */
 static const char D_800A7F5C_A8B5C[52] = "Error : This file is not HVQ-MPS 1.1";
 
-extern s32 D_800BE098_BEC98;
-extern HvqHuffmanTree D_800BE0A0_BECA0;
-extern s16 D_800C00D2_C0CD2;
-extern s16 D_800C00D4_C0CD4;
-extern s32 D_800C0C60_C1860[512];
-extern u8 D_800BDA90_BE690[768];
-extern u8 D_800BDD90_BE990[768];
-
-extern HvqHuffmanTree D_800BE8B0_BF4B0;
-extern HvqHuffmanTree D_800BF0C0_BFCC0;
-extern HvqHuffmanTree D_800BF8D0_C04D0;
-extern u16 D_800C1478_C2078;
-extern u16 D_800C147A_C207A;
-extern s32 D_800C147C_C207C;
-extern u16 D_800C1480_C2080;
-extern u16 D_800C1482_C2082;
-extern u16 D_800C1484_C2084;
-extern u16 D_800C1486_C2086;
-extern u16 D_800C1488_C2088;
-extern u16 D_800C148A_C208A;
-extern u8 D_800C148C_C208C;
-extern u8 D_800C148D_C208D;
-extern s32 D_800BE090_BEC90;
-extern s32 D_800C0BD4_C17D4;
-extern s32 D_800C0BC8_C17C8;
-extern s32 D_800C0BCC_C17CC;
-extern s32 D_800C0BD0_C17D0;
-extern s32 D_800C1558_C2158;
-extern s32 D_800C155C_C215C;
-extern HvqBitStream D_800C00D8_C0CD8;
-extern HvqBitStream D_800C00E8_C0CE8;
-extern HvqBitStream D_800C00F4_C0CF4;
-extern HvqBitStream D_800C0128_C0D28[3];
-extern HvqBitStream D_800C0134_C0D34;
-extern HvqBitStream D_800C0140_C0D40;
-extern HvqBitStream D_800C0100_C0D00[3];
-extern u8 *D_800C014C_C0D4C[3];
-extern u8 D_800C0160_C0D60[2660];
-extern u8 *D_800C0BC4_C17C4;
-extern HvqBlockState D_800C0BD8_C17D8;
-extern HvqBlockState D_800C0BF8_C17F8;
-extern HvqBlockState D_800C0C18_C1818;
-extern HvqBlockState D_800C0C38_C1838;
-extern u8 *D_800C1460_C2060[3];
-extern u8 *D_800C146C_C206C[3];
-extern s32 D_800C1494_C2094;
-extern s32 D_800C1490_C2090;
-extern s16 D_800C1498_C2098[64];
-extern s16 D_800C1518_C2118[16];
-extern s16 D_800C1538_C2138[16];
-extern void (*D_800BE094_BEC94)(u16 *, s16 *, s16 *, s16 *);
+/* BSS declarations follow the original allocation order. */
+static u8 D_800BDA90_BE690[768];
+static u8 D_800BDD90_BE990[768];
+static s32 D_800BE090_BEC90;
+static void (*D_800BE094_BEC94)(u16 *, s16 *, s16 *, s16 *);
+static s32 D_800BE098_BEC98;
+static HvqHuffmanTree D_800BE0A0_BECA0;
+static HvqHuffmanTree D_800BE8B0_BF4B0;
+static HvqHuffmanTree D_800BF0C0_BFCC0;
+static HvqHuffmanTree D_800BF8D0_C04D0;
+static s16 D_800C00D2_C0CD2;
+static s16 D_800C00D4_C0CD4;
+static HvqBitStream sHvqTreeStream;
+static HvqBitStream sHvqModeStreams[2];
+static HvqBitStream sHvqAmplitudeStreams[3];
+static HvqBitStream sHvqMeanStreams[3];
+static u8 *D_800C014C_C0D4C[3];
+static u8 D_800C0160_C0D60[2660];
+static u8 *D_800C0BC4_C17C4;
+static s32 D_800C0BC8_C17C8;
+static s32 D_800C0BCC_C17CC;
+static s32 D_800C0BD0_C17D0;
+static s32 D_800C0BD4_C17D4;
+static HvqBlockState D_800C0BD8_C17D8;
+static HvqBlockState D_800C0BF8_C17F8;
+static HvqBlockState D_800C0C18_C1818;
+static HvqBlockState D_800C0C38_C1838;
+static s32 D_800C0C60_C1860[512];
+static u8 *D_800C1460_C2060[3];
+static u8 *D_800C146C_C206C[3];
+static u16 D_800C1478_C2078;
+static u16 D_800C147A_C207A;
+static s32 D_800C147C_C207C;
+static u16 D_800C1480_C2080;
+static u16 D_800C1482_C2082;
+static u16 D_800C1484_C2084;
+static u16 D_800C1486_C2086;
+static u16 D_800C1488_C2088;
+static u16 D_800C148A_C208A;
+static u8 D_800C148C_C208C;
+static u8 D_800C148D_C208D;
+static s32 D_800C1490_C2090;
+static s32 D_800C1494_C2094;
+static s16 D_800C1498_C2098[64];
+static s16 D_800C1518_C2118[16];
+static s16 D_800C1538_C2138[16];
+static s32 D_800C1558_C2158;
+static s32 D_800C155C_C215C;
 
 void func_800677B8_683B8(u16 *, s16 *, s16 *, s16 *);
 void func_80067D50_68950(u16 *, s16 *, s16 *, s16 *);
@@ -164,12 +161,16 @@ s32 func_80066894_67494(HvqBitStream *stream) {
     return value;
 }
 
+static inline s32 HvqReadMean(s32 component) {
+    return func_80066894_67494(&sHvqMeanStreams[component]);
+}
+
 static inline s32 HvqPatternScale(s32 *amplitude, u16 code, s16 maximum, s32 component) {
     s32 value;
 
     /* Huffman deltas supply the coarse amplitude; the code adds two low
      * bits and a sign. Normalize by the pattern's largest deviation. */
-    *amplitude += HvqReadSymbol(&D_800C0100_C0D00[component], &D_800BF0C0_BFCC0);
+    *amplitude += HvqReadSymbol(&sHvqAmplitudeStreams[component], &D_800BF0C0_BFCC0);
     value = *amplitude + ((code >> 13) & 3);
     return ((code & 0x8000) ? -D_800C0C60_C1860[maximum] : D_800C0C60_C1860[maximum]) * value;
 }
@@ -899,12 +900,12 @@ static inline void HvqReadModes(void) {
     /* Each chroma symbol packs one mode for each color component. */
     first = D_800C1460_C2060[0];
     for (i = D_800C1484_C2084; i > 0; i--) {
-        *first++ = HvqReadSymbol(&D_800C00E8_C0CE8, &D_800BE8B0_BF4B0);
+        *first++ = HvqReadSymbol(&sHvqModeStreams[0], &D_800BE8B0_BF4B0);
     }
     first = D_800C1460_C2060[1];
     second = D_800C1460_C2060[2];
     for (i = D_800C148A_C208A; i > 0; i--) {
-        mode = HvqReadSymbol(&D_800C00F4_C0CF4, &D_800BE8B0_BF4B0);
+        mode = HvqReadSymbol(&sHvqModeStreams[1], &D_800BE8B0_BF4B0);
         *first++ = mode & 15;
         *second++ = mode >> 4;
     }
@@ -918,14 +919,14 @@ void func_800698E8_6A4E8(HvqImageHeader *image, u16 *output, s32 stride, u8 *wor
     u8 *first, *second, *aboveFirst, *aboveSecond;
     u32 firstMean, secondMean;
 
-    HvqInitStream((u32 *)(data + header->modeOffsets[0]), &D_800C00E8_C0CE8);
-    HvqInitStream((u32 *)(data + header->modeOffsets[1]), &D_800C00F4_C0CF4);
+    HvqInitStream((u32 *)(data + header->modeOffsets[0]), &sHvqModeStreams[0]);
+    HvqInitStream((u32 *)(data + header->modeOffsets[1]), &sHvqModeStreams[1]);
     {
         s32 i;
 
         for (i = 0; i < 3; i++) {
-            HvqInitStream((u32 *)(data + header->meanOffsets[i]), &D_800C0128_C0D28[i]);
-            HvqInitStream((u32 *)(data + header->amplitudeOffsets[i]), &D_800C0100_C0D00[i]);
+            HvqInitStream((u32 *)(data + header->meanOffsets[i]), &sHvqMeanStreams[i]);
+            HvqInitStream((u32 *)(data + header->amplitudeOffsets[i]), &sHvqAmplitudeStreams[i]);
             D_800C014C_C0D4C[i] = data + header->rawOffsets[i] + 4;
         }
     }
@@ -952,13 +953,13 @@ void func_800698E8_6A4E8(HvqImageHeader *image, u16 *output, s32 stride, u8 *wor
         firstMean = 0;
         first = aboveFirst = D_800C146C_C206C[0];
         for (i = D_800C1480_C2080; i > 0; i--) {
-            firstMean += func_80066894_67494(&D_800C0128_C0D28[0]);
+            firstMean += HvqReadMean(0);
             *first++ = firstMean;
         }
         for (rows = D_800C1482_C2082; rows > 1; rows--) {
             firstMean = *aboveFirst;
             for (i = D_800C1480_C2080; i > 0; i--) {
-                firstMean = ((u32) * ++aboveFirst + (*first++ = firstMean + func_80066894_67494(&D_800C0128_C0D28[0]))) >> 1;
+                firstMean = ((u32) * ++aboveFirst + (*first++ = firstMean + HvqReadMean(0))) >> 1;
             }
         }
     }
@@ -967,17 +968,17 @@ void func_800698E8_6A4E8(HvqImageHeader *image, u16 *output, s32 stride, u8 *wor
     first = aboveFirst = D_800C146C_C206C[1];
     second = aboveSecond = D_800C146C_C206C[2];
     for (i = D_800C1486_C2086; i > 0; i--) {
-        firstMean += func_80066894_67494(&D_800C0134_C0D34);
+        firstMean += HvqReadMean(1);
         *first++ = firstMean;
-        secondMean += func_80066894_67494(&D_800C0140_C0D40);
+        secondMean += HvqReadMean(2);
         *second++ = secondMean;
     }
     for (rows = D_800C1488_C2088; rows > 1; rows--) {
         firstMean = *aboveFirst;
         secondMean = *aboveSecond;
         for (i = D_800C1486_C2086; i > 0; i--) {
-            firstMean = ((u32) * ++aboveFirst + (*first++ = firstMean + func_80066894_67494(&D_800C0134_C0D34))) >> 1;
-            secondMean = ((u32) * ++aboveSecond + (*second++ = secondMean + func_80066894_67494(&D_800C0140_C0D40))) >> 1;
+            firstMean = ((u32) * ++aboveFirst + (*first++ = firstMean + HvqReadMean(1))) >> 1;
+            secondMean = ((u32) * ++aboveSecond + (*second++ = secondMean + HvqReadMean(2))) >> 1;
         }
     }
     func_800694D0_6A0D0(output);
@@ -1049,10 +1050,10 @@ void func_80069E68_6AA68(void *data) {
     }
     D_800C0BD0_C17D0 = D_800C0BC8_C17C8 * 2;
 
-    HvqReadTree((u32 *)(file + header->treeOffsets[0]), &D_800C00D8_C0CD8, &D_800BE8B0_BF4B0);
-    HvqReadTree((u32 *)(file + header->treeOffsets[1]), &D_800C00D8_C0CD8, &D_800BE0A0_BECA0);
-    HvqReadTree((u32 *)(file + header->treeOffsets[2]), &D_800C00D8_C0CD8, &D_800BF0C0_BFCC0);
-    HvqReadTree((u32 *)(file + header->treeOffsets[3]), &D_800C00D8_C0CD8, &D_800BF8D0_C04D0);
+    HvqReadTree((u32 *)(file + header->treeOffsets[0]), &sHvqTreeStream, &D_800BE8B0_BF4B0);
+    HvqReadTree((u32 *)(file + header->treeOffsets[1]), &sHvqTreeStream, &D_800BE0A0_BECA0);
+    HvqReadTree((u32 *)(file + header->treeOffsets[2]), &sHvqTreeStream, &D_800BF0C0_BFCC0);
+    HvqReadTree((u32 *)(file + header->treeOffsets[3]), &sHvqTreeStream, &D_800BF8D0_C04D0);
 
     /* Translate leaf symbols to the signed, scaled values used by each tree. */
     shift = header->shifts >> 4;
@@ -1069,7 +1070,7 @@ void func_80069E68_6AA68(void *data) {
     D_800C155C_C215C = 1 << (D_800C1558_C2158 - 1);
 
     D_800C0BC4_C17C4 = D_800C0160_C0D60;
-    HvqReadTable(&D_800C00D8_C0CD8);
+    HvqReadTable(&sHvqTreeStream);
 }
 
 void func_8006A370_6AF70(u8 alpha) {
