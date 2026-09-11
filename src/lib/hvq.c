@@ -39,58 +39,58 @@ typedef struct HvqBlockState {
     u8 leftMean;
 } HvqBlockState;
 
-static const char D_800A7F50_main[] = "HVQ-MPS 1.1";
+static const char sHvqSignature[] = "HVQ-MPS 1.1";
 /* Preserve the original string storage, including its trailing zero padding. */
-static const char D_800A7F5C_main[52] = "Error : This file is not HVQ-MPS 1.1";
+static const char sHvqInvalidSignatureError[52] = "Error : This file is not HVQ-MPS 1.1";
 
 /* BSS declarations follow the original allocation order. */
-static u8 D_800BDA90_main[768];
-static u8 D_800BDD90_main[768];
-static s32 D_800BE090_main;
-static void (*D_800BE094_main)(u16 *, s16 *, s16 *, s16 *);
-static s32 D_800BE098_main;
-static HvqHuffmanTree D_800BE0A0_main;
-static HvqHuffmanTree D_800BE8B0_main;
-static HvqHuffmanTree D_800BF0C0_main;
-static HvqHuffmanTree D_800BF8D0_main;
-static s16 D_800C00D2_main;
-static s16 D_800C00D4_main;
+static u8 sHvqColorClampTable[768];
+static u8 sHvqColorAlphaClampTable[768];
+static s32 sHvqHasSecondLumaRow;
+static void (*sHvqConvertToRgba)(u16 *, s16 *, s16 *, s16 *);
+static s32 sHvqNextTreeNode;
+static HvqHuffmanTree sHvqMeanTree;
+static HvqHuffmanTree sHvqModeTree;
+static HvqHuffmanTree sHvqAmplitudeTree;
+static HvqHuffmanTree sHvqPatternTableTree;
+static s16 sHvqMeanDeltaMax;
+static s16 sHvqMeanDeltaMin;
 static HvqBitStream sHvqTreeStream;
 static HvqBitStream sHvqModeStreams[2];
 static HvqBitStream sHvqAmplitudeStreams[3];
 static HvqBitStream sHvqMeanStreams[3];
-static u8 *D_800C014C_main[3];
-static u8 D_800C0160_main[2660];
-static u8 *D_800C0BC4_main;
-static s32 D_800C0BC8_main;
-static s32 D_800C0BCC_main;
-static s32 D_800C0BD0_main;
-static s32 D_800C0BD4_main;
-static HvqBlockState D_800C0BD8_main;
-static HvqBlockState D_800C0BF8_main;
-static HvqBlockState D_800C0C18_main;
-static HvqBlockState D_800C0C38_main;
-static s32 D_800C0C60_main[512];
-static u8 *D_800C1460_main[3];
-static u8 *D_800C146C_main[3];
-static u16 D_800C1478_main;
-static u16 D_800C147A_main;
-static s32 D_800C147C_main;
-static u16 D_800C1480_main;
-static u16 D_800C1482_main;
-static u16 D_800C1484_main;
-static u16 D_800C1486_main;
-static u16 D_800C1488_main;
-static u16 D_800C148A_main;
-static u8 D_800C148C_main;
-static u8 D_800C148D_main;
-static s32 D_800C1490_main;
-static s32 D_800C1494_main;
-static s16 D_800C1498_main[64];
-static s16 D_800C1518_main[16];
-static s16 D_800C1538_main[16];
-static s32 D_800C1558_main;
-static s32 D_800C155C_main;
+static u8 *sHvqRawStreams[3];
+static u8 sHvqPatternTableBuffer[2660];
+static u8 *sHvqPatternTable;
+static s32 sHvqPatternTableWidth;
+static s32 sHvqPatternTableHeight;
+static s32 sHvqPatternTableDoubleStride;
+static s32 sHvqPatternTableTransposed;
+static HvqBlockState sHvqLumaBlockState;
+static HvqBlockState sHvqSecondLumaRowBlockState;
+static HvqBlockState sHvqCbBlockState;
+static HvqBlockState sHvqCrBlockState;
+static s32 sHvqReciprocalTable[512];
+static u8 *sHvqBlockModes[3];
+static u8 *sHvqBlockMeans[3];
+static u16 sHvqImageWidth;
+static u16 sHvqImageHeight;
+static s32 sHvqOutputStride;
+static u16 sHvqLumaBlockColumns;
+static u16 sHvqLumaBlockRows;
+static u16 sHvqLumaBlockCount;
+static u16 sHvqChromaBlockColumns;
+static u16 sHvqChromaBlockRows;
+static u16 sHvqChromaBlockCount;
+static u8 sHvqHorizontalSampling;
+static u8 sHvqVerticalSampling;
+static s32 sHvqOutputGroupColumnStep;
+static s32 sHvqOutputGroupRowStep;
+static s16 sHvqLumaSamples[64];
+static s16 sHvqCbSamples[16];
+static s16 sHvqCrSamples[16];
+static s32 sHvqSampleFractionBits;
+static s32 sHvqSampleRoundingBias;
 
 void func_800677B8_main(u16 *, s16 *, s16 *, s16 *);
 void func_80067D50_main(u16 *, s16 *, s16 *, s16 *);
@@ -127,9 +127,9 @@ s16 func_800665E0_main(HvqBitStream *stream, HvqHuffmanTree *tree) {
 
     /* A set bit introduces a branch, followed by its left and right subtrees. */
     if (HvqReadBit(stream)) {
-        node = D_800BE098_main++;
-        tree->left[node] = func_800665E0_671E0(stream, tree);
-        tree->right[node] = func_800665E0_671E0(stream, tree);
+        node = sHvqNextTreeNode++;
+        tree->left[node] = func_800665E0_main(stream, tree);
+        tree->right[node] = func_800665E0_main(stream, tree);
         return node;
     }
 
@@ -149,20 +149,20 @@ s32 func_80066894_main(HvqBitStream *stream) {
     s16 value;
     s16 symbol;
 
-    symbol = HvqReadSymbol(stream, &D_800BE0A0_main);
+    symbol = HvqReadSymbol(stream, &sHvqMeanTree);
     value = symbol;
     /* Endpoint symbols extend the value with one or more additional symbols. */
-    if (symbol == D_800C00D4_main || symbol == D_800C00D2_main) {
+    if (symbol == sHvqMeanDeltaMin || symbol == sHvqMeanDeltaMax) {
         do {
-            symbol = HvqReadSymbol(stream, &D_800BE0A0_main);
+            symbol = HvqReadSymbol(stream, &sHvqMeanTree);
             value += symbol;
-        } while (symbol <= D_800C00D4_main || symbol >= D_800C00D2_main);
+        } while (symbol <= sHvqMeanDeltaMin || symbol >= sHvqMeanDeltaMax);
     }
     return value;
 }
 
 static inline s32 HvqReadMean(s32 component) {
-    return func_80066894_67494(&sHvqMeanStreams[component]);
+    return func_80066894_main(&sHvqMeanStreams[component]);
 }
 
 static inline s32 HvqPatternScale(s32 *amplitude, u16 code, s16 maximum, s32 component) {
@@ -170,9 +170,9 @@ static inline s32 HvqPatternScale(s32 *amplitude, u16 code, s16 maximum, s32 com
 
     /* Huffman deltas supply the coarse amplitude; the code adds two low
      * bits and a sign. Normalize by the pattern's largest deviation. */
-    *amplitude += HvqReadSymbol(&sHvqAmplitudeStreams[component], &D_800BF0C0_main);
+    *amplitude += HvqReadSymbol(&sHvqAmplitudeStreams[component], &sHvqAmplitudeTree);
     value = *amplitude + ((code >> 13) & 3);
-    return ((code & 0x8000) ? -D_800C0C60_main[maximum] : D_800C0C60_main[maximum]) * value;
+    return ((code & 0x8000) ? -sHvqReciprocalTable[maximum] : sHvqReciprocalTable[maximum]) * value;
 }
 
 static inline s32 HvqAbsSample(s16 value) {
@@ -185,14 +185,14 @@ static inline s32 HvqDecodePattern(s16 *sample, u16 code, s32 *amplitude, s32 co
     s32 sum;
     s16 maximum, magnitude;
 
-    if (D_800C0BD4_main == 0) {
-        row = D_800C0BC4_main + ((code & 0x3F) + ((code >> 6) & 0x1F) * D_800C0BC8_main);
+    if (sHvqPatternTableTransposed == 0) {
+        row = sHvqPatternTable + ((code & 0x3F) + ((code >> 6) & 0x1F) * sHvqPatternTableWidth);
         xStep = ((code >> 11) & 1) + 1;
-        yStep = ((code >> 12) & 1) == 0 ? D_800C0BC8_main : D_800C0BD0_main;
+        yStep = ((code >> 12) & 1) == 0 ? sHvqPatternTableWidth : sHvqPatternTableDoubleStride;
     } else {
-        row = D_800C0BC4_main + (((code >> 6) & 0x1F) + (code & 0x3F) * D_800C0BC8_main);
+        row = sHvqPatternTable + (((code >> 6) & 0x1F) + (code & 0x3F) * sHvqPatternTableWidth);
         xStep = ((code >> 12) & 1) + 1;
-        yStep = ((code >> 11) & 1) == 0 ? D_800C0BC8_main : D_800C0BD0_main;
+        yStep = ((code >> 11) & 1) == 0 ? sHvqPatternTableWidth : sHvqPatternTableDoubleStride;
     }
     /* Sample a 4x4 pattern and remove its mean before scaling. */
     sum = 0;
@@ -323,43 +323,43 @@ static inline void HvqExpandBlock(s16 *output, s32 mode, u8 mean, s32 component)
     /* Mode 8 stores raw pixels; modes 1 through 7 add that many patterns.
      * The fixed 16-sample operations are unrolled in the original code. */
     if (mode == 8) {
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
-        *output++ = *D_800C014C_main[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
+        *output++ = *sHvqRawStreams[component]++;
     } else {
         amplitude = 0;
-        pixels[0] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[1] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[2] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[3] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[4] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[5] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[6] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[7] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[8] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[9] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[10] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[11] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[12] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[13] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[14] = (mean << D_800C1558_main) + D_800C155C_main;
-        pixels[15] = (mean << D_800C1558_main) + D_800C155C_main;
+        pixels[0] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[1] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[2] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[3] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[4] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[5] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[6] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[7] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[8] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[9] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[10] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[11] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[12] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[13] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[14] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
+        pixels[15] = (mean << sHvqSampleFractionBits) + sHvqSampleRoundingBias;
         for (count = mode; count > 0; count--) {
-            code = *D_800C014C_main[component]++ << 8;
-            code |= *D_800C014C_main[component]++;
+            code = *sHvqRawStreams[component]++ << 8;
+            code |= *sHvqRawStreams[component]++;
             scale = HvqDecodePattern(pattern, code, &amplitude, component);
             pixels[0] += scale * pattern[0];
             pixels[1] += scale * pattern[1];
@@ -378,22 +378,22 @@ static inline void HvqExpandBlock(s16 *output, s32 mode, u8 mean, s32 component)
             pixels[14] += scale * pattern[14];
             pixels[15] += scale * pattern[15];
         }
-        output[0] = pixels[0] >> D_800C1558_main;
-        output[1] = pixels[1] >> D_800C1558_main;
-        output[2] = pixels[2] >> D_800C1558_main;
-        output[3] = pixels[3] >> D_800C1558_main;
-        output[4] = pixels[4] >> D_800C1558_main;
-        output[5] = pixels[5] >> D_800C1558_main;
-        output[6] = pixels[6] >> D_800C1558_main;
-        output[7] = pixels[7] >> D_800C1558_main;
-        output[8] = pixels[8] >> D_800C1558_main;
-        output[9] = pixels[9] >> D_800C1558_main;
-        output[10] = pixels[10] >> D_800C1558_main;
-        output[11] = pixels[11] >> D_800C1558_main;
-        output[12] = pixels[12] >> D_800C1558_main;
-        output[13] = pixels[13] >> D_800C1558_main;
-        output[14] = pixels[14] >> D_800C1558_main;
-        output[15] = pixels[15] >> D_800C1558_main;
+        output[0] = pixels[0] >> sHvqSampleFractionBits;
+        output[1] = pixels[1] >> sHvqSampleFractionBits;
+        output[2] = pixels[2] >> sHvqSampleFractionBits;
+        output[3] = pixels[3] >> sHvqSampleFractionBits;
+        output[4] = pixels[4] >> sHvqSampleFractionBits;
+        output[5] = pixels[5] >> sHvqSampleFractionBits;
+        output[6] = pixels[6] >> sHvqSampleFractionBits;
+        output[7] = pixels[7] >> sHvqSampleFractionBits;
+        output[8] = pixels[8] >> sHvqSampleFractionBits;
+        output[9] = pixels[9] >> sHvqSampleFractionBits;
+        output[10] = pixels[10] >> sHvqSampleFractionBits;
+        output[11] = pixels[11] >> sHvqSampleFractionBits;
+        output[12] = pixels[12] >> sHvqSampleFractionBits;
+        output[13] = pixels[13] >> sHvqSampleFractionBits;
+        output[14] = pixels[14] >> sHvqSampleFractionBits;
+        output[15] = pixels[15] >> sHvqSampleFractionBits;
     }
 }
 
@@ -483,7 +483,7 @@ void func_80066A44_main(s16 *output, HvqBlockState *state, s32 component) {
 }
 
 static inline u16 HvqPackPixel(s16 y, s16 red, s16 green, s16 blue) {
-    return (D_800BDA90_main[(y + red) >> 6] << 10) | (D_800BDA90_main[(y + green) >> 6] << 5) | D_800BDD90_main[(y + blue) >> 6];
+    return (sHvqColorClampTable[(y + red) >> 6] << 10) | (sHvqColorClampTable[(y + green) >> 6] << 5) | sHvqColorAlphaClampTable[(y + blue) >> 6];
 }
 
 void func_800677B8_main(u16 *output, s16 *luma, s16 *cb, s16 *cr) {
@@ -547,7 +547,7 @@ void func_800677B8_main(u16 *output, s16 *luma, s16 *cb, s16 *cr) {
         y = *right++ << 6;
         *pixel++ = HvqPackPixel(y, red, green, blue);
 
-        output += D_800C147C_main;
+        output += sHvqOutputStride;
     }
 }
 
@@ -615,7 +615,7 @@ void func_80067D50_main(u16 *output, s16 *luma, s16 *cb, s16 *cr) {
         y = *right++ << 6;
         *pixel++ = HvqPackPixel(y, red3, green3, blue3);
 
-        output += D_800C147C_main;
+        output += sHvqOutputStride;
         pixel = output;
         y = *left++ << 6;
         *pixel++ = HvqPackPixel(y, red0, green0, blue0);
@@ -633,7 +633,7 @@ void func_80067D50_main(u16 *output, s16 *luma, s16 *cb, s16 *cr) {
         *pixel++ = HvqPackPixel(y, red3, green3, blue3);
         y = *right++ << 6;
         *pixel++ = HvqPackPixel(y, red3, green3, blue3);
-        output += D_800C147C_main;
+        output += sHvqOutputStride;
         cr++;
         cb++;
     }
@@ -690,7 +690,7 @@ void func_80067D50_main(u16 *output, s16 *luma, s16 *cb, s16 *cr) {
         y = *right++ << 6;
         *pixel++ = HvqPackPixel(y, red3, green3, blue3);
 
-        output += D_800C147C_main;
+        output += sHvqOutputStride;
         pixel = output;
         y = *left++ << 6;
         *pixel++ = HvqPackPixel(y, red0, green0, blue0);
@@ -708,7 +708,7 @@ void func_80067D50_main(u16 *output, s16 *luma, s16 *cb, s16 *cr) {
         *pixel++ = HvqPackPixel(y, red3, green3, blue3);
         y = *right++ << 6;
         *pixel++ = HvqPackPixel(y, red3, green3, blue3);
-        output += D_800C147C_main;
+        output += sHvqOutputStride;
         cr++;
         cb++;
     }
@@ -717,167 +717,167 @@ void func_80067D50_main(u16 *output, s16 *luma, s16 *cb, s16 *cr) {
 void func_80068ECC_main(u16 *output) {
     s32 count;
 
-    D_800C0C18_main.rightMode = *D_800C0C18_main.currentMode;
-    D_800C0C18_main.rightMean = D_800C0C18_main.leftMean = *D_800C0C18_main.currentMean;
-    D_800C0C38_main.rightMode = *D_800C0C38_main.currentMode;
-    D_800C0C38_main.rightMean = D_800C0C38_main.leftMean = *D_800C0C38_main.currentMean;
-    D_800C0BD8_main.rightMode = *D_800C0BD8_main.currentMode;
-    D_800C0BD8_main.rightMean = D_800C0BD8_main.leftMean = *D_800C0BD8_main.currentMean;
-    if (D_800BE090_main) {
-        D_800C0BF8_main.rightMode = *D_800C0BF8_main.currentMode;
-        D_800C0BF8_main.rightMean = D_800C0BF8_main.leftMean = *D_800C0BF8_main.currentMean;
+    sHvqCbBlockState.rightMode = *sHvqCbBlockState.currentMode;
+    sHvqCbBlockState.rightMean = sHvqCbBlockState.leftMean = *sHvqCbBlockState.currentMean;
+    sHvqCrBlockState.rightMode = *sHvqCrBlockState.currentMode;
+    sHvqCrBlockState.rightMean = sHvqCrBlockState.leftMean = *sHvqCrBlockState.currentMean;
+    sHvqLumaBlockState.rightMode = *sHvqLumaBlockState.currentMode;
+    sHvqLumaBlockState.rightMean = sHvqLumaBlockState.leftMean = *sHvqLumaBlockState.currentMean;
+    if (sHvqHasSecondLumaRow) {
+        sHvqSecondLumaRowBlockState.rightMode = *sHvqSecondLumaRowBlockState.currentMode;
+        sHvqSecondLumaRowBlockState.rightMean = sHvqSecondLumaRowBlockState.leftMean = *sHvqSecondLumaRowBlockState.currentMean;
     }
 
-    for (count = D_800C1486_main - 1; count > 0; count--) {
-        D_800C0BD8_main.mode = D_800C0BD8_main.rightMode;
-        D_800C0BD8_main.rightMode = *++D_800C0BD8_main.currentMode;
-        D_800C0BD8_main.mean = D_800C0BD8_main.rightMean;
-        D_800C0BD8_main.rightMean = *++D_800C0BD8_main.currentMean;
-        func_80066A44_main(D_800C1498_main, &D_800C0BD8_main, 0);
-        D_800C0BD8_main.mode = D_800C0BD8_main.rightMode;
-        D_800C0BD8_main.rightMode = *++D_800C0BD8_main.currentMode;
-        D_800C0BD8_main.mean = D_800C0BD8_main.rightMean;
-        D_800C0BD8_main.rightMean = *++D_800C0BD8_main.currentMean;
-        func_80066A44_main(D_800C1498_main + 16, &D_800C0BD8_main, 0);
-        if (D_800BE090_main) {
-            D_800C0BF8_main.mode = D_800C0BF8_main.rightMode;
-            D_800C0BF8_main.rightMode = *++D_800C0BF8_main.currentMode;
-            D_800C0BF8_main.mean = D_800C0BF8_main.rightMean;
-            D_800C0BF8_main.rightMean = *++D_800C0BF8_main.currentMean;
-            func_80066A44_main(D_800C1498_main + 32, &D_800C0BF8_main, 0);
-            D_800C0BF8_main.mode = D_800C0BF8_main.rightMode;
-            D_800C0BF8_main.rightMode = *++D_800C0BF8_main.currentMode;
-            D_800C0BF8_main.mean = D_800C0BF8_main.rightMean;
-            D_800C0BF8_main.rightMean = *++D_800C0BF8_main.currentMean;
-            func_80066A44_main(D_800C1498_main + 48, &D_800C0BF8_main, 0);
+    for (count = sHvqChromaBlockColumns - 1; count > 0; count--) {
+        sHvqLumaBlockState.mode = sHvqLumaBlockState.rightMode;
+        sHvqLumaBlockState.rightMode = *++sHvqLumaBlockState.currentMode;
+        sHvqLumaBlockState.mean = sHvqLumaBlockState.rightMean;
+        sHvqLumaBlockState.rightMean = *++sHvqLumaBlockState.currentMean;
+        func_80066A44_main(sHvqLumaSamples, &sHvqLumaBlockState, 0);
+        sHvqLumaBlockState.mode = sHvqLumaBlockState.rightMode;
+        sHvqLumaBlockState.rightMode = *++sHvqLumaBlockState.currentMode;
+        sHvqLumaBlockState.mean = sHvqLumaBlockState.rightMean;
+        sHvqLumaBlockState.rightMean = *++sHvqLumaBlockState.currentMean;
+        func_80066A44_main(sHvqLumaSamples + 16, &sHvqLumaBlockState, 0);
+        if (sHvqHasSecondLumaRow) {
+            sHvqSecondLumaRowBlockState.mode = sHvqSecondLumaRowBlockState.rightMode;
+            sHvqSecondLumaRowBlockState.rightMode = *++sHvqSecondLumaRowBlockState.currentMode;
+            sHvqSecondLumaRowBlockState.mean = sHvqSecondLumaRowBlockState.rightMean;
+            sHvqSecondLumaRowBlockState.rightMean = *++sHvqSecondLumaRowBlockState.currentMean;
+            func_80066A44_main(sHvqLumaSamples + 32, &sHvqSecondLumaRowBlockState, 0);
+            sHvqSecondLumaRowBlockState.mode = sHvqSecondLumaRowBlockState.rightMode;
+            sHvqSecondLumaRowBlockState.rightMode = *++sHvqSecondLumaRowBlockState.currentMode;
+            sHvqSecondLumaRowBlockState.mean = sHvqSecondLumaRowBlockState.rightMean;
+            sHvqSecondLumaRowBlockState.rightMean = *++sHvqSecondLumaRowBlockState.currentMean;
+            func_80066A44_main(sHvqLumaSamples + 48, &sHvqSecondLumaRowBlockState, 0);
         }
-        D_800C0C18_main.mode = D_800C0C18_main.rightMode;
-        D_800C0C18_main.rightMode = *++D_800C0C18_main.currentMode;
-        D_800C0C18_main.mean = D_800C0C18_main.rightMean;
-        D_800C0C18_main.rightMean = *++D_800C0C18_main.currentMean;
-        func_80066A44_main(D_800C1518_main, &D_800C0C18_main, 1);
-        D_800C0C38_main.mode = D_800C0C38_main.rightMode;
-        D_800C0C38_main.rightMode = *++D_800C0C38_main.currentMode;
-        D_800C0C38_main.mean = D_800C0C38_main.rightMean;
-        D_800C0C38_main.rightMean = *++D_800C0C38_main.currentMean;
-        func_80066A44_main(D_800C1538_main, &D_800C0C38_main, 2);
-        D_800BE094_BEC94(output, D_800C1498_main, D_800C1518_main, D_800C1538_main);
-        output += D_800C1490_main;
+        sHvqCbBlockState.mode = sHvqCbBlockState.rightMode;
+        sHvqCbBlockState.rightMode = *++sHvqCbBlockState.currentMode;
+        sHvqCbBlockState.mean = sHvqCbBlockState.rightMean;
+        sHvqCbBlockState.rightMean = *++sHvqCbBlockState.currentMean;
+        func_80066A44_main(sHvqCbSamples, &sHvqCbBlockState, 1);
+        sHvqCrBlockState.mode = sHvqCrBlockState.rightMode;
+        sHvqCrBlockState.rightMode = *++sHvqCrBlockState.currentMode;
+        sHvqCrBlockState.mean = sHvqCrBlockState.rightMean;
+        sHvqCrBlockState.rightMean = *++sHvqCrBlockState.currentMean;
+        func_80066A44_main(sHvqCrSamples, &sHvqCrBlockState, 2);
+        sHvqConvertToRgba(output, sHvqLumaSamples, sHvqCbSamples, sHvqCrSamples);
+        output += sHvqOutputGroupColumnStep;
     }
 
     /* Repeat the rightmost mode and mean at the image boundary. */
-    D_800C0BD8_main.mode = D_800C0BD8_main.rightMode;
-    D_800C0BD8_main.rightMode = *++D_800C0BD8_main.currentMode;
-    D_800C0BD8_main.mean = D_800C0BD8_main.rightMean;
-    D_800C0BD8_main.rightMean = *++D_800C0BD8_main.currentMean;
-    func_80066A44_main(D_800C1498_main, &D_800C0BD8_main, 0);
-    D_800C0BD8_main.mode = D_800C0BD8_main.rightMode;
-    D_800C0BD8_main.currentMode++;
-    D_800C0BD8_main.mean = D_800C0BD8_main.rightMean;
-    D_800C0BD8_main.currentMean++;
-    func_80066A44_main(D_800C1498_main + 16, &D_800C0BD8_main, 0);
-    if (D_800BE090_main) {
-        D_800C0BF8_main.mode = D_800C0BF8_main.rightMode;
-        D_800C0BF8_main.rightMode = *++D_800C0BF8_main.currentMode;
-        D_800C0BF8_main.mean = D_800C0BF8_main.rightMean;
-        D_800C0BF8_main.rightMean = *++D_800C0BF8_main.currentMean;
-        func_80066A44_main(D_800C1498_main + 32, &D_800C0BF8_main, 0);
-        D_800C0BF8_main.mode = D_800C0BF8_main.rightMode;
-        D_800C0BF8_main.currentMode++;
-        D_800C0BF8_main.mean = D_800C0BF8_main.rightMean;
-        D_800C0BF8_main.currentMean++;
-        func_80066A44_main(D_800C1498_main + 48, &D_800C0BF8_main, 0);
+    sHvqLumaBlockState.mode = sHvqLumaBlockState.rightMode;
+    sHvqLumaBlockState.rightMode = *++sHvqLumaBlockState.currentMode;
+    sHvqLumaBlockState.mean = sHvqLumaBlockState.rightMean;
+    sHvqLumaBlockState.rightMean = *++sHvqLumaBlockState.currentMean;
+    func_80066A44_main(sHvqLumaSamples, &sHvqLumaBlockState, 0);
+    sHvqLumaBlockState.mode = sHvqLumaBlockState.rightMode;
+    sHvqLumaBlockState.currentMode++;
+    sHvqLumaBlockState.mean = sHvqLumaBlockState.rightMean;
+    sHvqLumaBlockState.currentMean++;
+    func_80066A44_main(sHvqLumaSamples + 16, &sHvqLumaBlockState, 0);
+    if (sHvqHasSecondLumaRow) {
+        sHvqSecondLumaRowBlockState.mode = sHvqSecondLumaRowBlockState.rightMode;
+        sHvqSecondLumaRowBlockState.rightMode = *++sHvqSecondLumaRowBlockState.currentMode;
+        sHvqSecondLumaRowBlockState.mean = sHvqSecondLumaRowBlockState.rightMean;
+        sHvqSecondLumaRowBlockState.rightMean = *++sHvqSecondLumaRowBlockState.currentMean;
+        func_80066A44_main(sHvqLumaSamples + 32, &sHvqSecondLumaRowBlockState, 0);
+        sHvqSecondLumaRowBlockState.mode = sHvqSecondLumaRowBlockState.rightMode;
+        sHvqSecondLumaRowBlockState.currentMode++;
+        sHvqSecondLumaRowBlockState.mean = sHvqSecondLumaRowBlockState.rightMean;
+        sHvqSecondLumaRowBlockState.currentMean++;
+        func_80066A44_main(sHvqLumaSamples + 48, &sHvqSecondLumaRowBlockState, 0);
     }
-    D_800C0C18_main.mode = D_800C0C18_main.rightMode;
-    D_800C0C18_main.currentMode++;
-    D_800C0C18_main.mean = D_800C0C18_main.rightMean;
-    D_800C0C18_main.currentMean++;
-    func_80066A44_main(D_800C1518_main, &D_800C0C18_main, 1);
-    D_800C0C38_main.mode = D_800C0C38_main.rightMode;
-    D_800C0C38_main.currentMode++;
-    D_800C0C38_main.mean = D_800C0C38_main.rightMean;
-    D_800C0C38_main.currentMean++;
-    func_80066A44_main(D_800C1538_main, &D_800C0C38_main, 2);
-    D_800BE094_main(output, D_800C1498_main, D_800C1518_main, D_800C1538_main);
+    sHvqCbBlockState.mode = sHvqCbBlockState.rightMode;
+    sHvqCbBlockState.currentMode++;
+    sHvqCbBlockState.mean = sHvqCbBlockState.rightMean;
+    sHvqCbBlockState.currentMean++;
+    func_80066A44_main(sHvqCbSamples, &sHvqCbBlockState, 1);
+    sHvqCrBlockState.mode = sHvqCrBlockState.rightMode;
+    sHvqCrBlockState.currentMode++;
+    sHvqCrBlockState.mean = sHvqCrBlockState.rightMean;
+    sHvqCrBlockState.currentMean++;
+    func_80066A44_main(sHvqCrSamples, &sHvqCrBlockState, 2);
+    sHvqConvertToRgba(output, sHvqLumaSamples, sHvqCbSamples, sHvqCrSamples);
 }
 
 void func_800694D0_main(u16 *output) {
     s32 count;
 
     /* Repeat the first row above the image. */
-    D_800C0C18_main.aboveMode = D_800C0C18_main.currentMode = D_800C1460_main[1];
-    D_800C0C18_main.aboveMean = D_800C0C18_main.currentMean = D_800C146C_main[1];
-    D_800C0C18_main.belowMode = D_800C0C18_main.currentMode + D_800C1486_main;
-    D_800C0C18_main.belowMean = D_800C0C18_main.currentMean + D_800C1486_main;
-    D_800C0C38_main.aboveMode = D_800C0C38_main.currentMode = D_800C1460_main[2];
-    D_800C0C38_main.aboveMean = D_800C0C38_main.currentMean = D_800C146C_main[2];
-    D_800C0C38_main.belowMode = D_800C0C38_main.currentMode + D_800C1486_main;
-    D_800C0C38_main.belowMean = D_800C0C38_main.currentMean + D_800C1486_main;
-    D_800C0BD8_main.aboveMode = D_800C0BD8_main.currentMode = D_800C1460_main[0];
-    D_800C0BD8_main.aboveMean = D_800C0BD8_main.currentMean = D_800C146C_main[0];
-    D_800C0BD8_main.belowMode = D_800C0BD8_main.currentMode + D_800C1480_main;
-    D_800C0BD8_main.belowMean = D_800C0BD8_main.currentMean + D_800C1480_main;
-    if (D_800BE090_main) {
-        D_800C0BF8_main.aboveMode = D_800C0BD8_main.currentMode;
-        D_800C0BF8_main.aboveMean = D_800C0BD8_main.currentMean;
-        D_800C0BF8_main.currentMode = D_800C0BD8_main.belowMode;
-        D_800C0BF8_main.currentMean = D_800C0BD8_main.belowMean;
-        D_800C0BF8_main.belowMode = D_800C0BF8_main.currentMode + D_800C1480_main;
-        D_800C0BF8_main.belowMean = D_800C0BF8_main.currentMean + D_800C1480_main;
+    sHvqCbBlockState.aboveMode = sHvqCbBlockState.currentMode = sHvqBlockModes[1];
+    sHvqCbBlockState.aboveMean = sHvqCbBlockState.currentMean = sHvqBlockMeans[1];
+    sHvqCbBlockState.belowMode = sHvqCbBlockState.currentMode + sHvqChromaBlockColumns;
+    sHvqCbBlockState.belowMean = sHvqCbBlockState.currentMean + sHvqChromaBlockColumns;
+    sHvqCrBlockState.aboveMode = sHvqCrBlockState.currentMode = sHvqBlockModes[2];
+    sHvqCrBlockState.aboveMean = sHvqCrBlockState.currentMean = sHvqBlockMeans[2];
+    sHvqCrBlockState.belowMode = sHvqCrBlockState.currentMode + sHvqChromaBlockColumns;
+    sHvqCrBlockState.belowMean = sHvqCrBlockState.currentMean + sHvqChromaBlockColumns;
+    sHvqLumaBlockState.aboveMode = sHvqLumaBlockState.currentMode = sHvqBlockModes[0];
+    sHvqLumaBlockState.aboveMean = sHvqLumaBlockState.currentMean = sHvqBlockMeans[0];
+    sHvqLumaBlockState.belowMode = sHvqLumaBlockState.currentMode + sHvqLumaBlockColumns;
+    sHvqLumaBlockState.belowMean = sHvqLumaBlockState.currentMean + sHvqLumaBlockColumns;
+    if (sHvqHasSecondLumaRow) {
+        sHvqSecondLumaRowBlockState.aboveMode = sHvqLumaBlockState.currentMode;
+        sHvqSecondLumaRowBlockState.aboveMean = sHvqLumaBlockState.currentMean;
+        sHvqSecondLumaRowBlockState.currentMode = sHvqLumaBlockState.belowMode;
+        sHvqSecondLumaRowBlockState.currentMean = sHvqLumaBlockState.belowMean;
+        sHvqSecondLumaRowBlockState.belowMode = sHvqSecondLumaRowBlockState.currentMode + sHvqLumaBlockColumns;
+        sHvqSecondLumaRowBlockState.belowMean = sHvqSecondLumaRowBlockState.currentMean + sHvqLumaBlockColumns;
     }
 
     func_80068ECC_main(output);
-    output += D_800C1494_main;
-    D_800C0C18_main.aboveMode = D_800C1460_main[1];
-    D_800C0C18_main.aboveMean = D_800C146C_main[1];
-    D_800C0C38_main.aboveMode = D_800C1460_main[2];
-    D_800C0C38_main.aboveMean = D_800C146C_main[2];
-    if (D_800BE090_main) {
-        D_800C0BD8_main.currentMode += D_800C1480_main;
-        D_800C0BD8_main.currentMean += D_800C1480_main;
-        D_800C0BD8_main.belowMode += D_800C1480_main;
-        D_800C0BD8_main.belowMean += D_800C1480_main;
-        D_800C0BF8_main.aboveMode += D_800C1480_main;
-        D_800C0BF8_main.aboveMean += D_800C1480_main;
-        D_800C0BF8_main.currentMode += D_800C1480_main;
-        D_800C0BF8_main.currentMean += D_800C1480_main;
-        D_800C0BF8_main.belowMode += D_800C1480_main;
-        D_800C0BF8_main.belowMean += D_800C1480_main;
+    output += sHvqOutputGroupRowStep;
+    sHvqCbBlockState.aboveMode = sHvqBlockModes[1];
+    sHvqCbBlockState.aboveMean = sHvqBlockMeans[1];
+    sHvqCrBlockState.aboveMode = sHvqBlockModes[2];
+    sHvqCrBlockState.aboveMean = sHvqBlockMeans[2];
+    if (sHvqHasSecondLumaRow) {
+        sHvqLumaBlockState.currentMode += sHvqLumaBlockColumns;
+        sHvqLumaBlockState.currentMean += sHvqLumaBlockColumns;
+        sHvqLumaBlockState.belowMode += sHvqLumaBlockColumns;
+        sHvqLumaBlockState.belowMean += sHvqLumaBlockColumns;
+        sHvqSecondLumaRowBlockState.aboveMode += sHvqLumaBlockColumns;
+        sHvqSecondLumaRowBlockState.aboveMean += sHvqLumaBlockColumns;
+        sHvqSecondLumaRowBlockState.currentMode += sHvqLumaBlockColumns;
+        sHvqSecondLumaRowBlockState.currentMean += sHvqLumaBlockColumns;
+        sHvqSecondLumaRowBlockState.belowMode += sHvqLumaBlockColumns;
+        sHvqSecondLumaRowBlockState.belowMean += sHvqLumaBlockColumns;
     } else {
-        D_800C0BD8_main.aboveMode = D_800C1460_main[0];
-        D_800C0BD8_main.aboveMean = D_800C146C_main[0];
+        sHvqLumaBlockState.aboveMode = sHvqBlockModes[0];
+        sHvqLumaBlockState.aboveMean = sHvqBlockMeans[0];
     }
 
-    for (count = D_800C1488_main - 2; count > 0; count--) {
+    for (count = sHvqChromaBlockRows - 2; count > 0; count--) {
         func_80068ECC_main(output);
-        output += D_800C1494_main;
-        if (D_800BE090_main) {
-            D_800C0BD8_main.aboveMode += D_800C1480_main;
-            D_800C0BD8_main.aboveMean += D_800C1480_main;
-            D_800C0BD8_main.currentMode += D_800C1480_main;
-            D_800C0BD8_main.currentMean += D_800C1480_main;
-            D_800C0BD8_main.belowMode += D_800C1480_main;
-            D_800C0BD8_main.belowMean += D_800C1480_main;
-            D_800C0BF8_main.aboveMode += D_800C1480_main;
-            D_800C0BF8_main.aboveMean += D_800C1480_main;
-            D_800C0BF8_main.currentMode += D_800C1480_main;
-            D_800C0BF8_main.currentMean += D_800C1480_main;
-            D_800C0BF8_main.belowMode += D_800C1480_main;
-            D_800C0BF8_main.belowMean += D_800C1480_main;
+        output += sHvqOutputGroupRowStep;
+        if (sHvqHasSecondLumaRow) {
+            sHvqLumaBlockState.aboveMode += sHvqLumaBlockColumns;
+            sHvqLumaBlockState.aboveMean += sHvqLumaBlockColumns;
+            sHvqLumaBlockState.currentMode += sHvqLumaBlockColumns;
+            sHvqLumaBlockState.currentMean += sHvqLumaBlockColumns;
+            sHvqLumaBlockState.belowMode += sHvqLumaBlockColumns;
+            sHvqLumaBlockState.belowMean += sHvqLumaBlockColumns;
+            sHvqSecondLumaRowBlockState.aboveMode += sHvqLumaBlockColumns;
+            sHvqSecondLumaRowBlockState.aboveMean += sHvqLumaBlockColumns;
+            sHvqSecondLumaRowBlockState.currentMode += sHvqLumaBlockColumns;
+            sHvqSecondLumaRowBlockState.currentMean += sHvqLumaBlockColumns;
+            sHvqSecondLumaRowBlockState.belowMode += sHvqLumaBlockColumns;
+            sHvqSecondLumaRowBlockState.belowMean += sHvqLumaBlockColumns;
         }
     }
 
     /* Repeat the last row below the image. */
-    D_800C0C18_main.belowMode = D_800C0C18_main.currentMode;
-    D_800C0C18_main.belowMean = D_800C0C18_main.currentMean;
-    D_800C0C38_main.belowMode = D_800C0C38_main.currentMode;
-    D_800C0C38_main.belowMean = D_800C0C38_main.currentMean;
-    if (D_800BE090_main) {
-        D_800C0BF8_main.belowMode = D_800C0BF8_main.currentMode;
-        D_800C0BF8_main.belowMean = D_800C0BF8_main.currentMean;
+    sHvqCbBlockState.belowMode = sHvqCbBlockState.currentMode;
+    sHvqCbBlockState.belowMean = sHvqCbBlockState.currentMean;
+    sHvqCrBlockState.belowMode = sHvqCrBlockState.currentMode;
+    sHvqCrBlockState.belowMean = sHvqCrBlockState.currentMean;
+    if (sHvqHasSecondLumaRow) {
+        sHvqSecondLumaRowBlockState.belowMode = sHvqSecondLumaRowBlockState.currentMode;
+        sHvqSecondLumaRowBlockState.belowMean = sHvqSecondLumaRowBlockState.currentMean;
     } else {
-        D_800C0BD8_main.belowMode = D_800C0BD8_main.currentMode;
-        D_800C0BD8_main.belowMean = D_800C0BD8_main.currentMean;
+        sHvqLumaBlockState.belowMode = sHvqLumaBlockState.currentMode;
+        sHvqLumaBlockState.belowMean = sHvqLumaBlockState.currentMean;
     }
     func_80068ECC_main(output);
 }
@@ -898,14 +898,14 @@ static inline void HvqReadModes(void) {
     u8 mode;
 
     /* Each chroma symbol packs one mode for each color component. */
-    first = D_800C1460_main[0];
-    for (i = D_800C1484_main; i > 0; i--) {
-        *first++ = HvqReadSymbol(&sHvqModeStreams[0], &D_800BE8B0_main);
+    first = sHvqBlockModes[0];
+    for (i = sHvqLumaBlockCount; i > 0; i--) {
+        *first++ = HvqReadSymbol(&sHvqModeStreams[0], &sHvqModeTree);
     }
-    first = D_800C1460_main[1];
-    second = D_800C1460_main[2];
-    for (i = D_800C148A_main; i > 0; i--) {
-        mode = HvqReadSymbol(&sHvqModeStreams[1], &D_800BE8B0_main);
+    first = sHvqBlockModes[1];
+    second = sHvqBlockModes[2];
+    for (i = sHvqChromaBlockCount; i > 0; i--) {
+        mode = HvqReadSymbol(&sHvqModeStreams[1], &sHvqModeTree);
         *first++ = mode & 15;
         *second++ = mode >> 4;
     }
@@ -927,19 +927,19 @@ void func_800698E8_main(HvqImageHeader *image, u16 *output, s32 stride, u8 *work
         for (i = 0; i < 3; i++) {
             HvqInitStream((u32 *)(data + header->meanOffsets[i]), &sHvqMeanStreams[i]);
             HvqInitStream((u32 *)(data + header->amplitudeOffsets[i]), &sHvqAmplitudeStreams[i]);
-            D_800C014C_main[i] = data + header->rawOffsets[i] + 4;
+            sHvqRawStreams[i] = data + header->rawOffsets[i] + 4;
         }
     }
 
-    D_800C1460_main[0] = work;
-    D_800C146C_main[0] = D_800C1460_main[0] + D_800C1484_main;
-    D_800C1460_main[1] = D_800C146C_main[0] + D_800C1484_main;
-    D_800C146C_main[1] = D_800C1460_main[1] + D_800C148A_main;
-    D_800C1460_main[2] = D_800C146C_main[1] + D_800C148A_main;
-    D_800C146C_main[2] = D_800C1460_main[2] + D_800C148A_main;
-    D_800C147C_main = stride;
-    D_800C1490_main = D_800C148C_main * 4;
-    D_800C1494_main = stride * (D_800C148D_main << 2);
+    sHvqBlockModes[0] = work;
+    sHvqBlockMeans[0] = sHvqBlockModes[0] + sHvqLumaBlockCount;
+    sHvqBlockModes[1] = sHvqBlockMeans[0] + sHvqLumaBlockCount;
+    sHvqBlockMeans[1] = sHvqBlockModes[1] + sHvqChromaBlockCount;
+    sHvqBlockModes[2] = sHvqBlockMeans[1] + sHvqChromaBlockCount;
+    sHvqBlockMeans[2] = sHvqBlockModes[2] + sHvqChromaBlockCount;
+    sHvqOutputStride = stride;
+    sHvqOutputGroupColumnStep = sHvqHorizontalSampling * 4;
+    sHvqOutputGroupRowStep = stride * (sHvqVerticalSampling << 2);
 
     HvqReadModes();
 
@@ -951,32 +951,32 @@ void func_800698E8_main(HvqImageHeader *image, u16 *output, s32 stride, u8 *work
          * previous sample and the sample above the next column. */
 
         firstMean = 0;
-        first = aboveFirst = D_800C146C_main[0];
-        for (i = D_800C1480_main; i > 0; i--) {
+        first = aboveFirst = sHvqBlockMeans[0];
+        for (i = sHvqLumaBlockColumns; i > 0; i--) {
             firstMean += HvqReadMean(0);
             *first++ = firstMean;
         }
-        for (rows = D_800C1482_main; rows > 1; rows--) {
+        for (rows = sHvqLumaBlockRows; rows > 1; rows--) {
             firstMean = *aboveFirst;
-            for (i = D_800C1480_main; i > 0; i--) {
+            for (i = sHvqLumaBlockColumns; i > 0; i--) {
                 firstMean = ((u32) * ++aboveFirst + (*first++ = firstMean + HvqReadMean(0))) >> 1;
             }
         }
     }
 
     firstMean = secondMean = 0;
-    first = aboveFirst = D_800C146C_main[1];
-    second = aboveSecond = D_800C146C_main[2];
-    for (i = D_800C1486_main; i > 0; i--) {
+    first = aboveFirst = sHvqBlockMeans[1];
+    second = aboveSecond = sHvqBlockMeans[2];
+    for (i = sHvqChromaBlockColumns; i > 0; i--) {
         firstMean += HvqReadMean(1);
         *first++ = firstMean;
         secondMean += HvqReadMean(2);
         *second++ = secondMean;
     }
-    for (rows = D_800C1488_main; rows > 1; rows--) {
+    for (rows = sHvqChromaBlockRows; rows > 1; rows--) {
         firstMean = *aboveFirst;
         secondMean = *aboveSecond;
-        for (i = D_800C1486_main; i > 0; i--) {
+        for (i = sHvqChromaBlockColumns; i > 0; i--) {
             firstMean = ((u32) * ++aboveFirst + (*first++ = firstMean + HvqReadMean(1))) >> 1;
             secondMean = ((u32) * ++aboveSecond + (*second++ = secondMean + HvqReadMean(2))) >> 1;
         }
@@ -989,7 +989,7 @@ static inline void HvqReadTree(u32 *data, HvqBitStream *stream, HvqHuffmanTree *
         stream->nextWord = data + 1;
         stream->mask = 0;
         if (tree != NULL) {
-            D_800BE098_main = 256;
+            sHvqNextTreeNode = 256;
             tree->root = func_800665E0_main(stream, tree);
         }
     } else {
@@ -1001,11 +1001,11 @@ static inline void HvqReadTree(u32 *data, HvqBitStream *stream, HvqHuffmanTree *
 static inline void HvqReadTable(HvqBitStream *stream) {
     /* Table entries are stored as Huffman-coded deltas. */
     s32 value = 0;
-    u8 *output = D_800C0BC4_main;
+    u8 *output = sHvqPatternTable;
     s32 i;
 
     for (i = 2660; i > 0; i--) {
-        value += HvqReadSymbol(stream, &D_800BF8D0_main);
+        value += HvqReadSymbol(stream, &sHvqPatternTableTree);
         *output++ = value;
     }
 }
@@ -1018,58 +1018,58 @@ void func_80069E68_main(void *data) {
     s32 shift;
     s32 tableShift;
 
-    if (strcmp(header->signature, D_800A7F50_main) != 0) {
-        osSyncPrintf(D_800A7F5C_main);
+    if (strcmp(header->signature, sHvqSignature) != 0) {
+        osSyncPrintf(sHvqInvalidSignatureError);
         return;
     }
 
-    D_800C1478_main = header->width;
-    D_800C147A_main = header->height;
-    D_800C148C_main = header->horizontalSampling;
-    D_800C148D_main = header->verticalSampling;
-    D_800C1480_main = D_800C1478_main / 4;
-    D_800C1482_main = D_800C147A_main / 4;
-    D_800C1484_main = D_800C1480_main * D_800C1482_main;
-    D_800C1486_main = D_800C1480_main / D_800C148C_main;
-    D_800C1488_main = D_800C1482_main / D_800C148D_main;
-    D_800C148A_main = D_800C1486_main * D_800C1488_main;
-    if (D_800C148D_main == 1) {
-        D_800BE090_main = 0;
-        D_800BE094_main = func_800677B8_main;
+    sHvqImageWidth = header->width;
+    sHvqImageHeight = header->height;
+    sHvqHorizontalSampling = header->horizontalSampling;
+    sHvqVerticalSampling = header->verticalSampling;
+    sHvqLumaBlockColumns = sHvqImageWidth / 4;
+    sHvqLumaBlockRows = sHvqImageHeight / 4;
+    sHvqLumaBlockCount = sHvqLumaBlockColumns * sHvqLumaBlockRows;
+    sHvqChromaBlockColumns = sHvqLumaBlockColumns / sHvqHorizontalSampling;
+    sHvqChromaBlockRows = sHvqLumaBlockRows / sHvqVerticalSampling;
+    sHvqChromaBlockCount = sHvqChromaBlockColumns * sHvqChromaBlockRows;
+    if (sHvqVerticalSampling == 1) {
+        sHvqHasSecondLumaRow = 0;
+        sHvqConvertToRgba = func_800677B8_main;
     } else {
-        D_800BE090_main = 1;
-        D_800BE094_main = func_80067D50_main;
+        sHvqHasSecondLumaRow = 1;
+        sHvqConvertToRgba = func_80067D50_main;
     }
-    D_800C0BD4_main = header->componentOrder;
-    if (D_800C0BD4_main == 0) {
-        D_800C0BC8_main = 70;
-        D_800C0BCC_main = 38;
+    sHvqPatternTableTransposed = header->componentOrder;
+    if (sHvqPatternTableTransposed == 0) {
+        sHvqPatternTableWidth = 70;
+        sHvqPatternTableHeight = 38;
     } else {
-        D_800C0BC8_main = 38;
-        D_800C0BCC_main = 70;
+        sHvqPatternTableWidth = 38;
+        sHvqPatternTableHeight = 70;
     }
-    D_800C0BD0_main = D_800C0BC8_main * 2;
+    sHvqPatternTableDoubleStride = sHvqPatternTableWidth * 2;
 
-    HvqReadTree((u32 *)(file + header->treeOffsets[0]), &sHvqTreeStream, &D_800BE8B0_main);
-    HvqReadTree((u32 *)(file + header->treeOffsets[1]), &sHvqTreeStream, &D_800BE0A0_main);
-    HvqReadTree((u32 *)(file + header->treeOffsets[2]), &sHvqTreeStream, &D_800BF0C0_main);
-    HvqReadTree((u32 *)(file + header->treeOffsets[3]), &sHvqTreeStream, &D_800BF8D0_main);
+    HvqReadTree((u32 *)(file + header->treeOffsets[0]), &sHvqTreeStream, &sHvqModeTree);
+    HvqReadTree((u32 *)(file + header->treeOffsets[1]), &sHvqTreeStream, &sHvqMeanTree);
+    HvqReadTree((u32 *)(file + header->treeOffsets[2]), &sHvqTreeStream, &sHvqAmplitudeTree);
+    HvqReadTree((u32 *)(file + header->treeOffsets[3]), &sHvqTreeStream, &sHvqPatternTableTree);
 
     /* Translate leaf symbols to the signed, scaled values used by each tree. */
     shift = header->shifts >> 4;
     tableShift = header->shifts & 15;
     for (i = 0, symbol = 0; i < 256; i++, symbol++) {
-        D_800BF0C0_main.left[i] = symbol << 2;
-        D_800BE0A0_main.left[i] = symbol << shift;
-        D_800BF8D0_main.left[i] = symbol << 4;
-        D_800BE8B0_main.left[i] = i;
+        sHvqAmplitudeTree.left[i] = symbol << 2;
+        sHvqMeanTree.left[i] = symbol << shift;
+        sHvqPatternTableTree.left[i] = symbol << 4;
+        sHvqModeTree.left[i] = i;
     }
-    D_800C00D2_main = 127 << shift;
-    D_800C00D4_main = -128 << shift;
-    D_800C1558_main = 12 - tableShift;
-    D_800C155C_main = 1 << (D_800C1558_main - 1);
+    sHvqMeanDeltaMax = 127 << shift;
+    sHvqMeanDeltaMin = -128 << shift;
+    sHvqSampleFractionBits = 12 - tableShift;
+    sHvqSampleRoundingBias = 1 << (sHvqSampleFractionBits - 1);
 
-    D_800C0BC4_main = D_800C0160_main;
+    sHvqPatternTable = sHvqPatternTableBuffer;
     HvqReadTable(&sHvqTreeStream);
 }
 
@@ -1078,9 +1078,9 @@ void func_8006A370_main(u8 alpha) {
     s32 i;
     s32 minColorAlpha;
 
-    D_800C0C60_main[0] = 0;
+    sHvqReciprocalTable[0] = 0;
     for (index = 1; index < 512; index++) {
-        D_800C0C60_main[index] = 4096 / index;
+        sHvqReciprocalTable[index] = 4096 / index;
     }
 
     alpha >>= 7;
@@ -1088,14 +1088,14 @@ void func_8006A370_main(u8 alpha) {
     /* Clamp the extended color range and pack five color bits plus alpha. */
     for (i = -256, index = 0; index < 768; index++, i++) {
         if (i < 0) {
-            D_800BDA90_main[index] = 0;
-            D_800BDD90_main[index] = minColorAlpha;
+            sHvqColorClampTable[index] = 0;
+            sHvqColorAlphaClampTable[index] = minColorAlpha;
         } else if (i >= 256) {
-            D_800BDA90_main[index] = 0x3E;
-            D_800BDD90_main[index] = 0x3E | minColorAlpha;
+            sHvqColorClampTable[index] = 0x3E;
+            sHvqColorAlphaClampTable[index] = 0x3E | minColorAlpha;
         } else {
-            D_800BDA90_main[index] = (i >> 2) & 0x3E;
-            D_800BDD90_main[index] = D_800BDA90_main[index] | alpha;
+            sHvqColorClampTable[index] = (i >> 2) & 0x3E;
+            sHvqColorAlphaClampTable[index] = sHvqColorClampTable[index] | alpha;
         }
     }
 }
