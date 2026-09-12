@@ -1832,9 +1832,9 @@ segments:
       - [0x39AD20, c]
       - [0x39AD50, c]
       - [0x3B08D0, .data, 39AD20] #8011B550
-      - [0x3B0900, data, 39AD50]
+      - [0x3B0900, .data, 39AD50]
       - [0x3B3460, .rodata, 39AD50] #8011E0E0
-      - {0x3B35F0, type: bss, vram: 0x8011E270, name: w06_bss}
+      - {0x3B35F0, type: .bss, vram: 0x8011E270, name: 39AD50}
 
   - type: code
     start: 0x3B35F0

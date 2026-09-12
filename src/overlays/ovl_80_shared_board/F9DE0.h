@@ -4,6 +4,8 @@
 #include "common.h"
 #include "game/board.h"
 
+extern Object *D_801011FC_114E1C_shared_board;
+
 Object* MBKSuitCreate(void);
 void MBKSuitKill(void);
 void MBKSuitInit(void);

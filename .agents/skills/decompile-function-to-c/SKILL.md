@@ -72,11 +72,13 @@ If you make larger changes, like changes to the marioparty3.yaml or symbol_addrs
 
 #### Formatting
 
-Run the following to ensure that all code files are formatted correctly:
+Ensure each .c/.h file that you changed is formatted correctly:
 
 ```bash
-./tools/format.py
+./tools/format.py <file-path>
 ```
+
+Only run this for individual changed files, to avoid creating unrelated changes.
 
 #### Double check the build
 
@@ -116,4 +118,5 @@ If there is a reason you don't think future attempts could match the function su
 - Struct and array accesses use `->`, `.`, or indexed access where appropriate.
 - Function parameters are typed as specifically as the available context allows.
 - Struct sizes and field offsets match assembly access patterns.
+- Do not leave unnecessary casts.
 - `./tools/build.sh` succeeds before the match is considered complete.

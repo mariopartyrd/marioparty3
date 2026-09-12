@@ -4,6 +4,8 @@
 #include "common.h"
 #include "game/board.h"
 
+extern u32 *D_80101734_115354_shared_board[];
+
 s16 MBPlayerTurnGet(void);
 GW_PLAYER *MBPlayerGet(s32 playerNo);
 s32 MBPlayerCurrentCheck(s16 playerNo);

@@ -10,6 +10,7 @@
 #define ASPECT_RATIO (4.0f / 3.0f)
 
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
+#define ARRAY_COUNTU(arr) (sizeof(arr) / sizeof(arr[0]))
 #define ARRAY_COUNT_2D_ROWS(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
 #define ARRAY_COUNT_2D_COLS(arr) (s32)(sizeof(arr[0]) / sizeof(arr[0][0]))
 

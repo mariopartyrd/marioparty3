@@ -180,6 +180,7 @@ build/src/overlays/ovl_36_motor_rooter/system.c.o: CFLAGS = -G0 -mips3 -mgp32 -m
 build/src/overlays/ovl_37_silly_screws/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/overlays/ovl_39_tick_tock_hop/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
 build/src/overlays/ovl_80_shared_board/ECA50.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
+build/src/overlays/w06/39AD50.c.o: CFLAGS += -fno-common
 
 # after function calls, we emit these instructions in the .s file including the blank new line
 #    .set    macro
@@ -187,6 +188,7 @@ build/src/overlays/ovl_80_shared_board/ECA50.c.o: CFLAGS = -G0 -mips3 -mgp32 -mf
 #
 # by stripping the blank newline, this will cause functions with nop issues to match
 NOP_OBJECTS := \
+	build/src/hmfload.c.o \
 	build/src/overlays/ovl_80_shared_board/EC3B0.c.o \
 	build/src/overlays/ovl_80_shared_board/EE660.c.o \
 	build/src/overlays/mgmode/46CC10.c.o \
@@ -195,7 +197,8 @@ NOP_OBJECTS := \
 	build/src/overlays/ovl_80_shared_board/106A50.c.o \
 	build/src/overlays/ovl_80_shared_board/1006F0.c.o \
 	build/src/overlays/ovl_80_shared_board/10C230.c.o \
-	build/src/overlays/ovl_48_ChillyWaters/31B9F0.c.o
+	build/src/overlays/ovl_48_ChillyWaters/31B9F0.c.o \
+	build/src/overlays/w06/39AD50.c.o
 
 NOP_ASM := $(NOP_OBJECTS:.o=.s)
 
