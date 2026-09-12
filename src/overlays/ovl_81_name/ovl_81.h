@@ -112,7 +112,7 @@ void MBDCameraZoomSet(f32);
 void MBDCamera3Dto2D(Vec*, Vec2f*);
 f32 MBDCameraZoomGet(void);
 Process* MBDCameraZoomMotStart(f32);
-void MBDCameraPos3DSet(Vec*);
+u16 MBDCameraPos3DSet(Vec*);
 u16 MBDCameraPos2DSet(Vec2f*);
 void MBDCameraPos2DGet(Vec2f*);
 f32 MBDCameraSpeedGet(void);

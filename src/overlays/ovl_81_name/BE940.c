@@ -76,9 +76,72 @@ void func_800D6CA0_BEA70_name_81(UnkBE940_3 *arg0) {
     HuMemMemoryFreeTemp(arg0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800D6D2C_BEAFC_name_81);
+void func_800D6D2C_BEAFC_name_81(UnkEA790Struct *arg0, UnkBoard2 *arg1, u16 arg2) {
+    UnkBoard2 **newList;
+    UnkBoard2 **dst;
+    UnkBoard2 **src;
+    s32 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/ovl_81_name/BE940", func_800D6E00_BEBD0_name_81);
+    newList = HuMemMemoryAllocTemp(++arg0->unk_02 * sizeof(UnkBoard2 *));
+    dst = newList;
+    if (arg0->unk_04 != NULL) {
+        src = arg0->unk_04;
+        for (i = 0; i < arg0->unk_02 - 1; i++) {
+            *dst++ = *src++;
+        }
+    }
+
+    if (1) {
+        *dst = arg1;
+    } else {
+        *dst = arg1;
+    }
+
+    if (arg0->unk_04 != NULL) {
+        HuMemMemoryFreeTemp(arg0->unk_04);
+    }
+    
+    arg0->unk_04 = newList;
+
+    arg1->unk_00 = arg2;
+    if (arg2 & 1) {
+        arg0->unk_0C = arg0->unk_02 - 1;
+    }
+}
+
+void func_800D6E00_BEBD0_name_81(UnkEA790Struct *arg0, UnkBoard2* arg1) {
+    UnkBoard2 **newList;
+    UnkBoard2 **dst;
+    UnkBoard2 **src;
+    s16 count;
+    s32 i;
+
+    count = arg0->unk_02;
+    newList = NULL;
+    if (count >= 2) {
+        count--;
+        arg0->unk_02 = count;
+        newList = HuMemMemoryAllocTemp(count * sizeof(s32));
+        dst = newList;
+        src = arg0->unk_04;
+        for (i = 0; i <= arg0->unk_02; i++) {
+            if (*src == arg1) {
+                src++;
+            } else {
+                *dst = *src;
+                src++;
+                dst++;
+            }
+        }
+    } else {
+        arg0->unk_02 = 0;
+    }
+
+    if (arg0->unk_04 != NULL) {
+        HuMemMemoryFreeTemp(arg0->unk_04);
+    }
+    arg0->unk_04 = newList;
+}
 
 // TODO: is arg0 typed correctly?
 UnkBE940 *func_800D6EC8_BEC98_name_81(UnkBE940_3 *arg0, s16 arg1) {
