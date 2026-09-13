@@ -4,13 +4,8 @@
 #include "common.h"
 #include "game/board.h"
 
-typedef struct StarMasuSlot {
-    /* 0x00 */ u16 unk00;
-    /* 0x02 */ s16 masuId;
-} StarMasuSlot __attribute__((aligned(4))); // size 0x4
-
 typedef struct MasuIdTable {
-    /* 0x00 */ StarMasuSlot entries[3];
+    /* 0x00 */ s32 entries[3];
 } MasuIdTable; // size 0xC
 
 typedef struct ModelIdTable {

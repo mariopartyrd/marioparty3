@@ -9360,7 +9360,7 @@ void func_8011A30C_w06(void) {
             index = 2;
             break;
     }
-    masu = MBMasuGet(masuIds.entries[index].masuId);
+    masu = MBMasuGet(masuIds.entries[index]);
     MBVecDirGet(&player->player_obj->coords, &masu->coords, &player->player_obj->rot);
     MBPlayerMotionSet(-1, 2, 0);
     func_800EE688_shared_board(player->player_obj, 10.0f, -1.4f);
@@ -9531,7 +9531,7 @@ const ModelIdTable D_8011E1F8_w06 = { { 0x000B0010, 0x000B0011, 0x000B001B } };
 
 const MessageTable D_8011E204_w06 = { { 0xF04, 0xF03, 0xF02, 0xF01 } };
 
-const MasuIdTable D_8011E214_w06 = { { { 0, 0x85 }, { 0, 0x78 }, { 0, 0x87 } } };
+const MasuIdTable D_8011E214_w06 = { { 0x85, 0x78, 0x87 } };
 
 s32 func_8011AB80_w06(void) {
     s32 curPlayer = (s16)MBPlayerTurnGet();
