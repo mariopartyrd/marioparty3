@@ -8,8 +8,6 @@
 #include "game/object.h"
 #include "game/util.h"
 
-#define BSS __attribute__((section(".bss")))
-
 #define ABS(x) ((x) > 0 ? (x) : -(x))
 
 // EXTERN
@@ -188,9 +186,9 @@ void func_8010E214_tick_tock_hop(f32* arg0, f32* out);
 void m257_MakeTransformMtx(f32 transX, f32 transY, f32 transZ, f32 rotX, f32 rotY, f32 rotZ, f32* out);
 void m257_ApplyTransformMtx(Vec* in, s16 n, f32* mtx, Vec* out);
 
-extern BillboardData* m257_billboards;
+extern BillboardData* m257_bills;
 extern FuncGroup* m257_funcGroups;
-extern SpriteData* m257_sprites;
+extern SpriteData* m257_spriteRecords;
 extern AnimModelData* m257_animModels;
 extern QuadCollider* m257_colliders;
 

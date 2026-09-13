@@ -13,6 +13,7 @@ options:
   build_path: build
   create_asm_dependencies: True
   ld_script_path: marioparty3.ld
+  ld_bss_contains_common: True
   subalign: 8 #fairly sure this is a hack. shouldn't alignment always be 16?
   # ld_dependencies: True
   find_file_boundaries: True
@@ -538,6 +539,12 @@ segments:
       - [0xA96B0, .rodata, 8F830]
       - [0xA96E0, .rodata, libhmath/sin]
       - { start: 0xA96F0, type: bss, vram: 0x800A8AF0 }
+      - { start: 0xA96F0, type: .bss, vram: 0x800ABFF0, name: decode }
+      - { start: 0xA96F0, type: bss, vram: 0x800AC7F0, name: main_after_decode }
+      - { start: 0xA96F0, type: .bss, vram: 0x800BD860, name: vibrator }
+      - { start: 0xA96F0, type: bss, vram: 0x800BDA50, name: main_after_vibrator }
+      - { start: 0xA96F0, type: .bss, vram: 0x800CDD70, name: sprman }
+      - { start: 0xA96F0, type: bss, vram: 0x800CE170, name: main_after_sprman }
 
   - type: code
     start: 0xA96F0

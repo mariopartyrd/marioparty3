@@ -6,8 +6,6 @@
 #include "game/object.h"
 #include "game/util.h"
 
-#define BSS __attribute__((section(".bss")))
-
 typedef struct {
     /* 0x00 */ s8 s8[16];
     /* 0x10 */ s16 s16[8];

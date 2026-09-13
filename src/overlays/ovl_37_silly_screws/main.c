@@ -184,9 +184,9 @@ const s16 D_8010BE6C_silly_screws[] = {
     0x8263, 0x8271, 0x8260, 0x8276, 0x0000, 0x0000
 };
 
-MinigameData *BSS m255_minigame;
-PlayerData *BSS m255_players;
-s16 BSS m255_playerId[PLAYERS_TOTAL];
+static MinigameData *m255_minigame;
+static PlayerData *m255_players;
+static s16 m255_playerId[PLAYERS_TOTAL];
 
 s16 D_8010BE20_silly_screws = -1;
 s16 D_8010BE22_silly_screws = 0;

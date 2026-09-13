@@ -44,7 +44,7 @@ extern void *D_800D59F4_main;
 extern s8 HmfPauseF;
 extern HuSprGrp *HuSprGrpLast;
 extern HuSprGrp *HuSprGrpFirst;
-HuSprGrp *HuSprGrpData[HUSPR_GRP_MAX] __attribute__((aligned(16)));
+HuSprGrp *HuSprGrpData[HUSPR_GRP_MAX];
 extern u16 HuSprGrpNum;
 
 void func_80052330_main(void) {

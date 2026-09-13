@@ -60,9 +60,9 @@ typedef struct {
 void m255_InitFuncGroup(FuncGroup *group, s16 maxFuncs);
 void m255_SortFuncGroup(FuncGroup *group);
 
-SpriteData *BSS m255_sprites;
-FuncGroup *BSS m255_funcGroups;
-AnimModelData *BSS m255_animModels;
+static SpriteData *m255_sprites;
+static FuncGroup *m255_funcGroups;
+static AnimModelData *m255_animModels;
 
 void m255_CreateSystem(void) {
     s8 maxFuncs[FUNC_GRP_MAX] = { 6, 4, 3, 3, 8, 8 };
