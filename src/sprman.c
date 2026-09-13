@@ -5,9 +5,17 @@
 
 #define offsetof(st, m) ((u32) & (((st *)0)->m))
 
-void *HuMemAlloc(s32 size);
+typedef struct {
+    HuSprite *last;
+    HuSprite *first;
+} HuSprPrioBucket;
 
-void func_80052E68_53A68(void *arg0, s32 arg1);
+void *HuMemAlloc(s32 size);
+void *HuMemMemoryReallocPerm(void *mem, u32 new_size);
+HuSprite *func_800530AC_53CAC(void);
+
+void func_80052E68_53A68(HuSprGrp *group, u16 count);
+void func_8008A0D0_8ACD0(Mtx *);
 void func_80052518_53118(HuSprite *arg0);
 void func_80056F80_57B80(s16 arg0);
 s16 func_8005630C_56F0C(HuSprAnm *arg0);
@@ -21,6 +29,7 @@ void func_80057158_57D58(void);
 
 extern s32 D_800A1EA0_A2AA0; // redraw?
 extern Mtx D_800BD7C0_BE3C0;
+extern HuSprite *D_800BD804_BE404; // head of sorted draw list
 extern s16 D_800D0468_D1068;
 extern s16 D_800D10F2_D1CF2;
 extern HuSprAnmDesc *D_800D0A50_D1650[0x100];
@@ -192,9 +201,98 @@ s16 HuSprGrpCreate(u16 arg0, u16 arg1) {
     return var_s4;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800528EC_534EC);
+s32 func_800528EC_534EC(s16 group, s16 member, u16 count) {
+    HuSprGrp *groupPtr = HuSprGrpData[group];
+    HuSprite **mp = &groupPtr->members[member];
+    HuSprite *sprite;
+    s16 i;
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80052A90_53690);
+    for (i = 0; i < count; i++) {
+        func_80052518_53118(*mp++);
+    }
+    groupPtr->unk_0A -= count;
+    if (groupPtr->unk_0A == 0) {
+        groupPtr->members[0] = NULL;
+        HuSprGrpKill(group);
+        return 0;
+    }
+    HuMemMemoryReallocPerm(groupPtr, offsetof(HuSprGrp, members) + groupPtr->unk_0A * sizeof(*groupPtr->members));
+    mp = &groupPtr->members[member];
+    for (i = 0; i < groupPtr->unk_0A - member; i++) {
+        *mp = mp[count];
+        mp++;
+    }
+    for (i = 0; i < groupPtr->unk_0A; i++) {
+        sprite = groupPtr->members[i];
+        sprite->unk_00 = i;
+        sprite->unk_02 = groupPtr->unk_0A;
+    }
+    return 0;
+}
+
+s32 func_80052A90_53690(s16 group, s16 member, u16 count) {
+    HuSprGrp *oldGroup = HuSprGrpData[group];
+    HuSprGrp *newGroup;
+    HuSprite **mp;
+    HuSprite *sprite;
+    s16 newSlot;
+    s16 i;
+
+    for (i = 0; i < HUSPR_GRP_MAX; i++) {
+        if (HuSprGrpData[i] == NULL) {
+            break;
+        }
+    }
+    if (i == HUSPR_GRP_MAX) {
+        return -1;
+    }
+    newSlot = i;
+    newGroup = func_80052468_53068(count + oldGroup->unk_0A, oldGroup->unk_08);
+    if (newGroup == NULL) {
+        return -1;
+    }
+    HuSprGrpData[newSlot] = newGroup;
+    newGroup->unk_0A = 0;
+    newGroup->unk_0C = 1;
+    mp = newGroup->members;
+    for (i = 0; i < count; i++) {
+        *(mp++) = sprite = HuMemAlloc(0x210);
+        if (sprite == NULL) {
+            HuSprGrpKill(newSlot);
+            return -1;
+        }
+        newGroup->unk_0A++;
+    }
+    func_80052E68_53A68(newGroup, count);
+    newGroup->members[0]->unk_2E = 0;
+    if (member >= 0) {
+        mp = newGroup->members + count - 1;
+        for (i = 0; i < count; i++) {
+            mp[member + 1] = *mp;
+            mp--;
+        }
+        mp = newGroup->members;
+        for (i = 0; i < member + 1; i++) {
+            *(mp++) = oldGroup->members[i];
+        }
+    }
+    mp = &newGroup->members[member] + count + 1;
+    for (i = 0; i < oldGroup->unk_0A - (member + 1); i++) {
+        *(mp++) = (oldGroup->members + member)[i + 1];
+    }
+    newGroup->unk_0A = count + oldGroup->unk_0A;
+    for (i = 0; i < newGroup->unk_0A; i++) {
+        HuSprite *member_sprite = newGroup->members[i];
+
+        member_sprite->unk_00 = i;
+        member_sprite->unk_02 = newGroup->unk_0A;
+    }
+    oldGroup->members[0] = NULL;
+    HuSprGrpKill(group);
+    HuSprGrpData[group] = newGroup;
+    HuSprGrpData[newSlot] = NULL;
+    return 0;
+}
 
 void func_80052DD8_539D8(HuSprAnm *arg0) {
     arg0->unk00 = NULL;
@@ -224,9 +322,168 @@ void func_80052E14_53A14(HuSprite *arg0) {
     arg0->unk_68.unk17 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80052E68_53A68);
+void func_80052E68_53A68(HuSprGrp *group, u16 count) {
+    HuSprite *sprite;
+    s16 i;
+    s16 j;
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_800530AC_53CAC);
+    for (i = 0; i < count; i++) {
+        sprite = group->members[i];
+        sprite->unk_04 = 0;
+        sprite->unk_08 = 0;
+        sprite->unk_18 = sprite->unk_1C = 1.0f;
+        sprite->prio = 0x8000;
+        sprite->unk_20 = 0;
+        sprite->unk_24 = 0;
+        sprite->unk_28[0] = sprite->unk_28[1] = sprite->unk_28[2] = 0;
+        sprite->unk_2C = 0x100;
+        if (i != 0) {
+            sprite->unk_2E = 0;
+        } else {
+            sprite->unk_2E = -1;
+        }
+        sprite->unk_30.f = sprite->unk_34.f = 1.0f;
+        sprite->unk_38 = sprite->unk_3A = 0;
+        sprite->unk_3C = sprite->unk_3E = sprite->unk_40 = sprite->unk_42 = 0;
+        sprite->unk_44 = 0;
+        sprite->unk_116 = sprite->unk_114 = -1;
+        sprite->unk_48 = 0.0f;
+        sprite->unk_4C = 0.0f;
+        sprite->unk_50 = sprite->unk_54 = 1.0f;
+        sprite->unk_58 = 0.0f;
+        sprite->unk_5C = 0;
+        sprite->unk_60 = sprite->unk_64 = 1.0f;
+        func_80052DD8_539D8(&sprite->unk_68);
+        sprite->unk_84 = sprite->unk_68.unk00;
+        sprite->unk_88 = sprite->unk_68.unk04;
+        sprite->unk_0E = (u16)sprite->unk_68.unk06;
+        sprite->unk_0C = (u16)sprite->unk_68.unk08;
+        sprite->unk_8C = sprite->unk_68.unk0C;
+        sprite->unk_10 = sprite->unk_68.unk10;
+        sprite->unk_90 = (u16)sprite->unk_68.unk14;
+        sprite->unk_92 = sprite->unk_68.unk16;
+        sprite->unk_93 = sprite->unk_68.unk17;
+        sprite->unk_94 = sprite->unk_68.unk18;
+        sprite->unk_98 = NULL;
+        sprite->unk_FC.f = 1.0f;
+        for (j = 0; j < 0x10; j++) {
+            sprite->unk_9C[j] = 0xFFFF;
+            sprite->unk_BC[j] = 0;
+        }
+        sprite->unk_100 = 0;
+        sprite->unk_104 = 0;
+        sprite->unk_108[0] = sprite->unk_108[1] = sprite->unk_108[2] = NULL;
+        sprite->unk_00 = i;
+        sprite->unk_02 = count;
+        sprite->unk_118 = sprite->unk_11C = NULL;
+        sprite->unk_128[0] = sprite->unk_128[1] = sprite->unk_128[2] = NULL;
+        sprite->unk_134[0] = sprite->unk_134[1] = sprite->unk_134[2] = NULL;
+        func_8008A0D0_8ACD0(&sprite->unk_140[0]);
+        func_8008A0D0_8ACD0(&sprite->unk_140[1]);
+        func_8008A0D0_8ACD0(&sprite->unk_140[2]);
+        sprite->unk_120 = NULL;
+        sprite->unk_124 = NULL;
+        sprite->unk_204 = sprite->unk_206 = 0;
+        sprite->unk_208 = 0x140;
+        sprite->unk_20A = 0xF0;
+    }
+}
+
+// rebuild sprite draw list (highest priority first)
+HuSprite *func_800530AC_53CAC(void) {
+    HuSprPrioBucket buckets[0x100];
+    HuSprGrp *group;
+    HuSprite *sprite;
+    HuSprite *last;
+    s32 i;
+    s32 j;
+    s32 bucket;
+    s32 minBucket = -1;
+    s32 maxBucket = 0;
+    HuSprite *node = NULL;
+
+    if (D_800A1EA0_A2AA0 == 0) {
+        return D_800BD804_BE404;
+    }
+    D_800A1EA0_A2AA0 = 0;
+    D_800CB8A0_CC4A0 = 0;
+    group = HuSprGrpLast;
+    bzero(buckets, sizeof(buckets));
+    while (group != NULL) {
+        for (i = 0; i < group->unk_0A; i++) {
+            sprite = group->members[i];
+            sprite->unk_11C = NULL;
+            sprite->unk_118 = NULL;
+        }
+        group = group->prev;
+    }
+    for (group = HuSprGrpLast; group != NULL; group = group->prev) {
+        for (i = 0; i < group->unk_0A; i++) {
+            sprite = group->members[i];
+            if (sprite->unk_24 & 0x8000) {
+                continue;
+            }
+            bucket = sprite->prio >> 8;
+            if (minBucket < 0) {
+                maxBucket = bucket;
+                minBucket = maxBucket;
+                buckets[maxBucket].first = sprite;
+                buckets[maxBucket].last = sprite;
+            } else {
+                if (maxBucket < bucket) {
+                    node = buckets[maxBucket].first;
+                } else {
+                    for (j = bucket; j < maxBucket + 1; j++) {
+                        node = buckets[j].first;
+                        if (node != NULL && sprite->prio <= node->prio) {
+                            last = buckets[j].last;
+                            if (last != NULL && sprite->prio <= last->prio) {
+                                node = last;
+                            }
+                            break;
+                        }
+                    }
+                    if (j == maxBucket + 1) {
+                        node = buckets[maxBucket].first;
+                    }
+                }
+                while (node != NULL) {
+                    if (sprite->prio > node->prio) {
+                        break;
+                    }
+                    node = node->unk_118;
+                }
+                if (node != NULL) {
+                    sprite->unk_118 = node;
+                    sprite->unk_11C = node->unk_11C;
+                    if (node->unk_11C != NULL) {
+                        node->unk_11C->unk_118 = sprite;
+                    }
+                    node->unk_11C = sprite;
+                } else {
+                    sprite->unk_118 = NULL;
+                    sprite->unk_11C = buckets[minBucket].last;
+                    buckets[minBucket].last->unk_118 = sprite;
+                }
+                if (buckets[bucket].last == NULL || sprite->prio <= buckets[bucket].last->prio) {
+                    buckets[bucket].last = sprite;
+                }
+                if (buckets[bucket].first == NULL || sprite->prio > buckets[bucket].first->prio) {
+                    buckets[bucket].first = sprite;
+                }
+                if (bucket < minBucket) {
+                    minBucket = bucket;
+                }
+                if (maxBucket < bucket) {
+                    maxBucket = bucket;
+                }
+            }
+            D_800CB8A0_CC4A0++;
+        }
+    }
+    D_800BD804_BE404 = buckets[maxBucket].first;
+    return buckets[maxBucket].first;
+}
 
 s16 func_8005338C_53F8C(HuSprGrp *arg0) {
     HuSprite *sprite;
@@ -478,8 +735,8 @@ void func_80055548_56148(s16 group, s16 member, u16 arg2, u16 arg3, u16 arg4, u1
 void func_80055588_56188(s16 group, s16 member, s32 arg2, s32 arg3) {
     HuSprite *sprite = HuSprGrpData[group]->members[member];
 
-    sprite->unk_30 = arg2;
-    sprite->unk_34 = arg3;
+    sprite->unk_30.i = arg2;
+    sprite->unk_34.i = arg3;
 }
 
 void func_800555B8_561B8(s16 group, s16 member, u16 arg2, u16 arg3) {
