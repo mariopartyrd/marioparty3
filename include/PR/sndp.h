@@ -23,6 +23,6 @@ typedef struct AudioManager_s {
     /* 0x0C */ ALSndPlayer *sndp;
 } AudioManager;
 
-extern AudioManager *D_800A2884_A3484;
+extern AudioManager *D_800A2884_main;
 
 #endif

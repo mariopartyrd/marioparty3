@@ -4,9 +4,9 @@
 #include "ECA50.h"
 #include "F9DE0.h"
 
-u8 D_80101630_115250_shared_board[] = { 0, 1, 2, 3 };
+u8 D_80101630_shared_board[] = { 0, 1, 2, 3 };
 
-u32 D_80101634_115254_shared_board[] = {
+u32 D_80101634_shared_board[] = {
     7,
     0x00020001,
     0x00020002,
@@ -17,7 +17,7 @@ u32 D_80101634_115254_shared_board[] = {
     0x00020035,
 };
 
-u32 D_80101654_115274_shared_board[] = {
+u32 D_80101654_shared_board[] = {
     7,
     0x00030001,
     0x00030002,
@@ -28,7 +28,7 @@ u32 D_80101654_115274_shared_board[] = {
     0x00030035
 };
 
-u32 D_80101674_115294_shared_board[] = {
+u32 D_80101674_shared_board[] = {
     7,
     0x00070001,
     0x00070002,
@@ -39,7 +39,7 @@ u32 D_80101674_115294_shared_board[] = {
     0x00070035,
 };
 
-u32 D_80101694_1152B4_shared_board[] = {
+u32 D_80101694_shared_board[] = {
     7,
     0x00040001,
     0x00040002,
@@ -50,7 +50,7 @@ u32 D_80101694_1152B4_shared_board[] = {
     0x00040035,
 };
 
-u32 D_801016B4_1152D4_shared_board[] = {
+u32 D_801016B4_shared_board[] = {
     7,
     0x00050001,
     0x00050002,
@@ -61,7 +61,7 @@ u32 D_801016B4_1152D4_shared_board[] = {
     0x00050035,
 };
 
-u32 D_801016D4_1152F4_shared_board[] = {
+u32 D_801016D4_shared_board[] = {
     7,
     0x00060001,
     0x00060002,
@@ -72,7 +72,7 @@ u32 D_801016D4_1152F4_shared_board[] = {
     0x00060035,
 };
 
-u32 D_801016F4_115314_shared_board[] = {
+u32 D_801016F4_shared_board[] = {
     7,
     0x00020001,
     0x00020002,
@@ -83,7 +83,7 @@ u32 D_801016F4_115314_shared_board[] = {
     0x00020035,
 };
 
-u32 D_80101714_115334_shared_board[] = {
+u32 D_80101714_shared_board[] = {
     7,
     0x00070001,
     0x00070002,
@@ -94,22 +94,22 @@ u32 D_80101714_115334_shared_board[] = {
     0x00070035,
 };
 
-u32 *D_80101734_115354_shared_board[] = {
-    D_80101634_115254_shared_board,
-    D_80101654_115274_shared_board,
-    D_80101674_115294_shared_board,
-    D_80101694_1152B4_shared_board,
-    D_801016B4_1152D4_shared_board,
-    D_801016D4_1152F4_shared_board,
-    D_801016F4_115314_shared_board,
-    D_80101714_115334_shared_board
+u32 *D_80101734_shared_board[] = {
+    D_80101634_shared_board,
+    D_80101654_shared_board,
+    D_80101674_shared_board,
+    D_80101694_shared_board,
+    D_801016B4_shared_board,
+    D_801016D4_shared_board,
+    D_801016F4_shared_board,
+    D_80101714_shared_board
 };
 
-u8 D_80101754_115374_shared_board[] = {
+u8 D_80101754_shared_board[] = {
     0, 1, 2, 3, 4, 5, 6, 7
 };
 
-u8 D_8010175C_11537C_shared_board[] = {
+u8 D_8010175C_shared_board[] = {
     14, 15, 16, 17, 18, 19, 20, 21
 };
 
@@ -164,9 +164,9 @@ void MBPlayerSpeedSet(s32 playerNo, f32 arg1) {
     GW_PLAYER *player = MBPlayerGet(playerNo);
 
     if (player->itemTurn != 0) {
-        func_8001C92C_1D52C(D_801011FC_114E1C_shared_board->omObj1->model[0], arg1);
+        func_8001C92C_main(D_801011FC_shared_board->omObj1->model[0], arg1);
     } else {
-        func_8001C92C_1D52C(player->player_obj->omObj1->model[0], arg1);
+        func_8001C92C_main(player->player_obj->omObj1->model[0], arg1);
     }
 }
 
@@ -174,7 +174,7 @@ void MBPlayerMotionWait(s32 playerNo) {
     GW_PLAYER *player = MBPlayerGet(playerNo);
 
     if (player->itemTurn != 0) {
-        MBModelMotionWait(D_801011FC_114E1C_shared_board);
+        MBModelMotionWait(D_801011FC_shared_board);
     } else {
         MBModelMotionWait(player->player_obj);
     }
@@ -191,7 +191,7 @@ void MBPlayerMotionSet(s32 playerNo, s16 arg1, u16 arg2) {
     }
 }
 
-void func_800F2388_105FA8_shared_board(s32 playerNo, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
+void func_800F2388_shared_board(s32 playerNo, s16 arg1, s16 arg2, s16 arg3, u16 arg4) {
     GW_PLAYER *player = MBPlayerGet(playerNo);
 
     if (player == MBPlayerGet(CUR_PLAYER)) {
@@ -202,14 +202,14 @@ void func_800F2388_105FA8_shared_board(s32 playerNo, s16 arg1, s16 arg2, s16 arg
     }
 }
 
-void func_800F244C_10606C_shared_board(s32 playerNo, u8 arg1) {
-    MBPlayerGet(playerNo)->cpu_difficulty = D_80101630_115250_shared_board[arg1];
+void func_800F244C_shared_board(s32 playerNo, u8 arg1) {
+    MBPlayerGet(playerNo)->cpu_difficulty = D_80101630_shared_board[arg1];
 }
 
-void func_800F2484_1060A4_shared_board(s32 arg0) {
+void func_800F2484_shared_board(s32 arg0) {
 }
 
-static void func_800F248C_1060AC_shared_board(void) {
+static void func_800F248C_shared_board(void) {
     GW_PLAYER *player = HuPrcCurrentGet()->user_data;
 
     while (1) {
@@ -232,40 +232,40 @@ void MBPlayerModelCreate(s16 playerNo, u32 *arg1, s32 arg2) {
 
     switch (arg2) {
         case 0:
-            player->player_obj = MBModelCreate(D_80101754_115374_shared_board[chr], arg1);
+            player->player_obj = MBModelCreate(D_80101754_shared_board[chr], arg1);
             break;
         case 1:
         case 2:
-            player->player_obj = MBModelCreate(D_8010175C_11537C_shared_board[chr], arg1);
+            player->player_obj = MBModelCreate(D_8010175C_shared_board[chr], arg1);
             break;
     }
 
-    proc = omAddPrcObj(func_800F248C_1060AC_shared_board, 0x5000, 0, 0);
+    proc = omAddPrcObj(func_800F248C_shared_board, 0x5000, 0, 0);
     player->unk_20 = proc;
     proc->user_data = player;
 }
 
-void func_800F25B4_1061D4_shared_board(s16 arg0, u32 *arg1) {
+void func_800F25B4_shared_board(s16 arg0, u32 *arg1) {
     MBPlayerModelCreate(arg0, arg1, 0);
 }
 
-void func_800F25D8_1061F8_shared_board(s16 playerNo) {
+void func_800F25D8_shared_board(s16 playerNo) {
     GW_PLAYER *player = MBPlayerGet(playerNo);
 
-    MBPlayerModelCreate(playerNo, D_80101734_115354_shared_board[player->chr], 0);
+    MBPlayerModelCreate(playerNo, D_80101734_shared_board[player->chr], 0);
 }
 
-void func_800F2624_106244_shared_board(s16 playerNo) {
+void func_800F2624_shared_board(s16 playerNo) {
     GW_PLAYER *player = MBPlayerGet(playerNo); // remnants of a debug build or the below function was changed to take a playerNo
 
     MBPlayerModelCreate(playerNo, 0, 0);
 }
 
-u8 func_800F2660_106280_shared_board(s16 playerNo) {
-    return D_8010175C_11537C_shared_board[MBPlayerGet(playerNo)->chr];
+u8 func_800F2660_shared_board(s16 playerNo) {
+    return D_8010175C_shared_board[MBPlayerGet(playerNo)->chr];
 }
 
-void func_800F2690_1062B0_shared_board(s16 playerNo) {
+void func_800F2690_shared_board(s16 playerNo) {
     GW_PLAYER *player = MBPlayerGet(playerNo);
 
     if (player->player_obj != NULL) {
@@ -277,7 +277,7 @@ void func_800F2690_1062B0_shared_board(s16 playerNo) {
     }
 }
 
-void func_800F26E8_106308_shared_board(void) {
+void func_800F26E8_shared_board(void) {
     s32 i, j;
 
     for (j = 0; j < ARRAY_COUNT(GwPlayer); j++) { // clear all 5 "players" (bowser bomb remnants)
@@ -285,11 +285,11 @@ void func_800F26E8_106308_shared_board(void) {
     }
 
     for (i = 1; i < 8; i++) {
-        for (j = 0; j < D_80101634_115254_shared_board[0]; j++) {
-            D_80101734_115354_shared_board[i][j + 1] = func_80017BB8_187B8(i, D_80101634_115254_shared_board[j + 1]);
+        for (j = 0; j < D_80101634_shared_board[0]; j++) {
+            D_80101734_shared_board[i][j + 1] = func_80017BB8_main(i, D_80101634_shared_board[j + 1]);
         }
     }
 }
 
-void func_800F27C4_1063E4_shared_board(void) {
+void func_800F27C4_shared_board(void) {
 }

@@ -20,9 +20,9 @@ s32 __rmonLoadProgram(void *arg) {
 
 INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonmem", __rmonGetExeName);
 
-INCLUDE_RODATA("asm/nonmatchings/2.0L/rmon/rmonmem", D_800A8900_A9500);
+INCLUDE_RODATA("asm/nonmatchings/2.0L/rmon/rmonmem", D_800A8900_main);
 
-INCLUDE_RODATA("asm/nonmatchings/2.0L/rmon/rmonmem", D_800A8908_A9508);
+INCLUDE_RODATA("asm/nonmatchings/2.0L/rmon/rmonmem", D_800A8908_main);
 
 INCLUDE_ASM("asm/nonmatchings/2.0L/rmon/rmonmem", __rmonGetRegionCount);
 

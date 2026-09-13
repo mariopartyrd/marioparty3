@@ -158,35 +158,35 @@ typedef struct HmfModel {
     /* 0xBC */ HmfModelData_UnkBC_Struct* unkBC;
 } HmfModel; // Size 0xC0
 
-void func_8001A070_1AC70(void* arg0, void* arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5);
+void func_8001A070_main(void* arg0, void* arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5);
 s16 Hu3DModelCreate(u8*, u32);
 s32 Hu3DModelLink(s16 linkMdlId);
-s32 func_8001A894_1B494(s32, void*, s32); // unsure about second arg. Gfx*?
-s16 func_8001AC8C_1B88C(s32 arg0, void (*arg1)(Gfx**, s32, s32), u8 arg2);
-void func_8001ACDC_1B8DC(s16);
-void func_8001B0B4_1BCB4(void** arg0, u32 arg1);
-void func_8001BF90_1CB90(u32 arg0, u32 arg1);
+s32 func_8001A894_main(s32, void*, s32); // unsure about second arg. Gfx*?
+s16 func_8001AC8C_main(s32 arg0, void (*arg1)(Gfx**, s32, s32), u8 arg2);
+void func_8001ACDC_main(s16);
+void func_8001B0B4_main(void** arg0, u32 arg1);
+void func_8001BF90_main(u32 arg0, u32 arg1);
 void Hu3DModelPosSet(s16 arg0, f32 x, f32 y, f32 z);
 void Hu3DModelRotSet(s16 arg0, f32 x, f32 y, f32 z);
 void Hu3DModelScaleSet(s16 arg0, f32 x, f32 y, f32 z);
-void func_8001C258_1CE58(s16 arg0, s32 arg1, s32 arg2);
-void func_8001C2FC_1CEFC(s16 arg0, s32 arg1, s32 arg2);
-void func_8001C448_1D048(s16);
-s32 func_8001C514_1D114(s16);
-void func_8001C5B4_1D1B4(s16, s16);
-void func_8001C624_1D224(s16, s16, s16, s16, s16);
-void func_8001C6A8_1D2A8(s32, f32);
-f32 func_8001C7D0_1D3D0(s16 arg0);
-void func_8001C814_1D414(s16, s16, s16);
-void func_8001C8A8_1D4A8(s16, s16);
-void func_8001C8E4_1D4E4(s16, u32);
-void func_8001C92C_1D52C(s16, f32);
-s32 func_8001C954_1D554(s16);
-void func_8001EF24_1FB24(s32, s32, s32, s32, s32);
-s32 func_8001F1FC_1FDFC(void*, s32);
-void func_8001F304_1FF04(s16, s16);
-void func_8001F38C_1FF8C(s32, s32, s32);
-void func_8001FDE8_209E8(s16);
+void func_8001C258_main(s16 arg0, s32 arg1, s32 arg2);
+void func_8001C2FC_main(s16 arg0, s32 arg1, s32 arg2);
+void func_8001C448_main(s16);
+s32 func_8001C514_main(s16);
+void func_8001C5B4_main(s16, s16);
+void func_8001C624_main(s16, s16, s16, s16, s16);
+void func_8001C6A8_main(s32, f32);
+f32 func_8001C7D0_main(s16 arg0);
+void func_8001C814_main(s16, s16, s16);
+void func_8001C8A8_main(s16, s16);
+void func_8001C8E4_main(s16, u32);
+void func_8001C92C_main(s16, f32);
+s32 func_8001C954_main(s16);
+void func_8001EF24_main(s32, s32, s32, s32, s32);
+s32 func_8001F1FC_main(void*, s32);
+void func_8001F304_main(s16, s16);
+void func_8001F38C_main(s32, s32, s32);
+void func_8001FDE8_main(s16);
 
 extern HmfModel* HmfModelData;
 

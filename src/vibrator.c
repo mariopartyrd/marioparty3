@@ -2,21 +2,21 @@
 #include "siman.h"
 #include "game/vibrator.h"
 
-OSPfs D_800BD860_BE460[4];
-VibratorState D_800BDA00_BE600[4];
-functionListEntry D_800BDA30_BE630;
-functionListEntry D_800BDA3C_BE63C;
-s16 D_800BDA48_BE648;
+static OSPfs D_800BD860_main[4];
+static VibratorState D_800BDA00_main[4];
+static functionListEntry D_800BDA30_main;
+static functionListEntry D_800BDA3C_main;
+static s16 D_800BDA48_main;
 
 void RetraceCallbackVibrator(void) {
     s16 i;
     VibratorState *state;
     OSPfs *pfs;
 
-    if (D_800BDA48_BE648 == 0) {
+    if (D_800BDA48_main == 0) {
         for (i = 0; i < 4; i++) {
-            state = &D_800BDA00_BE600[i];
-            pfs = &D_800BD860_BE460[i];
+            state = &D_800BDA00_main[i];
+            pfs = &D_800BD860_main[i];
 
             if (state->stat != 0) {
                 if (state->duration != 0) {
@@ -27,8 +27,8 @@ void RetraceCallbackVibrator(void) {
         }
     } else {
         for (i = 0; i < 4; i++) {
-            state = &D_800BDA00_BE600[i];
-            pfs = &D_800BD860_BE460[i];
+            state = &D_800BDA00_main[i];
+            pfs = &D_800BD860_main[i];
 
             switch (state->mode) {
                 case 1:
@@ -88,7 +88,7 @@ void PRENMICallbackVibrator(void) {
     s16 i;
     s16 id;
 
-    D_800BDA48_BE648 = 0;
+    D_800BDA48_main = 0;
 
     for (i = 0; i < 4; ++i) {
         id = i;
@@ -109,10 +109,10 @@ s32 _InitVibrator(void) {
 void InitVibrator(void) {
     unkMesg siMesg;
 
-    D_800BDA48_BE648 = 1;
+    D_800BDA48_main = 1;
     RequestSIFunction(&siMesg, &_InitVibrator, NULL, 1);
-    AddSIClient(&D_800BDA30_BE630, 0, &RetraceCallbackVibrator);
-    AddSIClient(&D_800BDA3C_BE63C, 1, &PRENMICallbackVibrator);
+    AddSIClient(&D_800BDA30_main, 0, &RetraceCallbackVibrator);
+    AddSIClient(&D_800BDA3C_main, 1, &PRENMICallbackVibrator);
 }
 
 s32 _ResetVibrator(s16 *contId) {
@@ -120,14 +120,14 @@ s32 _ResetVibrator(s16 *contId) {
     s32 result;
 
     id = *contId;
-    result = osMotorInit(&D_800CE1A0_CEDA0, &D_800BD860_BE460[id], (s32)id);
+    result = osMotorInit(&D_800CE1A0_main, &D_800BD860_main[id], (s32)id);
     if (result == 0) {
-        D_800BDA00_BE600[*contId].stat = 1; // motor initialized and off
-        osMotorStop(&D_800BD860_BE460[*contId]);
+        D_800BDA00_main[*contId].stat = 1; // motor initialized and off
+        osMotorStop(&D_800BD860_main[*contId]);
     } else {
-        D_800BDA00_BE600[*contId].stat = 0; // no rumble pak
+        D_800BDA00_main[*contId].stat = 0; // no rumble pak
     }
-    D_800BDA00_BE600[*contId].mode = 0; // set to idle mode
+    D_800BDA00_main[*contId].mode = 0; // set to idle mode
     return result;
 }
 
@@ -139,7 +139,7 @@ void ResetVibrator(s16 contId) {
 void _StartVibrator(s16 *contId) {
     VibratorState *state;
 
-    state = &D_800BDA00_BE600[*contId];
+    state = &D_800BDA00_main[*contId];
     if (state->stat != 0) {
         state->mode = 2; // set to starting mode
     }
@@ -153,7 +153,7 @@ void StartVibrator(s16 contId) {
 void _StopVibrator(s16 *contId) {
     VibratorState *state;
 
-    state = &D_800BDA00_BE600[*contId];
+    state = &D_800BDA00_main[*contId];
     if (state->stat != 0) {
         state->mode = 1;     // set to stopping mode
         state->duration = 3; // 3-frame wind-down
@@ -168,7 +168,7 @@ void StopVibrator(s16 contId) {
 void _RepeatVibrator(VibratorSetting *setting) {
     VibratorState *state;
 
-    state = &D_800BDA00_BE600[setting->stateIdx];
+    state = &D_800BDA00_main[setting->stateIdx];
     if (state->stat != 0) {
         state->stat = 1; // start with motor off
         state->mode = 3; // oscillating mode

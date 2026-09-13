@@ -134,7 +134,7 @@ typedef struct GwPlayer_s {
     PartnerStats    partners;
 } stats;
 /* 0x36 */ char unk_36[2];
-} GW_PLAYER __attribute__((aligned(4))); //sizeof 0x38;
+} GW_PLAYER; //sizeof 0x38;
 
 // TODO: old GW_PLAYER definition from before we moved branches from master to main. Double check
 //       if we want to keep docs and/or old member names.
