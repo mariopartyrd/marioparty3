@@ -24,8 +24,6 @@
 #include "../ovl_80_shared_board/FA250.h"
 #include "../ovl_80_shared_board/FFB10.h"
 
-#define BSS __attribute__((section(".bss")))
-
 typedef s16 SpaceTriple[3];
 typedef s16 SpacePair[2];
 typedef BranchLink BranchPair[2];
@@ -2063,50 +2061,50 @@ DecisionTreeNonLeafNode *D_8011E0CC_w06[] = { D_8011DE00_w06, D_8011DE18_w06 };
 DecisionTreeNonLeafNode *D_8011E0D4_w06[] = { D_8011DE84_w06, D_8011DF50_w06, NULL };
 
 /* Runtime board state. */
-Object *BSS D_8011E270_w06;
-s32 BSS D_8011E274_w06; /* Unused word between model state and the following array. */
-Object *BSS D_8011E278_w06[8];
-Process *BSS D_8011E298_w06[8];
-s32 BSS D_8011E2B8_w06;
-Object *BSS D_8011E2BC_w06;
-Unk3 *BSS D_8011E2C0_w06;
-Unk3 *BSS D_8011E2C4_w06;
-Unk3 *BSS D_8011E2C8_w06;
-Unk3 *BSS D_8011E2CC_w06;
-Unk3 *BSS D_8011E2D0_w06;
-s32 BSS D_8011E2D4_w06;
-s32 BSS D_8011E2D8_w06;
-Object *BSS D_8011E2DC_w06;
-Object *BSS D_8011E2E0_w06[1];
-Object *BSS D_8011E2E4_w06;
-Object *BSS D_8011E2E8_w06[10];
-Object *BSS D_8011E310_w06;
-Object *BSS D_8011E314_w06[2];
-Object *BSS D_8011E31C_w06[3];
-Object *BSS D_8011E328_w06;
-Object *BSS D_8011E32C_w06[2];
-s32 BSS D_8011E334_w06;
-s32 BSS D_8011E338_w06;
-s32 BSS D_8011E33C_w06;
-s32 BSS D_8011E340_w06;
-u8 *BSS D_8011E344_w06;
-Object *BSS D_8011E348_w06;
-s32 BSS D_8011E34C_w06;
-s32 BSS D_8011E350_w06;
-s32 BSS D_8011E354_w06;
-Object *BSS D_8011E358_w06;
-Object *BSS D_8011E35C_w06;
-s32 BSS D_8011E360_w06;
-s32 BSS D_8011E364_w06;
-Object *BSS D_8011E368_w06;
-s32 BSS D_8011E36C_w06; /* Unused word between model state and the following array. */
-s32 BSS D_8011E370_w06[4];
-Object *BSS D_8011E380_w06;
-s32 BSS D_8011E384_w06; /* Unused word between model state and the following array. */
-Object *BSS D_8011E388_w06[4];
-omObjData *BSS D_8011E398_w06[4];
-s32 BSS D_8011E3A8_w06;
-s32 BSS D_8011E3AC_w06;
+static Object *D_8011E270_w06;
+static s32 D_8011E274_w06; /* Unused word between model state and the following array. */
+static Object *D_8011E278_w06[8];
+static Process *D_8011E298_w06[8];
+static s32 D_8011E2B8_w06;
+static Object *D_8011E2BC_w06;
+static Unk3 *D_8011E2C0_w06;
+static Unk3 *D_8011E2C4_w06;
+static Unk3 *D_8011E2C8_w06;
+static Unk3 *D_8011E2CC_w06;
+static Unk3 *D_8011E2D0_w06;
+static s32 D_8011E2D4_w06;
+static s32 D_8011E2D8_w06;
+static Object *D_8011E2DC_w06;
+static Object *D_8011E2E0_w06[1];
+static Object *D_8011E2E4_w06;
+static Object *D_8011E2E8_w06[10];
+static Object *D_8011E310_w06;
+static Object *D_8011E314_w06[2];
+static Object *D_8011E31C_w06[3];
+static Object *D_8011E328_w06;
+static Object *D_8011E32C_w06[2];
+static s32 D_8011E334_w06;
+static s32 D_8011E338_w06;
+static s32 D_8011E33C_w06;
+static s32 D_8011E340_w06;
+static u8 *D_8011E344_w06;
+static Object *D_8011E348_w06;
+static s32 D_8011E34C_w06;
+static s32 D_8011E350_w06;
+static s32 D_8011E354_w06;
+static Object *D_8011E358_w06;
+static Object *D_8011E35C_w06;
+static s32 D_8011E360_w06;
+static s32 D_8011E364_w06;
+static Object *D_8011E368_w06;
+static s32 D_8011E36C_w06; /* Unused word between model state and the following array. */
+static s32 D_8011E370_w06[4];
+static Object *D_8011E380_w06;
+static s32 D_8011E384_w06; /* Unused word between model state and the following array. */
+static Object *D_8011E388_w06[4];
+static omObjData *D_8011E398_w06[4];
+static s32 D_8011E3A8_w06;
+static s32 D_8011E3AC_w06;
 
 /* Definitions stay beside their users to preserve the order of .rodata literals. */
 extern const u8 D_8011E0E0_w06[];

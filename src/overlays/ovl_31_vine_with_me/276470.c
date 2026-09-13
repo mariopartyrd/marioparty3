@@ -14,8 +14,6 @@
 #include "game/wipe.h"
 #include "include_asm.h"
 
-#define BSS __attribute__((section(".bss")))
-
 // EXTERN
 
 typedef struct {
@@ -95,56 +93,59 @@ void func_8010D46C_vine_with_me(omObjData *arg0);
 void func_8010D48C_vine_with_me(omObjData *arg0);
 void func_8010D4AC_vine_with_me(omObjData *arg0, s8 arg1, s8 arg2);
 
-f32 BSS D_80112590_vine_with_me[2];
-f32 BSS D_80112598_vine_with_me[2];
-f32 BSS D_801125A0_vine_with_me[2];
-f32 BSS D_801125A8_vine_with_me[2];
-f32 BSS D_801125B0_vine_with_me[2];
-f32 BSS D_801125B8_vine_with_me[2];
-f32 BSS D_801125C0_vine_with_me[2];
-f32 BSS D_801125C8_vine_with_me[2];
-f32 BSS D_801125D0_vine_with_me[4][9][14];
-f32 BSS D_80112DB0_vine_with_me[4][9][14];
-f32 BSS D_80113590_vine_with_me[4][9][14];
-f32 BSS D_80113D70_vine_with_me[4][9][14];
-f32 BSS D_80114550_vine_with_me[8][9][14];
-D_80115510_vine_with_me_Struct BSS D_80115510_vine_with_me[2];
-D_80115510_vine_with_me_Struct *BSS D_80115530_vine_with_me[4];
-f32 BSS D_80115540_vine_with_me[2];
-s8 BSS D_80115548_vine_with_me[4];
-s32 BSS D_8011554C_vine_with_me[2];
-s32 BSS D_80115554_vine_with_me;
-f32 BSS D_80115558_vine_with_me;
-u8 BSS D_8011555C_vine_with_me[4]; // unused?
-s16 BSS D_80115560_vine_with_me[17];
-omObjData *BSS D_80115584_vine_with_me[2];
-s8 BSS D_8011558C_vine_with_me;
-// TODO: 'static' required to avoid 4-byte aligment, but it generates a warning.
-static u8 BSS D_8011558D_vine_with_me[2][8];
-omObjData *BSS D_801155A0_vine_with_me;
-s32 BSS D_801155A4_vine_with_me[2];
-f32 BSS D_801155AC_vine_with_me;
-u8 BSS D_801155B0_vine_with_me;
-f32 BSS D_801155B4_vine_with_me;
-u16 BSS D_801155B8_vine_with_me;
-u8 BSS D_801155BC_vine_with_me[0x14]; // unused?
-s32 BSS D_801155D0_vine_with_me;
-u8 BSS D_801155D4_vine_with_me[4]; // unused?
-f32 BSS D_801155D8_vine_with_me[2][4];
-s8 BSS D_801155F8_vine_with_me[2];
-s16 BSS D_801155FA_vine_with_me;
-f32 BSS D_801155FC_vine_with_me[2];
-f32 BSS D_80115604_vine_with_me;
-f32 BSS D_80115608_vine_with_me;
-f32 BSS D_8011560C_vine_with_me;
-f32 BSS D_80115610_vine_with_me[8];
-s32 BSS D_80115630_vine_with_me[2];
-f32 BSS D_80115638_vine_with_me;
-s16 BSS D_8011563C_vine_with_me;
-D_80115640_vine_with_me_Struct BSS D_80115640_vine_with_me;
-s32 BSS D_8011566C_vine_with_me;
-u8 BSS D_80115670_vine_with_me[8];
-u32 BSS D_80115678_vine_with_me[8];
+static f32 D_80112590_vine_with_me[2];
+static f32 D_80112598_vine_with_me[2];
+static f32 D_801125A0_vine_with_me[2];
+static f32 D_801125A8_vine_with_me[2];
+static f32 D_801125B0_vine_with_me[2];
+static f32 D_801125B8_vine_with_me[2];
+static f32 D_801125C0_vine_with_me[2];
+static f32 D_801125C8_vine_with_me[2];
+static f32 D_801125D0_vine_with_me[4][9][14];
+static f32 D_80112DB0_vine_with_me[4][9][14];
+static f32 D_80113590_vine_with_me[4][9][14];
+static f32 D_80113D70_vine_with_me[4][9][14];
+static f32 D_80114550_vine_with_me[8][9][14];
+static D_80115510_vine_with_me_Struct D_80115510_vine_with_me[2];
+static D_80115510_vine_with_me_Struct *D_80115530_vine_with_me[4];
+static f32 D_80115540_vine_with_me[2];
+static s8 D_80115548_vine_with_me[4];
+static s32 D_8011554C_vine_with_me[2];
+static s32 D_80115554_vine_with_me;
+static f32 D_80115558_vine_with_me;
+static u8 D_8011555C_vine_with_me[4]; // unused?
+static s16 D_80115560_vine_with_me[17];
+static omObjData *D_80115584_vine_with_me[2];
+static s8 D_8011558C_vine_with_me;
+static u8 D_8011558D_vine_with_me[8];
+static u8 D_80115595_vine_with_me[8];
+static omObjData *D_801155A0_vine_with_me;
+static s32 D_801155A4_vine_with_me[2];
+static f32 D_801155AC_vine_with_me;
+static u8 D_801155B0_vine_with_me;
+static f32 D_801155B4_vine_with_me;
+static u16 D_801155B8_vine_with_me;
+// Original sizes unknown; split to keep each array below the assembler's
+// 0x10-byte minimum 8-byte alignment for common symbols.
+static u8 D_801155BC_vine_with_me[0xC]; // unused?
+static u8 D_801155C8_vine_with_me[8]; // unused?
+static s32 D_801155D0_vine_with_me;
+static u8 D_801155D4_vine_with_me[4]; // unused?
+static f32 D_801155D8_vine_with_me[2][4];
+static s8 D_801155F8_vine_with_me[2];
+static s16 D_801155FA_vine_with_me;
+static f32 D_801155FC_vine_with_me[2];
+static f32 D_80115604_vine_with_me;
+static f32 D_80115608_vine_with_me;
+static f32 D_8011560C_vine_with_me;
+static f32 D_80115610_vine_with_me[8];
+static s32 D_80115630_vine_with_me[2];
+static f32 D_80115638_vine_with_me;
+static s16 D_8011563C_vine_with_me;
+static D_80115640_vine_with_me_Struct D_80115640_vine_with_me;
+static s32 D_8011566C_vine_with_me;
+static u8 D_80115670_vine_with_me[8];
+static u32 D_80115678_vine_with_me[8];
 
 D_80111B50_vine_with_me_Struct D_80111B50_vine_with_me = { 0 };
 
@@ -760,8 +761,8 @@ void func_80106F1C_vine_with_me(omObjData *arg0) {
         temp_s2 = D_80115678_vine_with_me[var_s1];
         if (temp_s2 == 30) {
             Hu3DModelPosSet(arg0->model[12 + var_s1], D_80115610_vine_with_me[var_s1], -840.0 - D_80115640_vine_with_me.unk22[var_s1] * 30.0, 0.0f);
-            Hu3DModelRotSet(arg0->model[12 + var_s1], 0.0f, ((rand8() & 0xFF) / 256.0) * 96.0 - 48.0 + ((D_8011558D_vine_with_me[1][var_s1] + 1) % 3 - 1) * 0.0, 0.0f);
-            func_80016FB4_main(arg0->model[12 + var_s1], D_80115630_vine_with_me[D_8011558D_vine_with_me[1][var_s1] == 3], 0);
+            Hu3DModelRotSet(arg0->model[12 + var_s1], 0.0f, ((rand8() & 0xFF) / 256.0) * 96.0 - 48.0 + ((D_80115595_vine_with_me[var_s1] + 1) % 3 - 1) * 0.0, 0.0f);
+            func_80016FB4_main(arg0->model[12 + var_s1], D_80115630_vine_with_me[D_80115595_vine_with_me[var_s1] == 3], 0);
             func_8001C814_main(arg0->model[12 + var_s1], 2, 2);
             func_8001C258_main(arg0->model[12 + var_s1], 4, 0);
             func_8001C8A8_main(arg0->model[12 + var_s1], D_80115640_vine_with_me.unk22[var_s1] != 0 ? 2 : 1);
@@ -776,16 +777,16 @@ void func_80106F1C_vine_with_me(omObjData *arg0) {
             func_8001C6A8_main(arg0->model[12 + var_s1], temp_s2 - 30.0);
         }
         if (temp_s2 >= 31 && temp_s2 < 89) {
-            temp_a0_3 = (temp_s2 - 30 + D_8011558D_vine_with_me[0][var_s1] / 2) * 2;
-            if (D_8011558D_vine_with_me[1][var_s1] == 3) {
+            temp_a0_3 = (temp_s2 - 30 + D_8011558D_vine_with_me[var_s1] / 2) * 2;
+            if (D_80115595_vine_with_me[var_s1] == 3) {
                 temp_s0_4 = temp_a0_3 / 60;
                 temp_s0_4 = temp_a0_3 - temp_s0_4 * 60;
             } else {
                 temp_s0_4 = temp_a0_3 / 74;
                 temp_s0_4 = temp_a0_3 - temp_s0_4 * 74;
             }
-            func_80016FB4_main(arg0->model[12 + var_s1], D_80115630_vine_with_me[D_8011558D_vine_with_me[1][var_s1] == 3], temp_s0_4);
-            if (D_8011558D_vine_with_me[1][var_s1] != 3 && D_801155FA_vine_with_me == 0) {
+            func_80016FB4_main(arg0->model[12 + var_s1], D_80115630_vine_with_me[D_80115595_vine_with_me[var_s1] == 3], temp_s0_4);
+            if (D_80115595_vine_with_me[var_s1] != 3 && D_801155FA_vine_with_me == 0) {
                 if (temp_s0_4 == 18 || temp_s0_4 == 38 || temp_s0_4 == 58) {
                     HuAudFXPlay(0x494);
                 }
@@ -1433,8 +1434,8 @@ void func_8010D4AC_vine_with_me(omObjData *arg0, s8 arg1, s8 arg2) {
                         D_80115640_vine_with_me.unk22[var_s2] = arg1;
                         D_80115610_vine_with_me[var_s2] = D_801125C8_vine_with_me[arg1] + (var_s3 - 1.5) * 440.0 + (rand8() - 0x80);
                         var_s3++;
-                        D_8011558D_vine_with_me[1][var_s2] = rand8() & 3;
-                        D_8011558D_vine_with_me[0][var_s2] = rand8() % 74;
+                        D_80115595_vine_with_me[var_s2] = rand8() & 3;
+                        D_8011558D_vine_with_me[var_s2] = rand8() % 74;
                         if (var_s3 >= 4) {
                             break;
                         }

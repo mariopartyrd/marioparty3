@@ -2,11 +2,11 @@
 #include "siman.h"
 #include "game/vibrator.h"
 
-OSPfs D_800BD860_main[4];
-VibratorState D_800BDA00_main[4];
-functionListEntry D_800BDA30_main;
-functionListEntry D_800BDA3C_main;
-s16 D_800BDA48_main;
+static OSPfs D_800BD860_main[4];
+static VibratorState D_800BDA00_main[4];
+static functionListEntry D_800BDA30_main;
+static functionListEntry D_800BDA3C_main;
+static s16 D_800BDA48_main;
 
 void RetraceCallbackVibrator(void) {
     s16 i;

@@ -3,6 +3,7 @@
 #include "game/esprite.h"
 #include "game/sprite.h"
 #include "mallocblock.h"
+#include "macros.h"
 
 #define FUNC_GRP_MAX 5
 #define SPRITES_MAX 8
@@ -46,11 +47,11 @@ s16 func_8010CED8_tick_tock_hop(HuSprite_Unk84_Struct *arg0, HmfData *arg1, f32 
 void m257_UpdateColliders(FuncGroupContext *groupCtx, FuncContext *ctx);
 f32 m257_CalcSideOfEdge(QuadCollider *collider, ModelTracker *model, Vec *a, Vec *b);
 
-BillboardData *BSS m257_billboards;
-FuncGroup *BSS m257_funcGroups;
-SpriteData *BSS m257_sprites;
-AnimModelData *BSS m257_animModels;
-QuadCollider *BSS m257_colliders;
+BillboardData *m257_billboards BSS;
+FuncGroup *m257_funcGroups BSS;
+SpriteData *m257_sprites BSS;
+AnimModelData *m257_animModels BSS;
+QuadCollider *m257_colliders BSS;
 
 // TODO: the following arrays work but trigger multiple warnings: "missing braces around initializer"
 // Ideally we should use these and remove the u32 arrays below.

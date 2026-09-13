@@ -8,8 +8,6 @@
 #include "game/object.h"
 #include "game/util.h"
 
-#define BSS __attribute__((section(".bss")))
-
 #define ABS(x) ((x) > 0 ? (x) : -(x))
 
 // EXTERN
