@@ -17,9 +17,9 @@ typedef struct {
     /* 0x00 */ char unk00[2];
     /* 0x02 */ s16 unk02;
     /* 0x04 */ char unk04[0x14];
-} D_800CCF58_CDB58_Struct; // Size 0x18
+} D_800CCF58_main_Struct; // Size 0x18
 
-extern D_800CCF58_CDB58_Struct *D_800CCF58_CDB58; // esprite
+extern D_800CCF58_main_Struct *D_800CCF58_main; // esprite
 
 // LOCAL
 
@@ -189,17 +189,17 @@ s16 m255_SetSprite(s32 dir, s32 file, u16 arg2, s32 attr) {
     sprite = m255_sprites;
     for (i = 0; i < SPRITES_MAX; i++, sprite++) {
         if (sprite->state == SPRITE_STATE_NOTSET) {
-            sprite->unk02 = func_8000B838_C438((dir << 16) | file);
+            sprite->unk02 = func_8000B838_main((dir << 16) | file);
             sprite->groupId = HuSprGrpCreate(1, 0);
             HuSprAttrReset(sprite->groupId, 0, -1);
-            func_80055024_55C24(sprite->groupId, 0, sprite->unk02, 0);
+            func_80055024_main(sprite->groupId, 0, sprite->unk02, 0);
             HuSprAttrSet(sprite->groupId, 0, attr);
-            func_800550F4_55CF4(sprite->groupId, 0, arg2);
+            func_800550F4_main(sprite->groupId, 0, arg2);
             HuSprPriSet(sprite->groupId, 0, 0xFFF0);
-            func_80054FF8_55BF8(sprite->groupId, 0, 0);
-            func_800550B4_55CB4(sprite->groupId, 0, 1.0f);
+            func_80054FF8_main(sprite->groupId, 0, 0);
+            func_800550B4_main(sprite->groupId, 0, 1.0f);
             HuSprScaleSet(sprite->groupId, 0, 1.0f, 1.0f);
-            func_80054904_55504(sprite->groupId, 0, 100, 100);
+            func_80054904_main(sprite->groupId, 0, 100, 100);
             temp_v0_2 = HuSprGet(sprite->groupId, 0);
             if (arg2 == 0) {
                 sprite->unk04 = 99;
@@ -217,9 +217,9 @@ void m255_SetSpriteDispOn(s16 spriteId, s32 posX, s32 posY) {
     SpriteData *sprite = &m255_sprites[spriteId];
 
     if (sprite->state != SPRITE_STATE_NOTSET) {
-        func_80054FF8_55BF8(sprite->groupId, 0, 0);
+        func_80054FF8_main(sprite->groupId, 0, 0);
         HuSprAttrReset(sprite->groupId, 0, 0x8000);
-        func_80054904_55504(sprite->groupId, 0, posX, posY);
+        func_80054904_main(sprite->groupId, 0, posX, posY);
         sprite->state = SPRITE_STATE_VISIBLE;
     }
 }
@@ -243,7 +243,7 @@ void m255_UpdateSprites(void) {
             case SPRITE_STATE_VISIBLE:
                 if (HuSprGet(sprite->groupId, 0)->unk_90 + 1 >= sprite->unk04) {
                     HuSprAttrSet(sprite->groupId, 0, 0x8000);
-                    func_80054FF8_55BF8(sprite->groupId, 0, 0);
+                    func_80054FF8_main(sprite->groupId, 0, 0);
                 }
                 break;
         }
@@ -258,8 +258,8 @@ s32 m255_SetAnimModel(s32 dir, s32 file, f32 freq, s32 attr, s32 arg4) {
     animModel = m255_animModels;
     for (i = 0; i < ANIMMDL_MAX; i++, animModel++) {
         if (!animModel->set) {
-            animModel->modelId = func_8000B108_BD08((dir << 16) | file, arg4);
-            func_8001C258_1CE58(animModel->modelId, 4, 4);
+            animModel->modelId = func_8000B108_main((dir << 16) | file, arg4);
+            func_8001C258_main(animModel->modelId, 4, 4);
             hmfModel = &HmfModelData[animModel->modelId];
             hmfModel->unk40 = 0.0f;
             hmfModel->unk44 = 0.0f;
@@ -293,7 +293,7 @@ s32 m255_SetAnimModelDispOn(s16 animModelId, f32 posX, f32 posY, f32 posZ, f32 r
         Hu3DModelRotSet(animModel->modelId, rotX, rotY, rotZ);
         Hu3DModelScaleSet(animModel->modelId, scale, scale, scale);
         if (animStart == 0.0f) {
-            func_8001C258_1CE58(animModel->modelId, 4, 0);
+            func_8001C258_main(animModel->modelId, 4, 0);
             animModel->state = ANIMMDL_STATE_ANIM;
             animModel->animStart = 0.0f;
             animModel->animTimer = 0.0f;
@@ -321,13 +321,13 @@ void m255_UpdateAnimModels(void) {
         hmfModel = &HmfModelData[animModel->modelId];
         switch (animModel->state) {
             default:
-                if (D_800CCF58_CDB58[hmfModel->unk02].unk02 <= hmfModel->unk40) {
+                if (D_800CCF58_main[hmfModel->unk02].unk02 <= hmfModel->unk40) {
                     hmfModel->unk40 = 0.0f;
                     if (hmfModel->hmf->unk98 != NULL) {
                         hmfModel->hmf->unk98->unk08 = 0;
                     }
                     if (!(animModel->attr & ANIMMDL_ATTR_DISPON)) {
-                        func_8001C258_1CE58(animModel->modelId, 4, 4);
+                        func_8001C258_main(animModel->modelId, 4, 4);
                         animModel->state = ANIMMDL_STATE_INVISIBLE;
                         hmfModel->unk44 = 0.0f;
                     }
@@ -335,7 +335,7 @@ void m255_UpdateAnimModels(void) {
                 break;
             case ANIMMDL_STATE_WAIT:
                 if (animModel->animStart <= animModel->animTimer++) {
-                    func_8001C258_1CE58(animModel->modelId, 4, 0);
+                    func_8001C258_main(animModel->modelId, 4, 0);
                     animModel->state = ANIMMDL_STATE_ANIM;
                     hmfModel->unk44 = animModel->freq;
                 }

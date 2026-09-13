@@ -52,9 +52,9 @@ void Hu3DCamSetPerspective(s16 camIndex, f32 fov, f32 near, f32 far);
 void CameraScissorSet(s16 camIndex, RectF* arg1);
 void CameraViewportSet(s16 camIndex, Vec* arg1, Vec* arg2);
 void Hu3DCamUpdateMtx(s16 camIndex);
-void func_80012640_13240(s16 camIndex, Gfx** dispList);
-void func_800127C4_133C4(s16 camIndex, Gfx** dispList);
-void func_80012888_13488(s16 camIndex, void (*arg1)(void*, struct HmfModel*), void* arg2);
+void func_80012640_main(s16 camIndex, Gfx** dispList);
+void func_800127C4_main(s16 camIndex, Gfx** dispList);
+void func_80012888_main(s16 camIndex, void (*arg1)(void*, struct HmfModel*), void* arg2);
 
 extern HuCamera* gCameraList;
 

@@ -27,15 +27,15 @@ typedef struct unkfunc_8007EE0C {
     OSMesgQueue *mesgQueue;
 } unkfunc_8007EE0C;
 
-extern u8 D_80097710_98310[];
-extern u8 D_800D0450_D1050[];
-extern u8 D_800AC7F0_AD3F0;
-extern u8 D_800AC7F1_AD3F1;
-extern u8 D_800D0E50_D1A50[];
+extern u8 D_80097710_main[];
+extern u8 D_800D0450_main[];
+extern u8 D_800AC7F0_main;
+extern u8 D_800AC7F1_main;
+extern u8 D_800D0E50_main[];
 
 void ClearCommonBuf(void);
 s32 _WriteEeprom(EepData *arg0);
-s32 func_8000C9C8_D5C8(s8);
+s32 func_8000C9C8_main(s8);
 s32 WriteEeprom(OSMesgQueue *arg0, u8 arg1, u8 *arg2, s32 arg3);
 
 s32 _InitEeprom(s8 **arg0) {
@@ -43,13 +43,13 @@ s32 _InitEeprom(s8 **arg0) {
     s32 var_s1;
     s16 i;
 
-    D_800AC7F0_AD3F0 = 0;
-    D_800AC7F1_AD3F1 = 0xFF;
+    D_800AC7F0_main = 0;
+    D_800AC7F1_main = 0xFF;
     var_s1 = 0;
-    eepromProbeResult = osEepromProbe(&D_800CE1A0_CEDA0);
+    eepromProbeResult = osEepromProbe(&D_800CE1A0_main);
     if ((eepromProbeResult) == 0) {
         for (i = 0; i < 4; i++) {
-            eepromProbeResult = osEepromProbe(&D_800CE1A0_CEDA0);
+            eepromProbeResult = osEepromProbe(&D_800CE1A0_main);
             if (eepromProbeResult != 0) {
                 break;
             }
@@ -60,46 +60,46 @@ s32 _InitEeprom(s8 **arg0) {
 
     ASSERT(eepromProbeResult == EEPROM_TYPE_16K);
 
-    if (osEepromLongRead(&D_800CE1A0_CEDA0, 0, D_800D0E50_D1A50, EEPROM_BLOCK_SIZE) != 0) {
+    if (osEepromLongRead(&D_800CE1A0_main, 0, D_800D0E50_main, EEPROM_BLOCK_SIZE) != 0) {
         return EEPROM_TYPE_16K;
     }
 
     i = 0;
-    if (D_80097710_98310[i] != 0) {
+    if (D_80097710_main[i] != 0) {
         while (1) {
-            if (D_800D0E50_D1A50[i] != D_80097710_98310[i]) {
+            if (D_800D0E50_main[i] != D_80097710_main[i]) {
                 var_s1 = 1;
                 // Write "HUDSON\0\0" header
                 for (i = 0; i < EEPROM_BLOCK_SIZE; i++) {
-                    D_800D0E50_D1A50[i] = D_80097710_98310[i];
+                    D_800D0E50_main[i] = D_80097710_main[i];
                 }
 
                 // Write it again just to be sure
                 for (i = 0; i < EEPROM_BLOCK_SIZE; i++) {
-                    D_800D0E50_D1A50[i] = D_80097710_98310[i];
+                    D_800D0E50_main[i] = D_80097710_main[i];
                 }
 
                 ClearCommonBuf();
-                WriteEeprom(&D_800CE1A0_CEDA0, 1, D_800D0450_D1050, 0x18);
+                WriteEeprom(&D_800CE1A0_main, 1, D_800D0450_main, 0x18);
 
                 for (i = 0; i < 3; i++) {
-                    if (func_8000C9C8_D5C8(i)) {
+                    if (func_8000C9C8_main(i)) {
                         return EEPROM_TYPE_16K;
                     }
                 }
 
                 for (i = 0; i < 8; i++) {
-                    D_800D0E50_D1A50[i] = D_80097710_98310[i];
+                    D_800D0E50_main[i] = D_80097710_main[i];
                 }
 
-                if (WriteEeprom(&D_800CE1A0_CEDA0, 0, D_800D0E50_D1A50, 8) == 0) {
+                if (WriteEeprom(&D_800CE1A0_main, 0, D_800D0E50_main, 8) == 0) {
                     **arg0 = var_s1;
                     return 0;
                 }
                 return EEPROM_TYPE_16K;
             }
             i++;
-            if (D_80097710_98310[i] == 0) {
+            if (D_80097710_main[i] == 0) {
                 break;
             }
         }
@@ -120,7 +120,7 @@ s32 _WriteEeprom(EepData *arg0) {
     u16 alignedSize = (arg0->size + (arg0->eepFileOffset & 7) + 7) & ~7;
     u8 *alignedEepBuffer = (u8 *)((u32)arg0->eepromBuffer & ~7);
 
-    return (WriteEeprom(&D_800CE1A0_CEDA0, alignedOffset, alignedEepBuffer, alignedSize) != 0) * 2;
+    return (WriteEeprom(&D_800CE1A0_main, alignedOffset, alignedEepBuffer, alignedSize) != 0) * 2;
 }
 
 INCLUDE_ASM("asm/nonmatchings/eeprom", WriteEepromBox2);
@@ -129,16 +129,16 @@ void WriteEepromBox(s8 saveFileIndex) {
     unkMesg sp10;
     EepData sp20;
 
-    D_800AC7F0_AD3F0 = 0;
+    D_800AC7F0_main = 0;
     sp20.eepFileOffset = (saveFileIndex * SAVE_FILE_SIZE) + SAVE_FILE_HEADER_SIZE;
-    sp20.eepromBuffer = D_800D0E50_D1A50;
+    sp20.eepromBuffer = D_800D0E50_main;
     sp20.size = SAVE_FILE_SIZE;
     if (RequestSIFunction(&sp10, &_WriteEeprom, &sp20, 1) == 0) {
-        D_800AC7F1_AD3F1 = saveFileIndex;
+        D_800AC7F1_main = saveFileIndex;
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/eeprom", func_8000C6C0_D2C0);
+INCLUDE_ASM("asm/nonmatchings/eeprom", func_8000C6C0_main);
 
 INCLUDE_ASM("asm/nonmatchings/eeprom", _ReadEeprom);
 
@@ -148,7 +148,7 @@ INCLUDE_ASM("asm/nonmatchings/eeprom", WriteEepromCommonBuf);
 
 INCLUDE_ASM("asm/nonmatchings/eeprom", ReadEepromCommonBuf);
 
-INCLUDE_ASM("asm/nonmatchings/eeprom", func_8000C9C8_D5C8);
+INCLUDE_ASM("asm/nonmatchings/eeprom", func_8000C9C8_main);
 
 INCLUDE_ASM("asm/nonmatchings/eeprom", ClearBoxBuf);
 

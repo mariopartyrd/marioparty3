@@ -17,11 +17,11 @@ typedef struct combinedStruct {
     OSMesgQueue mesgQueue;
 } swapChainTaskQueue;
 
-void func_8000F024_FC24(void**, u16, u16); // Init graphics frame buffer pool                        
-void func_8000F04C_FC4C(u64**); // Set gThreadStacks
-void func_8000F088_FC88(s32*); // Set graphics state
-void func_8000F094_FC94(u32); // Set unk swap chain state
-void func_8000EBEC_F7EC(void*); // Swap Chain Loop
+void func_8000F024_main(void**, u16, u16); // Init graphics frame buffer pool
+void func_8000F04C_main(u64**); // Set gThreadStacks
+void func_8000F088_main(s32*); // Set graphics state
+void func_8000F094_main(u32); // Set unk swap chain state
+void func_8000EBEC_main(void*); // Swap Chain Loop
 
 /* TODO: Where is the libultra header for this? */
 extern void		*osViGetCurrentFramebuffer(void);
@@ -43,8 +43,8 @@ typedef struct {
 
 
 void AddSchedulerClient(unkSchedStruct*, OSMesgQueue*, s32);
-void func_8004D85C_4E45C();
-void func_8004D878_4E478();
+void func_8004D85C_main();
+void func_8004D878_main();
 
 
 #endif
