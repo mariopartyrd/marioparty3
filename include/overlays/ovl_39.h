@@ -19,9 +19,9 @@ typedef struct {
     /* 0x00 */ char unk00[2];
     /* 0x02 */ s16 unk02;
     /* 0x04 */ char unk04[0x14];
-} D_800CCF58_CDB58_Struct; // Size 0x18
+} D_800CCF58_main_Struct; // Size 0x18
 
-extern D_800CCF58_CDB58_Struct* D_800CCF58_CDB58; // esprite
+extern D_800CCF58_main_Struct* D_800CCF58_main; // esprite
 
 // LOCAL
 
@@ -184,7 +184,7 @@ void m257_MakeTranslationMtx(f32* out, f32 x, f32 y, f32 z);
 void m257_MakeRotXMtx(f32* out, f32 angle);
 void m257_MakeRotYMtx(f32* out, f32 angle);
 void m257_MultiplyMtx(f32* a, f32* b, f32* out);
-void func_8010E214_2C5684_tick_tock_hop(f32* arg0, f32* out);
+void func_8010E214_tick_tock_hop(f32* arg0, f32* out);
 void m257_MakeTransformMtx(f32 transX, f32 transY, f32 transZ, f32 rotX, f32 rotY, f32 rotZ, f32* out);
 void m257_ApplyTransformMtx(Vec* in, s16 n, f32* mtx, Vec* out);
 

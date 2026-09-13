@@ -190,6 +190,8 @@ build/src/overlays/w06/39AD50.c.o: CFLAGS += -fno-common
 NOP_OBJECTS := \
 	build/src/hmfload.c.o \
 	build/src/overlays/ovl_80_shared_board/EC3B0.c.o \
+	build/src/overlays/ovl_80_shared_board/ECA50.c.o \
+	build/src/overlays/ovl_80_shared_board/EDDB0.c.o \
 	build/src/overlays/ovl_80_shared_board/EE660.c.o \
 	build/src/overlays/mgmode/46CC10.c.o \
 	build/src/4BF40.c.o \

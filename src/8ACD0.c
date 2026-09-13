@@ -1,6 +1,6 @@
 #include "ultra64.h"
 
-void func_8008A0D0_8ACD0(Mtx *arg0) {
+void func_8008A0D0_main(Mtx *arg0) {
     arg0->m[0][1] =
         arg0->m[0][3] =
             arg0->m[1][0] =
