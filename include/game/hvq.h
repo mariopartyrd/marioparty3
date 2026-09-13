@@ -11,6 +11,6 @@ typedef struct HvqImageHeader {
     u32 rawOffsets[3];
 } HvqImageHeader;
 
-void func_800698E8_6A4E8(HvqImageHeader *header, u16 *output, s32 stride, u8 *work);
+void hvqMpsDecode1(void *data, u16 *output, s32 stride, u8 *work);
 
 #endif

@@ -343,6 +343,10 @@ HuPrcFreeMem = 0x8004F26C;
 HuMathCos = 0x8008E3F0;
 HuMathSin = 0x8008EF20;
 
+hvqMpsDecode1 = 0x800698E8;
+hvqMpsDecodeStart1 = 0x80069E68;
+hvqMpsInit1 = 0x8006A370;
+
 setjmp = 0x80066500;
 longjmp = 0x80066564;
 

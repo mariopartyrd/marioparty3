@@ -343,8 +343,8 @@ static void func_800E5784_name_81(void) {
     HvqUnk *sp10;
     HvqHeader *temp_a0;
 
-    func_8006A370_main(0xFF);
-    func_80069E68_main(D_801031C0_name_81); //"HVQ-MPS 1.1"
+    hvqMpsInit1(0xFF);
+    hvqMpsDecodeStart1(D_801031C0_name_81); //"HVQ-MPS 1.1"
     while (1) {
         osRecvMesg(&D_80104660_name_81, (OSMesg)&sp10, OS_MESG_BLOCK);
         if (sp10 != NULL) {
@@ -352,7 +352,7 @@ static void func_800E5784_name_81(void) {
             D_80102D40_name_81 = sp10->unk8;
             if (temp_a0->magic == 0x48565153) { //"HVQS"
                                                 // is HVQS, decode it
-                func_800698E8_main(&temp_a0->unk4, sp10->unk4, 0x40, D_80102D3C_name_81);
+                hvqMpsDecode1((void *)&temp_a0->unk4, (u16 *)sp10->unk4, 0x40, D_80102D3C_name_81);
             } else {
                 // 0x1800 size for decoded tile
                 func_800E5690_name_81((u8*)&D_80102D40_name_81->unk4, sp10->unk4, 0x1800);

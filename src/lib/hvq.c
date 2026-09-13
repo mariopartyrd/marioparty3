@@ -911,23 +911,23 @@ static inline void HvqReadModes(void) {
     }
 }
 
-void func_800698E8_main(HvqImageHeader *image, u16 *output, s32 stride, u8 *workBuffer) {
-    HvqImageHeader *header = image;
-    u8 *data = (u8 *)image;
+void hvqMpsDecode1(void *data, u16 *output, s32 stride, u8 *workBuffer) {
+    HvqImageHeader *header = data;
+    u8 *file = data;
     u8 *work = workBuffer;
     s32 i, rows;
     u8 *first, *second, *aboveFirst, *aboveSecond;
     u32 firstMean, secondMean;
 
-    HvqInitStream((u32 *)(data + header->modeOffsets[0]), &sHvqModeStreams[0]);
-    HvqInitStream((u32 *)(data + header->modeOffsets[1]), &sHvqModeStreams[1]);
+    HvqInitStream((u32 *)(file + header->modeOffsets[0]), &sHvqModeStreams[0]);
+    HvqInitStream((u32 *)(file + header->modeOffsets[1]), &sHvqModeStreams[1]);
     {
         s32 i;
 
         for (i = 0; i < 3; i++) {
-            HvqInitStream((u32 *)(data + header->meanOffsets[i]), &sHvqMeanStreams[i]);
-            HvqInitStream((u32 *)(data + header->amplitudeOffsets[i]), &sHvqAmplitudeStreams[i]);
-            sHvqRawStreams[i] = data + header->rawOffsets[i] + 4;
+            HvqInitStream((u32 *)(file + header->meanOffsets[i]), &sHvqMeanStreams[i]);
+            HvqInitStream((u32 *)(file + header->amplitudeOffsets[i]), &sHvqAmplitudeStreams[i]);
+            sHvqRawStreams[i] = file + header->rawOffsets[i] + 4;
         }
     }
 
@@ -1010,7 +1010,7 @@ static inline void HvqReadTable(HvqBitStream *stream) {
     }
 }
 
-void func_80069E68_main(void *data) {
+void hvqMpsDecodeStart1(void *data) {
     HvqFileHeader *header = data;
     u8 *file = data;
     s32 i;
@@ -1073,7 +1073,7 @@ void func_80069E68_main(void *data) {
     HvqReadTable(&sHvqTreeStream);
 }
 
-void func_8006A370_main(u8 alpha) {
+void hvqMpsInit1(u8 alpha) {
     s32 index;
     s32 i;
     s32 minColorAlpha;

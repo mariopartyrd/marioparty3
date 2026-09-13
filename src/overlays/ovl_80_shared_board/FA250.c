@@ -394,8 +394,8 @@ static void func_800E6DEC_shared_board(void) {
     HvqUnk *sp10;
     HvqHeader *temp_a0;
 
-    func_8006A370_main(0xFF);
-    func_80069E68_main(D_80103138_shared_board); //"HVQ-MPS 1.1"
+    hvqMpsInit1(0xFF);
+    hvqMpsDecodeStart1(D_80103138_shared_board); //"HVQ-MPS 1.1"
     while (1) {
         osRecvMesg(&D_80104880_shared_board, (void *)&sp10, 1);
         if (sp10 != NULL) {
@@ -403,7 +403,7 @@ static void func_800E6DEC_shared_board(void) {
             D_80102DD0_shared_board = sp10->unk8;
             if (temp_a0->magic == 0x48565153) { //"HVQS"
                                                 // is HVQS, decode it
-                func_800698E8_main((HvqImageHeader *)&temp_a0->unk4, (u16 *)sp10->unk4, 0x40, D_80102DCC_shared_board);
+                hvqMpsDecode1((void *)&temp_a0->unk4, (u16 *)sp10->unk4, 0x40, D_80102DCC_shared_board);
             } else {
                 // 0x1800 size for decoded tile
                 func_800E6CF8_shared_board((u8 *)&D_80102DD0_shared_board->unk4, sp10->unk4, 0x1800);
@@ -2039,4 +2039,3 @@ void MBMasuDispOn(void) {
 void MBMasuDispOff(void) {
     D_80105262_shared_board = 0;
 }
-
