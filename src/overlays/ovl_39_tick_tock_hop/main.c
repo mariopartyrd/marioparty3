@@ -161,10 +161,10 @@ const s16 D_8010E60C_tick_tock_hop[] = {
     0x8263, 0x8271, 0x8260, 0x8276, 0x0000, 0x0000
 };
 
-MinigameData *BSS m257_minigame;
-PlayerData *BSS m257_players;
-s16 BSS m257_playerId[PLAYERS_TOTAL];
-s16 BSS m257_playerOrder[PLAYERS_TOTAL];
+static MinigameData *m257_minigame;
+static PlayerData *m257_players;
+static s16 m257_playerId[PLAYERS_TOTAL];
+static s16 m257_playerOrder[PLAYERS_TOTAL];
 
 s16 m257_jumpEnabled = TRUE;
 s16 D_8010E4A2_tick_tock_hop = FALSE;
@@ -425,8 +425,8 @@ void m257_UpdateJumpCounterSprites(FuncGroupContext *groupCtx, FuncContext *ctx)
     } else {
         m257_SetSpriteDispOff(m257_minigame->tensSpriteId);
     }
-    func_80054FF8_main(m257_sprites[m257_minigame->tensSpriteId].groupId, 0, tens);
-    func_80054FF8_main(m257_sprites[m257_minigame->unitsSpriteId].groupId, 0, units);
+    func_80054FF8_main(m257_spriteRecords[m257_minigame->tensSpriteId].groupId, 0, tens);
+    func_80054FF8_main(m257_spriteRecords[m257_minigame->unitsSpriteId].groupId, 0, units);
 }
 
 void m257_ExecMinigameStart(FuncGroupContext *groupCtx, FuncContext *ctx) {

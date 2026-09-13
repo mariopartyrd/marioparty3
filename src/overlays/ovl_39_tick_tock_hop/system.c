@@ -46,11 +46,12 @@ s16 func_8010CED8_tick_tock_hop(HuSprite_Unk84_Struct *arg0, HmfData *arg1, f32 
 void m257_UpdateColliders(FuncGroupContext *groupCtx, FuncContext *ctx);
 f32 m257_CalcSideOfEdge(QuadCollider *collider, ModelTracker *model, Vec *a, Vec *b);
 
-BillboardData *BSS m257_billboards;
-FuncGroup *BSS m257_funcGroups;
-SpriteData *BSS m257_sprites;
-AnimModelData *BSS m257_animModels;
-QuadCollider *BSS m257_colliders;
+// These symbol names affect the linker's COMMON allocation order.
+BillboardData *m257_bills;
+FuncGroup *m257_funcGroups;
+SpriteData *m257_spriteRecords;
+AnimModelData *m257_animModels;
+QuadCollider *m257_colliders;
 
 // TODO: the following arrays work but trigger multiple warnings: "missing braces around initializer"
 // Ideally we should use these and remove the u32 arrays below.
@@ -125,12 +126,12 @@ u32 D_8010E5A0_tick_tock_hop[] = {
 u8 m257_quadEdges[][3] = { { 0, 1 }, { 1, 2 }, { 2, 3 }, { 3, 0 } };
 
 void m257_CreateSystem(void) {
-    m257_sprites = HuMemAllocTag(SPRITES_MAX * sizeof(SpriteData), 31000);
-    memset(m257_sprites, 0, SPRITES_MAX * sizeof(SpriteData));
+    m257_spriteRecords = HuMemAllocTag(SPRITES_MAX * sizeof(SpriteData), 31000);
+    memset(m257_spriteRecords, 0, SPRITES_MAX * sizeof(SpriteData));
     m257_animModels = HuMemAllocTag(ANIMMDL_MAX * sizeof(AnimModelData), 31000);
     memset(m257_animModels, 0, ANIMMDL_MAX * sizeof(AnimModelData));
-    m257_billboards = HuMemAllocTag(BILLS_MAX * sizeof(BillboardData), 31000);
-    memset(m257_billboards, 0, BILLS_MAX * sizeof(BillboardData));
+    m257_bills = HuMemAllocTag(BILLS_MAX * sizeof(BillboardData), 31000);
+    memset(m257_bills, 0, BILLS_MAX * sizeof(BillboardData));
     m257_funcGroups = HuMemAllocTag(5 * sizeof(FuncGroup), 31000);
 }
 
@@ -266,7 +267,7 @@ s16 m257_SetSprite(u16 prio, s32 dir, s32 file, u16 arg3, s32 attr) {
     HuSprite *temp_v0_2;
     s16 i;
 
-    sprite = m257_sprites;
+    sprite = m257_spriteRecords;
     for (i = 0; i < SPRITES_MAX; i++, sprite++) {
         if (sprite->state == SPRITE_STATE_NOTSET) {
             sprite->unk02 = func_8000B838_main((dir << 16) | file); // esprite.
@@ -296,7 +297,7 @@ s16 m257_SetSprite(u16 prio, s32 dir, s32 file, u16 arg3, s32 attr) {
 }
 
 void m257_SetSpriteDispOn(s16 spriteId, s32 posX, s32 posY) {
-    SpriteData *sprite = &m257_sprites[spriteId];
+    SpriteData *sprite = &m257_spriteRecords[spriteId];
 
     if (sprite->state != SPRITE_STATE_NOTSET) {
         func_80054FF8_main(sprite->groupId, 0, 0);
@@ -307,7 +308,7 @@ void m257_SetSpriteDispOn(s16 spriteId, s32 posX, s32 posY) {
 }
 
 void m257_SetSpriteDispOff(s16 spriteId) {
-    SpriteData *sprite = &m257_sprites[spriteId];
+    SpriteData *sprite = &m257_spriteRecords[spriteId];
 
     if (sprite->state != SPRITE_STATE_NOTSET) {
         HuSprAttrSet(sprite->groupId, 0, 0x8000);
@@ -319,7 +320,7 @@ void m257_UpdateSprites(void) {
     SpriteData *sprite;
     s16 i;
 
-    sprite = m257_sprites;
+    sprite = m257_spriteRecords;
     for (i = 0; i < SPRITES_MAX; i++, sprite++) {
         switch (sprite->state) {
             case SPRITE_STATE_VISIBLE:
@@ -431,7 +432,7 @@ s32 m257_SetBill(s32 dir, s32 file, s32 attr) {
     s16 temp_v0_2;
     s16 i;
 
-    bill = m257_billboards;
+    bill = m257_bills;
     for (i = 0; i < BILLS_MAX; i++, bill++) {
         if (!bill->set) {
             bill->unk08 = temp_v0_2 = func_8000B838_main((dir << 16) | file);
@@ -461,38 +462,38 @@ s32 m257_SetBill(s32 dir, s32 file, s32 attr) {
 
 void m257_SetBillDispOn(s16 billId, f32 posX, f32 posY, f32 posZ) {
     if (billId < BILLS_MAX) {
-        HmfModel *model = &HmfModelData[m257_billboards[billId].modelId];
+        HmfModel *model = &HmfModelData[m257_bills[billId].modelId];
 
         model->pos.x = posX;
         model->pos.y = posY;
         model->pos.z = posZ;
-        func_8001C258_main(m257_billboards[billId].modelId, 4, 0);
-        m257_billboards[billId].attr &= ~(BILL_ATTR_DISPOFF | BILL_ATTR_REF);
+        func_8001C258_main(m257_bills[billId].modelId, 4, 0);
+        m257_bills[billId].attr &= ~(BILL_ATTR_DISPOFF | BILL_ATTR_REF);
     }
 }
 
 void m257_SetBillDispOnRef(s16 billId, f32 *posX, f32 *posY, f32 *posZ) {
     if (billId < BILLS_MAX) {
-        HmfModel *model = &HmfModelData[m257_billboards[billId].modelId];
+        HmfModel *model = &HmfModelData[m257_bills[billId].modelId];
 
         if (posX != NULL) {
-            m257_billboards[billId].posX = posX;
+            m257_bills[billId].posX = posX;
         } else {
-            m257_billboards[billId].posX = &model->pos.x;
+            m257_bills[billId].posX = &model->pos.x;
         }
         if (posY != NULL) {
-            m257_billboards[billId].posY = posY;
+            m257_bills[billId].posY = posY;
         } else {
-            m257_billboards[billId].posY = &model->pos.y;
+            m257_bills[billId].posY = &model->pos.y;
         }
         if (posZ != NULL) {
-            m257_billboards[billId].posZ = posZ;
+            m257_bills[billId].posZ = posZ;
         } else {
-            m257_billboards[billId].posZ = &model->pos.z;
+            m257_bills[billId].posZ = &model->pos.z;
         }
-        func_8001C258_main(m257_billboards[billId].modelId, 4, 0);
-        m257_billboards[billId].attr &= ~(BILL_ATTR_DISPOFF | BILL_ATTR_REF);
-        m257_billboards[billId].attr |= BILL_ATTR_REF;
+        func_8001C258_main(m257_bills[billId].modelId, 4, 0);
+        m257_bills[billId].attr &= ~(BILL_ATTR_DISPOFF | BILL_ATTR_REF);
+        m257_bills[billId].attr |= BILL_ATTR_REF;
     }
 }
 
@@ -500,14 +501,14 @@ BillboardData *m257_GetBill(s16 billId) {
     if (billId >= BILLS_MAX) {
         return NULL;
     }
-    return &m257_billboards[billId];
+    return &m257_bills[billId];
 }
 
 HmfModel *m257_GetBillModel(s16 billId) {
     if (billId >= BILLS_MAX) {
         return NULL;
     }
-    return &HmfModelData[m257_billboards[billId].modelId];
+    return &HmfModelData[m257_bills[billId].modelId];
 }
 
 void m257_UpdateBills(void) {
@@ -515,7 +516,7 @@ void m257_UpdateBills(void) {
     HmfModel *model;
     s16 i;
 
-    bill = m257_billboards;
+    bill = m257_bills;
     for (i = 0; i < BILLS_MAX; i++, bill++) {
         if (!bill->set || (bill->attr & BILL_ATTR_DISPOFF)) {
             continue;
