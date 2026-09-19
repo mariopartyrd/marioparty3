@@ -28,6 +28,8 @@ When you start working on this repository, assume that assets like `asm/nonmatch
 - `python3 tools/asm-differ/diff.py --no-pager <function name>` compares compiled assembly against the target for a specific function.
   - `python3 tools/asm-differ/diff.py --help` to learn all the capabilities of the diffing tool.
 
+Do not install additional software without direct user permission.
+
 ## Code Quality Standards
 
 Prefer existing project names, structs, typedefs, and helper macros. Before adding declarations, search `src/` and `include/` for existing definitions to avoid duplicates.
