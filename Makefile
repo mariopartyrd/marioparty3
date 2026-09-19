@@ -6,6 +6,7 @@ COMPARE      ?= 1
 NON_MATCHING ?= 0
 CHECK        ?= 1
 VERBOSE      ?= 0
+QUIET        ?= 0
 MOD 		 ?= 0
 
 # Patches
@@ -23,6 +24,15 @@ endif
 
 ifeq ($(VERBOSE),0)
 V := @
+endif
+
+# Progress-message suppression. tools/build.sh passes QUIET=1
+ifeq ($(QUIET),1)
+ECHO := @true                  # swallow the progress message text
+SPLAT_REDIRECT := > /dev/null  # splat logs progress to stdout, warn/error to stderr
+STRIP_NOP_FLAGS := --quiet
+else
+ECHO := @
 endif
 
 ifeq ($(OS),Windows_NT)
@@ -141,12 +151,12 @@ modsetup: distclean modsplit
 modsplit:
 	$(V)rm -rf asm
 	$(V)$(MOD_OVL_TABLE_INJECT)
-	$(V)$(MOD_SPLAT)
+	$(V)$(MOD_SPLAT)$(SPLAT_REDIRECT)
 	$(V)$(MOD_LINKER_INJECT)
 
 split:
 	$(V)rm -rf asm
-	$(V)$(SPLAT)
+	$(V)$(SPLAT)$(SPLAT_REDIRECT)
 	
 test: $(ROM)
 	$(V)$(EMULATOR) $<
@@ -208,22 +218,22 @@ NOP_ASM := $(NOP_OBJECTS:.o=.s)
 
 # .c -> .s  (plus the nop strip)
 $(NOP_ASM): $(BUILD_DIR)/%.c.s: %.c tools/strip_nop.py
-	@$(PRINT)$(YELLOW)Generating asm: $(ENDYELLOW)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(YELLOW)Generating asm: $(ENDYELLOW)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(dir $@)
 	@$(CC_HOST) $(CFLAGS_CHECK) $(CPPFLAGS) -MMD -MP -MT $@ -MF $@.d $<
 	$(V)export COMPILER_PATH=tools/gcc_2.7.2/$(DETECTED_OS) && $(CC) $(OPTFLAGS) $(CFLAGS) $(CPPFLAGS) -S $< -o $@
-	$(V)$(PYTHON) tools/strip_nop.py $@
+	$(V)$(PYTHON) tools/strip_nop.py $@ $(STRIP_NOP_FLAGS)
 
 # .s -> .o
 $(NOP_OBJECTS): $(BUILD_DIR)/%.c.o: $(BUILD_DIR)/%.c.s
-	@$(PRINT)$(YELLOW)Assembling: $(ENDYELLOW)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(YELLOW)Assembling: $(ENDYELLOW)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(dir $@)
 	$(V)export COMPILER_PATH=tools/gcc_2.7.2/$(DETECTED_OS) && $(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 	@$(STRIP) $@ -N dummy-symbol-name
 
 # Compile .c files with kmc gcc (use strip to fix objects so that they can be linked with modern gnu ld) 
 $(BUILD_DIR)/src/%.c.o: src/%.c
-	@$(PRINT)$(GREEN)Compiling C file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(GREEN)Compiling C file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(shell dirname $@)
 	@$(CC_HOST) $(CFLAGS_CHECK) $(CPPFLAGS) -MMD -MP -MT $@ -MF $@.d $<
 	$(V)export COMPILER_PATH=tools/gcc_2.7.2/$(DETECTED_OS) && $(CC) $(OPTFLAGS) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
@@ -231,24 +241,24 @@ $(BUILD_DIR)/src/%.c.o: src/%.c
 
 # Assemble .s files with modern gnu as
 $(BUILD_DIR)/asm/%.s.o: asm/%.s
-	@$(PRINT)$(GREEN)Assembling asm file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(GREEN)Assembling asm file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(shell dirname $@)
 	$(V)$(AS) $(ASFLAGS) -o $@ $<
 
 # Create .o files from .bin files.
 $(BUILD_DIR)/%.bin.o: %.bin
-	@$(PRINT)$(GREEN)objcopying binary file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(GREEN)objcopying binary file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(shell dirname $@)
 	$(V)$(LD) -r -b binary -o $@ $<
 
 # Link the .o files into the .elf
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS)
-	@$(PRINT)$(GREEN)Linking elf file: $(ENDGREEN)$(BLUE)$@$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(GREEN)Linking elf file: $(ENDGREEN)$(BLUE)$@$(ENDBLUE)$(ENDLINE)
 	$(V)$(LD) $(LDFLAGS) -o $@
 
 # Convert the .elf to the final rom
 $(ROM): $(BUILD_DIR)/$(TARGET).elf
-	@$(PRINT)$(GREEN)Creating z64: $(ENDGREEN)$(BLUE)$@$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(GREEN)Creating z64: $(ENDGREEN)$(BLUE)$@$(ENDBLUE)$(ENDLINE)
 	$(V)$(OBJCOPY) $< $@ -O binary
 	$(V)$(N64CKSUM) $@
 ifeq ($(COMPARE),1)

@@ -9,7 +9,9 @@ Delete the blank line(s) that follow a reorder-restore pair:
 
 Nothing else is touched.
 
-Usage: strip_nop.py file.s [file.s ...]
+Usage: strip_nop.py [--quiet] file.s [file.s ...]
+
+With --quiet, print nothing.
 """
 import sys
 
@@ -41,7 +43,9 @@ def strip(lines):
     return out, removed
 
 
-def main(paths):
+def main(argv):
+    quiet = "--quiet" in argv
+    paths = [arg for arg in argv if arg != "--quiet"]
     for path in paths:
         with open(path) as f:
             lines = f.readlines()
@@ -49,7 +53,8 @@ def main(paths):
         if removed:
             with open(path, "w") as f:
                 f.writelines(out)
-        print("%s: %d blank line(s) removed" % (path, removed), file=sys.stderr)
+        if not quiet:
+            print("%s: %d blank line(s) removed" % (path, removed))
 
 
 if __name__ == "__main__":
