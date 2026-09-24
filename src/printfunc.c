@@ -2,6 +2,12 @@
 
 #define MAX_STRINGS 512
 
+#define RGBA32_R(color) ((color) >> 24)
+#define RGBA32_G(color) (((color) >> 16) & 0xFF)
+#define RGBA32_B(color) (((color) >> 8) & 0xFF)
+#define RGBA32_A(color) ((color) & 0xFF)
+#define FILL_COLOR_RGBA5551(r, g, b, a) ((GPACK_RGBA5551(r, g, b, a) << 16) | GPACK_RGBA5551(r, g, b, a))
+
 typedef struct strline_data {
     /* 0x00 */ u16 color;
     /* 0x02 */ s16 x;
@@ -10,14 +16,30 @@ typedef struct strline_data {
     /* 0x08 */ u8 str[64];
 } strline_data;
 
+// filled rect behind debug text
 typedef struct Unk_D_800CC440 {
-    u16 unk_00;
-    s32 unk_04;
-    s32 unk_08;
-    s32 unk_0C;
-    s32 unk_10;
-    s32 unk_14;
+    u16 unk_00; // active
+    s32 unk_04; // left
+    s32 unk_08; // top
+    s32 unk_0C; // right
+    s32 unk_10; // bottom
+    u32 unk_14; // color
 } Unk_D_800CC440;
+
+typedef struct Unk_D_800CE1DC {
+    u8 unk_00; // red
+    u8 unk_01; // green
+    u8 unk_02; // blue
+    s8 unk_03; // red speed
+    s8 unk_04; // green speed
+    s8 unk_05; // blue speed
+    u8 unk_06; // red max
+    u8 unk_07; // green max
+    u8 unk_08; // blue max
+    u8 unk_09; // red min
+    u8 unk_0A; // green min
+    u8 unk_0B; // blue min
+} Unk_D_800CE1DC;
 
 extern strline_data strline[MAX_STRINGS];
 extern u16 strlinecnt;
@@ -25,7 +47,11 @@ extern u16 empstrline;
 extern s32 fontcolor;
 extern u16 D_800D6A46_D7646;
 extern Unk_D_800CC440 D_800CC440_CD040[4];
-extern s16 D_800CDD4C_CE94C;
+extern u16 D_800CDD4C_CE94C; // screen border enabled
+extern Unk_D_800CE1DC D_800CE1DC_CEDDC;
+extern u16 D_800A1D64_A2964;         // palette currently loaded for the font texture
+extern u8 D_8009F730_A0330[];        // 64x64 CI4 font texture, 8x8 glyphs starting at ' '
+extern u16 D_800A0330_A0F30[16][16]; // font palettes
 
 void pfInit(void) {
     s32 i;
@@ -136,25 +162,6 @@ void func_8004DF10_4EB10(void) {
     }
 }
 
-typedef struct Unk_D_800CE1DC {
-    u8 unk_00;
-    u8 unk_01;
-    u8 unk_02;
-    u8 unk_03;
-    u8 unk_04;
-    u8 unk_05;
-
-    u8 unk_06;
-    u8 unk_07;
-    u8 unk_08;
-    u8 unk_09;
-    u8 unk_0A;
-    u8 unk_0B;
-} Unk_D_800CE1DC;
-
-extern s16 D_800CDD4C_CE94C;
-extern Unk_D_800CE1DC D_800CE1DC_CEDDC;
-
 void func_8004DF4C_4EB4C(s8 arg0, s8 arg1, s8 arg2) {
     D_800CE1DC_CEDDC.unk_00 = arg0;
     D_800CE1DC_CEDDC.unk_01 = arg1;
@@ -195,4 +202,170 @@ void func_8004DFE4_4EBE4(s16 arg0, u8 *src) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/printfunc", pfDrawFonts);
+Gfx *pfDrawFonts(Gfx *gfx) {
+    u16 count;
+    s32 i;
+    u16 pal;
+    u16 color;
+    u16 x;
+    u16 y;
+    u8 *str;
+    u8 c;
+    s8 speed;
+
+    count = strlinecnt;
+
+    if (D_800D6A46_D7646 != 0) {
+        gDPSetScissor(gfx++, G_SC_NON_INTERLACE, 0, 0, 319, 339);
+        gDPPipeSync(gfx++);
+        gDPSetTextureLOD(gfx++, G_TL_LOD);
+        gSPTexture(gfx++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
+        gDPSetTexturePersp(gfx++, G_TP_NONE);
+        gDPSetAlphaCompare(gfx++, G_AC_THRESHOLD);
+        for (i = 0; i < 4; i++) {
+            if (D_800CC440_CD040[i].unk_00 != 0) {
+                if (RGBA32_A(D_800CC440_CD040[i].unk_14) == 0xFF) {
+                    gDPPipeSync(gfx++);
+                    gDPSetCycleType(gfx++, G_CYC_FILL);
+                    gDPSetRenderMode(gfx++, G_RM_NOOP, G_RM_NOOP2);
+                    gDPSetFillColor(gfx++, FILL_COLOR_RGBA5551(RGBA32_R(D_800CC440_CD040[i].unk_14),
+                                                               RGBA32_G(D_800CC440_CD040[i].unk_14),
+                                                               RGBA32_B(D_800CC440_CD040[i].unk_14),
+                                                               RGBA32_A(D_800CC440_CD040[i].unk_14)));
+                } else {
+                    gDPPipeSync(gfx++);
+                    gDPSetCycleType(gfx++, G_CYC_1CYCLE);
+                    gDPSetCombineMode(gfx++, G_CC_PRIMITIVE, G_CC_PRIMITIVE);
+                    gDPSetRenderMode(gfx++, G_RM_AA_XLU_SURF, G_RM_AA_XLU_SURF2);
+                    gDPSetPrimColor(gfx++, 0, 0, RGBA32_R(D_800CC440_CD040[i].unk_14),
+                                    RGBA32_G(D_800CC440_CD040[i].unk_14), RGBA32_B(D_800CC440_CD040[i].unk_14),
+                                    RGBA32_A(D_800CC440_CD040[i].unk_14));
+                }
+                gDPFillRectangle(gfx++, D_800CC440_CD040[i].unk_04, D_800CC440_CD040[i].unk_08,
+                                 D_800CC440_CD040[i].unk_0C, D_800CC440_CD040[i].unk_10);
+            }
+        }
+    }
+
+    if (D_800CDD4C_CE94C != 0) {
+        if (D_800CE1DC_CEDDC.unk_03 != 0) {
+            speed = D_800CE1DC_CEDDC.unk_03;
+            if (speed < 0) {
+                if (D_800CE1DC_CEDDC.unk_00 + speed >= D_800CE1DC_CEDDC.unk_09) {
+                    D_800CE1DC_CEDDC.unk_00 += speed;
+                } else {
+                    D_800CE1DC_CEDDC.unk_00 = D_800CE1DC_CEDDC.unk_09;
+                    D_800CE1DC_CEDDC.unk_03 = -D_800CE1DC_CEDDC.unk_03;
+                }
+            } else {
+                if (D_800CE1DC_CEDDC.unk_00 + speed <= D_800CE1DC_CEDDC.unk_06) {
+                    D_800CE1DC_CEDDC.unk_00 += speed;
+                } else {
+                    D_800CE1DC_CEDDC.unk_00 = D_800CE1DC_CEDDC.unk_06;
+                    D_800CE1DC_CEDDC.unk_03 = -D_800CE1DC_CEDDC.unk_03;
+                }
+            }
+        }
+        if (D_800CE1DC_CEDDC.unk_04 != 0) {
+            speed = D_800CE1DC_CEDDC.unk_04;
+            if (speed < 0) {
+                if (D_800CE1DC_CEDDC.unk_01 + speed >= D_800CE1DC_CEDDC.unk_0A) {
+                    D_800CE1DC_CEDDC.unk_01 += speed;
+                } else {
+                    D_800CE1DC_CEDDC.unk_01 = D_800CE1DC_CEDDC.unk_0A;
+                    D_800CE1DC_CEDDC.unk_04 = -D_800CE1DC_CEDDC.unk_04;
+                }
+            } else {
+                if (D_800CE1DC_CEDDC.unk_01 + speed <= D_800CE1DC_CEDDC.unk_07) {
+                    D_800CE1DC_CEDDC.unk_01 += speed;
+                } else {
+                    D_800CE1DC_CEDDC.unk_01 = D_800CE1DC_CEDDC.unk_07;
+                    D_800CE1DC_CEDDC.unk_04 = -D_800CE1DC_CEDDC.unk_04;
+                }
+            }
+        }
+        if (D_800CE1DC_CEDDC.unk_05 != 0) {
+            speed = D_800CE1DC_CEDDC.unk_05;
+            if (speed < 0) {
+                if (D_800CE1DC_CEDDC.unk_02 + speed >= D_800CE1DC_CEDDC.unk_0B) {
+                    D_800CE1DC_CEDDC.unk_02 += speed;
+                } else {
+                    D_800CE1DC_CEDDC.unk_02 = D_800CE1DC_CEDDC.unk_0B;
+                    D_800CE1DC_CEDDC.unk_05 = -D_800CE1DC_CEDDC.unk_05;
+                }
+            } else {
+                if (D_800CE1DC_CEDDC.unk_02 + speed <= D_800CE1DC_CEDDC.unk_08) {
+                    D_800CE1DC_CEDDC.unk_02 += speed;
+                } else {
+                    D_800CE1DC_CEDDC.unk_02 = D_800CE1DC_CEDDC.unk_08;
+                    D_800CE1DC_CEDDC.unk_05 = -D_800CE1DC_CEDDC.unk_05;
+                }
+            }
+        }
+        gDPPipeSync(gfx++);
+        gDPSetCycleType(gfx++, G_CYC_FILL);
+        gDPSetRenderMode(gfx++, G_RM_NOOP, G_RM_NOOP2);
+        gDPSetFillColor(gfx++, FILL_COLOR_RGBA5551(D_800CE1DC_CEDDC.unk_00, D_800CE1DC_CEDDC.unk_01,
+                                                   D_800CE1DC_CEDDC.unk_02, 1));
+        gDPFillRectangle(gfx++, 24, 16, 296, 16);
+        gDPFillRectangle(gfx++, 24, 224, 296, 224);
+        gDPFillRectangle(gfx++, 24, 16, 24, 224);
+        gDPFillRectangle(gfx++, 296, 16, 296, 224);
+    }
+
+    gDPSetScissor(gfx++, G_SC_NON_INTERLACE, 0, 0, 319, 339);
+    gDPPipeSync(gfx++);
+    gDPSetCycleType(gfx++, G_CYC_COPY);
+    gDPSetAlphaCompare(gfx++, G_AC_THRESHOLD);
+    gDPSetTextureLOD(gfx++, G_TL_LOD);
+    gDPSetRenderMode(gfx++, G_RM_NOOP, G_RM_NOOP2);
+    gSPTexture(gfx++, 0x8000, 0x8000, 0, G_TX_RENDERTILE, G_ON);
+    gDPSetTexturePersp(gfx++, G_TP_NONE);
+    gDPSetTextureLUT(gfx++, G_TT_RGBA16);
+    gDPSetBlendColor(gfx++, 0xFF, 0xFF, 0xFF, 0xFF);
+    gDPLoadTextureBlock_4b(gfx++, D_8009F730_A0330, G_IM_FMT_CI, 64, 64, D_800A1D64_A2964,
+                           G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK,
+                           G_TX_NOLOD, G_TX_NOLOD);
+    gDPSetBlendColor(gfx++, 0, 0, 0, 1);
+    for (pal = 0; pal < 16; pal++) {
+        gDPLoadTLUT_pal16(gfx++, pal, D_800A0330_A0F30[pal]);
+    }
+
+    for (i = 0; i < MAX_STRINGS; i++) {
+        if (strline[i].str[0] != '\0') {
+            str = strline[i].str;
+            color = strline[i].color;
+            x = strline[i].x;
+            y = strline[i].y;
+            if (color != D_800A1D64_A2964) {
+                D_800A1D64_A2964 = color;
+                gDPTileSync(gfx++);
+                gDPSetTile(gfx++, G_IM_FMT_CI, G_IM_SIZ_4b, 4, 0, G_TX_RENDERTILE, color, 0, 0, 0, 0, 0, 0);
+            }
+            for (; *str != '\0'; str++) {
+                if (*str >= ' ') {
+                    c = *str - ' ';
+                    gSPTextureRectangle(gfx++, x << 2, y << 2, (x + 7) << 2, (y + 7) << 2, G_TX_RENDERTILE,
+                                        ((c % 8) * 8) << 5, ((c / 8) * 8) << 5, 4 << 10, 1 << 10);
+                    x += 8;
+                    if (x >= 320) {
+                        x = 0;
+                        y += 8;
+                    }
+                }
+            }
+            if (--count == 0) {
+                break;
+            }
+        }
+    }
+
+    gDPPipeSync(gfx++);
+    gSPTexture(gfx++, 0, 0, 0, G_TX_RENDERTILE, G_OFF);
+    gDPSetCombineMode(gfx++, G_CC_SHADE, G_CC_SHADE);
+    gDPSetRenderMode(gfx++, G_RM_ZB_OPA_SURF, G_RM_ZB_OPA_SURF2);
+    gDPSetTextureLUT(gfx++, G_TT_NONE);
+    gDPSetTexturePersp(gfx++, G_TP_PERSP);
+    gDPSetTextureFilter(gfx++, G_TF_BILERP);
+    return gfx;
+}
