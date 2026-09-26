@@ -2,7 +2,7 @@
 #include "PR/sndp.h"
 
 ALSndId alSndpAllocate(ALSound *sound) {
-    ALSndPlayer *sndp = D_800A2884_A3484->sndp;
+    ALSndPlayer *sndp = D_800A2884_main->sndp;
     ALSoundState *sState = sndp->sndState;
     ALSndId i;
 

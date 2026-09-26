@@ -6,8 +6,6 @@
 #include "game/object.h"
 #include "game/util.h"
 
-#define BSS __attribute__((section(".bss")))
-
 typedef struct {
     /* 0x00 */ s8 s8[16];
     /* 0x10 */ s16 s16[8];
@@ -54,6 +52,6 @@ void m254_MakeIdentityMtx(f32* out);
 void m254_MakeRotXMtx(f32* out, f32 angle);
 void m254_MakeRotYMtx(f32* out, f32 angle);
 void m254_MultiplyMtx(f32* a, f32* b, f32* out);
-void func_801114B0_2ACF40_motor_rooter(f32* arg0, Vec* arg1, f32* out);
+void func_801114B0_motor_rooter(f32* arg0, Vec* arg1, f32* out);
 
 #endif

@@ -2,7 +2,7 @@
 
 f32 _atan2d(f32, f32);
 void HuVecNormalize3F(Vec *);
-f32 func_8008D800_8E400(f32);
+f32 func_8008D800_main(f32);
 f32 HuVecDot3F(Vec *, Vec *);
 
 f32 MBVecAngleGet(Vec *arg0) {
@@ -78,7 +78,7 @@ void MBVecRotateZ(Vec *arg0, f32 arg1) {
 }
 
 
-void func_800D8B2C_EC74C_shared_board(Vec* arg0, Vec* arg1, f32 arg2) {
+void func_800D8B2C_shared_board(Vec* arg0, Vec* arg1, f32 arg2) {
     Vec origPos;
     f32 temp_f2; //should be fs4
     f32 temp_f3; //should be fs1
@@ -107,13 +107,13 @@ void func_800D8B2C_EC74C_shared_board(Vec* arg0, Vec* arg1, f32 arg2) {
               ((arg1->z * arg1->z + (1.0f - arg1->z * arg1->z) * HuMathCos(arg2)) * origPos.z);
 }
 
-f32 func_800D8DAC_EC9CC_shared_board(Vec *vec_1, Vec *vec_2) {
+f32 func_800D8DAC_shared_board(Vec *vec_1, Vec *vec_2) {
     f32 length;
     f32 dot;
 
     dot = HuVecDot3F(vec_1, vec_2);
     length = HuVecGetLength3F(vec_1) * HuVecGetLength3F(vec_2);
     if (length != 0.0f) {
-        return func_8008D800_8E400(dot / length);
+        return func_8008D800_main(dot / length);
     }
 }

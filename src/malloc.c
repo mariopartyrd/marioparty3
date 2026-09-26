@@ -6,7 +6,7 @@
 
 #define MIN_HEAP_NODE_SIZE sizeof(HeapNode) + MIN_ALLOC_SIZE
 
-extern s32 D_800A0530_A1130;
+extern s32 D_800A0530_main;
 
 /*
  * Creates an empty heap of a given size.
@@ -55,7 +55,7 @@ void *HuMemMemoryAlloc(HeapNode *heap, s32 size) {
         cur_heap = cur_heap->next;
     } while (cur_heap != heap);
 
-    D_800A0530_A1130 = 0x10000;
+    D_800A0530_main = 0x10000;
     return NULL;
 }
 
@@ -72,7 +72,7 @@ void HuMemMemoryFree(void *ptr) {
 
     given_heap = (HeapNode *)(ptr - sizeof(HeapNode));
     if (given_heap->heap_constant != HEAP_CONSTANT) {
-        D_800A0530_A1130 = 0x10001;
+        D_800A0530_main = 0x10001;
         return;
     }
 

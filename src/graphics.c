@@ -19,12 +19,12 @@ extern u64 *gThread3Stack;
 
 extern Gfx gTaskDataPointers[];
 
-extern s32 D_800CC0A4_CCCA4;
+extern s32 D_800CC0A4_main;
 extern void *nextFrameBuffer;
 extern void *currFrameBuffer;
 
 extern s32 *gUCodeAddresses;
-extern u32 D_800B19A0_B25A0; // message count?
+extern u32 D_800B19A0_main; // message count?
 
 extern OSMesgQueue gSwapChainMesgQueue;
 extern void *gSwapChainInitMesg;
@@ -33,16 +33,16 @@ extern s16 gSwapChainMesgTotal;
 extern OSMesgQueue gMesgQueue;
 extern void *gMesgQueueInitMesg;
 
-extern u32 D_800D2094_D2C94;         // Unk
-extern OSMesgQueue D_800CC3C0_CCFC0; // Another system's message queue
+extern u32 D_800D2094_main;         // Unk
+extern OSMesgQueue D_800CC3C0_main; // Another system's message queue
 
 /* Initialize Graphics SwapChain */
 
-void func_8000EA10_F610(void **arg1, s32 arg2, s32 arg3, u64 **arg4, s32 *arg5) {
-    func_8000F024_FC24(arg1, arg2, arg3);
-    func_8000F04C_FC4C(arg4);
-    func_8000F088_FC88(arg5);
-    func_8000F094_FC94(0);
+void func_8000EA10_main(void **arg1, s32 arg2, s32 arg3, u64 **arg4, s32 *arg5) {
+    func_8000F024_main(arg1, arg2, arg3);
+    func_8000F04C_main(arg4);
+    func_8000F088_main(arg5);
+    func_8000F094_main(0);
 
     swapChainTask.mesgQueue.mtqueue = (OSThread *)&gMesgQueue;
     swapChainTask.task.t.type = 1;
@@ -58,17 +58,17 @@ void func_8000EA10_F610(void **arg1, s32 arg2, s32 arg3, u64 **arg4, s32 *arg5) 
 
     gSwapChainMesgTotal = 0;
     ringBufferIndex = 0;
-    D_800CC0A4_CCCA4 = 0;
+    D_800CC0A4_main = 0;
     nextFrameBuffer = 0;
     currFrameBuffer = 0;
     osCreateMesgQueue(&gSwapChainMesgQueue, &gSwapChainInitMesg, 0x40);
     osCreateMesgQueue(&gMesgQueue, &gMesgQueueInitMesg, 8);
-    osCreateThread(&swapChainThread, 0x10, &func_8000EBEC_F7EC, NULL, &swapChainStack, 0x64);
+    osCreateThread(&swapChainThread, 0x10, &func_8000EBEC_main, NULL, &swapChainStack, 0x64);
     osStartThread(&swapChainThread);
 }
 
 /* Retrieve available frame buffer (triple buffering?) */
-void *func_8000EB60_F760(void) {
+void *func_8000EB60_main(void) {
     void *current;
     void *next;
     void *fBuffer;
@@ -89,7 +89,7 @@ void *func_8000EB60_F760(void) {
 }
 
 /* Swap Chain Loop */
-void func_8000EBEC_F7EC(void *arg0) {
+void func_8000EBEC_main(void *arg0) {
     unkSchedStruct sp10;
     OSMesgQueue mesgQueue;
     unkGraphicsMessage2 sp38;
@@ -122,13 +122,13 @@ void func_8000EBEC_F7EC(void *arg0) {
                 while (TRUE)
                     ;
             } // Infinite loop?
-            if ((D_800D2094_D2C94 - var_s4) < D_800B19A0_B25A0) {
+            if ((D_800D2094_main - var_s4) < D_800B19A0_main) {
                 goto recvmesg;
             }
 
-            var_s4 = D_800D2094_D2C94;
-            func_8004D85C_4E45C();
-            pAvailableFrameBuffer = (void *)func_8000EB60_F760();
+            var_s4 = D_800D2094_main;
+            func_8004D85C_main();
+            pAvailableFrameBuffer = (void *)func_8000EB60_main();
         } while (pAvailableFrameBuffer == NULL);
 
         currFrameBuffer = nextFrameBuffer;
@@ -155,7 +155,7 @@ void func_8000EBEC_F7EC(void *arg0) {
                     pTask->t.ucode = (u64 *)*((recvdMesg->unk04 * 2) + gUCodeAddresses);            // offset     (data pairs?)
                     pTask->t.ucode_data = (u64 *)*(((recvdMesg->unk04 * 2) | 1) + gUCodeAddresses); // offset + 1
 
-                    osSendMesg(&D_800CC3C0_CCFC0, (OSMesg)pSwapChain, 1);
+                    osSendMesg(&D_800CC3C0_main, (OSMesg)pSwapChain, 1);
                     osRecvMesg(&gMesgQueue, NULL, 1);
 
                     intMask = osSetIntMask(1);
@@ -170,12 +170,12 @@ void func_8000EBEC_F7EC(void *arg0) {
             } while (!((s32)recvdMesg->unk08 & 1));
         } while (FALSE);
 
-        for (i = 1; i < D_800B19A0_B25A0; i++) {
+        for (i = 1; i < D_800B19A0_main; i++) {
             osRecvMesg(&mesgQueue, NULL, 1);
         }
 
         osViSwapBuffer(pAvailableFrameBuffer);
-        if (D_800CC0A4_CCCA4 == 0) {
+        if (D_800CC0A4_main == 0) {
             if (osRecvMesg(&mesgQueue2, NULL, 0) == 0) {
                 while (TRUE)
                     ;
@@ -183,13 +183,13 @@ void func_8000EBEC_F7EC(void *arg0) {
             osViSetYScale(1.0f);
             osViBlack(0);
         }
-        D_800CC0A4_CCCA4++;
-        func_8004D878_4E478(); // empty function
+        D_800CC0A4_main++;
+        func_8004D878_main(); // empty function
     }
 }
 
 /* Retrieve graphics OSMesg from ring buffer */
-graphicsMessage *func_8000EF10_FB10(void) {
+graphicsMessage *func_8000EF10_main(void) {
     if (ringBufferIndex >= 0x40) {
         ringBufferIndex = 0;
     }
@@ -197,7 +197,7 @@ graphicsMessage *func_8000EF10_FB10(void) {
 }
 
 /* Send graphics OSMesg */
-u8 func_8000EF64_FB64(s32 arg0, u16 arg1, s32 arg2, OSMesgQueue *arg3, s32 arg4) {
+u8 func_8000EF64_main(s32 arg0, u16 arg1, s32 arg2, OSMesgQueue *arg3, s32 arg4) {
     graphicsMessage *mesg;
     u32 intMask;
 
@@ -208,7 +208,7 @@ u8 func_8000EF64_FB64(s32 arg0, u16 arg1, s32 arg2, OSMesgQueue *arg3, s32 arg4)
     intMask = osSetIntMask(1);
     gSwapChainMesgTotal++;
     osSetIntMask(intMask);
-    mesg = func_8000EF10_FB10();
+    mesg = func_8000EF10_main();
 
     /* Initialize message. */
     mesg->unk00 = arg0;
@@ -222,19 +222,19 @@ u8 func_8000EF64_FB64(s32 arg0, u16 arg1, s32 arg2, OSMesgQueue *arg3, s32 arg4)
 }
 
 /* Init graphics frame buffer pool */
-void func_8000F024_FC24(void **pool, u16 size, u16 segment) {
+void func_8000F024_main(void **pool, u16 size, u16 segment) {
     frameBufferPool = pool;
     frameBufferCount = size;
     frameBufferSegmentID = segment;
 }
 
 /* Reset frame buffer pool size. (Switch between double and triple buffering) */
-void func_8000F040_FC40(u16 size) {
+void func_8000F040_main(u16 size) {
     frameBufferCount = size;
 }
 
 /* Initialize gThreadStacks */
-void func_8000F04C_FC4C(u64 **threadStacks) {
+void func_8000F04C_main(u64 **threadStacks) {
     gThread3Stack = *threadStacks++;
     gThreadOutStack = *threadStacks++;
     gThreadOutStackSize = *threadStacks++;
@@ -242,11 +242,11 @@ void func_8000F04C_FC4C(u64 **threadStacks) {
 }
 
 /* Set pointer to swapchain task's ucode addresses */
-void func_8000F088_FC88(s32 *uCodeAdresses) {
+void func_8000F088_main(s32 *uCodeAdresses) {
     gUCodeAddresses = uCodeAdresses;
 }
 
 /* Swap chain state set? */
-void func_8000F094_FC94(u32 arg0) {
-    D_800B19A0_B25A0 = arg0;
+void func_8000F094_main(u32 arg0) {
+    D_800B19A0_main = arg0;
 }
