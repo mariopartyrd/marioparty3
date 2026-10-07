@@ -56,7 +56,7 @@ typedef struct UnkDiceRelated {
     /* 0x2A */ s16        unk2A;
     /* 0x2C */ void      *unk_2C;      // DataRead blob
     /* 0x30 */ void      *unk_30;      // DataRead blob
-    /* 0x34 */ DiceInstance *dice;
+    /* 0x34 */ omObjData *dice;
     /* 0x38 */ omObjData *unk_38;
     /* 0x3C */ omObjData *omObj;
     /* 0x40 */ f32 unk40;                           /* inferred */

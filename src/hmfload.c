@@ -1,6 +1,7 @@
 #include "common.h"
 #include "math.h"
 #include "mallocblock.h"
+#include "gcc/string.h"
 
 typedef struct {
     u8 unk00;
@@ -992,7 +993,6 @@ void func_80010AF8_main(HmfLoadData *hmf, s16 objectIndex, s16 linkIndex, s16 fa
     s16 pointCount;
     u16 flags;
     s16 v;
-    s16 count;
     s16 minX;
     s16 minY;
     s16 minZ;
@@ -1002,7 +1002,6 @@ void func_80010AF8_main(HmfLoadData *hmf, s16 objectIndex, s16 linkIndex, s16 fa
     s16 i;
     s16 j;
 
-    count = linkIndex;
     if (hmf->unk14 == 0) {
         return;
     }

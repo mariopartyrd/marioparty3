@@ -193,7 +193,7 @@ void func_8004DFD8_main(void) {
 void func_8004DFE4_main(s16 arg0, u8 *src) {
     u8 *dst;
 
-    if (strline[arg0].str) {
+    if ((u32)strline[arg0].str != 0) {
         dst = strline[arg0].str;
         while (*src != '\0') {
             *dst++ = *src++;

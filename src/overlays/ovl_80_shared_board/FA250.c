@@ -1626,6 +1626,7 @@ s32 MBMasuCreate(s32 arg0, s32 arg1) {
             var_s1->event_list = NULL;
             var_s1 += 1;
         }
+        (void)sp10; // Suppress unused variable warning
         D_80105218_shared_board = HuMemMemoryAllocTemp(D_80105212_shared_board * 8);
         temp_s3 = func_800EAE00_shared_board(D_801012C0_shared_board, 6);
         var_s1_2 = D_80105218_shared_board;
@@ -1866,7 +1867,7 @@ static void func_800EB8BC_shared_board(void) {
     f32 var_f20;
     Process* proc =  HuPrcCurrentGet();
 
-    temp_v0 = MBMasuGet((s16)proc->user_data);
+    temp_v0 = MBMasuGet((s16)(s32)proc->user_data);
     temp_f22 = temp_v0->rot.x;
     var_f20 = temp_f22 + 0.03f;
     if (D_801012C0_shared_board != 0) {
@@ -1890,7 +1891,7 @@ static void func_800EB8BC_shared_board(void) {
 }
 
 void func_800EB97C_shared_board(s16 arg0) {
-    omAddPrcObj(func_800EB8BC_shared_board, 0xEF00, 0, 0)->user_data = (void* ) arg0;
+    omAddPrcObj(func_800EB8BC_shared_board, 0xEF00, 0, 0)->user_data = (void *)(s32)arg0;
 }
 
 static void MBMasuEventSet(s16 arg0, void *arg1) {

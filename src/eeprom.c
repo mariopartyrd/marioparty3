@@ -160,12 +160,10 @@ INCLUDE_ASM("asm/nonmatchings/eeprom", DestroyEeprom);
 
 u16 CalcChecksumEeprom(u8 *data, u16 startIndex, u16 size) {
     u16 checksum = 0;
-    u16 remainingBytes = size - 1;
 
     while (size--) {
         checksum += data[startIndex];
         startIndex += 1;
-        remainingBytes += 0xFFFF;
     }
 
     return ~checksum;

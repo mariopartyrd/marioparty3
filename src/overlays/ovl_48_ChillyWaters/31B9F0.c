@@ -6013,7 +6013,7 @@ void func_8011BF3C_ChillyWaters(void) {
     Process *proc;
     SpaceData *space;
     s32 sprId;
-    u16* motId;
+    s32 motId;
     f32 angle;
     s32 i;
     u32 j;
@@ -6110,8 +6110,8 @@ void func_8011BF3C_ChillyWaters(void) {
     //TODO: this is all kinds of a mess, what was this originally?
     MOTION_ID_GET(6, temp, j);
     
-    MBPlayerMotionLoad(GwSystem.current_player_index, 5, (s32)motId);
-    MBPlayerMotionLoad(GwSystem.boardData.halfWordBytes[0], 5, (s32)motId);
+    MBPlayerMotionLoad(GwSystem.current_player_index, 5, motId);
+    MBPlayerMotionLoad(GwSystem.boardData.halfWordBytes[0], 5, motId);
     func_800F2388_shared_board(-1, -1, 0, 5, 2);
     MBMotionShiftSet(otherObj, -1, 0, 5, 2);
 
@@ -6263,7 +6263,6 @@ s32 func_8011CE94_ChillyWaters(void) {
     GW_PLAYER* temp_s3;
     s32 var_s1_2;
     s32 temp_v0;
-    s32 var_s1;
     s32 var_s2;
     s32 var_s2_2;
     s32 temp_s0;
@@ -6277,12 +6276,8 @@ s32 func_8011CE94_ChillyWaters(void) {
     for (i = 0; i < 16; i++) {
         temp_s0 = D_8011F7E0_ChillyWaters[temp_s3->chr][i];
         var_s2 = func_8010B394_ChillyWaters(temp_s0);
-        if (var_s2 == -1) {
-            var_s1++;
-        } else if (D_80100F94_shared_board[temp_s0] + 20 > (GwPlayer[system->current_player_index].coin)) {
-            var_s1++;
-        } else if ((MBRandCheck100(D_8011F880_ChillyWaters[temp_s3->chr][i]))) {
-            var_s1++;
+        if (var_s2 != -1 && D_80100F94_shared_board[temp_s0] + 20 <= GwPlayer[system->current_player_index].coin &&
+            MBRandCheck100(D_8011F880_ChillyWaters[temp_s3->chr][i])) {
             break;
         }
     }

@@ -387,7 +387,7 @@ s32 MBItemKettouExec(void) {
 
     GwSystem.unk_58 = ~(1 << MBPlayerTurnGet());
     GwSystem.playerIndexVisitingBowser = ((1 << MBPlayerTurnGet()) | 0x8000);
-    temp_v0 = MBKettouExec(MBPlayerGet(CUR_PLAYER)); //intentionally implicit; required (this is supposed to have 2 args)
+    temp_v0 = MBKettouExec(MBPlayerGet(CUR_PLAYER)); // The original call omits the second argument.
 
     if (temp_v0 != 0) {
         if (temp_v0 == 1) {
