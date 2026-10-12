@@ -2,8 +2,8 @@
 #include "decode.h"
 #include "rom.h"
 
-u8 __attribute__((aligned(16))) readBuffer[1024]; // src copy
-u8 __attribute__((aligned(16))) textBuffer[1024]; // window
+static u8 readBuffer[1024]; // src copy
+static u8 textBuffer[1024]; // window
 
 void HuDecodeNone(DecodeStruct *decode) {
     s32 copyLen;

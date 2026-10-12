@@ -251,48 +251,48 @@ typedef union {
     f32 single;
 } HmfFloatBits;
 
-extern u8 *D_800B19B0_B25B0;
-extern u8 *D_800B19B4_B25B4;
-extern u8 *D_800B19B8_B25B8;
-extern u8 *D_800B19BC_B25BC;
-extern u8 *D_800B19C0_B25C0;
-extern u8 *D_800B19C4_B25C4;
-extern u8 *D_800B19C8_B25C8;
-extern u8 *D_800B19CC_B25CC;
-extern u8 *D_800B19D0_B25D0;
-extern u8 D_800CB8B0_CC4B0;
-extern u8 D_800CCF85_CDB85;
-extern s16 D_800A0544_A1144;
-extern s16 D_800CDD6A_CE96A;
-extern s16 D_800D5204_D5E04;
+extern u8 *D_800B19B0_main;
+extern u8 *D_800B19B4_main;
+extern u8 *D_800B19B8_main;
+extern u8 *D_800B19BC_main;
+extern u8 *D_800B19C0_main;
+extern u8 *D_800B19C4_main;
+extern u8 *D_800B19C8_main;
+extern u8 *D_800B19CC_main;
+extern u8 *D_800B19D0_main;
+extern u8 D_800CB8B0_main;
+extern u8 D_800CCF85_main;
+extern s16 D_800A0544_main;
+extern s16 D_800CDD6A_main;
+extern s16 D_800D5204_main;
 
 void osSyncPrintf(const char *fmt, ...);
-void func_80017D24_18924(f32 *, f32, f32, f32);
-void func_8001866C_1926C(f32 *, f32, f32, f32);
-void func_80018978_19578(f32 *, f32, f32, f32);
-void func_80088910_89510(f32 *, f32, f32, f32);
-s16 func_8000FA34_10634(HmfLoadData *, void *);
-s16 func_8000FDAC_109AC(void *, s16);
-void func_8000FEE4_10AE4(HmfLoadData *);
-s16 func_800100EC_10CEC(HmfLoadData *);
-s16 func_8001052C_1112C(HmfLoadData *);
-s16 func_8001073C_1133C(HmfLoadData *, u16, void *);
-u8 *func_80010A38_11638(s32, void *, void *);
-void *func_80010AC8_116C8(void *);
-void func_80010AF8_116F8(HmfLoadData *, s16, s16, s16);
-void func_80010EB0_11AB0(HmfFaceData *, u8 *, HmfLoadData *, u16 *);
-void func_8001116C_11D6C(s8 *, u16 *, u16 *, u16 *);
-HmfData_Unk84_Entry2 *func_80031A08_32608(HmfLoadData *, s16);
-s16 func_80011334_11F34(HmfLoadData *, void *, s16);
-s32 func_800114C0_120C0(HmfLoadData *);
-s32 func_80011874_12474(HmfLoadData *);
-void func_80011B94_12794(HmfLoadData *, void *, s16);
-s32 func_80011C40_12840(HmfLoadData *, void *);
-void func_80011F9C_12B9C(HmfLoadData *);
-void func_8001203C_12C3C(HmfLoadData *, u8 *, s32);
-void func_8002CAE4_2D6E4(HmfLoadData *);
-void func_80031630_32230(HmfLoadData *);
-void func_800339D0_345D0(HmfLoadData *);
+void func_80017D24_main(f32 *, f32, f32, f32);
+void func_8001866C_main(f32 *, f32, f32, f32);
+void func_80018978_main(f32 *, f32, f32, f32);
+void func_80088910_main(f32 *, f32, f32, f32);
+s16 func_8000FA34_main(HmfLoadData *, void *);
+s16 func_8000FDAC_main(void *, s16);
+void func_8000FEE4_main(HmfLoadData *);
+s16 func_800100EC_main(HmfLoadData *);
+s16 func_8001052C_main(HmfLoadData *);
+s16 func_8001073C_main(HmfLoadData *, u16, void *);
+u8 *func_80010A38_main(s32, void *, void *);
+void *func_80010AC8_main(void *);
+void func_80010AF8_main(HmfLoadData *, s16, s16, s16);
+void func_80010EB0_main(HmfFaceData *, u8 *, HmfLoadData *, u16 *);
+void func_8001116C_main(s8 *, u16 *, u16 *, u16 *);
+HmfData_Unk84_Entry2 *func_80031A08_main(HmfLoadData *, s16);
+s16 func_80011334_main(HmfLoadData *, void *, s16);
+s32 func_800114C0_main(HmfLoadData *);
+s32 func_80011874_main(HmfLoadData *);
+void func_80011B94_main(HmfLoadData *, void *, s16);
+s32 func_80011C40_main(HmfLoadData *, void *);
+void func_80011F9C_main(HmfLoadData *);
+void func_8001203C_main(HmfLoadData *, u8 *, s32);
+void func_8002CAE4_main(HmfLoadData *);
+void func_80031630_main(HmfLoadData *);
+void func_800339D0_main(HmfLoadData *);
 
 void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
     s16 i;
@@ -320,15 +320,15 @@ void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
     hmf->unk34 = file + 0xC;
     hmf->unk30 = hmf->unk2C + (hmf->unk2C[5] << 0x10) + (hmf->unk2C[6] << 8) + hmf->unk2C[7] + 8;
 
-    D_800B19B4_B25B4 = func_80010A38_11638(0x56545831, hmf->unk34, hmf->unk30);
-    D_800B19B8_B25B8 = func_80010A38_11638(0x46414331, hmf->unk34, hmf->unk30);
-    D_800B19BC_B25BC = func_80010A38_11638(0x4F424A31, hmf->unk34, hmf->unk30);
-    D_800B19C0_B25C0 = func_80010A38_11638(0x4D415431, hmf->unk34, hmf->unk30);
-    D_800B19C4_B25C4 = func_80010A38_11638(0x434F4C31, hmf->unk34, hmf->unk30);
-    D_800B19C8_B25C8 = func_80010A38_11638(0x41545231, hmf->unk34, hmf->unk30);
-    D_800B19CC_B25CC = func_80010A38_11638(0x4D544E31, hmf->unk34, hmf->unk30);
-    D_800B19D0_B25D0 = func_80010A38_11638(0x53545247, hmf->unk34, hmf->unk30);
-    hmf->unk38 = func_80010A38_11638(0x4D415031, hmf->unk34, hmf->unk30);
+    D_800B19B4_main = func_80010A38_main(0x56545831, hmf->unk34, hmf->unk30);
+    D_800B19B8_main = func_80010A38_main(0x46414331, hmf->unk34, hmf->unk30);
+    D_800B19BC_main = func_80010A38_main(0x4F424A31, hmf->unk34, hmf->unk30);
+    D_800B19C0_main = func_80010A38_main(0x4D415431, hmf->unk34, hmf->unk30);
+    D_800B19C4_main = func_80010A38_main(0x434F4C31, hmf->unk34, hmf->unk30);
+    D_800B19C8_main = func_80010A38_main(0x41545231, hmf->unk34, hmf->unk30);
+    D_800B19CC_main = func_80010A38_main(0x4D544E31, hmf->unk34, hmf->unk30);
+    D_800B19D0_main = func_80010A38_main(0x53545247, hmf->unk34, hmf->unk30);
+    hmf->unk38 = func_80010A38_main(0x4D415031, hmf->unk34, hmf->unk30);
 
     hmf->unk16 = 0;
     hmf->unk14 = 0;
@@ -345,24 +345,24 @@ void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
     hmf->unkCC = NULL;
     hmf->unkD0 = NULL;
 
-    D_800B19B0_B25B0 = func_80010A38_11638(0x4D4F4445, hmf->unk34, hmf->unk30);
-    func_80011F9C_12B9C(hmf);
-    if (D_800B19B4_B25B4 != NULL) {
-        func_8000FEE4_10AE4(hmf);
+    D_800B19B0_main = func_80010A38_main(0x4D4F4445, hmf->unk34, hmf->unk30);
+    func_80011F9C_main(hmf);
+    if (D_800B19B4_main != NULL) {
+        func_8000FEE4_main(hmf);
     }
-    if (D_800B19C0_B25C0 != NULL) {
-        func_800100EC_10CEC(hmf);
+    if (D_800B19C0_main != NULL) {
+        func_800100EC_main(hmf);
     }
-    D_800CCF85_CDB85 = flags;
-    func_80031630_32230(hmf);
-    if (D_800B19C8_B25C8 != NULL) {
-        func_8001052C_1112C(hmf);
+    D_800CCF85_main = flags;
+    func_80031630_main(hmf);
+    if (D_800B19C8_main != NULL) {
+        func_8001052C_main(hmf);
     }
     hmf->unk90 = NULL;
     hmf->unk8C = NULL;
     hmf->unk98 = NULL;
 
-    record = D_800B19BC_B25BC + 8;
+    record = D_800B19BC_main + 8;
     recordCount = record[0];
     recordCount = (recordCount << 8) + record[1];
     hmf->unk64 = 0;
@@ -407,16 +407,16 @@ void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
     }
 
     if (motionCount != 0) {
-        hmf->unk80 = HuMemAllocTag(recordCount * sizeof(HmfMotionData), D_800CDD6A_CE96A);
+        hmf->unk80 = HuMemAllocTag(recordCount * sizeof(HmfMotionData), D_800CDD6A_main);
     }
 
     if (flags & 0x200000) {
         if (mapCount != 0) {
-            hmf->unkC4 = HuMemAllocTag(mapCount * sizeof(HmfMapData), D_800CDD6A_CE96A);
+            hmf->unkC4 = HuMemAllocTag(mapCount * sizeof(HmfMapData), D_800CDD6A_main);
             hmf->unk26 = mapCount;
         }
         if (extraCount != 0) {
-            hmf->unkBC = HuMemAllocTag(sizeof(HmfData_UnkBC), D_800CDD6A_CE96A);
+            hmf->unkBC = HuMemAllocTag(sizeof(HmfData_UnkBC), D_800CDD6A_main);
         } else {
             hmf->unkBC = NULL;
         }
@@ -427,13 +427,13 @@ void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
 
     if (unk3BCount != 0) {
         hmf->unk20 = unk3BCount;
-        hmf->unkC0 = HuMemAllocTag((unk3BCount * 8) - unk3BCount, D_800CDD6A_CE96A);
+        hmf->unkC0 = HuMemAllocTag((unk3BCount * 8) - unk3BCount, D_800CDD6A_main);
     } else {
         hmf->unkC0 = NULL;
         hmf->unk20 = 0;
     }
 
-    hmf->unk60 = HuMemAllocTag(modelCount * sizeof(HmfObjectData), D_800CDD6A_CE96A);
+    hmf->unk60 = HuMemAllocTag(modelCount * sizeof(HmfObjectData), D_800CDD6A_main);
     record = recordStart;
     hmf->unk1C = 0;
     i = 0;
@@ -451,7 +451,7 @@ void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
                 recordStart = record + 5;
                 recordSize = (record[0] << 8) + record[1];
                 linkIndex = (record[6] << 8) + record[7];
-                hmf->unk60[objectIndex].unk26 = func_80011334_11F34(hmf, &hmf->unk60[objectIndex], (record[3] << 8) + record[4]);
+                hmf->unk60[objectIndex].unk26 = func_80011334_main(hmf, &hmf->unk60[objectIndex], (record[3] << 8) + record[4]);
                 data = &hmf->unk60[objectIndex];
                 vertexCount = (record[8] << 8) + record[9];
                 data->unk22 = vertexCount;
@@ -460,7 +460,7 @@ void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
                 hmf->unk60[objectIndex].unk58 = NULL;
                 hmf->unk60[objectIndex].unk20 = -1;
                 if (hmf->unk14 != 0) {
-                    func_80010AF8_116F8(hmf, objectIndex, linkIndex, vertexCount);
+                    func_80010AF8_main(hmf, objectIndex, linkIndex, vertexCount);
                     if (vertexCount != 0) {
                         hmf->unk60[objectIndex].unk1C = hmf->unk60[objectIndex].unk54->unk33;
                     } else {
@@ -469,7 +469,7 @@ void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
                 }
                 attrMask = hmf->unk60[objectIndex].unk50 & 0x10000;
                 hmf->unk60[objectIndex].unk24 = 0;
-                if (((D_800CB8B0_CC4B0 != 0) & (recordSize >= 0x3A)) && recordStart[0x35] != 0 && recordStart[0x36] == 0) {
+                if (((D_800CB8B0_main != 0) & (recordSize >= 0x3A)) && recordStart[0x35] != 0 && recordStart[0x36] == 0) {
                     if (recordSize == 0x3E) {
                         hmf->unk60[objectIndex].unk50 = (recordStart[0x37] << 0x18) | (recordStart[0x39] << 8) | recordStart[0x3A] | attrMask;
                     } else {
@@ -482,18 +482,18 @@ void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
             }
 
             case 0x10:
-                func_8000FA34_10634(hmf, record + 5);
+                func_8000FA34_main(hmf, record + 5);
                 break;
 
             case 0x3D:
-                func_8001073C_1133C(hmf, motionCount, record + 5);
+                func_8001073C_main(hmf, motionCount, record + 5);
                 motionCount++;
                 break;
 
             case 0x61: {
                 if (flags & 0x200000) {
-                    hmf->unkC4[mapCount].unk1C = func_80011334_11F34(hmf, &hmf->unkC4[mapCount], (record[3] << 8) + record[4]);
-                    func_80011B94_12794(hmf, record + 5, mapCount);
+                    hmf->unkC4[mapCount].unk1C = func_80011334_main(hmf, &hmf->unkC4[mapCount], (record[3] << 8) + record[4]);
+                    func_80011B94_main(hmf, record + 5, mapCount);
                     mapCount++;
                 }
                 break;
@@ -501,12 +501,12 @@ void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
 
             case 0x5D:
                 if (flags & 0x200000) {
-                    func_80011C40_12840(hmf, record + 5);
+                    func_80011C40_main(hmf, record + 5);
                 }
                 break;
 
             case 0x3B:
-                func_8001203C_12C3C(hmf, record + 5, unk3BCount);
+                func_8001203C_main(hmf, record + 5, unk3BCount);
                 unk3BCount++;
                 break;
         }
@@ -515,12 +515,12 @@ void Hmfload(HmfLoadData *hmf, void *fileData, s32 flags) {
 
     hmf->unk10 = objectIndex;
     hmf->unk16 = motionCount;
-    func_8002CAE4_2D6E4(hmf);
-    func_800339D0_345D0(hmf);
-    func_800114C0_120C0(hmf);
+    func_8002CAE4_main(hmf);
+    func_800339D0_main(hmf);
+    func_800114C0_main(hmf);
 }
 
-void func_8000F978_10578(HmfLoadData *hmf) {
+void func_8000F978_main(HmfLoadData *hmf) {
     s16 i;
 
     if (hmf->unk80 != (HmfMotionData *)-1) {
@@ -539,7 +539,7 @@ void func_8000F978_10578(HmfLoadData *hmf) {
     HuMemFree(hmf->unk60);
 }
 
-s16 func_8000FA34_10634(HmfLoadData *hmf, void *arg1) {
+s16 func_8000FA34_main(HmfLoadData *hmf, void *arg1) {
     u8 *data;
     u8 *argData;
     HmfSkeletonData *entry;
@@ -554,23 +554,23 @@ s16 func_8000FA34_10634(HmfLoadData *hmf, void *arg1) {
     target = (argData[0] << 8) + argData[1];
     data = hmf->unk34;
     while (data < hmf->unk30) {
-        data = func_80010A38_11638(0x534B4C31, data, hmf->unk30);
+        data = func_80010A38_main(0x534B4C31, data, hmf->unk30);
         if (data == NULL) {
             return 0;
         }
         if (((data[8] << 8) + data[9]) == target) {
             break;
         }
-        data = func_80010AC8_116C8(data + 4);
+        data = func_80010AC8_main(data + 4);
     }
 
     count = data[0xA];
     hmf->unk64 = count;
-    hmf->unk68 = HuMemAllocTag(count * sizeof(HmfSkeletonData), D_800CDD6A_CE96A);
+    hmf->unk68 = HuMemAllocTag(count * sizeof(HmfSkeletonData), D_800CDD6A_main);
     data += 0xB;
     for (i = 0; i < count; i++) {
         entry = &hmf->unk68[i];
-        entry->unk00 = func_8000FDAC_109AC(hmf, (data[1] << 8) + data[2]);
+        entry->unk00 = func_8000FDAC_main(hmf, (data[1] << 8) + data[2]);
         entry->unk48 = hmf;
         data += (data[0] << 1) + 1;
         value = data[0];
@@ -642,7 +642,7 @@ s16 func_8000FA34_10634(HmfLoadData *hmf, void *arg1) {
     return count;
 }
 
-s16 func_8000FDAC_109AC(void *arg0, s16 arg1) {
+s16 func_8000FDAC_main(void *arg0, s16 arg1) {
     u8 *base;
     u8 *data;
     s16 recordCount;
@@ -652,7 +652,7 @@ s16 func_8000FDAC_109AC(void *arg0, s16 arg1) {
     s32 mapCount;
     s32 id;
 
-    base = D_800B19BC_B25BC;
+    base = D_800B19BC_main;
     recordCount = (base[8] << 8) + base[9];
     data = base + 0xC;
     i = 0;
@@ -693,7 +693,7 @@ s16 func_8000FDAC_109AC(void *arg0, s16 arg1) {
     return -1;
 }
 
-void func_8000FEE4_10AE4(HmfLoadData *hmf) {
+void func_8000FEE4_main(HmfLoadData *hmf) {
     u8 *data;
     s16 count;
     s16 count2;
@@ -704,16 +704,16 @@ void func_8000FEE4_10AE4(HmfLoadData *hmf) {
     s32 value;
     s16 i;
 
-    data = D_800B19B4_B25B4;
+    data = D_800B19B4_main;
     count = (data[8] << 8) + data[9];
     hmf->unk14 = count;
     count2 = count;
     if (count2 != 0) {
         coordBytes = count2 << 1;
         coordBytes += count2;
-        hmf->unk50 = HuMemAllocTag(coordBytes * 2, D_800D5204_D5E04);
+        hmf->unk50 = HuMemAllocTag(coordBytes * 2, D_800D5204_main);
         coords = hmf->unk50;
-        hmf->unk54 = HuMemAllocTag(coordBytes, D_800D5204_D5E04);
+        hmf->unk54 = HuMemAllocTag(coordBytes, D_800D5204_main);
         colors = hmf->unk54;
         value = data[0xC] << 0x18;
         value += data[0xD] << 0x10;
@@ -738,31 +738,31 @@ void func_8000FEE4_10AE4(HmfLoadData *hmf) {
     }
 }
 
-s16 func_800100EC_10CEC(HmfLoadData *hmf) {
+s16 func_800100EC_main(HmfLoadData *hmf) {
     u8 *records;
     u8 *src;
     HmfData_Unk88_Entry *entry;
     s16 count;
     s16 i;
 
-    count = (D_800B19C0_B25C0[8] << 8) + D_800B19C0_B25C0[9];
+    count = (D_800B19C0_main[8] << 8) + D_800B19C0_main[9];
     if (count == 0) {
-        D_800B19C0_B25C0 = 0;
+        D_800B19C0_main = 0;
         return 0;
     }
     hmf->unk1E = count;
-    hmf->unk88 = HuMemAllocTag(count * sizeof(HmfData_Unk88_Entry), D_800CDD6A_CE96A);
-    records = D_800B19C0_B25C0 + 0xA;
+    hmf->unk88 = HuMemAllocTag(count * sizeof(HmfData_Unk88_Entry), D_800CDD6A_main);
+    records = D_800B19C0_main + 0xA;
     for (i = 0; i < count; ++i) {
         entry = &hmf->unk88[i];
         entry->unk00 = i;
         entry->unk09 = 0;
-        src = D_800B19C4_B25C4 + (((records[0] << 8) + records[1]) * 4 + 0xA);
+        src = D_800B19C4_main + (((records[0] << 8) + records[1]) * 4 + 0xA);
         entry->unk01 = ((f32)src[0] > 255.0f) ? 255 : (u32)(f32)src[0];
         entry->unk02 = ((f32)src[1] > 255.0f) ? 255 : (u32)(f32)src[1];
         entry->unk03 = ((f32)src[2] > 255.0f) ? 255 : (u32)(f32)src[2];
         entry->unk04 = src[3];
-        src = D_800B19C4_B25C4 + (((records[2] << 8) + records[3]) * 4 + 0xA);
+        src = D_800B19C4_main + (((records[2] << 8) + records[3]) * 4 + 0xA);
         entry->unk05 = ((f32)src[0] > 255.0f) ? 255 : (u32)(f32)src[0];
         entry->unk06 = ((f32)src[1] > 255.0f) ? 255 : (u32)(f32)src[1];
         entry->unk07 = ((f32)src[2] > 255.0f) ? 255 : (u32)(f32)src[2];
@@ -778,7 +778,7 @@ s16 func_800100EC_10CEC(HmfLoadData *hmf) {
     return count;
 }
 
-s16 func_8001052C_1112C(HmfLoadData *hmf) {
+s16 func_8001052C_main(HmfLoadData *hmf) {
     u8 *data;
     u8 *colorData;
     HmfData_Unk84_Entry *entry;
@@ -787,10 +787,10 @@ s16 func_8001052C_1112C(HmfLoadData *hmf) {
     s16 i;
     s8 type;
 
-    count = (D_800B19C8_B25C8[8] << 8) + D_800B19C8_B25C8[9];
-    hmf->unk84 = HuMemAllocTag(count * sizeof(HmfData_Unk84_Entry), D_800CDD6A_CE96A);
+    count = (D_800B19C8_main[8] << 8) + D_800B19C8_main[9];
+    hmf->unk84 = HuMemAllocTag(count * sizeof(HmfData_Unk84_Entry), D_800CDD6A_main);
     temp = HuMemAlloc(count * sizeof(s16));
-    data = D_800B19C8_B25C8 + 0xA;
+    data = D_800B19C8_main + 0xA;
     hmf->unk12 = count;
     for (i = 0; i < count; i++) {
         s8 fill;
@@ -798,7 +798,7 @@ s16 func_8001052C_1112C(HmfLoadData *hmf) {
         entry = &hmf->unk84[i];
         type = data[2];
         entry->unk0[0] = type;
-        colorData = D_800B19C4_B25C4 + (((data[3] << 8) + data[4]) * 4 + 0xA);
+        colorData = D_800B19C4_main + (((data[3] << 8) + data[4]) * 4 + 0xA);
         if (type == 0x2B) {
             entry->unk5[0] = colorData[0];
             entry->unk5[1] = colorData[1];
@@ -836,7 +836,7 @@ s16 func_8001052C_1112C(HmfLoadData *hmf) {
                 entry->unk0[2] = 1;
                 break;
         }
-        entry->unkC = func_80031A08_32608(hmf, (data[0xA] << 8) + data[0xB]);
+        entry->unkC = func_80031A08_main(hmf, (data[0xA] << 8) + data[0xB]);
         fill = -1;
         entry->unk3 = fill;
         entry->unk4 = fill;
@@ -847,7 +847,7 @@ s16 func_8001052C_1112C(HmfLoadData *hmf) {
     return count;
 }
 
-s16 func_8001073C_1133C(HmfLoadData *hmf, u16 motionIndex, void *arg2) {
+s16 func_8001073C_main(HmfLoadData *hmf, u16 motionIndex, void *arg2) {
     u8 *data;
     HmfMotionData *entry;
     s16 count;
@@ -861,10 +861,10 @@ s16 func_8001073C_1133C(HmfLoadData *hmf, u16 motionIndex, void *arg2) {
     entry = &hmf->unk80[motionIndex];
     entry->unk00 = count2 = (data[0] << 8) + data[1];
     count = count2;
-    entry->unk50 = HuMemAllocTag(count2 * sizeof(s16), D_800CDD6A_CE96A);
+    entry->unk50 = HuMemAllocTag(count2 * sizeof(s16), D_800CDD6A_main);
     data += 2;
     for (i = 0; i < count; i++) {
-        ((s16 *)entry->unk50)[i] = func_8000FDAC_109AC(hmf, (data[0] << 8) + data[1]);
+        ((s16 *)entry->unk50)[i] = func_8000FDAC_main(hmf, (data[0] << 8) + data[1]);
         data += 2;
     }
     entry->unk54 = hmf;
@@ -939,7 +939,7 @@ s16 func_8001073C_1133C(HmfLoadData *hmf, u16 motionIndex, void *arg2) {
     return count;
 }
 
-u8 *func_80010A38_11638(s32 tag, void *start, void *end) {
+u8 *func_80010A38_main(s32 tag, void *start, void *end) {
     u8 *cur;
     u8 *endPtr;
     s32 value;
@@ -970,7 +970,7 @@ u8 *func_80010A38_11638(s32 tag, void *start, void *end) {
     return NULL;
 }
 
-void *func_80010AC8_116C8(void *arg0) {
+void *func_80010AC8_main(void *arg0) {
     u8 *data;
     s32 value;
 
@@ -983,7 +983,7 @@ void *func_80010AC8_116C8(void *arg0) {
     return data + ((u32)data & 1);
 }
 
-void func_80010AF8_116F8(HmfLoadData *hmf, s16 objectIndex, s16 linkIndex, s16 faceCount) {
+void func_80010AF8_main(HmfLoadData *hmf, s16 objectIndex, s16 linkIndex, s16 faceCount) {
     u8 *record;
     u8 *next;
     HmfFaceData *faces;
@@ -1007,9 +1007,9 @@ void func_80010AF8_116F8(HmfLoadData *hmf, s16 objectIndex, s16 linkIndex, s16 f
         return;
     }
 
-    hmf->unk60[objectIndex].unk54 = (HmfObjectLinkData *)HuMemAllocTag(faceCount * sizeof(HmfFaceData), D_800D5204_D5E04);
+    hmf->unk60[objectIndex].unk54 = (HmfObjectLinkData *)HuMemAllocTag(faceCount * sizeof(HmfFaceData), D_800D5204_main);
     faces = (HmfFaceData *)hmf->unk60[objectIndex].unk54;
-    record = D_800B19B8_B25B8 + 0x10;
+    record = D_800B19B8_main + 0x10;
     for (i = 0; i < linkIndex; i++) {
         if (record[0] == 0x16) {
             next = record + 0x2A;
@@ -1026,7 +1026,7 @@ void func_80010AF8_116F8(HmfLoadData *hmf, s16 objectIndex, s16 linkIndex, s16 f
     flags = 0;
 
     for (i = 0; i < faceCount; i++) {
-        func_80010EB0_11AB0(&faces[i], record, hmf, &flags);
+        func_80010EB0_main(&faces[i], record, hmf, &flags);
         if (record[0] == 0x16) {
             pointCount = 3;
         } else if (record[0] == 0x35) {
@@ -1085,7 +1085,7 @@ void func_80010AF8_116F8(HmfLoadData *hmf, s16 objectIndex, s16 linkIndex, s16 f
     bounds[2] = maxZ;
 }
 
-void func_80010EB0_11AB0(HmfFaceData *arg0, u8 *arg1, HmfLoadData *arg2, u16 *arg3) {
+void func_80010EB0_main(HmfFaceData *arg0, u8 *arg1, HmfLoadData *arg2, u16 *arg3) {
     s32 *values1;
     s32 *values2;
     u8 *colors;
@@ -1150,8 +1150,8 @@ void func_80010EB0_11AB0(HmfFaceData *arg0, u8 *arg1, HmfLoadData *arg2, u16 *ar
     coords1 = &((u16 *)arg2->unk50)[arg0->unk04[0] * 3];
     coords2 = &((u16 *)arg2->unk50)[arg0->unk04[1] * 3];
     coords3 = &((u16 *)arg2->unk50)[arg0->unk04[2] * 3];
-    func_8001116C_11D6C(arg0->unk01, coords1, coords2, coords3);
-    if (D_800B19C0_B25C0 != NULL) {
+    func_8001116C_main(arg0->unk01, coords1, coords2, coords3);
+    if (D_800B19C0_main != NULL) {
         *arg3 |= arg2->unk88[arg0->unk30].unk09;
         if (count == 2) {
             arg0->unk32 = -1;
@@ -1167,7 +1167,7 @@ void func_80010EB0_11AB0(HmfFaceData *arg0, u8 *arg1, HmfLoadData *arg2, u16 *ar
     }
 }
 
-void func_8001116C_11D6C(s8 *arg0, u16 *arg1, u16 *arg2, u16 *arg3) {
+void func_8001116C_main(s8 *arg0, u16 *arg1, u16 *arg2, u16 *arg3) {
     s32 diffX1;
     s32 diffX2;
     s32 diffY1;
@@ -1201,7 +1201,7 @@ void func_8001116C_11D6C(s8 *arg0, u16 *arg1, u16 *arg2, u16 *arg3) {
     arg0[2] = (crossZ != 0.0f) ? (crossZ * scale) : 0.0f;
 }
 
-s16 func_80011334_11F34(HmfLoadData *hmf, void *arg1, s16 index) {
+s16 func_80011334_main(HmfLoadData *hmf, void *arg1, s16 index) {
     u8 *data;
     u8 *src;
     u8 *dst;
@@ -1210,7 +1210,7 @@ s16 func_80011334_11F34(HmfLoadData *hmf, void *arg1, s16 index) {
     s16 j;
     s16 len;
 
-    data = D_800B19D0_B25D0;
+    data = D_800B19D0_main;
     sum = data[8];
     sum = (sum << 8) + data[9];
     if (sum == 0) {
@@ -1250,7 +1250,7 @@ s16 func_80011334_11F34(HmfLoadData *hmf, void *arg1, s16 index) {
     return sum;
 }
 
-s16 func_80011460_12060(u8 *arg0) {
+s16 func_80011460_main(u8 *arg0) {
     s32 sum = 0;
     s16 i = 1;
     u8 c = arg0[0];
@@ -1264,7 +1264,7 @@ s16 func_80011460_12060(u8 *arg0) {
     return sum;
 }
 
-s32 func_800114C0_120C0(HmfLoadData *hmf) {
+s32 func_800114C0_main(HmfLoadData *hmf) {
     u8 *data;
     u8 *src;
     HmfDispData *entry;
@@ -1283,11 +1283,11 @@ s32 func_800114C0_120C0(HmfLoadData *hmf) {
     dispCount = 0;
 
     while (1) {
-        data = func_80010A38_11638(0x44495350, data, hmf->unk30);
+        data = func_80010A38_main(0x44495350, data, hmf->unk30);
         if (data == NULL) {
             break;
         }
-        data = func_80010AC8_116C8(data + 4);
+        data = func_80010AC8_main(data + 4);
         dispCount++;
     }
 
@@ -1297,13 +1297,13 @@ s32 func_800114C0_120C0(HmfLoadData *hmf) {
         return 0;
     }
 
-    hmf->unkB4 = HuMemAllocTag(dispCount * sizeof(HmfDispData), D_800CDD6A_CE96A);
+    hmf->unkB4 = HuMemAllocTag(dispCount * sizeof(HmfDispData), D_800CDD6A_main);
     hmf->unk22 = dispCount;
     data = hmf->unk34;
     dispIndex = 0;
 
     while (1) {
-        data = func_80010A38_11638(0x44495350, data, hmf->unk30);
+        data = func_80010A38_main(0x44495350, data, hmf->unk30);
 
         if (data == NULL) {
             break;
@@ -1311,17 +1311,17 @@ s32 func_800114C0_120C0(HmfLoadData *hmf) {
 
         if (data[0xC] == 0x43) {
             entry = &hmf->unkB4[dispIndex];
-            entry->unk1E = func_80011334_11F34(hmf, entry, (data[8] << 8) + data[9]);
+            entry->unk1E = func_80011334_main(hmf, entry, (data[8] << 8) + data[9]);
             vtxCount = (data[0xA] << 8) + data[0xB];
             count = vtxCount;
             entry->unk1C = count;
             size = vtxCount * 2;
-            indices = HuMemAllocTag(size, D_800CDD6A_CE96A);
+            indices = HuMemAllocTag(size, D_800CDD6A_main);
             entry->unk28 = indices;
             size += vtxCount;
-            coords = HuMemAllocTag(size * 2, D_800CDD6A_CE96A);
+            coords = HuMemAllocTag(size * 2, D_800CDD6A_main);
             entry->unk2C = coords;
-            colors = HuMemAllocTag(size, D_800CDD6A_CE96A);
+            colors = HuMemAllocTag(size, D_800CDD6A_main);
             entry->unk30 = colors;
             entry->unk20 = (data[0xD] << 8) + data[0xE];
             scale.word = (data[0xF] << 0x18) + (data[0x10] << 0x10) + (data[0x11] << 8) + data[0x12];
@@ -1346,14 +1346,14 @@ s32 func_800114C0_120C0(HmfLoadData *hmf) {
                 src += 0xB;
             }
         }
-        data = func_80010AC8_116C8(data + 4);
+        data = func_80010AC8_main(data + 4);
         dispIndex++;
     }
-    func_80011874_12474(hmf);
+    func_80011874_main(hmf);
     return 1;
 }
 
-s32 func_80011874_12474(HmfLoadData *hmf) {
+s32 func_80011874_main(HmfLoadData *hmf) {
     char buf[0x20];
     u8 *data;
     u8 *sub2;
@@ -1372,7 +1372,7 @@ s32 func_80011874_12474(HmfLoadData *hmf) {
     data = hmf->unk34;
     mtnCount = 0;
     while (1) {
-        data = func_80010A38_11638(0x4D544E31, data, hmf->unk30);
+        data = func_80010A38_main(0x4D544E31, data, hmf->unk30);
         if (data == NULL) {
             break;
         }
@@ -1384,18 +1384,18 @@ s32 func_80011874_12474(HmfLoadData *hmf) {
             }
             cur += ((cur[0] << 8) + cur[1]) + 2;
         }
-        data = func_80010AC8_116C8(data + 4);
+        data = func_80010AC8_main(data + 4);
     }
     if (mtnCount == 0) {
         hmf->unkB8 = NULL;
         return 0;
     }
-    hmf->unkB8 = HuMemAllocTag(mtnCount * sizeof(HmfMtnData), D_800CDD6A_CE96A);
+    hmf->unkB8 = HuMemAllocTag(mtnCount * sizeof(HmfMtnData), D_800CDD6A_main);
     hmf->unk24 = mtnCount;
     data = hmf->unk34;
     mtnCount = 0;
     while (1) {
-        data = func_80010A38_11638(0x4D544E31, data, hmf->unk30);
+        data = func_80010A38_main(0x4D544E31, data, hmf->unk30);
         if (data == NULL) {
             break;
         }
@@ -1411,10 +1411,10 @@ s32 func_80011874_12474(HmfLoadData *hmf) {
                 cnt = (cur[2] << 8) + cur[3];
                 count2 = cnt;
                 entry->unk02 = count2;
-                entry->unk04 = HuMemAllocTag(cnt * 2, D_800CDD6A_CE96A);
+                entry->unk04 = HuMemAllocTag(cnt * 2, D_800CDD6A_main);
                 cur += 4;
                 for (k = 0; k < count2; k++) {
-                    id = func_80011334_11F34(hmf, buf, (cur[0] << 8) + cur[1]);
+                    id = func_80011334_main(hmf, buf, (cur[0] << 8) + cur[1]);
                     for (m = 0; m < hmf->unk22; m++) {
                         if (id == hmf->unkB4[m].unk1E && strcmp(hmf->unkB4[m].unk00, buf) == 0) {
                             break;
@@ -1430,12 +1430,12 @@ s32 func_80011874_12474(HmfLoadData *hmf) {
                 mtnCount++;
             }
         }
-        data = func_80010AC8_116C8(data + 4);
+        data = func_80010AC8_main(data + 4);
     }
     return 1;
 }
 
-void func_80011B94_12794(HmfLoadData *hmf, void *arg1, s16 index) {
+void func_80011B94_main(HmfLoadData *hmf, void *arg1, s16 index) {
     u8 *data;
     HmfMapData *entry;
     s32 value;
@@ -1451,7 +1451,7 @@ void func_80011B94_12794(HmfLoadData *hmf, void *arg1, s16 index) {
     entry->unk28 = value + data[11];
 }
 
-s32 func_80011C40_12840(HmfLoadData *hmf, void *arg1) {
+s32 func_80011C40_main(HmfLoadData *hmf, void *arg1) {
     char buf[0x20];
     u8 *data;
     HmfData_UnkBC *env;
@@ -1461,7 +1461,7 @@ s32 func_80011C40_12840(HmfLoadData *hmf, void *arg1) {
 
     data = arg1;
     env = hmf->unkBC;
-    id = func_80011334_11F34(hmf, buf, (data[0] << 8) + data[1]);
+    id = func_80011334_main(hmf, buf, (data[0] << 8) + data[1]);
     for (m = 0; m < hmf->unk26; m++) {
         if (id == hmf->unkC4[m].unk1C && strcmp(hmf->unkC4[m].unk00, buf) == 0) {
             break;
@@ -1474,7 +1474,7 @@ s32 func_80011C40_12840(HmfLoadData *hmf, void *arg1) {
     env->unk0C = *(f32 *)&hmf->unkC4[m].unk24;
     env->unk10 = *(f32 *)&hmf->unkC4[m].unk28;
     env->unk00 = m;
-    id = func_80011334_11F34(hmf, buf, (data[2] << 8) + data[3]);
+    id = func_80011334_main(hmf, buf, (data[2] << 8) + data[3]);
     for (m = 0; m < hmf->unk26; m++) {
         if (id == hmf->unkC4[m].unk1C && strcmp(hmf->unkC4[m].unk00, buf) == 0) {
             break;
@@ -1487,7 +1487,7 @@ s32 func_80011C40_12840(HmfLoadData *hmf, void *arg1) {
     env->unk18 = *(f32 *)&hmf->unkC4[m].unk24;
     env->unk1C = *(f32 *)&hmf->unkC4[m].unk28;
     env->unk02 = m;
-    id = func_80011334_11F34(hmf, buf, (data[4] << 8) + data[5]);
+    id = func_80011334_main(hmf, buf, (data[4] << 8) + data[5]);
     for (m = 0; m < hmf->unk26; m++) {
         if (id == hmf->unkC4[m].unk1C && strcmp(hmf->unkC4[m].unk00, buf) == 0) {
             break;
@@ -1513,31 +1513,31 @@ s32 func_80011C40_12840(HmfLoadData *hmf, void *arg1) {
     return 1;
 }
 
-void func_80011F9C_12B9C(HmfLoadData *hmf) {
+void func_80011F9C_main(HmfLoadData *hmf) {
     u8 *data;
     s32 value;
 
-    data = D_800B19B0_B25B0;
+    data = D_800B19B0_main;
     value = data[0xC];
     value <<= 0x18;
     value += data[0xD] << 0x10;
     value += data[0xE] << 8;
     value += data[0xF];
     if (value & 2) {
-        D_800A0544_A1144 = 1;
+        D_800A0544_main = 1;
     } else {
-        D_800A0544_A1144 = 0;
+        D_800A0544_main = 0;
     }
-    if (D_800B19B0_B25B0[0x1C] == 0x45) {
-        hmf->unkD4 = func_80017D24_18924;
-        hmf->unkD8 = func_80088910_89510;
+    if (D_800B19B0_main[0x1C] == 0x45) {
+        hmf->unkD4 = func_80017D24_main;
+        hmf->unkD8 = func_80088910_main;
     } else {
-        hmf->unkD4 = func_8001866C_1926C;
-        hmf->unkD8 = func_80018978_19578;
+        hmf->unkD4 = func_8001866C_main;
+        hmf->unkD8 = func_80018978_main;
     }
 }
 
-void func_8001203C_12C3C(HmfLoadData *hmf, u8 *data, s32 index) {
+void func_8001203C_main(HmfLoadData *hmf, u8 *data, s32 index) {
     u8 *entry;
     u8 *colors;
     HmfFloatBits x;
@@ -1547,7 +1547,7 @@ void func_8001203C_12C3C(HmfLoadData *hmf, u8 *data, s32 index) {
     s32 value;
 
     entry = &((u8 *)hmf->unkC0)[index * 7];
-    colors = &D_800B19C4_B25C4[((data[0] << 8) + data[1]) * 4 + 0xA];
+    colors = &D_800B19C4_main[((data[0] << 8) + data[1]) * 4 + 0xA];
     entry[0] = colors[0];
     entry[1] = colors[1];
     entry[2] = colors[2];

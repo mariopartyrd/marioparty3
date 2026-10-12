@@ -62,7 +62,7 @@ typedef struct HuSprAnm {
 } HuSprAnm; // Size 0x1C
 
 // Loaded cel-animation descriptor and its group/cel entries (built by the data
-// loader, stored in the D_800D0A50_D1650 table).
+// loader, stored in the D_800D0A50_main table).
 typedef struct HuSprAnmEntry {
     /* 0x00 */ u16 unk00;
     /* 0x02 */ u16 unk02;
@@ -165,28 +165,28 @@ typedef struct HuSprGrp {
 
 extern HuSprGrp *HuSprGrpData[HUSPR_GRP_MAX];
 
-void func_80052330_52F30(void);
+void func_80052330_main(void);
 void HuSprGrpKill(s16);
 s16 HuSprGrpCreate(u16 arg0, u16 arg1);
-void func_80054904_55504(s16 group, s16 member, s16 arg2, s16 arg3);
-void func_80054FF8_55BF8(s16 group, s16 member, s32 arg2);
-void func_80055024_55C24(s16 group, s16 member, s16 arg2, u16 arg3);
-void func_800550B4_55CB4(s16 group, s16 member, f32 arg2);
-void func_800550F4_55CF4(s16, s16, s32);
-void func_80055140_55D40(s16, s16, u16, s32);
-u8 func_800551AC_55DAC(s16 group, s16 member);
-HuSprite_Unk84_Struct *func_80055194_55D94(s16 arg0);
+void func_80054904_main(s16 group, s16 member, s16 arg2, s16 arg3);
+void func_80054FF8_main(s16 group, s16 member, s32 arg2);
+void func_80055024_main(s16 group, s16 member, s16 arg2, u16 arg3);
+void func_800550B4_main(s16 group, s16 member, f32 arg2);
+void func_800550F4_main(s16, s16, s32);
+void func_80055140_main(s16, s16, u16, s32);
+u8 func_800551AC_main(s16 group, s16 member);
+HuSprite_Unk84_Struct *func_80055194_main(s16 arg0);
 void HuSprScaleSet(s16 group, s16 member, f32 x, f32 y);
 void HuSprPriSet(s16 group, s16 member, u16 prio);
-void func_800552DC_55EDC(s16, s16, f32);
+void func_800552DC_main(s16, s16, f32);
 void HuSprAttrReset(s16 group, s16 member, s32 attr);
 void HuSprAttrSet(s16 group, s16 member, s32 attr);
-void func_80055420_56020(s16, s16, u8, u8, u8);
-void func_80055458_56058(s16, s16, u16);
-void func_800554C4_560C4(s16 group, s16 member, s16 arg2);
+void func_80055420_main(s16, s16, u8, u8, u8);
+void func_80055458_main(s16, s16, u16);
+void func_800554C4_main(s16 group, s16 member, s16 arg2);
 HuSprite *HuSprGet(s16 group, s16 member);
 void HuSprKill(s16);
-s16 func_80055810_56410(void *);
-void func_80056BAC_577AC(void);
+s16 func_80055810_main(void *);
+void func_80056BAC_main(void);
 
 #endif

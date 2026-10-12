@@ -6,6 +6,7 @@ COMPARE      ?= 1
 NON_MATCHING ?= 0
 CHECK        ?= 1
 VERBOSE      ?= 0
+QUIET        ?= 0
 MOD 		 ?= 0
 
 # Patches
@@ -23,6 +24,15 @@ endif
 
 ifeq ($(VERBOSE),0)
 V := @
+endif
+
+# Progress-message suppression. tools/build.sh passes QUIET=1
+ifeq ($(QUIET),1)
+ECHO := @true                  # swallow the progress message text
+SPLAT_REDIRECT := > /dev/null  # splat logs progress to stdout, warn/error to stderr
+STRIP_NOP_FLAGS := --quiet
+else
+ECHO := @
 endif
 
 ifeq ($(OS),Windows_NT)
@@ -89,7 +99,7 @@ ENDLINE := \n'
 ### Compiler Options ###
 
 ASFLAGS        := -G 0 -I include -mips3 -mabi=32
-CFLAGS         := -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -DOLD_GCC
+CFLAGS         := -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -DOLD_GCC -Wa,--force-n64align
 CPPFLAGS     := -I include -I $(BUILD_DIR)/include -I src -DF3DEX_GBI_2 -D_LANGUAGE_C
 LDFLAGS        := -T undefined_syms.txt -T undefined_funcs_auto.txt -T undefined_syms_auto.txt -T $(LD_SCRIPT) -Map $(LD_MAP) --no-check-sections
 CHECK_WARNINGS := -Wall -Wextra -Wunused-but-set-variable -Wno-format-security -Wno-unused-parameter -Wno-sign-compare -Wno-unused-variable -Wno-pointer-to-int-cast -Wno-int-to-pointer-cast -m32
@@ -114,7 +124,7 @@ DEPENDS := $(OBJECTS:=.d)
 
 ### Targets ###
 
-build/src/libhmath/%.o: CFLAGS := -O2 -G0 -mips3 -mgp32 -mfp32 -ffast-math
+build/src/libhmath/%.o: CFLAGS := -O2 -G0 -mips3 -mgp32 -mfp32 -ffast-math -Wa,--force-n64align
 
 #build/src/libultra/os/%.o: CFLAGS := -O2 $(CFLAGSCOMMON)
 #build/src/libultra/libc/%.o: CFLAGS := -O2 $(CFLAGSCOMMON)
@@ -141,19 +151,19 @@ modsetup: distclean modsplit
 modsplit:
 	$(V)rm -rf asm
 	$(V)$(MOD_OVL_TABLE_INJECT)
-	$(V)$(MOD_SPLAT)
+	$(V)$(MOD_SPLAT)$(SPLAT_REDIRECT)
 	$(V)$(MOD_LINKER_INJECT)
 
 split:
 	$(V)rm -rf asm
-	$(V)$(SPLAT)
+	$(V)$(SPLAT)$(SPLAT_REDIRECT)
 	
 test: $(ROM)
 	$(V)$(EMULATOR) $<
 
 # Flags for individual files. TODO: move these to a common directory and make this a directory thing instead
 build/src/2.0L/audio/%.c.o: OPTFLAGS = -O2
-build/src/2.0L/audio/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_MIPS_SZLONG=32 -D_LANGUAGE_C -DF3DEX_GBI -D__MIPSEB__
+build/src/2.0L/audio/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_MIPS_SZLONG=32 -D_LANGUAGE_C -DF3DEX_GBI -D__MIPSEB__ -Wa,--force-n64align
 build/src/2.0L/audio/%.c.o: CPPFLAGS = -I include -I include/PR -I include/gcc -I $(BUILD_DIR)/include -I src -DNDEBUG -D_MIPS_SZLONG=32 -DF3DEX_GBI_2
 build/src/8A6B0.c.o: OPTFLAGS = -O2 #Could also be -O3?
 build/src/8ACD0.c.o: OPTFLAGS = -O2
@@ -168,19 +178,18 @@ build/src/2.0L/os/jammesg.c.o: OPTFLAGS = -O2
 build/src/2.0L/os/recvmesg.c.o: OPTFLAGS = -O2
 build/src/2.0L/os/sendmesg.c.o: OPTFLAGS = -O2
 build/src/88CF0.c.o: OPTFLAGS = -O2
-build/src/88CF0.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C
+build/src/88CF0.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -Wa,--force-n64align
 
 # Files that have scommon
-build/src/2.0L/gu/lookathil.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
-build/src/gamemes.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
-build/src/hmflight.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
-build/src/pause.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
-build/src/overlays/ovl_31_vine_with_me/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
-build/src/overlays/ovl_36_motor_rooter/system.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
-build/src/overlays/ovl_37_silly_screws/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
-build/src/overlays/ovl_39_tick_tock_hop/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
-build/src/overlays/ovl_80_shared_board/ECA50.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -fno-common
-build/src/overlays/w06/39AD50.c.o: CFLAGS += -fno-common
+build/src/2.0L/gu/lookathil.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -Wa,--force-n64align
+build/src/gamemes.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -Wa,--force-n64align
+build/src/hmflight.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -Wa,--force-n64align
+build/src/pause.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -Wa,--force-n64align
+build/src/overlays/ovl_31_vine_with_me/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -Wa,--force-n64align
+build/src/overlays/ovl_36_motor_rooter/system.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -Wa,--force-n64align
+build/src/overlays/ovl_37_silly_screws/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -Wa,--force-n64align
+build/src/overlays/ovl_39_tick_tock_hop/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -Wa,--force-n64align
+build/src/overlays/ovl_80_shared_board/ECA50.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C -Wa,--force-n64align
 
 # after function calls, we emit these instructions in the .s file including the blank new line
 #    .set    macro
@@ -190,6 +199,8 @@ build/src/overlays/w06/39AD50.c.o: CFLAGS += -fno-common
 NOP_OBJECTS := \
 	build/src/hmfload.c.o \
 	build/src/overlays/ovl_80_shared_board/EC3B0.c.o \
+	build/src/overlays/ovl_80_shared_board/ECA50.c.o \
+	build/src/overlays/ovl_80_shared_board/EDDB0.c.o \
 	build/src/overlays/ovl_80_shared_board/EE660.c.o \
 	build/src/overlays/mgmode/46CC10.c.o \
 	build/src/4BF40.c.o \
@@ -207,22 +218,22 @@ NOP_ASM := $(NOP_OBJECTS:.o=.s)
 
 # .c -> .s  (plus the nop strip)
 $(NOP_ASM): $(BUILD_DIR)/%.c.s: %.c tools/strip_nop.py
-	@$(PRINT)$(YELLOW)Generating asm: $(ENDYELLOW)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(YELLOW)Generating asm: $(ENDYELLOW)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(dir $@)
 	@$(CC_HOST) $(CFLAGS_CHECK) $(CPPFLAGS) -MMD -MP -MT $@ -MF $@.d $<
 	$(V)export COMPILER_PATH=tools/gcc_2.7.2/$(DETECTED_OS) && $(CC) $(OPTFLAGS) $(CFLAGS) $(CPPFLAGS) -S $< -o $@
-	$(V)$(PYTHON) tools/strip_nop.py $@
+	$(V)$(PYTHON) tools/strip_nop.py $@ $(STRIP_NOP_FLAGS)
 
 # .s -> .o
 $(NOP_OBJECTS): $(BUILD_DIR)/%.c.o: $(BUILD_DIR)/%.c.s
-	@$(PRINT)$(YELLOW)Assembling: $(ENDYELLOW)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(YELLOW)Assembling: $(ENDYELLOW)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(dir $@)
 	$(V)export COMPILER_PATH=tools/gcc_2.7.2/$(DETECTED_OS) && $(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 	@$(STRIP) $@ -N dummy-symbol-name
 
 # Compile .c files with kmc gcc (use strip to fix objects so that they can be linked with modern gnu ld) 
 $(BUILD_DIR)/src/%.c.o: src/%.c
-	@$(PRINT)$(GREEN)Compiling C file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(GREEN)Compiling C file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(shell dirname $@)
 	@$(CC_HOST) $(CFLAGS_CHECK) $(CPPFLAGS) -MMD -MP -MT $@ -MF $@.d $<
 	$(V)export COMPILER_PATH=tools/gcc_2.7.2/$(DETECTED_OS) && $(CC) $(OPTFLAGS) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
@@ -230,24 +241,24 @@ $(BUILD_DIR)/src/%.c.o: src/%.c
 
 # Assemble .s files with modern gnu as
 $(BUILD_DIR)/asm/%.s.o: asm/%.s
-	@$(PRINT)$(GREEN)Assembling asm file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(GREEN)Assembling asm file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(shell dirname $@)
 	$(V)$(AS) $(ASFLAGS) -o $@ $<
 
 # Create .o files from .bin files.
 $(BUILD_DIR)/%.bin.o: %.bin
-	@$(PRINT)$(GREEN)objcopying binary file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(GREEN)objcopying binary file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(shell dirname $@)
 	$(V)$(LD) -r -b binary -o $@ $<
 
 # Link the .o files into the .elf
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS)
-	@$(PRINT)$(GREEN)Linking elf file: $(ENDGREEN)$(BLUE)$@$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(GREEN)Linking elf file: $(ENDGREEN)$(BLUE)$@$(ENDBLUE)$(ENDLINE)
 	$(V)$(LD) $(LDFLAGS) -o $@
 
 # Convert the .elf to the final rom
 $(ROM): $(BUILD_DIR)/$(TARGET).elf
-	@$(PRINT)$(GREEN)Creating z64: $(ENDGREEN)$(BLUE)$@$(ENDBLUE)$(ENDLINE)
+	$(ECHO)$(PRINT)$(GREEN)Creating z64: $(ENDGREEN)$(BLUE)$@$(ENDBLUE)$(ENDLINE)
 	$(V)$(OBJCOPY) $< $@ -O binary
 	$(V)$(N64CKSUM) $@
 ifeq ($(COMPARE),1)

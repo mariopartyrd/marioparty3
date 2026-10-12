@@ -173,6 +173,6 @@ typedef struct {
     /* 0x00 */ char unk00[2];
     /* 0x02 */ s16 unk02;
     /* 0x04 */ char unk04[0x14];
-} D_800CCF58_CDB58_Struct; // Size 0x18
+} D_800CCF58_main_Struct; // Size 0x18
 
 #endif

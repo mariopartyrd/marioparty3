@@ -184,8 +184,8 @@ typedef struct UnkBoard7 {
     /* 0x14 */ Vec vel;
 } UnkBoard7; /* size 0x20 */
 
-extern Unk800CD2A0 D_800CD2A0_CDEA0;
-extern omOvlHisData D_800D4190_D4D90;
+extern Unk800CD2A0 D_800CD2A0_main;
+extern omOvlHisData D_800D4190_main;
 
 extern s16 mbDlgWinId;
 extern s32 mbTurnOnF;
@@ -196,14 +196,14 @@ extern s32 mbGameMode;
 extern s32 mbWalkNum;
 extern s16 mbWinId;
 extern omOvlHisData mbovlhis[5];
-extern s32 D_8010197C_11559C_shared_board[];
+extern s32 D_8010197C_shared_board[];
 extern BoardStatus mbStatusData[MB_MAX_PLAYERS]; //TODO: this is 4 right? not 5?
 extern s32 mbCharNameMesTbl[];
-extern Object* D_801011FC_114E1C_shared_board;
-extern omObjData* D_801055E8_119208_shared_board[];
+extern Object* D_801011FC_shared_board;
+extern omObjData* D_801055E8_shared_board[];
 extern s8 HmfPauseF;
-extern s32 D_801055F8_119218_shared_board;
-extern s16 D_80105706_119326_shared_board;
+extern s32 D_801055F8_shared_board;
+extern s16 D_80105706_shared_board;
 extern s16 kakusiMasuCoin;
 extern s16 kakusiMasuStar;
 extern s16 kakusiMasuItem;
@@ -214,6 +214,6 @@ extern s16 mbItemCursorGrpId;
 extern void (*MBItemSubFunctions[22])(void);
 
 //TODO: should these be here?
-extern s16 D_800CE198_CED98;
+extern s16 D_800CE198_main;
 
 #endif //_BOARD_H

@@ -58,35 +58,35 @@ typedef struct TextWindow {
     /* 0x278 */ char pad278[4];                     /* maybe part of unk276[3]? */
 } TextWindow;                                       /* size = 0x27C */
 
-void func_8005A6B0_5B2B0(void);
-s16 func_8005A968_5B568(s16, s16, s16, s16, s32, s16);
-void func_8005B43C_5C03C(s16, s32, s32, s32);
-void func_8005B6BC_5C2BC(s16 win_id, u32 arg1, s8 arg2);
-void func_8005BDFC_5C9FC(s16, s32);
-void func_8005BE30_5CA30(s16, s32);
-void func_8005BEE0_5CAE0(s16, s16);
-void func_8005C02C_5CC2C(s16, s32);
-void func_8005C060_5CC60(s16, s32, s32, s32, s32);
-void func_8005D294_5DE94(s16);
-void func_8005E1A8_5EDA8(s16, s16);
-void func_8005F364_5FF64(s16);
-void func_8005F524_60124(void);
-void func_8005FBF8_607F8(s16, s32, s32, s32);
-void func_8005FE90_60A90(s16);
-void func_8005FFA8_60BA8(s16);
-void func_8006022C_60E2C(u32 mesg, s16);
-void func_80060394_60F94(s32, s16*, s32);
-void func_80061388_61F88(s16);
-void func_80060144_60D44(s16 obj);
-void *func_800364DC_370DC(void *arg0);
-void func_800365E8_371E8(void *ptr);
-s16 func_8005B7B8_5C3B8(s16 win_id, u32 spriteMainFsPair, s16 arg2, s16 arg3, u16 arg4);
-void func_8005BA90_5C690(s16, s16, s16);
-void func_8005BCA4_5C8A4(s16, s16, s16);
-void func_8005DDDC_5E9DC(void);
-void func_8005F904_60504(void);
-void func_800605A4_611A4(u32);
+void func_8005A6B0_main(void);
+s16 func_8005A968_main(s16, s16, s16, s16, s32, s16);
+void func_8005B43C_main(s16, s32, s32, s32);
+void func_8005B6BC_main(s16 win_id, u32 arg1, s8 arg2);
+void func_8005BDFC_main(s16, s32);
+void func_8005BE30_main(s16, s32);
+void func_8005BEE0_main(s16, s16);
+void func_8005C02C_main(s16, s32);
+void func_8005C060_main(s16, s32, s32, s32, s32);
+void func_8005D294_main(s16);
+void func_8005E1A8_main(s16, s16);
+void func_8005F364_main(s16);
+void func_8005F524_main(void);
+void func_8005FBF8_main(s16, s32, s32, s32);
+void func_8005FE90_main(s16);
+void func_8005FFA8_main(s16);
+void func_8006022C_main(u32 mesg, s16);
+void func_80060394_main(s32, s16*, s32);
+void func_80061388_main(s16);
+void func_80060144_main(s16 obj);
+void *func_800364DC_main(void *arg0);
+void func_800365E8_main(void *ptr);
+s16 func_8005B7B8_main(s16 win_id, u32 spriteMainFsPair, s16 arg2, s16 arg3, u16 arg4);
+void func_8005BA90_main(s16, s16, s16);
+void func_8005BCA4_main(s16, s16, s16);
+void func_8005DDDC_main(void);
+void func_8005F904_main(void);
+void func_800605A4_main(u32);
 
-extern TextWindow* D_800CC69C_CD29C;
+extern TextWindow* D_800CC69C_main;
 
 #endif

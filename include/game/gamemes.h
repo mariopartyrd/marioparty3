@@ -55,9 +55,9 @@
 s16 GMesCreate(s16 mesNo, ...);
 s32 GMesStatGet(void);
 void GMesClose(void);
-void func_80037258_37E58(void);
-void func_8003F578_40178(s16);
-void func_8003F5C0_401C0(void);
-void func_80045010_45C10(const s16*, s32);
+void func_80037258_main(void);
+void func_8003F578_main(s16);
+void func_8003F5C0_main(void);
+void func_80045010_main(const s16*, s32);
 
 #endif

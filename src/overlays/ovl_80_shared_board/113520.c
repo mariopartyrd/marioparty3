@@ -3,7 +3,7 @@
 #include "malloc.h"
 #include "mallocblock.h"
 
-extern s8 D_80101E80_115AA0_shared_board[];
+extern s8 D_80101E80_shared_board[];
 
 void MBPlayerVibrate(s16 playerIndex, s16 vibrationStrength) {
     if (playerIndex == CUR_PLAYER) {
@@ -33,7 +33,7 @@ void MBPlayerVibrate(s16 playerIndex, s16 vibrationStrength) {
     }
 }
 
-static void func_800FFA0C_11362C_shared_board(void) {
+static void func_800FFA0C_shared_board(void) {
     UnkVibrateProcess* temp_s0;
 
     temp_s0 = HuPrcCurrentGet()->user_data;
@@ -49,13 +49,13 @@ UnkVibrateProcess* MBPlayerVibrateObjCreate(s16 playerNo, s16 vibrateStrength, s
     UnkVibrateProcess* temp_v0;
     s8 temp;
 
-    temp_s1 = D_80101E80_115AA0_shared_board[vibrateStrength] + sleepTime;
+    temp_s1 = D_80101E80_shared_board[vibrateStrength] + sleepTime;
     temp_v0 = HuMemMemoryAllocTemp(sizeof(UnkVibrateProcess));
     if (temp_v0 != NULL) {
         temp_v0->playerNo = playerNo;
         temp_v0->vibrateStrength = vibrateStrength;
         temp_v0->sleepTime = (temp_s1 - 1);
-        temp_v0_2 = omAddPrcObj(func_800FFA0C_11362C_shared_board, 0x1005, 0, 0);
+        temp_v0_2 = omAddPrcObj(func_800FFA0C_shared_board, 0x1005, 0, 0);
         temp_v0->proc = temp_v0_2;
         temp_v0_2->user_data = temp_v0;
     }

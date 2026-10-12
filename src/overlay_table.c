@@ -1,6 +1,6 @@
 #include "common.h"
 
-u8 D_800962F0_96EF0[] = { 0, 0, 0, 0 };
+u8 D_800962F0_main[] = { 0, 0, 0, 0 };
 
 #define OVL_ENTRY(name)                              \
     { (u32)name##_ROM_START, (u32)name##_ROM_END, name##_VRAM, \

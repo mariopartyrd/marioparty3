@@ -27,6 +27,6 @@ void guOrtho(Mtx *m, float l, float r, float b, float t, float n, float f, float
     guMtxF2L(mf, m);
 }
 
-INCLUDE_RODATA("asm/nonmatchings/2.0L/gu/ortho", D_800A85D8_A91D8);
+INCLUDE_RODATA("asm/nonmatchings/2.0L/gu/ortho", D_800A85D8_main);
 
-INCLUDE_RODATA("asm/nonmatchings/2.0L/gu/ortho", D_800A85DC_A91DC);
+INCLUDE_RODATA("asm/nonmatchings/2.0L/gu/ortho", D_800A85DC_main);

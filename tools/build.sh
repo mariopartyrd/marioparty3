@@ -11,6 +11,7 @@ if [[ -f "venv/bin/activate" ]]; then
 fi
 
 splat=0
+verbose=0
 for arg in "$@"; do
     case "$arg" in
         --clean)
@@ -21,6 +22,9 @@ for arg in "$@"; do
         --splat)
             splat=1
             ;;
+        --verbose)
+            verbose=1
+            ;;
         *)
             echo "Unknown argument: $arg" >&2
             exit 1
@@ -28,8 +32,15 @@ for arg in "$@"; do
     esac
 done
 
-if [[ "$splat" -eq 1 ]]; then
-    make setup
+# Suppress progress output unless --verbose is given. The Makefile only
+# silences progress messages for direct `make` when QUIET=1 is passed.
+quiet=()
+if [[ "$verbose" -eq 0 ]]; then
+    quiet=(QUIET=1)
 fi
 
-exec make -j
+if [[ "$splat" -eq 1 ]]; then
+    make "${quiet[@]}" setup
+fi
+
+exec make -j "${quiet[@]}"

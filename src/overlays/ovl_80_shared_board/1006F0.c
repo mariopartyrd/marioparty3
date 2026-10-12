@@ -12,7 +12,7 @@ typedef struct UnkProcess {
     /* 0x1C */ s32 interpolationTime;
 } UnkProcess;
 
-extern s32 D_80101490_1150B0_shared_board[];
+extern s32 D_80101490_shared_board[];
 
 void MBMasuPosGet(s16 playerNo, s16 spaceIdx, Vec* out) {
     SpaceData* space = MBMasuGet(spaceIdx);
@@ -31,14 +31,14 @@ void MBVecDirGet(Vec *arg0, Vec *arg1, Vec *arg2) {
     MBVecNormalize(arg2);
 }
 
-void func_800ECB90_1007B0_shared_board(s16 playerIdx, Vec* arg1) {
+void func_800ECB90_shared_board(s16 playerIdx, Vec* arg1) {
     Object* playerObj;
 
     playerObj = MBPlayerGet(playerIdx)->player_obj;
     MBVecDirGet(&playerObj->coords, arg1, &playerObj->rot);
 }
 
-void func_800ECBD0_1007F0_shared_board(Object* arg0, s16 arg1) {
+void func_800ECBD0_shared_board(Object* arg0, s16 arg1) {
     MBVecDirGet(&arg0->coords, &MBMasuGet(arg1)->coords, &arg0->rot);
 }
 
@@ -52,13 +52,13 @@ void MBPlayerForwardSet(s16 playerNo) {
     MBVecForwardSet(&MBPlayerGet(playerNo)->player_obj->rot);
 }
 
-void func_800ECC54_100874_shared_board(Object* obj) {
+void func_800ECC54_shared_board(Object* obj) {
     Vec sp10;
     Vec sp20;
 
     HuVecSubtract(&sp10, &gCameraList->pos, &obj->coords);
     HuVecCopyXYZ(&sp20, sp10.x, 0.0f, sp10.z);
-    obj->omObj1->rot.x = -func_800D8DAC_EC9CC_shared_board(&sp10, &sp20);
+    obj->omObj1->rot.x = -func_800D8DAC_shared_board(&sp10, &sp20);
     MBVecDirGet(&obj->coords, &gCameraList->pos, &sp10);
     obj->omObj1->rot.y = MBVecAngleGet(&sp10);
     obj->omObj1->rot.z = 0;
@@ -149,13 +149,13 @@ s16 MBTurnRemain(void) {
     return system->total_turns - system->current_turn + 1;
 }
 
-s32 func_800ECF18_100B38_shared_board(s16 arg0, f32 arg1) {
+s32 func_800ECF18_shared_board(s16 arg0, f32 arg1) {
     Vec sp10;
     s32 var_v0;
 
-    sp10.x = D_800CBB6E_CC76E[arg0];
+    sp10.x = D_800CBB6E_main[arg0];
     sp10.y = 0.0f;
-    sp10.z = D_800D20A1_D2CA1[arg0];
+    sp10.z = D_800D20A1_main[arg0];
     
     if (!(arg1 <= HuVecGetLength3F(&sp10))) {
         var_v0 = 0;
@@ -165,8 +165,8 @@ s32 func_800ECF18_100B38_shared_board(s16 arg0, f32 arg1) {
     return var_v0;
 }
 
-void func_800ECF9C_100BBC_shared_board(s16 arg0) {
-    func_800EDC20_101840_shared_board(D_80101490_1150B0_shared_board[arg0]);
+void func_800ECF9C_shared_board(s16 arg0) {
+    func_800EDC20_shared_board(D_80101490_shared_board[arg0]);
 }
 
 typedef struct UnkVecStruct {
@@ -184,7 +184,7 @@ typedef struct UnkVecStruct2 {
     f32 unk_1C;
 } UnkVecStruct2; //sizeof 0x20
 
-static void func_800ECFC8_100BE8_shared_board(void) {
+static void func_800ECFC8_shared_board(void) {
     UnkVecStruct* temp_s0 = HuPrcCurrentGet()->user_data;
     s32 temp_s1 = temp_s0->unk_1C;
     f32 var_f22 = MBVecAngleGet(&temp_s0->unk_00);
@@ -220,8 +220,8 @@ static void func_800ECFC8_100BE8_shared_board(void) {
     omDelPrcObj(NULL);
 }
 
-Process* func_800ED128_100D48_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 arg3) {
-    Process* temp_v0 = omAddPrcObj(func_800ECFC8_100BE8_shared_board, 0x4002U, 0, 0x80);
+Process* func_800ED128_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 arg3) {
+    Process* temp_v0 = omAddPrcObj(func_800ECFC8_shared_board, 0x4002U, 0, 0x80);
     UnkVecStruct* temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkVecStruct));
 
     temp_v0->user_data = temp_v0_2;
@@ -233,22 +233,22 @@ Process* func_800ED128_100D48_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 
     return temp_v0;
 }
 
-Process* func_800ED1E4_100E04_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 arg3) {
-    Process* proc = func_800ED128_100D48_shared_board(arg0, arg1, arg2, arg3);
+Process* func_800ED1E4_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, s32 arg3) {
+    Process* proc = func_800ED128_shared_board(arg0, arg1, arg2, arg3);
     ((UnkVecStruct*)(proc->user_data))->unk_20 = 1;
     return proc;
 }
 
-void func_800ED20C_100E2C_shared_board(s16 playerNo, s32 arg1, s16 masuAbsIndex) {
+void func_800ED20C_shared_board(s16 playerNo, s32 arg1, s16 masuAbsIndex) {
     GW_PLAYER* player = MBPlayerGet(playerNo);
     Vec sp10;
 
     HuVecSubtract(&sp10, &MBMasuGet(masuAbsIndex)->coords, &player->player_obj->coords);
     MBVecNormalize(&sp10);
-    func_800ED128_100D48_shared_board(&player->player_obj->rot, &sp10, &player->player_obj->rot, arg1);
+    func_800ED128_shared_board(&player->player_obj->rot, &sp10, &player->player_obj->rot, arg1);
 }
 
-void func_800ED290_100EB0_shared_board(omObjData *obj) {
+void func_800ED290_shared_board(omObjData *obj) {
     UnkProcess *temp_s0 = HuPrcCurrentGet()->user_data;
     s32 interpolationTime = temp_s0->interpolationTime;
 
@@ -264,7 +264,7 @@ void func_800ED290_100EB0_shared_board(omObjData *obj) {
 }
 
 Process *MBPlayerPosMoveCreate(Vec *arg0, Vec *arg1, Vec *outVec, s32 interpolationTime) {
-    Process *interpolationProcess = omAddPrcObj(func_800ED290_100EB0_shared_board, 0x4002, 0, 0x50);
+    Process *interpolationProcess = omAddPrcObj(func_800ED290_shared_board, 0x4002, 0, 0x50);
     UnkProcess *temp_v0_2 = HuMemMemoryAlloc(interpolationProcess->heap, sizeof(UnkProcess));
 
     interpolationProcess->user_data = temp_v0_2;
@@ -290,7 +290,7 @@ void MBPlayerPosMoveSet(s16 playerNo, s32 interpolationFrameTotal) {
     HuPrcChildWait();
 }
 
-static void func_800ED518_101138_shared_board(void) {
+static void func_800ED518_shared_board(void) {
     UnkVecStruct2* temp_s0 = HuPrcCurrentGet()->user_data;
     f32 temp_f20 = temp_s0->unk_1C;
     Vec* temp_s1 = &temp_s0->coords;
@@ -308,8 +308,8 @@ static void func_800ED518_101138_shared_board(void) {
     omDelPrcObj(NULL);
 }
 
-Process* func_800ED5E0_101200_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3) {
-    Process* temp_v0 = omAddPrcObj(func_800ED518_101138_shared_board, 0x4002, 0, 0x50);
+Process* func_800ED5E0_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3) {
+    Process* temp_v0 = omAddPrcObj(func_800ED518_shared_board, 0x4002, 0, 0x50);
     UnkVecStruct2* temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkVecStruct2));
 
     temp_v0->user_data = temp_v0_2;
@@ -321,7 +321,7 @@ Process* func_800ED5E0_101200_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 
 }
 
 
-static void func_800ED694_1012B4_shared_board(void) {
+static void func_800ED694_shared_board(void) {
     UnkVecStruct2* temp_s0 = HuPrcCurrentGet()->user_data;
     f32 temp_f20 = temp_s0->unk_1C;
     s32 var_s1 = 0;
@@ -346,8 +346,8 @@ static void func_800ED694_1012B4_shared_board(void) {
     omDelPrcObj(NULL);
 }
 
-Process* func_800ED75C_10137C_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3) {
-    Process* temp_v0 = omAddPrcObj(func_800ED694_1012B4_shared_board, 0x4002, 0, 0x50);
+Process* func_800ED75C_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 arg3) {
+    Process* temp_v0 = omAddPrcObj(func_800ED694_shared_board, 0x4002, 0, 0x50);
     UnkVecStruct2* temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkVecStruct2));
 
     temp_v0->user_data = temp_v0_2;
@@ -358,7 +358,7 @@ Process* func_800ED75C_10137C_shared_board(Vec* arg0, Vec* arg1, Vec* arg2, f32 
     return temp_v0;
 }
 
-void func_800ED810_101430_shared_board(s16 arg0, f32 arg1) {
+void func_800ED810_shared_board(s16 arg0, f32 arg1) {
     Vec sp10;
     Vec sp20;
     GW_PLAYER* temp_v0;
@@ -368,7 +368,7 @@ void func_800ED810_101430_shared_board(s16 arg0, f32 arg1) {
     MBMasuPosGet(arg0, MBMasuLinkMasuIdGet(temp_v0->clink, temp_v0->cidx), &sp10);
     MBMasuPosGet(arg0, MBMasuLinkMasuIdGet(temp_v0->nlink, temp_v0->nidx), &sp20);
     MBVecDirGet(&sp10, &sp20, &temp_v0->player_obj->rot);
-    temp_s0 = func_800ED5E0_101200_shared_board(&sp10, &sp20, &temp_v0->player_obj->coords, arg1);
+    temp_s0 = func_800ED5E0_shared_board(&sp10, &sp20, &temp_v0->player_obj->coords, arg1);
     HuPrcChildLink(HuPrcCurrentGet(), temp_s0);
     HuPrcChildWait();
 }
@@ -412,18 +412,18 @@ void MBMoveBackMasuSet(s16 playerNo, s16 arg1, s16 arg2) {
     }
 }
 
-s32 func_800EDA58_101678_shared_board(void) {
+s32 func_800EDA58_shared_board(void) {
     s32 ret = 0;
 
     GWBoardFlagSet(GwSystem.unk_0E);
     GWBoardFlagSet(0xE);
-    if (func_800F8858_10C478_shared_board() == 1) {
+    if (func_800F8858_shared_board() == 1) {
         if (GWBoardFlagCheck(3) != 0) {
             MBOvlCall(-2, 4, 0x192);
             ret = 1;
         }
     } else if (GWBoardFlagCheck(3) != 0) {
-        func_800FF7C4_1133E4_shared_board(-2, 4, 2);
+        func_800FF7C4_shared_board(-2, 4, 2);
         ret = 1;
     }
     return ret;
@@ -436,7 +436,7 @@ typedef struct UnkUserData {
     f32 velocity;
 } UnkUserData;
 
-static void func_800EDAF0_101710_shared_board(void) {
+static void func_800EDAF0_shared_board(void) {
     UnkUserData* temp_v0 = HuPrcCurrentGet()->user_data;
     Object* temp_s0 = temp_v0->obj;
     f32 temp_f28 = temp_v0->unk_04;
@@ -455,8 +455,8 @@ static void func_800EDAF0_101710_shared_board(void) {
     }
 }
 
-Process* func_800EDB98_1017B8_shared_board(Object* arg0, f32 arg1, f32 arg2) {
-    Process* temp_v0 = omAddPrcObj(func_800EDAF0_101710_shared_board, 0xA, 0, 0x40);
+Process* func_800EDB98_shared_board(Object* arg0, f32 arg1, f32 arg2) {
+    Process* temp_v0 = omAddPrcObj(func_800EDAF0_shared_board, 0xA, 0, 0x40);
     UnkUserData* temp_v0_2 = HuMemMemoryAlloc(temp_v0->heap, sizeof(UnkUserData));
 
     temp_v0->user_data = temp_v0_2;

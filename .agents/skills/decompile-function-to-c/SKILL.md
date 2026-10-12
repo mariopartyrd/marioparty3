@@ -47,6 +47,8 @@ As part of this process, you may discover that you need to make other updates in
 
 You might also discover that, in the process of finding a match for your intended target function, you find you are confident about how to match other functions. This is fine to do, just be clear in how you organize your commits so that it's easy to review the work.
 
+Do not perform web searches in an attempt to "find the answer." We are performing novel work here; there is no answer online.
+
 ## Verifying the C code is a match
 
 The following script builds the ROM and checks if the SHA1 checksum matches the original ROM. If it does, then your C code is a perfect match!

@@ -6,99 +6,99 @@
 #include "mallocblock.h"
 #include "include_asm.h"
 
-s32 func_80023264_23E64(HmfData *);
-extern s32 D_800A0530_A1130;
-extern s32 D_800C9940_CA540;
+s32 func_80023264_main(HmfData *);
+extern s32 D_800A0530_main;
+extern s32 D_800C9940_main;
 
 // graphics.c
-u8 func_8000EF64_FB64(void *arg0, u16 arg1, s32 arg2, void *arg3, s32 arg4);
+u8 func_8000EF64_main(void *arg0, u16 arg1, s32 arg2, void *arg3, s32 arg4);
 
 // hmfload.c
-void func_8000F978_10578(HmfData *);
+void func_8000F978_main(HmfData *);
 
 // 20A20.c
-void func_80021AF4_226F4(void);
+void func_80021AF4_main(void);
 
 // 22EB0.c
-void func_800222B0_22EB0(void *arg0, void *arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5);
-void func_800224BC_230BC(void);
-void func_80022660_23260(HmfData *);
-s16 func_8002C834_2D434(HmfData *, s32);
-void func_8002D260_2DE60(void);
-s32 func_8002D3AC_2DFAC(void *);
-void func_8002D514_2E114(void);
-void func_80030030_30C30(f32);
+void func_800222B0_main(void *arg0, void *arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5);
+void func_800224BC_main(void);
+void func_80022660_main(HmfData *);
+s16 func_8002C834_main(HmfData *, s32);
+void func_8002D260_main(void);
+s32 func_8002D3AC_main(void *);
+void func_8002D514_main(void);
+void func_80030030_main(f32);
 
 // 30C40.c
-void func_80030198_30D98(void);
-s32 func_800300A4_30CA4(void *, void *);
+void func_80030198_main(void);
+s32 func_800300A4_main(void *, void *);
 
 // 32160.c
-void func_80033450_34050(void);
-void func_80033510_34110(void);
+void func_80033450_main(void);
+void func_80033510_main(void);
 
 // 8AC70.c
-void func_8008A070_8AC70(void *);
+void func_8008A070_main(void *);
 
 // unknown
-void func_8000D3AC_DFAC(void);
+void func_8000D3AC_main(void);
 
 extern Gfx *gMainGfxPos;
 
 void Hmfload(HmfData *, void *, s32);
-void *func_80010AC8_116C8(void *);
-void func_8001EF60_1FB60(void);
-s32 func_8001FF04_20B04(s32);
-s32 func_8002D2D8_2DED8(void *, HmfData *);
+void *func_80010AC8_main(void *);
+void func_8001EF60_main(void);
+s32 func_8001FF04_main(s32);
+s32 func_8002D2D8_main(void *, HmfData *);
 
-extern u8 D_800A0540_A1140;
-extern u8 D_800A0541_A1141;
-extern u8 D_800A0542_A1142;
-extern Gfx D_800A09B0_A15B0[];
-extern Gfx D_800A0A08_A1608[];
-extern Gfx D_800A0A38_A1638[];
-extern s16 D_800A0A78_A1678;
-extern s16 D_800C9932_CA532;
-extern s32 D_800C9940_CA540;
-extern u16 D_800CBB72_CC772[];
-extern s8 D_800CC0A8_CCCA8;
-extern s32 D_800CC3D8_CCFD8[];
-extern u16 D_800CD2F6_CDEF6;
-extern s16 D_800CDD6A_CE96A;
-extern u8 D_800CE19A_CED9A;
-extern s8 D_800CE1C6_CEDC6;
-extern u8 D_800CD280_CDE80;
-extern s32 D_800D0444_D1044;
-extern u16 D_800D05A0_D11A0[][128];
-extern s32 D_800D10F4_D1CF4;
-extern s32 D_800D1F70_D2B70;
-extern s32 D_800D1FE8_D2BE8;
-extern s8 D_800D2008_D2C08;
+extern u8 D_800A0540_main;
+extern u8 D_800A0541_main;
+extern u8 D_800A0542_main;
+extern Gfx D_800A09B0_main[];
+extern Gfx D_800A0A08_main[];
+extern Gfx D_800A0A38_main[];
+extern s16 D_800A0A78_main;
+extern s16 D_800C9932_main;
+extern s32 D_800C9940_main;
+extern u16 D_800CBB72_main[];
+extern s8 D_800CC0A8_main;
+extern s32 D_800CC3D8_main[];
+extern u16 D_800CD2F6_main;
+extern s16 D_800CDD6A_main;
+extern u8 D_800CE19A_main;
+extern s8 D_800CE1C6_main;
+extern u8 D_800CD280_main;
+extern s32 D_800D0444_main;
+extern u16 D_800D05A0_main[][128];
+extern s32 D_800D10F4_main;
+extern s32 D_800D1F70_main;
+extern s32 D_800D1FE8_main;
+extern s8 D_800D2008_main;
 extern s8 HmfPauseF;
-extern s16 D_800D20EE_D2CEE;
-extern u16 D_800D5204_D5E04;
+extern s16 D_800D20EE_main;
+extern u16 D_800D5204_main;
 
-const char D_800A6BB8_A77B8[] = "%x\n";
-const char D_800A6BBC_A77BC[] = "Model Entry Over!\n";
+const char D_800A6BB8_main[] = "%x\n";
+const char D_800A6BBC_main[] = "Model Entry Over!\n";
 
-void func_8001A070_1AC70(void *arg0, void *arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5) {
+void func_8001A070_main(void *arg0, void *arg1, u16 arg2, u16 arg3, u16 arg4, u8 arg5) {
     s16 modelId;
 
-    func_800222B0_22EB0(arg0, arg1, arg2, arg3, arg4, arg5);
-    func_8002D260_2DE60();
+    func_800222B0_main(arg0, arg1, arg2, arg3, arg4, arg5);
+    func_8002D260_main();
     HmfModelData = HuMemAlloc(HU3D_MODEL_MAX * sizeof(HmfModel));
     for (modelId = 0; modelId < HU3D_MODEL_MAX; modelId++) {
         HmfModelData[modelId].hmf = NULL;
     }
-    func_800224BC_230BC();
-    D_800D20AC_D2CAC = 0;
-    D_800D1F70_D2B70 = 0;
-    D_800D20EE_D2CEE = 1;
+    func_800224BC_main();
+    D_800D20AC_main = 0;
+    D_800D1F70_main = 0;
+    D_800D20EE_main = 1;
     HmfPauseF = 0;
-    D_800CD280_CDE80 = 1;
-    D_800CC3D8_CCFD8[0] = D_800CC3D8_CCFD8[1] = 0;
-    func_8000D3AC_DFAC();
-    D_800D1FE8_D2BE8 = 0;
+    D_800CD280_main = 1;
+    D_800CC3D8_main[0] = D_800CC3D8_main[1] = 0;
+    func_8000D3AC_main();
+    D_800D1FE8_main = 0;
 }
 
 s16 Hu3DModelCreate(u8 *data, u32 arg1) {
@@ -114,15 +114,15 @@ s16 Hu3DModelCreate(u8 *data, u32 arg1) {
         }
     }
     if (modelId == HU3D_MODEL_MAX) {
-        osSyncPrintf(D_800A6BBC_A77BC);
+        osSyncPrintf(D_800A6BBC_main);
         return -1;
     }
-    D_800D5204_D5E04 = 10000 + modelId * 2;
-    D_800CDD6A_CE96A = 10001 + modelId * 2;
+    D_800D5204_main = 10000 + modelId * 2;
+    D_800CDD6A_main = 10001 + modelId * 2;
     modelP = &HmfModelData[modelId];
     modelP->unk08 = 0xFF;
     hmf = modelP->hmf = HuMemAlloc(sizeof(HmfData));
-    hmf->unk0E = D_800D5204_D5E04;
+    hmf->unk0E = D_800D5204_main;
     if (data[0] == 'M' && data[1] == 'T') {
         hmf->unk14 = 0;
         hmf->unk84 = 0;
@@ -130,37 +130,37 @@ s16 Hu3DModelCreate(u8 *data, u32 arg1) {
         hmf->unkC8 = 0;
         hmf->unk98 = NULL;
         if (data[2] == 'N' && data[3] == 'X') {
-            modelP->unk02 = func_8002D3AC_2DFAC(data);
+            modelP->unk02 = func_8002D3AC_main(data);
             arg1 &= ~(0x10 | 0x1);
         } else {
             var_a1 = data + 8;
             if (data[8] == 'M') {
                 if (data[9] == 'T' && data[10] == 'N' && data[11] == 'X') {
-                    modelP->unk02 = func_8002D3AC_2DFAC(var_a1);
+                    modelP->unk02 = func_8002D3AC_main(var_a1);
                     arg1 &= ~0x11;
-                    var_a1 = func_80010AC8_116C8(data + 12);
+                    var_a1 = func_80010AC8_main(data + 12);
                 } else {
                     modelP->unk02 = 0xFF;
                 }
             } else {
                 modelP->unk02 = 0xFF;
             }
-            modelP->unk08 = func_800300A4_30CA4(data, var_a1);
+            modelP->unk08 = func_800300A4_main(data, var_a1);
         }
     } else {
         Hmfload(hmf, data, arg1);
         if (hmf->unk38 != 0) {
-            HuMemSetTag(hmf->unk50, D_800CDD6A_CE96A);
-            modelP->unk10 = func_8001FF04_20B04(modelId);
+            HuMemSetTag(hmf->unk50, D_800CDD6A_main);
+            modelP->unk10 = func_8001FF04_main(modelId);
         } else {
             modelP->unk10 = -1;
         }
         hmf->unk00 = (arg1 >> 10) & 7;
         modelP->unk18 = arg1;
-        modelP->unk02 = func_8002D2D8_2DED8(data, hmf);
+        modelP->unk02 = func_8002D2D8_main(data, hmf);
         if (modelP->unk02 != 0xFF) {
             if (hmf->unk14 == 0) {
-                func_8000F978_10578(hmf);
+                func_8000F978_main(hmf);
             } else {
                 goto skip;
             }
@@ -175,8 +175,8 @@ skip:
         gFreeFunc(data);
     }
     if (arg1 & 1) {
-        D_800C9940_CA540 = modelP->unk18;
-        func_80022660_23260(hmf);
+        D_800C9940_main = modelP->unk18;
+        func_80022660_main(hmf);
     }
     hmf->unk0B = 1;
     if (arg1 & 0x10) {
@@ -186,7 +186,7 @@ skip:
             }
         }
         if (var_a0 == hmf->unk10) {
-            HuMemFreeAllWithTag(D_800D5204_D5E04);
+            HuMemFreeAllWithTag(D_800D5204_main);
         }
     }
     modelP->unk40 =
@@ -210,8 +210,8 @@ skip:
     modelP->unk01 = -1;
     modelP->unk00 = 0;
     modelP->unkB4 = 0;
-    func_8008A070_8AC70(modelP->mtx);
-    D_800D1FE8_D2BE8++;
+    func_8008A070_main(modelP->mtx);
+    D_800D1FE8_main++;
     return modelId;
 }
 
@@ -225,7 +225,7 @@ s32 Hu3DModelLink(s16 linkMdlId) {
         }
     }
     if (modelId == HU3D_MODEL_MAX) {
-        osSyncPrintf(D_800A6BBC_A77BC);
+        osSyncPrintf(D_800A6BBC_main);
         return -1;
     }
     modelP = &HmfModelData[modelId];
@@ -256,14 +256,14 @@ s32 Hu3DModelLink(s16 linkMdlId) {
     modelP->rot.x = modelP->rot.y = modelP->rot.z = 0.0f;
     modelP->scale.x = modelP->scale.y = modelP->scale.z = 1.0f;
     modelP->unk01 = -1;
-    func_8008A070_8AC70(modelP->mtx);
-    D_800D1FE8_D2BE8++;
+    func_8008A070_main(modelP->mtx);
+    D_800D1FE8_main++;
     return modelId;
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001A894_1B494);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001A894_main);
 
-s16 func_8001ABD4_1B7D4(s16 arg0, s8 arg1) {
+s16 func_8001ABD4_main(s16 arg0, s8 arg1) {
     s16 idx = Hu3DModelLink(arg0);
 
     if (idx < 0) {
@@ -273,59 +273,59 @@ s16 func_8001ABD4_1B7D4(s16 arg0, s8 arg1) {
     return idx;
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001AC34_1B834);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001AC34_main);
 
-s16 func_8001AC8C_1B88C(s32 arg0, void (*arg1)(Gfx **, s32, s32), u8 arg2) {
-    s16 idx = func_8001A894_1B494(arg0, NULL, arg2);
+s16 func_8001AC8C_main(s32 arg0, void (*arg1)(Gfx **, s32, s32), u8 arg2) {
+    s16 idx = func_8001A894_main(arg0, NULL, arg2);
     HmfModel *var_v1 = &HmfModelData[idx];
 
     var_v1->unk70 = arg1;
     return idx;
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001ACDC_1B8DC);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001ACDC_main);
 
-void func_8001AFE4_1BBE4(void) {
+void func_8001AFE4_main(void) {
     s16 i;
 
     for (i = 0; i < HU3D_MODEL_MAX; i++) {
         if (HmfModelData[i].hmf != NULL) {
-            func_8001ACDC_1B8DC(i);
+            func_8001ACDC_main(i);
         }
     }
-    func_80033510_34110();
-    func_80033450_34050();
-    func_80030198_30D98();
-    func_80021AF4_226F4();
-    func_8002D514_2E114();
-    func_8001EF60_1FB60();
-    D_800CC3D8_CCFD8[0] = D_800CC3D8_CCFD8[1] = 0;
-    func_80030030_30C30(1.0f);
-    func_80019968_1A568(1);
-    func_8000D3AC_DFAC();
+    func_80033510_main();
+    func_80033450_main();
+    func_80030198_main();
+    func_80021AF4_main();
+    func_8002D514_main();
+    func_8001EF60_main();
+    D_800CC3D8_main[0] = D_800CC3D8_main[1] = 0;
+    func_80030030_main(1.0f);
+    func_80019968_main(1);
+    func_8000D3AC_main();
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001B0B4_1BCB4);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001B0B4_main);
 
-Gfx *func_8001BD24_1C924(Gfx *arg0, s16 arg1, u16 arg2) {
+Gfx *func_8001BD24_main(Gfx *arg0, s16 arg1, u16 arg2) {
     s16 i;
 
-    for (i = 0; i < D_800CBB72_CC772[arg1]; i++) {
-        HmfModel *temp_s0 = &HmfModelData[D_800D05A0_D11A0[arg1][i]];
+    for (i = 0; i < D_800CBB72_main[arg1]; i++) {
+        HmfModel *temp_s0 = &HmfModelData[D_800D05A0_main[arg1][i]];
 
         if (!(temp_s0->unk01 & arg2) && arg2 != 0) {
             continue;
         }
-        D_800CD2F6_CDEF6 = D_800D05A0_D11A0[arg1][i];
-        if (temp_s0->hmf->unk00 != D_800CE19A_CED9A) {
+        D_800CD2F6_main = D_800D05A0_main[arg1][i];
+        if (temp_s0->hmf->unk00 != D_800CE19A_main) {
             gDPFullSync(gMainGfxPos++);
             gSPEndDisplayList(gMainGfxPos++);
-            func_8000EF64_FB64(arg0, D_800CE19A_CED9A, 0, NULL, 0);
-            D_800CE19A_CED9A = temp_s0->hmf->unk00;
+            func_8000EF64_main(arg0, D_800CE19A_main, 0, NULL, 0);
+            D_800CE19A_main = temp_s0->hmf->unk00;
             arg0 = gMainGfxPos;
         }
         if (temp_s0->unk70 != NULL) {
-            temp_s0->unk70(&gMainGfxPos, D_800D0444_D1044, D_800D10F4_D1CF4);
+            temp_s0->unk70(&gMainGfxPos, D_800D0444_main, D_800D10F4_main);
         } else if (temp_s0->hmf->unk3C != NULL) {
             gSPDisplayList(gMainGfxPos++, temp_s0->hmf->unk3C);
         }
@@ -333,7 +333,7 @@ Gfx *func_8001BD24_1C924(Gfx *arg0, s16 arg1, u16 arg2) {
     return arg0;
 }
 
-void func_8001BF14_1CB14(void) {
+void func_8001BF14_main(void) {
     s16 i;
 
     HuMemSetDirty();
@@ -341,21 +341,21 @@ void func_8001BF14_1CB14(void) {
         HmfModelData[i].hmf = NULL;
     }
     gCameraList = NULL;
-    D_800C9932_CA532 = 0;
-    D_800D2008_D2C08 = 0;
-    D_800D20EE_D2CEE = 0;
+    D_800C9932_main = 0;
+    D_800D2008_main = 0;
+    D_800D20EE_main = 0;
 }
 
-void func_8001BF90_1CB90(u32 arg0, u32 arg1) {
+void func_8001BF90_main(u32 arg0, u32 arg1) {
     gSPSegment(gMainGfxPos++, 0x00, 0x00000000);
-    gSPDisplayList(gMainGfxPos++, D_800A09B0_A15B0);
+    gSPDisplayList(gMainGfxPos++, D_800A09B0_main);
     gDPSetDepthImage(gMainGfxPos++, arg1);
     gDPSetColorImage(gMainGfxPos++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, arg1);
-    gSPDisplayList(gMainGfxPos++, D_800A0A08_A1608);
+    gSPDisplayList(gMainGfxPos++, D_800A0A08_main);
     gDPSetColorImage(gMainGfxPos++, G_IM_FMT_RGBA, G_IM_SIZ_16b, SCREEN_WIDTH, arg0);
-    if (D_800CD280_CDE80 != 0) {
-        gDPSetFillColor(gMainGfxPos++, PACK_FILL_COLOR(D_800A0540_A1140, D_800A0541_A1141, D_800A0542_A1142, 1));
-        gSPDisplayList(gMainGfxPos++, D_800A0A38_A1638);
+    if (D_800CD280_main != 0) {
+        gDPSetFillColor(gMainGfxPos++, PACK_FILL_COLOR(D_800A0540_main, D_800A0541_main, D_800A0542_main, 1));
+        gSPDisplayList(gMainGfxPos++, D_800A0A38_main);
     }
 }
 
@@ -389,15 +389,15 @@ void Hu3DModelScaleSet(s16 idx, f32 x, f32 y, f32 z) {
     }
 }
 
-void func_8001C1F0_1CDF0(s16 arg0, s32 arg1) {
+void func_8001C1F0_main(s16 arg0, s32 arg1) {
     s16 i;
 
     for (i = 0; i < HU3D_MODEL_MAX; i++) {
-        func_8001C258_1CE58(i, arg0, arg1);
+        func_8001C258_main(i, arg0, arg1);
     }
 }
 
-void func_8001C258_1CE58(s16 idx, s32 arg1, s32 arg2) {
+void func_8001C258_main(s16 idx, s32 arg1, s32 arg2) {
     HmfModel *model = &HmfModelData[idx];
 
     if (model->hmf != NULL) {
@@ -405,14 +405,14 @@ void func_8001C258_1CE58(s16 idx, s32 arg1, s32 arg2) {
             arg2 |= 0x800000;
         }
         if (arg1 & 0x1C00) {
-            func_8001C8E4_1D4E4(idx, arg2 & 0x1C00);
+            func_8001C8E4_main(idx, arg2 & 0x1C00);
         }
         model->unk18 &= ~arg1;
         model->unk18 |= arg2;
     }
 }
 
-void func_8001C2FC_1CEFC(s16 idx, s32 arg1, s32 arg2) {
+void func_8001C2FC_main(s16 idx, s32 arg1, s32 arg2) {
     HmfData *temp_a3 = HmfModelData[idx].hmf;
     s16 var_t0;
 
@@ -422,9 +422,9 @@ void func_8001C2FC_1CEFC(s16 idx, s32 arg1, s32 arg2) {
     }
 }
 
-void func_8001C39C_1CF9C(s16 idx, s32 arg1, s32 arg2, s32 arg3) {
+void func_8001C39C_main(s16 idx, s32 arg1, s32 arg2, s32 arg3) {
     HmfData *temp_s0 = HmfModelData[idx].hmf;
-    s16 temp_v0 = func_8002C834_2D434(temp_s0, arg1);
+    s16 temp_v0 = func_8002C834_main(temp_s0, arg1);
 
     if (temp_v0 >= 0) {
         temp_s0->unk60[temp_v0].unk50 &= ~arg2;
@@ -432,26 +432,26 @@ void func_8001C39C_1CF9C(s16 idx, s32 arg1, s32 arg2, s32 arg3) {
     }
 }
 
-void func_8001C448_1D048(s16 arg0) {
-    func_8001C258_1CE58(arg0, 0x00800001, 1);
-    D_800C9940_CA540 = HmfModelData[arg0].unk18;
+void func_8001C448_main(s16 arg0) {
+    func_8001C258_main(arg0, 0x00800001, 1);
+    D_800C9940_main = HmfModelData[arg0].unk18;
 
-    if (D_800C9940_CA540 & 0x10) {
+    if (D_800C9940_main & 0x10) {
         osSyncPrintf("RemakeStatic Error! Executed DynamicFree already!\n");
-        D_800A0530_A1130 = 0x10002;
+        D_800A0530_main = 0x10002;
         return;
     }
 
-    if (func_80023264_23E64(HmfModelData[arg0].hmf) != NULL) {
-        func_8001C954_1D554(arg0);
+    if (func_80023264_main(HmfModelData[arg0].hmf) != NULL) {
+        func_8001C954_main(arg0);
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C514_1D114);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C514_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C5B4_1D1B4);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C5B4_main);
 
-void func_8001C624_1D224(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
+void func_8001C624_main(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     HmfModel *temp_a0;
 
     temp_a0 = &HmfModelData[arg0];
@@ -469,20 +469,20 @@ void func_8001C624_1D224(s16 arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
     temp_a0->unk54 = 0.0f;
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C6A8_1D2A8);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C6A8_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C718_1D318);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C718_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C760_1D360);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C760_main);
 
-f32 func_8001C7D0_1D3D0(s16 idx) {
+f32 func_8001C7D0_main(s16 idx) {
     if (HmfModelData[idx].unk04 == 0xFF) {
         return -1.0f;
     }
     return HmfModelData[idx].unk4C;
 }
 
-void func_8001C814_1D414(s16 idx, s16 arg1, s16 arg2) {
+void func_8001C814_main(s16 idx, s16 arg1, s16 arg2) {
     HmfModel *temp_a3 = &HmfModelData[idx];
 
     temp_a3->unk03 &= ~arg1;
@@ -497,76 +497,76 @@ void func_8001C814_1D414(s16 idx, s16 arg1, s16 arg2) {
     }
 }
 
-void func_8001C8A8_1D4A8(s16 idx, s16 arg1) {
+void func_8001C8A8_main(s16 idx, s16 arg1) {
     if (idx >= 0 && HmfModelData[idx].hmf != NULL) {
         HmfModelData[idx].unk01 = arg1;
     }
 }
 
-void func_8001C8E4_1D4E4(s16 idx, u32 arg1) {
+void func_8001C8E4_main(s16 idx, u32 arg1) {
     HmfModelData[idx].unk18 &= ~0x1C00;
     HmfModelData[idx].unk18 |= arg1;
     HmfModelData[idx].hmf->unk00 = (arg1 >> 10) & 7;
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C92C_1D52C);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C92C_main);
 
 // officially named "DynamicFree"
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C954_1D554);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001C954_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001CAA4_1D6A4);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001CAA4_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001CD34_1D934);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001CD34_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001CE28_1DA28);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001CE28_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001CF1C_1DB1C);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001CF1C_main);
 
-void func_8001D330_1DF30(s16 arg0) {
-    D_800A0A78_A1678 = arg0;
+void func_8001D330_main(s16 arg0) {
+    D_800A0A78_main = arg0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001D33C_1DF3C);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001D33C_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001D558_1E158);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001D558_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001D638_1E238);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001D638_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001D874_1E474);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001D874_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001DACC_1E6CC);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001DACC_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001DDB8_1E9B8);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001DDB8_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001E500_1F100);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001E500_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001E65C_1F25C);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001E65C_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001E888_1F488);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001E888_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001EBC0_1F7C0);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001EBC0_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001ED54_1F954);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001ED54_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001EED8_1FAD8);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001EED8_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001EF24_1FB24);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001EF24_main);
 
-void func_8001EF60_1FB60(void) {
-    D_800CE1C6_CEDC6 = 0;
+void func_8001EF60_main(void) {
+    D_800CE1C6_main = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001EF6C_1FB6C);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001EF6C_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001EFEC_1FBEC);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001EFEC_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F038_1FC38);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F038_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F154_1FD54);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F154_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F1FC_1FDFC);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F1FC_main);
 
-void func_8001F304_1FF04(s16 arg0, s16 arg1) {
+void func_8001F304_main(s16 arg0, s16 arg1) {
     HmfModel *temp_v0;
 
     temp_v0 = &HmfModelData[arg0];
@@ -578,41 +578,41 @@ void func_8001F304_1FF04(s16 arg0, s16 arg1) {
     temp_v0->unk04 = 0xFF;
 }
 
-f32 func_8001F358_1FF58(s16 arg0) {
-    return D_800CCF58_CDB58[arg0].unk02;
+f32 func_8001F358_main(s16 arg0) {
+    return D_800CCF58_main[arg0].unk02;
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F38C_1FF8C);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F38C_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F3A8_1FFA8);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F3A8_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F450_20050);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F450_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F4BC_200BC);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F4BC_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F668_20268);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F668_main);
 
-void func_8001F6B0_202B0(s8 arg0) {
-    D_800CC0A8_CCCA8 = arg0;
+void func_8001F6B0_main(s8 arg0) {
+    D_800CC0A8_main = arg0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F6BC_202BC);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F6BC_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F6F8_202F8);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F6F8_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F734_20334);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F734_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F95C_2055C);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F95C_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F974_20574);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F974_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F9E4_205E4);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001F9E4_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FA68_20668);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FA68_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FB34_20734);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FB34_main);
 
-void func_8001FBBC_207BC(s16 arg0, s8 arg1, s8 arg2, s8 arg3) {
+void func_8001FBBC_main(s16 arg0, s8 arg1, s8 arg2, s8 arg3) {
     HmfModel *other;
 
     other = HmfModelData[arg0].unkB4;
@@ -623,12 +623,12 @@ void func_8001FBBC_207BC(s16 arg0, s8 arg1, s8 arg2, s8 arg3) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FBFC_207FC);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FBFC_main);
 
-INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FD08_20908);
+INCLUDE_ASM("asm/nonmatchings/hmfman", func_8001FD08_main);
 
-void func_8001FDE8_209E8(s16 arg0) {
+void func_8001FDE8_main(s16 arg0) {
     HmfModelData[arg0].unk02 = 0xFF;
 }
 
-INCLUDE_RODATA("asm/nonmatchings/hmfman", D_800A6C04_A7804);
+INCLUDE_RODATA("asm/nonmatchings/hmfman", D_800A6C04_main);

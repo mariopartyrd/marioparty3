@@ -2,7 +2,7 @@
 
 #define M_ID(m, i, j) ((m)[(i) * 4 + (j)])
 
-void func_8008A070_8AC70(f32 *mtx) {
+void func_8008A070_main(f32 *mtx) {
     f32 one = 1.0f;
 
     M_ID(mtx, 0, 1) = M_ID(mtx, 0, 2) = M_ID(mtx, 0, 3) =

@@ -55,7 +55,7 @@ s32 omOvlGotoEx(s32, s16, u16);
 s32 omOvlReturnEx(s16 level);
 void omInitObjMan(s32 numOfObjs, s32 numOfPrcs);
 void omInsertObj(omObjData * obj);
-void func_80047CDC_488DC(u16 arg0, omObjData * obj);
+void func_80047CDC_main(u16 arg0, omObjData * obj);
 Process* omAddPrcObj(process_func func, u16 priority, s32 stackSize, s32 extDataSize);
 void omDestroyPrcObj(void);
 omObjData* omAddObj(s16 priority, u16 arg1, u16 arg2, s16 arg3, HuObjFunc func);

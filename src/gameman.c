@@ -7,29 +7,29 @@
 #include "game/object.h"
 #include "game/util.h"
 
-extern str800D5298 D_800D5298_D5E98;
-extern void *D_800CCF38_CDB38;
-extern u8 D_800CCF78_CDB78[];
+extern str800D5298 D_800D5298_main;
+extern void *D_800CCF38_main;
+extern u8 D_800CCF78_main[];
 extern f32 CZoomM[];
-extern u16 D_800CD2F4_CDEF4;
-extern s32 D_800CDD50_CE950;
-extern Process *D_800D0448_D1048;
-extern u8 D_800D09A8_D15A8;
-extern Process *D_800D170C_D230C;
-extern u8 D_800D1710_D2310;
-extern s16 D_800D1F36_D2B36;
-extern u16 D_800D4082_D4C82;
+extern u16 D_800CD2F4_main;
+extern s32 D_800CDD50_main;
+extern Process *D_800D0448_main;
+extern u8 D_800D09A8_main;
+extern Process *D_800D170C_main;
+extern u8 D_800D1710_main;
+extern s16 D_800D1F36_main;
+extern u16 D_800D4082_main;
 extern Vec CenterM[];
-extern u16 D_800D6A56_D7656;
+extern u16 D_800D6A56_main;
 extern Vec CRotM[];
-extern u16 D_800A190C_A250C;
-extern u16 D_800A190E_A250E;
+extern u16 D_800A190C_main;
+extern u16 D_800A190E_main;
 
-void func_8000E3C0_EFC0(void) {
+void func_8000E3C0_main(void) {
     s32 i;
 
     HuPrcVSleep();
-    func_8004F290_4FE90();
+    func_8004F290_main();
 
     CRot.x = 325.0f;
     CRot.y = 0.0f;
@@ -53,39 +53,39 @@ void func_8000E3C0_EFC0(void) {
                 CenterM[i].z = 0.0f;
     }
 
-    D_800D1710_D2310 = 3;
-    D_800D4082_D4C82 = 0x1000;
-    D_800CD2F4_CDEF4 = 0x2004;
-    D_800D6A56_D7656 = 0x180;
+    D_800D1710_main = 3;
+    D_800D4082_main = 0x1000;
+    D_800CD2F4_main = 0x2004;
+    D_800D6A56_main = 0x180;
     WipeInit();
-    func_8001A070_1AC70(&HuMemMemoryAllocPerm, &HuMemMemoryFreePerm, D_800D4082_D4C82, D_800CD2F4_CDEF4, D_800D6A56_D7656, D_800D1710_D2310);
+    func_8001A070_main(&HuMemMemoryAllocPerm, &HuMemMemoryFreePerm, D_800D4082_main, D_800CD2F4_main, D_800D6A56_main, D_800D1710_main);
     Hu3DCamInit(1);
     pfInit();
-    func_80036380_36F80((u32)strings_japanese_ROM_START);
-    D_800D1F36_D2B36 = 0;
+    func_80036380_main((u32)strings_japanese_ROM_START);
+    D_800D1F36_main = 0;
 
     do {
-        if (CheckControllerRead(D_800D1F36_D2B36) != 0) {
+        if (CheckControllerRead(D_800D1F36_main) != 0) {
             break;
         }
-    } while (++D_800D1F36_D2B36 < 4);
+    } while (++D_800D1F36_main < 4);
 
-    if (D_800D1F36_D2B36 == 4) {
-        D_800D1F36_D2B36 = -1;
+    if (D_800D1F36_main == 4) {
+        D_800D1F36_main = -1;
     }
 
     HuMemHeapAllocPermSizeGet();
-    D_800D0448_D1048 = HuPrcCreate(&func_8000E740_F340, 0xF000, 0x3000, 0);
-    HuPrcCreate(&func_8000E78C_F38C, 0x4000, 0x3000, 0);
-    D_800D170C_D230C = HuPrcCreate(&func_8000E7B8_F3B8, 0x1000, 0x3000, 0);
+    D_800D0448_main = HuPrcCreate(&func_8000E740_main, 0xF000, 0x3000, 0);
+    HuPrcCreate(&func_8000E78C_main, 0x4000, 0x3000, 0);
+    D_800D170C_main = HuPrcCreate(&func_8000E7B8_main, 0x1000, 0x3000, 0);
 
     {
-        s32 temp_s0 = func_8004FDC0_509C0();
+        s32 temp_s0 = func_8004FDC0_main();
         GWInit();
-        func_8000E978_F578();
-        func_80000EA8_1AA8(&D_800D5298_D5E98);
+        func_8000E978_main();
+        func_80000EA8_main(&D_800D5298_main);
         SLCurBoxNoSet(0);
-        func_80050800_51400();
+        func_80050800_main();
         if (temp_s0 != 0) {
             omOvlCallEx(slerror, 0, 0x82);
         } else {
@@ -93,27 +93,27 @@ void func_8000E3C0_EFC0(void) {
         }
     }
 
-    D_800D5298_D5E98.unk8 = audio_mbf0_ROM_START;
-    D_800D5298_D5E98.unkC = audio_sbf0_ROM_START;
-    D_800A190E_A250E = 0;
-    D_800A190C_A250C = 0;
-    D_800D5298_D5E98.unk0 = 0x70418F;
-    D_800D5298_D5E98.unk10 = audio_fxd0_ROM_START;
-    D_800D5298_D5E98.unk28 = 1;
-    D_800D5298_D5E98.unk2C = 0;
-    D_800D5298_D5E98.unk14 = (void *)0x802E0000;
-    D_800D5298_D5E98.unk18 = 0x80000;
-    D_800D5298_D5E98.unk5C = 0x6E;
-    D_800D5298_D5E98.unk60 = 0;
-    D_800D5298_D5E98.unk64 = 0;
-    D_800D5298_D5E98.unk68 = D_800CDD50_CE950;
-    D_800D5298_D5E98.unk44 = 0x3C;
-    func_800007FC_13FC(&D_800D5298_D5E98);
+    D_800D5298_main.unk8 = audio_mbf0_ROM_START;
+    D_800D5298_main.unkC = audio_sbf0_ROM_START;
+    D_800A190E_main = 0;
+    D_800A190C_main = 0;
+    D_800D5298_main.unk0 = 0x70418F;
+    D_800D5298_main.unk10 = audio_fxd0_ROM_START;
+    D_800D5298_main.unk28 = 1;
+    D_800D5298_main.unk2C = 0;
+    D_800D5298_main.unk14 = (void *)0x802E0000;
+    D_800D5298_main.unk18 = 0x80000;
+    D_800D5298_main.unk5C = 0x6E;
+    D_800D5298_main.unk60 = 0;
+    D_800D5298_main.unk64 = 0;
+    D_800D5298_main.unk68 = D_800CDD50_main;
+    D_800D5298_main.unk44 = 0x3C;
+    func_800007FC_main(&D_800D5298_main);
 
-    if ((D_800D09A8_D15A8 & 1) != 0) {
-        func_80000F30_1B30(1);
+    if ((D_800D09A8_main & 1) != 0) {
+        func_80000F30_main(1);
     } else {
-        func_80000F30_1B30(0);
+        func_80000F30_main(0);
     }
 
     HuPrcKill(HuPrcCurrentGet());
@@ -123,44 +123,44 @@ void func_8000E3C0_EFC0(void) {
     }
 }
 
-void func_8000E740_F340(void) {
+void func_8000E740_main(void) {
     while (TRUE) {
         HuPrcVSleep();
-        func_800224BC_230BC();
-        func_800143F0_14FF0();
-        func_8001BF90_1CB90(0x2000000, 0x3D0800);
+        func_800224BC_main();
+        func_800143F0_main();
+        func_8001BF90_main(0x2000000, 0x3D0800);
         pfClsScr();
     }
 }
 
-void func_8000E78C_F38C(void) {
+void func_8000E78C_main(void) {
     while (TRUE) {
         HuPrcVSleep();
         omMain();
     }
 }
 
-void func_8000E7B8_F3B8(void) {
+void func_8000E7B8_main(void) {
     while (TRUE) {
         HuPrcVSleep();
         rand8();
-        func_8000BA30_C630(); // esprite
-        func_80014A3C_1563C(2);
-        func_8001B0B4_1BCB4(&D_800CCF38_CDB38, 2); // hmfman
+        func_8000BA30_main(); // esprite
+        func_80014A3C_main(2);
+        func_8001B0B4_main(&D_800CCF38_main, 2); // hmfman
     }
 }
 
 /* Initialize Players */
-void func_8000E804_F404(void) {
+void func_8000E804_main(void) {
     s32 i;
 
     for (i = 0; i < MB_MAX_PLAYERS; i++) {
         memset(&GwPlayer[i], 0, sizeof(GW_PLAYER));
         if (CheckControllerRead(i) != PAD_NOT_INSERTED) {
-            D_800CCF78_CDB78[i] = 0;
+            D_800CCF78_main[i] = 0;
             GwPlayer[i].stat &= ~1;
         } else {
-            D_800CCF78_CDB78[i] = 1;
+            D_800CCF78_main[i] = 1;
             GwPlayer[i].stat |= 1;
         }
 
@@ -178,8 +178,8 @@ void func_8000E804_F404(void) {
 }
 
 /* Initialize Game Save Data */
-void func_8000E978_F578(void) {
-    func_8000E804_F404();
+void func_8000E978_main(void) {
+    func_8000E804_main();
     GWMgRecordSet(0, 0x64);
     GWMgRecordSet(1, 0xE10);
     GWMgRecordSet(2, 0xE10);

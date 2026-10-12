@@ -1,7 +1,7 @@
 #include "common.h"
 #include "pad.h"
 
-extern s32 D_800B1A30_B2630;
+extern s32 D_800B1A30_main;
 
 void GWInit(void) {
     GW_COMMON *gw = &GwCommon;
@@ -98,7 +98,7 @@ INCLUDE_ASM("asm/nonmatchings/save", GWPlayNumInc);
 
 INCLUDE_ASM("asm/nonmatchings/save", GWCharPlayNumInc);
 
-s32 func_80035E3C_36A3C(s16 arg0) {
+s32 func_80035E3C_main(s16 arg0) {
     // 0x18 of stack is reserved but unused in the original; the array keeps the frame.
     s32 buf[6];
 
@@ -106,12 +106,12 @@ s32 func_80035E3C_36A3C(s16 arg0) {
     return 0;
 }
 
-void func_80035E60_36A60(s16 arg0) {
+void func_80035E60_main(s16 arg0) {
     u8 *record = GWBoardRecordGet(arg0);
     *record = *record;
 }
 
-void func_80035E88_36A88(s16 arg0) {
+void func_80035E88_main(s16 arg0) {
     u8 *record = GWBoardRecordGet(arg0);
     *record = *record;
 }
@@ -142,12 +142,12 @@ void GWBoardFlagClear(s32 flag) {
 
 void GWContErrorSet(void) {
     if (CheckControllerRead(0) != FALSE) {
-        D_800B1A30_B2630 = TRUE;
+        D_800B1A30_main = TRUE;
         return;
     }
-    D_800B1A30_B2630 = FALSE;
+    D_800B1A30_main = FALSE;
 }
 
 s32 GWContErrorGet(void) {
-    return D_800B1A30_B2630;
+    return D_800B1A30_main;
 }

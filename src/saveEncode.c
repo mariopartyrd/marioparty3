@@ -1,23 +1,23 @@
 #include "common.h"
 
-void func_8004F83C_5043C(s32);
+void func_8004F83C_main(s32);
 
 extern u8 gEncodedSaveBuffer[220];
-extern s32 D_800BBAA0_BC6A0;
-extern s32 D_800BBAA4_BC6A4;
-// extern char D_800A7B40_A8740[];
+extern s32 D_800BBAA0_main;
+extern s32 D_800BBAA4_main;
+// extern char D_800A7B40_main[];
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F290_4FE90);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F290_main);
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F504_50104);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F504_main);
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F524_50124);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F524_main);
 
 INCLUDE_ASM("asm/nonmatchings/saveEncode", SavePlayerStruct);
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F564_50164);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F564_main);
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F584_50184);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F584_main);
 
 s32 SaveFileEncode(u8 *sourceData, u8 *encodingScheme) {
     s32 phi_s0;
@@ -29,8 +29,8 @@ s32 SaveFileEncode(u8 *sourceData, u8 *encodingScheme) {
         gEncodedSaveBuffer[schemeIndex] = 0;
     }
 
-    D_800BBAA4_BC6A4 = 0;
-    D_800BBAA0_BC6A0 = 0;
+    D_800BBAA4_main = 0;
+    D_800BBAA0_main = 0;
 
     while (*encodingScheme != 0) {
         currentDataPtr = (sourceData + encodingScheme[2]);
@@ -39,7 +39,7 @@ s32 SaveFileEncode(u8 *sourceData, u8 *encodingScheme) {
                 for (byteIndex = 0; byteIndex < (encodingScheme[0] >> 3); byteIndex++, currentDataPtr++) {
                     phi_s0 = *currentDataPtr;
                     for (bitIndex = 0; bitIndex < 8; bitIndex++, phi_s0 *= 2) {
-                        func_8004F83C_5043C(phi_s0 & 0x80);
+                        func_8004F83C_main(phi_s0 & 0x80);
                     }
                 }
                 continue;
@@ -48,7 +48,7 @@ s32 SaveFileEncode(u8 *sourceData, u8 *encodingScheme) {
                     phi_s0 = *currentDataPtr << (16 - encodingScheme[0]);
                     phi_v1_2 = encodingScheme[0] - 8;
                     for (bitIndex = 0; bitIndex < phi_v1_2; bitIndex++, phi_s0 *= 2) {
-                        func_8004F83C_5043C(phi_s0 & 0x80);
+                        func_8004F83C_main(phi_s0 & 0x80);
                     }
                     currentDataPtr++;
                     phi_s0 = *currentDataPtr;
@@ -58,7 +58,7 @@ s32 SaveFileEncode(u8 *sourceData, u8 *encodingScheme) {
                     phi_v1_2 = encodingScheme[0];
                 }
                 for (bitIndex = 0; bitIndex < phi_v1_2; bitIndex++, phi_s0 *= 2) {
-                    func_8004F83C_5043C(phi_s0 & 0x80);
+                    func_8004F83C_main(phi_s0 & 0x80);
                 }
             }
             currentDataPtr++;
@@ -66,36 +66,36 @@ s32 SaveFileEncode(u8 *sourceData, u8 *encodingScheme) {
         encodingScheme += 3; // advance to next encoding tuplet
     }
 
-    gEncodedSaveBuffer[D_800BBAA0_BC6A0] <<= 8 - D_800BBAA4_BC6A4;
-    if (D_800BBAA4_BC6A4 == 0) {
-        D_800BBAA0_BC6A0--;
+    gEncodedSaveBuffer[D_800BBAA0_main] <<= 8 - D_800BBAA4_main;
+    if (D_800BBAA4_main == 0) {
+        D_800BBAA0_main--;
     }
-    if (D_800BBAA0_BC6A0 > ARRAY_COUNT(gEncodedSaveBuffer)) {
+    if (D_800BBAA0_main > ARRAY_COUNT(gEncodedSaveBuffer)) {
         osSyncPrintf("SaveCompBuffer Max Over!\n");
     }
-    return D_800BBAA0_BC6A0 + 1;
+    return D_800BBAA0_main + 1;
 }
 
-void func_8004F83C_5043C(s32 arg0) {
-    gEncodedSaveBuffer[D_800BBAA0_BC6A0] *= 2;
-    gEncodedSaveBuffer[D_800BBAA0_BC6A0] |= arg0 ? 1 : 0;
+void func_8004F83C_main(s32 arg0) {
+    gEncodedSaveBuffer[D_800BBAA0_main] *= 2;
+    gEncodedSaveBuffer[D_800BBAA0_main] |= arg0 ? 1 : 0;
 
-    if (++D_800BBAA4_BC6A4 >= 8) {
-        D_800BBAA0_BC6A0++;
-        D_800BBAA4_BC6A4 = 0;
+    if (++D_800BBAA4_main >= 8) {
+        D_800BBAA0_main++;
+        D_800BBAA4_main = 0;
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F8BC_504BC);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F8BC_main);
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F90C_5050C);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F90C_main);
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F95C_5055C);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F95C_main);
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F9AC_505AC);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F9AC_main);
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F9FC_505FC);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004F9FC_main);
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004FA4C_5064C);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004FA4C_main);
 
-INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004FC84_50884);
+INCLUDE_ASM("asm/nonmatchings/saveEncode", func_8004FC84_main);

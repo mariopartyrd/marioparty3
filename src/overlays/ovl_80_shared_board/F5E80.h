@@ -4,12 +4,12 @@
 #include "common.h"
 #include "game/board.h"
 
-extern u8 D_80100F94_114BB4_shared_board[];
-extern s32 D_80100FA8_114BC8_shared_board[];
-extern s32 D_80100FF4_114C14_shared_board[];
-extern s32 D_80101040_114C60_shared_board[];
+extern u8 D_80100F94_shared_board[];
+extern s32 D_80100FA8_shared_board[];
+extern s32 D_80100FF4_shared_board[];
+extern s32 D_80101040_shared_board[];
 
-void func_800E2260_F5E80_shared_board(s32 arg0, char *arg1);
+void func_800E2260_shared_board(s32 arg0, char *arg1);
 void MBItemWarpBlockSwapInit(void);
 s32 MBItemWarpBlockSwapPlayerSet(s16 arg0);
 void MBItemWarpBlockSwapCreate(void);

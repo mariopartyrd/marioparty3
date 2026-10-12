@@ -9,159 +9,159 @@ typedef struct {
     /* 0x0C */ char unk0C[0x1D];
 } UnkAudStruct; // Size unknown (min: 0x29, max: 0x30)
 
-void func_8000086C_146C(str800D5298 *);
-s16 func_80003310_3F10(s16);
-s32 func_80007064_7C64(s32);
-s32 func_80007080_7C80(s16, UnkAudStruct *);
-void func_80007BD4_87D4(s16, s16);
-void func_80007C80_8880(s16, s16);
-void func_80007DD8_89D8(s16);
+void func_8000086C_main(str800D5298 *);
+s16 func_80003310_main(s16);
+s32 func_80007064_main(s32);
+s32 func_80007080_main(s16, UnkAudStruct *);
+void func_80007BD4_main(s16, s16);
+void func_80007C80_main(s16, s16);
+void func_80007DD8_main(s16);
 
-extern u8 D_800D09A8_D15A8;
-extern str800D5298 D_800D5298_D5E98;
-extern s32 D_800D52C0_D5EC0;
+extern u8 D_800D09A8_main;
+extern str800D5298 D_800D5298_main;
+extern s32 D_800D52C0_main;
 
-u16 D_800A1900_A2500 = 1;
-u16 D_800A1902_A2502 = 1;
-s16 D_800A1904_A2504 = -1; // active musId
-u16 D_800A1906_A2506 = 1;  // stat/attr
-s16 D_800A1908_A2508 = 0;
-s16 D_800A190A_A250A = 0;
-s16 D_800A190C_A250C = 1;
-s16 D_800A190E_A250E = 1;
-s16 D_800A1910_A2510[8] = { 0x0040 }; // single s16 + padding?
+u16 D_800A1900_main = 1;
+u16 D_800A1902_main = 1;
+s16 D_800A1904_main = -1; // active musId
+u16 D_800A1906_main = 1;  // stat/attr
+s16 D_800A1908_main = 0;
+s16 D_800A190A_main = 0;
+s16 D_800A190C_main = 1;
+s16 D_800A190E_main = 1;
+s16 D_800A1910_main[8] = { 0x0040 }; // single s16 + padding?
 
 s16 HuAudSeqPlay(s16 musId) {
-    if (D_800A1900_A2500 == 0) {
+    if (D_800A1900_main == 0) {
         return 0;
     }
-    if (D_800A1904_A2504 == musId) {
+    if (D_800A1904_main == musId) {
         return 0;
     }
     if (musId == 0) {
         return -1;
     }
-    func_800035E8_41E8(D_800CDBC8_CE7C8);
-    D_800A1904_A2504 = musId;
-    D_800A1906_A2506 |= 2;
-    D_800A1906_A2506 &= ~(1 | 8);
-    D_800CDBC8_CE7C8 = func_80003310_3F10(musId);
-    return D_800CDBC8_CE7C8;
+    func_800035E8_main(D_800CDBC8_main);
+    D_800A1904_main = musId;
+    D_800A1906_main |= 2;
+    D_800A1906_main &= ~(1 | 8);
+    D_800CDBC8_main = func_80003310_main(musId);
+    return D_800CDBC8_main;
 }
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004A5C4_4B1C4);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004A5C4_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004A650_4B250);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004A650_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004A670_4B270);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004A670_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004A72C_4B32C);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004A72C_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004A7C4_4B3C4);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004A7C4_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004A880_4B480);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004A880_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004A918_4B518);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004A918_main);
 
 // HuAudSeqStop?
-void func_8004A950_4B550(void) {
-    D_800A1904_A2504 = -1;
-    func_800035E8_41E8(D_800CDBC8_CE7C8);
-    D_800A1906_A2506 &= ~(2 | 8);
-    D_800A1906_A2506 |= 1;
+void func_8004A950_main(void) {
+    D_800A1904_main = -1;
+    func_800035E8_main(D_800CDBC8_main);
+    D_800A1906_main &= ~(2 | 8);
+    D_800A1906_main |= 1;
 }
 
 void HuAudSeqFadeOut(s16 speed) {
-    D_800A1904_A2504 = -1;
-    func_800039A4_45A4(D_800CDBC8_CE7C8, speed);
-    D_800A1906_A2506 |= 8;
+    D_800A1904_main = -1;
+    func_800039A4_main(D_800CDBC8_main, speed);
+    D_800A1906_main |= 8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004A9DC_4B5DC);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004A9DC_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AA04_4B604);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004AA04_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AA38_4B638);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004AA38_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AA60_4B660);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004AA60_main);
 
 s16 HuAudFXPlay(s16 seId) {
-    if (D_800A1902_A2502 == 0) {
+    if (D_800A1902_main == 0) {
         return 0;
     }
     if (seId == 0) {
         return 0;
     }
-    return func_80007064_7C64(seId);
+    return func_80007064_main(seId);
 }
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AAD0_4B6D0);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004AAD0_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AB0C_4B70C);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004AB0C_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AB7C_4B77C);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004AB7C_main);
 
 void HuAudFXPitchSet(s32 seNo, s32 pitch) {
-    func_80007BD4_87D4(seNo, pitch);
+    func_80007BD4_main(seNo, pitch);
 }
 
 s16 CharFXPlay(s16 seId, u8 charNo) {
-    if (D_800A1902_A2502 == 0) {
+    if (D_800A1902_main == 0) {
         return 0;
     }
     if (seId == 0) {
         return 0;
     }
-    return func_80007064_7C64(seId + charNo + 1);
+    return func_80007064_main(seId + charNo + 1);
 }
 
-s32 func_8004AC5C_4B85C(s16 arg0, s16 arg1) {
+s32 func_8004AC5C_main(s16 arg0, s16 arg1) {
     UnkAudStruct sp10;
 
     sp10.unk00 = 0x200;
     sp10.unk08 = arg1 + 1;
-    return func_80007080_7C80(arg0, &sp10);
+    return func_80007080_main(arg0, &sp10);
 }
 
-s16 func_8004AC98_4B898(s16 arg0, s16 arg1) {
-    if (D_800A1902_A2502 == 0) {
+s16 func_8004AC98_main(s16 arg0, s16 arg1) {
+    if (D_800A1902_main == 0) {
         return 0;
     }
     if (arg0 == 0) {
         return 0;
     }
-    return func_8004AC5C_4B85C(arg0, arg1);
+    return func_8004AC5C_main(arg0, arg1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004ACE0_4B8E0);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004ACE0_main);
 
 void HuAudFXStop(s32 seNo) {
-    func_80007DD8_89D8(seNo);
+    func_80007DD8_main(seNo);
 }
 
-void func_8004AD70_4B970() {
-    func_80007DD8_89D8(-1);
+void func_8004AD70_main() {
+    func_80007DD8_main(-1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AD8C_4B98C);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004AD8C_main);
 
-void func_8004ADDC_4B9DC(s16 arg0) {
-    func_80007C80_8880(-1, arg0);
+void func_8004ADDC_main(s16 arg0) {
+    func_80007C80_main(-1, arg0);
 }
 
-void func_8004AE00_4BA00(s16 arg0, s16 arg1) {
-    func_80007C80_8880(arg0, arg1);
+void func_8004AE00_main(s16 arg0, s16 arg1) {
+    func_80007C80_main(arg0, arg1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AE28_4BA28);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004AE28_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AEF0_4BAF0);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004AEF0_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004AFBC_4BBBC);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004AFBC_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004B0D4_4BCD4);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004B0D4_main);
 
-INCLUDE_ASM("asm/nonmatchings/audio", func_8004B1AC_4BDAC);
+INCLUDE_ASM("asm/nonmatchings/audio", func_8004B1AC_main);
 
 // Doesn't seem to be audio related? Maybe part of the next file.
 void omVibrate(s16 player, s16 duration, s16 off, s16 on) {
@@ -170,22 +170,22 @@ void omVibrate(s16 player, s16 duration, s16 off, s16 on) {
     }
 }
 
-s32 func_8004B2C0_4BEC0() {
+s32 func_8004B2C0_main() {
     return 0;
 }
 
-void func_8004B2C8_4BEC8(void) {
+void func_8004B2C8_main(void) {
     str800D5298 *temp;
 
-    func_80000EA8_1AA8(&D_800D5298_D5E98);
-    temp = &D_800D5298_D5E98;
+    func_80000EA8_main(&D_800D5298_main);
+    temp = &D_800D5298_main;
     temp->unk28 = 1; //?
-    D_800D5298_D5E98.unk8 = audio_mbf0_ROM_START;
-    D_800D5298_D5E98.unkC = audio_sbf0_ROM_START;
-    func_8000086C_146C(&D_800D5298_D5E98);
-    if (!(D_800D09A8_D15A8 & 1)) {
-        func_80000F30_1B30(0);
+    D_800D5298_main.unk8 = audio_mbf0_ROM_START;
+    D_800D5298_main.unkC = audio_sbf0_ROM_START;
+    func_8000086C_main(&D_800D5298_main);
+    if (!(D_800D09A8_main & 1)) {
+        func_80000F30_main(0);
     } else {
-        func_80000F30_1B30(1);
+        func_80000F30_main(1);
     }
 }

@@ -12,25 +12,25 @@ typedef struct Vec2f {
 // EXTERN
 f32 HuMathCos(f32);
 f32 HuMathSin(f32);
-void func_8008A0D0_8ACD0(Mtx *);
+void func_8008A0D0_main(Mtx *);
 
 extern HuCamera *gCameraList;
-extern Vec D_800A0554_A1154;
-extern Vec D_800A0590_A1190;
-extern RectF D_800A05CC_A11CC;
-extern s16 D_800C9932_CA532;
-extern HuCamMtxs *D_800D0444_D1044;
-extern HuCamera *D_800D10F4_D1CF4;
-extern u8 D_800D1FF0_D2BF0;
-extern u8 D_800D2008_D2C08;
-extern s16 D_800D418E_D4D8E;
+extern Vec D_800A0554_main;
+extern Vec D_800A0590_main;
+extern RectF D_800A05CC_main;
+extern s16 D_800C9932_main;
+extern HuCamMtxs *D_800D0444_main;
+extern HuCamera *D_800D10F4_main;
+extern u8 D_800D1FF0_main;
+extern u8 D_800D2008_main;
+extern s16 D_800D418E_main;
 
 void Hu3DCamInit(u32 arg0) {
     s16 var_s3;
     s16 var_s2;
 
-    D_800C9932_CA532 = arg0;
-    D_800D418E_D4D8E = 0;
+    D_800C9932_main = arg0;
+    D_800D418E_main = 0;
     if (gCameraList != NULL) {
         HuMemFree(gCameraList);
     }
@@ -41,22 +41,22 @@ void Hu3DCamInit(u32 arg0) {
         gCameraList[var_s3].fov[2] = 8000.0f;
         gCameraList[var_s3].unk2 = 0;
         gCameraList[var_s3].unk4 = -1;
-        CameraViewportSet(var_s3, &D_800A0554_A1154, &D_800A0590_A1190);
-        CameraScissorSet(var_s3, &D_800A05CC_A11CC);
+        CameraViewportSet(var_s3, &D_800A0554_main, &D_800A0590_main);
+        CameraScissorSet(var_s3, &D_800A05CC_main);
         gCameraList[var_s3].unkA0 = NULL;
         gCameraList[var_s3].unkA8 = NULL;
         gCameraList[var_s3].unkAC = NULL;
-        for (var_s2 = 0; var_s2 < D_800D1FF0_D2BF0; var_s2++) {
-            func_8008A0D0_8ACD0(&gCameraList[var_s3].mtxs[var_s2].perspMtx);
-            func_8008A0D0_8ACD0(&gCameraList[var_s3].mtxs[var_s2].lookAtMtx);
+        for (var_s2 = 0; var_s2 < D_800D1FF0_main; var_s2++) {
+            func_8008A0D0_main(&gCameraList[var_s3].mtxs[var_s2].perspMtx);
+            func_8008A0D0_main(&gCameraList[var_s3].mtxs[var_s2].lookAtMtx);
         }
     }
-    D_800D10F4_D1CF4 = gCameraList;
-    D_800D0444_D1044 = gCameraList->mtxs;
+    D_800D10F4_main = gCameraList;
+    D_800D0444_main = gCameraList->mtxs;
 }
 
-void func_800123F4_12FF4(void) {
-    D_800D418E_D4D8E = D_800D2008_D2C08;
+void func_800123F4_main(void) {
+    D_800D418E_main = D_800D2008_main;
 }
 
 void Hu3DCamSetPositionOrientation(s16 camIndex, Vec *pos, Vec *at, Vec *up) {
@@ -93,47 +93,47 @@ void Hu3DCamUpdateMtx(s16 camIndex) {
     HuCamMtxs *mtxs;
 
     camera = &gCameraList[camIndex];
-    mtxs = &camera->mtxs[D_800D418E_D4D8E];
+    mtxs = &camera->mtxs[D_800D418E_main];
 
     guPerspective(&mtxs->perspMtx, &camera->perspNorm, camera->fov[0], (SCREEN_WIDTH / SCREEN_HEIGHT), camera->fov[1], camera->fov[2], 1.0f);
     guLookAt(&mtxs->lookAtMtx, camera->pos.x, camera->pos.y, camera->pos.z, camera->at.x, camera->at.y, camera->at.z, camera->up.x, camera->up.y, camera->up.z);
 }
 
-void func_80012640_13240(s16 camIndex, Gfx **dispList) {
+void func_80012640_main(s16 camIndex, Gfx **dispList) {
     HuCamMtxs *camMtx;
     HuCamera *camera;
 
     camera = &gCameraList[camIndex];
-    camMtx = &camera->mtxs[D_800D418E_D4D8E];
-    camera->viewports[D_800D418E_D4D8E].vp.vscale[0] = (s16)camera->screenScale.x;
-    camera->viewports[D_800D418E_D4D8E].vp.vscale[1] = (s16)camera->screenScale.y;
-    camera->viewports[D_800D418E_D4D8E].vp.vscale[2] = (s16)camera->screenScale.z;
-    camera->viewports[D_800D418E_D4D8E].vp.vtrans[0] = (s16)camera->screenPos.x;
-    camera->viewports[D_800D418E_D4D8E].vp.vtrans[1] = (s16)camera->screenPos.y;
-    camera->viewports[D_800D418E_D4D8E].vp.vtrans[2] = (s16)camera->screenPos.z;
+    camMtx = &camera->mtxs[D_800D418E_main];
+    camera->viewports[D_800D418E_main].vp.vscale[0] = (s16)camera->screenScale.x;
+    camera->viewports[D_800D418E_main].vp.vscale[1] = (s16)camera->screenScale.y;
+    camera->viewports[D_800D418E_main].vp.vscale[2] = (s16)camera->screenScale.z;
+    camera->viewports[D_800D418E_main].vp.vtrans[0] = (s16)camera->screenPos.x;
+    camera->viewports[D_800D418E_main].vp.vtrans[1] = (s16)camera->screenPos.y;
+    camera->viewports[D_800D418E_main].vp.vtrans[2] = (s16)camera->screenPos.z;
 
-    gSPViewport((*dispList)++, &camera->viewports[D_800D418E_D4D8E].vp);
+    gSPViewport((*dispList)++, &camera->viewports[D_800D418E_main].vp);
     gSPPerspNormalize((*dispList)++, camera->perspNorm);
     gSPMatrix((*dispList)++, osVirtualToPhysical(&camMtx->perspMtx), G_MTX_PROJECTION | G_MTX_LOAD);
     gSPMatrix((*dispList)++, OS_PHYSICAL_TO_K0(&camMtx->lookAtMtx), G_MTX_LOAD);
 }
 
-void func_800127C4_133C4(s16 camIndex, Gfx **dispList) {
+void func_800127C4_main(s16 camIndex, Gfx **dispList) {
     HuCamera *camera = &gCameraList[camIndex];
     gDPSetScissor((*dispList)++, G_SC_NON_INTERLACE, camera->screenLeft, camera->screenTop, camera->screenRight, camera->screenBottom);
 }
 
-void func_80012888_13488(s16 camIndex, void (*arg1)(void *, struct HmfModel *), void *arg2) {
+void func_80012888_main(s16 camIndex, void (*arg1)(void *, struct HmfModel *), void *arg2) {
     HuCamera *camera = &gCameraList[camIndex];
     camera->unkA0 = arg1;
     camera->unkA4 = arg2;
 }
 
-void func_800128BC_134BC(s16 camIndex, void (*arg1)(s32)) {
+void func_800128BC_main(s16 camIndex, void (*arg1)(s32)) {
     gCameraList[camIndex].unkA8 = arg1;
 }
 
-void func_800128EC_134EC(s16 camIndex, void (*arg1)(s32)) {
+void func_800128EC_main(s16 camIndex, void (*arg1)(s32)) {
     gCameraList[camIndex].unkAC = arg1;
 }
 
@@ -175,7 +175,7 @@ void Hu3DCam3DToScreen(s16 camIndex, Vec *worldPos, Vec2f *outPos) {
     outPos->y = ((projectedY * (SCREEN_HEIGHT_CENTER / y)) + SCREEN_HEIGHT_CENTER);
 }
 
-void func_80012B14_13714(s16 camIndex, Vec *worldPos, Vec *outPos) {
+void func_80012B14_main(s16 camIndex, Vec *worldPos, Vec *outPos) {
     f32 x;
     f32 y;
     f32 z;
@@ -217,10 +217,10 @@ void func_80012B14_13714(s16 camIndex, Vec *worldPos, Vec *outPos) {
     outPos->y = ((projectedY * (f4 / y)) + f4);
 }
 
-INCLUDE_ASM("asm/nonmatchings/camera", func_80012D0C_1390C);
+INCLUDE_ASM("asm/nonmatchings/camera", func_80012D0C_main);
 
-INCLUDE_ASM("asm/nonmatchings/camera", func_80012E54_13A54);
+INCLUDE_ASM("asm/nonmatchings/camera", func_80012E54_main);
 
-INCLUDE_ASM("asm/nonmatchings/camera", func_80013320_13F20);
+INCLUDE_ASM("asm/nonmatchings/camera", func_80013320_main);
 
-INCLUDE_ASM("asm/nonmatchings/camera", func_80013350_13F50);
+INCLUDE_ASM("asm/nonmatchings/camera", func_80013350_main);

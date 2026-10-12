@@ -1,20 +1,20 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/13F90", func_80013390_13F90);
+INCLUDE_ASM("asm/nonmatchings/13F90", func_80013390_main);
 
-INCLUDE_ASM("asm/nonmatchings/13F90", func_800138EC_144EC);
+INCLUDE_ASM("asm/nonmatchings/13F90", func_800138EC_main);
 
-INCLUDE_ASM("asm/nonmatchings/13F90", func_80013928_14528);
+INCLUDE_ASM("asm/nonmatchings/13F90", func_80013928_main);
 
-INCLUDE_ASM("asm/nonmatchings/13F90", func_80013954_14554);
+INCLUDE_ASM("asm/nonmatchings/13F90", func_80013954_main);
 
-INCLUDE_ASM("asm/nonmatchings/13F90", func_80013980_14580);
+INCLUDE_ASM("asm/nonmatchings/13F90", func_80013980_main);
 
-INCLUDE_ASM("asm/nonmatchings/13F90", func_800139AC_145AC);
+INCLUDE_ASM("asm/nonmatchings/13F90", func_800139AC_main);
 
-void func_80013D44_14944(void) {
+void func_80013D44_main(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/13F90", func_80013D4C_1494C);
+INCLUDE_ASM("asm/nonmatchings/13F90", func_80013D4C_main);
 
-INCLUDE_ASM("asm/nonmatchings/13F90", func_80013FB4_14BB4);
+INCLUDE_ASM("asm/nonmatchings/13F90", func_80013FB4_main);
