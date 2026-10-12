@@ -1246,7 +1246,7 @@ static void MBTelopMgTypeMain(omObjData *obj) {
 
     if (obj->work[3] != 0) {
         obj->work[3]--;
-        if (obj->work[3] < 2 && (u32)(obj->work[0] - 4) < 2) {
+        if (obj->work[3] < 2 && (obj->work[0] - 4) < 2) {
             HuAudFXPlay(0x206);
         }
     } else {
@@ -1383,7 +1383,7 @@ void MBTelopMgTypeCreate(s32 arg0, u32 arg1) {
     s32 var_a0;
     s32 var_s1;
 
-    if (!((u8) D_80102D36_shared_board & 4) && ((var_s1 = func_800F52C4_shared_board(), (((~var_s1 == 0) | (arg0 != 0)) == 0)) || (var_s1 = arg0 + 2, (arg0 != 0)))) {
+    if (!(D_80102D36_shared_board & 4) && ((var_s1 = func_800F52C4_shared_board(), (((~var_s1 == 0) | (arg0 != 0)) == 0)) || (var_s1 = arg0 + 2, (arg0 != 0)))) {
         modelObj = MBModelFileCreate(0x130204, -1, 1.8f, 0, 0);
         D_80102D54_shared_board = modelObj;
         func_8001C258_main(modelObj->omObj1->model[0], 0x180, 0);

@@ -128,7 +128,7 @@ void func_8000EBEC_main(void *arg0) {
 
             var_s4 = D_800D2094_main;
             func_8004D85C_main();
-            pAvailableFrameBuffer = (void *)func_8000EB60_main();
+            pAvailableFrameBuffer = func_8000EB60_main();
         } while (pAvailableFrameBuffer == NULL);
 
         currFrameBuffer = nextFrameBuffer;
@@ -167,7 +167,7 @@ void func_8000EBEC_main(void *arg0) {
                     }
                 }
 
-            } while (!((s32)recvdMesg->unk08 & 1));
+            } while (!(recvdMesg->unk08 & 1));
         } while (FALSE);
 
         for (i = 1; i < D_800B19A0_main; i++) {

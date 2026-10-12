@@ -1129,7 +1129,7 @@ void func_800F591C_shared_board(s32 arg0) {
     s32 i;
 
     if (temp_s1->unk30 != NULL) {
-        omDelObj((omObjData *)temp_s1->unk30);
+        omDelObj(temp_s1->unk30);
         temp_s1->unk30 = 0;
         for (i = 0; i < 0xE; i++) {
             HuSprScaleSet(temp_s1->playerIndex, i, 1.0f, 1.0f);

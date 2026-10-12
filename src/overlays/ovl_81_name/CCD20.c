@@ -564,7 +564,7 @@ static void func_800E5DD8_name_81(void) {
 }
 
 #define gSPScisTextureRectangle_MP(pkt,xl,yl,xh,yh,tile,s,t,dsdx,dtdy) { \
-    Gfx *_g = (Gfx *)(pkt); \
+    Gfx *_g = (pkt); \
     _g->words.w0 = (_SHIFTL(G_TEXRECT, 24, 8) | \
     _SHIFTL(MAX((s16)(xh),0), 12, 12) | \
     _SHIFTL(MAX((s16)(yh),0), 0, 12)); \
@@ -602,8 +602,8 @@ void func_800E5FB0_name_81(Gfx** arg0, void* arg1, s16 arg2, s16 arg3) {
                 /*tile*/0,
                 /*s*/0,
                 /*t*/0,
-                /*dsdx*/(s16)(1024.0f / D_80101000_name_81),
-                /*dtdy*/(s16)(1024.0f / D_80101000_name_81)
+                /*dsdx*/(1024.0f / D_80101000_name_81),
+                /*dtdy*/(1024.0f / D_80101000_name_81)
             );
         } else {
             gSPScisTextureRectangle_MP((*arg0)++,
@@ -614,8 +614,8 @@ void func_800E5FB0_name_81(Gfx** arg0, void* arg1, s16 arg2, s16 arg3) {
                 /*tile*/0,
                 /*s*/0,
                 /*t*/0,
-                /*dsdx*/(s16)(1024.0f / D_80101000_name_81),
-                /*dtdy*/(s16)(1024.0f / D_80101000_name_81)
+                /*dsdx*/(1024.0f / D_80101000_name_81),
+                /*dtdy*/(1024.0f / D_80101000_name_81)
             );
         }
     } else {
@@ -628,7 +628,7 @@ void func_800E5FB0_name_81(Gfx** arg0, void* arg1, s16 arg2, s16 arg3) {
             /*s*/0x7e0,
             /*t*/0,
             /*dsdx*/-(s16)(1024.0f / D_80101000_name_81),
-            /*dtdy*/(s16)(1024.0f / D_80101000_name_81)
+            /*dtdy*/(1024.0f / D_80101000_name_81)
         );
     }
 
@@ -649,8 +649,8 @@ void func_800E5FB0_name_81(Gfx** arg0, void* arg1, s16 arg2, s16 arg3) {
                 /*tile*/0,
                 /*s*/0,
                 /*t*/0,
-                /*dsdx*/(s16)(1024.0f / D_80101000_name_81),
-                /*dtdy*/(s16)(1024.0f / D_80101000_name_81)
+                /*dsdx*/(1024.0f / D_80101000_name_81),
+                /*dtdy*/(1024.0f / D_80101000_name_81)
             );
         } else {
             gSPScisTextureRectangle_MP((*arg0)++,
@@ -661,8 +661,8 @@ void func_800E5FB0_name_81(Gfx** arg0, void* arg1, s16 arg2, s16 arg3) {
                 /*tile*/0,
                 /*s*/0,
                 /*t*/0,
-                /*dsdx*/(s16)(1024.0f / D_80101000_name_81),
-                /*dtdy*/(s16)(1024.0f / D_80101000_name_81)
+                /*dsdx*/(1024.0f / D_80101000_name_81),
+                /*dtdy*/(1024.0f / D_80101000_name_81)
             );
         }
     } else {
@@ -675,7 +675,7 @@ void func_800E5FB0_name_81(Gfx** arg0, void* arg1, s16 arg2, s16 arg3) {
             /*s*/0x7e0,
             /*t*/0,
             /*dsdx*/-(s16)(1024.0f / D_80101000_name_81),
-            /*dtdy*/(s16)(1024.0f / D_80101000_name_81)
+            /*dtdy*/(1024.0f / D_80101000_name_81)
         );
     }
 }
@@ -867,8 +867,8 @@ static void func_800E7EF8_name_81(void) {
     D_801031EC_name_81.x = D_80100FF8_name_81->unk30;
     D_801031EC_name_81.y = D_80100FF8_name_81->unk34;
     D_801031EC_name_81.z = D_80100FF8_name_81->unk38;
-    D_801031F8_name_81.x = (f32) (D_801031D0_name_81 * 640.0f);
-    D_801031F8_name_81.y = (f32) (D_801031D0_name_81 * 480.0f);
+    D_801031F8_name_81.x = (D_801031D0_name_81 * 640.0f);
+    D_801031F8_name_81.y = (D_801031D0_name_81 * 480.0f);
     D_801031F8_name_81.z = 511.0f;
     D_80104848_name_81[0] = 640.0f;
     D_80104848_name_81[1] = 480.0f;

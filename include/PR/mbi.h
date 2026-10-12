@@ -1,6 +1,10 @@
 #ifndef _MBI_H_
 #define	_MBI_H_
 
+#ifdef CC_CHECK
+#pragma GCC system_header
+#endif
+
 /**************************************************************************
  *									  *
  *		 Copyright (C) 1994, Silicon Graphics, Inc.		  *
