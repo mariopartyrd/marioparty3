@@ -31,7 +31,7 @@ void HuMemMemoryFreeTemp(void *ptr) {
  * Resizes a previously allocated Tempanent heap buffer.
  */
 void *HuMemMemoryReallocTemp(void *mem, u32 new_size) {
-    return (void *)HuMemMemoryRealloc(temp_heap_addr, mem, new_size);
+    return HuMemMemoryRealloc(temp_heap_addr, mem, new_size);
 }
 
 /*

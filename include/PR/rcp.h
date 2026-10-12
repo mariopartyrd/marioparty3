@@ -1,6 +1,10 @@
 #ifndef _RCP_H_
 #define _RCP_H_
 
+#ifdef CC_CHECK
+#pragma GCC system_header
+#endif
+
 /**************************************************************************
  *                                                                        *
  *               Copyright (C) 1995, Silicon Graphics, Inc.               *

@@ -54,7 +54,7 @@ void func_800DAA40_shared_board(s32 arg0) {
     UnkDiceRelated* temp_s0;
 
     temp_s0 = &D_800CDBD0_main[arg0];
-    if ((temp_s0->unk28 == -1) && (temp_s0->dice->unk_4C == 1)) {
+    if ((temp_s0->unk28 == -1) && (temp_s0->dice->work[0] == 1)) {
         temp_s0->unk28 = HuAudFXPlay(0x100);
     }
 }
@@ -326,7 +326,7 @@ void func_800DB884_shared_board(s32 arg0) {
     entry = &D_800CDBD0_main[arg0];
 
     if (entry->rollValue[entry->rollValueIdx] != 0) {
-        if ((entry->dice == NULL) || (entry->dice->unk_4C == 2)) {
+        if ((entry->dice == NULL) || (entry->dice->work[0] == 2)) {
             pos.x = GwPlayer[arg0].player_obj->coords.x;
             pos.y = GwPlayer[arg0].player_obj->coords.y + D_80105708_shared_board;
             pos.z = GwPlayer[arg0].player_obj->coords.z;
@@ -764,7 +764,7 @@ void func_800DCA64_shared_board(s32 arg0) {
         if (entry->unk_2C != NULL) {
             DataClose(entry->unk_2C);
         }
-        omDelObj((omObjData *)entry->dice);
+        omDelObj(entry->dice);
         entry->dice = NULL;
         entry->unk_16 = -1;
     }
@@ -807,7 +807,7 @@ void func_800DCBCC_shared_board(s32 arg0) {
     entry = &D_800CDBD0_main[arg0];
 
     if (entry->unk_16 != -1) {
-        entry->dice->unk_4C = 2;
+        entry->dice->work[0] = 2;
 
         if (D_8010570F_shared_board != 2) {
             func_800DBC2C_shared_board(arg0);
@@ -1490,12 +1490,11 @@ void func_800DE874_shared_board(s32 arg0) {
 }
 
 void func_800DE8D8_shared_board(s32 arg0) {
-    DiceInstance* temp_v0;
     UnkDiceRelated* temp_s0;
     
     temp_s0 = &D_800CDBD0_main[arg0];
     if ((temp_s0->unk2A == 1) && (temp_s0->unk_16 != -1)) {
-        if ((temp_s0->dice != NULL) && (temp_s0->dice->unk_4C != 2) && (temp_s0->unk_0A != 5) && (D_8010570F_shared_board != 2)) {
+        if ((temp_s0->dice != NULL) && (temp_s0->dice->work[0] != 2) && (temp_s0->unk_0A != 5) && (D_8010570F_shared_board != 2)) {
             temp_s0->unk28 = HuAudFXPlay(0x100);
         }
     }
@@ -1534,9 +1533,9 @@ void func_800DEAA0_shared_board(s32 arg0) {
     UnkDiceRelated* temp_a1 = &D_800CDBD0_main[arg0];
     
     if (temp_a1->dice != NULL) {
-        temp_a1->dice->coords.x = GwPlayer[arg0].player_obj->coords.x;
-        temp_a1->dice->coords.y = GwPlayer[arg0].player_obj->coords.y + D_80105708_shared_board;
-        temp_a1->dice->coords.z = GwPlayer[arg0].player_obj->coords.z;
+        temp_a1->dice->trans.x = GwPlayer[arg0].player_obj->coords.x;
+        temp_a1->dice->trans.y = GwPlayer[arg0].player_obj->coords.y + D_80105708_shared_board;
+        temp_a1->dice->trans.z = GwPlayer[arg0].player_obj->coords.z;
     }
 }
 

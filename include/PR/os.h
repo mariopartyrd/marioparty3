@@ -31,6 +31,10 @@
 #ifndef _OS_H_
 #define	_OS_H_
 
+#ifdef CC_CHECK
+#pragma GCC system_header
+#endif
+
 #ifdef _LANGUAGE_C_PLUS_PLUS
 extern "C" {
 #endif

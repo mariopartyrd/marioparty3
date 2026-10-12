@@ -171,7 +171,7 @@ void func_801076D0_filesel(s32 arg0, u32 arg1) {
 
     func_8005D294_main(D_80114158_filesel[arg0].unk_00);
     if (D_80114158_filesel[arg0].unk_04 != 0) {
-        func_80019C00_main((u32)D_80114158_filesel[arg0].unk_04);
+        func_80019C00_main(D_80114158_filesel[arg0].unk_04);
         D_80114158_filesel[arg0].unk_04 = 0;
     }
 

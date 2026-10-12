@@ -739,7 +739,7 @@ static void MBMgCallExec(void) {
     s32 xVelocity;
     u32 var_s5;
     u32 *temp_s2;
-    s32 i, j, k;
+    s32 j, k;
 
     process = HuPrcCurrentGet();
     sp20[0] = 1;
@@ -759,7 +759,7 @@ static void MBMgCallExec(void) {
     func_8001C814_main(temp_v0->omObj1->model[0], 2, 1);
     temp_s2 = process->user_data;
 
-    for (i = 0;; i++) {
+    for (;;) {
         switch (var_s5) {
             case 0:
                 break;
@@ -1006,7 +1006,7 @@ static void func_800E0C94_shared_board(void) {
     s32 xVelocity;
     u32 var_s5;
     UnkSize10 *temp_s2;
-    s32 i, j, k;
+    s32 j, k;
 
     process = HuPrcCurrentGet();
     sp20[0] = 1;
@@ -1025,7 +1025,7 @@ static void func_800E0C94_shared_board(void) {
     temp_s2 = process->user_data;
     HuAudFXPlay(0x156);
 
-    for (i = 0;; i++) {
+    for (;;) {
         switch (var_s5) {
             case 0:
                 break;

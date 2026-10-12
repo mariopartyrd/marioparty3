@@ -629,7 +629,7 @@ static void func_800E7514_shared_board(void) {
 }
 
 #define gSPScisTextureRectangle_MP(pkt,xl,yl,xh,yh,tile,s,t,dsdx,dtdy) { \
-    Gfx *_g = (Gfx *)(pkt); \
+    Gfx *_g = (pkt); \
     _g->words.w0 = (_SHIFTL(G_TEXRECT, 24, 8) | \
     _SHIFTL(MAX((s16)(xh),0), 12, 12) | \
     _SHIFTL(MAX((s16)(yh),0), 0, 12)); \
@@ -653,14 +653,14 @@ static void func_800E76EC_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg
     if (!(D_80102DC0_shared_board & 0x10)) {
         gSPScisTextureRectangle_MP((*arg0)++,
             /*xl*/(temp_f20 * D_80101250_shared_board * 4.0f),
-            /*yl*/((temp_f22 * D_80101250_shared_board * 4.0f) - (f32) (s16) arg4),
+            /*yl*/((temp_f22 * D_80101250_shared_board * 4.0f) - (f32) arg4),
             /*xh*/(temp_f20 + 64.0f) * D_80101250_shared_board * 4.0f,
             /*yh*/(temp_f22 + 32.0f) * D_80101250_shared_board * 4.0f,
             /*tile*/0,
             /*s*/0,
             /*t*/0,
-            /*dsdx*/(s16)(1024.0f / D_80101250_shared_board),
-            /*dtdy*/(s16)(1024.0f / D_80101250_shared_board)
+            /*dsdx*/(1024.0f / D_80101250_shared_board),
+            /*dtdy*/(1024.0f / D_80101250_shared_board)
         );
     } else {
         gSPScisTextureRectangle_MP((*arg0)++,
@@ -672,7 +672,7 @@ static void func_800E76EC_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg
             /*s*/0x7e0,
             /*t*/0,
             /*dsdx*/-(s16)(1024.0f / D_80101250_shared_board),
-            /*dtdy*/(s16)(1024.0f / D_80101250_shared_board)
+            /*dtdy*/(1024.0f / D_80101250_shared_board)
         );
     }
     func_8003465C_main(arg0, arg1 + 0x1000, 0, 2, 0x40, 0x10, 0, 0, 0x40, 0x10, 0, 1, 1, 6, 4, 0, 0);
@@ -685,8 +685,8 @@ static void func_800E76EC_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg
             /*tile*/0,
             /*s*/0,
             /*t*/0,
-            /*dsdx*/(s16)(1024.0f / D_80101250_shared_board),
-            /*dtdy*/(s16)(1024.0f / D_80101250_shared_board)
+            /*dsdx*/(1024.0f / D_80101250_shared_board),
+            /*dtdy*/(1024.0f / D_80101250_shared_board)
         );
     } else {
         gSPScisTextureRectangle_MP((*arg0)++,
@@ -698,7 +698,7 @@ static void func_800E76EC_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg
             /*s*/0x7e0,
             /*t*/0,
             /*dsdx*/-(s16)(1024.0f / D_80101250_shared_board),
-            /*dtdy*/(s16)(1024.0f / D_80101250_shared_board)
+            /*dtdy*/(1024.0f / D_80101250_shared_board)
         );
     }
 }
@@ -931,8 +931,8 @@ static void func_800E90BC_shared_board(void) {
     D_80103438_shared_board.x = D_80101248_shared_board->unk30;
     D_80103438_shared_board.y = D_80101248_shared_board->unk34;
     D_80103438_shared_board.z = D_80101248_shared_board->unk38;
-    D_80103444_shared_board.x = (f32) (D_8010341C_shared_board * 640.0f);
-    D_80103444_shared_board.y = (f32) (D_8010341C_shared_board * 480.0f);
+    D_80103444_shared_board.x = (D_8010341C_shared_board * 640.0f);
+    D_80103444_shared_board.y = (D_8010341C_shared_board * 480.0f);
     D_80103444_shared_board.z = 511.0f;
     D_801049F8_shared_board[0] = 640.0f;
     D_801049F8_shared_board[1] = 480.0f;
@@ -1626,6 +1626,7 @@ s32 MBMasuCreate(s32 arg0, s32 arg1) {
             var_s1->event_list = NULL;
             var_s1 += 1;
         }
+        (void)sp10; // Suppress unused variable warning
         D_80105218_shared_board = HuMemMemoryAllocTemp(D_80105212_shared_board * 8);
         temp_s3 = func_800EAE00_shared_board(D_801012C0_shared_board, 6);
         var_s1_2 = D_80105218_shared_board;
@@ -1866,7 +1867,7 @@ static void func_800EB8BC_shared_board(void) {
     f32 var_f20;
     Process* proc =  HuPrcCurrentGet();
 
-    temp_v0 = MBMasuGet((s16)proc->user_data);
+    temp_v0 = MBMasuGet((s16)(s32)proc->user_data);
     temp_f22 = temp_v0->rot.x;
     var_f20 = temp_f22 + 0.03f;
     if (D_801012C0_shared_board != 0) {
@@ -1890,7 +1891,7 @@ static void func_800EB8BC_shared_board(void) {
 }
 
 void func_800EB97C_shared_board(s16 arg0) {
-    omAddPrcObj(func_800EB8BC_shared_board, 0xEF00, 0, 0)->user_data = (void* ) arg0;
+    omAddPrcObj(func_800EB8BC_shared_board, 0xEF00, 0, 0)->user_data = (void *)(s32)arg0;
 }
 
 static void MBMasuEventSet(s16 arg0, void *arg1) {
@@ -1945,7 +1946,7 @@ s32 MBMasuEventCall(s16 arg0, s16 arg1) {
 
     if (entry != NULL) {
         while (entry->activation_type != 0) {
-            if (entry->activation_type == (s16)arg1) {
+            if (entry->activation_type == arg1) {
                 D_80105288_shared_board = 0;
                 switch (entry->execution_type) {
                     case 1:

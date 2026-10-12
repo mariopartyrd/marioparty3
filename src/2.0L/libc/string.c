@@ -28,5 +28,5 @@ void *memcpy(void *s1, const void *s2, unsigned int n) {
         su2++;
         n--;
     }
-    return (void *)s1;
+    return s1;
 }

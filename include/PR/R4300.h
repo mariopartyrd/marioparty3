@@ -21,6 +21,10 @@
 #ifndef __R4300_H__
 #define __R4300_H__
 
+#ifdef CC_CHECK
+#pragma GCC system_header
+#endif
+
 #include <PR/ultratypes.h>
 
 /*

@@ -78,16 +78,16 @@ void MBWinInsertOpen(s32 arg0, char *arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg
         func_8006022C_main((u32)arg1, 0);
     }
     if (arg2 != NULL) {
-        func_8006022C_main((u32)arg2, 1);
+        func_8006022C_main(arg2, 1);
     }
     if (arg3 != NULL) {
-        func_8006022C_main((u32)arg3, 2);
+        func_8006022C_main(arg3, 2);
     }
     if (arg4 != NULL) {
-        func_8006022C_main((u32)arg4, 3);
+        func_8006022C_main(arg4, 3);
     }
     if (arg5 != NULL) {
-        func_8006022C_main((u32)arg5, 4);
+        func_8006022C_main(arg5, 4);
     }
 
     func_80060394_main(1, sp18, arg0);
@@ -101,16 +101,16 @@ void MBWinInsertOpen(s32 arg0, char *arg1, u32 arg2, u32 arg3, u32 arg4, u32 arg
         func_8005B6BC_main(temp_v0, (u32)arg1, 0);
     }
     if (arg2 != 0) {
-        func_8005B6BC_main(temp_v0, (u32)arg2, 1);
+        func_8005B6BC_main(temp_v0, arg2, 1);
     }
     if (arg3 != 0) {
-        func_8005B6BC_main(temp_v0, (u32)arg3, 2);
+        func_8005B6BC_main(temp_v0, arg3, 2);
     }
     if (arg4 != 0) {
-        func_8005B6BC_main(temp_v0, (u32)arg4, 3);
+        func_8005B6BC_main(temp_v0, arg4, 3);
     }
     if (arg5 != 0) {
-        func_8005B6BC_main(temp_v0, (u32)arg5, 4);
+        func_8005B6BC_main(temp_v0, arg5, 4);
     }
     func_8005B43C_main(temp_v0, arg0, -1, -1);
     func_80061388_main(temp_v0);
