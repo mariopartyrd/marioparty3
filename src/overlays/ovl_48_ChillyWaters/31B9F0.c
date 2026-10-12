@@ -5059,7 +5059,7 @@ void MB1Ev_NKinokoTurnStart(void) {
         GWBoardFlagSet(0x10);
         system->slow_dice_flags &= ~(1 << system->current_player_index);
         //TODO: why is it loading this as a u32?
-        if ((player->rev & 0x20) || ((*(u32 *)&player->nnidx & 0xA) == 8)) {
+        if ((player->rev & 0x20) || ((player->rev & 0x8) && !(player->rev & 0x2))) {
             MBDlgWinExec(-1, 0x4219);
         } else {
             MBDlgWinExec(-1, 0x3A07);
