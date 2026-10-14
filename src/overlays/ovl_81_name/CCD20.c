@@ -3,12 +3,6 @@
 #include "ovl_81.h"
 #include "mallocblock.h"
 
-typedef struct HVQHeader {
-    /* 0x00 */ s32 allocSize;
-    /* 0x04 */ u8* unk_04;
-    /* 0x08 */ char unk_08[8];
-} HVQHeader; //sizeof 0x10
-
 typedef struct UnkModelStruct {
     /* 0x00 */ s32 unk0;
     /* 0x04 */ s32 unk4;
@@ -26,24 +20,6 @@ typedef struct UnkModelStruct {
     /* 0x34 */ f32 unk34;
     /* 0x38 */ f32 unk38;
 } UnkModelStruct; //sizeof 0x3C
-
-typedef struct UnkHvqStruct {
-    s32 unk_00;
-    s32 unk_04;
-    u8* dest;
-    s32 dmaSize;
-    u32 src;
-} UnkHvqStruct;
-
-typedef struct OverlayBgEntry {
-    /* 0x00 */ u8 unk0;
-    /* 0x01 */ u8 unk1;
-    /* 0x02 */ s16 unk2;
-    /* 0x04 */ void* unk4;
-    /* 0x08 */ void* unk_08;
-    /* 0x0C */ s32 unkC;
-    /* 0x10 */ s32 unk10;
-} OverlayBgEntry; //sizeof 0x14
 
 extern f32 D_80104848_name_81[2];
 extern u8 D_80100FFC_name_81;
@@ -65,7 +41,7 @@ extern s16 D_80102D32_name_81;
 extern s16 D_80102D34_name_81;
 extern s16 D_80102D36_name_81;
 extern s16 D_80102D38_name_81;
-extern u8* D_801031C0_name_81;
+extern HvqFileHeader* D_801031C0_name_81;
 extern Vec D_80103204_name_81;
 extern s32 D_80105628_name_81;
 extern OSMesgQueue D_80103210_name_81;
@@ -107,14 +83,14 @@ static void func_800E9200_name_81(void);
 static void func_800E9230_name_81(void);
 
 void func_800E4F50_name_81(Addr arg0) {
-    HVQHeader* temp_v0;
+    HuArchive* temp_v0;
     s32* temp_v0_2;
     u32 temp_s0;
 
     D_80102D20_name_81 = (u32)arg0;
-    temp_v0 = HuMemMemoryAllocTemp(sizeof(HVQHeader));
-    dmaRead((u32)arg0, (u8*)temp_v0, sizeof(HVQHeader));
-    D_80102D24_name_81 = temp_v0->allocSize;
+    temp_v0 = HuMemMemoryAllocTemp(sizeof(HuArchive));
+    dmaRead((u32)arg0, (u8*)temp_v0, sizeof(HuArchive));
+    D_80102D24_name_81 = temp_v0->count;
     HuMemMemoryFreeTemp(temp_v0);
     temp_s0 = D_80102D24_name_81 * 4;
     temp_v0_2 = HuMemMemoryAllocTemp(temp_s0);
@@ -139,14 +115,14 @@ void MBDBackClose(void) {
 void MBDBackCreate(s32 arg0, s32 arg1) {
     UnkModelStruct* temp_v0_3;
     u32 temp_s0;
-    s32* temp_v0;
+    HuArchive* temp_v0;
     u32* temp_v0_2;
 
     D_80105628_name_81 = arg0;
     D_80102D28_name_81 = D_80102D20_name_81 + D_80100FF0_name_81[arg0];
-    temp_v0 = HuMemMemoryAllocTemp(sizeof(HVQHeader));
-    dmaRead(D_80102D28_name_81, (u8*)temp_v0, sizeof(HVQHeader));
-    arg0 = *temp_v0;
+    temp_v0 = HuMemMemoryAllocTemp(sizeof(HuArchive));
+    dmaRead(D_80102D28_name_81, (u8*)temp_v0, sizeof(HuArchive));
+    arg0 = temp_v0->count;
     HuMemMemoryFreeTemp(temp_v0);
     arg0++;
     temp_s0 = arg0 * 4;
@@ -166,7 +142,7 @@ void MBDBackCreate(s32 arg0, s32 arg1) {
     D_80100FF8_name_81->unk28 *= 5.0f;
     D_80100FF8_name_81->unk2C *= 5.0f;
     D_801031C0_name_81 = HuMemMemoryAllocTemp(func_800E5CC4_name_81(0));
-    dmaRead(D_80102D28_name_81 + D_80100FF4_name_81[1], D_801031C0_name_81, func_800E5CC4_name_81(0));
+    dmaRead(D_80102D28_name_81 + D_80100FF4_name_81[1], (u8 *)D_801031C0_name_81, func_800E5CC4_name_81(0));
     D_80102D34_name_81 = 0;
     D_80102D32_name_81 = 0;
     D_80102D36_name_81 = D_80100FF8_name_81->unk0 * D_80100FF8_name_81->unk8 / 2;
@@ -255,14 +231,14 @@ void MBDBackDispSet(u16 arg0) {
 }
 
 static void func_800E5618_name_81(void) {
-    UnkHvqStruct* sp10;
+    OverlayBgEntry* sp10;
 
     while (1) {
         osRecvMesg(&D_80103210_name_81, (OSMesg)&sp10, OS_MESG_BLOCK);
         if (sp10 == NULL) {
             break;
         }
-        dmaRead(sp10->src, sp10->dest, sp10->dmaSize);
+        dmaRead(sp10->romAddr, (u8 *)sp10->compressedData, sp10->compressedSize);
         osSendMesg(&D_80104660_name_81, (OSMesg)sp10, OS_MESG_NOBLOCK);
     }
 
@@ -338,9 +314,9 @@ static void func_800E5690_name_81(u8 *input, u8 *output, s32 compressedSize) {
     }
 }
 
-// decodes HVQ board image tile?
+// Decode a board image tile into RGBA5551 pixels.
 static void func_800E5784_name_81(void) {
-    HvqUnk *sp10;
+    OverlayBgEntry *sp10;
     HvqHeader *temp_a0;
 
     hvqMpsInit1(0xFF);
@@ -348,14 +324,13 @@ static void func_800E5784_name_81(void) {
     while (1) {
         osRecvMesg(&D_80104660_name_81, (OSMesg)&sp10, OS_MESG_BLOCK);
         if (sp10 != NULL) {
-            temp_a0 = sp10->unk8;
-            D_80102D40_name_81 = sp10->unk8;
-            if (temp_a0->magic == 0x48565153) { //"HVQS"
-                                                // is HVQS, decode it
-                hvqMpsDecode1((void *)&temp_a0->unk4, (u16 *)sp10->unk4, 0x40, D_80102D3C_name_81);
+            temp_a0 = sp10->compressedData;
+            D_80102D40_name_81 = sp10->compressedData;
+            if (temp_a0->magic == 0x48565153) { // "HVQS"
+                hvqMpsDecode1(&temp_a0->data.image, sp10->pixels, 0x40, D_80102D3C_name_81);
             } else {
                 // 0x1800 size for decoded tile
-                func_800E5690_name_81((u8*)&D_80102D40_name_81->unk4, sp10->unk4, 0x1800);
+                func_800E5690_name_81(D_80102D40_name_81->data.slide, (u8 *)sp10->pixels, 0x1800);
             }
             osSendMesg(&D_80104740_name_81, (OSMesg)sp10, OS_MESG_NOBLOCK);
         } else {
@@ -394,15 +369,15 @@ static void func_800E5974_name_81(void) {
 }
 
 static void func_800E59B0_name_81(void) {
-    UnkHvqStruct* sp10;
+    OverlayBgEntry* sp10;
 
     while (1) {
         if (osRecvMesg(&D_80104740_name_81, (OSMesg)&sp10, 0) != OS_MESG_NOBLOCK) {
             break;
         }
         if (sp10 != NULL) {
-            HuMemMemoryFreePerm(sp10->dest);
-            sp10->dest = NULL;
+            HuMemMemoryFreePerm(sp10->compressedData);
+            sp10->compressedData = NULL;
         }
     }
 }
@@ -421,9 +396,9 @@ static void func_800E5A00_name_81(void) {
 
     for (i = 0; i < ARRAY_COUNT(D_80102D48_name_81); i++) {
         OverlayBgEntry* temp = &D_80102D48_name_81[i];
-        if (temp->unk_08 != NULL) {
-            HuMemMemoryFreePerm(temp->unk_08);
-            temp->unk_08 = NULL;
+        if (temp->compressedData != NULL) {
+            HuMemMemoryFreePerm(temp->compressedData);
+            temp->compressedData = NULL;
         }
     }
 }
@@ -435,8 +410,8 @@ static void func_800E5AC8_name_81(void) {
     for (i = 0; i < ARRAY_COUNT(D_80102D48_name_81); i++, var_s0++) {
         var_s0->unk0 = 0;
         var_s0->unk2 = -1;
-        var_s0->unk4 = HuMemAlloc(0x1800);
-        var_s0->unk_08 = NULL;
+        var_s0->pixels = HuMemAlloc(0x1800);
+        var_s0->compressedData = NULL;
     }
 
     bzero(D_80103130_name_81, sizeof(D_80103130_name_81));
@@ -447,7 +422,7 @@ static void func_800E5B3C_name_81(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_80102D48_name_81); i++, var_v1++) {
-        if ((var_v1->unk_08 == NULL) && (var_v1->unk0 == 0)) {
+        if ((var_v1->compressedData == NULL) && (var_v1->unk0 == 0)) {
             var_v1->unk2 = -1;
         }
         var_v1->unk0 = 0;
@@ -462,9 +437,9 @@ static void func_800E5B80_name_81(void) {
         var_s0->unk0 = 0;
         var_s0->unk2 = -1;
 
-        if (var_s0->unk4 != NULL) {
-            HuMemFree(var_s0->unk4);
-            var_s0->unk4 = NULL;
+        if (var_s0->pixels != NULL) {
+            HuMemFree(var_s0->pixels);
+            var_s0->pixels = NULL;
         }
     }
 }
@@ -528,10 +503,10 @@ OverlayBgEntry *func_800E5D18_name_81(u16 arg0) {
     if (slot != NULL) {
         slot->unk0 = 1;
         slot->unk2 = arg0;
-        slot->unk10 = func_800E5CEC_name_81(arg0);
+        slot->romAddr = func_800E5CEC_name_81(arg0);
         size = func_800E5CC4_name_81(arg0);
-        slot->unkC = size;
-        slot->unk_08 = HuMemMemoryAllocPerm(size);
+        slot->compressedSize = size;
+        slot->compressedData = HuMemMemoryAllocPerm(size);
         osSendMesg(&D_80103210_name_81, slot, OS_MESG_NOBLOCK);
     }
     return slot;
@@ -577,7 +552,7 @@ static void func_800E5DD8_name_81(void) {
     gImmp1(pkt, G_RDPHALF_2, (_SHIFTL((s16)(dsdx), 16, 16) | _SHIFTL((s16)(dtdy), 0, 16))); \
 }
 
-void func_800E5FB0_name_81(Gfx** arg0, void* arg1, s16 arg2, s16 arg3) {
+void func_800E5FB0_name_81(Gfx** arg0, u16* arg1, s16 arg2, s16 arg3) {
     f32 temp_f0;
     f32 temp_f20;
     f32 temp_f22;
@@ -633,9 +608,9 @@ void func_800E5FB0_name_81(Gfx** arg0, void* arg1, s16 arg2, s16 arg3) {
     }
 
     if (D_8010100C_name_81 == 0) {
-        func_8003465C_main(arg0, arg1 + 0x1000, 0, 2, 0x40, 0x10, 0, 0, 0x40, 0x10, 0, 1, 1, 6, 4, 0, 0);
+        func_8003465C_main(arg0, arg1 + (64 * 32), 0, 2, 0x40, 0x10, 0, 0, 0x40, 0x10, 0, 1, 1, 6, 4, 0, 0);
     } else {
-        gDPLoadTextureBlock((*arg0)++, arg1 + 0x1000, G_IM_FMT_RGBA, G_IM_SIZ_16b, 64, 16, 0,
+        gDPLoadTextureBlock((*arg0)++, arg1 + (64 * 32), G_IM_FMT_RGBA, G_IM_SIZ_16b, 64, 16, 0,
                             G_TX_MIRROR, G_TX_MIRROR, 6, 4, G_TX_NOLOD, G_TX_NOLOD);
     }
 
@@ -734,7 +709,7 @@ void func_800E77D8_name_81(Gfx** arg0, s32 arg1, u8 arg2) {
             if (bgEntry != NULL) {
                 func_800E5FB0_name_81(
                     arg0,
-                    bgEntry->unk4,
+                    bgEntry->pixels,
                     ((col + spX) * 64) - sp1E,
                     ((row + spY) * 48) - sp26
                 );
@@ -1336,7 +1311,7 @@ static void func_800E9230_name_81(void){
     func_800E919C_name_81();
 }
 
-#define BG_TEXEL(entry, off) (*(u16 *)((u8 *)(entry)->unk4 + (off)))
+#define BG_TEXEL(entry, off) (*(u16 *)((u8 *)(entry)->pixels + (off)))
 #define BG_TEX_SIZE (64 * 48 * 2)
 
 void func_800E924C_name_81(s16 arg0) {
@@ -1356,7 +1331,7 @@ void func_800E924C_name_81(s16 arg0) {
         case 1:
             for (i = 0; i < ARRAY_COUNT(D_80102D48_name_81); i++) {
                 entry = &D_80102D48_name_81[i];
-                if (entry->unk4 == NULL) {
+                if (entry->pixels == NULL) {
                     continue;
                 }
 

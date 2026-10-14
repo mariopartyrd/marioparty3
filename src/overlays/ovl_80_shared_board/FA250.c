@@ -7,7 +7,7 @@
 #include "EC3B0.h"
 #include "101840.h"
 
-#define BG_TEXEL(entry, off) (*(u16 *)((u8 *)(entry)->unk4 + (off)))
+#define BG_TEXEL(entry, off) (*(u16 *)((u8 *)(entry)->pixels + (off)))
 #define BG_TEX_SIZE (64 * 48 * 2)
 
 typedef struct UnkCam3DStruct {
@@ -15,25 +15,6 @@ typedef struct UnkCam3DStruct {
     f32 unk_08;
     f32 unk_0C;
 } UnkCam3DStruct;
-
-//is this even HVQ related
-typedef struct UnkHvqStruct {
-    s32 unk_00;
-    s32 unk_04;
-    u8* dest;
-    s32 dmaSize;
-    u32 src;
-} UnkHvqStruct;
-
-typedef struct OverlayBgEntry {
-    /* 0x00 */ u8 unk0;
-    /* 0x01 */ u8 unk1;
-    /* 0x02 */ s16 unk2;
-    /* 0x04 */ void* unk4;
-    /* 0x08 */ void* unk_08;
-    /* 0x0C */ s32 unkC;
-    /* 0x10 */ s32 unk10;
-} OverlayBgEntry; //sizeof 0x14
 
 extern s32 D_80102DB8_shared_board;
 
@@ -56,12 +37,6 @@ typedef struct UnkModelStruct {
 } UnkModelStruct; //sizeof 0x3C
 
 extern UnkModelStruct* D_80101248_shared_board;
-
-typedef struct HVQHeader {
-    s32 allocSize;
-    u8* unk_04;
-    char unk_08[8];
-} HVQHeader; //TODO: there's like 3 of these, no idea if they are the same or not
 
 typedef struct UnkFAF78 {
     /* 0x00 */ s32 unk_00;   /* count */
@@ -139,7 +114,7 @@ extern u16 D_8010345E_shared_board;
 extern s32 D_80103460_shared_board;
 extern UnkFAF78 *D_80103464_shared_board;
 extern u8* D_80102DCC_shared_board;
-extern u8* D_80103138_shared_board;
+extern HvqFileHeader* D_80103138_shared_board;
 extern OSMesgQueue D_80104880_shared_board;
 extern OSMesgQueue D_80104928_shared_board;
 extern OSMesgQueue D_801049D0_shared_board;
@@ -164,14 +139,14 @@ static void func_800E9328_shared_board(void);
 static void func_800E9358_shared_board(void);
 
 void func_800E6630_shared_board(u32 arg0) {
-    HVQHeader* temp_v0;
+    HuArchive* temp_v0;
     s32* temp_v0_2;
     u32 temp_s0;
 
     D_80102DB0_shared_board = arg0;
-    temp_v0 = HuMemMemoryAllocTemp(sizeof(HVQHeader));
-    dmaRead(arg0, (u8*)temp_v0, sizeof(HVQHeader));
-    D_80102DB4_shared_board = temp_v0->allocSize;
+    temp_v0 = HuMemMemoryAllocTemp(sizeof(HuArchive));
+    dmaRead(arg0, (u8*)temp_v0, sizeof(HuArchive));
+    D_80102DB4_shared_board = temp_v0->count;
     HuMemMemoryFreeTemp(temp_v0);
     temp_s0 = D_80102DB4_shared_board * 4;
     temp_v0_2 = HuMemMemoryAllocTemp(temp_s0);
@@ -197,14 +172,14 @@ void MBBackCreate(s32 arg0, s32 arg1) {
     UnkModelStruct* temp_v0_3;
     s32 temp_s2;
     u32 temp_s0;
-    s32* temp_v0;
+    HuArchive* temp_v0;
     u32* temp_v0_2;
 
     D_80105990_shared_board = arg0;
     D_80102DB8_shared_board = D_80102DB0_shared_board + D_80101240_shared_board[arg0];
-    temp_v0 = HuMemMemoryAllocTemp(sizeof(HVQHeader));
-    dmaRead((u32)D_80102DB8_shared_board, (u8*)temp_v0, sizeof(HVQHeader));
-    arg0 = *temp_v0;
+    temp_v0 = HuMemMemoryAllocTemp(sizeof(HuArchive));
+    dmaRead((u32)D_80102DB8_shared_board, (u8*)temp_v0, sizeof(HuArchive));
+    arg0 = temp_v0->count;
     HuMemMemoryFreeTemp(temp_v0);
     arg0++;
     temp_s0 = arg0 * 4;
@@ -224,7 +199,7 @@ void MBBackCreate(s32 arg0, s32 arg1) {
     D_80101248_shared_board->unk28 *= 5.0f;
     D_80101248_shared_board->unk2C *= 5.0f;
     D_80103138_shared_board = HuMemMemoryAllocTemp(func_800E7330_shared_board(0));
-    dmaRead(D_80102DB8_shared_board + D_80101244_shared_board[1], D_80103138_shared_board, func_800E7330_shared_board(0));
+    dmaRead(D_80102DB8_shared_board + D_80101244_shared_board[1], (u8 *)D_80103138_shared_board, func_800E7330_shared_board(0));
     D_80102DC4_shared_board = 0;
     D_80102DC2_shared_board = 0;
     D_80102DC6_shared_board = D_80101248_shared_board->unk0 * D_80101248_shared_board->unk8 / 2;
@@ -306,14 +281,14 @@ void MBBackDispSet(u16 arg0) {
 }
 
 static void func_800E6C80_shared_board(void) {
-    UnkHvqStruct* sp10;
+    OverlayBgEntry* sp10;
 
     while (1) {
         osRecvMesg(&D_80103468_shared_board, (OSMesg*)&sp10, 1);
         if (sp10 == NULL) {
             break;
         }
-        dmaRead(sp10->src, sp10->dest, sp10->dmaSize);
+        dmaRead(sp10->romAddr, (u8 *)sp10->compressedData, sp10->compressedSize);
         osSendMesg(&D_80104880_shared_board, (OSMesg*)sp10, 0);
     }
 
@@ -389,9 +364,9 @@ static void func_800E6CF8_shared_board(u8 *input, u8 *output, s32 compressedSize
     }
 }
 
-// decodes HVQ board image tile?
+// Decode a board image tile into RGBA5551 pixels.
 static void func_800E6DEC_shared_board(void) {
-    HvqUnk *sp10;
+    OverlayBgEntry *sp10;
     HvqHeader *temp_a0;
 
     hvqMpsInit1(0xFF);
@@ -399,14 +374,13 @@ static void func_800E6DEC_shared_board(void) {
     while (1) {
         osRecvMesg(&D_80104880_shared_board, (void *)&sp10, 1);
         if (sp10 != NULL) {
-            temp_a0 = sp10->unk8;
-            D_80102DD0_shared_board = sp10->unk8;
-            if (temp_a0->magic == 0x48565153) { //"HVQS"
-                                                // is HVQS, decode it
-                hvqMpsDecode1((void *)&temp_a0->unk4, (u16 *)sp10->unk4, 0x40, D_80102DCC_shared_board);
+            temp_a0 = sp10->compressedData;
+            D_80102DD0_shared_board = sp10->compressedData;
+            if (temp_a0->magic == 0x48565153) { // "HVQS"
+                hvqMpsDecode1(&temp_a0->data.image, sp10->pixels, 0x40, D_80102DCC_shared_board);
             } else {
                 // 0x1800 size for decoded tile
-                func_800E6CF8_shared_board((u8 *)&D_80102DD0_shared_board->unk4, sp10->unk4, 0x1800);
+                func_800E6CF8_shared_board(D_80102DD0_shared_board->data.slide, (u8 *)sp10->pixels, 0x1800);
             }
             osSendMesg(&D_80104928_shared_board, sp10, 0);
         } else {
@@ -445,15 +419,15 @@ static void func_800E6FDC_shared_board(void) {
 }
 
 static void func_800E7018_shared_board(void) {
-    UnkHvqStruct* sp10;
+    OverlayBgEntry* sp10;
 
     while (1) {
         if (osRecvMesg(&D_80104928_shared_board, (OSMesg*)&sp10, 0) != 0) {
             break;
         }
         if (sp10 != NULL) {
-            HuMemMemoryFreePerm(sp10->dest);
-            sp10->dest = NULL;
+            HuMemMemoryFreePerm(sp10->compressedData);
+            sp10->compressedData = NULL;
         }
     }
 }
@@ -472,9 +446,9 @@ static void func_800E7068_shared_board(void) {
 
     for (i = 0; i < ARRAY_COUNT(D_80102DD8_shared_board); i++) {
         OverlayBgEntry* temp = &D_80102DD8_shared_board[i];
-        if (temp->unk_08 != NULL) {
-            HuMemMemoryFreePerm(temp->unk_08);
-            temp->unk_08 = NULL;
+        if (temp->compressedData != NULL) {
+            HuMemMemoryFreePerm(temp->compressedData);
+            temp->compressedData = NULL;
         }
     }
 }
@@ -487,8 +461,8 @@ static void func_800E7130_shared_board(void) {
         var_s0->unk0 = 0;
         var_s0->unk1 = 0;
         var_s0->unk2 = -1;
-        var_s0->unk4 = HuMemAlloc(0x1800);
-        var_s0->unk_08 = NULL;
+        var_s0->pixels = HuMemAlloc(0x1800);
+        var_s0->compressedData = NULL;
     }
 
     bzero(D_801030A8_shared_board, sizeof(D_801030A8_shared_board));
@@ -499,7 +473,7 @@ static void func_800E71A8_shared_board(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(D_80102DD8_shared_board); i++, var_v1++) {
-        if ((var_v1->unk_08 == NULL) && (var_v1->unk0 == 0)) {
+        if ((var_v1->compressedData == NULL) && (var_v1->unk0 == 0)) {
             var_v1->unk2 = -1;
         }
         var_v1->unk0 = 0;
@@ -514,9 +488,9 @@ static void func_800E71EC_shared_board(void) {
         var_s0->unk0 = 0;
         var_s0->unk2 = -1;
 
-        if (var_s0->unk4 != NULL) {
-            HuMemFree(var_s0->unk4);
-            var_s0->unk4 = NULL;
+        if (var_s0->pixels != NULL) {
+            HuMemFree(var_s0->pixels);
+            var_s0->pixels = NULL;
         }
     }
 }
@@ -593,10 +567,10 @@ static OverlayBgEntry *func_800E7384_shared_board(u16 arg0) {
         slot->unk0 = 1;
         slot->unk2 = arg0;
         slot->unk1 = bank;
-        slot->unk10 = func_800E7358_shared_board(arg0);
+        slot->romAddr = func_800E7358_shared_board(arg0);
         size = func_800E7330_shared_board(arg0);
-        slot->unkC = size;
-        slot->unk_08 = HuMemMemoryAllocPerm(size);
+        slot->compressedSize = size;
+        slot->compressedData = HuMemMemoryAllocPerm(size);
         osSendMesg(&D_80103468_shared_board, slot, OS_MESG_NOBLOCK);
     }
     return slot;
@@ -642,7 +616,7 @@ static void func_800E7514_shared_board(void) {
     gImmp1(pkt, G_RDPHALF_2, (_SHIFTL((s16)(dsdx), 16, 16) | _SHIFTL((s16)(dtdy), 0, 16))); \
 }
 
-static void func_800E76EC_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg3, s16 arg4) {
+static void func_800E76EC_shared_board(Gfx** arg0, u16* arg1, s16 arg2, s16 arg3, s16 arg4) {
     f32 temp_f0;
     f32 temp_f20;
     f32 temp_f22;
@@ -675,7 +649,7 @@ static void func_800E76EC_shared_board(Gfx** arg0, void* arg1, s16 arg2, s16 arg
             /*dtdy*/(s16)(1024.0f / D_80101250_shared_board)
         );
     }
-    func_8003465C_main(arg0, arg1 + 0x1000, 0, 2, 0x40, 0x10, 0, 0, 0x40, 0x10, 0, 1, 1, 6, 4, 0, 0);
+    func_8003465C_main(arg0, arg1 + (64 * 32), 0, 2, 0x40, 0x10, 0, 0, 0x40, 0x10, 0, 1, 1, 6, 4, 0, 0);
     if (!(D_80102DC0_shared_board & 0x10)) {
         gSPScisTextureRectangle_MP((*arg0)++,
             /*xl*/(temp_f20 * D_80101250_shared_board * 4.0f),
@@ -772,7 +746,7 @@ static void func_800E86CC_shared_board(Gfx** arg0, s32 arg1, u8 arg2) {
 
             func_800E76EC_shared_board(
                 arg0,
-                bgEntry->unk4,
+                bgEntry->pixels,
                 ((col + spX) * 64) - sp1E,
                 ((row + spY) * 48) - sp26,
                 0
@@ -792,7 +766,7 @@ static void func_800E86CC_shared_board(Gfx** arg0, s32 arg1, u8 arg2) {
 
                     func_800E76EC_shared_board(
                         arg0,
-                        bgEntry->unk4,
+                        bgEntry->pixels,
                         ((col + spX) * 64) - sp1E,
                         ((row + spY) * 48) - sp26,
                         -1
@@ -1390,7 +1364,7 @@ void func_800EA364_shared_board(s16 arg0) {
         case 1:
             for (i = 0; i < ARRAY_COUNT(D_80102DD8_shared_board); i++) {
                 entry = &D_80102DD8_shared_board[i];
-                if (entry->unk4 == NULL) {
+                if (entry->pixels == NULL) {
                     continue;
                 }
 

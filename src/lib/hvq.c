@@ -1,17 +1,6 @@
 #include "common.h"
 #include "gcc/string.h"
 
-typedef struct HvqFileHeader {
-    char signature[20];
-    u16 width;
-    u16 height;
-    u8 horizontalSampling;
-    u8 verticalSampling;
-    u8 shifts;
-    u8 componentOrder;
-    u32 treeOffsets[4];
-} HvqFileHeader;
-
 typedef struct HvqBitStream {
     u32 mask;
     u32 word;

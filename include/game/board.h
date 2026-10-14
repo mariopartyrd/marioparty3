@@ -2,6 +2,7 @@
 #define _BOARD_H
 
 #include "ultra64.h"
+#include "game/hvq.h"
 
 #define MINIGAME_ID(id) ((id) + 1)
 
@@ -164,15 +165,24 @@ typedef struct UnkCoinThing {
 } UnkCoinThing;
 
 typedef struct HvqHeader {
-    s32 magic;
-    u8* unk4;
+    u32 magic;
+    /* The compressed payload follows the tag inline. */
+    union {
+        HvqImageHeader image;
+        /* SLIDE metadata word; the compressed byte stream follows it. */
+        u8 slide[4];
+    } data;
 } HvqHeader;
 
-typedef struct HvqUnk {
-    s32 unk0;
-    u8* unk4;
-    HvqHeader* unk8;
-} HvqUnk;
+typedef struct OverlayBgEntry {
+    /* 0x00 */ u8 unk0;
+    /* 0x01 */ u8 unk1;
+    /* 0x02 */ s16 unk2;
+    /* 0x04 */ u16 *pixels;
+    /* 0x08 */ HvqHeader *compressedData;
+    /* 0x0C */ s32 compressedSize;
+    /* 0x10 */ u32 romAddr;
+} OverlayBgEntry; // sizeof 0x14
 
 typedef struct UnkBoard7 {
     /* 0x00 */ s8  unk_00;
