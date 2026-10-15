@@ -3,6 +3,8 @@
 
 #include "ultra64.h"
 
+#define ASCII_HVQS 0x48565153
+
 typedef struct HvqFileHeader {
     char signature[20];
     u16 width;

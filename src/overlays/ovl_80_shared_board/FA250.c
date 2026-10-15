@@ -376,7 +376,7 @@ static void func_800E6DEC_shared_board(void) {
         if (sp10 != NULL) {
             temp_a0 = sp10->compressedData;
             D_80102DD0_shared_board = sp10->compressedData;
-            if (temp_a0->magic == 0x48565153) { // "HVQS"
+            if (temp_a0->magic == ASCII_HVQS) {
                 hvqMpsDecode1(&temp_a0->data.image, sp10->pixels, 0x40, D_80102DCC_shared_board);
             } else {
                 // 0x1800 size for decoded tile
