@@ -436,6 +436,7 @@ segments:
       - [0x8DEC0, c]
       - [0x8E050, c]
       - [0x8E1D0, c]
+      - [0x8E340, c, libm/precision]
       - [0x8E400, c, libm/acosdf]
       - [0x8E4A0, c, libm/asindf]
       - [0x8E6B0, c, libm/atan2]
