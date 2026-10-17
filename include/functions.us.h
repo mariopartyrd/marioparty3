@@ -44,8 +44,6 @@ void GWBoardFlagClear(s32 flag);
 void GWBoardFlagSet(s32 flag);
 void func_8000B690_main(s32);
 void func_800142A0_main(s32);
-f32 HuMathCos(f32);
-f32 HuMathSin(f32);
 void* HuMemMemoryAlloc(HeapNode* heap, s32 size);
 void func_8004CF30_main(void);
 void func_80036414_main(u32);
@@ -134,7 +132,6 @@ void func_8003465C_main(Gfx**, void*, s32, s32, s32, s32, s32, s32, s32, s32, s3
 void func_8001F95C_main(s32, void* func);
 void func_8004D6E8_main(s16 sampleIdx);
 void func_8003B128_main(char*);
-void func_8008EBD0_main(f32, f32*, f32*);
 void func_800610E0_main(s16);
 s16 func_8003A308_main(char* arg0, char* arg1, s32 arg2, s16 arg3, u16 arg4);
 s32 func_80060880_main(s32 arg0, s32 arg1, s32 arg2);

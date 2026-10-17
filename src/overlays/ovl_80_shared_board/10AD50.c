@@ -107,8 +107,8 @@ s32 D_80101B24_shared_board[] = {
 };
 
 static void func_800F7130_shared_board(omObjData *arg0) {
-    D_80105620_shared_board->coords.y = -HuMathSin(arg0->rot.x) * 3.0f;
-    D_80105624_shared_board->coords.y = -HuMathSin(arg0->rot.x) * 3.0f;
+    D_80105620_shared_board->coords.y = -sindf(arg0->rot.x) * 3.0f;
+    D_80105624_shared_board->coords.y = -sindf(arg0->rot.x) * 3.0f;
     arg0->rot.x += 3.0f;
 }
 
@@ -345,7 +345,7 @@ void func_800F76A4_shared_board(s32 arg0) {
         }
         for (i = 0; i < 70; i += 5) {
             // this sure is a line of code
-            func_80054904_main(temp_s2->spriteGroup, 0, (((HuMathSin(i) * (D_80101A74_shared_board[playerNo][0] - sp20[0])) + sp20[0])), ((sp20[1] - (HuMathSin((i + 0x5A)) * (D_80101A74_shared_board[playerNo][1] - sp20[1]))) + (D_80101A74_shared_board[playerNo][1] - sp20[1])));
+            func_80054904_main(temp_s2->spriteGroup, 0, (((sindf(i) * (D_80101A74_shared_board[playerNo][0] - sp20[0])) + sp20[0])), ((sp20[1] - (sindf((i + 0x5A)) * (D_80101A74_shared_board[playerNo][1] - sp20[1]))) + (D_80101A74_shared_board[playerNo][1] - sp20[1])));
             func_80055458_main(temp_s2->spriteGroup, 0, (256.0 - (i * 1.5)));
             HuSprScaleSet(temp_s2->spriteGroup, 0, (1.0f - (i / 200.0f)), (1.0f - (i / 200.0f)));
             HuPrcVSleep();

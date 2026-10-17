@@ -41,10 +41,10 @@ typedef struct TelopData {
 // void func_8003B128_main(char*);
 // void func_8005FBA4_main(u8 *, s32);
 // s32 func_80060880_main(s32 arg0, s32 arg1, s32 arg2);
-// extern void func_8008EBD0_main(f32, f32*, f32*);
+// extern void sincosdf(f32, f32*, f32*);
 // void func_800610E0_main(s16);
 // void func_800FC938_shared_board(void);
-// f32 HuMathSin(f32);
+// f32 sindf(f32);
 // void MBStatusItemScaleSet(s32, s32, f32, f32);
 // void func_800DC06C_shared_board(void);
 // void func_800DC0E0_shared_board(s32 playerNo);
@@ -603,7 +603,7 @@ static void MBItemScaleEff(void) {
         if (var_f20 > 360.0f) {
             var_f20 -= 360.0f;
         }
-        temp_f0 = (HuMathSin(var_f20) * 0.2f) + 1.0f;
+        temp_f0 = (sindf(var_f20) * 0.2f) + 1.0f;
         MBStatusItemScaleSet(GwSystem.current_player_index, *temp_s0, temp_f0, temp_f0);
         HuPrcVSleep();
         var_f20 += 13.0f;
@@ -1145,7 +1145,7 @@ static void MBTelopLast5Main(omObjData *obj) {
     switch (obj->work[0]) {
     case 0:
         obj->rot.x += 30.0f;
-        scale = HuMathSin(obj->rot.x) * 0.5f + 1.0f;
+        scale = sindf(obj->rot.x) * 0.5f + 1.0f;
         obj->scale.x = scale;
         HuSprScaleSet(D_80102D48_shared_board[0], 0, scale, scale);
         if (obj->rot.x >= 360.0f) {
@@ -1275,7 +1275,7 @@ static void MBTelopMgTypeMain(omObjData *obj) {
     func_80054904_main(D_80102CE0_shared_board[D_80102D34_shared_board],
         0,
         (obj->rot.x + 80.0f),
-        (D_80102D58_shared_board + 2.0f * HuMathSin(obj->rot.z)));
+        (D_80102D58_shared_board + 2.0f * sindf(obj->rot.z)));
 
     for (i = 1; D_8010118C_shared_board[obj->work[0]] >= i; i++) {
         func_80055458_main(D_80102CE0_shared_board[D_80102D34_shared_board], i, (obj->scale.x * 256.0f));
@@ -1519,7 +1519,7 @@ UnkMBGuideData* MBGuideCreate(u32* arg0, s32 arg1) {
         func_8001C8A8_main(temp_v0->obj->omObj1->model[0], 2);
 
         temp_a2 = &HmfModelData[temp_v0->obj->omObj1->model[0]];
-        func_8008EBD0_main(15.0f, &temp_a2->mtx[6], &temp_a2->mtx[5]);
+        sincosdf(15.0f, &temp_a2->mtx[6], &temp_a2->mtx[5]);
 
         HmfModelData[temp_v0->obj->omObj1->model[0]].mtx[9] = -HmfModelData[temp_v0->obj->omObj1->model[0]].mtx[6];
 

@@ -370,11 +370,11 @@ segments:
       - [0x88440, c, libkmc/abs]
       - [0x88460, c, libkmc/fmod]
       - [0x88640, asm, libkmc/memset]
-      - [0x88710, asm] # What is this? sqrtf is already defined in 0x81E40.
+      - [0x88710, asm, libkmc/sqrt]
       - [0x88720, asm, libkmc/strcmp]
       - [0x88830, c, libkmc/strcpy]
       - [0x88900, hasm, libkmc/mmuldi3]
-      - [0x88CD0, hasm, sqrt]
+      - [0x88CD0, hasm, libhmath/sqrt]
       - [0x88CE0, c, libhmath/sqrtf]
       - [0x88CF0, c, libhmath/vecmag]
       - [0x88D50, c, libhmath/vecnorm]
@@ -436,19 +436,21 @@ segments:
       - [0x8DEC0, c]
       - [0x8E050, c]
       - [0x8E1D0, c]
-      - [0x8E400, c]
-      - [0x8E4A0, c]
-      - [0x8E6B0, c]
-      - [0x8EA10, c]
-      - [0x8EFF0, c]
-      - [0x8F1A0, c]
-      - [0x8F320, c]
-      - [0x8F480, c]
-      - [0x8F620, c]
-      - [0x8F760, c]
-      - [0x8F7D0, c]
-      - [0x8F830, c]
-      - [0x8FB20, c, libhmath/sin]
+      - [0x8E340, c, libm/precision]
+      - [0x8E400, c, libm/acosdf]
+      - [0x8E4A0, c, libm/asindf]
+      - [0x8E6B0, c, libm/atan2]
+      - [0x8EA10, c, libm/atan2f]
+      - [0x8ED30, c, libm/cosd]
+      - [0x8EFF0, c, libm/cosdf]
+      - [0x8F1A0, c, libm/exp]
+      - [0x8F320, c, libm/expf]
+      - [0x8F480, c, libm/log]
+      - [0x8F620, c, libm/logf]
+      - [0x8F760, c, libm/sincosd]
+      - [0x8F7D0, c, libm/sincosdf]
+      - [0x8F830, c, libm/sind]
+      - [0x8FB20, c, libm/sindf]
       - [0x8FCF0, data]
       - [0x960C0, bin, n_aspMain_code]
       - [0x96EF0, .data, overlay_table]
@@ -471,10 +473,10 @@ segments:
       - [0xA3950, data]
       - [0xA4C50, .data, 2.0L/libc/xprintf]
       - [0xA4CA0, data]
-      - [0xA4F30, .rodata, 8F1A0]
-      #- [0xA4F40, .rodata, 8F320] #where does this rodata belong?
-      - [0xA4F40, rodata]
-      - [0xA4F50, rodata]
+      - [0xA4F30, .data, libm/exp]
+      - [0xA4F40, .data, libm/expf]
+      - [0xA4F50, .rodata, libm/tables]
+      - [0xA5880, rodata]
       - [0xA6C50, rodata, n_aspMain_data]
       - [0xA6F00, .rodata, 1140]
       - [0xA7580, .rodata, 8F20]
@@ -528,15 +530,16 @@ segments:
       - [0xA9500, .rodata, 2.0L/rmon/rmonmem]
       - [0xA9510, .rodata, 2.0L/rmon/rmonbrk]
       - [0xA9570, .rodata, libkmc/fmod]
-      - [0xA9580, .rodata, 8E4A0]
-      - [0xA9590, .rodata, 8E6B0]
-      - [0xA9600, .rodata, 8EA10]
-      - [0xA9670, .rodata, 8EFF0]
-      - [0xA9680, .rodata, 8F320]
-      - [0xA9690, .rodata, 8F480]
-      - [0xA96A0, .rodata, 8F620]
-      - [0xA96B0, .rodata, 8F830]
-      - [0xA96E0, .rodata, libhmath/sin]
+      - [0xA9580, .rodata, libm/asindf]
+      - [0xA9590, .rodata, libm/atan2]
+      - [0xA9600, .rodata, libm/atan2f]
+      - [0xA9640, .rodata, libm/cosd]
+      - [0xA9670, .rodata, libm/cosdf]
+      - [0xA9680, .rodata, libm/expf]
+      - [0xA9690, .rodata, libm/log]
+      - [0xA96A0, .rodata, libm/logf]
+      - [0xA96B0, .rodata, libm/sind]
+      - [0xA96E0, .rodata, libm/sindf]
       - { start: 0xA96F0, type: bss, vram: 0x800A8AF0 }
       - { start: 0xA96F0, type: .bss, vram: 0x800ABFF0, name: decode }
       - { start: 0xA96F0, type: bss, vram: 0x800AC7F0, name: main_after_decode }
@@ -544,6 +547,10 @@ segments:
       - { start: 0xA96F0, type: bss, vram: 0x800BDA50, name: main_after_vibrator }
       - { start: 0xA96F0, type: .bss, vram: 0x800BDA90, name: lib/hvq }
       - { start: 0xA96F0, type: bss, vram: 0x800C1560, name: main_after_hvq }
+      - { start: 0xA96F0, type: .bss, vram: 0x800C94E0, name: libm/tables }
+      - { start: 0xA96F0, type: .bss, vram: 0x800C94F0, name: libm/sind }
+      - { start: 0xA96F0, type: .bss, vram: 0x800C9500, name: libm/sindf }
+      - { start: 0xA96F0, type: bss, vram: 0x800C9510, name: main_after_libm }
       - { start: 0xA96F0, type: .bss, vram: 0x800CDD70, name: sprman }
       - { start: 0xA96F0, type: bss, vram: 0x800CE170, name: main_after_sprman }
 

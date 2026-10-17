@@ -1039,7 +1039,7 @@ void func_8004A354_main(omObjData *arg0) {
     if (D_800B23C6_main > 180) {
         D_800B23C6_main -= 180;
     }
-    func_8000BBFC_main(D_800B23C4_main, HuMathSin(D_800B23C6_main) * 255.0f);
+    func_8000BBFC_main(D_800B23C4_main, sindf(D_800B23C6_main) * 255.0f);
     func_8000BBD4_main(D_800B23C4_main, D_800A18A8_main[D_800B23C8_main][0], D_800A18A8_main[D_800B23C8_main][1]);
     if (D_800D1100_main == 1) {
         func_8000BB54_main(D_800B23C4_main);

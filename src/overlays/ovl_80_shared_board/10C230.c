@@ -1076,8 +1076,8 @@ static void func_800F9C68_shared_board(void) {
 }
 
 static void MBBattleKuriboObjMain(omObjData *arg0) {
-    mbBattleKuriboMdl->coords.y = HuMathSin(arg0->rot.x) * 3.0f;
-    mbBattleKuriboUpperMdl->coords.y = HuMathSin(arg0->rot.x) * 3.0f;
+    mbBattleKuriboMdl->coords.y = sindf(arg0->rot.x) * 3.0f;
+    mbBattleKuriboUpperMdl->coords.y = sindf(arg0->rot.x) * 3.0f;
     arg0->rot.x += 10.0f;
 }
 
@@ -1923,25 +1923,25 @@ static s32 func_800FB624_shared_board(GW_PLAYER* arg0) {
         func_80054904_main(var_s5, 1, 0x78, 0x88);
         if (var_s6 == 4) {
             for (var_f22 = 0.0f; var_f22 <= 1080.0f; var_f22 += 50.0f) {
-                var_f20 = (HuMathSin(var_f22) * 0.5f) + 1.0f;
+                var_f20 = (sindf(var_f22) * 0.5f) + 1.0f;
                 HuSprScaleSet(var_s5, 1, var_f20, var_f20);
                 HuPrcVSleep();                
             }
 
             for (; var_f22 <= 1440.0f; var_f22 += 40.0f) {
-                var_f20 = (HuMathSin(var_f22) * 0.5f) + 1.0f;
+                var_f20 = (sindf(var_f22) * 0.5f) + 1.0f;
                 HuSprScaleSet(var_s5, 1, var_f20, var_f20);
                 HuPrcVSleep();               
             }
         } else {
             for (var_f22 = 0.0f; var_f22 <= 720.0f; var_f22 += 40.0f) {
-                var_f20 = (HuMathSin(var_f22) * 0.5f) + 1.0f;
+                var_f20 = (sindf(var_f22) * 0.5f) + 1.0f;
                 HuSprScaleSet(var_s5, 1, var_f20, var_f20);
                 HuPrcVSleep();                
             }
 
             for (; var_f22 <= 1080.0f; var_f22 += 30.0f) {
-                var_f20 = (HuMathSin(var_f22) * 0.5f) + 1.0f;
+                var_f20 = (sindf(var_f22) * 0.5f) + 1.0f;
                 HuSprScaleSet(var_s5, 1, var_f20, var_f20);
                 HuPrcVSleep();               
             }

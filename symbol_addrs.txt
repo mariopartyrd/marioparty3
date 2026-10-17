@@ -263,10 +263,6 @@ guMtxL2F = 0x8007DDA0; //rom:0x7E9A0
 guOrthoF = 0x8007ABE0;
 guOrtho = 0x8007AD10;
 
-// 8EA10
-_atan2 = 0x8008DE10; //rom:0x8EA10
-_atan2d = 0x8008E108; //rom:0x8ED08
-
 HuMemHeapInit = 0x800360D0;
 HuMemMemoryAlloc = 0x800360F0;
 HuMemMemoryFree = 0x80036188;
@@ -340,8 +336,23 @@ HuPrcCall = 0x8004F0D0;
 HuPrcAllocMem = 0x8004F23C;
 HuPrcFreeMem = 0x8004F26C;
 
-HuMathCos = 0x8008E3F0;
-HuMathSin = 0x8008EF20;
+// Scalar math functions.
+acosdf = 0x8008D800;
+asindf = 0x8008D8A0;
+atan2 = 0x8008DAB0;
+atan2d = 0x8008DDDC;
+atan2f = 0x8008DE10;
+atan2df = 0x8008E108;
+cosd = 0x8008E130;
+cosdf = 0x8008E3F0;
+exp = 0x8008E5A0;
+expf = 0x8008E720;
+log = 0x8008E880;
+logf = 0x8008EA20;
+sincosd = 0x8008EB60;
+sincosdf = 0x8008EBD0;
+sind = 0x8008EC30;
+sindf = 0x8008EF20;
 
 hvqMpsDecode1 = 0x800698E8;
 hvqMpsDecodeStart1 = 0x80069E68;
@@ -592,7 +603,8 @@ __rmonHitSpBreak = 0x80087580;
 __rmonHitCpuFault = 0x8008760C;
 rmonFindFaultedThreads = 0x80087638;
 
-sqrt = 0x80087B18; //rom:0x88718
+sqrt = 0x80087B10; //rom:0x88710
+kmc_sqrtf = 0x80087B18; //rom:0x88718
 
 __osInitialize_autodetect = 0x8007F048;
 __osInitialize_emu = 0x8007F860;
@@ -696,6 +708,7 @@ guPerspective = 0x8007B010;
 guNormalize = 0x80082B00;
 guLookAtF = 0x80088210;
 guLookAt = 0x80079800;
+HuSqrt = 0x800880D0;
 HuSqrtf = 0x800880E0;
 
 HuVecGetLengthSqr = 0x800880F0; //rom:0x88CF0
@@ -1032,7 +1045,6 @@ alSndpDeallocate = 0x8006D320; //rom:0x6DF20
 __osSiAccessQueue = 0x800D6B48; //size:0x18
 mbovlhisidx = 0x800D6B60; //size:0x2
 
-D_800A4340_main = 0x800A4340; //rom:0xA4F40 size:0x4 force_migration:True
 _Printf = 0x80081A40; //rom:0x82640
 proutSprintf = 0x8007BE18; //rom:0x7CA18
 swapChainTask = 0x800B1800;
@@ -1596,3 +1608,12 @@ D_8011E6CC_ChillyWaters = 0x8011E6CC; //rom:0x33423C type:s32 segment:ChillyWate
 
 // RSP lb instruction at ROM 0x93DF4 and 0x942C4, not a pointer into HVQ BSS.
 D_800C02AE_main = 0x800C02AE; // ignore:True
+
+// Shared libm tables.
+D_800A4350_main = 0x800A4350; //rom:0xA4F50 size:0x30
+D_800A4380_main = 0x800A4380; //rom:0xA4F80 size:0x320 type:f64
+D_800A4830_main = 0x800A4830; //rom:0xA5430 size:0x16C type:f32
+D_800A49A0_main = 0x800A49A0; //rom:0xA55A0 size:0x2D8 type:f64
+D_800C94E0_main = 0x800C94E0; //size:0x8
+D_800C94F0_main = 0x800C94F0; //size:0x8
+D_800C9500_main = 0x800C9500; //size:0x4

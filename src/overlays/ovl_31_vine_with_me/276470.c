@@ -37,13 +37,13 @@ s16 func_80017AD8_main(s32);
 s32 func_80017BB8_main(s16, s16);
 
 // 8EA10
-f32 _atan2d(f32, f32);
+f32 atan2df(f32, f32);
 
 // 8EFF0
-f32 HuMathCos(f32);
+f32 cosdf(f32);
 
 // 8FB20
-f32 HuMathSin(f32);
+f32 sindf(f32);
 
 // esprite
 extern D_800CD1DC_main_Struct *D_800CD1DC_main;
@@ -1134,7 +1134,7 @@ void func_8010D4AC_vine_with_me(omObjData *arg0, s8 arg1, s8 arg2) {
 
                 var_f24 = 0.0f;
                 var_f26 = 0.0f;
-                temp_f0 = HuMathSin(temp_fp * sp300[var_s5] * 0.9375) * -80.0 - 90.0;
+                temp_f0 = sindf(temp_fp * sp300[var_s5] * 0.9375) * -80.0 - 90.0;
                 for (var_s4 = 0; var_s4 < var_s5 + 4; var_s4++) {
                     if (temp_f0 > 90.0) {
                         temp_f20 = temp_f0 - 270.0;
@@ -1145,8 +1145,8 @@ void func_8010D4AC_vine_with_me(omObjData *arg0, s8 arg1, s8 arg2) {
                     D_801125D0_vine_with_me[var_s5][var_s4][temp_s0] = var_f26;
                     D_80113590_vine_with_me[var_s5][var_s4][temp_s0] = var_f24;
                     D_80114550_vine_with_me[var_s5][var_s4][temp_s0] = temp_f20;
-                    var_f26 += HuMathCos(temp_f20) * 50.0;
-                    var_f24 += HuMathSin(temp_f20) * 50.0;
+                    var_f26 += cosdf(temp_f20) * 50.0;
+                    var_f24 += sindf(temp_f20) * 50.0;
                 }
                 D_801125D0_vine_with_me[var_s5][var_s4][temp_s0] = var_f26;
                 D_80113590_vine_with_me[var_s5][var_s4][temp_s0] = var_f24;
@@ -1422,7 +1422,7 @@ void func_8010D4AC_vine_with_me(omObjData *arg0, s8 arg1, s8 arg2) {
                 if (D_80111C68_vine_with_me[arg1] > D_80111C38_vine_with_me[arg1] * 450.0 + 800.0) {
                     D_801125B8_vine_with_me[arg1] = D_80111C38_vine_with_me[arg1] * 450.0 + 800.0;
                 }
-                D_80112590_vine_with_me[arg1] = _atan2d(-D_801125A0_vine_with_me[arg1] * 0.5, -(D_801125B8_vine_with_me[arg1] * 0.96 + D_80111C38_vine_with_me[arg1] * 450.0 * 0.04 - D_801125B8_vine_with_me[arg1]) * 0.5);
+                D_80112590_vine_with_me[arg1] = atan2df(-D_801125A0_vine_with_me[arg1] * 0.5, -(D_801125B8_vine_with_me[arg1] * 0.96 + D_80111C38_vine_with_me[arg1] * 450.0 * 0.04 - D_801125B8_vine_with_me[arg1]) * 0.5);
                 func_8001C5B4_main(arg0->model[0], arg0->motion[3]);
                 func_8001C6A8_main(arg0->model[0], 0.0f);
                 func_8001C814_main(arg0->model[0], 1, 1);
@@ -1578,14 +1578,14 @@ void func_8010D4AC_vine_with_me(omObjData *arg0, s8 arg1, s8 arg2) {
                                                    : (sp210[D_80111C38_vine_with_me[arg1]][temp_f0_13] * (1.0 - temp_f6_4) + temp_f6_4 * sp210[D_80111C38_vine_with_me[arg1]][temp_f0_13 + 1]);
     }
     omSetTra(arg0,
-             D_80111C68_vine_with_me[arg1] + HuMathCos(D_80112590_vine_with_me[arg1]) * 125.0,
-             D_80111C70_vine_with_me[arg1] + HuMathSin(D_80112590_vine_with_me[arg1]) * 125.0,
+             D_80111C68_vine_with_me[arg1] + cosdf(D_80112590_vine_with_me[arg1]) * 125.0,
+             D_80111C70_vine_with_me[arg1] + sindf(D_80112590_vine_with_me[arg1]) * 125.0,
              0.0f);
     if (D_801155F8_vine_with_me[arg1] > 0) {
         var_f4_3 = 90.0f;
         if (D_801155F8_vine_with_me[arg1] >= 0x33) {
             temp_f20_5 = (D_801155F8_vine_with_me[arg1] - 50) / 10.0f;
-            temp_f20_5 = ((-HuMathCos(temp_f20_5 * 180.0f) + 1.0f) / 2.0f) * 0.75 + temp_f20_5 * 0.25;
+            temp_f20_5 = ((-cosdf(temp_f20_5 * 180.0f) + 1.0f) / 2.0f) * 0.75 + temp_f20_5 * 0.25;
             var_f4_3 = 90.0 - temp_f20_5 * 95.0;
         }
         omSetRot(arg0, 0, var_f4_3, D_80112590_vine_with_me[arg1] + 90.0);

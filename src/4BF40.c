@@ -17,15 +17,15 @@ void omOutView(omObjData *object) {
     f32 rot_x = CRot.x;
     f32 rot_y = CRot.y;
 
-    pos.x = Center.x + HuMathSin(rot_y) * HuMathCos(rot_x) * CZoom;
-    pos.y = Center.y + -HuMathSin(rot_x) * CZoom;
-    pos.z = Center.z + HuMathCos(rot_y) * HuMathCos(rot_x) * CZoom;
+    pos.x = Center.x + sindf(rot_y) * cosdf(rot_x) * CZoom;
+    pos.y = Center.y + -sindf(rot_x) * CZoom;
+    pos.z = Center.z + cosdf(rot_y) * cosdf(rot_x) * CZoom;
     at.x = Center.x;
     at.y = Center.y;
     at.z = Center.z;
-    up.x = HuMathSin(rot_y) * HuMathSin(rot_x);
-    up.y = HuMathCos(rot_x);
-    up.z = HuMathCos(rot_y) * HuMathSin(rot_x);
+    up.x = sindf(rot_y) * sindf(rot_x);
+    up.y = cosdf(rot_x);
+    up.z = cosdf(rot_y) * sindf(rot_x);
     D_800CE17C_main[0] = pos.x;
     D_800CE17C_main[1] = pos.z;
     D_800CE17C_main[-1] = CRot.y; // actually D_800CE178_main?
@@ -44,15 +44,15 @@ void omOutViewMulti(omObjData *object) {
         f32 rot_x = CRotM[i].x;
         f32 rot_y = CRotM[i].y;
 
-        pos.x = CenterM[i].x + HuMathSin(rot_y) * HuMathCos(rot_x) * CZoomM[i];
-        pos.y = CenterM[i].y + -HuMathSin(rot_x) * CZoomM[i];
-        pos.z = CenterM[i].z + HuMathCos(rot_y) * HuMathCos(rot_x) * CZoomM[i];
+        pos.x = CenterM[i].x + sindf(rot_y) * cosdf(rot_x) * CZoomM[i];
+        pos.y = CenterM[i].y + -sindf(rot_x) * CZoomM[i];
+        pos.z = CenterM[i].z + cosdf(rot_y) * cosdf(rot_x) * CZoomM[i];
         at.x = CenterM[i].x;
         at.y = CenterM[i].y;
         at.z = CenterM[i].z;
-        up.x = HuMathSin(rot_y) * HuMathSin(rot_x);
-        up.y = HuMathCos(rot_x);
-        up.z = HuMathCos(rot_y) * HuMathSin(rot_x);
+        up.x = sindf(rot_y) * sindf(rot_x);
+        up.y = cosdf(rot_x);
+        up.z = cosdf(rot_y) * sindf(rot_x);
         D_800D04B8_main[i][1] = pos.x;
         D_800D04B8_main[i][2] = pos.z;
         D_800D04B8_main[i][0] = CRotM[i].y;

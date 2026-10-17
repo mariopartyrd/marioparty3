@@ -68,8 +68,8 @@ void func_80105C64_duel01(s32 arg0, s32 arg1, unkStruct01 *arg2) {
 
     func_800EB708_name_81(arg0, arg1, arg2);
     temp_f20 = func_800D76D0_name_81(arg2) + 15.0f;
-    arg2->unk_00 = HuMathSin(temp_f20);
-    arg2->unk_08 = HuMathCos(temp_f20);
+    arg2->unk_00 = sindf(temp_f20);
+    arg2->unk_08 = cosdf(temp_f20);
 }
 
 INCLUDE_ASM("asm/nonmatchings/overlays/duel01/3D8AC0", func_80105CC0_duel01);

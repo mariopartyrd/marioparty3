@@ -104,7 +104,7 @@ static void MBMapFullStarGrow(void) {
     var_f20 = 0.0f;
     var_f22 = 0.0f;
     while (1) {
-        temp_f0 = HuMathSin(var_f22);
+        temp_f0 = sindf(var_f22);
         temp_f0 = ((temp_f0 < 0.0f)) ? -temp_f0 : temp_f0;
 
         temp = (s32) (temp_f0 * 255.0f);
@@ -116,7 +116,7 @@ static void MBMapFullStarGrow(void) {
         
         func_80055484_main(temp_s0->x, temp_s0->y, 0xFF, temp, 0, 0xC0);
 
-        temp_f0 = HuMathSin(var_f20);
+        temp_f0 = sindf(var_f20);
         temp_f0 = (temp_f0 < 0.0f) ? 0.0f : 0.2f;
         
         var_f20 += 15.0f;
@@ -228,7 +228,7 @@ static void MBMapFullLineFlash(void) {
         }
 
         entry = D_80102A98_shared_board[sel];
-        alpha = (HuMathSin(angle) * 255.0f);
+        alpha = (sindf(angle) * 255.0f);
         alpha = (alpha < 0) ? -alpha : alpha;
         
         angle += 6.0f;

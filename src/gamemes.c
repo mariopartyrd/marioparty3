@@ -4,7 +4,7 @@
 #include "stdarg.h"
 #include "include_asm.h"
 
-f32 HuMathSin(f32);
+f32 sindf(f32);
 
 extern Gfx *gMainGfxPos;
 extern s8 HmfPauseF;
@@ -592,7 +592,7 @@ s32 GMesTimerExec(GAMEMES *gMes, Gfx **arg1) {
     switch (gMes->unk0A) {
         case 0:
             if (gMes->unk04 < 14) {
-                temp_f22 = HuMathSin(gMes->unk04 * 10.0f) * 5.0f + (1.0f - HuMathSin(130.0f) * 5.0f);
+                temp_f22 = sindf(gMes->unk04 * 10.0f) * 5.0f + (1.0f - sindf(130.0f) * 5.0f);
                 HuSprScaleSet(gMes->strGId[0], 1, temp_f22, temp_f22);
                 HuSprScaleSet(gMes->strGId[0], 2, temp_f22, temp_f22);
             } else {
@@ -623,10 +623,10 @@ s32 GMesTimerExec(GAMEMES *gMes, Gfx **arg1) {
             break;
         case 3:
             if (gMes->unk0C < 11) {
-                temp_f22 = 1.0f + HuMathSin(gMes->unk0C * 18.0f);
+                temp_f22 = 1.0f + sindf(gMes->unk0C * 18.0f);
                 HuSprScaleSet(gMes->strGId[0], 1, temp_f22, temp_f22);
                 HuSprScaleSet(gMes->strGId[0], 2, temp_f22, temp_f22);
-                temp_f22 = 230.0f - HuMathSin(gMes->unk0C * 18.0f) * 60.0f;
+                temp_f22 = 230.0f - sindf(gMes->unk0C * 18.0f) * 60.0f;
                 func_80055458_main(gMes->strGId[0], 1, temp_f22);
                 func_80055458_main(gMes->strGId[0], 2, temp_f22);
             } else {
