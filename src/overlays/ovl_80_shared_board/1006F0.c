@@ -445,7 +445,7 @@ static void func_800EDAF0_shared_board(void) {
     f32 var_f20 = 0.0f;
 
     while (1) {
-        f32 temp_f0 = temp_f24 - (HuMathSin(var_f20) * temp_f26);
+        f32 temp_f0 = temp_f24 - (sindf(var_f20) * temp_f26);
         var_f20 += temp_f28;
         temp_s0->velocity.x = temp_f0;
         if (var_f20 >= 360.0f) {

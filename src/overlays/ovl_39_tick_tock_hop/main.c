@@ -26,10 +26,10 @@ s32 func_80017BB8_main(s32, s32);
 void Hu3DAnimInit(s32);
 
 // 8EFF0
-f32 HuMathCos(f32);
+f32 cosdf(f32);
 
 // 8FB20
-f32 HuMathSin(f32);
+f32 sindf(f32);
 
 // pad
 extern s8 D_800CBB6E_main[];
@@ -315,8 +315,8 @@ void m257_InitClock(omObjData *object) {
     groupCtx->modelIds[MDL_DISK_LARGE] = func_8000B108_main(0x5A0003, var_s4);
     m257_SetSpriteDispOn(m257_SetSprite(0xFFFF, 0x5A, 6, 0, spriteAttr), 160, 120);
     for (i = 0; i < 8; i++) {
-        f32 starPosX = HuMathSin(starAngle[i]) * 600.0f;
-        f32 starPosZ = HuMathCos(starAngle[i]) * 600.0f;
+        f32 starPosX = sindf(starAngle[i]) * 600.0f;
+        f32 starPosZ = cosdf(starAngle[i]) * 600.0f;
 
         if (i % 2 != 0) {
             // Yellow star.
@@ -954,8 +954,8 @@ void m257_UpdatePlayerPosition(FuncGroupContext *groupCtx, FuncContext *ctx) {
         }
         ctx->state = 1;
     }
-    object->trans.x = HuMathSin(clockPlatformRot) * ctx->work.f32[0];
-    object->trans.z = HuMathCos(clockPlatformRot) * ctx->work.f32[1];
+    object->trans.x = sindf(clockPlatformRot) * ctx->work.f32[0];
+    object->trans.z = cosdf(clockPlatformRot) * ctx->work.f32[1];
     HmfModelData[object->model[1]].pos.x = object->trans.x;
     HmfModelData[object->model[1]].pos.z = object->trans.z;
     if (ABS(m257_minigame->clockHandRot[HAND_PLATFORM] - m257_minigame->clockHandRot[HAND_OBSTACLE]) < 10.0f) {
@@ -1079,8 +1079,8 @@ void m257_ExecPlayerIntro(FuncGroupContext *groupCtx, FuncContext *ctx) {
     } else {
         ctx->work.s8[0] = 0;
         if (ctx->work.s8[1] != 0 && ctx->work.s8[2] == 0) {
-            D_800CBB6E_main[player->padId] = HuMathSin(ctx->work.f32[0]) * 70.0f;
-            D_800D20A1_main[player->padId] = HuMathCos(ctx->work.f32[0]) * 70.0f;
+            D_800CBB6E_main[player->padId] = sindf(ctx->work.f32[0]) * 70.0f;
+            D_800D20A1_main[player->padId] = cosdf(ctx->work.f32[0]) * 70.0f;
             ctx->work.f32[0] += 10.0f;
             if (ctx->work.f32[0] > 180.0f) {
                 ctx->work.f32[0] = 180.0f;
@@ -1193,7 +1193,7 @@ void m257_ExecPlayerKnockedOut(FuncGroupContext *groupCtx, FuncContext *ctx) {
         while (ctx->work.f32[0] > 360.0f) {
             ctx->work.f32[0] -= 360.0f;
         }
-        ctx->work.f32[1] = ctx->work.f32[2] = HuMathSin(45.0f) * 60.000004f;
+        ctx->work.f32[1] = ctx->work.f32[2] = sindf(45.0f) * 60.000004f;
         ctx->work.s16[0] = 0;
         func_8004AC98_main(0x287 + GwPlayer[m257_playerId[object->work[0]]].chr, m257_playerId[object->work[0]]);
         func_8004AC98_main(0x4BE, object->work[0]);
@@ -1202,8 +1202,8 @@ void m257_ExecPlayerKnockedOut(FuncGroupContext *groupCtx, FuncContext *ctx) {
     object->trans.y += ctx->work.f32[1];
     ctx->work.f32[1] = ctx->work.f32[2] - ctx->work.s16[0] * 2.45f;
     ctx->work.s16[0]++;
-    object->trans.x += HuMathSin(ctx->work.f32[0]) * 20.0f * 5.0f * 0.25f;
-    object->trans.z += HuMathCos(ctx->work.f32[0]) * 20.0f * 5.0f * 0.25f;
+    object->trans.x += sindf(ctx->work.f32[0]) * 20.0f * 5.0f * 0.25f;
+    object->trans.z += cosdf(ctx->work.f32[0]) * 20.0f * 5.0f * 0.25f;
     transY = object->trans.y;
     scale = 300.0f;
     scale = 1.0f - transY / scale;

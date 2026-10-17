@@ -10,8 +10,8 @@ typedef struct Vec2f {
 } Vec2f;
 
 // EXTERN
-f32 HuMathCos(f32);
-f32 HuMathSin(f32);
+f32 cosdf(f32);
+f32 sindf(f32);
 void func_8008A0D0_main(Mtx *);
 
 extern HuCamera *gCameraList;
@@ -169,8 +169,8 @@ void Hu3DCam3DToScreen(s16 camIndex, Vec *worldPos, Vec2f *outPos) {
     projectedX = ((x * viewMtx[0][0]) + (y * viewMtx[1][0])) + (z * viewMtx[2][0]);
     projectedY = ((x * viewMtx[0][1]) + (y * viewMtx[1][1])) + (z * viewMtx[2][1]);
     projectedZ = ((x * viewMtx[0][2]) + (y * viewMtx[1][2])) + (z * viewMtx[2][2]);
-    x = HuMathSin(camera->fov[0] / 2.0f) / HuMathCos(camera->fov[0] / 2.0f) * projectedZ * ASPECT_RATIO;
-    y = (HuMathSin(camera->fov[0] / 2.0f) / HuMathCos(camera->fov[0] / 2.0f)) * projectedZ;
+    x = sindf(camera->fov[0] / 2.0f) / cosdf(camera->fov[0] / 2.0f) * projectedZ * ASPECT_RATIO;
+    y = (sindf(camera->fov[0] / 2.0f) / cosdf(camera->fov[0] / 2.0f)) * projectedZ;
     outPos->x = (projectedX * (SCREEN_WIDTH_CENTER / (-x))) + SCREEN_WIDTH_CENTER;
     outPos->y = ((projectedY * (SCREEN_HEIGHT_CENTER / y)) + SCREEN_HEIGHT_CENTER);
 }
@@ -209,8 +209,8 @@ void func_80012B14_main(s16 camIndex, Vec *worldPos, Vec *outPos) {
     projectedX = ((x * viewMtx[0][0]) + (y * viewMtx[1][0])) + (z * viewMtx[2][0]);
     projectedY = ((x * viewMtx[0][1]) + (y * viewMtx[1][1])) + (z * viewMtx[2][1]);
     projectedZ = ((x * viewMtx[0][2]) + (y * viewMtx[1][2])) + (z * viewMtx[2][2]);
-    x = HuMathSin(camera->fov[0] / 2.0f) / HuMathCos(camera->fov[0] / 2.0f) * projectedZ * (camera->screenScale.x / camera->screenScale.y);
-    y = (HuMathSin(camera->fov[0] / 2.0f) / HuMathCos(camera->fov[0] / 2.0f)) * projectedZ;
+    x = sindf(camera->fov[0] / 2.0f) / cosdf(camera->fov[0] / 2.0f) * projectedZ * (camera->screenScale.x / camera->screenScale.y);
+    y = (sindf(camera->fov[0] / 2.0f) / cosdf(camera->fov[0] / 2.0f)) * projectedZ;
     f2 = camera->screenPos.x / 4.0f;
     outPos->x = (projectedX * (f2 / (-x))) + f2;
     f4 = camera->screenPos.y / 4.0f;

@@ -136,7 +136,7 @@ static void MBMgCallListExec(omObjData *arg0) {
                 new_var = 0xE0;
                 func_80054904_main(D_80102C0E_shared_board, 0, 0xA0, (D_80102BD4_shared_board + (D_80100E84_shared_board[D_80102C0D_shared_board] - new_var)));
 
-                HuSprScaleSet(D_80102C0E_shared_board, 0, HuMathSin(arg0->scale.x), arg0->scale.y);
+                HuSprScaleSet(D_80102C0E_shared_board, 0, sindf(arg0->scale.x), arg0->scale.y);
                 if (arg0->scale.y >= 1.0f) {
                     arg0->work[0] = 4;
                     arg0->work[1] = 5;
@@ -160,14 +160,14 @@ static void MBMgCallListExec(omObjData *arg0) {
                 new_var = 0xE0;
                 entry = &D_80102BD0_shared_board[i];
                 func_8005BA90_main(entry->obj, (entry->x + (entry->w / 2)), (entry->y + ((entry->h / 2) - new_var)));
-                func_8005BB18_main(entry->obj, HuMathSin(arg0->scale.x), arg0->scale.y);
+                func_8005BB18_main(entry->obj, sindf(arg0->scale.x), arg0->scale.y);
             }
 
             new_var = 0xE0;
             func_80054904_main(D_80102C0E_shared_board, 0, 0xA0,
                                 (D_80102BD4_shared_board + (D_80100E84_shared_board[D_80102C0D_shared_board] - new_var)));
 
-            HuSprScaleSet(D_80102C0E_shared_board, 0, HuMathSin(arg0->scale.x), arg0->scale.y);
+            HuSprScaleSet(D_80102C0E_shared_board, 0, sindf(arg0->scale.x), arg0->scale.y);
 
             if (arg0->scale.x >= 90.0f) {
                 MBMgCallCursorFXPlay();

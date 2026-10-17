@@ -1,3 +1,3 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/8FB20", HuMathSin);
+INCLUDE_ASM("asm/nonmatchings/8FB20", sindf);

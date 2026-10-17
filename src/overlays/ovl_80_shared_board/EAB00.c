@@ -110,8 +110,8 @@ static void func_800D6EE0_shared_board(void) {
             if (angle > temp) {
                 angle -= temp;
             }
-            scaleZ = (HuMathCos(angle) * 0.3f) + 1.2f;
-            scaleX = (HuMathCos(angle) * 0.2f) + 1.2f;
+            scaleZ = (cosdf(angle) * 0.3f) + 1.2f;
+            scaleX = (cosdf(angle) * 0.2f) + 1.2f;
             HuVecCopyXYZ(&func_800D6EC8_shared_board(work, sel)->obj->scale, scaleX, 1.0f, scaleZ);
         }
 

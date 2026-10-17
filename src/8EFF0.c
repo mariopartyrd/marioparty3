@@ -1,3 +1,3 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/8EFF0", HuMathCos);
+INCLUDE_ASM("asm/nonmatchings/8EFF0", cosdf);

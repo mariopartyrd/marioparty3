@@ -1,8 +1,8 @@
 #include "common.h"
 
-f32 _atan2d(f32, f32);
+f32 atan2df(f32, f32);
 void HuVecNormalize3F(Vec *);
-f32 func_8008D800_main(f32);
+f32 acosdf(f32);
 f32 HuVecDot3F(Vec *, Vec *);
 
 f32 MBVecAngleGet(Vec *arg0) {
@@ -23,7 +23,7 @@ f32 MBVecAngleGet(Vec *arg0) {
             return 270.0f;
         }
 
-        temp_f16 = _atan2d(arg0->z, arg0->x);
+        temp_f16 = atan2df(arg0->z, arg0->x);
 
         if (arg0->z < 0.0f) {
             temp_f16 = 90.0f - temp_f16;
@@ -53,8 +53,8 @@ void MBVecRotateX(Vec *arg0, f32 arg1) {
     sp10.y = arg0->y;
     sp10.z = arg0->z;
 
-    arg0->y = ((HuMathCos(arg1) * sp10.y) - (HuMathSin(arg1) * sp10.z));
-    arg0->z = ((HuMathCos(arg1) * sp10.z) + (HuMathSin(arg1) * sp10.y));
+    arg0->y = ((cosdf(arg1) * sp10.y) - (sindf(arg1) * sp10.z));
+    arg0->z = ((cosdf(arg1) * sp10.z) + (sindf(arg1) * sp10.y));
 }
 
 void MBVecRotateY(Vec *arg0, f32 arg1) {
@@ -63,8 +63,8 @@ void MBVecRotateY(Vec *arg0, f32 arg1) {
     sp10.x = arg0->x;
     sp10.z = arg0->z;
 
-    arg0->x = ((HuMathCos(arg1) * sp10.x) + (HuMathSin(arg1) * sp10.z));
-    arg0->z = ((HuMathCos(arg1) * sp10.z) - (HuMathSin(arg1) * sp10.x));
+    arg0->x = ((cosdf(arg1) * sp10.x) + (sindf(arg1) * sp10.z));
+    arg0->z = ((cosdf(arg1) * sp10.z) - (sindf(arg1) * sp10.x));
 }
 
 void MBVecRotateZ(Vec *arg0, f32 arg1) {
@@ -73,8 +73,8 @@ void MBVecRotateZ(Vec *arg0, f32 arg1) {
     sp10.x = arg0->x;
     sp10.y = arg0->y;
 
-    arg0->x = ((HuMathCos(arg1) * sp10.x) - (HuMathSin(arg1) * sp10.y));
-    arg0->y = ((HuMathCos(arg1) * sp10.y) + (HuMathSin(arg1) * sp10.x));
+    arg0->x = ((cosdf(arg1) * sp10.x) - (sindf(arg1) * sp10.y));
+    arg0->y = ((cosdf(arg1) * sp10.y) + (sindf(arg1) * sp10.x));
 }
 
 
@@ -94,17 +94,17 @@ void func_800D8B2C_shared_board(Vec* arg0, Vec* arg1, f32 arg2) {
     // Normalize the rotation axis
     MBVecNormalize(arg1);
 
-    arg0->x = ((arg1->x * arg1->x + (1.0f - arg1->x * arg1->x) * HuMathCos(arg2)) * origPos.x) +
-              ((arg1->x * arg1->y * (1.0f - HuMathCos(arg2)) - HuMathSin(arg2) * arg1->z) * origPos.y) +
-              ((arg1->x * arg1->z * (1.0f - HuMathCos(arg2)) + HuMathSin(arg2) * arg1->y) * origPos.z);
+    arg0->x = ((arg1->x * arg1->x + (1.0f - arg1->x * arg1->x) * cosdf(arg2)) * origPos.x) +
+              ((arg1->x * arg1->y * (1.0f - cosdf(arg2)) - sindf(arg2) * arg1->z) * origPos.y) +
+              ((arg1->x * arg1->z * (1.0f - cosdf(arg2)) + sindf(arg2) * arg1->y) * origPos.z);
 
-    arg0->y = ((arg1->x * arg1->y * (1.0f - HuMathCos(arg2)) + HuMathSin(arg2) * arg1->z) * origPos.x) +
-              ((arg1->y * arg1->y + (1.0f - arg1->y * arg1->y) * HuMathCos(arg2)) * origPos.y) +
-              ((arg1->y * arg1->z * (1.0f -  HuMathCos(arg2)) - HuMathSin(arg2) * arg1->x) * origPos.z);
+    arg0->y = ((arg1->x * arg1->y * (1.0f - cosdf(arg2)) + sindf(arg2) * arg1->z) * origPos.x) +
+              ((arg1->y * arg1->y + (1.0f - arg1->y * arg1->y) * cosdf(arg2)) * origPos.y) +
+              ((arg1->y * arg1->z * (1.0f -  cosdf(arg2)) - sindf(arg2) * arg1->x) * origPos.z);
     
-    arg0->z = ((arg1->x * arg1->z * (1.0f - HuMathCos(arg2)) - HuMathSin(arg2) * arg1->y) * origPos.x) +
-              ((arg1->y * arg1->z * (1.0f - HuMathCos(arg2)) + HuMathSin(arg2) * arg1->x) * origPos.y) +
-              ((arg1->z * arg1->z + (1.0f - arg1->z * arg1->z) * HuMathCos(arg2)) * origPos.z);
+    arg0->z = ((arg1->x * arg1->z * (1.0f - cosdf(arg2)) - sindf(arg2) * arg1->y) * origPos.x) +
+              ((arg1->y * arg1->z * (1.0f - cosdf(arg2)) + sindf(arg2) * arg1->x) * origPos.y) +
+              ((arg1->z * arg1->z + (1.0f - arg1->z * arg1->z) * cosdf(arg2)) * origPos.z);
 }
 
 f32 func_800D8DAC_shared_board(Vec *vec_1, Vec *vec_2) {
@@ -114,6 +114,6 @@ f32 func_800D8DAC_shared_board(Vec *vec_1, Vec *vec_2) {
     dot = HuVecDot3F(vec_1, vec_2);
     length = HuVecGetLength3F(vec_1) * HuVecGetLength3F(vec_2);
     if (length != 0.0f) {
-        return func_8008D800_main(dot / length);
+        return acosdf(dot / length);
     }
 }

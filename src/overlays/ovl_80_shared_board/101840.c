@@ -1367,7 +1367,7 @@ static void func_800F0EF0_shared_board(void) {
     while (1) {
         HuPrcVSleep();
         if (D_80105564_shared_board != 0) {
-            var_v0 = (s16) (HuMathSin(var_f20) * 255.0f); //TODO: s16 cast
+            var_v0 = (s16) (sindf(var_f20) * 255.0f); //TODO: s16 cast
             if (var_v0 < 0) {
                 var_v0 = -var_v0;
             }

@@ -131,9 +131,9 @@ void func_80116ED4_mgmode(s16 presetIdx, s16 duration, s16 easeType, void (*call
     center = D_8011B954_mgmode[presetIdx].center;
     zoom = D_8011B954_mgmode[presetIdx].zoom;
 
-    eye.x = HuMathSin(rot.y) * HuMathCos(rot.x) * zoom + center.x;
-    eye.y = -HuMathSin(rot.x) * zoom + center.y;
-    eye.z = HuMathCos(rot.y) * HuMathCos(rot.x) * zoom + center.z;
+    eye.x = sindf(rot.y) * cosdf(rot.x) * zoom + center.x;
+    eye.y = -sindf(rot.x) * zoom + center.y;
+    eye.z = cosdf(rot.y) * cosdf(rot.x) * zoom + center.z;
     hundred = 100.0f;
     mag = hundred / zoom;
     center.x = eye.x + (center.x - eye.x) * mag;
@@ -161,11 +161,11 @@ void func_80116ED4_mgmode(s16 presetIdx, s16 duration, s16 easeType, void (*call
     if (easeType == 1 || easeType == 2) {
         for (i = 0; i < duration; i++) {
             if (easeType != 2) {
-                rate = HuMathSin(i * 90.0f / duration);
+                rate = sindf(i * 90.0f / duration);
             } else if (i <= duration / 2) {
-                rate = (1.0f - HuMathCos(i * 180.0f / duration)) * 0.5f;
+                rate = (1.0f - cosdf(i * 180.0f / duration)) * 0.5f;
             } else {
-                rate = -HuMathCos(i * 180.0f / duration) * 0.5f + 0.5f;
+                rate = -cosdf(i * 180.0f / duration) * 0.5f + 0.5f;
             }
             D_8011B898_mgmode.x = CRot.x = rate * rotDelta.x + rotStart.x;
             D_8011B898_mgmode.y = CRot.y = rate * rotDelta.y + rotStart.y;
@@ -205,7 +205,7 @@ INCLUDE_ASM("asm/nonmatchings/overlays/mgmode/47DD90", func_80116ED4_mgmode);
 #endif
 
 #ifdef NON_MATCHING
-f32 _atan2d(f32, f32);
+f32 atan2df(f32, f32);
 void func_801177BC_mgmode(Vec* arg0, Vec* arg1) {
     f32 temp_f0;
     f32 temp_f22;
@@ -217,10 +217,10 @@ void func_801177BC_mgmode(Vec* arg0, Vec* arg1) {
     temp_f28 = arg0->y - arg1->y;
     temp_f24 = arg0->z - arg1->z;
     CZoom = HuSqrtf((temp_f22 * temp_f22) + (temp_f28 * temp_f28) + (temp_f24 * temp_f24));
-    temp_f0 = _atan2d(temp_f24, temp_f22);
+    temp_f0 = atan2df(temp_f24, temp_f22);
     CRot.y = -(temp_f0 - 90.0f);
-    temp_f26 = HuMathCos(-temp_f0);
-    CRot.x = -_atan2d(temp_f28, (temp_f22 * temp_f26) + (temp_f24 * -HuMathSin(-temp_f0)));
+    temp_f26 = cosdf(-temp_f0);
+    CRot.x = -atan2df(temp_f28, (temp_f22 * temp_f26) + (temp_f24 * -sindf(-temp_f0)));
     CRot.z = 0.0f;
     Center = *arg1;
 }
