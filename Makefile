@@ -124,7 +124,7 @@ DEPENDS := $(OBJECTS:=.d)
 
 ### Targets ###
 
-build/src/libhmath/%.o: CFLAGS := -O2 -G0 -mips3 -mgp32 -mfp32 -ffast-math -Wa,--force-n64align
+build/src/libhmath/%.o build/src/libm/%.o: CFLAGS := -O2 -G0 -mips3 -mgp32 -mfp32 -ffast-math -Wa,--force-n64align
 
 #build/src/libultra/os/%.o: CFLAGS := -O2 $(CFLAGSCOMMON)
 #build/src/libultra/libc/%.o: CFLAGS := -O2 $(CFLAGSCOMMON)
