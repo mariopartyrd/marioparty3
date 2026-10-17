@@ -2,6 +2,7 @@
 #define _FUNCTIONS_H_
 
 #include "common.h"
+#include "game/hvq.h"
 
 void func_80049FB8_main(void);
 void func_8004A0E0_main(void);
@@ -41,9 +42,6 @@ void func_8005035C_main(s32);
 void func_80050ABC_main(void);
 void GWBoardFlagClear(s32 flag);
 void GWBoardFlagSet(s32 flag);
-void func_800698E8_main(u8**, u8*, s32, void*);
-void func_80069E68_main(void*);
-void func_8006A370_main(s32);
 void func_8000B690_main(s32);
 void func_800142A0_main(s32);
 f32 HuMathCos(f32);

@@ -5,6 +5,37 @@
 #include "macros.h"
 
 #define offsetof(st, m) ((u32) & (((st *)0)->m))
+#define HUSPR_READ16(p) (((p)[0] << 8) + (p)[1])
+#define HUSPR_READ32(p) (((p)[0] << 24) + ((p)[1] << 16) + ((p)[2] << 8) + (p)[3])
+
+typedef struct {
+    u8 images[4];
+    u8 animations[4];
+    u8 pixels[4];
+    u8 palette[4];
+    u8 imageCount[2];
+    u8 animationCount[2];
+    u8 width[2];
+    u8 height[2];
+    u8 pixelBits[2];
+    u8 paletteCount;
+} HuSprFileHeader;
+
+typedef struct {
+    u8 pixels[4];
+    u8 width[2];
+    u8 height[2];
+    u8 centerX[2];
+    u8 centerY[2];
+} HuSprFileImage;
+
+typedef struct {
+    u8 image[2];
+    u8 duration[2];
+    u8 unk04;
+    u8 unk05;
+    u8 unk06;
+} HuSprFileFrame;
 
 typedef struct {
     HuSprite *last;
@@ -804,7 +835,141 @@ void func_800557A0_main(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/sprman", func_80055810_main);
+s16 func_80055810_main(void *arg0) {
+    HuSprCelFrame *frames[0x100];
+    HuSprite_Unk84_Struct *desc;
+    HuSprite_Unk84_Unk00_Struct *image;
+    HuSprCelAnm **animations;
+    HuSprCelAnm *animation;
+    HuSprCelFrame *frame;
+    HuSprFileHeader *header = arg0;
+    HuSprFileImage *fileImage;
+    u8(*animationOffsets)[4];
+    u8 *pixels;
+    u8 *palette;
+    u8 *dest;
+    u8 *src;
+    s32 size;
+    u32 j;
+    s16 i;
+    s16 slot;
+    s16 k;
+
+    for (i = 0; i < 0x100 && D_800C9530_main[i] != NULL; i++) {
+    }
+    if (i == 0x100) {
+        return -1;
+    }
+    slot = i;
+    desc = HuMemAlloc(sizeof(*desc));
+    if (desc == NULL) {
+        return -1;
+    }
+    fileImage = (HuSprFileImage *)((u8 *)header + HUSPR_READ32(header->images));
+    animationOffsets = (u8(*)[4])((u8 *)header + HUSPR_READ32(header->animations));
+    pixels = (u8 *)header + HUSPR_READ32(header->pixels);
+    palette = (u8 *)header + HUSPR_READ32(header->palette);
+    desc->unk10 = HUSPR_READ16(header->imageCount);
+    desc->unk12 = HUSPR_READ16(header->animationCount);
+    desc->unk14 = HUSPR_READ16(header->width);
+    desc->unk16 = HUSPR_READ16(header->height);
+    desc->unk18 = HUSPR_READ16(header->pixelBits);
+    desc->unk1A = header->paletteCount;
+    // A zero palette count represents 256 colors for 8-bit images.
+    if (desc->unk18 == 8 && desc->unk1A == 0) {
+        desc->unk1A = 0x100;
+    }
+    desc->unk00 = NULL;
+    desc->unk04 = NULL;
+    desc->unk08 = NULL;
+    desc->unk0C = NULL;
+    D_800C9530_main[slot] = desc;
+    D_800CC3E6_main++;
+    image = HuMemAlloc(desc->unk10 * sizeof(*image));
+    if (image != NULL) {
+        desc->unk00 = image;
+    } else {
+        HuSprKill(slot);
+        return -1;
+    }
+    for (i = 0; i < desc->unk10; i++) {
+        image->unk04 = HUSPR_READ16(fileImage->width);
+        image->unk06 = HUSPR_READ16(fileImage->height);
+        image->unk08 = HUSPR_READ16(fileImage->centerX);
+        image->unk0A = HUSPR_READ16(fileImage->centerY);
+        size = image->unk04 * image->unk06 * (desc->unk18 & 0x7FFF) / 8;
+        image->unk00 = HuMemAlloc(size);
+        if (image->unk00 == NULL) {
+            desc->unk10 = i;
+            HuSprKill(slot);
+            return -1;
+        }
+        for (j = 0; j < size; j++) {
+            ((u8 *)image->unk00)[j] = *pixels++;
+        }
+        fileImage++;
+        if (i == 0) {
+            desc->unk08 = image->unk00;
+        }
+        image++;
+    }
+    if (desc->unk1A != 0) {
+        dest = HuMemAlloc(desc->unk1A * 2);
+        if (dest != NULL) {
+            desc->unk0C = dest;
+        } else {
+            HuSprKill(slot);
+            return -1;
+        }
+        for (i = 0; i < desc->unk1A; i++) {
+            *dest++ = palette[i * 2];
+            *dest++ = palette[i * 2 + 1];
+        }
+    }
+    if (desc->unk12 == 0) {
+        return slot;
+    }
+    animations = HuMemAlloc(desc->unk12 * (s32)sizeof(*animations));
+    if (animations != NULL) {
+        desc->unk04 = animations;
+    } else {
+        HuSprKill(slot);
+        return -1;
+    }
+    animation = HuMemAlloc(desc->unk12 * (s32)sizeof(*animation));
+    if (animation == NULL) {
+        HuSprKill(slot);
+        return -1;
+    }
+    for (i = 0; i < desc->unk12; i++) {
+        // The original loader scales this index by the record size twice.
+        animations[i] = &animation[i * sizeof(*animation)];
+    }
+    for (k = 0; k < desc->unk12; k++) {
+        src = (u8 *)header + HUSPR_READ32(animationOffsets[k]);
+        animation->unk00 = HUSPR_READ16(src);
+        src += 2;
+        frames[k] = HuMemAlloc(animation->unk00 * sizeof(*frame));
+        if (frames[k] == NULL) {
+            desc->unk12 = k;
+            HuSprKill(slot);
+            return -1;
+        }
+        animation->unk04 = frames[k];
+        frame = frames[k];
+        for (i = 0; i < animation->unk00; i++) {
+            frame->unk00 = HUSPR_READ16(((HuSprFileFrame *)src)->image);
+            frame->unk02 = HUSPR_READ16(((HuSprFileFrame *)src)->duration);
+            frame->unk04 = ((HuSprFileFrame *)src)->unk04;
+            frame->unk05 = ((HuSprFileFrame *)src)->unk05;
+            frame->unk06 = ((HuSprFileFrame *)src)->unk06;
+            src += sizeof(HuSprFileFrame);
+            frame++;
+        }
+        animation++;
+    }
+    return slot;
+}
 
 s32 func_80055DBC_main(u16 arg0, u16 arg1, u16 arg2, u16 arg3, u16 arg4) {
     HuSprite_Unk84_Struct *desc;

@@ -343,6 +343,10 @@ HuPrcFreeMem = 0x8004F26C;
 HuMathCos = 0x8008E3F0;
 HuMathSin = 0x8008EF20;
 
+hvqMpsDecode1 = 0x800698E8;
+hvqMpsDecodeStart1 = 0x80069E68;
+hvqMpsInit1 = 0x8006A370;
+
 setjmp = 0x80066500;
 longjmp = 0x80066564;
 
@@ -1589,3 +1593,6 @@ mb1_After5GrpId = 0x8011FB80; //rom:0x3356F0 segment:ChillyWaters
 D_8011D498_ChillyWaters = 0x8011D498; //rom:0x333008 type:s32 segment:ChillyWaters
 D_8011D4BC_ChillyWaters = 0x8011D4BC; //rom:0x33302C type:s32 segment:ChillyWaters
 D_8011E6CC_ChillyWaters = 0x8011E6CC; //rom:0x33423C type:s32 segment:ChillyWaters
+
+// RSP lb instruction at ROM 0x93DF4 and 0x942C4, not a pointer into HVQ BSS.
+D_800C02AE_main = 0x800C02AE; // ignore:True
