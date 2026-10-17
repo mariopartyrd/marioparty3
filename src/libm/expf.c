@@ -1,7 +1,6 @@
-#include "math.h"
+#include "libm.h"
 
-extern f32 D_800A4340_main;
-extern f32 D_800A46A0[];
+static f32 threshold = 0.0625f;
 
 f32 expf(f32 x) {
     f32 tolerance = 1.0e-7f;
@@ -16,7 +15,7 @@ f32 expf(f32 x) {
     if (x < 0.0f) {
         return 1.0f / expf(-x);
     }
-    while (x > D_800A4340_main) {
+    while (x > threshold) {
         x *= 0.5f;
         tolerance *= 0.5f;
         halvings++;

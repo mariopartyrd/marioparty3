@@ -1,6 +1,4 @@
-#include "math.h"
-
-extern f32 D_800A46A0[];
+#include "libm.h"
 
 /* asin in degrees. */
 f32 asindf(f32 x) {

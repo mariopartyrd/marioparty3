@@ -1,7 +1,4 @@
-#include "math.h"
-
-extern f64 D_800C94E0_main;
-extern f64 D_800A4380_main[];
+#include "libm.h"
 
 f64 atan2(f64 y, f64 x) {
     f64 ratio;

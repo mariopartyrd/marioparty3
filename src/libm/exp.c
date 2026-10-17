@@ -1,9 +1,6 @@
-#include "math.h"
+#include "libm.h"
 
 static f64 threshold = 0.0625;
-
-extern f64 D_800C94E0_main;
-extern f64 D_800A4380_main[];
 
 f64 exp(f64 x) {
     f64 tolerance = D_800C94E0_main;

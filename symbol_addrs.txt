@@ -1045,7 +1045,6 @@ alSndpDeallocate = 0x8006D320; //rom:0x6DF20
 __osSiAccessQueue = 0x800D6B48; //size:0x18
 mbovlhisidx = 0x800D6B60; //size:0x2
 
-D_800A4340_main = 0x800A4340; //rom:0xA4F40 size:0x4 force_migration:True
 _Printf = 0x80081A40; //rom:0x82640
 proutSprintf = 0x8007BE18; //rom:0x7CA18
 swapChainTask = 0x800B1800;
@@ -1609,3 +1608,12 @@ D_8011E6CC_ChillyWaters = 0x8011E6CC; //rom:0x33423C type:s32 segment:ChillyWate
 
 // RSP lb instruction at ROM 0x93DF4 and 0x942C4, not a pointer into HVQ BSS.
 D_800C02AE_main = 0x800C02AE; // ignore:True
+
+// Shared libm tables.
+D_800A4350_main = 0x800A4350; //rom:0xA4F50 size:0x30
+D_800A4380_main = 0x800A4380; //rom:0xA4F80 size:0x320 type:f64
+D_800A4830_main = 0x800A4830; //rom:0xA5430 size:0x16C type:f32
+D_800A49A0_main = 0x800A49A0; //rom:0xA55A0 size:0x2D8 type:f64
+D_800C94E0_main = 0x800C94E0; //size:0x8
+D_800C94F0_main = 0x800C94F0; //size:0x8
+D_800C9500_main = 0x800C9500; //size:0x4

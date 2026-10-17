@@ -1,9 +1,4 @@
-#include "math.h"
-
-extern f64 D_800C94E0_main;
-extern s32 D_800A4350_main[];
-extern f64 D_800A49A0_main[];
-extern f64 D_800A4380_main[];
+#include "libm.h"
 
 f64 cosd(f64 angle) {
     f64 term = 1;

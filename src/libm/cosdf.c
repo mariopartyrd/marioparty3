@@ -1,6 +1,4 @@
-#include "math.h"
-
-extern f32 D_800A4830_main[];
+#include "libm.h"
 
 f32 cosdf(f32 angle) {
     f32 period;

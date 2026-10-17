@@ -1,7 +1,6 @@
-#include "math.h"
+#include "libm.h"
 
-extern f32 D_800A4830_main[];
-extern f32 D_800C9500_main;
+f32 D_800C9500_main;
 
 f32 sindf(f32 angle) {
     f32 period;

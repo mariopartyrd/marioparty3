@@ -1,6 +1,4 @@
-#include "math.h"
-
-extern f32 D_800C9500_main;
+#include "libm.h"
 
 void sincosdf(f32 angle, f32 *sine, f32 *cosine) {
     *sine = sindf(angle);

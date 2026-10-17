@@ -1,6 +1,4 @@
-#include "math.h"
-
-extern f32 D_800A46A0[];
+#include "libm.h"
 
 f32 atan2f(f32 y, f32 x) {
     f32 ratio;

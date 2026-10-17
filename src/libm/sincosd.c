@@ -1,6 +1,4 @@
-#include "math.h"
-
-extern f64 D_800C94F0_main;
+#include "libm.h"
 
 void sincosd(f64 angle, f64 *sine, f64 *cosine) {
     *sine = sind(angle);
