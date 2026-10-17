@@ -370,11 +370,11 @@ segments:
       - [0x88440, c, libkmc/abs]
       - [0x88460, c, libkmc/fmod]
       - [0x88640, asm, libkmc/memset]
-      - [0x88710, asm] # What is this? sqrtf is already defined in 0x81E40.
+      - [0x88710, asm, libkmc/sqrt]
       - [0x88720, asm, libkmc/strcmp]
       - [0x88830, c, libkmc/strcpy]
       - [0x88900, hasm, libkmc/mmuldi3]
-      - [0x88CD0, hasm, sqrt]
+      - [0x88CD0, hasm, libhmath/sqrt]
       - [0x88CE0, c, libhmath/sqrtf]
       - [0x88CF0, c, libhmath/vecmag]
       - [0x88D50, c, libhmath/vecnorm]

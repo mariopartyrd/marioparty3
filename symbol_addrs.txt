@@ -592,7 +592,8 @@ __rmonHitSpBreak = 0x80087580;
 __rmonHitCpuFault = 0x8008760C;
 rmonFindFaultedThreads = 0x80087638;
 
-sqrt = 0x80087B18; //rom:0x88718
+sqrt = 0x80087B10; //rom:0x88710
+kmc_sqrtf = 0x80087B18; //rom:0x88718
 
 __osInitialize_autodetect = 0x8007F048;
 __osInitialize_emu = 0x8007F860;
@@ -696,6 +697,7 @@ guPerspective = 0x8007B010;
 guNormalize = 0x80082B00;
 guLookAtF = 0x80088210;
 guLookAt = 0x80079800;
+HuSqrt = 0x800880D0;
 HuSqrtf = 0x800880E0;
 
 HuVecGetLengthSqr = 0x800880F0; //rom:0x88CF0

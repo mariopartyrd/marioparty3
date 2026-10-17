@@ -23,7 +23,10 @@ float sinf(float);
 float cosf(float);
 //double cos(double);
 
+double sqrt(double);
+float kmc_sqrtf(float);
 float sqrtf(float);
+double HuSqrt(double x);
 float HuSqrtf(float x);
 
 void HuVecCopyXYZ(Vec * out, f32 x, f32 y, f32 z);
