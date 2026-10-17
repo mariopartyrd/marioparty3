@@ -472,7 +472,7 @@ segments:
       - [0xA3950, data]
       - [0xA4C50, .data, 2.0L/libc/xprintf]
       - [0xA4CA0, data]
-      - [0xA4F30, .rodata, libm/exp]
+      - [0xA4F30, .data, libm/exp]
       - [0xA4F40, rodata]
       - [0xA4F50, rodata]
       - [0xA6C50, rodata, n_aspMain_data]

@@ -79,6 +79,7 @@ OBJCOPY  := $(CROSS)objcopy
 STRIP    := $(CROSS)strip
 
 CC       := tools/gcc_2.7.2/$(DETECTED_OS)/gcc
+IDO_CC   := tools/ido_recomp/$(DETECTED_OS)/5.3/cc
 CC_HOST  := gcc
 CPP      := cpp -P
 
@@ -233,7 +234,17 @@ $(NOP_OBJECTS): $(BUILD_DIR)/%.c.o: $(BUILD_DIR)/%.c.s
 	$(V)export COMPILER_PATH=tools/gcc_2.7.2/$(DETECTED_OS) && $(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 	@$(STRIP) $@ -N dummy-symbol-name
 
-# Compile .c files with kmc gcc (use strip to fix objects so that they can be linked with modern gnu ld) 
+# libm uses IDO 5.3.
+IDO_OBJECTS := $(sort $(filter $(BUILD_DIR)/src/libm/%.c.o,$(OBJECTS)))
+
+# Compile selected .c files with IDO 5.3.
+$(IDO_OBJECTS): $(BUILD_DIR)/%.c.o: %.c
+	@$(PRINT)$(GREEN)Compiling C file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
+	@mkdir -p $(dir $@)
+	@$(CC_HOST) $(CFLAGS_CHECK) $(CPPFLAGS) -MMD -MP -MT $@ -MF $@.d $<
+	$(V)$(IDO_CC) -O2 -G0 -mips1 -non_shared -Wab,-r4300_mul $(CPPFLAGS) -c -o $@ $<
+
+# Compile .c files with kmc gcc (use strip to fix objects so that they can be linked with modern gnu ld)
 $(BUILD_DIR)/src/%.c.o: src/%.c
 	$(ECHO)$(PRINT)$(GREEN)Compiling C file: $(ENDGREEN)$(BLUE)$<$(ENDBLUE)$(ENDLINE)
 	@mkdir -p $(shell dirname $@)
