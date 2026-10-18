@@ -1,11 +1,11 @@
 #include "common.h"
 
-void HuVecSubtract(Vec *arg0, Vec *arg1, Vec *arg2) {
-    f32 x = arg1->x - arg2->x;
-    f32 y = arg1->y - arg2->y;
-    f32 z = arg1->z - arg2->z;
+void HuVecSubtract(Vec *out, Vec *a, Vec *b) {
+    f32 x = a->x - b->x;
+    f32 y = a->y - b->y;
+    f32 z = a->z - b->z;
 
-    arg0->x = x;
-    arg0->y = y;
-    arg0->z = z;
+    out->x = x;
+    out->y = y;
+    out->z = z;
 }

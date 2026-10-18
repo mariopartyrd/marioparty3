@@ -2,9 +2,9 @@
 #include "math.h"
 
 void HuVecMulScalar(Vec *out, f32 scalar, Vec *a) {
-    float x = scalar * a->x;
-    float y = scalar * a->y;
-    float z = scalar * a->z;
+    f32 x = scalar * a->x;
+    f32 y = scalar * a->y;
+    f32 z = scalar * a->z;
 
     out->x = x;
     out->y = y;

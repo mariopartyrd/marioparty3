@@ -125,7 +125,8 @@ DEPENDS := $(OBJECTS:=.d)
 
 ### Targets ###
 
-build/src/libhmath/%.o build/src/libm/%.o: CFLAGS := -O2 -G0 -mips3 -mgp32 -mfp32 -ffast-math -Wa,--force-n64align
+build/src/libhmath/%.c.o build/src/libhmath/%.c.s: OPTFLAGS = -O2
+build/src/libhmath/%.o build/src/libhmath/%.c.s build/src/libm/%.o: CFLAGS := -G0 -mips3 -mgp32 -mfp32 -ffast-math -Wa,--force-n64align
 
 #build/src/libultra/os/%.o: CFLAGS := -O2 $(CFLAGSCOMMON)
 #build/src/libultra/libc/%.o: CFLAGS := -O2 $(CFLAGSCOMMON)
@@ -158,7 +159,7 @@ modsplit:
 split:
 	$(V)rm -rf asm
 	$(V)$(SPLAT)$(SPLAT_REDIRECT)
-	
+
 test: $(ROM)
 	$(V)$(EMULATOR) $<
 
@@ -169,7 +170,6 @@ build/src/2.0L/audio/%.c.o: OPTFLAGS = -O2
 build/src/2.0L/audio/%.c.o: CFLAGS = -G0 -mips3 -mgp32 -mfp32 -D_MIPS_SZLONG=32 -D_LANGUAGE_C -DF3DEX_GBI -D__MIPSEB__ -Wa,--force-n64align
 build/src/2.0L/audio/%.c.o: CPPFLAGS = -I include -I include/PR -I include/gcc -I $(BUILD_DIR)/include -I src -DNDEBUG -D_MIPS_SZLONG=32 -DF3DEX_GBI_2
 build/src/8A6B0.c.o: OPTFLAGS = -O2 #Could also be -O3?
-build/src/8ACD0.c.o: OPTFLAGS = -O2
 build/src/2.0L/gu/%.c.o: OPTFLAGS = -O2
 build/src/2.0L/io/pirawdma.c.o: OPTFLAGS = -O2
 build/src/2.0L/libc/sprintf.c.o: OPTFLAGS = -O2

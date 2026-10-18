@@ -2,9 +2,9 @@
 #include "math.h"
 
 void HuVecAddScaled(Vec *out, Vec *a, f32 scalar, Vec *b) {
-    float x = a->x + (scalar * b->x);
-    float y = a->y + (scalar * b->y);
-    float z = a->z + (scalar * b->z);
+    f32 x = a->x + (scalar * b->x);
+    f32 y = a->y + (scalar * b->y);
+    f32 z = a->z + (scalar * b->z);
 
     out->x = x;
     out->y = y;
