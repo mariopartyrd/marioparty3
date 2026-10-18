@@ -715,6 +715,7 @@ HuVecGetLengthSqr = 0x800880F0; //rom:0x88CF0
 mulHuVecGetLength = 0x80088120;
 HuVecNormalize = 0x80088150;
 HuVecDotProduct = 0x800881E0;
+func_800898F0_main = 0x800898F0;
 HuVecCopyXYZ = 0x80089A10;
 HuVecCopy3F = 0x80089A20;
 HuVecNeg = 0x80089A40;
