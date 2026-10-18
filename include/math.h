@@ -65,12 +65,14 @@ f32 expf(f32 x);
 f64 log(f64 x);
 f32 logf(f32 x);
 
-void HuVecCopyXYZ(Vec * out, f32 x, f32 y, f32 z);
-void HuVecCopy3F(Vec * out, Vec * a);
-f32 HuVecGetLengthSqr3F(Vec * vec);
-f32 HuVecGetLength3F(Vec * vec);
+void HuVecNormalize3F(Vec *vec);
+void HuVecCross(Vec *out, Vec *a, Vec *b);
+void HuVecCopyXYZ(Vec *out, f32 x, f32 y, f32 z);
+void HuVecCopy3F(Vec *out, Vec *a);
+f32 HuVecGetLengthSqr3F(Vec *vec);
+f32 HuVecGetLength3F(Vec *vec);
 
-f32 HuVecDistanceSqr(Vec *a, Vec *b);
-f32 HuVecDistance(Vec *a, Vec *b);
+f32 HuVecDistanceSqr(const Vec *a, const Vec *b);
+f32 HuVecDistance(const Vec *a, const Vec *b);
 
 #endif
