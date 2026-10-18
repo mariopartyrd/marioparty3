@@ -1,12 +1,12 @@
 #include "common.h"
 
 // Build a fixed-point rotation matrix from Euler angles.
-void func_8008A960_main(HuMtxFixed *mtx, const f32 *rot) {
+void func_8008A960_main(Mtx *mtx, const f32 *rot) {
     f32 sin_x, cos_x, sin_y, cos_y, sin_z, cos_z;
     s32 value, value2;
     f32 row01, row02, row10, row11, row12, row20, row21, row22;
-    s16(*integer)[4] = mtx->parts.integer;
-    u16(*fraction)[4] = mtx->parts.fraction;
+    s16 (*integer)[4] = (s16 (*)[4])mtx->m;
+    u16 (*fraction)[4] = (u16 (*)[4])&mtx->m[2];
 
     sincosdf(rot[0], &sin_x, &cos_x);
     sincosdf(rot[1], &sin_y, &cos_y);

@@ -22,12 +22,12 @@ void func_80088910_main(HuMtx4F mtx, f32 r, f32 p, f32 h) {
 }
 
 // Builds a fixed-point Euler rotation matrix.
-void func_80088A70_main(HuMtxFixed *mtx, f32 r, f32 p, f32 h) {
+void func_80088A70_main(Mtx *mtx, f32 r, f32 p, f32 h) {
     f32 sin_x, cos_x, sin_y, cos_y, sin_z, cos_z;
     s32 value, value2;
     f32 row01, row02, row10, row11, row12, row20, row21, row22;
-    s16(*integer)[4] = mtx->parts.integer;
-    u16(*fraction)[4] = mtx->parts.fraction;
+    s16 (*integer)[4] = (s16 (*)[4])mtx->m;
+    u16 (*fraction)[4] = (u16 (*)[4])&mtx->m[2];
 
     sincosdf(r, &sin_x, &cos_x);
     sincosdf(p, &sin_y, &cos_y);
