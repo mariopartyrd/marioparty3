@@ -3,7 +3,22 @@
 
 #include "PR/ultratypes.h"
 
+#define M_E 2.71828182845904523536
+#define M_1_E 0.36787944117144232160
 #define M_PI 3.14159265358979323846
+#define M_PI_2 1.57079632679489661923
+#define M_PI_4 0.78539816339744830962
+#define M_DTOR (3.14159265358979323846/180.0)
+#define M_RTOD 57.2957795130823208768
+
+/* Single-precision constants are rounded independently of the double versions. */
+#define M_Ef 2.71828182845904523536f
+#define M_1_Ef 0.36787944117144232160f
+#define M_PIf 3.14159265358979323846f
+#define M_PI_2f 1.57079632679489661923f
+#define M_PI_4f 0.78539816339744830962f
+#define M_DTORf 0.01745329251994329577f
+#define M_RTODf 57.2957795130823208768f
 
 typedef struct {
     f32 x;

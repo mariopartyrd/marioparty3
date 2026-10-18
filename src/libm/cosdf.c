@@ -34,7 +34,7 @@ f32 cosdf(f32 angle) {
     wholeAngle = (f32)index;
     index = (s32)wholeAngle;
     fraction = angle - wholeAngle;
-    fraction *= 0.01745329238f;
+    fraction *= M_DTORf;
     square = fraction * fraction;
     result = D_800A4830_main[index] * (1.0f - (0.125f * square * (4.0f + square))) +
              D_800A4830_main[90 - index] * fraction;

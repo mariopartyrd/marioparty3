@@ -38,5 +38,5 @@ f32 asindf(f32 x) {
         }
         factor += 2.0f;
     }
-    return result * x * 57.29578018f;
+    return result * x * M_RTODf;
 }

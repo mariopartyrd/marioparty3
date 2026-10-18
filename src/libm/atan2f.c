@@ -11,24 +11,24 @@ f32 atan2f(f32 y, f32 x) {
     s32 i;
 
     if (y == 0.0f) {
-        return x > 0.0f ? 0.0f : 3.141592741f;
+        return x > 0.0f ? 0.0f : M_PIf;
     }
     if (x == 0.0f) {
-        return y > 0.0f ? 1.570796371f : -1.570796371f;
+        return y > 0.0f ? M_PI_2f : -M_PI_2f;
     }
     ratio = y / x;
     if (ratio == 1.0f) {
-        return y > 0.0f ? 0.7853981853f : -2.356194496f;
+        return y > 0.0f ? M_PI_4f : -3 * M_PI_4f;
     }
     if (ratio == -1.0f) {
-        return x > 0.0f ? -0.7853981853f : 2.356194496f;
+        return x > 0.0f ? -M_PI_4f : 3 * M_PI_4f;
     }
     if (ratio > 1.0f || ratio < -1.0f) {
         angle = atan2f(x, y);
         if (x > 0.0f) {
-            return 1.570796371f - angle;
+            return M_PI_2f - angle;
         }
-        return y > 0.0f ? 1.570796371f - angle : -4.712388992f - angle;
+        return y > 0.0f ? M_PI_2f - angle : -3 * M_PI_2f - angle;
     }
 
     power = ratio * ratio;
@@ -46,9 +46,9 @@ f32 atan2f(f32 y, f32 x) {
         term *= power * i * D_800A46A0[i + 1];
     }
     result *= ratio * factor;
-    return x > 0.0f ? result : (y > 0.0f ? 3.141592741f + result : -3.141592741f + result);
+    return x > 0.0f ? result : (y > 0.0f ? M_PIf + result : -M_PIf + result);
 }
 
 f32 atan2df(f32 y, f32 x) {
-    return atan2f(y, x) * 57.29578018f;
+    return atan2f(y, x) * M_RTODf;
 }

@@ -15,21 +15,21 @@ f64 atan2(f64 y, f64 x) {
         return x > 0.0 ? 0.0 : M_PI;
     }
     if (x == 0.0) {
-        return y > 0.0 ? M_PI / 2 : -M_PI / 2;
+        return y > 0.0 ? M_PI_2 : -M_PI_2;
     }
     ratio = y / x;
     if (ratio == 1.0) {
-        return y > 0.0 ? M_PI / 4 : -3 * M_PI / 4;
+        return y > 0.0 ? M_PI_4 : -3 * M_PI_4;
     }
     if (ratio == -1.0) {
-        return x > 0.0 ? -M_PI / 4 : 3 * M_PI / 4;
+        return x > 0.0 ? -M_PI_4 : 3 * M_PI_4;
     }
     if (ratio > 1.0 || ratio < -1.0) {
         angle = atan2(x, y);
         if (x > 0.0) {
-            return M_PI / 2 - angle;
+            return M_PI_2 - angle;
         }
-        return y > 0.0 ? M_PI / 2 - angle : -3 * M_PI / 2 - angle;
+        return y > 0.0 ? M_PI_2 - angle : -3 * M_PI_2 - angle;
     }
 
     squared = ratio * ratio;
@@ -51,5 +51,5 @@ f64 atan2(f64 y, f64 x) {
 }
 
 f64 atan2d(f64 y, f64 x) {
-    return atan2(y, x) * 57.2957795130823229;
+    return atan2(y, x) * M_RTOD;
 }

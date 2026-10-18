@@ -43,7 +43,7 @@ f64 sind(f64 angle) {
     wholeAngle = (f64)index;
     index = (s32)wholeAngle;
     fraction = angle - wholeAngle;
-    fraction *= 0.0174532925199432955;
+    fraction *= M_DTOR;
 
     sinTbl = D_800A49A0_main[index];
     result = sinTbl;

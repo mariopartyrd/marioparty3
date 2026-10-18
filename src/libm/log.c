@@ -18,8 +18,8 @@ f64 log(f64 x) {
     i = 3;
     power = result = 1.;
     exponent = 0.0;
-    while (x > 2.71828182845904509) {
-        x *= 0.367879441171442334;
+    while (x > M_E) {
+        x *= M_1_E;
         exponent += 1.0;
     }
     ratio = (x - 1) / (x + 1);

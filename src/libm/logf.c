@@ -18,8 +18,8 @@ f32 logf(f32 x) {
     i = 3;
     power = result = 1;
     exponent = 0.0;
-    while (x > 2.71828182845904509f) {
-        x *= 0.367879441171442334f;
+    while (x > M_Ef) {
+        x *= M_1_Ef;
         exponent += 1;
     }
     ratio = (x - 1) / (x + 1);
