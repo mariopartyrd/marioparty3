@@ -32,6 +32,14 @@ typedef struct {
     s32 z;
 } HuVec3I;
 
+typedef struct {
+    f32 fov;
+    f32 aspect;
+    f32 near;
+    f32 far;
+    f32 scale;
+} PerspectiveParams;
+
 /* Application-owned default tolerance used by libhmath's epsilon helpers. */
 extern f32 D_800A12A4_main;
 

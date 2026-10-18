@@ -1,4 +1,9 @@
 #include "common.h"
 
 // Build a fixed-point perspective matrix.
-INCLUDE_ASM("asm/nonmatchings/libhmath/perspectivef2l", func_8008A030_main);
+void func_8008A030_main(Mtx *mtx, u16 *perspNorm, PerspectiveParams *params) {
+    HuMtx4F temp;
+
+    func_8008D5D0_main(temp, perspNorm, params);
+    func_800898F0_main(temp, mtx);
+}
