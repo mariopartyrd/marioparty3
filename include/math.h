@@ -32,6 +32,9 @@ typedef struct {
     s32 z;
 } HuVec3I;
 
+/* Application-owned default tolerance used by libhmath's epsilon helpers. */
+extern f32 D_800A12A4_main;
+
 /* Libultra trigonometry takes angles in radians. */
 f32 sinf(f32 angle);
 f32 cosf(f32 angle);
@@ -64,6 +67,9 @@ f64 exp(f64 x);
 f32 expf(f32 x);
 f64 log(f64 x);
 f32 logf(f32 x);
+
+s32 func_80089820_main(f32 value, f32 threshold);
+s32 func_80089860_main(f32 value);
 
 void HuVecNormalize3F(Vec *vec);
 void HuVecCross(Vec *out, Vec *a, Vec *b);

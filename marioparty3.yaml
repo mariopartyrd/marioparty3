@@ -456,6 +456,8 @@ segments:
       - [0x960C0, bin, n_aspMain_code]
       - [0x96EF0, .data, overlay_table]
       - [0x98160, data]
+      - [0xA1EA0, .data, main]
+      - [0xA1EB0, data]
       - [0xA1EE0, data, gamemes]
       - [0xA2190, data, pause]
       - [0xA2260, data, 471D0]
