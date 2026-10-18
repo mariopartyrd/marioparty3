@@ -6424,7 +6424,7 @@ void func_80111CCC_w06(void) {
     angle = 0.0f;
     for (scale = 1.0f; scale < 10.0f; scale = (f32)((f64)scale + 0.5)) {
         HuVecCopyXYZ(&model->scale, scale, scale, scale);
-        func_8008A430_main(&HmfModelData[model->omObj1->model[0]].mtx, angle);
+        func_8008A430_main(HmfModelData[model->omObj1->model[0]].mtx, angle);
         angle += 20.0f;
         HuPrcVSleep();
     }
@@ -6434,7 +6434,7 @@ void func_80111CCC_w06(void) {
 
     for (; scale >= 1.0f; scale = (f32)((f64)scale - 0.5)) {
         HuVecCopyXYZ(&model->scale, scale, scale, scale);
-        func_8008A430_main(&HmfModelData[model->omObj1->model[0]].mtx, angle);
+        func_8008A430_main(HmfModelData[model->omObj1->model[0]].mtx, angle);
         angle += 20.0f;
         HuPrcVSleep();
     }
@@ -6471,7 +6471,7 @@ void func_80111F58_w06(void) {
     angle = 0.0f;
     for (scale = 1.0f; scale < 10.0f; scale = (f32)((f64)scale + 0.5)) {
         HuVecCopyXYZ(&model->scale, scale, scale, scale);
-        func_8008A430_main(&HmfModelData[model->omObj1->model[0]].mtx, angle);
+        func_8008A430_main(HmfModelData[model->omObj1->model[0]].mtx, angle);
         angle += 20.0f;
         HuPrcVSleep();
     }
@@ -6481,7 +6481,7 @@ void func_80111F58_w06(void) {
 
     for (; scale >= 1.0f; scale = (f32)((f64)scale - 0.5)) {
         HuVecCopyXYZ(&model->scale, scale, scale, scale);
-        func_8008A430_main(&HmfModelData[model->omObj1->model[0]].mtx, angle);
+        func_8008A430_main(HmfModelData[model->omObj1->model[0]].mtx, angle);
         angle += 20.0f;
         HuPrcVSleep();
     }
@@ -8184,7 +8184,7 @@ void func_80116C8C_w06(void) {
     angle = 0.0f;
     for (scale = 1.0f; scale < 18.0f; scale = (f32)((f64)scale + 0.8)) {
         HuVecCopyXYZ(&model->scale, scale, scale, scale);
-        func_8008A430_main(&HmfModelData[model->omObj1->model[0]].mtx, angle);
+        func_8008A430_main(HmfModelData[model->omObj1->model[0]].mtx, angle);
         angle += 20.0f;
         HuPrcVSleep();
     }
@@ -8192,7 +8192,7 @@ void func_80116C8C_w06(void) {
     if (*state != 1) {
         wait_angle_step = 20.0f;
         while (*state != 1) {
-            func_8008A430_main(&HmfModelData[model->omObj1->model[0]].mtx, angle);
+            func_8008A430_main(HmfModelData[model->omObj1->model[0]].mtx, angle);
             angle += wait_angle_step;
             HuPrcVSleep();
         }
@@ -8200,7 +8200,7 @@ void func_80116C8C_w06(void) {
 
     for (; scale < 40.0f; scale = (f32)((f64)scale + 0.8)) {
         HuVecCopyXYZ(&model->scale, scale, scale, scale);
-        func_8008A430_main(&HmfModelData[model->omObj1->model[0]].mtx, angle);
+        func_8008A430_main(HmfModelData[model->omObj1->model[0]].mtx, angle);
         angle += 20.0f;
         HuPrcVSleep();
     }
@@ -8208,7 +8208,7 @@ void func_80116C8C_w06(void) {
     if (*state != 2) {
         scale = 20.0f;
         while (*state != 2) {
-            func_8008A430_main(&HmfModelData[model->omObj1->model[0]].mtx, angle);
+            func_8008A430_main(HmfModelData[model->omObj1->model[0]].mtx, angle);
             angle += scale;
             HuPrcVSleep();
         }

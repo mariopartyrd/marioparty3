@@ -118,7 +118,7 @@ static void func_800F71A8_shared_board(omObjData *obj) {
         D_80105650_shared_board -= 360.0f;
     }
 
-    func_8008A430_main(&HmfModelData[D_80105628_shared_board->omObj1->model[0]].mtx, D_80105650_shared_board);
+    func_8008A430_main(HmfModelData[D_80105628_shared_board->omObj1->model[0]].mtx, D_80105650_shared_board);
 }
 
 static s32 func_800F7240_shared_board(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
