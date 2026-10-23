@@ -80,7 +80,7 @@ static void func_800DAAAC_shared_board(omObjData *arg0) {
             }
             arg0->trans.y = GwPlayer[arg0->work[3]].player_obj->coords.y + D_80105708_shared_board;
 
-            scale = (HuMathSin(arg0->work[1] * 2) * entry->unk48 * base) + base;
+            scale = (sindf(arg0->work[1] * 2) * entry->unk48 * base) + base;
             arg0->scale.x = arg0->scale.y = arg0->scale.z = scale;
 
             if (D_80105700_shared_board == 0) {
@@ -127,7 +127,7 @@ static void func_800DAAAC_shared_board(omObjData *arg0) {
             if (HmfPauseF == 0) {
                 arg0->trans.y = GwPlayer[arg0->work[3]].player_obj->coords.y
                               + D_80105708_shared_board
-                              + (HuMathSin(arg0->work[1] * 2) * 10.0f * base);
+                              + (sindf(arg0->work[1] * 2) * 10.0f * base);
                 arg0->work[1] = (arg0->work[1] + 5) % 180;
                 return;
             }
@@ -159,7 +159,7 @@ static void func_800DAF1C_shared_board(omObjData *arg0) {
     entry = &D_800CDBD0_main[arg0->work[3]];
 
     if ((arg0->work[0] == 0) && (HmfPauseF == 0)) {
-        arg0->scale.x = (HuMathSin(arg0->rot.x) * arg0->scale.z) + 1.0f;
+        arg0->scale.x = (sindf(arg0->rot.x) * arg0->scale.z) + 1.0f;
         arg0->rot.x += 20.0f;
         arg0->scale.z -= 0.15;
 
@@ -207,7 +207,7 @@ static void func_800DB318_shared_board(omObjData *arg0) {
     entry = &D_800CDBD0_main[arg0->work[3]];
 
     if ((arg0->work[0] == 0) && (HmfPauseF == 0)) {
-        arg0->scale.x = (HuMathSin(arg0->rot.x) * arg0->scale.z) + 1.0f;
+        arg0->scale.x = (sindf(arg0->rot.x) * arg0->scale.z) + 1.0f;
 
         arg0->rot.x += 20.0f;
         if (arg0->rot.x >= 360.0f) {
@@ -951,15 +951,15 @@ static void func_800DCDD4_shared_board(void) {
                                 }
                                 for (j = 0; j < 37; j++) {
                                     temp_f22 = (f32)(((j * 4) + j) * 4);
-                                    temp_f20 = (HuMathSin(temp_f22) * 0.5f) + 1.0f;
-                                    HuSprScaleSet(temp_s4->sprites[0], 0, temp_f20, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
-                                    temp_f20_2 = (HuMathSin(temp_f22) * 0.5f) + 1.0f;
-                                    HuSprScaleSet(temp_s4->sprites[1], 0, temp_f20_2, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
+                                    temp_f20 = (sindf(temp_f22) * 0.5f) + 1.0f;
+                                    HuSprScaleSet(temp_s4->sprites[0], 0, temp_f20, (sindf(temp_f22) * 0.5f) + 1.0f);
+                                    temp_f20_2 = (sindf(temp_f22) * 0.5f) + 1.0f;
+                                    HuSprScaleSet(temp_s4->sprites[1], 0, temp_f20_2, (sindf(temp_f22) * 0.5f) + 1.0f);
                                     if (temp_s4->rollValue[0] == 0xA) {
-                                        temp_f20_3 = (HuMathSin(temp_f22) * 0.5f) + 1.0f;
-                                        HuSprScaleSet(temp_s4->sprites[0], 1, temp_f20_3, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
-                                        temp_f20_4 = (HuMathSin(temp_f22) * 0.5f) + 1.0f;
-                                        HuSprScaleSet(temp_s4->sprites[1], 1, temp_f20_4, (HuMathSin(temp_f22) * 0.5f) + 1.0f);
+                                        temp_f20_3 = (sindf(temp_f22) * 0.5f) + 1.0f;
+                                        HuSprScaleSet(temp_s4->sprites[0], 1, temp_f20_3, (sindf(temp_f22) * 0.5f) + 1.0f);
+                                        temp_f20_4 = (sindf(temp_f22) * 0.5f) + 1.0f;
+                                        HuSprScaleSet(temp_s4->sprites[1], 1, temp_f20_4, (sindf(temp_f22) * 0.5f) + 1.0f);
                                     }
                                     HuPrcVSleep();
                                 }
@@ -996,19 +996,19 @@ static void func_800DCDD4_shared_board(void) {
                                         var_s1 = i;
                                         temp_s0 = (i * 4) + var_s1;
                                         temp_f24 = (f32)(temp_s0 * 4);
-                                        temp_f20_5 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                        HuSprScaleSet(temp_s4->sprites[0], 0, temp_f20_5, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
-                                        temp_f20_6 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                        HuSprScaleSet(temp_s4->sprites[1], 0, temp_f20_6, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
-                                        temp_f20_7 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                        HuSprScaleSet(temp_s4->sprites[2], 0, temp_f20_7, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
+                                        temp_f20_5 = (sindf(temp_f24) * 0.5f) + 1.0f;
+                                        HuSprScaleSet(temp_s4->sprites[0], 0, temp_f20_5, (sindf(temp_s0) * 0.5f) + 1.0f);
+                                        temp_f20_6 = (sindf(temp_f24) * 0.5f) + 1.0f;
+                                        HuSprScaleSet(temp_s4->sprites[1], 0, temp_f20_6, (sindf(temp_s0) * 0.5f) + 1.0f);
+                                        temp_f20_7 = (sindf(temp_f24) * 0.5f) + 1.0f;
+                                        HuSprScaleSet(temp_s4->sprites[2], 0, temp_f20_7, (sindf(temp_s0) * 0.5f) + 1.0f);
                                         if (temp_s4->rollValue[0] == 0xA) {
-                                            temp_f20_8 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                            HuSprScaleSet(temp_s4->sprites[0], 1, temp_f20_8, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
-                                            temp_f20_9 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                            HuSprScaleSet(temp_s4->sprites[1], 1, temp_f20_9, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
-                                            temp_f20_10 = (HuMathSin(temp_f24) * 0.5f) + 1.0f;
-                                            HuSprScaleSet(temp_s4->sprites[2], 1, temp_f20_10, (HuMathSin(temp_s0) * 0.5f) + 1.0f);
+                                            temp_f20_8 = (sindf(temp_f24) * 0.5f) + 1.0f;
+                                            HuSprScaleSet(temp_s4->sprites[0], 1, temp_f20_8, (sindf(temp_s0) * 0.5f) + 1.0f);
+                                            temp_f20_9 = (sindf(temp_f24) * 0.5f) + 1.0f;
+                                            HuSprScaleSet(temp_s4->sprites[1], 1, temp_f20_9, (sindf(temp_s0) * 0.5f) + 1.0f);
+                                            temp_f20_10 = (sindf(temp_f24) * 0.5f) + 1.0f;
+                                            HuSprScaleSet(temp_s4->sprites[2], 1, temp_f20_10, (sindf(temp_s0) * 0.5f) + 1.0f);
                                         }
                                     }
                                     if (temp_s4->rollValue[0] == 7) {
@@ -1297,20 +1297,20 @@ static void func_800DDE3C_shared_board(void) {
                 func_80054904_main(grp, 0, 160, 90);
                 func_80055458_main(grp, 0, 0);
 
-                amp = 1.0f / HuMathSin(20.0f);
+                amp = 1.0f / sindf(20.0f);
                 
                 for (angle = 0.0f; angle < 90.0f; angle += 11.25f) {
                     //temp variables seem to not impact codegen?
-                    f32 temp1 = HuMathSin(angle) * amp * 0.8f + 0.2f;
-                    f32 temp2 = HuMathSin(angle) * amp * 0.8f + 0.2f;
+                    f32 temp1 = sindf(angle) * amp * 0.8f + 0.2f;
+                    f32 temp2 = sindf(angle) * amp * 0.8f + 0.2f;
                     HuSprScaleSet(grp, 0, temp1, temp2);
                     func_80055458_main(grp, 0, 0x100);
                     HuPrcVSleep();
                 }
                 
                 while (angle > 20.0f) {
-                    f32 temp1 = HuMathSin(angle) * amp * 0.8f + 0.2f;
-                    f32 temp2 = HuMathSin(angle) * amp * 0.8f + 0.2f;
+                    f32 temp1 = sindf(angle) * amp * 0.8f + 0.2f;
+                    f32 temp2 = sindf(angle) * amp * 0.8f + 0.2f;
                     HuSprScaleSet(grp, 0, temp1, temp2);
                     HuPrcVSleep();
                     angle -= 11.25f;

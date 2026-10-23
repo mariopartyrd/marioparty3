@@ -1086,16 +1086,16 @@ static void func_800F56A8_shared_board(omObjData *arg0) {
     s32 i;
 
     for (i = 0; i < 0xE; i++) {
-        if ((HuMathSin(arg0->rot.x) * 0.15f) > 0.0f) {
-            var_f0 = (HuMathSin(arg0->rot.x) * 0.15f) + 1.0f;
+        if ((sindf(arg0->rot.x) * 0.15f) > 0.0f) {
+            var_f0 = (sindf(arg0->rot.x) * 0.15f) + 1.0f;
         } else {
-            var_f0 = (0.0f - (HuMathSin(arg0->rot.x) * 0.15f)) + 1.0f;
+            var_f0 = (0.0f - (sindf(arg0->rot.x) * 0.15f)) + 1.0f;
         }
 
-        if ((HuMathSin(arg0->rot.x) * 0.15f) > 0.0f) {
-            var_f0_2 = (HuMathSin(arg0->rot.x) * 0.15f) + 1.0f;
+        if ((sindf(arg0->rot.x) * 0.15f) > 0.0f) {
+            var_f0_2 = (sindf(arg0->rot.x) * 0.15f) + 1.0f;
         } else {
-            var_f0_2 = (0.0f - (HuMathSin(arg0->rot.x) * 0.15f)) + 1.0f;
+            var_f0_2 = (0.0f - (sindf(arg0->rot.x) * 0.15f)) + 1.0f;
         }
         HuSprScaleSet(temp_s2->playerIndex, i, var_f0, var_f0_2);
     }
@@ -1559,7 +1559,7 @@ void MBStatusShrink(s32 playerNo) {
     for (var_f20 = 0.0f; var_f20 <= 90.0f; var_f20 += 15.0f) {
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
             if (playerNo == CUR_PLAYER || playerNo == i) {
-                MBStatusScaleSet(i, HuMathCos(var_f20), 1.0f);
+                MBStatusScaleSet(i, cosdf(var_f20), 1.0f);
             }
         }
         HuPrcVSleep();
@@ -1604,7 +1604,7 @@ void MBStatusGrow(s32 playerNo) {
     for (var_f20 = 90.0f; var_f20 >= 0.0f; var_f20 -= 15.0f) {
         for (i = 0; i < MB_MAX_PLAYERS; i++) {
             if (playerNo == CUR_PLAYER || playerNo == i) {
-                MBStatusScaleSet(i, HuMathCos(var_f20), 1.0f);
+                MBStatusScaleSet(i, cosdf(var_f20), 1.0f);
             }
         }
         HuPrcVSleep();

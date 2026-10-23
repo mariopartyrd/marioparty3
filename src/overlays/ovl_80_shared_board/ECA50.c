@@ -492,9 +492,9 @@ static void func_800D9ED0_shared_board(omObjData* arg0) {
     }
     
     arg0->scale.y += arg0->scale.x;
-    temp_s1->rot.x = HuMathSin(arg0->scale.y);
+    temp_s1->rot.x = sindf(arg0->scale.y);
     temp_s1->rot.y = 0.0f;
-    temp_s1->rot.z = HuMathCos(arg0->scale.y);
+    temp_s1->rot.z = cosdf(arg0->scale.y);
 }
 
 //unused

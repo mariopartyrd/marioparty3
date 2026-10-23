@@ -512,7 +512,7 @@ void func_80061A5C_main(s16 arg0, s16 arg1) {
         func_8005D294_main(arg0);
 
         for (i = 0; i < 5; i++) {
-            func_8005BB18_main(arg0, 1.0f, 1.0f - HuMathSin(i * 18.0f));
+            func_8005BB18_main(arg0, 1.0f, 1.0f - sindf(i * 18.0f));
             HuPrcVSleep();
         }
 

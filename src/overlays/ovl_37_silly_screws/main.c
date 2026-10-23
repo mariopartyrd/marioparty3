@@ -38,7 +38,7 @@ s32 func_80017BB8_main(s32, s32);
 void Hu3DAnimInit(s32);
 
 // 8FB20
-f32 HuMathSin(f32);
+f32 sindf(f32);
 
 // pad
 extern u16 D_800CDA7C_main[];
@@ -608,7 +608,7 @@ void m255_ExecCameraIntro(FuncContext *ctx) {
             break;
         case 1:
             temp_f22 = ctx->work.s8[0] * 0.008333334f;
-            temp_f22 = HuMathSin(temp_f22 * 90.0f) * HuMathSin(temp_f22 * 90.0f);
+            temp_f22 = sindf(temp_f22 * 90.0f) * sindf(temp_f22 * 90.0f);
             CZoomM[camId] = temp_f22 * 0.0f + 1240.0f;
             CenterM[camId].x = temp_f22 * 0.0f + 372.0f;
             CenterM[camId].y = temp_f22 * 0.0f + 2019.0f;
@@ -658,7 +658,7 @@ void m255_CenterCameraOnWinner(FuncContext *ctx) {
             break;
         case 1:
             temp_f0 = ctx->work.s8[0] * 0.02f;
-            temp_f0 = HuMathSin(temp_f0 * 90.0f);
+            temp_f0 = sindf(temp_f0 * 90.0f);
             CZoomM[camId] = temp_f0 * -1010.0f + 1240.0f;
             CenterM[camId].x = temp_f0 * -113.0f + 372.0f;
             CenterM[camId].y = temp_f0 * 5.0f + 2019.0f;
@@ -1193,7 +1193,7 @@ void m255_UpdatePlayerCue(FuncContext *ctx) {
                         ctx->work.f32[0] = 0.0f;
                     }
                     cuePosY = player->object->trans.y + 100.0f;
-                    cuePosZ = player->object->trans.z - 125.0f - HuMathSin(ctx->work.f32[0] * 90.0f) * 20.0f * 5.0f * 0.5f;
+                    cuePosZ = player->object->trans.z - 125.0f - sindf(ctx->work.f32[0] * 90.0f) * 20.0f * 5.0f * 0.5f;
                     cueModel = &HmfModelData[player->object->model[MDL_ARROW]];
                     func_8001C258_main(player->object->model[MDL_ARROW], 4, 0);
                     break;
@@ -1203,7 +1203,7 @@ void m255_UpdatePlayerCue(FuncContext *ctx) {
                     if (ctx->work.f32[0] > 1.0f) {
                         ctx->work.f32[0] = 0.0f;
                     }
-                    cuePosY = player->object->trans.y + 300.0f - HuMathSin(ctx->work.f32[0] * 90.0f) * 20.0f * 5.0f * 0.25f;
+                    cuePosY = player->object->trans.y + 300.0f - sindf(ctx->work.f32[0] * 90.0f) * 20.0f * 5.0f * 0.25f;
                     cuePosZ = player->object->trans.z;
                     cueModel = &HmfModelData[player->object->model[MDL_BALLOON_B]];
                     func_8001C258_main(player->object->model[MDL_BALLOON_B], 4, 0);
@@ -1214,7 +1214,7 @@ void m255_UpdatePlayerCue(FuncContext *ctx) {
                     if (ctx->work.f32[0] > 1.0f) {
                         ctx->work.f32[0] = 0.0f;
                     }
-                    cuePosY = player->object->trans.y + 300.0f - HuMathSin(ctx->work.f32[0] * 90.0f) * 20.0f * 5.0f * 0.25f;
+                    cuePosY = player->object->trans.y + 300.0f - sindf(ctx->work.f32[0] * 90.0f) * 20.0f * 5.0f * 0.25f;
                     cuePosZ = player->object->trans.z;
                     cueModel = &HmfModelData[player->object->model[MDL_BALLOON_A]];
                     func_8001C258_main(player->object->model[MDL_BALLOON_A], 4, 0);

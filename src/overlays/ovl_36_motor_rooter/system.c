@@ -24,13 +24,13 @@ typedef struct {
 extern D_800CCF58_main_Struct *D_800CCF58_main; // esprite
 
 // 8EA10
-f32 _atan2d(f32, f32);
+f32 atan2df(f32, f32);
 
 // 8EFF0
-f32 HuMathCos(f32);
+f32 cosdf(f32);
 
 // 8FB20
-f32 HuMathSin(f32);
+f32 sindf(f32);
 
 // unknown
 extern s16 D_800CDD6A_main;
@@ -855,14 +855,14 @@ void m254_CalcPitchAndYaw(Vec from, Vec to, f32 *out) {
     direction.x = to.x - from.x;
     direction.y = to.y - from.y;
     direction.z = to.z - from.z;
-    pitch = _atan2d(direction.y, VECMagXZ(&direction));
+    pitch = atan2df(direction.y, VECMagXZ(&direction));
     if (pitch < 0.0f) {
         pitch += fullRot;
     } else if (pitch >= fullRot) {
         pitch -= fullRot;
     }
     *(out++) = pitch;
-    yaw = _atan2d(direction.x, direction.z);
+    yaw = atan2df(direction.x, direction.z);
     if (yaw < 0.0f) {
         yaw += fullRot;
     } else if (yaw >= fullRot) {
@@ -884,18 +884,18 @@ void m254_MakeIdentityMtx(f32 *out) {
 
 void m254_MakeRotXMtx(f32 *out, f32 angle) {
     m254_MakeIdentityMtx(out);
-    M_ID(out, 1, 1) = HuMathCos(angle);
-    M_ID(out, 1, 2) = HuMathSin(angle);
-    M_ID(out, 2, 1) = -HuMathSin(angle);
-    M_ID(out, 2, 2) = HuMathCos(angle);
+    M_ID(out, 1, 1) = cosdf(angle);
+    M_ID(out, 1, 2) = sindf(angle);
+    M_ID(out, 2, 1) = -sindf(angle);
+    M_ID(out, 2, 2) = cosdf(angle);
 }
 
 void m254_MakeRotYMtx(f32 *out, f32 angle) {
     m254_MakeIdentityMtx(out);
-    M_ID(out, 0, 0) = HuMathCos(angle);
-    M_ID(out, 0, 2) = -HuMathSin(angle);
-    M_ID(out, 2, 0) = HuMathSin(angle);
-    M_ID(out, 2, 2) = HuMathCos(angle);
+    M_ID(out, 0, 0) = cosdf(angle);
+    M_ID(out, 0, 2) = -sindf(angle);
+    M_ID(out, 2, 0) = sindf(angle);
+    M_ID(out, 2, 2) = cosdf(angle);
 }
 
 void m254_MultiplyMtx(f32 *a, f32 *b, f32 *out) {

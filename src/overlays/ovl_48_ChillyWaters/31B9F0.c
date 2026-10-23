@@ -2053,17 +2053,17 @@ void MB1Ev_BankMasu(void) {
     coins->scale.y = 1.2f;
     MBModelDispOff(coins);
 
-    base = 1.0f / HuMathSin(50.0f);
+    base = 1.0f / sindf(50.0f);
     for (angle = 0.0f; angle < 90.0f; angle += 11.25f) {
-        bank->scale.y = HuMathSin(angle) * base;
-        bank->scale.x = (HuMathSin(angle) * base * 0.2f) + 0.8f;
-        bank->scale.z = (HuMathSin(angle) * base * 0.2f) + 0.8f;
+        bank->scale.y = sindf(angle) * base;
+        bank->scale.x = (sindf(angle) * base * 0.2f) + 0.8f;
+        bank->scale.z = (sindf(angle) * base * 0.2f) + 0.8f;
         HuPrcVSleep();
     }
     for (; 50.0f < angle; angle -= 11.25f) {
-        bank->scale.y = HuMathSin(angle) * base;
-        bank->scale.x = (HuMathSin(angle) * base * 0.2f) + 0.8f;
-        bank->scale.z = (HuMathSin(angle) * base * 0.2f) + 0.8f;
+        bank->scale.y = sindf(angle) * base;
+        bank->scale.x = (sindf(angle) * base * 0.2f) + 0.8f;
+        bank->scale.z = (sindf(angle) * base * 0.2f) + 0.8f;
         HuPrcVSleep();
     }
     bank->scale.y = 1.0f;
@@ -2195,17 +2195,17 @@ void MB1Ev_BankMasu(void) {
     }
     MBModelDispOff(coins);
 
-    base = 1.0f / HuMathSin(50.0f);
+    base = 1.0f / sindf(50.0f);
     for (angle = 50.0f; angle < 90.0f; angle += 11.25f) {
-        bank->scale.y = HuMathSin(angle) * base;
-        bank->scale.x = (HuMathSin(angle) * base * 0.2f) + 0.8f;
-        bank->scale.z = (HuMathSin(angle) * base * 0.2f) + 0.8f;
+        bank->scale.y = sindf(angle) * base;
+        bank->scale.x = (sindf(angle) * base * 0.2f) + 0.8f;
+        bank->scale.z = (sindf(angle) * base * 0.2f) + 0.8f;
         HuPrcVSleep();
     }
     for (angle = 90.0f; 0.0f < angle; angle -= 11.25f) {
-        bank->scale.y = HuMathSin(angle) * base;
-        bank->scale.x = (HuMathSin(angle) * base * 0.2f) + 0.8f;
-        bank->scale.z = (HuMathSin(angle) * base * 0.2f) + 0.8f;
+        bank->scale.y = sindf(angle) * base;
+        bank->scale.x = (sindf(angle) * base * 0.2f) + 0.8f;
+        bank->scale.z = (sindf(angle) * base * 0.2f) + 0.8f;
         HuPrcVSleep();
     }
     bank->scale.y = 0.0f;
@@ -2253,14 +2253,14 @@ void func_8010B484_ChillyWaters(void) {
     MBPlayerVibrate(-1, 2);
     HuAudFXPlay(0x15A);
     for (var_f20 = 0.0f; var_f20 < 180.0f; var_f20 += 20.0f) {
-        temp = (HuMathSin(var_f20) * 1.5f) + 1.0f;
-        HuSprScaleSet(temp_s1, 0, temp, 1.0f - (HuMathSin(var_f20) * 0.5f));
+        temp = (sindf(var_f20) * 1.5f) + 1.0f;
+        HuSprScaleSet(temp_s1, 0, temp, 1.0f - (sindf(var_f20) * 0.5f));
         HuPrcVSleep();
     }
     
     for (; var_f20 < 360.0f; var_f20 += 20.0f) {
-        temp = (HuMathSin(var_f20) * 0.5f) + 1.0f;
-        HuSprScaleSet(temp_s1, 0, temp, 1.0f - (HuMathSin(var_f20) * 0.25f));
+        temp = (sindf(var_f20) * 0.5f) + 1.0f;
+        HuSprScaleSet(temp_s1, 0, temp, 1.0f - (sindf(var_f20) * 0.25f));
         HuPrcVSleep();
     }
     HuSprScaleSet(temp_s1, 0, 1.0f, 1.0f);
@@ -2350,7 +2350,7 @@ s32 func_8010CA54_ChillyWaters(s32 arg0) {
         func_80054904_main(grpId, 0,
             (D_8011E20C_ChillyWaters[arg0][0] * 16.0f) + D_8011E1EC_ChillyWaters[arg0][0],
             (D_8011E20C_ChillyWaters[arg0][1] * 16.0f) + D_8011E1EC_ChillyWaters[arg0][1]
-                + (HuMathSin(i * 90) * 4.0f));
+                + (sindf(i * 90) * 4.0f));
         HuPrcVSleep();
     }
 
@@ -2488,16 +2488,16 @@ s32 MB1Ev_TeresaSteal(s32 arg0) {
                 (D_8011E20C_ChillyWaters[arg0][0] * 16.0f) +
                  D_8011E1EC_ChillyWaters[arg0][0],
                 (D_8011E20C_ChillyWaters[arg0][1] * 16.0f) +
-                 D_8011E1EC_ChillyWaters[arg0][1] + (2.0f * HuMathSin(i * 90)));
+                 D_8011E1EC_ChillyWaters[arg0][1] + (2.0f * sindf(i * 90)));
         } else if (hold == 9) {
             angle = shake * 90;
             func_80054904_main(booGrp, 0,
                 (D_8011E20C_ChillyWaters[arg0][0] * 16.0f) +
-                 D_8011E1EC_ChillyWaters[arg0][0] + (2.0f * HuMathSin(angle)),
+                 D_8011E1EC_ChillyWaters[arg0][0] + (2.0f * sindf(angle)),
                 (D_8011E20C_ChillyWaters[arg0][1] * 16.0f) +
                  D_8011E1EC_ChillyWaters[arg0][1]);
             func_80054904_main(chrGrp, 0,
-                (D_8011E1EC_ChillyWaters[arg0][0] - 8.0f) + (2.0f * HuMathSin(angle)),
+                (D_8011E1EC_ChillyWaters[arg0][0] - 8.0f) + (2.0f * sindf(angle)),
                 (D_8011E20C_ChillyWaters[arg0][1] * 16.0f) +
                  D_8011E1EC_ChillyWaters[arg0][1]);
             shake++;
@@ -2768,7 +2768,7 @@ void MB1Ev_ItemMajinLamp(void) {
             {1.0f, -1.0f, 1.0f}
         };
         
-        lamp->coords.y = (2.0f * HuMathSin(angle)) + 30.0f;
+        lamp->coords.y = (2.0f * sindf(angle)) + 30.0f;
         if (i & 1) {
             HuVecCopyXYZ(&pos, lamp->coords.x, lamp->coords.y, lamp->coords.z);
             pos.x -= 15.0f;
@@ -2811,7 +2811,7 @@ void MB1Ev_ItemMajinLamp(void) {
             {1.0f, -1.0f, 1.0f}
         };
         
-        lamp->coords.y = (2.0f * HuMathSin(angle)) + 30.0f;
+        lamp->coords.y = (2.0f * sindf(angle)) + 30.0f;
         if (i & 1) {
             HuVecCopyXYZ(&pos, lamp->coords.x, lamp->coords.y, lamp->coords.z);
             pos.x -= 15.0f;
@@ -3064,14 +3064,14 @@ void MB1Ev_ItemShake(void) {
     }
 
     for (i = 0; i <= (30 * 36); i += 30) {
-        MBStatusItemRotSet(system->current_player_index, MBItemSelNoGet(), HuMathSin((f32)i) * 30.0f);
+        MBStatusItemRotSet(system->current_player_index, MBItemSelNoGet(), sindf((f32)i) * 30.0f);
         HuPrcVSleep();
         
     }
 
     for (var_s1_2 = 1; var_s1_2 < 10; var_s1_2++, i += 30, HuPrcVSleep()) {
         MBStatusItemTPLvlSet(system->current_player_index, MBItemSelNoGet(), (255 - (var_s1_2 * 25)));
-        MBStatusItemRotSet(system->current_player_index, MBItemSelNoGet(), HuMathSin((f32)i) * 30.0f);
+        MBStatusItemRotSet(system->current_player_index, MBItemSelNoGet(), sindf((f32)i) * 30.0f);
     }
 
     MBStatusItemTPLvlSet(system->current_player_index, MBItemSelNoGet(), 0);
@@ -3237,8 +3237,8 @@ void func_80110E08_ChillyWaters(void) {
     func_80055420_main(temp_v0, 0, 0xFF, 0xFF, 0);
 
     for (i = 255, temp_f20 = D_8011E440_ChillyWaters[temp_s1]; i >= 0; i -= 20, HuPrcVSleep()) {
-        sp18[0] += (HuMathCos(temp_f20) * 5.0f);
-        sp18[1] -= (HuMathSin(temp_f20) * 5.0f);
+        sp18[0] += (cosdf(temp_f20) * 5.0f);
+        sp18[1] -= (sindf(temp_f20) * 5.0f);
         func_80054904_main(temp_v0, 0, sp18[0], sp18[1]);
         func_80055458_main(temp_v0, 0, i);
     }
@@ -3485,7 +3485,7 @@ void MB1Ev_ItemStarYoke(void) {
             {-1.0f, 2.0f, 1.0f},
             {1.0f, -1.0f, 1.0f}
         };
-        lamp->coords.y = (2.0f * HuMathSin(angle)) + 30.0f;
+        lamp->coords.y = (2.0f * sindf(angle)) + 30.0f;
         if (i & 1) {
             HuVecCopyXYZ(&pos, lamp->coords.x, lamp->coords.y, lamp->coords.z);
             pos.x -= 15.0f;
@@ -3511,7 +3511,7 @@ void MB1Ev_ItemStarYoke(void) {
             {1.0f, -1.0f, 1.0f}
         };
         
-        lamp->coords.y = (2.0f * HuMathSin(angle)) + 30.0f;
+        lamp->coords.y = (2.0f * sindf(angle)) + 30.0f;
         
         if (i & 1) {
             HuVecCopyXYZ(&pos, lamp->coords.x, lamp->coords.y, lamp->coords.z);
@@ -3620,8 +3620,8 @@ void MB1Ev_ItemStarYoke(void) {
         starMdl->velocity.x += 3.0f;
         starMdl->coords.x += dir.x * 3.0f;
         starMdl->coords.z += dir.z * 3.0f;
-        starMdl->rot.x = -HuMathSin(spin);
-        starMdl->rot.z = HuMathCos(spin);
+        starMdl->rot.x = -sindf(spin);
+        starMdl->rot.z = cosdf(spin);
         spin += 45.0f;
         if (spin > 360.0f) {
             spin -= 360.0f;
@@ -3953,8 +3953,8 @@ void func_80112E18_ChillyWaters(void) {
     GW_SYSTEM *system = &GwSystem;
 
     while (1) {
-        D_8011FB6C_ChillyWaters->rot.x = -HuMathSin(angle);
-        D_8011FB6C_ChillyWaters->rot.z = HuMathCos(angle);
+        D_8011FB6C_ChillyWaters->rot.x = -sindf(angle);
+        D_8011FB6C_ChillyWaters->rot.z = cosdf(angle);
         angle += 30.0f;
         if (angle > 360.0f) {
             angle -= 360.0f;
@@ -4235,8 +4235,8 @@ void func_80114650_ChillyWaters(void) {
     HuAudFXPlay(0x24C);
 
     for (angle = 0.0f, speed = 2.0f; speed < 80.0f; HuPrcVSleep()) {
-        coin->rot.x = -HuMathSin(angle);
-        coin->rot.z = HuMathCos(angle);
+        coin->rot.x = -sindf(angle);
+        coin->rot.z = cosdf(angle);
         angle += speed;
         if (angle > 360.0f) {
             angle -= 360.0f;
@@ -4253,8 +4253,8 @@ void func_80114650_ChillyWaters(void) {
     
     while (coin->velocity.x < 110.0f) {
         coin->velocity.x += 7.0f;
-        coin->rot.x = -HuMathSin(angle);
-        coin->rot.z = HuMathCos(angle);
+        coin->rot.x = -sindf(angle);
+        coin->rot.z = cosdf(angle);
         angle += speed;
         if (angle > 360.0f) {
             angle -= 360.0f;
@@ -4281,8 +4281,8 @@ void func_80114650_ChillyWaters(void) {
         if (decel > 1.0f) {
             decel -= 0.2f;
         }
-        coin->rot.x = -HuMathSin(angle);
-        coin->rot.z = HuMathCos(angle);
+        coin->rot.x = -sindf(angle);
+        coin->rot.z = cosdf(angle);
         angle += speed;
         if (angle > 360.0f) {
             angle -= 360.0f;
@@ -4293,8 +4293,8 @@ void func_80114650_ChillyWaters(void) {
     }
 
     while (1) {
-        coin->rot.x = -HuMathSin(angle);
-        coin->rot.z = HuMathCos(angle);
+        coin->rot.x = -sindf(angle);
+        coin->rot.z = cosdf(angle);
         angle += speed;
         if (angle > 360.0f) {
             angle -= 360.0f;
@@ -4753,7 +4753,7 @@ void MB1Ev_ItemAfter5(void) {
     HuAudFXPlay(0x14E);
     MBStatusSprPosGet(temp_s4, 0, &sp38, &sp3C);
     for (var_f20 = 0.0f, var_s1 = 0; var_f20 < 90.0f; var_f20 += 3.6f) {
-        func_80054904_main(temp_s4, 0, ((HuMathCos((2.0f * var_f20) + 270.0f) * 80.0f) + sp38), (((1.0f - HuMathCos(var_f20)) * 90.0f) + sp3C));
+        func_80054904_main(temp_s4, 0, ((cosdf((2.0f * var_f20) + 270.0f) * 80.0f) + sp38), (((1.0f - cosdf(var_f20)) * 90.0f) + sp3C));
         if (!(var_f20 > 54.0f)) {
             var_v1 = 0;
         } else {
@@ -4769,8 +4769,8 @@ void MB1Ev_ItemAfter5(void) {
         HuPrcVSleep();
     }
 
-    temp_s0_3 = (s16)(s32)((HuMathCos(450.0f) * 80.0f) + sp38);
-    func_80054904_main(temp_s4, 0, temp_s0_3, (((1.0f - HuMathCos(90.0f)) * 90.0f) + sp3C));
+    temp_s0_3 = (s16)(s32)((cosdf(450.0f) * 80.0f) + sp38);
+    func_80054904_main(temp_s4, 0, temp_s0_3, (((1.0f - cosdf(90.0f)) * 90.0f) + sp3C));
 
     for (j = 255; j > 0; j -= 0x19, HuPrcVSleep()) {
         func_80055458_main(temp_s4, 0, j);
@@ -4795,8 +4795,8 @@ void MB1Ev_ItemAfter5(void) {
     temp_s1_2 = MBPlayerVibrateObjCreate(-1, 4, 5);
 
     for (i = 0; i <= 2880; i += 50) {
-        temp_f20 = (HuMathSin(i) / 2.0f) + 1.0f;
-        HuSprScaleSet(D_8011FB8E_ChillyWaters, 0, temp_f20, (HuMathSin(i) / 3.0f) + 1.0f);
+        temp_f20 = (sindf(i) / 2.0f) + 1.0f;
+        HuSprScaleSet(D_8011FB8E_ChillyWaters, 0, temp_f20, (sindf(i) / 3.0f) + 1.0f);
         if (i >= (2880 / 2 + 1)) {
             sp40 = 1;
         }
@@ -4950,8 +4950,8 @@ void func_80116758_ChillyWaters(omObjData *obj) {
     HuVecCopy3F(&model->coords, &player->player_obj->coords);
     model->velocity.x = player->player_obj->velocity.x + 20.0f;
     HuVecCopy3F(&model->rot, &player->player_obj->rot);
-    model->coords.x += HuMathSin(obj->rot.x) * obj->trans.x;
-    model->coords.z += HuMathCos(obj->rot.x) * obj->trans.x;
+    model->coords.x += sindf(obj->rot.x) * obj->trans.x;
+    model->coords.z += cosdf(obj->rot.x) * obj->trans.x;
 
     obj->rot.x += 5.0f;
     if (obj->rot.x >= 360.0f) {
@@ -5467,7 +5467,7 @@ void MB1Ev_ItemRobBox(void) {
 
     if (target != 0) {
         for (i = 0; i < 0x439; i += 0x1E) {
-            HuVecCopyXYZ(&box->scale, (HuMathSin(i) / 2.0f) + 1.0f, (HuMathSin(i) / 2.0f) + 1.0f, (HuMathSin(i) / 2.0f) + 1.0f);
+            HuVecCopyXYZ(&box->scale, (sindf(i) / 2.0f) + 1.0f, (sindf(i) / 2.0f) + 1.0f, (sindf(i) / 2.0f) + 1.0f);
             HuPrcVSleep();
         }        
     }
@@ -5626,7 +5626,7 @@ void MB1Ev_SnowmanObjMain(void) {
         }
 
         for (angle = 0.0f, baseZ = obj->coords.z; angle < 720.0f; angle += 40.0f) {
-            obj->coords.z = baseZ + (2.0f * HuMathSin(angle));
+            obj->coords.z = baseZ + (2.0f * sindf(angle));
             HuPrcVSleep();
         }
         obj->coords.z = baseZ;
@@ -6045,7 +6045,7 @@ void func_8011BF3C_ChillyWaters(void) {
     tempFloat = pos.z;
     
     for (angle = 0.0f; angle < 2700.0f; angle += 90.0f) {
-        HuVecCopyXYZ(&pos, pos.x, pos.y, tempFloat + (HuMathSin(angle)* 3.0f));
+        HuVecCopyXYZ(&pos, pos.x, pos.y, tempFloat + (sindf(angle)* 3.0f));
         HuPrcVSleep();
     }
     HuVecCopyXYZ(&pos, pos.x, pos.y, pos.z);

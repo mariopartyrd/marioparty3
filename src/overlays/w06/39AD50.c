@@ -3247,7 +3247,7 @@ void func_80108BD0_w06(void) {
         } else {
             HuSprAttrReset(grp, 0, 2);
         }
-        HuSprScaleSet(grp, 0, 1.0f, HuMathSin(angle >= 180.0f ? angle - 180.0f : angle));
+        HuSprScaleSet(grp, 0, 1.0f, sindf(angle >= 180.0f ? angle - 180.0f : angle));
         if (count >= 2) {
             break;
         }
@@ -3325,8 +3325,8 @@ void func_80108F94_w06(void) {
         space = MBMasuGet(masuTable[idx]);
         HuVecCopy3F(&model->coords, &space->coords);
         model->coords.z -= 1.0f;
-        model->rot.x = HuMathSin(180 - (idx * 90));
-        model->rot.z = HuMathCos(180 - (idx * 90));
+        model->rot.x = sindf(180 - (idx * 90));
+        model->rot.z = cosdf(180 - (idx * 90));
         HuAudFXPlay(0x1B6);
         HuPrcSleep(delay - 1);
     }
@@ -4382,17 +4382,17 @@ void func_8010BBF0_w06(void) {
     effectModel->scale.y = effectModel->scale.x = effectModel->scale.z = 1.2f;
     MBModelDispOff(effectModel);
 
-    speed = 1.0f / HuMathSin(50.0f);
+    speed = 1.0f / sindf(50.0f);
     angle = 0.0f;
     scaleK = 0.2f;
     scaleBase = 0.8f;
     scaleStep = 11.25f;
     scaleLimit = 90.0f;
     for (; angle < scaleLimit; angle += scaleStep) {
-        model->scale.y = HuMathSin(angle) * speed;
-        sp38 = HuMathSin(angle) * speed;
+        model->scale.y = sindf(angle) * speed;
+        sp38 = sindf(angle) * speed;
         model->scale.x = sp38 * scaleK + scaleBase;
-        sp38 = HuMathSin(angle) * speed;
+        sp38 = sindf(angle) * speed;
         model->scale.z = sp38 * scaleK + scaleBase;
         HuPrcVSleep();
     }
@@ -4402,10 +4402,10 @@ void func_8010BBF0_w06(void) {
         scaleBase = 0.8f;
         scaleStep = 11.25f;
         do {
-            model->scale.y = HuMathSin(angle) * speed;
-            sp38 = HuMathSin(angle) * speed;
+            model->scale.y = sindf(angle) * speed;
+            sp38 = sindf(angle) * speed;
             model->scale.x = sp38 * scaleK + scaleBase;
-            sp38 = HuMathSin(angle) * speed;
+            sp38 = sindf(angle) * speed;
             model->scale.z = sp38 * scaleK + scaleBase;
             HuPrcVSleep();
             angle -= scaleStep;
@@ -4538,17 +4538,17 @@ void func_8010BBF0_w06(void) {
     }
     MBModelDispOff(effectModel);
 
-    speed = 1.0f / HuMathSin(50.0f);
+    speed = 1.0f / sindf(50.0f);
     angle = 50.0f;
     scaleK = 0.2f;
     scaleBase = 0.8f;
     scaleStep = 11.25f;
     scaleLimit = 90.0f;
     for (; angle < scaleLimit; angle += scaleStep) {
-        model->scale.y = HuMathSin(angle) * speed;
-        sp38 = HuMathSin(angle) * speed;
+        model->scale.y = sindf(angle) * speed;
+        sp38 = sindf(angle) * speed;
         model->scale.x = sp38 * scaleK + scaleBase;
-        sp38 = HuMathSin(angle) * speed;
+        sp38 = sindf(angle) * speed;
         model->scale.z = sp38 * scaleK + scaleBase;
         HuPrcVSleep();
     }
@@ -4559,10 +4559,10 @@ void func_8010BBF0_w06(void) {
     scaleStep = 11.25f;
     scaleLimit = 0.0f;
     for (; scaleLimit < angle; angle -= scaleStep) {
-        model->scale.y = HuMathSin(angle) * speed;
-        sp38 = HuMathSin(angle) * speed;
+        model->scale.y = sindf(angle) * speed;
+        sp38 = sindf(angle) * speed;
         model->scale.x = sp38 * scaleK + scaleBase;
-        sp38 = HuMathSin(angle) * speed;
+        sp38 = sindf(angle) * speed;
         model->scale.z = sp38 * scaleK + scaleBase;
         HuPrcVSleep();
     }
@@ -4609,14 +4609,14 @@ void func_8010C814_w06(void) {
     HuAudFXPlay(0x15A);
 
     for (angle = 0.0f; angle < 180.0f; angle += 20.0f) {
-        scaleX = HuMathSin(angle) * 1.5f + 1.0f;
-        HuSprScaleSet(grp, 0, scaleX, 1.0f - HuMathSin(angle) * 0.5f);
+        scaleX = sindf(angle) * 1.5f + 1.0f;
+        HuSprScaleSet(grp, 0, scaleX, 1.0f - sindf(angle) * 0.5f);
         HuPrcVSleep();
     }
 
     for (; angle < 360.0f; angle += 20.0f) {
-        scaleX = HuMathSin(angle) * 0.5f + 1.0f;
-        HuSprScaleSet(grp, 0, scaleX, 1.0f - HuMathSin(angle) * 0.25f);
+        scaleX = sindf(angle) * 0.5f + 1.0f;
+        HuSprScaleSet(grp, 0, scaleX, 1.0f - sindf(angle) * 0.25f);
         HuPrcVSleep();
     }
 
@@ -4745,17 +4745,17 @@ void func_8010C9EC_w06(void) {
         effectModel->scale.y = effectModel->scale.x = effectModel->scale.z = 1.2f;
         MBModelDispOff(effectModel);
 
-        speed = 1.0f / HuMathSin(50.0f);
+        speed = 1.0f / sindf(50.0f);
         angle = 0.0f;
         scaleK = 0.2f;
         scaleBase = 0.8f;
         scaleStep = 11.25f;
         scaleLimit = 90.0f;
         for (; angle < scaleLimit; angle += scaleStep) {
-            model->scale.y = HuMathSin(angle) * speed;
-            sp38 = HuMathSin(angle) * speed;
+            model->scale.y = sindf(angle) * speed;
+            sp38 = sindf(angle) * speed;
             model->scale.x = sp38 * scaleK + scaleBase;
-            sp38 = HuMathSin(angle) * speed;
+            sp38 = sindf(angle) * speed;
             model->scale.z = sp38 * scaleK + scaleBase;
             HuPrcVSleep();
         }
@@ -4764,10 +4764,10 @@ void func_8010C9EC_w06(void) {
             scaleK = 0.2f;
             scaleBase = 0.8f;
             scaleStep = 11.25f;
-            model->scale.y = HuMathSin(angle) * speed;
-            sp38 = HuMathSin(angle) * speed;
+            model->scale.y = sindf(angle) * speed;
+            sp38 = sindf(angle) * speed;
             model->scale.x = sp38 * scaleK + scaleBase;
-            sp38 = HuMathSin(angle) * speed;
+            sp38 = sindf(angle) * speed;
             model->scale.z = sp38 * scaleK + scaleBase;
             HuPrcVSleep();
         }
@@ -5033,17 +5033,17 @@ end:
         }
         MBModelDispOff(effectModel);
 
-        speed = 1.0f / HuMathSin(50.0f);
+        speed = 1.0f / sindf(50.0f);
         angle = 50.0f;
         scaleK = 0.2f;
         scaleBase = 0.8f;
         scaleStep = 11.25f;
         scaleLimit = 90.0f;
         for (; angle < scaleLimit; angle += scaleStep) {
-            model->scale.y = HuMathSin(angle) * speed;
-            sp38 = HuMathSin(angle) * speed;
+            model->scale.y = sindf(angle) * speed;
+            sp38 = sindf(angle) * speed;
             model->scale.x = sp38 * scaleK + scaleBase;
-            sp38 = HuMathSin(angle) * speed;
+            sp38 = sindf(angle) * speed;
             model->scale.z = sp38 * scaleK + scaleBase;
             HuPrcVSleep();
         }
@@ -5054,10 +5054,10 @@ end:
         scaleStep = 11.25f;
         scaleLimit = 0.0f;
         for (; scaleLimit < angle; angle -= scaleStep) {
-            model->scale.y = HuMathSin(angle) * speed;
-            sp38 = HuMathSin(angle) * speed;
+            model->scale.y = sindf(angle) * speed;
+            sp38 = sindf(angle) * speed;
             model->scale.x = sp38 * scaleK + scaleBase;
-            sp38 = HuMathSin(angle) * speed;
+            sp38 = sindf(angle) * speed;
             model->scale.z = sp38 * scaleK + scaleBase;
             HuPrcVSleep();
         }
@@ -5150,7 +5150,7 @@ s32 func_8010DDE4_w06(s32 playerIndex) {
                                 D_8011C8DC_w06[playerIndex].x,
                             (D_8011C8FC_w06[playerIndex].y * 16.0f) +
                                 D_8011C8DC_w06[playerIndex].y +
-                                (HuMathSin(i * 90) * 4.0f));
+                                (sindf(i * 90) * 4.0f));
         HuPrcVSleep();
     }
 
@@ -5275,18 +5275,18 @@ s32 func_8010E250_w06(s32 playerIndex) {
                     (D_8011C8FC_w06[playerIndex].x * 16.0f) +
                         D_8011C8DC_w06[playerIndex].x,
                     (D_8011C8FC_w06[playerIndex].y * 16.0f) +
-                        D_8011C8DC_w06[playerIndex].y + (HuMathSin(i * 90) * 2.0f));
+                        D_8011C8DC_w06[playerIndex].y + (sindf(i * 90) * 2.0f));
             } else if (state == 9) {
                 func_80054904_main(
                     grp, 0,
                     (D_8011C8FC_w06[playerIndex].x * 16.0f) +
-                        D_8011C8DC_w06[playerIndex].x + (HuMathSin(angle * 90) * 2.0f),
+                        D_8011C8DC_w06[playerIndex].x + (sindf(angle * 90) * 2.0f),
                     (D_8011C8FC_w06[playerIndex].y * 16.0f) +
                         D_8011C8DC_w06[playerIndex].y);
                 func_80054904_main(
                     playerGrp, 0,
                     D_8011C8DC_w06[playerIndex].x - 8.0f +
-                        (HuMathSin(angle * 90) * 2.0f),
+                        (sindf(angle * 90) * 2.0f),
                     (D_8011C8FC_w06[playerIndex].y * 16.0f) +
                         D_8011C8DC_w06[playerIndex].y);
                 angle++;
@@ -5523,20 +5523,20 @@ void func_8010F20C_w06(void) {
         HuVecCopy3F(&model->coords, spaceCoords);
         MBMotionSet(model, -1, 1);
         MBModelDispOn(model);
-        scale = 1.0f / HuMathSin(50.0f);
+        scale = 1.0f / sindf(50.0f);
         for (angle = 0.0f; angle < 90.0f; angle += 11.25f) {
-            model->scale.y = HuMathSin(angle) * scale;
-            model->scale.x = HuMathSin(angle) * scale * 0.99f + 0.01f;
-            model->scale.z = HuMathSin(angle) * scale * 0.99f + 0.01f;
+            model->scale.y = sindf(angle) * scale;
+            model->scale.x = sindf(angle) * scale * 0.99f + 0.01f;
+            model->scale.z = sindf(angle) * scale * 0.99f + 0.01f;
             if (D_8011C970_w06[sys->current_board_index] != 0) {
                 model->scale.x = -model->scale.x;
             }
             HuPrcVSleep();
         }
         for (; angle > 50.0f; angle -= 11.25f) {
-            model->scale.y = HuMathSin(angle) * scale;
-            model->scale.x = HuMathSin(angle) * scale * 0.99f + 0.01f;
-            model->scale.z = HuMathSin(angle) * scale * 0.99f + 0.01f;
+            model->scale.y = sindf(angle) * scale;
+            model->scale.x = sindf(angle) * scale * 0.99f + 0.01f;
+            model->scale.z = sindf(angle) * scale * 0.99f + 0.01f;
             if (D_8011C970_w06[sys->current_board_index] != 0) {
                 model->scale.x = -model->scale.x;
             }
@@ -5869,20 +5869,20 @@ finishMenu:
         while (func_800D9E80_shared_board(model) == 0) {
             HuPrcVSleep();
         }
-        scale = 1.0f / HuMathSin(50.0f);
+        scale = 1.0f / sindf(50.0f);
         for (angle = 50.0f; angle < 90.0f; angle += 11.25f) {
-            model->scale.y = HuMathSin(angle) * scale;
-            model->scale.x = HuMathSin(angle) * scale * 0.2f + 0.8f;
-            model->scale.z = HuMathSin(angle) * scale * 0.2f + 0.8f;
+            model->scale.y = sindf(angle) * scale;
+            model->scale.x = sindf(angle) * scale * 0.2f + 0.8f;
+            model->scale.z = sindf(angle) * scale * 0.2f + 0.8f;
             if (D_8011C970_w06[sys->current_board_index] != 0) {
                 model->scale.x = -model->scale.x;
             }
             HuPrcVSleep();
         }
         for (angle = 90.0f; angle > 0.0f; angle -= 11.25f) {
-            model->scale.y = HuMathSin(angle) * scale;
-            model->scale.x = HuMathSin(angle) * scale * 0.2f + 0.8f;
-            model->scale.z = HuMathSin(angle) * scale * 0.2f + 0.8f;
+            model->scale.y = sindf(angle) * scale;
+            model->scale.x = sindf(angle) * scale * 0.2f + 0.8f;
+            model->scale.z = sindf(angle) * scale * 0.2f + 0.8f;
             if (D_8011C970_w06[sys->current_board_index] != 0) {
                 model->scale.x = -model->scale.x;
             }
@@ -6007,7 +6007,7 @@ void func_8011068C_w06(void) {
             { 1.0f, -1.0f, 1.0f }
         };
 
-        lamp->coords.y = (2.0f * HuMathSin(angle)) + 30.0f;
+        lamp->coords.y = (2.0f * sindf(angle)) + 30.0f;
         if (i & 1) {
             HuVecCopyXYZ(&pos, lamp->coords.x, lamp->coords.y, lamp->coords.z);
             pos.x -= 15.0f;
@@ -6050,7 +6050,7 @@ void func_8011068C_w06(void) {
             { 1.0f, -1.0f, 1.0f }
         };
 
-        lamp->coords.y = (2.0f * HuMathSin(angle)) + 30.0f;
+        lamp->coords.y = (2.0f * sindf(angle)) + 30.0f;
         if (i & 1) {
             HuVecCopyXYZ(&pos, lamp->coords.x, lamp->coords.y, lamp->coords.z);
             pos.x -= 15.0f;
@@ -6311,7 +6311,7 @@ void func_80111524_w06(void) {
 
     for (i = 0; i <= 1080; i += 30) {
         MBStatusItemRotSet(system->current_player_index,
-                           MBItemSelNoGet(), HuMathSin(i) * 30.0f);
+                           MBItemSelNoGet(), sindf(i) * 30.0f);
         HuPrcVSleep();
     }
 
@@ -6319,7 +6319,7 @@ void func_80111524_w06(void) {
         MBStatusItemTPLvlSet(system->current_player_index,
                              MBItemSelNoGet(), 255 - (j * 25));
         MBStatusItemRotSet(system->current_player_index,
-                           MBItemSelNoGet(), HuMathSin(i) * 30.0f);
+                           MBItemSelNoGet(), sindf(i) * 30.0f);
         HuPrcVSleep();
         i += 30;
     }
@@ -6513,8 +6513,8 @@ void func_80112198_w06(void) {
     alpha = 0xFF;
     angle = (f32)D_8011CB30_w06[index];
     for (; alpha >= 0; alpha -= 0x14) {
-        x += HuMathCos(angle) * 5.0f;
-        y -= HuMathSin(angle) * 5.0f;
+        x += cosdf(angle) * 5.0f;
+        y -= sindf(angle) * 5.0f;
         func_80054904_main(group, 0, x, y);
         func_80055458_main(group, 0, alpha);
         HuPrcVSleep();
@@ -6786,7 +6786,7 @@ void func_80112A08_w06(void) {
             { 1.0f, -1.0f, 1.0f }
         };
 
-        starModel->coords.y = HuMathSin((f32)angle) * 2.0f + 30.0f;
+        starModel->coords.y = sindf((f32)angle) * 2.0f + 30.0f;
         if (i & 1) {
             HuVecCopyXYZ(&pos, starModel->coords.x, starModel->coords.y, starModel->coords.z);
             pos.x -= 15.0f;
@@ -6815,7 +6815,7 @@ void func_80112A08_w06(void) {
             { 1.0f, -1.0f, 1.0f }
         };
 
-        starModel->coords.y = HuMathSin((f32)angle) * 2.0f + 30.0f;
+        starModel->coords.y = sindf((f32)angle) * 2.0f + 30.0f;
         if (i & 1) {
             HuVecCopyXYZ(&pos, starModel->coords.x, starModel->coords.y, starModel->coords.z);
             pos.x -= 15.0f;
@@ -6931,8 +6931,8 @@ void func_80112A08_w06(void) {
         targetStar->velocity.x += 3.0f;
         targetStar->coords.x += direction.x * 3.0f;
         targetStar->coords.z += direction.z * 3.0f;
-        targetStar->rot.x = -HuMathSin(rotation);
-        targetStar->rot.z = HuMathCos(rotation);
+        targetStar->rot.x = -sindf(rotation);
+        targetStar->rot.z = cosdf(rotation);
         rotation += 45.0f;
         if (rotation > 360.0f) {
             rotation -= 360.0f;
@@ -7238,8 +7238,8 @@ void func_801141A8_w06(void) {
     GW_SYSTEM *loc = &GwSystem;
 
     while (1) {
-        D_8011E35C_w06->rot.x = -HuMathSin(angle);
-        D_8011E35C_w06->rot.z = HuMathCos(angle);
+        D_8011E35C_w06->rot.x = -sindf(angle);
+        D_8011E35C_w06->rot.z = cosdf(angle);
         angle += 30.0f;
         if (angle > 360.0f) {
             angle -= 360.0f;
@@ -7578,8 +7578,8 @@ void func_80114C74_w06(void) {
         spinStep = 5.0f;
         i = 0;
         while (1) {
-            box->rot.x = -HuMathSin(angle);
-            box->rot.z = HuMathCos(angle);
+            box->rot.x = -sindf(angle);
+            box->rot.z = cosdf(angle);
             angle += spinStep;
             if (angle > 360.0f) {
                 angle -= 360.0f;
@@ -7596,8 +7596,8 @@ void func_80114C74_w06(void) {
 
         i = 0;
         while (1) {
-            box->rot.x = -HuMathSin(angle);
-            box->rot.z = HuMathCos(angle);
+            box->rot.x = -sindf(angle);
+            box->rot.z = cosdf(angle);
             angle += spinStep;
             if (angle > 360.0f) {
                 angle -= 360.0f;
@@ -7616,9 +7616,9 @@ void func_80114C74_w06(void) {
         HuAudFXPlay(0x152);
         for (itemSlot = 0; itemSlot < 1441; itemSlot += 40) {
             scale = itemSlot;
-            angleStep = HuMathSin(scale) / 1.5f + 1.0f;
-            scaleY = HuMathSin(scale) / 1.5f + 1.0f;
-            scaleZ = HuMathSin(scale) / 1.5f + 1.0f;
+            angleStep = sindf(scale) / 1.5f + 1.0f;
+            scaleY = sindf(scale) / 1.5f + 1.0f;
+            scaleZ = sindf(scale) / 1.5f + 1.0f;
             HuVecCopyXYZ(&box->scale, angleStep, scaleY, scaleZ);
             HuPrcVSleep();
         }
@@ -7777,8 +7777,8 @@ void func_801159E0_w06(void) {
     angle = 0.0f;
     angleStep = 2.0f;
     while (angleStep < 80.0f) {
-        gameGuyModel->rot.x = -HuMathSin(angle);
-        gameGuyModel->rot.z = HuMathCos(angle);
+        gameGuyModel->rot.x = -sindf(angle);
+        gameGuyModel->rot.z = cosdf(angle);
         angle += angleStep;
         if (angle > 360.0f) {
             angle -= 360.0f;
@@ -7795,8 +7795,8 @@ void func_801159E0_w06(void) {
     HuAudFXPlay(0x14A);
     while (gameGuyModel->velocity.x < 110.0f) {
         gameGuyModel->velocity.x += 7.0f;
-        gameGuyModel->rot.x = -HuMathSin(angle);
-        gameGuyModel->rot.z = HuMathCos(angle);
+        gameGuyModel->rot.x = -sindf(angle);
+        gameGuyModel->rot.z = cosdf(angle);
         angle += angleStep;
         if (angle > 360.0f) {
             angle -= 360.0f;
@@ -7824,8 +7824,8 @@ void func_801159E0_w06(void) {
         if (fallSpeed > 1.0f) {
             fallSpeed -= 0.2f;
         }
-        gameGuyModel->rot.x = -HuMathSin(angle);
-        gameGuyModel->rot.z = HuMathCos(angle);
+        gameGuyModel->rot.x = -sindf(angle);
+        gameGuyModel->rot.z = cosdf(angle);
         angle += angleStep;
         if (angle > 360.0f) {
             angle -= 360.0f;
@@ -7836,8 +7836,8 @@ void func_801159E0_w06(void) {
     }
 
     while (1) {
-        gameGuyModel->rot.x = -HuMathSin(angle);
-        gameGuyModel->rot.z = HuMathCos(angle);
+        gameGuyModel->rot.x = -sindf(angle);
+        gameGuyModel->rot.z = cosdf(angle);
         angle += angleStep;
         if (angle > 360.0f) {
             angle -= 360.0f;
@@ -8306,7 +8306,7 @@ void func_80116F10_w06(void) {
     HuAudFXPlay(0x14E);
     MBStatusSprPosGet(temp_s4, 0, &sp38, &sp3C);
     for (var_f20 = 0.0f, var_s1 = 0; var_f20 < 90.0f; var_f20 += 3.6f) {
-        func_80054904_main(temp_s4, 0, ((HuMathCos((2.0f * var_f20) + 270.0f) * 80.0f) + sp38), (((1.0f - HuMathCos(var_f20)) * 90.0f) + sp3C));
+        func_80054904_main(temp_s4, 0, ((cosdf((2.0f * var_f20) + 270.0f) * 80.0f) + sp38), (((1.0f - cosdf(var_f20)) * 90.0f) + sp3C));
         if (!(var_f20 > 54.0f)) {
             var_v1 = 0;
         } else {
@@ -8322,8 +8322,8 @@ void func_80116F10_w06(void) {
         HuPrcVSleep();
     }
 
-    temp_s0_3 = (s16)(s32)((HuMathCos(450.0f) * 80.0f) + sp38);
-    func_80054904_main(temp_s4, 0, temp_s0_3, (((1.0f - HuMathCos(90.0f)) * 90.0f) + sp3C));
+    temp_s0_3 = (s16)(s32)((cosdf(450.0f) * 80.0f) + sp38);
+    func_80054904_main(temp_s4, 0, temp_s0_3, (((1.0f - cosdf(90.0f)) * 90.0f) + sp3C));
 
     for (j = 255; j > 0; j -= 0x19, HuPrcVSleep()) {
         func_80055458_main(temp_s4, 0, j);
@@ -8348,8 +8348,8 @@ void func_80116F10_w06(void) {
     temp_s1_2 = MBPlayerVibrateObjCreate(-1, 4, 5);
 
     for (i = 0; i <= 2880; i += 50) {
-        temp_f20 = (HuMathSin(i) / 2.0f) + 1.0f;
-        HuSprScaleSet(D_8011E370_w06[3], 0, temp_f20, (HuMathSin(i) / 3.0f) + 1.0f);
+        temp_f20 = (sindf(i) / 2.0f) + 1.0f;
+        HuSprScaleSet(D_8011E370_w06[3], 0, temp_f20, (sindf(i) / 3.0f) + 1.0f);
         if (i >= (2880 / 2 + 1)) {
             sp40 = 1;
         }
@@ -8498,8 +8498,8 @@ void func_80117AE8_w06(omObjData *obj) {
         HuVecCopy3F(&effectObj->coords, &player->player_obj->coords);
         effectObj->velocity.x = player->player_obj->velocity.x + 20.0f;
         HuVecCopy3F(&effectObj->rot, &player->player_obj->rot);
-        effectObj->coords.x += HuMathSin(obj->rot.x) * obj->trans.x;
-        effectObj->coords.z += HuMathCos(obj->rot.x) * obj->trans.x;
+        effectObj->coords.x += sindf(obj->rot.x) * obj->trans.x;
+        effectObj->coords.z += cosdf(obj->rot.x) * obj->trans.x;
         obj->rot.x += 5.0f;
         if (obj->rot.x >= 360.0f) {
             obj->rot.x -= 360.0f;
@@ -8952,9 +8952,9 @@ void func_80118FF0_w06(void) {
 
     if (targetPlayer != 0) {
         for (i = 0; i < 1081; i += 30) {
-            angle = HuMathSin((f32)i) / 2.0f + 1.0f;
-            HuVecCopyXYZ(&chest->scale, angle, HuMathSin((f32)i) / 2.0f + 1.0f,
-                         HuMathSin((f32)i) / 2.0f + 1.0f);
+            angle = sindf((f32)i) / 2.0f + 1.0f;
+            HuVecCopyXYZ(&chest->scale, angle, sindf((f32)i) / 2.0f + 1.0f,
+                         sindf((f32)i) / 2.0f + 1.0f);
             HuPrcVSleep();
         }
     }
