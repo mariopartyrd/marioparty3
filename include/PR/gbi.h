@@ -20,6 +20,10 @@
 #ifndef _GBI_H_
 #define	_GBI_H_
 
+#ifdef CC_CHECK
+#pragma GCC system_header
+#endif
+
 /*
  * To use the F3DEX ucodes, define F3DEX_GBI before include this file.
  *

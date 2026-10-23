@@ -24,7 +24,8 @@ void MBKettouResultExec(void);
 void MBKettouComResultSet(void);
 s32 MBKettouPlayerBitGet(s32 arg0);
 s32 func_800F9A68_shared_board(s32 arg0);
-// s32 MBKettouExec(GW_PLAYER *arg0, s32 arg1); //this has to be implicit as it gets called with the wrong number of args in F5E80.c
+// Parameters unspecified to preserve F5E80.c's original one-argument call to this two-argument function.
+s32 MBKettouExec();
 s32 BoardGetTurnTier(s32 turn);
 void func_800FC7C8_shared_board(void);
 void func_800FC8A4_shared_board(void);

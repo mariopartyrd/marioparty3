@@ -278,7 +278,7 @@ void HuPrcCall(s32 time) {
 
 void *HuPrcAllocMem(s32 size) {
     Process *process = HuPrcCurrentGet();
-    return (void *)HuMemMemoryAlloc((HeapNode *)process->heap, size);
+    return HuMemMemoryAlloc((HeapNode *)process->heap, size);
 }
 
 void HuPrcFreeMem(void *ptr) {

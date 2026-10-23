@@ -32,7 +32,7 @@ void HuMemMemoryFreePerm(void *ptr) {
  * Resizes a previously allocated permanent heap buffer.
  */
 void *HuMemMemoryReallocPerm(void *mem, u32 new_size) {
-    return (void *)HuMemMemoryRealloc(perm_heap_addr, mem, new_size);
+    return HuMemMemoryRealloc(perm_heap_addr, mem, new_size);
 }
 
 /*

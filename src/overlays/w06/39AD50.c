@@ -2849,11 +2849,11 @@ void func_80107B54_w06(void) {
     func_800F8D6C_shared_board(0x1D);
     Hu3DCamInit(2);
     func_80107828_w06();
-    MBMasuEventTblAdd((event_table_entry *)D_8011C9BC_w06);
-    MBMasuEventTblAdd((event_table_entry *)D_8011CC58_w06);
+    MBMasuEventTblAdd(D_8011C9BC_w06);
+    MBMasuEventTblAdd(D_8011CC58_w06);
     MBHatenaFuncSet(&func_8011A110_w06);
-    MBMasuEventTblAdd((event_table_entry *)D_8011CA34_w06);
-    MBMasuEventTblAdd((event_table_entry *)D_8011CBC8_w06);
+    MBMasuEventTblAdd(D_8011CA34_w06);
+    MBMasuEventTblAdd(D_8011CBC8_w06);
     MBStart(0);
 }
 
@@ -2949,7 +2949,7 @@ void func_80107FC0_w06(void) {
     s32 count;
 
     for (i = 0; i < 2; i++) {
-        count = ((s16)GwSystem.bank_coins + 9) / 10;
+        count = (GwSystem.bank_coins + 9) / 10;
         if (count > 5) {
             count = 5;
         }
@@ -5557,7 +5557,7 @@ void func_8010F20C_w06(void) {
     HuAudFXPlay(0x257);
     func_8010DCA4_w06(boo);
     space = MBMasuGet(spaceId);
-    spaceId = (s16)camMasu;
+    spaceId = camMasu;
     if (spaceId != -1) {
         func_800D9F5C_name_81(boo, &space->coords, 5);
         func_800ED20C_shared_board(-1, 5, spaceId);
@@ -5742,7 +5742,7 @@ playerSelected:
         MBCoinTakeCreate(sys->current_player_index, -50);
     }
     HuPrcSleep(30);
-    if ((s16)menu == 1) {
+    if (menu == 1) {
         if (selectedByCpu != 0) {
             MBDlgWinExec(7, 0x6206);
         }
@@ -5853,14 +5853,14 @@ menuResultThree:
     goto restartMenu;
 
 finishMenu:
-    if ((s16)menu != 2) {
+    if (menu != 2) {
         func_8010DD44_w06(boo);
     }
     MBVecForwardSet(&boo->rot);
     if (modelIsLinked == -1) {
         MBModelKill(boo);
     }
-    if ((s16)camMasu != -1) {
+    if (camMasu != -1) {
         HuAudFXPlay(0x126);
         MBMotionSet(model, -1, 4);
         func_8001C92C_main(model->omObj1->model[0], 1.2f);
@@ -7699,7 +7699,7 @@ void func_80114C74_w06(void) {
     GwPlayer[system->current_player_index].itemNo[itemSlot] = -1;
     MBItemRemoveEmpty(system->current_player_index);
     for (itemSlot = 0; itemSlot < 3; itemSlot++) {
-        item = (s8)GwPlayer[targetPlayer].itemNo[itemSlot];
+        item = GwPlayer[targetPlayer].itemNo[itemSlot];
         GwPlayer[targetPlayer].itemNo[itemSlot] = GwPlayer[system->current_player_index].itemNo[itemSlot];
         GwPlayer[system->current_player_index].itemNo[itemSlot] = item;
     }
@@ -7768,7 +7768,7 @@ void func_801159E0_w06(void) {
 
     model = MBModelCreate(0x45, NULL);
     MBModelDispOff(model);
-    effect = (s16)func_8000CED8_main(0xB0004, 0xAA9);
+    effect = func_8000CED8_main(0xB0004, 0xAA9);
     func_8000CD00_main(effect, 1.0f, 20.0f, 1.0f);
     func_8000D018_main(effect, 10.0f);
     func_8001C8A8_main(effect, 1);
@@ -9534,7 +9534,7 @@ const MessageTable D_8011E204_w06 = { { 0xF04, 0xF03, 0xF02, 0xF01 } };
 const MasuIdTable D_8011E214_w06 = { { 0x85, 0x78, 0x87 } };
 
 s32 func_8011AB80_w06(void) {
-    s32 curPlayer = (s16)MBPlayerTurnGet();
+    s32 curPlayer = MBPlayerTurnGet();
     GW_SYSTEM *loc = &GwSystem;
     s32 results[3];
     s32 item;
