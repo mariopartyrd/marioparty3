@@ -1617,3 +1617,6 @@ D_800A49A0_main = 0x800A49A0; //rom:0xA55A0 size:0x2D8 type:f64
 D_800C94E0_main = 0x800C94E0; //size:0x8
 D_800C94F0_main = 0x800C94F0; //size:0x8
 D_800C9500_main = 0x800C9500; //size:0x4
+
+D_8010B018_mgresultboard = 0x8010B018; //size:0x30 segment:mgresultboard
+D_8010B048_mgresultboard = 0x8010B048; //size:0x30 segment:mgresultboard

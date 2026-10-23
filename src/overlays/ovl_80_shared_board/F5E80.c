@@ -327,52 +327,52 @@ s32 MBItemKinokoExec(void) {
 }
 
 s32 MBItemKeymanExec(void) {
-    MBItemSubFunctions[17]();
+    MBItemSubFunctions[IFUNC_17]();
     return 1;
 }
 
 s32 MBItemNKinokoExec(void) {
-    MBItemSubFunctions[8]();
+    MBItemSubFunctions[IFUNC_8]();
     GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_shared_board] = ITEM_NONE;
     MBItemRemoveEmpty(GwSystem.current_player_index);
-    MBItemSubFunctions[10]();
+    MBItemSubFunctions[IFUNC_10]();
     return 1;
 }
 
 s32 MBItemRKinokoExec(void) {
     void *temp_s0;
 
-    MBItemSubFunctions[8]();
+    MBItemSubFunctions[IFUNC_8]();
     GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_shared_board] = ITEM_NONE;
     MBItemRemoveEmpty(GwSystem.current_player_index);
-    MBItemSubFunctions[11]();
+    MBItemSubFunctions[IFUNC_11]();
     return 1;
 }
 
 s32 MBItemShopPhoneExec(void) {
-    MBItemSubFunctions[14]();
+    MBItemSubFunctions[IFUNC_14]();
     return 1;
 }
 
 s32 MBItemKoopaPhoneExec(void) {
-    MBItemSubFunctions[15]();
+    MBItemSubFunctions[IFUNC_15]();
     return 1;
 }
 
 s32 MBItemStarYokeExec(void) {
-    MBItemSubFunctions[16]();
+    MBItemSubFunctions[IFUNC_16]();
     return 1;
 }
 
 s32 MBItemRobBoxExec(void) {
-    MBItemSubFunctions[3]();
+    MBItemSubFunctions[IFUNC_PLUNDER_CHEST]();
     return 1;
 }
 
 s32 MBItemKettouExec(void) {
     s32 temp_v0;
 
-    MBItemSubFunctions[7]();
+    MBItemSubFunctions[IFUNC_7]();
     GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_shared_board] = ITEM_NONE;
     MBItemRemoveEmpty(GwSystem.current_player_index);
     MBStatusShrink(-1);
@@ -425,7 +425,7 @@ s32 MBItemWarpBlockExec(void) {
     }
 
     func_800FC938_shared_board();
-    MBItemSubFunctions[2]();
+    MBItemSubFunctions[IFUNC_WARP_BLOCK]();
     return 1;
 }
 
@@ -449,7 +449,7 @@ s32 MBItemSKinokoExec(void) {
     }
 
     func_800DCA64_shared_board(GwSystem.current_player_index);
-    MBItemSubFunctions[6]();
+    MBItemSubFunctions[IFUNC_MUSHROOM]();
     GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_shared_board] = ITEM_NONE;
     MBItemRemoveEmpty(GwSystem.current_player_index);
     func_800DE9AC_shared_board(GwSystem.current_player_index, 3);
@@ -463,12 +463,12 @@ s32 MBItemTereBellExec(void) {
     GW_PLAYER *temp_s0;
 
     temp_s0 = MBPlayerGet(CUR_PLAYER);
-    MBItemSubFunctions[7]();
+    MBItemSubFunctions[IFUNC_7]();
     MBMasuCurSet(MBMasuLinkMasuIdGet(temp_s0->clink, temp_s0->cidx));
     MBStatusShrink(-1);
     MBStatusItemDispSetAll(0);
     MBStatusGrow(-1);
-    MBItemSubFunctions[0]();
+    MBItemSubFunctions[IFUNC_BOO]();
     GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_shared_board] = ITEM_NONE;
     MBItemRemoveEmpty(GwSystem.current_player_index);
     MBStatusItemIconSprReinit(-1);
@@ -476,11 +476,11 @@ s32 MBItemTereBellExec(void) {
 }
 
 s32 MBItemTereYokeSprayExec(void) {
-    MBItemSubFunctions[8]();
+    MBItemSubFunctions[IFUNC_8]();
     GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_shared_board] = ITEM_NONE;
     MBItemRemoveEmpty(GwSystem.current_player_index);
     MBDlgWinExec(-1, 0x3A1C);
-    MBItemSubFunctions[18]();
+    MBItemSubFunctions[IFUNC_KOOPA_KARD]();
     return 1;
 }
 
@@ -505,7 +505,7 @@ s32 MBItemMajinLampExec(void) {
         if (temp_s0->rev & 0x80) {
             temp_s0->rev &= ~0x80;
             MBDlgWinExec(-1, 0x3A1B);
-            MBItemSubFunctions[1]();
+            MBItemSubFunctions[IFUNC_MAGIC_LAMP]();
             return 1;
         }
     }
@@ -518,13 +518,13 @@ s32 MBItemMajinLampExec(void) {
         MBDlgWinExec(-1, 0x3A1A);
     }        
     
-    MBItemSubFunctions[1]();
+    MBItemSubFunctions[IFUNC_MAGIC_LAMP]();
     return 1;
 }
 
 
 s32 MBItemKoopaCardExec(void) {
-    MBItemSubFunctions[8]();
+    MBItemSubFunctions[IFUNC_8]();
     GwPlayer[GwSystem.current_player_index].itemNo[D_80100F90_shared_board] = ITEM_NONE;
     MBItemRemoveEmpty(GwSystem.current_player_index);
     MBDlgWinExec(-1, 0x3A22);
@@ -538,21 +538,21 @@ s32 MBItemExchangeBoxExec(void) {
 }
 
 s32 MBItemGambleCoinExec(void) {
-    MBItemSubFunctions[0x14]();
+    MBItemSubFunctions[IFUNC_20]();
     return 1;
 }
 
 s32 MBItemAfter5Exec(void) {
-    MBItemSubFunctions[0x15]();
+    MBItemSubFunctions[IFUNC_21]();
     return 1;
 }
 
 void MBItemKoopaNKinokoExec(void) {
-    MBItemSubFunctions[12]();
+    MBItemSubFunctions[IFUNC_12]();
 }
 
 void MBItemKoopaRKinokoExec(void) {
-    MBItemSubFunctions[13]();
+    MBItemSubFunctions[IFUNC_13]();
 }
 
 //file split starting here? functions kind of change the general idea of what they accomplish at this point
@@ -1022,7 +1022,7 @@ void MBItemKSuitEnd(void) {
 }
 
 void MBItemMajinLampStarExec(void) {
-    MBItemSubFunctions[9]();
+    MBItemSubFunctions[IFUNC_9]();
 }
 
 s32 MBItemFind(s32 playerNo, s32 itemID) {

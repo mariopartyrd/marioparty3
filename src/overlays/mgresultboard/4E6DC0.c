@@ -13,7 +13,17 @@ typedef struct PlayerResult {
 } PlayerResult; // sizeof 0x0C
 extern PlayerResult D_8010B018_mgresultboard[4];
 extern PlayerResult D_8010B048_mgresultboard[4];
+extern s8 D_8010AAFC_mgresultboard;
 
+void func_8000BBFC_main(u16, u8);
+void func_8000BC48_main(u16, u16); 
+void func_8000BEAC_main(u16, u8, u8, u8);
+void func_8010705C_mgresultboard(Gfx**, s32, s32);
+void func_80107B40_mgresultboard(void);
+void func_80107D00_mgresultboard(void);
+void func_80108700_mgresultboard(void);
+void func_8010A000_mgresultboard(void);
+void func_8010A930_mgresultboard(void);
 void func_80105C08_mgresultboard(void);
 void func_80105CE8_mgresultboard(omObjData *);
 void func_80106DE8_mgresultboard(void);
@@ -31,14 +41,19 @@ s32 func_80106A80_mgresultboard(s8);
 s32 func_80106C80_mgresultboard(s8);
 s32 func_80106D50_mgresultboard(s32, s32);
 s32 func_80106D88_mgresultboard(s32, s16);
-s32 func_80106DB8_mgresultboard(s32, s16);
+s32 func_80106DB8_mgresultboard(s8, s16);
 void func_80107234_mgresultboard(void);
 void func_80107650_mgresultboard(s8);
 void func_80107800_mgresultboard(s32);
 void func_801079B0_mgresultboard(s32);
 void func_80107A58_mgresultboard(void);
 s32 func_80109A90_mgresultboard(s32, s8, s16);
-extern s32 D_8010AEA0_mgresultboard;
+
+typedef struct Unk {
+    s32 unk_00;
+} Unk;
+
+extern Unk D_8010AEA0_mgresultboard; //unknown size
 extern u32 D_8010AAF0_mgresultboard;
 extern f32 D_8010AAF4_mgresultboard;
 extern s32 D_8010AAF8_mgresultboard;
@@ -85,7 +100,24 @@ void func_801059A0_mgresultboard(void) {
     func_80106DE8_mgresultboard();
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80105C08_mgresultboard);
+void func_80105C08_mgresultboard(void) {
+    D_8010AAF8_mgresultboard = 0;
+    HuPrcSleep(2);
+    omAddPrcObj(func_8010A000_mgresultboard, 0x1001, 0x2000, 0);
+    omAddPrcObj(func_80107D00_mgresultboard, 0x1001, 0x2000, 0);
+    omAddPrcObj(func_80107B40_mgresultboard, 0x1001, 0x2000, 0);
+    omAddPrcObj(func_8010A930_mgresultboard, 0x1001, 0x2000, 0);
+    omAddPrcObj(func_80108700_mgresultboard, 0x1001, 0x2000, 0);
+    HuPrcVSleep();
+    func_80106C80_mgresultboard(0);
+    func_80106C80_mgresultboard(1);
+    func_80106C80_mgresultboard(2);
+    func_80106C80_mgresultboard(3);
+    D_8010AAF8_mgresultboard = 1;
+    while (1) {
+        HuPrcVSleep();
+    }
+}
 
 // main state machine behind scoreboard and how it animates
 void func_80105CE8_mgresultboard(omObjData *arg0) {
@@ -421,9 +453,45 @@ void func_80105CE8_mgresultboard(omObjData *arg0) {
     D_8010AAF4_mgresultboard = ((buttonPressed & 0x8000) || (cpuCount >= 4)) ? 4.0f : 1.0f;
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106A80_mgresultboard);
+s32 func_80108250_mgresultboard(s32, s32, s8, s8);  /* extern */
+s32 func_801092E0_mgresultboard(s32, s32, s16);     /* extern */
+s32 func_80109878_mgresultboard(s32, s32, s16);     /* extern */
+extern s32 D_8010AFA8_mgresultboard;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106C80_mgresultboard);
+s32 func_80106A80_mgresultboard(s8 arg0) {
+    u16 var_s0;
+    s32 var_s3;
+
+    var_s0 = rand16();
+    var_s3 = 0;
+
+    if (func_8010A864_mgresultboard(D_8010AFE0_mgresultboard, arg0, var_s0 & 3) == 1) {
+        var_s3 = 1;
+        var_s0 = rand16();
+    }
+    if (func_80108250_mgresultboard(D_8010AFA8_mgresultboard, arg0, D_8010B048_mgresultboard[var_s0 & 3].unk_02, ((var_s0 / 8) % 3)) == 1) {
+        var_s0 = rand16();
+    }
+    if (func_801092E0_mgresultboard(D_8010AEA0_mgresultboard.unk_00, arg0, ((var_s0) % 100)) == 1) {
+        var_s0 = rand16();
+    }
+    if (func_80109878_mgresultboard(D_8010AEA0_mgresultboard.unk_00, arg0, ((var_s0) % 1000)) == 1) {
+        rand8();
+        rand8();
+    }
+    return var_s3;
+}
+
+s32 func_80106C80_mgresultboard(s8 arg0) {
+    s32 temp_s3;
+
+    temp_s3 = func_8010A864_mgresultboard(D_8010AFE0_mgresultboard, arg0, D_8010B048_mgresultboard[arg0].unk_01) == 1;
+    func_80108250_mgresultboard(D_8010AFA8_mgresultboard, arg0, D_8010B048_mgresultboard[arg0].unk_02, D_8010B048_mgresultboard[arg0].unk_03);
+    func_801092E0_mgresultboard(D_8010AEA0_mgresultboard.unk_00, arg0, D_8010B048_mgresultboard[arg0].score);
+    func_80109878_mgresultboard(D_8010AEA0_mgresultboard.unk_00, arg0, D_8010B048_mgresultboard[arg0].coin);
+    return temp_s3;
+}
+
 
 s32 func_80106D50_mgresultboard(s32 arg0, s32 arg1) {
     if (func_8010A864_mgresultboard(D_8010AFE0_mgresultboard, arg0, arg1) ^ 1) {
@@ -434,14 +502,49 @@ s32 func_80106D50_mgresultboard(s32 arg0, s32 arg1) {
 }
 
 s32 func_80106D88_mgresultboard(s32 arg0, s16 arg1) {
-    return func_80109A90_mgresultboard(D_8010AEA0_mgresultboard, arg0, arg1);
+    return func_80109A90_mgresultboard(D_8010AEA0_mgresultboard.unk_00, arg0, arg1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106DB8_mgresultboard);
+s32 func_80106DB8_mgresultboard(s8 arg0, s16 arg1) {
+    return func_80109878_mgresultboard(D_8010AEA0_mgresultboard.unk_00, arg0, arg1);
+}
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106DE8_mgresultboard);
+void func_80106DE8_mgresultboard(void) {
+    f32 fov = 30.0f;
+    s8 i;
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80106F40_mgresultboard);
+    CZoom = 1652.7628f;
+    CRot.x = 0.0f;
+    CRot.y = 0.0f;
+    CRot.z = 0.0f;
+    Center.x = 0.0f;
+    Center.y = 26.4f;
+    Center.z = -1050.0f;
+
+    for (i = 0; i < MB_MAX_PLAYERS; i++) {
+        CRotM[i] = CRot;
+        CenterM[i] = Center;
+        CZoomM[i] = CZoom;
+        Hu3DCamSetPerspective(i, fov, 80.0f, 8000.0f);        
+    }
+}
+
+void func_80106F40_mgresultboard(omObjData* arg0) {
+    if (D_800D530C_main == 1) {
+        if (D_8010AAFC_mgresultboard == 0) {
+            WipeCreateOut(0, 0x14);
+            D_8010AAFC_mgresultboard = 1;
+            return;
+        }
+        if (WipeStatGet() == 0) {
+            HuAudSeqFadeOut(30);
+            func_80037258_main();
+            MBBackKill();
+            MBBackClose();
+            omOvlReturnEx(1);
+        }
+    }
+}
 
 void func_80106FC8_mgresultboard(void) {
     GW_SYSTEM *system = &GwSystem;
@@ -456,11 +559,22 @@ void func_80106FC8_mgresultboard(void) {
     func_80107024_mgresultboard();
 }
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80107024_mgresultboard);
+void func_80107024_mgresultboard(void) {
+    func_8001C8A8_main(func_8001AC8C_main(0, func_8010705C_mgresultboard, 2), 1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_8010705C_mgresultboard);
 
-INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80107188_mgresultboard);
+void func_80107188_mgresultboard(void) {
+    u16 temp_s0;
+
+    temp_s0 = InitEspriteSlot(func_8000B838_main(0x18000A), 0, 0);
+    func_8000BBD4_main(temp_s0, 0xA0, 0x20);
+    func_8000BC48_main(temp_s0, 0x1000);
+    func_8000BBFC_main(temp_s0, 0xFF);
+    func_8000BEAC_main(temp_s0, 0xFF, 0xFF, 0xFF);
+    func_8000BBD4_main(InitEspriteSlot(func_8000B838_main(0x180009), 0, 0), 0xA0, 0x20);
+}
 
 INCLUDE_ASM("asm/nonmatchings/overlays/mgresultboard/4E6DC0", func_80107234_mgresultboard);
 

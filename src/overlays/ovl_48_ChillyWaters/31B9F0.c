@@ -5058,7 +5058,6 @@ void MB1Ev_NKinokoTurnStart(void) {
     if ((GwSystem.slow_dice_flags >> system->current_player_index) & 1) {
         GWBoardFlagSet(0x10);
         system->slow_dice_flags &= ~(1 << system->current_player_index);
-        //TODO: why is it loading this as a u32?
         if ((player->rev & 0x20) || ((player->rev & 0x8) && !(player->rev & 0x2))) {
             MBDlgWinExec(-1, 0x4219);
         } else {
@@ -5089,7 +5088,7 @@ void MB1Ev_NKinokoTurnStart(void) {
             func_8011667C_ChillyWaters(system->current_player_index);
         }
 
-        player->rev &= ~0x2A;
+        player->rev &= ~(0x20 | 0x8 | 0x2);
     }
 }
 
