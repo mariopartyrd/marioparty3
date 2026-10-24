@@ -42,7 +42,7 @@ C files should be organized in this order:
 - Function declarations
 - Function implementations
 
-C files should only be under `src/`, and header files should only be under `include/`.
+C files should only be under `src/`. Header files should either be under `include/` or adjacent to code in `src/`, depending on the scope the header files are intended for.
 
 When matching code, keep source readable and maintainable. Avoid using assembly includes, hard-coded pointer offsets, or broad `void *` typing as substitutes for understanding the data layout.
 
