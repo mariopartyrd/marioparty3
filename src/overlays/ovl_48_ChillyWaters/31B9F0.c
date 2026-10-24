@@ -3161,7 +3161,7 @@ void MB1Ev_KSuitStart(void) {
 
     for (var_f22 = 0.0f, var_f20 = 1.0f; var_f20 < 10.0f; var_f22 += 20.0f, HuPrcVSleep(), var_f20 += 0.5) {
         HuVecCopyXYZ(&obj->scale, var_f20, var_f20, var_f20);
-        func_8008A430_main(&HmfModelData[obj->omObj1->model[0]].mtx, var_f22);
+        func_8008A430_main(HmfModelData[obj->omObj1->model[0]].mtx, var_f22);
     }
     
     MBModelDispOff(player->player_obj);
@@ -3169,7 +3169,7 @@ void MB1Ev_KSuitStart(void) {
 
     for (; var_f20 >= 1.0f; var_f22 += 20.0f, HuPrcVSleep(), var_f20 -= 0.5) {
         HuVecCopyXYZ(&obj->scale, var_f20, var_f20, var_f20);
-        func_8008A430_main(&HmfModelData[obj->omObj1->model[0]].mtx, var_f22);
+        func_8008A430_main(HmfModelData[obj->omObj1->model[0]].mtx, var_f22);
     }
 
     MBModelKill(obj);
@@ -3203,7 +3203,7 @@ void MB1Ev_KSuitEnd(void) {
 
     for (var_f22 = 0.0f, var_f20 = 1.0f; var_f20 < 10.0f; var_f22 += 20.0f, HuPrcVSleep(), var_f20 += 0.5) {
         HuVecCopyXYZ(&obj->scale, var_f20, var_f20, var_f20);
-        func_8008A430_main(&HmfModelData[obj->omObj1->model[0]].mtx, var_f22);
+        func_8008A430_main(HmfModelData[obj->omObj1->model[0]].mtx, var_f22);
     }
     
     MBModelDispOn(player->player_obj);
@@ -3211,7 +3211,7 @@ void MB1Ev_KSuitEnd(void) {
     
     for (; var_f20 >= 1.0f; var_f22 += 20.0f, HuPrcVSleep(), var_f20 -= 0.5) {
         HuVecCopyXYZ(&obj->scale, var_f20, var_f20, var_f20);
-        func_8008A430_main(&HmfModelData[obj->omObj1->model[0]].mtx, var_f22);
+        func_8008A430_main(HmfModelData[obj->omObj1->model[0]].mtx, var_f22);
     }
     MBModelKill(obj);
 }
@@ -4634,26 +4634,26 @@ void MB1Ev_After5Effect(void) {
 
     for (spin = 0.0f, scale = 1.0f; scale < 18.0f; scale += 0.8) {
         HuVecCopyXYZ(&obj->scale, scale, scale, scale);
-        func_8008A430_main(&HmfModelData[obj->omObj1->model[0]].mtx, spin);
+        func_8008A430_main(HmfModelData[obj->omObj1->model[0]].mtx, spin);
         spin += 20.0f;
         HuPrcVSleep();
     }
 
     while (*state != 1) {
-        func_8008A430_main(&HmfModelData[obj->omObj1->model[0]].mtx, spin);
+        func_8008A430_main(HmfModelData[obj->omObj1->model[0]].mtx, spin);
         spin += 20.0f;
         HuPrcVSleep();
     }
 
     for (; scale < 40.0f; scale += 0.8) {
         HuVecCopyXYZ(&obj->scale, scale, scale, scale);
-        func_8008A430_main(&HmfModelData[obj->omObj1->model[0]].mtx, spin);
+        func_8008A430_main(HmfModelData[obj->omObj1->model[0]].mtx, spin);
         spin += 20.0f;
         HuPrcVSleep();
     }
 
     while (*state != 2) {
-        func_8008A430_main(&HmfModelData[obj->omObj1->model[0]].mtx, spin);
+        func_8008A430_main(HmfModelData[obj->omObj1->model[0]].mtx, spin);
         spin += 20.0f;
         HuPrcVSleep();
     }

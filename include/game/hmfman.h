@@ -2,6 +2,7 @@
 #define _GAME_HMFMAN_H
 
 #include "ultra64.h"
+#include "types.h"
 #include "math.h"
 
 #define HU3D_MODEL_MAX 128
@@ -152,7 +153,7 @@ typedef struct HmfModel {
     /* 0x64 */ HmfData* hmf;
     /* 0x68 */ char unk68[8]; // 68 => 60 has size 0x68
     /* 0x70 */ void (*unk70)(Gfx**, s32, s32);
-    /* 0x74 */ f32 mtx[16];
+    /* 0x74 */ HuMtx4F mtx;
     /* 0xB4 */ struct HmfModel* unkB4;
     /* 0xB8 */ char unkB8[4];
     /* 0xBC */ HmfModelData_UnkBC_Struct* unkBC;

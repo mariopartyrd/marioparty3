@@ -2,6 +2,9 @@
 #include "malloc.h"
 #include "siman.h"
 
+s32 D_800A12A0_main = 0;
+f32 D_800A12A4_main = 0.0f;
+
     // /* A1E5C 800A125C 8008F1C0 */ .word gspF3DEX2_fifoTextStart
     // /* A1E60 800A1260 800A4C80 */ .word D_800A4C80_main
     // /* A1E64 800A1264 80090550 */ .word gspF3DEX2_NoN_fifoTextStart
@@ -28,7 +31,6 @@ extern s32 D_800A08B0_main;
 extern void *D_800A1240_main[3];
 extern void *D_800A124C_main[4]; //TODO: is this correct size?
 extern void *D_800A125C_main;
-extern s32 D_800A12A0_main;
 extern u8 D_800CCF52_main;
 extern OSMesgQueue D_800CCF38_main;
 extern OSMesgQueue D_800CCF60_main;

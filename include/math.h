@@ -32,6 +32,17 @@ typedef struct {
     s32 z;
 } HuVec3I;
 
+typedef struct {
+    f32 fov;
+    f32 aspect;
+    f32 near;
+    f32 far;
+    f32 scale;
+} PerspectiveParams;
+
+/* Application-owned default tolerance used by libhmath's epsilon helpers. */
+extern f32 D_800A12A4_main;
+
 /* Libultra trigonometry takes angles in radians. */
 f32 sinf(f32 angle);
 f32 cosf(f32 angle);
@@ -65,12 +76,17 @@ f32 expf(f32 x);
 f64 log(f64 x);
 f32 logf(f32 x);
 
-void HuVecCopyXYZ(Vec * out, f32 x, f32 y, f32 z);
-void HuVecCopy3F(Vec * out, Vec * a);
-f32 HuVecGetLengthSqr3F(Vec * vec);
-f32 HuVecGetLength3F(Vec * vec);
+s32 func_80089820_main(f32 value, f32 threshold);
+s32 func_80089860_main(f32 value);
 
-f32 HuVecDistanceSqr(Vec *a, Vec *b);
-f32 HuVecDistance(Vec *a, Vec *b);
+void HuVecNormalize3F(Vec *vec);
+void HuVecCross(Vec *out, Vec *a, Vec *b);
+void HuVecCopyXYZ(Vec *out, f32 x, f32 y, f32 z);
+void HuVecCopy3F(Vec *out, Vec *a);
+f32 HuVecGetLengthSqr3F(Vec *vec);
+f32 HuVecGetLength3F(Vec *vec);
+
+f32 HuVecDistanceSqr(const Vec *a, const Vec *b);
+f32 HuVecDistance(const Vec *a, const Vec *b);
 
 #endif

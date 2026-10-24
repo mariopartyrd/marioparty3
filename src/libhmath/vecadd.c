@@ -2,9 +2,9 @@
 #include "math.h"
 
 void HuVecAdd(Vec *out, Vec *a, Vec *b) {
-    float x = a->x + b->x;
-    float y = a->y + b->y;
-    float z = a->z + b->z;
+    f32 x = a->x + b->x;
+    f32 y = a->y + b->y;
+    f32 z = a->z + b->z;
 
     out->x = x;
     out->y = y;
